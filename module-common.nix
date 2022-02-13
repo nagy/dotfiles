@@ -20,6 +20,43 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZNW8uX6gKASOT+0XXKF2QmeXqMZfoEMIYFogbUF4jo"
   ];
 
+  boot.kernel.sysctl = {
+    # disable coredumps
+    # https://wiki.archlinux.org/index.php/Core_dump#Disabling_automatic_core_dumps
+    "kernel.core_pattern" = "|/bin/false";
+  };
+
+  # all hosts should have this timezone
+  time.timeZone = "Europe/Berlin";
+
+  programs.fuse.userAllowOther = true;
+  documentation.dev.enable = true;
+  documentation.info.enable = true;
+  # documentation.nixos.enable = true; alreay the default
+  networking.firewall.enable = false;
+
+  environment.shellAliases = {
+    t = "tmux";
+    h = "htop";
+    g = "git";
+    hm = "home-manager";
+    mv = "mv --no-clobber";
+    smv = "mv --no-clobber";
+    # If the last character of the alias value is a blank, then the next command
+    # word following the alias is also checked for alias expansion.
+    # https://www.gnu.org/software/bash/manual/bash.html#Aliases
+    # https://news.ycombinator.com/item?id=25243730
+    sudo = "sudo ";
+
+    # from jonringer
+    to32="nix-hash --to-base32 --type sha256";
+    nfl="nix flake lock";
+    nflu="nix flake lock --update-input";
+    # ns="nix-shell"; # eventually switch to `nix develop`
+    gco="git checkout";
+    gst="git status";
+  };
+
   services.openssh.knownHosts = {
     "github.com".publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
