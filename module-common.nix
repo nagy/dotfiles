@@ -35,6 +35,41 @@
   # documentation.nixos.enable = true; alreay the default
   networking.firewall.enable = false;
 
+  programs.htop = {
+    enable = true;
+    settings = {
+      delay = 2;
+      header_margin = 0;
+      hide_kernel_threads = 1;
+      hide_userland_threads = 1;
+      highlight_megabytes = 1;
+      left_meter_modes = [ 1 1 1 2 ];
+      left_meters = [ "AllCPUs2" "Memory" "Swap" "Zram" ];
+      right_meter_modes = [ 2 2 2 2 ];
+      right_meters = [ "Tasks" "LoadAverage" "Uptime" "Systemd" ];
+      show_program_path = 0;
+      tree_view = 1;
+      highlight_changes = 1;
+      highlight_changes_delay_secs = 2;
+    };
+  };
+  environment.variables.HTOPRC = "/etc/htoprc";
+
+  programs.git = {
+    enable = true;
+    config = {
+      aliases = {
+        c = "commit";
+        co = "checkout";
+        cl = "clone";
+        cl1 = "clone --depth 1";
+        f = "fetch";
+        lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
+        lola = "lol --all";
+      };
+    };
+  };
+
   environment.shellAliases = {
     t = "tmux";
     h = "htop";
@@ -84,10 +119,8 @@
   # tmpfs on all machines
   boot.tmpOnTmpfs = true;
 
-  environment.variables = {
-    # cleaner git repos without the hooks
-    GIT_TEMPLATE_DIR = "/var/empty";
-  };
+  # cleaner git repos without the hooks
+  environment.variables.GIT_TEMPLATE_DIR = "/var/empty";
 
   console = {
     font = "ter-i32b";
@@ -101,7 +134,7 @@
     Defaults:user !tty_tickets, timestamp_timeout=60
   '';
 
-  environment.systemPackages = with pkgs; [ vim htop git ncdu ];
+  environment.systemPackages = with pkgs; [ vim git ncdu ];
 
   nix = {
     extraOptions = ''
