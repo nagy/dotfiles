@@ -134,7 +134,7 @@
     Defaults:user !tty_tickets, timestamp_timeout=60
   '';
 
-  environment.systemPackages = with pkgs; [ vim git ncdu ];
+  environment.systemPackages = with pkgs; [ vim git ncdu home-manager ];
 
   nix = {
     extraOptions = ''
