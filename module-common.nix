@@ -84,12 +84,12 @@
     sudo = "sudo ";
 
     # from jonringer
-    to32="nix-hash --to-base32 --type sha256";
-    nfl="nix flake lock";
-    nflu="nix flake lock --update-input";
+    to32 = "nix-hash --to-base32 --type sha256";
+    nfl = "nix flake lock";
+    nflu = "nix flake lock --update-input";
     # ns="nix-shell"; # eventually switch to `nix develop`
-    gco="git checkout";
-    gst="git status";
+    gco = "git checkout";
+    gst = "git status";
   };
 
   services.openssh.knownHosts = {
@@ -110,10 +110,10 @@
   };
 
   programs.ssh.extraConfig = ''
-     # Git remote hosts
-     Host github.com gitlab.com git.sr.ht
-       User git
-       RequestTTY no
+    # Git remote hosts
+    Host github.com gitlab.com git.sr.ht
+      User git
+      RequestTTY no
   '';
 
   # tmpfs on all machines
