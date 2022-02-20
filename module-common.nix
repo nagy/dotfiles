@@ -134,7 +134,28 @@
     Defaults:user !tty_tickets, timestamp_timeout=60
   '';
 
-  environment.systemPackages = with pkgs; [ vim git ncdu home-manager ];
+  environment.systemPackages = with pkgs; [
+    vim
+    git
+    home-manager
+
+    # network
+    dstat
+
+    # processes
+    # ltrace # not available on aarch64
+    killall
+
+    # files
+    tree
+    file
+    fd
+    ripgrep
+    ncdu
+
+    # documentation
+    man-pages
+  ];
 
   nix = {
     extraOptions = ''
