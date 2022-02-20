@@ -8,6 +8,8 @@
     lib.hmmodule-mpv = import ./hmmodule-mpv.nix;
     lib.hmmodule-firefox = import ./module-firefox.nix;
     lib.hmmodule-zathura = import ./hmmodule-zathura.nix;
+    lib.hmmodule-alacritty-day = import ./hmmodule-alacritty-day.nix;
+    lib.hmmodule-alacritty-night = import ./hmmodule-alacritty-night.nix;
 
   };
 }
