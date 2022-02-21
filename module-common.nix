@@ -138,6 +138,7 @@
     vim
     git
     home-manager
+    screen
 
     # network
     dstat
