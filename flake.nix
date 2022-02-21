@@ -14,5 +14,8 @@
     lib.fetch-home-manager = import ./fetch-home-manager.nix;
     lib.fetch-emacs-overlay = import ./fetch-emacs-overlay.nix;
 
+    lib.conv-hmzathura2nixos = import ./conv-hmzathura2nixos.nix;
+    lib.conv-hmmpv2nixos = import ./conv-hmmpv2nixos.nix;
+
   };
 }
