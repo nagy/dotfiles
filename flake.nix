@@ -11,5 +11,8 @@
     lib.hmmodule-alacritty-day = import ./hmmodule-alacritty-day.nix;
     lib.hmmodule-alacritty-night = import ./hmmodule-alacritty-night.nix;
 
+    lib.fetch-home-manager = import ./fetch-home-manager;
+    lib.fetch-emacs-overlay = import ./fetch-emacs-overlay.nix;
+
   };
 }
