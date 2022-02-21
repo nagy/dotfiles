@@ -3,6 +3,7 @@
   # Post about making alacritty responsive:
   # https://arslan.io/2021/02/15/automatic-dark-mode-for-terminal-applications/
   programs.alacritty = {
+    enable = true;
     settings = {
       font = {
         size = fontSize;

@@ -3,6 +3,7 @@
 {
 
   programs.mpv = {
+    enable = true;
     scripts = [ pkgs.mpvScripts.mpris ];
     config = {
       mute = "yes";
