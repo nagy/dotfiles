@@ -176,7 +176,7 @@
   boot.tmpOnTmpfs = true;
 
   # cleaner git repos without the hooks
-  environment.variables.GIT_TEMPLATE_DIR = "/var/empty";
+  environment.variables.GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
 
   console = {
     font = "ter-i32b";
