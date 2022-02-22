@@ -195,6 +195,7 @@
     # git # already in module
     home-manager
     screen
+    jq
 
     # network
     dstat
