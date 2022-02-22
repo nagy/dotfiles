@@ -67,6 +67,8 @@
         lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
         lola = "lol --all";
       };
+      user.name = "Daniel Nagy";
+      user.email = "danielnagy@posteo.de";
       commit = {
         # Show my changes when writing the message
         verbose = true;
@@ -218,6 +220,9 @@
     (pkgs.writeScriptBin "journal-git-store"
       (builtins.readFile ./bin/journal-git-store))
   ];
+
+  environment.variables.EDITOR = "vim";
+  environment.variables.LESSHISTFILE = "-";
 
   nix = {
     extraOptions = ''
