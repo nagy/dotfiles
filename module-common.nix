@@ -58,7 +58,7 @@
   programs.git = {
     enable = true;
     config = {
-      aliases = {
+      alias = {
         c = "commit";
         co = "checkout";
         cl = "clone";
@@ -66,6 +66,26 @@
         f = "fetch";
         lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
         lola = "lol --all";
+      };
+      commit = {
+        # Show my changes when writing the message
+        verbose = true;
+      };
+      init = { defaultBranch = "master"; };
+      push = { default = "current"; };
+      include.path = let
+        git-alias = pkgs.fetchFromGitHub {
+          owner = "GitAlias";
+          repo = "gitalias";
+          rev = "a0bd5343f4dcc6e11ee9f5e04c36ebd1166eb4c0";
+          sha256 = "17fgg2znhl2n0vw1ym9dnjvm3sgj5ynzr1r9najw2rw3f07y8wd7";
+        };
+      in "${git-alias}/gitalias.txt";
+      gc = { auto = "0"; };
+      url = {
+        "https://github.com/" = { insteadOf = "gh:"; };
+        "https://gitlab.com/" = { insteadOf = "gl:"; };
+        "https://aur.archlinux.org/" = { insteadOf = "aur:"; };
       };
     };
   };
@@ -143,7 +163,7 @@
 
   environment.systemPackages = with pkgs; [
     vim
-    git
+    # git # already in module
     home-manager
     screen
 
