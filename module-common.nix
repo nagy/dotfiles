@@ -73,6 +73,7 @@
       };
       init = { defaultBranch = "master"; };
       push = { default = "current"; };
+      pull.rebase = true;
       include.path = let
         git-alias = pkgs.fetchFromGitHub {
           owner = "GitAlias";
@@ -87,7 +88,33 @@
         "https://gitlab.com/" = { insteadOf = "gl:"; };
         "https://aur.archlinux.org/" = { insteadOf = "aur:"; };
       };
+      # Shiny colors
+      color = {
+        branch = "auto";
+        diff = "auto";
+        interactive = "auto";
+        status = "auto";
+        ui = "auto";
+      };
+
+      # Pretty much the usual diff colors
+      "color.diff" = {
+        commit = "yellow";
+        frag = "cyan";
+        meta = "yellow";
+        new = "green";
+        old = "red";
+        whitespace = "red reverse";
+      };
+
+      "color.diff-highlight" = {
+        oldNormal = "red bold";
+        oldHighlight = "red bold 52";
+        newNormal = "green bold";
+        newHighlight = "green bold 22";
+      };
     };
+
   };
 
   environment.shellAliases = {
