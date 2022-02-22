@@ -17,5 +17,9 @@
     lib.conv-hmzathura2nixos = import ./conv-hmzathura2nixos.nix;
     lib.conv-hmmpv2nixos = import ./conv-hmmpv2nixos.nix;
 
+    lib.pkg-journal-git-store = pkgs:
+      pkgs.writeScriptBin "journal-git-store"
+      (builtins.readFile ./bin/journal-git-store);
+
   };
 }

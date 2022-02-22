@@ -213,6 +213,10 @@
 
     # documentation
     man-pages
+
+    # custom tooling
+    (pkgs.writeScriptBin "journal-git-store"
+      (builtins.readFile ./bin/journal-git-store))
   ];
 
   nix = {

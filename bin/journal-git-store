@@ -1,0 +1,41 @@
+#!/bin/sh
+set -exo pipefail
+
+if [ -z "$REMOTE" ] ; then
+    echo "no \$REMOTE set" >&2
+    false
+fi
+
+BOOTID=${BOOTID:-"$(tr -d - < /proc/sys/kernel/random/boot_id)"}
+HOSTNAME=${HOSTNAME:-"$(hostname --short)"}
+
+init() {
+   if git ls-remote "$REMOTE" | grep -q "$BOOTID" ; then
+       git clone --single-branch "$REMOTE" --branch "$HOSTNAME"/"$BOOTID" .
+   else
+       git init .
+   fi
+}
+write() {
+   journalctl --boot="$BOOTID" --output=json | \
+       jq --compact-output --sort-keys > "${HOSTNAME}_${BOOTID}.json"
+}
+commit() {
+   git add -A
+   git commit -am Update --allow-empty
+}
+push() {
+   git push "$REMOTE" HEAD:"$HOSTNAME"/"$BOOTID"
+}
+
+if [ -z "$1" ] ; then
+    cd -- "$(mktemp -d)"
+    init
+    write
+    commit
+    push
+else
+    for cmd in "$@"; do
+        "$cmd"
+    done
+fi
