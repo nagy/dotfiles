@@ -128,6 +128,8 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZvRd4EtM7R+IHVMWmDkVU3VLQTSwQDSAvW0t2Tkj60";
     "sr.ht".publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMk9TEtn9KVMpxspbmvuAmVZ5xZD3w4Y6l6RfMFTFqiE";
+    "aur.archlinux.org".publicKey =
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEuBKrPzbawxA/k2g6NcyV5jmqwJ2s+zpgZGZ7tpLIcN";
   };
 
   zramSwap = {
@@ -138,7 +140,7 @@
 
   programs.ssh.extraConfig = ''
     # Git remote hosts
-    Host github.com gitlab.com git.sr.ht
+    Host github.com gitlab.com git.sr.ht aur.archlinux.org
       User git
       RequestTTY no
   '';
