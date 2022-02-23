@@ -205,6 +205,7 @@
     # processes
     # ltrace # not available on aarch64
     killall
+    bubblewrap
 
     # files
     tree
