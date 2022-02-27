@@ -51,6 +51,8 @@
       tree_view = 1;
       highlight_changes = 1;
       highlight_changes_delay_secs = 2;
+      update_process_names = 1;
+      # TODO disable PRI and NI column
     };
   };
   environment.variables.HTOPRC = "/etc/htoprc";
@@ -59,8 +61,8 @@
     enable = true;
     config = {
       alias = {
-        c = "commit";
-        co = "checkout";
+        # c = "commit"; # in included git aliases
+        # co = "checkout"; # in included git aliases
         cl = "clone";
         cl1 = "clone --depth 1";
         f = "fetch";
