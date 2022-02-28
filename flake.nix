@@ -3,23 +3,25 @@
 
   outputs = { self }: {
 
-    lib.module-common = import ./module-common.nix;
-    lib.module-x86_64-linux = import ./module-x86_64-linux.nix;
-    lib.hmmodule-mpv = import ./hmmodule-mpv.nix;
-    lib.hmmodule-firefox = import ./module-firefox.nix;
-    lib.hmmodule-zathura = import ./hmmodule-zathura.nix;
-    lib.hmmodule-alacritty-day = import ./hmmodule-alacritty-day.nix;
-    lib.hmmodule-alacritty-night = import ./hmmodule-alacritty-night.nix;
+    lib = {
+      module-common = import ./module-common.nix;
+      module-x86_64-linux = import ./module-x86_64-linux.nix;
+      hmmodule-mpv = import ./hmmodule-mpv.nix;
+      hmmodule-firefox = import ./module-firefox.nix;
+      hmmodule-zathura = import ./hmmodule-zathura.nix;
+      hmmodule-alacritty-day = import ./hmmodule-alacritty-day.nix;
+      hmmodule-alacritty-night = import ./hmmodule-alacritty-night.nix;
 
-    lib.fetch-home-manager = import ./fetch-home-manager.nix;
-    lib.fetch-emacs-overlay = import ./fetch-emacs-overlay.nix;
+      fetch-home-manager = import ./fetch-home-manager.nix;
+      fetch-emacs-overlay = import ./fetch-emacs-overlay.nix;
 
-    lib.conv-hmzathura2nixos = import ./conv-hmzathura2nixos.nix;
-    lib.conv-hmmpv2nixos = import ./conv-hmmpv2nixos.nix;
+      conv-hmzathura2nixos = import ./conv-hmzathura2nixos.nix;
+      conv-hmmpv2nixos = import ./conv-hmmpv2nixos.nix;
 
-    lib.pkg-journal-git-store = pkgs:
-      pkgs.writeScriptBin "journal-git-store"
-      (builtins.readFile ./bin/journal-git-store);
+      pkg-journal-git-store = pkgs:
+        pkgs.writeScriptBin "journal-git-store"
+        (builtins.readFile ./bin/journal-git-store);
+    } // import ./lib.nix;
 
   };
 }
