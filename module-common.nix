@@ -231,6 +231,9 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+    gc = {
+      automatic = true;
+    };
     settings = {
       sandbox = true;
       trusted-users = [ "root" "@wheel" ];
