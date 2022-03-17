@@ -3,6 +3,6 @@ pkgs:
 pkgs.fetchFromGitHub {
   owner = "nix-community";
   repo = "emacs-overlay";
-  rev = "d43b200ed5675bf912440975435dd7a7363f9481";
-  sha256 = "11vwpf2kgwpsy3hw4f02mm93cn8mrkd4b5irkidvfvvxwlvw5zrv";
+  rev = "6fdb3c0cefe2574073b31b27d2b2f5df9532cd5a";
+  sha256 = "1jg0qnxyigmk1yzwr41728cm5d14fgi14g6734cxn2ys1igs1v9a";
 }
