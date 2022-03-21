@@ -5,7 +5,7 @@ gitpack_1() {
         cd -- "$1"
         size=$(( $(du --summarize|cut --fields=1) / 1024))
         GITPACK_MAX_SIZE=${GITPACK_MAX_SIZE:-100}
-        GITPACK_MAX_FILES=${GITPACK_MAX_FILES:-1000}
+        GITPACK_MAX_FILES=${GITPACK_MAX_FILES:-100}
         if [ $size -lt "$GITPACK_MAX_SIZE" ];then
             files=$(find . |wc --lines)
             if [ "$files" -gt "$GITPACK_MAX_FILES" ];then
