@@ -6,6 +6,7 @@
     lib = { pkgs, lib ? pkgs.lib }:
       ({
         module-common = import ./module-common.nix;
+        module-shortcommands = import ./module-shortcommands.nix;
         module-x86_64-linux = import ./module-x86_64-linux.nix;
         hmmodule-mpv = import ./hmmodule-mpv.nix;
         hmmodule-firefox = import ./module-firefox.nix;
