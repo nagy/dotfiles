@@ -47,6 +47,16 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "HMs" [ "home-manager" "switch" ])
     (mkShortCommand "HMi" [ "home-manager" "instantiate" ])
 
+    # docker
+    (mkShortCommand "dO" [ "docker" ])
+    (mkShortCommand "dOe" [ "docker" "exec" ])
+    (mkShortCommand "dOeit" [ "docker" "exec" "-it" ])
+    (mkShortCommand "dOr" [ "docker" "run" ])
+    (mkShortCommand "dOc" [ "docker" "container" ])
+    (mkShortCommand "dOi" [ "docker" "image" ])
+    (mkShortCommand "dOv" [ "docker" "volume" ])
+    (mkShortCommand "dOn" [ "docker" "network" ])
+
     # kubernetes
     (mkShortCommand "K" [ "kubectl" ])
     (mkShortCommand "Kg" [ "kubectl" "get" ])
