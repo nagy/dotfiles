@@ -67,6 +67,8 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "Kdp" [ "kubectl" "describe" "pod" ])
     (mkShortCommand "Kdd" [ "kubectl" "describe" "deployment" ])
     (mkShortCommand "Kdn" [ "kubectl" "describe" "node" ])
+    (mkShortCommand "Ke" [ "kubectl" "exec" ])
+    (mkShortCommand "Keit" [ "kubectl" "exec" "-it" ])
     (mkShortCommand "Kl" [ "kubectl" "label" ])
 
     # misc
@@ -79,6 +81,8 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "scls" [ "systemctl" "list-sockets" ])
     (mkShortCommand "scjlt" [ "systemctl" "--output=json" "list-timers" ])
     (mkShortCommand "scjls" [ "systemctl" "--output=json" "list-sockets" ])
+    (mkShortCommand "jc" [ "journalctl" ])
+    (mkShortCommand "jcf" [ "journalctl" "-f" ])
     (mkShortCommand "bcj" [ "busctl" "--json" ])
     (mkShortCommand "bcuj" [ "busctl" "--user" "--json" ])
 
