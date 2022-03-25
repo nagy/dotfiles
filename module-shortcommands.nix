@@ -78,6 +78,11 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "Keit" [ "kubectl" "exec" "-it" ])
     (mkShortCommand "Kl" [ "kubectl" "label" ])
 
+    # npm
+    (mkShortCommand "nPb" [ "npm" "run" "build" ])
+    (mkShortCommand "nPt" [ "npm" "run" "test" ])
+    (mkShortCommand "nPi" [ "npm" "install" ])
+
     # misc
     (mkShortCommand "jqM" [ "jq" "--monochrome-output" ])
     (mkShortCommand "yqP" [ "yq" "--prettyPrint" ])
