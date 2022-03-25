@@ -23,6 +23,7 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "Dc" [ "nix" "develop" "--configure" ])
     (mkShortCommand "Db" [ "nix" "develop" "--build" ])
     (mkShortCommand "Di" [ "nix" "develop" "--install" ])
+    (mkShortCommand "DC" [ "nix" "develop" "--command" ])
     (mkShortCommand "Pl" [ "nix" "profile" "list" ])
     (mkShortCommand "Pi" [ "nix" "profile" "install" ])
     (mkShortCommand "NA" [ "nix" "nar" ])
