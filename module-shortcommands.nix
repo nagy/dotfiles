@@ -54,9 +54,13 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "dOeit" [ "docker" "exec" "-it" ])
     (mkShortCommand "dOr" [ "docker" "run" ])
     (mkShortCommand "dOc" [ "docker" "container" ])
+    (mkShortCommand "dOcl" [ "docker" "container" "ls" ])
     (mkShortCommand "dOi" [ "docker" "image" ])
+    (mkShortCommand "dOil" [ "docker" "image" "ls" ])
     (mkShortCommand "dOv" [ "docker" "volume" ])
+    (mkShortCommand "dOvl" [ "docker" "volume" "ls"])
     (mkShortCommand "dOn" [ "docker" "network" ])
+    (mkShortCommand "dOnl" [ "docker" "network" "ls" ])
 
     # kubernetes
     (mkShortCommand "K" [ "kubectl" ])
