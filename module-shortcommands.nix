@@ -36,6 +36,7 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "Fs" [ "nix" "flake" "show" ])
     (mkShortCommand "Fc" [ "nix" "flake" "clone" ])
     (mkShortCommand "Fa" [ "nix" "flake" "archive" ])
+    (mkShortCommand "Fp" [ "nix" "flake" "prefetch" ])
     (mkShortCommand "Fsj" [ "nix" "flake" "show" "--json" ])
     (mkShortCommand "Fmj" [ "nix" "flake" "metadata" "--json" ])
 
@@ -91,6 +92,9 @@ with import ./lib.nix { inherit pkgs; }; {
     # misc
     (mkShortCommand "jqM" [ "jq" "--monochrome-output" ])
     (mkShortCommand "yqP" [ "yq" "--prettyPrint" ])
+    (mkShortCommand "yqPM" [ "yq" "--prettyPrint" "--no-colors" ])
+    (mkShortCommand "yqMP" [ "yq" "--no-colors" "--prettyPrint" ])
+    (mkShortCommand "yqM" [ "yq" "--no-colors" ])
 
     # systemctl
     (mkShortCommand "scs" [ "systemctl" "status" ])
