@@ -175,7 +175,7 @@
 
   programs.ssh.extraConfig = ''
     # Git remote hosts
-    Host github.com gitlab.com git.sr.ht aur.archlinux.org
+    Host github.com gitlab.com git.sr.ht aur.archlinux.org gitlab.freedesktop.org
       User git
       RequestTTY no
   '';
