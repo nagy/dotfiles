@@ -194,8 +194,13 @@
     Defaults:user !tty_tickets, timestamp_timeout=60
   '';
 
+  programs.neovim = {
+     enable = true;
+     vimAlias = true;
+     defaultEditor = true;
+  };
+
   environment.systemPackages = with pkgs; [
-    vim
     # git # already in module
     home-manager
     screen
