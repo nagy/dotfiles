@@ -92,6 +92,7 @@
         "https://github.com/" = { insteadOf = "gh:"; };
         "https://gitlab.com/" = { insteadOf = "gl:"; };
         "https://aur.archlinux.org/" = { insteadOf = "aur:"; };
+        "https://git.sr.ht/" = { insteadOf = "srht:"; };
       };
       # Shiny colors
       color = {
