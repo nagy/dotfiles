@@ -34,6 +34,7 @@
   documentation.info.enable = true;
   # documentation.nixos.enable = true; alreay the default
   networking.firewall.enable = false;
+  networking.useDHCP = false;
 
   programs.htop = {
     enable = true;
