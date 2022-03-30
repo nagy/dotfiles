@@ -300,6 +300,11 @@
         repo = "nixos-shell";
         type = "github";
       };
+      eo.to = {
+        owner = "nix-community";
+        repo = "emacs-overlay";
+        type = "github";
+      };
     };
   };
 }
