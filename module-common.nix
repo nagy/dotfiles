@@ -196,9 +196,9 @@
   '';
 
   programs.neovim = {
-     enable = true;
-     vimAlias = true;
-     defaultEditor = true;
+    enable = true;
+    vimAlias = true;
+    defaultEditor = true;
   };
 
   environment.systemPackages = with pkgs; [
