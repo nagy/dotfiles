@@ -186,12 +186,7 @@
   # cleaner git repos without the hooks
   environment.variables.GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
 
-  console = {
-    font = "ter-i32b";
-    keyMap = "de";
-    packages = [ pkgs.terminus_font ];
-    # earlySetup = true;
-  };
+  console.keyMap = "de";
 
   # https://askubuntu.com/questions/493002/global-sudo-session-in-ubuntu
   security.sudo.extraConfig = ''
