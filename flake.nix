@@ -13,6 +13,7 @@
         hmmodule-zathura = import ./hmmodule-zathura.nix;
         hmmodule-alacritty-day = import ./hmmodule-alacritty-day.nix;
         hmmodule-alacritty-night = import ./hmmodule-alacritty-night.nix;
+        hmmodule-readline = import ./hmmodule-readline.nix;
 
         fetch-home-manager = import ./fetch-home-manager.nix;
         fetch-emacs-overlay = import ./fetch-emacs-overlay.nix;
