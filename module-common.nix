@@ -36,6 +36,19 @@
   networking.firewall.enable = false;
   networking.useDHCP = false;
 
+  # simpler version of starship
+  # until https://github.com/starship/starship/issues/896 is fixed
+  environment.variables.STARSHIP_CONFIG = toString
+    ((pkgs.formats.toml { }).generate "starship-config.toml" {
+      add_newline = false;
+    });
+  environment.variables.STARSHIP_CACHE = "/tmp/starship-cache";
+  programs.bash.interactiveShellInit = ''
+    if [[ $TERM != "dumb" && (-z $INSIDE_EMACS || $INSIDE_EMACS == "vterm") ]]; then
+      eval "$(${pkgs.starship}/bin/starship init bash --print-full-init)"
+    fi
+  '';
+
   programs.htop = {
     enable = true;
     settings = {
