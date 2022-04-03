@@ -99,6 +99,35 @@
 
        # Xorg
        "\ep\eX": "\C-a\C-k\C-lstartx\C-m"
+
+       # misc
+       "\C-xs": "\C-asudo \C-e\C-m"
+       "\M-pp": "\C-a\C-kpython\C-m"
+       "\M-pSc": "\C-a\C-kscreen\C-m"
+       "\M-pgs": "\C-a\C-kgit status\C-m"
+       "\M-pgf": "\C-a\C-kgit fetch\C-m"
+       "\M-pgd": "\C-a\C-kgit diff\C-m"
+       "\M-pgw": "\C-a\C-kgit worktree\C-m"
+       "\M-ppm": "\C-a\C-kpulsemixer\C-m"
+       "\M-op": "\C-a\C-kpython "
+       "\M-og": "\C-a\C-kgit "
+       "\M-ogcl": "\C-a\C-kgit clone "
+       "\M-ogco": "\C-a\C-kgit checkout "
+       "\M-oq": "\C-a\C-ksqlite3 "
+       "\M-o\M-s": "\C-a\C-kssh "
+       "\M-od": "\C-a\C-kmkdir -p "
+       "\M-pt": "\C-a\C-ktree -l\C-m"
+       "\M-m\M-m": "\C-a\C-kmake\C-m"
+       "\M-m\M-M": "\C-a\C-kmake -B\C-m"
+       "\M-m\M-c": "\C-a\C-kmake check VERBOSE=1\C-m"
+       "\M-m\M-i": "\C-a\C-kmake install\C-m"
+       "\M-mt": "\C-a\C-kmake test\C-m"
+       "\M-mh": "\C-a\C-kmake help\C-m"
+       "\M-mr": "\C-a\C-kmake clean\C-m"
+       "\M-m\M-r": "\C-a\C-kmake clean\C-m"
+       "\M-mI": "\C-a\C-kmake install -j4\C-m"
+       "\M-mA": "\C-a\C-kmake all -j4\C-m"
+       "\M-M": "\C-a\C-kmake -j4\C-m"
       $endif
     '';
   };
