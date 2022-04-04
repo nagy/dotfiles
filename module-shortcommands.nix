@@ -42,6 +42,8 @@ with import ./lib.nix { inherit pkgs; }; {
 
     # git
     (mkShortCommand "G" [ "git" ])
+    (mkShortCommand "Gf" [ "git" "fetch" ])
+    (mkShortCommand "Gfp" [ "git" "fetch" "--prune" ])
 
     # home-manager
     (mkShortCommand "HM" [ "home-manager" ])
@@ -59,7 +61,7 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "dOi" [ "docker" "image" ])
     (mkShortCommand "dOil" [ "docker" "image" "ls" ])
     (mkShortCommand "dOv" [ "docker" "volume" ])
-    (mkShortCommand "dOvl" [ "docker" "volume" "ls"])
+    (mkShortCommand "dOvl" [ "docker" "volume" "ls" ])
     (mkShortCommand "dOn" [ "docker" "network" ])
     (mkShortCommand "dOnl" [ "docker" "network" "ls" ])
 
@@ -69,7 +71,7 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "Kgp" [ "kubectl" "get" "pod" ])
     (mkShortCommand "Kgd" [ "kubectl" "get" "deployment" ])
     (mkShortCommand "Kgn" [ "kubectl" "get" "node" ])
-    (mkShortCommand "Kgpw" [ "kubectl" "get" "pod" "--watch"])
+    (mkShortCommand "Kgpw" [ "kubectl" "get" "pod" "--watch" ])
     (mkShortCommand "Kgdw" [ "kubectl" "get" "deployment" "--watch" ])
     (mkShortCommand "Kgnw" [ "kubectl" "get" "node" "--watch" ])
     (mkShortCommand "Kd" [ "kubectl" "describe" ])
