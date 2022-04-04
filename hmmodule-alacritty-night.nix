@@ -1,4 +1,4 @@
-{ pkgs, font, fontSize, ... }:
+{ pkgs, ... }:
 
 {
   # Post about making alacritty responsive:
