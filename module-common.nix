@@ -66,7 +66,8 @@
       highlight_changes = 1;
       highlight_changes_delay_secs = 2;
       update_process_names = 1;
-      # TODO disable PRI and NI column
+      # manually removed "nice" and "prio" column
+      fields="0 48 38 39 40 2 46 47 49 1";
     };
   };
   environment.variables.HTOPRC = "/etc/htoprc";
