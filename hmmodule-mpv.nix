@@ -1,4 +1,4 @@
-{ pkgs, lib ? pkgs.lib, font, ... }:
+{ pkgs, lib ? pkgs.lib, ... }:
 
 {
 
@@ -8,7 +8,6 @@
     config = {
       mute = "yes";
       cache-secs = "60";
-      osd-font = font;
       # this gives better audio quality when speeding up a video
       af = "rubberband";
       # dont show album covers when they are embedded in music files

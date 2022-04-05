@@ -1,10 +1,9 @@
-{ pkgs, font, fontSize, ... }:
+{ pkgs, ... }:
 
 {
   programs.zathura = {
     enable = true;
     options = {
-      font = "${font} ${toString fontSize}";
       render-loading = false;
       dbus-raise-window = false;
       database = "null";
