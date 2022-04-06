@@ -44,6 +44,11 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "G" [ "git" ])
     (mkShortCommand "Gf" [ "git" "fetch" ])
     (mkShortCommand "Gfp" [ "git" "fetch" "--prune" ])
+    (mkShortCommand "Gt" [ "git" "tag" ])
+    (mkShortCommand "Gtl" [ "git" "tag" "--list" ])
+    (mkShortCommand "Gts" [ "git" "tags" ])
+    (mkShortCommand "Gp" [ "git" "push" ])
+    (mkShortCommand "Gpf" [ "git" "push" "--force" ])
 
     # home-manager
     (mkShortCommand "HM" [ "home-manager" ])
