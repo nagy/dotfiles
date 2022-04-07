@@ -3,6 +3,6 @@ pkgs:
 pkgs.fetchFromGitHub {
   owner = "nix-community";
   repo = "home-manager";
-  rev = "f911ebbec927e8e9b582f2e32e2b35f730074cfc";
-  sha256 = "07qa2qkbjczj3d0m03jpw85hfj35cbjm48xhifz3viy4khjw88vl";
+  rev = "620ed197f3624dafa5f42e61d5c043f39b8df366";
+  sha256 = "1sn3973lxvc8h09i2c53iipk6z8mzv745n9l6kmygj7m7qcnz006";
 }
