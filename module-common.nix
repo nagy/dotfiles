@@ -284,6 +284,12 @@
         id = "nixpkgs";
         type = "indirect";
       };
+      u.to = {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        type = "github";
+        ref = "nixos-unstable";
+      };
       G.to = {
         id = "gemini";
         type = "indirect";
