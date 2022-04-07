@@ -256,6 +256,7 @@
     gc = {
       automatic = true;
       dates = "monthly";
+      options = "--delete-older-than 14d";
     };
     settings = {
       sandbox = true;
