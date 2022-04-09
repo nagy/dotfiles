@@ -128,6 +128,7 @@
        "\emI": "\C-a\C-kmake install -j4\C-m"
        "\emA": "\C-a\C-kmake all -j4\C-m"
        "\eM": "\C-a\C-kmake -j4\C-m"
+       "\e\C-l": "\C-a\C-klf\C-m"
       $endif
     '';
   };
