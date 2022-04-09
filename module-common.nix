@@ -220,9 +220,12 @@
     home-manager
     screen
     jq
+    tig
+    yq-go
 
     # network
     dstat
+    nftables
 
     # processes
     # ltrace # not available on aarch64
@@ -246,7 +249,6 @@
     nixfmt
   ];
 
-  environment.variables.EDITOR = "vim";
   environment.variables.LESSHISTFILE = "-";
 
   nix = {
