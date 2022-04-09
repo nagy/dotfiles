@@ -96,6 +96,7 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "nPt" [ "npm" "run" "test" ])
     (mkShortCommand "nPi" [ "npm" "install" ])
     (mkShortCommand "nPci" [ "npm" "ci" ])
+    (mkShortCommand "nPu" [ "npm" "update" ])
 
     # misc
     (mkShortCommand "jqM" [ "jq" "--monochrome-output" ])
