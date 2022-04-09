@@ -3,6 +3,11 @@
 
   outputs = { self }: {
 
+    nixosModules = {
+      common = import ./module-common.nix;
+      shortcommands = import ./module-shortcommands.nix;
+    };
+
     lib = { pkgs, lib ? pkgs.lib }:
       ({
         module-common = import ./module-common.nix;
