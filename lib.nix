@@ -5,6 +5,13 @@ rec {
   mapNumToString = num:
     builtins.elemAt (lib.splitString "" "abcdefghijklmnopqrstuvwxyz") num;
 
+  mapStringToNum = str:
+    let
+      thelist = lib.imap0 (i: v: { inherit i v; })
+        (lib.splitString "" "abcdefghijklmnopqrstuvwxyz");
+    in (pkgs.lib.findFirst (x: x.v == str)
+      (throw "Element not found in list iteration") thelist).i;
+
   mkBashCompletion = cmd: list:
     let
       first = lib.head list;
