@@ -29,6 +29,7 @@
         conv-hmmpv2nixos = import ./conv-hmmpv2nixos.nix;
         conv-hmreadline2nixos = import ./conv-hmreadline2nixos.nix;
 
+        pkg-ala-switchers = import ./pkg-ala-switchers.nix;
         pkg-journal-git-store = pkgs.writeScriptBin "journal-git-store"
           (builtins.readFile ./bin/journal-git-store);
       } // (import ./lib.nix { inherit pkgs; }));
