@@ -39,6 +39,24 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "Fp" [ "nix" "flake" "prefetch" ])
     (mkShortCommand "Fsj" [ "nix" "flake" "show" "--json" ])
     (mkShortCommand "Fmj" [ "nix" "flake" "metadata" "--json" ])
+    (mkShortCommand "Floin" [
+      "nix"
+      "flake"
+      "lock"
+      "--override-input"
+      "nixpkgs"
+      "nixpkgs/nixos-unstable"
+    ])
+    (mkShortCommand "Floinuin" [
+      "nix"
+      "flake"
+      "lock"
+      "--override-input"
+      "nixpkgs"
+      "nixpkgs/nixos-unstable"
+      "--update-input"
+      "nixpkgs"
+    ])
 
     # git
     (mkShortCommand "G" [ "git" ])
