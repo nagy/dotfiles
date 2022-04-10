@@ -6,12 +6,14 @@
     nixosModules = {
       common = import ./module-common.nix;
       shortcommands = import ./module-shortcommands.nix;
+      emacs = import ./module-emacs.nix;
     };
 
     lib = { pkgs, lib ? pkgs.lib }:
       ({
         module-common = import ./module-common.nix;
         module-shortcommands = import ./module-shortcommands.nix;
+        module-emacs = import ./module-emacs.nix;
         module-x86_64-linux = import ./module-x86_64-linux.nix;
         hmmodule-mpv = import ./hmmodule-mpv.nix;
         hmmodule-firefox = import ./module-firefox.nix;
