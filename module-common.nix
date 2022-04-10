@@ -327,9 +327,8 @@
         type = "github";
       };
       eo.to = {
-        owner = "nix-community";
-        repo = "emacs-overlay";
-        type = "github";
+        id = "emacs-overlay";
+        type = "indirect";
       };
     };
   };
