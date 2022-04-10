@@ -105,10 +105,12 @@
       in "${git-alias}/gitalias.txt";
       gc = { auto = "0"; };
       url = {
-        "https://github.com/" = { insteadOf = "gh:"; };
-        "https://gitlab.com/" = { insteadOf = "gl:"; };
-        "https://aur.archlinux.org/" = { insteadOf = "aur:"; };
-        "https://git.sr.ht/" = { insteadOf = "srht:"; };
+        "https://github.com/".insteadOf = "gh:";
+        "https://gist.github.com/".insteadOf = "gist";
+        "https://gitlab.com/".insteadOf = "gl:";
+        "https://aur.archlinux.org/".insteadOf = "aur:";
+        "https://git.sr.ht/".insteadOf = "srht:";
+        "https://bitbucket.org/".insteadOf = "bb:";
       };
       # Shiny colors
       color = {
