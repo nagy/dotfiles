@@ -132,6 +132,7 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "jc" [ "journalctl" ])
     (mkShortCommand "jcf" [ "journalctl" "-f" ])
     (mkShortCommand "bcj" [ "busctl" "--json" ])
+    (mkShortCommand "bcu" [ "busctl" "--user" ])
     (mkShortCommand "bcuj" [ "busctl" "--user" "--json" ])
 
   ];
