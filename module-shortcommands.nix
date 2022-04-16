@@ -57,6 +57,14 @@ with import ./lib.nix { inherit pkgs; }; {
       "--update-input"
       "nixpkgs"
     ])
+    (mkShortCommand "Fuoin" [
+      "nix"
+      "flake"
+      "update"
+      "--override-input"
+      "nixpkgs"
+      "nixpkgs/nixos-unstable"
+    ])
 
     # git
     (mkShortCommand "G" [ "git" ])
