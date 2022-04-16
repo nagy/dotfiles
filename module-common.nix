@@ -112,6 +112,11 @@
         "https://git.sr.ht/".insteadOf = "srht:";
         "https://bitbucket.org/".insteadOf = "bb:";
       };
+      tar = {
+        "tar.xz".command = "${pkgs.xz}/bin/xz -c";
+        "tar.bz2".command = "${pkgs.bzip2}/bin/bzip2 -c";
+        "tar.zst".command = "${pkgs.zstd}/bin/zstd -c";
+      };
       # Shiny colors
       color = {
         branch = "auto";
