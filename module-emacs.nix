@@ -29,7 +29,6 @@ let
         flycheck
 
         disk-usage
-        nix-update
 
         ts # timestamp library
 
