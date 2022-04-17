@@ -68,6 +68,8 @@ with import ./lib.nix { inherit pkgs; }; {
 
     # git
     (mkShortCommand "G" [ "git" ])
+    (mkShortCommand "Gcl" [ "git" "clone" ])
+    (mkShortCommand "Gcl1" [ "git" "clone" "--depth=1" ])
     (mkShortCommand "Gf" [ "git" "fetch" ])
     (mkShortCommand "Gfp" [ "git" "fetch" "--prune" ])
     (mkShortCommand "Gt" [ "git" "tag" ])
