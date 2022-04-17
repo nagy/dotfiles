@@ -77,12 +77,6 @@ let
         sly
         s # string library
 
-        jenkins
-        gitlab-ci-mode
-        k8s-mode
-        kubernetes
-        kubernetes-evil
-
         dogears
         org-bookmark-heading
         dired-collapse
