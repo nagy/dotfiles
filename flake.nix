@@ -23,7 +23,6 @@
         hmmodule-readline = import ./hmmodule-readline.nix;
 
         fetch-home-manager = import ./fetch-home-manager.nix;
-        fetch-emacs-overlay = import ./fetch-emacs-overlay.nix;
 
         conv-hmzathura2nixos = import ./conv-hmzathura2nixos.nix;
         conv-hmmpv2nixos = import ./conv-hmmpv2nixos.nix;
