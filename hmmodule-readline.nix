@@ -84,7 +84,7 @@
        "\epnb": "\C-a\C-knix-build\C-m"
        "\eons": "\C-a\C-knix-shell -p "
        "\eon\es": "\C-a\C-knix-store "
-       "\eoni": "\C-a\C-knix-env -iA nixos."
+       "\eoni": "\C-a\C-knix-env -f '<nixpkgs>' -iA "
        "\eone": "\C-a\C-knix-env -e "
        "\eonb": "\C-a\C-knix-build -A "
        "\eonc": "\C-a\C-knix-channel "
