@@ -1,7 +1,10 @@
 { config, ... }:
 
 let
-  myEmacs = config.services.emacs.package.pkgs.withPackages (epkgs:
+  systemEmacs = config.services.emacs.package;
+  customEmacsPackages =
+    systemEmacs.pkgs.overrideScope' (self: super: { emacs = systemEmacs; });
+  emacsAndPackages = customEmacsPackages.withPackages (epkgs:
     (with epkgs;
       with epkgs.melpaPackages; [
         vterm
@@ -87,4 +90,4 @@ let
         osm
         helpful
       ]));
-in { environment.systemPackages = [ myEmacs ]; }
+in { environment.systemPackages = [ emacsAndPackages ]; }
