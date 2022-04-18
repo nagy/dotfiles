@@ -24,6 +24,9 @@
     # disable coredumps
     # https://wiki.archlinux.org/index.php/Core_dump#Disabling_automatic_core_dumps
     "kernel.core_pattern" = "|/bin/false";
+    # This allows a special scape key: alt+print+<key>
+    # https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html
+    "kernel.sysrq" = 1;
   };
 
   # all hosts should have this timezone

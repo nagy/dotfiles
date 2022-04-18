@@ -7,6 +7,7 @@
       common = import ./module-common.nix;
       shortcommands = import ./module-shortcommands.nix;
       emacs = import ./module-emacs.nix;
+      desktop = import ./module-desktop.nix;
     };
 
     lib = { pkgs, lib ? pkgs.lib }:
@@ -14,6 +15,7 @@
         module-common = import ./module-common.nix;
         module-shortcommands = import ./module-shortcommands.nix;
         module-emacs = import ./module-emacs.nix;
+        module-desktop = import ./module-desktop.nix;
         module-x86_64-linux = import ./module-x86_64-linux.nix;
         hmmodule-mpv = import ./hmmodule-mpv.nix;
         hmmodule-firefox = import ./module-firefox.nix;
