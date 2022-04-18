@@ -77,6 +77,7 @@ with import ./lib.nix { inherit pkgs; }; {
     (mkShortCommand "Gts" [ "git" "tags" ])
     (mkShortCommand "Gp" [ "git" "push" ])
     (mkShortCommand "Gpf" [ "git" "push" "--force" ])
+    (mkShortCommand "Gpl" [ "git" "pull" ])
 
     # home-manager
     (mkShortCommand "HM" [ "home-manager" ])
