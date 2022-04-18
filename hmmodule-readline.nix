@@ -96,6 +96,8 @@
        "\en\er": "\C-a\C-knix run\C-m"
        "\en\eb": "\C-a\C-knix build\C-m"
        "\epnei": "\C-a\C-knix-env -f . -i\C-m"
+       "\eoFoi": "--override-input "
+       "\eoFof": "--override-flake "
 
        # Xorg
        "\ep\eX": "\C-a\C-k\C-lstartx\C-m"
