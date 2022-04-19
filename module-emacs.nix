@@ -12,6 +12,7 @@ let
         org
         pdf-tools
         org-pdftools
+        org-bookmark-heading
 
         pass
 
@@ -20,13 +21,12 @@ let
         org-brain
         ascii-art-to-unicode # for org-brain fancyness
 
-        diminish
-
         org-superstar
         org-ql
         elfeed
         dired-narrow
         dired-subtree
+        dired-collapse
         outshine
         focus
 
@@ -45,24 +45,27 @@ let
         forge
         transient
         modus-themes
+        lin
 
         exwm
 
-        sly
-        sly-macrostep
-        sly-repl-ansi-color
-
+        # modeline
         telephone-line
+        diminish
 
         # ledger-mode
         company-ledger
 
         info-colors
-        diminish
 
-        lispy
+        # lisps
+        lispy        # this pulls in ivy
         lispyville
+        sly
+        sly-macrostep
+        sly-repl-ansi-color
 
+        # completion
         vertico
         embark
         marginalia
@@ -78,12 +81,9 @@ let
         treemacs-evil
         treemacs-magit
         treemacs-projectile
-        sly
         s # string library
 
         dogears
-        org-bookmark-heading
-        dired-collapse
         reformatter
         python-black
         lsp-pyright
