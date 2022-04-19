@@ -7,6 +7,7 @@ let
   emacsAndPackages = customEmacsPackages.withPackages (epkgs:
     (with epkgs;
       with epkgs.melpaPackages; [
+        use-package
         vterm
         org
         pdf-tools
