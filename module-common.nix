@@ -106,6 +106,7 @@
           sha256 = "17fgg2znhl2n0vw1ym9dnjvm3sgj5ynzr1r9najw2rw3f07y8wd7";
         };
       in "${git-alias}/gitalias.txt";
+      merge.conflictStyle = "diff3";
       gc = { auto = "0"; };
       url = {
         "https://github.com/".insteadOf = "gh:";
