@@ -90,5 +90,6 @@ let
 
         osm
         helpful
+        yasnippet-snippets
       ]));
 in { environment.systemPackages = [ emacsAndPackages ]; }
