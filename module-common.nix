@@ -146,8 +146,16 @@
         newNormal = "green bold";
         newHighlight = "green bold 22";
       };
+      # To work around the workaround of CVE-2022-24765.
+      # See https://github.com/NixOS/nixpkgs/issues/169193 for more
+      safe.directory = "*";
     };
-
+    package = (import (pkgs.fetchFromGitHub {
+      owner = "NixOS";
+      repo = "nixpkgs";
+      rev = "4c8a0827f1ab9608134e24c507531aedeb745372";
+      hash = "sha256-wUdgjqRl3IXonJp6GXOZZDoJc62ZZYkT+WDxXcFbqHs=";
+    }) { inherit (pkgs) system; }).git;
   };
 
   environment.shellAliases = {
