@@ -27,6 +27,7 @@ in {
     # logFile = "/dev/null"; # the default
     # windowManager.exwm.enable = true;
     videoDrivers = [ "amdgpu" ];
+    excludePackages = [ pkgs.xterm ];
   };
 
   users.users.user.extraGroups = [ "video" "render" ];
