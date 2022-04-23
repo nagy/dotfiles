@@ -50,9 +50,9 @@ rec {
       paths = [ (mkBashCompletion cmd list) (mkShortCommandScript cmd list) ];
     };
 
-  mkEmacsScreenshot = { pkgs
+  mkEmacsScreenshot = {
     # the code that should be executed before taking the screenshot
-    , emacsCode
+    emacsCode
     # change this if you want another format
     , name ? "emacs-screenshot.png", lib ? pkgs.lib, emacs ? pkgs.emacs
     , imagemagick ? pkgs.imagemagick, light ? true, ... }:
@@ -88,7 +88,7 @@ rec {
             -l ${emacsCodeFile}
     '';
 
-  mkGitRepository = { pkgs, lib ? pkgs.lib, src, ... }:
+  mkGitRepository = src:
     pkgs.runCommand "repository.git" rec {
       inherit src;
       nativeBuildInputs = [ pkgs.git ];
