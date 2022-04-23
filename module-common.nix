@@ -233,6 +233,7 @@
     jq
     tig
     yq-go
+    comma
 
     # network
     dstat
