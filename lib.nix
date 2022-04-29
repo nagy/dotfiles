@@ -41,7 +41,9 @@ rec {
     '');
 
   mkShortCommandScript = cmd: list:
-    let spaced = lib.concatStringsSep " " list;
+    let
+      # FIXME This should be surrounded by quotes
+      spaced = lib.concatStringsSep " " list;
     in (pkgs.writeShellScriptBin cmd ''exec ${spaced} "$@"'');
 
   mkShortCommand = cmd: list:
