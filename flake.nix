@@ -24,8 +24,6 @@
         hmmodule-alacritty-night = import ./hmmodule-alacritty-night.nix;
         hmmodule-readline = import ./hmmodule-readline.nix;
 
-        fetch-home-manager = import ./fetch-home-manager.nix;
-
         conv-hmzathura2nixos = import ./conv-hmzathura2nixos.nix;
         conv-hmmpv2nixos = import ./conv-hmmpv2nixos.nix;
         conv-hmreadline2nixos = import ./conv-hmreadline2nixos.nix;
