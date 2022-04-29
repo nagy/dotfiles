@@ -348,6 +348,11 @@
         id = "emacs-overlay";
         type = "indirect";
       };
+      crystal2nix.to = {
+        owner = "nix-community";
+        repo = "crystal2nix";
+        type = "github";
+      };
     };
   };
 }
