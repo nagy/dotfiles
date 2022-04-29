@@ -184,7 +184,7 @@
     enable = true;
     baseIndex = 1;
     keyMode = "vi";
-    extraConfig = "bind -n C-k clear-history";
+    extraConfig = "bind C-k clear-history";
   };
 
   services.openssh.knownHosts = {
