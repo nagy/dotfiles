@@ -42,6 +42,7 @@
           # Disable CORS for file:// . Needed for some webapps.
           "privacy.file_unique_origin" = false;
           "dom.image-lazy-loading.enabled" = false;
+          # TODO find disable animation
         };
       };
     };

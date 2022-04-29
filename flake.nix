@@ -18,7 +18,7 @@
         module-desktop = import ./module-desktop.nix;
         module-x86_64-linux = import ./module-x86_64-linux.nix;
         hmmodule-mpv = import ./hmmodule-mpv.nix;
-        hmmodule-firefox = import ./module-firefox.nix;
+        hmmodule-firefox = import ./hmmodule-firefox.nix;
         hmmodule-zathura = import ./hmmodule-zathura.nix;
         hmmodule-alacritty-day = import ./hmmodule-alacritty-day.nix;
         hmmodule-alacritty-night = import ./hmmodule-alacritty-night.nix;
