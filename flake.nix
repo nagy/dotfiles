@@ -10,7 +10,7 @@
       desktop = import ./module-desktop.nix;
     };
 
-    lib = { pkgs, lib ? pkgs.lib }:
+    lib = pkgs:
       ({
         module-common = import ./module-common.nix;
         module-shortcommands = import ./module-shortcommands.nix;
