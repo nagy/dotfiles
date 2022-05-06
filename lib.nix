@@ -152,4 +152,22 @@ in rec {
       [[ ! -d "INBOX" ]] && exit 1
       exec ${package}/bin/mbsync --config=${configfile} --all "$@"
     '';
+
+  mkMsmtpAccount = name: configtxt:
+    let
+      configfile = pkgs.writeTextFile {
+        name = "msmtp-config-file-" + name;
+        text = ''
+          # -*- mode:conf-space; -*-
+          account default
+          auth on
+          tls on
+          tls_starttls off
+          ${configtxt}
+          syslog
+        '';
+      };
+    in (pkgs.writeShellScriptBin ("msmtp-" + name) ''
+      exec ${pkgs.msmtp}/bin/msmtp --file=${configfile} "$@"
+    '');
 }
