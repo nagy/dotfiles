@@ -364,6 +364,11 @@
         repo = "crystal2nix";
         type = "github";
       };
+      nix-doom-emacs.to = {
+        owner = "nix-community";
+        repo = "nix-doom-emacs";
+        type = "github";
+      };
     };
   };
 }
