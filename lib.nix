@@ -1,6 +1,6 @@
-{ pkgs, lib ? pkgs.lib }:
-
-rec {
+pkgs:
+let lib = pkgs.lib;
+in rec {
 
   mapNumToString = num:
     builtins.elemAt (lib.splitString "" "abcdefghijklmnopqrstuvwxyz") num;
