@@ -267,6 +267,17 @@
       (builtins.readFile ./bin/journal-git-store))
     (pkgs.writeScriptBin "gitpack" (builtins.readFile ./bin/gitpack))
     nixfmt
+    yt-dlp
+    nix-update
+    nix-prefetch
+    nix-prefetch-git
+    qrencode
+    restic
+    rclone
+    (zbar.override { enableVideo = false; })
+    shellcheck
+    # sbcl # maybe not so useful standalone
+    (aspellWithDicts (ps: [ ps.en ]))
   ];
 
   environment.variables.LESSHISTFILE = "-";
