@@ -83,6 +83,7 @@ let
         treemacs-projectile
         s # string library
 
+        lsp-mode
         dogears
         reformatter
         python-black
