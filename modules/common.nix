@@ -264,8 +264,8 @@
 
     # custom tooling
     (pkgs.writeScriptBin "journal-git-store"
-      (builtins.readFile ./bin/journal-git-store))
-    (pkgs.writeScriptBin "gitpack" (builtins.readFile ./bin/gitpack))
+      (builtins.readFile ../bin/journal-git-store))
+    (pkgs.writeScriptBin "gitpack" (builtins.readFile ../bin/gitpack))
     nixfmt
     yt-dlp
     nix-update

@@ -1,6 +1,6 @@
 { pkgs, ... }:
 
-with import ./lib.nix pkgs; {
+with import ../lib.nix pkgs; {
 
   environment.systemPackages = with pkgs; [
     # nix

@@ -3,20 +3,32 @@
 
   outputs = { self }: {
 
-    nixosModules = {
-      common = import ./module-common.nix;
-      shortcommands = import ./module-shortcommands.nix;
-      emacs = import ./module-emacs.nix;
-      desktop = import ./module-desktop.nix;
-    };
+    nixosModules = with builtins;
+      let
+        # copied from nixpkgs lib.nix
+        lib = {
+          removeSuffix = suffix: str:
+            let
+              sufLen = stringLength suffix;
+              sLen = stringLength str;
+            in if sufLen <= sLen && suffix
+            == substring (sLen - sufLen) sufLen str then
+              substring 0 (sLen - sufLen) str
+            else
+              str;
+        };
+        files = readDir ./modules;
+        fileNames = attrNames files;
+        nameFunc = filename: lib.removeSuffix ".nix" filename;
+        preAttrList = map (it: {
+          name = nameFunc it;
+          value = import (./modules + "/${it}" );
+        }) fileNames;
+        modules = listToAttrs preAttrList;
+      in modules;
 
     lib = pkgs:
       ({
-        module-common = import ./module-common.nix;
-        module-shortcommands = import ./module-shortcommands.nix;
-        module-emacs = import ./module-emacs.nix;
-        module-desktop = import ./module-desktop.nix;
-        module-x86_64-linux = import ./module-x86_64-linux.nix;
         hmmodule-mpv = import ./hmmodule-mpv.nix;
         hmmodule-firefox = import ./hmmodule-firefox.nix;
         hmmodule-zathura = import ./hmmodule-zathura.nix;
