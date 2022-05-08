@@ -369,6 +369,11 @@
         repo = "nix-doom-emacs";
         type = "github";
       };
+      nix-mode.to = {
+        owner = "NixOS";
+        repo = "nix-mode";
+        type = "github";
+      };
     };
   };
 }
