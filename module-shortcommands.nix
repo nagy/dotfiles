@@ -40,6 +40,7 @@ with import ./lib.nix pkgs; {
     (mkShortCommand "Fc" [ "nix" "flake" "clone" ])
     (mkShortCommand "Fa" [ "nix" "flake" "archive" ])
     (mkShortCommand "Fp" [ "nix" "flake" "prefetch" ])
+    (mkShortCommand "Fpj" [ "nix" "flake" "prefetch" "--json" ])
     (mkShortCommand "Fsj" [ "nix" "flake" "show" "--json" ])
     (mkShortCommand "Fmj" [ "nix" "flake" "metadata" "--json" ])
     (mkShortCommand "Floin" [
