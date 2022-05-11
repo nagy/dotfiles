@@ -36,9 +36,9 @@
         hmmodule-alacritty-night = import ./hmmodule-alacritty-night.nix;
         hmmodule-readline = import ./hmmodule-readline.nix;
 
-        conv-hmzathura2nixos = import ./conv-hmzathura2nixos.nix;
-        conv-hmmpv2nixos = import ./conv-hmmpv2nixos.nix;
-        conv-hmreadline2nixos = import ./conv-hmreadline2nixos.nix;
+        conv-hmzathura2nixos = import ./conv-hmzathura2nixos.nix pkgs;
+        conv-hmmpv2nixos = import ./conv-hmmpv2nixos.nix pkgs;
+        conv-hmreadline2nixos = import ./conv-hmreadline2nixos.nix pkgs;
 
         pkg-ala-switchers = import ./pkg-ala-switchers.nix pkgs;
         pkg-journal-git-store = pkgs.writeScriptBin "journal-git-store"
