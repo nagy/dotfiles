@@ -1,11 +1,12 @@
+pkgs:
 # You will receive a package that has a `ala` terminal launcher and multiple scripts called
 # `ala-${name}` as defined by the hmmodules argument. With these scripts you can switch the setting
 # of the running terminal to that of the corresponding home-manager module setting
 
-{ pkgs, alacritty ? pkgs.alacritty, lib ? pkgs.lib,
+{ alacritty ? pkgs.alacritty, lib ? pkgs.lib,
 # A attrset of home-manager modules that define alacritty configs. You can switch to these with the
 # `ala-${name}` script.
-hmmodules ? { }, ... }:
+hmmodules ? { } }:
 
 let
   alacrittyLiveConfigPath = "/run/user/$UID/alacritty-conf.json";
