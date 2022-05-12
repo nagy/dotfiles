@@ -41,10 +41,15 @@
 
   # simpler version of starship
   # until https://github.com/starship/starship/issues/896 is fixed
-  environment.variables.STARSHIP_CONFIG = toString
-    ((pkgs.formats.toml { }).generate "starship-config.toml" {
-      add_newline = false;
-    });
+  environment.variables.STARSHIP_CONFIG = let
+    mkDollarPrompt =
+      pkgs.lib.replaceStrings [ ">](bold green)" ] [ "\\\\$](bold green)" ];
+    basePreset = builtins.readFile
+      "${pkgs.starship.src}/docs/.vuepress/public/presets/toml/plain-text-symbols.toml";
+    basePresetModified = ''
+      add_newline=false
+    '' + (mkDollarPrompt basePreset);
+  in toString (pkgs.writeText "starship-config.toml" basePresetModified);
   environment.variables.STARSHIP_CACHE = "/tmp/starship-cache";
   programs.bash.interactiveShellInit = ''
     if [[ $TERM != "dumb" && (-z $INSIDE_EMACS || $INSIDE_EMACS == "vterm") ]]; then
