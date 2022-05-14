@@ -246,7 +246,7 @@
     jq
     tig
     yq-go
-    comma
+    # comma # somehow not loaded with its db
 
     # network
     dstat
@@ -263,6 +263,8 @@
     fd
     ripgrep
     ncdu
+    lsof
+    tokei
 
     # documentation
     man-pages
@@ -283,6 +285,9 @@
     shellcheck
     # sbcl # maybe not so useful standalone
     (aspellWithDicts (ps: [ ps.en ]))
+
+    (lispPackages_new.sbclWithPackages
+      (ps: with ps; [ april serapeum dbus ]))
   ];
 
   environment.variables.LESSHISTFILE = "-";
