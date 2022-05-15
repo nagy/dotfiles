@@ -154,6 +154,19 @@
       # To work around the workaround of CVE-2022-24765.
       # See https://github.com/NixOS/nixpkgs/issues/169193 for more
       safe.directory = "*";
+      filter = {
+        # use with `.gitattributes` file content: *.sqlite3 filter=sqlite3-sql
+        # more info https://github.com/theTaikun/SQLite-git-smudge-and-clean
+        sqlite3-sql = {
+          clean = "${pkgs.sqlite}/bin/sqlite3 %f .dump";
+          smudge = toString (pkgs.writeShellScript "git-smudge-sqlite3" ''
+            TMPFILE=$(mktemp)
+            cat | ${pkgs.sqlite}/bin/sqlite3 "$TMPFILE"
+            cat -- "$TMPFILE"
+            rm -f -- "$TMPFILE"
+          '');
+        };
+      };
     };
     package = (import (pkgs.fetchFromGitHub {
       owner = "NixOS";
