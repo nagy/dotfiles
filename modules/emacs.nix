@@ -92,5 +92,8 @@ let
         osm
         helpful
         yasnippet-snippets
+        arduino-mode
+        yaml-mode
+        gemini-mode
       ]));
 in { environment.systemPackages = [ emacsAndPackages ]; }

@@ -264,6 +264,7 @@
     # network
     dstat
     nftables
+    sshfs-fuse
 
     # processes
     # ltrace # not available on aarch64
@@ -278,6 +279,7 @@
     ncdu
     lsof
     tokei
+    unzip
 
     # documentation
     man-pages
@@ -299,8 +301,7 @@
     # sbcl # maybe not so useful standalone
     (aspellWithDicts (ps: [ ps.en ]))
 
-    (lispPackages_new.sbclWithPackages
-      (ps: with ps; [ april serapeum dbus ]))
+    (lispPackages_new.sbclWithPackages (ps: with ps; [ april serapeum dbus ]))
   ];
 
   environment.variables.LESSHISTFILE = "-";
@@ -308,6 +309,7 @@
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes recursive-nix
+      warn-dirty = false
     '';
     gc = {
       automatic = true;
