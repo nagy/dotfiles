@@ -1,6 +1,6 @@
-pkgs:
-let lib = pkgs.lib;
-in rec {
+{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib }:
+
+with pkgs.lib; rec {
 
   mapNumToString = num:
     builtins.elemAt (lib.splitString "" "abcdefghijklmnopqrstuvwxyz") num;
@@ -91,7 +91,7 @@ in rec {
     '';
 
   mkGitRepository = src:
-    pkgs.runCommand "repository.git" rec {
+    pkgs.runCommandLocal "repository.git" rec {
       inherit src;
       nativeBuildInputs = [ pkgs.git ];
       GIT_AUTHOR_NAME = src.meta.author or "root";
@@ -105,12 +105,19 @@ in rec {
         "Sat, 03 Mar 1973 10:46:40 +0100"; # date -d@100000000 -R
 
     } ''
+      mkdir build
+      pushd build
       git -c init.defaultBranch=master init .
-      filenamelocal=$(basename $src | sed 's/[a-z0-9A-Z]\+-\(.*\)/\1/g' )
-      cp -v -- $src $filenamelocal
-      git add $filenamelocal
+      if [[ -f $src ]] ; then
+        filenamelocal=$(basename $src | sed 's/[a-z0-9A-Z]\+-\(.*\)/\1/g' )
+        cp -rv -- $src/ $filenamelocal
+      else
+        cp -rv -- $src/* .
+      fi
+      git add .
       git commit --allow-empty-message --message ""
       mv .git $out
+      popd
     '';
 
   mkMbsyncFetcher = { email, hostextra ? "", tls1dot ? 3, package ? pkgs.isync
