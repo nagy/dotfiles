@@ -38,5 +38,8 @@ in {
     pkgs.scrot
     pkgs.playerctl
     nsxivBigThumbs
+    pkgs.gimp
+    pkgs.xorg.xmodmap
+    pkgs.xclip
   ];
 }

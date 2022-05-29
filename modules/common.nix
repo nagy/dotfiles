@@ -283,6 +283,7 @@
 
     # documentation
     man-pages
+    glibcInfo # info files for gnu glibc
 
     # custom tooling
     (pkgs.writeScriptBin "journal-git-store"
