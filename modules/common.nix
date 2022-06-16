@@ -196,6 +196,12 @@
     # ns="nix-shell"; # eventually switch to `nix develop`
     gco = "git checkout";
     gst = "git status";
+
+    lt = "ls --human-readable --size -1 -S --classify";
+    ll = "ls --human-readable -l";
+    la = "ls --human-readable --all -l";
+    path = "echo -e \${PATH//:/\\n}";
+    fastping = "ping -c 20 -i.2";
   };
 
   programs.tmux = {
