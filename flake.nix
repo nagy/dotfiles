@@ -22,12 +22,12 @@
         nameFunc = filename: lib.removeSuffix ".nix" filename;
         preAttrList = map (it: {
           name = nameFunc it;
-          value = import (./modules + "/${it}" );
+          value = import (./modules + "/${it}");
         }) fileNames;
         modules = listToAttrs preAttrList;
       in modules;
 
-    lib = pkgs:
+    lib = { pkgs }:
       ({
         hmmodule-mpv = import ./hmmodule-mpv.nix;
         hmmodule-firefox = import ./hmmodule-firefox.nix;

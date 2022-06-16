@@ -1,23 +1,23 @@
 { pkgs ? import <nixpkgs> { }, lib ? pkgs.lib }:
 
-with pkgs.lib; rec {
+with lib; rec {
 
   mapNumToString = num:
-    builtins.elemAt (lib.splitString "" "abcdefghijklmnopqrstuvwxyz") num;
+    builtins.elemAt (splitString "" "abcdefghijklmnopqrstuvwxyz") num;
 
   mapStringToNum = str:
     let
-      thelist = lib.imap0 (i: v: { inherit i v; })
-        (lib.splitString "" "abcdefghijklmnopqrstuvwxyz");
-    in (pkgs.lib.findFirst (x: x.v == str)
+      thelist = imap0 (i: v: { inherit i v; })
+        (splitString "" "abcdefghijklmnopqrstuvwxyz");
+    in (findFirst (x: x.v == str)
       (throw "Element not found in list iteration") thelist).i;
 
   mkBashCompletion = cmd: list:
     let
-      first = lib.head list;
-      underscored = lib.concatStringsSep "_" list;
+      first = head list;
+      underscored = concatStringsSep "_" list;
       # TODO This should be wrapped in quotes
-      spaced = lib.concatStringsSep " " list;
+      spaced = concatStringsSep " " list;
       len_minus_1 = (builtins.length list) - 1;
     in (pkgs.writeTextDir "share/bash-completion/completions/${cmd}" ''
       function _complete_shortcommand_${underscored} {
@@ -110,7 +110,7 @@ with pkgs.lib; rec {
       git -c init.defaultBranch=master init .
       if [[ -f $src ]] ; then
         filenamelocal=$(basename $src | sed 's/[a-z0-9A-Z]\+-\(.*\)/\1/g' )
-        cp -rv -- $src/ $filenamelocal
+        cp -v -- $src $filenamelocal
       else
         cp -rv -- $src/* .
       fi
@@ -130,7 +130,7 @@ with pkgs.lib; rec {
         Host ${hostextra}${emailhost}
         User ${email}
         PassCmd "pass ${emailhost} | head -1"'' else
-        lib.removeSuffix "\n" configHead);
+        removeSuffix "\n" configHead);
       configfile = pkgs.writeText "mbsync-config-${name}" ''
         IMAPAccount default
         ${configHeadLet}
