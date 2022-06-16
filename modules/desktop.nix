@@ -31,15 +31,18 @@ in {
              include "pc"
              include "de"
              // key <MENU> { [  Hyper_R  ] };
-             key <RWIN> { [  Hyper_R  ] };
-             key <INS> { [ Multi_key, Multi_key, 8, 9  ] };
+             key <RWIN> { [  Hyper_R, Hyper_R, 4, 5  ] };
+             key <INS> { [ Multi_key, Multi_key, U22CB, U22CC  ] };
              // modifier_map Mod3   { <MENU> };
              modifier_map Mod3   { <RWIN> };
-             key <TAB>  { [ Tab,  ISO_Left_Tab,  6,  3 ] };
-             key <CAPS> { [ Escape, Escape, 4, 5  ] };
+             key <TAB>  { [ Tab,  ISO_Left_Tab,  U22A3,  U22A2 ] };
+             // not used on current keyboard
+             // key <CAPS> { [ Escape, Escape, 4, 5  ] };
              key <SPCE> { [space, space, circle, U232F ] };
              // this overwrites dead_caron
              key <AC11> { [adiaeresis, Adiaeresis, circle, U232F ] };
+             key <COPY>  { [ XF86Copy, XF86Copy, U230A, U2308 ] };
+             key <PAST>  { [ XF86Paste, XF86Paste, U230B, U2309 ] };
           };
         '');
       };
