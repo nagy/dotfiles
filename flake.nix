@@ -32,8 +32,6 @@
         hmmodule-mpv = import ./hmmodule-mpv.nix;
         hmmodule-firefox = import ./hmmodule-firefox.nix;
         hmmodule-zathura = import ./hmmodule-zathura.nix;
-        hmmodule-alacritty-day = import ./hmmodule-alacritty-day.nix;
-        hmmodule-alacritty-night = import ./hmmodule-alacritty-night.nix;
         hmmodule-readline = import ./hmmodule-readline.nix;
 
         conv-hmzathura2nixos = import ./conv-hmzathura2nixos.nix pkgs;

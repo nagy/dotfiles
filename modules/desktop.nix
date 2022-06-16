@@ -61,5 +61,12 @@ in {
     pkgs.gimp
     pkgs.xorg.xmodmap
     pkgs.xclip
+  ] ++ [
+    ((import ../pkg-ala-switchers.nix pkgs) {
+      hmmodules = {
+        day = import ../hmmodule-alacritty-day.nix;
+        night = import ../hmmodule-alacritty-night.nix;
+      };
+    })
   ];
 }
