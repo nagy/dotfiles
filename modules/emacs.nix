@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
   systemEmacs = config.services.emacs.package;
@@ -59,7 +59,7 @@ let
         info-colors
 
         # lisps
-        lispy        # this pulls in ivy
+        lispy # this pulls in ivy
         lispyville
         sly
         sly-macrostep
@@ -96,4 +96,7 @@ let
         yaml-mode
         gemini-mode
       ]));
-in { environment.systemPackages = [ emacsAndPackages ]; }
+in {
+  environment.systemPackages =
+    [ emacsAndPackages (pkgs.mu.override { emacs = systemEmacs; }) ];
+}
