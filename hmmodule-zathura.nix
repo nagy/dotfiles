@@ -1,8 +1,9 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.zathura = {
     enable = true;
+    package = (pkgs.zathuraPkgs.override { useMupdf = false; }).zathuraWrapper;
     options = {
       render-loading = false;
       dbus-raise-window = false;
