@@ -40,8 +40,21 @@
     };
 
     extraConfig = ''
+
       TAB: menu-complete
       "\e[Z": menu-complete-backward
+
+      # https://github.com/CMCDragonkai/.dotfiles-nixos/blob/master/.inputrc
+      # Be more intelligent when autocompleting by also looking at the text after
+      # the cursor. For example, when the current line is "cd ~/src/mozil", and
+      # the cursor is on the "z", pressing Tab will not autocomplete it to "cd
+      # ~/src/mozillail", but to "cd ~/src/mozilla". (This is supported by the
+      # Readline used by Bash 4.)
+      set skip-completed-text on
+
+      # Immediately add a trailing slash when autocompleting directories or symlinks to directories
+      set mark-directories on
+      set mark-symlinked-directories on
 
       # Cycle through history based on characters already typed on the line
       "\e[A":history-search-backward
@@ -55,6 +68,8 @@
       "\e\C-Dv": dump-variables
 
       $if Bash
+        # Do history expansion on !$/!^/!!/!* when space is pressed
+        Space: magic-space
        "\eu": "\C-ucd ..\C-j"
        "\el": "\C-uls\C-j"
        "\eL": "\C-uls -lah\C-j"
