@@ -40,9 +40,11 @@ in {
              // key <CAPS> { [ Escape, Escape, 4, 5  ] };
              key <SPCE> { [space, space, circle, U232F ] };
              // this overwrites dead_caron
-             key <AC11> { [adiaeresis, Adiaeresis, circle, U232F ] };
+             key <AC11>  { [adiaeresis, Adiaeresis, U2234, U2235 ] };
              key <COPY>  { [ XF86Copy, XF86Copy, U230A, U2308 ] };
              key <PAST>  { [ XF86Paste, XF86Paste, U230B, U2309 ] };
+             key <FK01>  { [F1, F1, U2641, 9] };
+             key <FK02>  { [F2, F2, U2609, 6] };
           };
         '');
       };
