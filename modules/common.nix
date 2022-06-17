@@ -1,6 +1,6 @@
 { pkgs, ... }:
 
-{
+with pkgs.lib; {
 
   # services.getty.autologinUser = "user";
 
@@ -331,7 +331,7 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
-    nixPath = [ "dot=${../.}" ];
+    nixPath = mkOptionDefault [ "dot=${../.}" ];
     registry = {
       nagy.to = {
         owner = "nagy";
