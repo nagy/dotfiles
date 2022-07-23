@@ -22,6 +22,8 @@ in {
     layout = "mine";
     # Configure X11 window manager
     displayManager.startx.enable = true;
+    # https://discourse.nixos.org/t/enable-vertical-sync-on-amd-gpu/12369/5
+    deviceSection = ''Option "TearFree" "true"''; # For amdgpu.
     extraLayouts = {
       mine = {
         description = "my custom xkb layout";
