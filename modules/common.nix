@@ -115,7 +115,7 @@ with pkgs.lib; {
       gc = { auto = "0"; };
       url = {
         "https://github.com/".insteadOf = "gh:";
-        "https://gist.github.com/".insteadOf = "gist";
+        "https://gist.github.com/".insteadOf = "gist:";
         "https://gitlab.com/".insteadOf = "gl:";
         "https://aur.archlinux.org/".insteadOf = "aur:";
         "https://git.sr.ht/".insteadOf = "srht:";
