@@ -9,8 +9,8 @@ with lib; rec {
     let
       thelist = imap0 (i: v: { inherit i v; })
         (splitString "" "abcdefghijklmnopqrstuvwxyz");
-    in (findFirst (x: x.v == str)
-      (throw "Element not found in list iteration") thelist).i;
+    in (findFirst (x: x.v == str) (throw "Element not found in list iteration")
+      thelist).i;
 
   mkBashCompletion = cmd: list:
     let
@@ -177,4 +177,16 @@ with lib; rec {
     in (pkgs.writeShellScriptBin ("msmtp-" + name) ''
       exec ${pkgs.msmtp}/bin/msmtp --file=${configfile} "$@"
     '');
+
+  mkGitMirror = url:
+    pkgs.runCommandLocal "git-mirror" {
+      nativeBuildInputs = [ pkgs.git pkgs.cacert ];
+      inherit url;
+      # to prevent junk
+      GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
+    } ''
+      mkdir $out
+      cd $out
+      git clone --mirror $url .
+    '';
 }
