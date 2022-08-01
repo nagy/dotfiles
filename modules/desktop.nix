@@ -34,19 +34,19 @@ in {
              include "de"
              // key <MENU> { [  Hyper_R  ] };
              key <RWIN> { [  Hyper_R, Hyper_R, 4, 5  ] };
-             key <INS> { [ Multi_key, Multi_key, U22CB, U22CC  ] };
+             key <INS> { [ Multi_key, Multi_key, U232F, U223F ] };
              // modifier_map Mod3   { <MENU> };
              modifier_map Mod3   { <RWIN> };
              key <TAB>  { [ Tab,  ISO_Left_Tab,  U22A3,  U22A2 ] };
              // not used on current keyboard
              // key <CAPS> { [ Escape, Escape, 4, 5  ] };
-             key <SPCE> { [space, space, circle, U232F ] };
+             key <SPCE> { [space, space, circle, U2BBE ] };
              // this overwrites dead_caron
              key <AC11>  { [adiaeresis, Adiaeresis, U2234, U2235 ] };
              key <COPY>  { [ XF86Copy, XF86Copy, U230A, U2308 ] };
              key <PAST>  { [ XF86Paste, XF86Paste, U230B, U2309 ] };
-             key <FK01>  { [F1, F1, U2641, 9] };
-             key <FK02>  { [F2, F2, U2609, 6] };
+             key <FK01>  { [F1, F1, U2641, U22CB] };
+             key <FK02>  { [F2, F2, U2609, U22CC] };
           };
         '');
       };

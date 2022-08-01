@@ -265,6 +265,10 @@ with pkgs.lib; {
     jq
     tig
     yq-go
+    hcl2json
+    socat
+    jo
+    jc
     # comma # somehow not loaded with its db
 
     # network
@@ -282,7 +286,7 @@ with pkgs.lib; {
     file
     fd
     ripgrep
-    ncdu
+    ncdu_1
     lsof
     tokei
     unzip
@@ -405,6 +409,11 @@ with pkgs.lib; {
       nix-mode.to = {
         owner = "NixOS";
         repo = "nix-mode";
+        type = "github";
+      };
+      blobber.to = {
+        owner = "nagy";
+        repo = "blobber";
         type = "github";
       };
     };

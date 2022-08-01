@@ -25,6 +25,8 @@
 
       # info from here https://github.com/mpv-player/mpv/issues/2188
       title = "\${?media-title:\${media-title}}\${!media-title:No file.}";
+      # https://news.ycombinator.com/item?id=32140083
+      video-sync = "display-resample";
     };
     profiles = {
       "extension.webm" = { loop-file = "inf"; };
@@ -75,10 +77,10 @@
       # mirror the video horizontally
       "Alt+|" = "vf toggle hflip";
 
-      "Alt+h" = "add video-pan-x  0.1";
-      "Alt+l" = "add video-pan-x -0.1";
-      "Alt+k" = "add video-pan-y  0.1";
-      "Alt+j" = "add video-pan-y -0.1";
+      "Alt+h" = "add video-pan-x -0.1";
+      "Alt+l" = "add video-pan-x  0.1";
+      "Alt+k" = "add video-pan-y -0.1";
+      "Alt+j" = "add video-pan-y  0.1";
 
       "Ctrl+Alt+j" = "add sub-scale -0.1";
       "Ctrl+Alt+k" = "add sub-scale +0.1";
