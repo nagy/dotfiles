@@ -1,11 +1,11 @@
-{ pkgs ? import <nixpkgs> { }, rightSideMaster ? true, ... }:
+{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib, rightSideMaster ? true, ... }:
 
-with pkgs.lib; rec {
-  flashScript = pkgs.writeShellScriptBin "flashScript" ''
+rec {
+  flasher = pkgs.writeShellScriptBin "nagy-qmk-keyboard-flasher" ''
     ${pkgs.avrdude}/bin/avrdude -p atmega32u4 -c avr109 -P /dev/ttyACM0 -U flash:w:${firmware.hex}:i
   '';
   firmware = pkgs.stdenv.mkDerivation {
-    name = "nagy-qmk-keyboard-hex-firmware";
+    name = "nagy-qmk-keyboard-firmware";
 
     # may later be replaced with pkgs.qmk-udev-rules
     # no, because fetchSubmodules
@@ -24,7 +24,7 @@ with pkgs.lib; rec {
 
     patchPhase = ''
       runHook prePatch
-      ${optionalString rightSideMaster ''
+      ${lib.optionalString rightSideMaster ''
         substituteInPlace \
             keyboards/handwired/dactyl_manuform/6x6/keymaps/default/config.h \
             --replace MASTER_LEFT MASTER_RIGHT
