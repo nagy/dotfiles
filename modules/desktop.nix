@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 let
   nsxivBigThumbs = pkgs.nsxiv.overrideAttrs (old: {
@@ -10,11 +10,6 @@ let
     '';
   });
 in {
-
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-  };
 
   # Configure keymap in X11
   services.xserver = {
@@ -49,11 +44,14 @@ in {
              key <FK02>  { [F2, F2, U2609, U22CC] };
           };
         '');
+          # ⊼
+          # ⊽
+          # ⊻
       };
     };
     # logFile = "/dev/null"; # the default
     # windowManager.exwm.enable = true;
-    videoDrivers = [ "amdgpu" ];
+    # videoDrivers = [ "amdgpu" ];
     excludePackages = [ pkgs.xterm ];
   };
 

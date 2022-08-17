@@ -8,6 +8,7 @@ let
     (with epkgs;
       with epkgs.melpaPackages; [
         use-package
+        general
         vterm
         org
         pdf-tools
@@ -84,7 +85,6 @@ let
         s # string library
 
         lsp-mode
-        dogears
         reformatter
         python-black
         lsp-pyright
@@ -95,6 +95,7 @@ let
         arduino-mode
         yaml-mode
         gemini-mode
+        tokei
       ]));
 in {
   environment.systemPackages =

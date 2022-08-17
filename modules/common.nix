@@ -290,6 +290,11 @@ with pkgs.lib; {
     lsof
     tokei
     unzip
+    jpegoptim
+    zellij
+    uhubctl
+    usbutils
+    sqlite
 
     # documentation
     man-pages
@@ -309,10 +314,15 @@ with pkgs.lib; {
     rclone
     (zbar.override { enableVideo = false; })
     shellcheck
-    # sbcl # maybe not so useful standalone
     (aspellWithDicts (ps: [ ps.en ]))
-
     (lispPackages_new.sbclWithPackages (ps: with ps; [ april serapeum dbus ]))
+
+    (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
+    pinentry
+    (gnupg.override { guiSupport = false; })
+    gh
+
+    (terraform.withPlugins (p: with p; [ github vultr ]))
   ];
 
   environment.variables.LESSHISTFILE = "-";
