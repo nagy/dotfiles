@@ -41,6 +41,8 @@
         pkg-ala-switchers = import ./pkg-ala-switchers.nix pkgs;
         pkg-journal-git-store = pkgs.writeScriptBin "journal-git-store"
           (builtins.readFile ./bin/journal-git-store);
+        pkg-journal-file-store = pkgs.writeScriptBin "journal-file-store"
+          (builtins.readFile ./bin/journal-file-store);
       } // (import ./lib { inherit pkgs; }));
 
   };
