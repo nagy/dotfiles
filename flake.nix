@@ -1,6 +1,4 @@
 {
-  description = "my dotfiles";
-
   outputs = { self }: {
 
     nixosModules = with builtins;

@@ -10,4 +10,3 @@ bootlog_json() {
        | jq --compact-output --sort-keys
 }
 bootlog_json | zstd -19 > $TAGNAME.journal.json.zst
-git tag -f $TAGNAME $hash

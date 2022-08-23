@@ -21,7 +21,7 @@ with import ../lib { inherit pkgs; }; {
     (mkShortCommand "DL" [ "nix" "develop" "--print-build-logs" ])
     (mkShortCommand "Ej" [ "nix" "eval" "--json" ])
     (mkShortCommand "Er" [ "nix" "eval" "--raw" ])
-    (mkShortCommand "Bj" [ "nix" "build" "--json" ])
+    (mkShortCommand "Bj" [ "nix" "build" "--json" "--no-link" ])
     (mkShortCommand "Du" [ "nix" "develop" "--unpack" ])
     (mkShortCommand "Dc" [ "nix" "develop" "--configure" ])
     (mkShortCommand "Db" [ "nix" "develop" "--build" ])
@@ -134,13 +134,6 @@ with import ../lib { inherit pkgs; }; {
     (mkShortCommand "nPci" [ "npm" "ci" ])
     (mkShortCommand "nPu" [ "npm" "update" ])
 
-    # misc
-    (mkShortCommand "jqM" [ "jq" "--monochrome-output" ])
-    (mkShortCommand "yqP" [ "yq" "--prettyPrint" ])
-    (mkShortCommand "yqPM" [ "yq" "--prettyPrint" "--no-colors" ])
-    (mkShortCommand "yqMP" [ "yq" "--no-colors" "--prettyPrint" ])
-    (mkShortCommand "yqM" [ "yq" "--no-colors" ])
-
     # systemctl
     (mkShortCommand "scs" [ "systemctl" "status" ])
     (mkShortCommand "sclt" [ "systemctl" "list-timers" ])
@@ -157,5 +150,13 @@ with import ../lib { inherit pkgs; }; {
     (mkShortCommand "bcuc" [ "busctl" "--user" "call" ])
     (mkShortCommand "bcui" [ "busctl" "--user" "introspect" ])
 
+    # misc
+    (mkShortCommand "jqM" [ "jq" "--monochrome-output" ])
+    (mkShortCommand "yqP" [ "yq" "--prettyPrint" ])
+    (mkShortCommand "yqPM" [ "yq" "--prettyPrint" "--no-colors" ])
+    (mkShortCommand "yqMP" [ "yq" "--no-colors" "--prettyPrint" ])
+    (mkShortCommand "yqM" [ "yq" "--no-colors" ])
+    (mkShortCommand "cpa" [ "cp" "--archive" ])
+    (mkShortCommand "rmf" [ "rm" "--force" ])
   ];
 }

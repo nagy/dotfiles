@@ -286,7 +286,6 @@ with pkgs.lib; {
     file
     fd
     ripgrep
-    ncdu_1
     lsof
     tokei
     unzip
@@ -296,13 +295,17 @@ with pkgs.lib; {
     usbutils
     sqlite
 
+    # ncdu_1
+    # need to rebuild because of broken zig
+    (ncdu_2.overrideAttrs (old: { pname = old.pname + "-rebuild"; }))
+
     # documentation
     man-pages
     glibcInfo # info files for gnu glibc
 
     # custom tooling
-    (pkgs.writeScriptBin "journal-git-store"
-      (builtins.readFile ../bin/journal-git-store))
+    # (pkgs.writeScriptBin "journal-git-store"
+    #   (builtins.readFile ../bin/journal-git-store))
     (pkgs.writeScriptBin "gitpack" (builtins.readFile ../bin/gitpack))
     nixfmt
     yt-dlp
@@ -363,6 +366,14 @@ with pkgs.lib; {
       };
       n.to = {
         id = "nixpkgs";
+        type = "indirect";
+      };
+      pkgs.to = {
+        id = "nixpkgs";
+        type = "indirect";
+      };
+      HW.to = {
+        id = "nixos-hardware";
         type = "indirect";
       };
       u.to = {
