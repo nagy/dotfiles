@@ -32,7 +32,7 @@ in {
              key <INS> { [ Multi_key, Multi_key, U232F, U223F ] };
              // modifier_map Mod3   { <MENU> };
              modifier_map Mod3   { <RWIN> };
-             key <TAB>  { [ Tab,  ISO_Left_Tab,  U22A3,  U22A2 ] };
+             key <TAB>  { [ Tab,  ISO_Left_Tab,  U22A2,  U22A3 ] };
              // not used on current keyboard
              // key <CAPS> { [ Escape, Escape, 4, 5  ] };
              key <SPCE> { [space, space, circle, U2BBE ] };
@@ -40,8 +40,10 @@ in {
              key <AC11>  { [adiaeresis, Adiaeresis, U2234, U2235 ] };
              key <COPY>  { [ XF86Copy, XF86Copy, U230A, U2308 ] };
              key <PAST>  { [ XF86Paste, XF86Paste, U230B, U2309 ] };
-             key <FK01>  { [F1, F1, U2641, U22CB] };
-             key <FK02>  { [F2, F2, U2609, U22CC] };
+             key <FK01>  { [F1, F1, U2641, U22CC] };
+             key <FK02>  { [F2, F2, U2609, U22CB] };
+             key <FK06>  { [F6, F6, U25FA, U25F8] };
+             key <FK07>  { [F7, F7, U25FF, U25F9] };
           };
         '');
           # ⊼
