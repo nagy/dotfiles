@@ -326,6 +326,8 @@ with pkgs.lib; {
     gh
 
     (terraform.withPlugins (p: with p; [ github vultr ]))
+
+    nix-doc
   ];
 
   environment.variables.LESSHISTFILE = "-";
@@ -334,6 +336,7 @@ with pkgs.lib; {
     extraOptions = ''
       experimental-features = nix-command flakes recursive-nix
       warn-dirty = false
+      plugin-files = ${pkgs.nix-doc}/lib/libnix_doc_plugin.so
     '';
     gc = {
       automatic = true;
