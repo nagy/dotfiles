@@ -318,7 +318,8 @@ with pkgs.lib; {
     (zbar.override { enableVideo = false; })
     shellcheck
     (aspellWithDicts (ps: [ ps.en ]))
-    (lispPackages_new.sbclWithPackages (ps: with ps; [ april serapeum dbus ]))
+    (lispPackages_new.sbclWithPackages
+      (ps: with ps; [ slynk april serapeum dbus ]))
 
     (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
     pinentry
