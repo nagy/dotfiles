@@ -35,7 +35,7 @@ in {
              key <TAB>  { [ Tab,  ISO_Left_Tab,  U22A2,  U22A3 ] };
              // not used on current keyboard
              // key <CAPS> { [ Escape, Escape, 4, 5  ] };
-             key <SPCE> { [space, space, circle, U2BBE ] };
+             key <SPCE> { [space, space, circle, U25A1 ] };
              // this overwrites dead_caron
              key <AC11>  { [adiaeresis, Adiaeresis, U2234, U2235 ] };
              key <COPY>  { [ XF86Copy, XF86Copy, U230A, U2308 ] };
