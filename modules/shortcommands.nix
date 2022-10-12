@@ -42,6 +42,7 @@ with import ../lib { inherit pkgs; }; {
     (mkShortCommand "Fs" [ "nix" "flake" "show" ])
     (mkShortCommand "Fc" [ "nix" "flake" "clone" ])
     (mkShortCommand "Fa" [ "nix" "flake" "archive" ])
+    (mkShortCommand "Faj" [ "nix" "flake" "archive" "--json"])
     (mkShortCommand "Fp" [ "nix" "flake" "prefetch" ])
     (mkShortCommand "Fpj" [ "nix" "flake" "prefetch" "--json" ])
     (mkShortCommand "Fsj" [ "nix" "flake" "show" "--json" ])

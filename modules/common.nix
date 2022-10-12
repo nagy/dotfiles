@@ -81,6 +81,8 @@ with pkgs.lib; {
     };
   };
   environment.variables.HTOPRC = "/etc/htoprc";
+  environment.localBinInPath = true;
+  environment.homeBinInPath = true;
 
   programs.git = {
     enable = true;
@@ -120,6 +122,7 @@ with pkgs.lib; {
         "https://aur.archlinux.org/".insteadOf = "aur:";
         "https://git.sr.ht/".insteadOf = "srht:";
         "https://bitbucket.org/".insteadOf = "bb:";
+        "git@github.com:nagy/".insteadOf = "ghn:";
       };
       tar = {
         "tar.xz".command = "${pkgs.xz}/bin/xz -c";
@@ -270,6 +273,9 @@ with pkgs.lib; {
     jo
     jc
     # comma # somehow not loaded with its db
+    rustc
+    cargo
+    clippy
 
     # network
     dstat
@@ -294,6 +300,12 @@ with pkgs.lib; {
     uhubctl
     usbutils
     sqlite
+    oil
+    nushell
+    wordnet
+
+    black
+    isort
 
     # ncdu_1
     # need to rebuild because of broken zig
@@ -327,8 +339,14 @@ with pkgs.lib; {
     gh
 
     (terraform.withPlugins (p: with p; [ github vultr ]))
+    pyright
+    qemu
+
+    fennel
+    fnlfmt
 
     nix-doc
+    zed
   ];
 
   environment.variables.LESSHISTFILE = "-";
@@ -405,6 +423,27 @@ with pkgs.lib; {
       json2dbus.to = {
         owner = "nagy";
         repo = "json2dbus";
+        type = "github";
+      };
+      NG.to = {
+        id = "nixos-generators";
+        type = "indirect";
+      };
+      # not yet a PR
+      comma.to = {
+        owner = "nix-community";
+        repo = "comma";
+        type = "github";
+      };
+      nixt.to = {
+        owner = "nix-community";
+        repo = "nixt";
+        type = "github";
+      };
+      # until https://github.com/NixOS/flake-registry/pull/33
+      nixos-generators.to = {
+        owner = "nix-community";
+        repo = "nixos-generators";
         type = "github";
       };
       j2d.to = {
