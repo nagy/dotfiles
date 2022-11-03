@@ -29,11 +29,20 @@ with import ../lib { inherit pkgs; }; {
     (mkShortCommand "DC" [ "nix" "develop" "--command" ])
     (mkShortCommand "Pl" [ "nix" "profile" "list" ])
     (mkShortCommand "Pi" [ "nix" "profile" "install" ])
+    (mkShortCommand "Pu" [ "nix" "profile" "upgrade" ])
     (mkShortCommand "NA" [ "nix" "nar" ])
     (mkShortCommand "NAl" [ "nix" "nar" "ls" ])
     (mkShortCommand "NAd" [ "nix" "nar" "dump-path" ])
     (mkShortCommand "NAc" [ "nix" "nar" "cat" ])
     (mkShortCommand "CP" [ "nix" "copy" ])
+    (mkShortCommand "I" [ "nix" "path-info" ])
+    (mkShortCommand "Is" [
+      "nix"
+      "path-info"
+      "--closure-size"
+      "--human-readable"
+    ])
+    (mkShortCommand "Ij" [ "nix" "path-info" "--closure-size" "--json" ])
     (mkShortCommand "Sj" [ "nix" "search" "--json" ])
     (mkShortCommand "Fm" [ "nix" "flake" "metadata" ])
     (mkShortCommand "Fn" [ "nix" "flake" "new" ])
@@ -42,7 +51,7 @@ with import ../lib { inherit pkgs; }; {
     (mkShortCommand "Fs" [ "nix" "flake" "show" ])
     (mkShortCommand "Fc" [ "nix" "flake" "clone" ])
     (mkShortCommand "Fa" [ "nix" "flake" "archive" ])
-    (mkShortCommand "Faj" [ "nix" "flake" "archive" "--json"])
+    (mkShortCommand "Faj" [ "nix" "flake" "archive" "--json" ])
     (mkShortCommand "Fp" [ "nix" "flake" "prefetch" ])
     (mkShortCommand "Fpj" [ "nix" "flake" "prefetch" "--json" ])
     (mkShortCommand "Fsj" [ "nix" "flake" "show" "--json" ])
@@ -142,7 +151,8 @@ with import ../lib { inherit pkgs; }; {
     (mkShortCommand "scjlt" [ "systemctl" "--output=json" "list-timers" ])
     (mkShortCommand "scjls" [ "systemctl" "--output=json" "list-sockets" ])
     # (mkShortCommand "jc" [ "journalctl" ])
-    # (mkShortCommand "jcf" [ "journalctl" "-f" ])
+    (mkShortCommand "jF" [ "journalctl" "-f" ])
+    (mkShortCommand "JJf" [ "journalctl" "-f" ])
     (mkShortCommand "bcj" [ "busctl" "--json" ])
     (mkShortCommand "bcc" [ "busctl" "call" ])
     (mkShortCommand "bci" [ "busctl" "introspect" ])
@@ -152,7 +162,9 @@ with import ../lib { inherit pkgs; }; {
     (mkShortCommand "bcui" [ "busctl" "--user" "introspect" ])
 
     # misc
+    (mkShortCommand "J" [ "jq" "--monochrome-output" ])
     (mkShortCommand "jqM" [ "jq" "--monochrome-output" ])
+    (mkShortCommand "Y" [ "yq" "--prettyPrint" "--no-colors" ])
     (mkShortCommand "yqP" [ "yq" "--prettyPrint" ])
     (mkShortCommand "yqPM" [ "yq" "--prettyPrint" "--no-colors" ])
     (mkShortCommand "yqMP" [ "yq" "--no-colors" "--prettyPrint" ])

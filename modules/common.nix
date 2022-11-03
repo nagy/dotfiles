@@ -217,6 +217,8 @@ with pkgs.lib; {
   services.openssh.knownHosts = {
     "github.com".publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+    "gist.github.com".publicKey =
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
     "gitlab.com".publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfuCHKVTjquxvt6CM6tdG4SLp1Btn/nOeHHE5UOzRdf";
     "git.sr.ht".publicKey =
@@ -264,7 +266,6 @@ with pkgs.lib; {
   environment.systemPackages = with pkgs; [
     # git # already in module
     home-manager
-    screen
     jq
     tig
     yq-go
@@ -296,16 +297,15 @@ with pkgs.lib; {
     tokei
     unzip
     jpegoptim
-    zellij
+    optipng
     uhubctl
     usbutils
     sqlite
     oil
-    nushell
-    wordnet
 
     black
     isort
+    cryptsetup
 
     # ncdu_1
     # need to rebuild because of broken zig
@@ -320,6 +320,7 @@ with pkgs.lib; {
     #   (builtins.readFile ../bin/journal-git-store))
     (pkgs.writeScriptBin "gitpack" (builtins.readFile ../bin/gitpack))
     nixfmt
+    wordnet
     yt-dlp
     nix-update
     nix-prefetch
@@ -327,6 +328,7 @@ with pkgs.lib; {
     qrencode
     restic
     rclone
+    bup
     (zbar.override { enableVideo = false; })
     shellcheck
     (aspellWithDicts (ps: [ ps.en ]))

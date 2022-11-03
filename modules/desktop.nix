@@ -28,16 +28,16 @@ in {
              include "pc"
              include "de"
 
-             key   <UP> { [ Up   , Up    , U21C8 ]};
-             key <LEFT> { [ Left , Left  , U21C7 ]};
-             key <DOWN> { [ Down , Down  , U21CA ]};
-             key <RGHT> { [ Right, Right , U21C9 ]};
+             key <LEFT> { [ Left , Left  , U21C7, U21E0 ]};
+             key   <UP> { [ Up   , Up    , U21C8, U21E1 ]};
+             key <RGHT> { [ Right, Right , U21C9, U21E2 ]};
+             key <DOWN> { [ Down , Down  , U21CA, U21E3 ]};
 
              key <ESC>  { [ Escape, Escape, U25EB, U25A6 ] };
              key <END>  { [ End, End,   U2194, U2195  ] };
              key <MENU> { [ Menu, Menu, U2194, U2195  ] };
-             key <RWIN> { [  Hyper_R, Hyper_R ] };
-             key <INS> { [ Multi_key, Multi_key, U232F, U223F ] };
+             key <RWIN> { [ Hyper_R, Hyper_R ] };
+             key <INS>  { [ Multi_key, Multi_key, U232F, U223F ] };
              // modifier_map Mod3   { <MENU> };
              modifier_map Mod3   { <RWIN> };
              key <TAB>  { [ Tab,  ISO_Left_Tab,  U22A2,  U22A3 ] };
@@ -55,6 +55,7 @@ in {
              key <PAST>  { [ XF86Paste, XF86Paste, U230B, U2309 ] };
              key <FK01>  { [F1,  F1,  U2641, U22CC] };
              key <FK02>  { [F2,  F2,  U2609, U22CB] };
+             key <FK04>  { [F4,  F4,  U2642, U2640] };
              key <FK06>  { [F6,  F6,  U25FA, U25F8] };
              key <FK07>  { [F7,  F7,  U25FF, U25F9] };
              key <FK11>  { [F11, F11, U203D, U2E18] };

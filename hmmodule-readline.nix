@@ -82,7 +82,8 @@
        "\ep\eh": "\C-e --help\C-m"
        "\ep\ev": "\C-e --version\C-m"
        "\ep\ej": "\C-e | jq .\C-m"
-       "\et": "\C-a\C-kcd $(mktemp -d)\C-m"
+       "\eT": "\C-a\C-kcd $(mktemp -d)\C-m"
+       "\et": "\C-a\C-ktree -l\C-m"
 
        # nix stuff
        "\epnhb": "\C-a\C-khome-manager build\C-m"
@@ -133,7 +134,6 @@
        "\eoq": "\C-a\C-ksqlite3 "
        "\eo\es": "\C-a\C-kssh "
        "\eod": "\C-a\C-kmkdir -p "
-       "\ept": "\C-a\C-ktree -l\C-m"
        "\em\em": "\C-a\C-kmake\C-m"
        "\em\eM": "\C-a\C-kmake -B\C-m"
        "\em\ec": "\C-a\C-kmake check VERBOSE=1\C-m"
