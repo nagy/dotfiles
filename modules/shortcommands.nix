@@ -83,6 +83,13 @@ with import ../lib { inherit pkgs; }; {
       "nixpkgs/nixos-unstable"
     ])
 
+    (mkShortCommand "B." [ "nix" "build" "-f" "." ])
+    (mkShortCommand "B.j" [ "nix" "build" "-f" "." "--json" "--no-link" ])
+    (mkShortCommand "R." [ "nix" "run" "-f" "." ])
+    (mkShortCommand "SH." [ "nix" "shell" "-f" "." ])
+    (mkShortCommand "E." [ "nix" "eval" "-f" "." ])
+    (mkShortCommand "E.j" [ "nix" "eval" "-f" "." "--json" ])
+
     # git
     (mkShortCommand "G" [ "git" ])
     (mkShortCommand "Gcl" [ "git" "clone" ])
@@ -171,5 +178,7 @@ with import ../lib { inherit pkgs; }; {
     (mkShortCommand "yqM" [ "yq" "--no-colors" ])
     (mkShortCommand "cpa" [ "cp" "--archive" ])
     (mkShortCommand "rmf" [ "rm" "--force" ])
+    (mkShortCommand "I4" [ "ip" "-4" ])
+    (mkShortCommand "I6" [ "ip" "-6" ])
   ];
 }
