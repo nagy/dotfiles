@@ -171,12 +171,6 @@ with pkgs.lib; {
         };
       };
     };
-    package = (import (pkgs.fetchFromGitHub {
-      owner = "NixOS";
-      repo = "nixpkgs";
-      rev = "4c8a0827f1ab9608134e24c507531aedeb745372";
-      hash = "sha256-wUdgjqRl3IXonJp6GXOZZDoJc62ZZYkT+WDxXcFbqHs=";
-    }) { inherit (pkgs) system; }).git;
   };
 
   environment.shellAliases = {
