@@ -2,6 +2,7 @@
 
 let
   customEmacsPackages = pkgs.emacsPackagesFor config.services.emacs.package;
+  nagy = customEmacsPackages.callPackage ../emacs { };
   emacsAndPackages = customEmacsPackages.withPackages (epkgs:
     (with epkgs;
       with epkgs.melpaPackages; [
@@ -9,6 +10,7 @@ let
         pdf-tools
         # org-pdftools
         pass
+        nagy
       ]));
 in {
   environment.systemPackages = [
