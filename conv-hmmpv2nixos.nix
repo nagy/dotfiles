@@ -1,6 +1,8 @@
 # A function to convert an evaluated home-manager config of mpv
 # to a compatible nixos module
-pkgs: hmconfig: {
+{ pkgs, evalhmmodule }:
+
+{ hmmodule,  hmconfig ? evalhmmodule hmmodule }: {
   # write the config files from  ~/.config/mpv into /etc
   environment.etc."mpv/input.conf".text =
     pkgs.lib.mkIf (hmconfig.xdg.configFile ? "mpv/input.conf")

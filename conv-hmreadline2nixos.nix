@@ -3,7 +3,11 @@
 # WARNING:
 #   THE MODULE NEEDS TO HAVE `programs.readline.includeSystemConfig` DISABLED
 #   BEFORE EVALUATION
-pkgs: hmconfig: {
+{ pkgs, evalhmmodule }:
+
+{ hmmodule, hmconfig ? evalhmmodule hmmodule }: {
   # write the config file from ~/.inputrc into /etc
-  environment.etc."inputrc".text = hmconfig.home.file.".inputrc".text;
+  environment.etc."inputrc".text =
+    pkgs.lib.mkIf (hmconfig.home.file ? ".inputrc")
+    hmconfig.home.file.".inputrc".text;
 }

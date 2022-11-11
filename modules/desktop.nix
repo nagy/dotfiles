@@ -83,8 +83,8 @@ in {
     # pkgs.xorg.xmodmap
     pkgs.xclip
   ] ++ [
-    (import ../keyboard { inherit pkgs; }).flasher
-    ((import ../pkg-ala-switchers.nix pkgs) {
+    (pkgs.callPackage ../keyboard { }).flasher
+    (pkgs.callPackage ../pkg-ala-switchers.nix {
       hmmodules = {
         day = import ../hmmodule-alacritty-day.nix;
         night = import ../hmmodule-alacritty-night.nix;

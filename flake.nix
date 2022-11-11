@@ -36,19 +36,31 @@
       };
 
     lib = { pkgs }:
-      ({
+      (rec {
+        evalhmmodule = module:
+          (import ("${pkgs.home-manager.src}" + "/modules") {
+            inherit pkgs;
+            configuration = { ... }: {
+              imports = [ module ];
+              # simulate state version. needed for flake build.
+              home.stateVersion = "21.11";
+              home.username = "user";
+              home.homeDirectory = "/home/user/";
+            };
+          }).config;
+
         hmmodule-mpv = import ./hmmodule-mpv.nix;
         hmmodule-firefox = import ./hmmodule-firefox.nix;
         hmmodule-zathura = import ./hmmodule-zathura.nix;
         hmmodule-readline = import ./hmmodule-readline.nix;
 
-        conv-hmzathura2nixos = import ./conv-hmzathura2nixos.nix pkgs;
-        conv-hmmpv2nixos = import ./conv-hmmpv2nixos.nix pkgs;
-        conv-hmreadline2nixos = import ./conv-hmreadline2nixos.nix pkgs;
+        conv-hmzathura2nixos =
+          import ./conv-hmzathura2nixos.nix { inherit pkgs evalhmmodule; };
+        conv-hmmpv2nixos =
+          import ./conv-hmmpv2nixos.nix { inherit pkgs evalhmmodule; };
+        conv-hmreadline2nixos =
+          import ./conv-hmreadline2nixos.nix { inherit pkgs evalhmmodule; };
 
-        pkg-ala-switchers = import ./pkg-ala-switchers.nix pkgs;
-        pkg-journal-git-store = pkgs.writeScriptBin "journal-git-store"
-          (builtins.readFile ./bin/journal-git-store);
         pkg-journal-file-store = pkgs.writeScriptBin "journal-file-store"
           (builtins.readFile ./bin/journal-file-store);
       } // (import ./lib { inherit pkgs; }));
