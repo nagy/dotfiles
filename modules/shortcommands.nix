@@ -37,6 +37,138 @@ let
     NAd = [ "nix" "nar" "dump-path" ];
     NAc = [ "nix" "nar" "cat" ];
     CP = [ "nix" "copy" ];
+    I = [ "nix" "path-info" ];
+    Is = [ "nix" "path-info" "--closure-size" "--human-readable" ];
+    Ij = [ "nix" "path-info" "--closure-size" "--json" ];
+    Sj = [ "nix" "search" "--json" ];
+    Fm = [ "nix" "flake" "metadata" ];
+    Fn = [ "nix" "flake" "new" ];
+    Fu = [ "nix" "flake" "update" ];
+    Fl = [ "nix" "flake" "lock" ];
+    Fs = [ "nix" "flake" "show" ];
+    Fc = [ "nix" "flake" "clone" ];
+    Fa = [ "nix" "flake" "archive" ];
+    Faj = [ "nix" "flake" "archive" "--json" ];
+    Fp = [ "nix" "flake" "prefetch" ];
+    Fpj = [ "nix" "flake" "prefetch" "--json" ];
+    Fsj = [ "nix" "flake" "show" "--json" ];
+    Fmj = [ "nix" "flake" "metadata" "--json" ];
+    Floin = [
+      "nix"
+      "flake"
+      "lock"
+      "--override-input"
+      "nixpkgs"
+      "nixpkgs/nixos-unstable"
+    ];
+    Floinuin = [
+      "nix"
+      "flake"
+      "lock"
+      "--override-input"
+      "nixpkgs"
+      "nixpkgs/nixos-unstable"
+      "--update-input"
+      "nixpkgs"
+    ];
+    Fuoin = [
+      "nix"
+      "flake"
+      "update"
+      "--override-input"
+      "nixpkgs"
+      "nixpkgs/nixos-unstable"
+    ];
+
+    "B." = [ "nix" "build" "-f" "." ];
+    "B.j" = [ "nix" "build" "-f" "." "--json" "--no-link" ];
+    "R." = [ "nix" "run" "-f" "." ];
+    "SH." = [ "nix" "shell" "-f" "." ];
+    "E." = [ "nix" "eval" "-f" "." ];
+    "E.j" = [ "nix" "eval" "-f" "." "--json" ];
+
+    # git
+    G = [ "git" ];
+    Gcl = [ "git" "clone" ];
+    Gcl1 = [ "git" "clone" "--depth=1" ];
+    Gf = [ "git" "fetch" ];
+    Gfp = [ "git" "fetch" "--prune" ];
+    Gt = [ "git" "tag" ];
+    Gtl = [ "git" "tag" "--list" ];
+    Gts = [ "git" "tags" ];
+    Gp = [ "git" "push" ];
+    Gpf = [ "git" "push" "--force" ];
+    Gpl = [ "git" "pull" ];
+    # docker
+    # (mkShortCommand "dO" [ "docker" ])
+    # (mkShortCommand "dOe" [ "docker" "exec" ])
+    # (mkShortCommand "dOeit" [ "docker" "exec" "-it" ])
+    # (mkShortCommand "dOr" [ "docker" "run" ])
+    # (mkShortCommand "dOc" [ "docker" "container" ])
+    # (mkShortCommand "dOcl" [ "docker" "container" "ls" ])
+    # (mkShortCommand "dOi" [ "docker" "image" ])
+    # (mkShortCommand "dOil" [ "docker" "image" "ls" ])
+    # (mkShortCommand "dOv" [ "docker" "volume" ])
+    # (mkShortCommand "dOvl" [ "docker" "volume" "ls" ])
+    # (mkShortCommand "dOn" [ "docker" "network" ])
+    # (mkShortCommand "dOnl" [ "docker" "network" "ls" ])
+
+    # kubernetes
+    # (mkShortCommand "K" [ "kubectl" ])
+    # (mkShortCommand "Kg" [ "kubectl" "get" ])
+    # (mkShortCommand "Kgp" [ "kubectl" "get" "pod" ])
+    # (mkShortCommand "Kgd" [ "kubectl" "get" "deployment" ])
+    # (mkShortCommand "Kgn" [ "kubectl" "get" "node" ])
+    # (mkShortCommand "Kgpw" [ "kubectl" "get" "pod" "--watch" ])
+    # (mkShortCommand "Kgdw" [ "kubectl" "get" "deployment" "--watch" ])
+    # (mkShortCommand "Kgnw" [ "kubectl" "get" "node" "--watch" ])
+    # (mkShortCommand "Kd" [ "kubectl" "describe" ])
+    # (mkShortCommand "Kdp" [ "kubectl" "describe" "pod" ])
+    # (mkShortCommand "Kdd" [ "kubectl" "describe" "deployment" ])
+    # (mkShortCommand "Kdn" [ "kubectl" "describe" "node" ])
+    # (mkShortCommand "Kc" [ "kubectl" "create" ])
+    # (mkShortCommand "Kcp" [ "kubectl" "create" "pod" ])
+    # (mkShortCommand "Kcd" [ "kubectl" "create" "deployment" ])
+    # (mkShortCommand "Kcj" [ "kubectl" "create" "job" ])
+    # (mkShortCommand "Ke" [ "kubectl" "exec" ])
+    # (mkShortCommand "Keit" [ "kubectl" "exec" "-it" ])
+    # (mkShortCommand "Kl" [ "kubectl" "label" ])
+
+    # npm
+    nPb = [ "npm" "run" "build" ];
+    nPt = [ "npm" "run" "test" ];
+    nPi = [ "npm" "install" ];
+    nPci = [ "npm" "ci" ];
+    nPu = [ "npm" "update" ];
+
+    # systemctl
+    scs = [ "systemctl" "status" ];
+    sclt = [ "systemctl" "list-timers" ];
+    scls = [ "systemctl" "list-sockets" ];
+    scjlt = [ "systemctl" "--output=json" "list-timers" ];
+    scjls = [ "systemctl" "--output=json" "list-sockets" ];
+    jF = [ "journalctl" "-f" ];
+    JJf = [ "journalctl" "-f" ];
+    bcj = [ "busctl" "--json" ];
+    bcc = [ "busctl" "call" ];
+    bci = [ "busctl" "introspect" ];
+    bcu = [ "busctl" "--user" ];
+    bcuj = [ "busctl" "--user" "--json" ];
+    bcuc = [ "busctl" "--user" "call" ];
+    bcui = [ "busctl" "--user" "introspect" ];
+
+    # misc
+    J = [ "jq" "--monochrome-output" ];
+    jqM = [ "jq" "--monochrome-output" ];
+    Y = [ "yq" "--prettyPrint" "--no-colors" ];
+    yqP = [ "yq" "--prettyPrint" ];
+    yqPM = [ "yq" "--prettyPrint" "--no-colors" ];
+    yqMP = [ "yq" "--no-colors" "--prettyPrint" ];
+    yqM = [ "yq" "--no-colors" ];
+    cpa = [ "cp" "--archive" ];
+    rmf = [ "rm" "--force" ];
+    I4 = [ "ip" "-4" ];
+    I6 = [ "ip" "-6" ];
   };
 in with import ../lib { inherit pkgs; }; {
 
@@ -50,155 +182,7 @@ in with import ../lib { inherit pkgs; }; {
   config = {
 
     environment.systemPackages =
-      (lib.mapAttrsToList mkShortCommand defaultShortcommands)
-      ++ (lib.mapAttrsToList mkShortCommand cfg) ++ (with pkgs; [
-        # nix
-        (mkShortCommand "I" [ "nix" "path-info" ])
-        (mkShortCommand "Is" [
-          "nix"
-          "path-info"
-          "--closure-size"
-          "--human-readable"
-        ])
-        (mkShortCommand "Ij" [ "nix" "path-info" "--closure-size" "--json" ])
-        (mkShortCommand "Sj" [ "nix" "search" "--json" ])
-        (mkShortCommand "Fm" [ "nix" "flake" "metadata" ])
-        (mkShortCommand "Fn" [ "nix" "flake" "new" ])
-        (mkShortCommand "Fu" [ "nix" "flake" "update" ])
-        (mkShortCommand "Fl" [ "nix" "flake" "lock" ])
-        (mkShortCommand "Fs" [ "nix" "flake" "show" ])
-        (mkShortCommand "Fc" [ "nix" "flake" "clone" ])
-        (mkShortCommand "Fa" [ "nix" "flake" "archive" ])
-        (mkShortCommand "Faj" [ "nix" "flake" "archive" "--json" ])
-        (mkShortCommand "Fp" [ "nix" "flake" "prefetch" ])
-        (mkShortCommand "Fpj" [ "nix" "flake" "prefetch" "--json" ])
-        (mkShortCommand "Fsj" [ "nix" "flake" "show" "--json" ])
-        (mkShortCommand "Fmj" [ "nix" "flake" "metadata" "--json" ])
-        (mkShortCommand "Floin" [
-          "nix"
-          "flake"
-          "lock"
-          "--override-input"
-          "nixpkgs"
-          "nixpkgs/nixos-unstable"
-        ])
-        (mkShortCommand "Floinuin" [
-          "nix"
-          "flake"
-          "lock"
-          "--override-input"
-          "nixpkgs"
-          "nixpkgs/nixos-unstable"
-          "--update-input"
-          "nixpkgs"
-        ])
-        (mkShortCommand "Fuoin" [
-          "nix"
-          "flake"
-          "update"
-          "--override-input"
-          "nixpkgs"
-          "nixpkgs/nixos-unstable"
-        ])
-
-        (mkShortCommand "B." [ "nix" "build" "-f" "." ])
-        (mkShortCommand "B.j" [ "nix" "build" "-f" "." "--json" "--no-link" ])
-        (mkShortCommand "R." [ "nix" "run" "-f" "." ])
-        (mkShortCommand "SH." [ "nix" "shell" "-f" "." ])
-        (mkShortCommand "E." [ "nix" "eval" "-f" "." ])
-        (mkShortCommand "E.j" [ "nix" "eval" "-f" "." "--json" ])
-
-        # git
-        (mkShortCommand "G" [ "git" ])
-        (mkShortCommand "Gcl" [ "git" "clone" ])
-        (mkShortCommand "Gcl1" [ "git" "clone" "--depth=1" ])
-        (mkShortCommand "Gf" [ "git" "fetch" ])
-        (mkShortCommand "Gfp" [ "git" "fetch" "--prune" ])
-        (mkShortCommand "Gt" [ "git" "tag" ])
-        (mkShortCommand "Gtl" [ "git" "tag" "--list" ])
-        (mkShortCommand "Gts" [ "git" "tags" ])
-        (mkShortCommand "Gp" [ "git" "push" ])
-        (mkShortCommand "Gpf" [ "git" "push" "--force" ])
-        (mkShortCommand "Gpl" [ "git" "pull" ])
-
-        # home-manager
-        # (mkShortCommand "HM" [ "home-manager" ])
-        # (mkShortCommand "HMb" [ "home-manager" "build" ])
-        # (mkShortCommand "HMs" [ "home-manager" "switch" ])
-        # (mkShortCommand "HMi" [ "home-manager" "instantiate" ])
-
-        # docker
-        # (mkShortCommand "dO" [ "docker" ])
-        # (mkShortCommand "dOe" [ "docker" "exec" ])
-        # (mkShortCommand "dOeit" [ "docker" "exec" "-it" ])
-        # (mkShortCommand "dOr" [ "docker" "run" ])
-        # (mkShortCommand "dOc" [ "docker" "container" ])
-        # (mkShortCommand "dOcl" [ "docker" "container" "ls" ])
-        # (mkShortCommand "dOi" [ "docker" "image" ])
-        # (mkShortCommand "dOil" [ "docker" "image" "ls" ])
-        # (mkShortCommand "dOv" [ "docker" "volume" ])
-        # (mkShortCommand "dOvl" [ "docker" "volume" "ls" ])
-        # (mkShortCommand "dOn" [ "docker" "network" ])
-        # (mkShortCommand "dOnl" [ "docker" "network" "ls" ])
-
-        # kubernetes
-        # (mkShortCommand "K" [ "kubectl" ])
-        # (mkShortCommand "Kg" [ "kubectl" "get" ])
-        # (mkShortCommand "Kgp" [ "kubectl" "get" "pod" ])
-        # (mkShortCommand "Kgd" [ "kubectl" "get" "deployment" ])
-        # (mkShortCommand "Kgn" [ "kubectl" "get" "node" ])
-        # (mkShortCommand "Kgpw" [ "kubectl" "get" "pod" "--watch" ])
-        # (mkShortCommand "Kgdw" [ "kubectl" "get" "deployment" "--watch" ])
-        # (mkShortCommand "Kgnw" [ "kubectl" "get" "node" "--watch" ])
-        # (mkShortCommand "Kd" [ "kubectl" "describe" ])
-        # (mkShortCommand "Kdp" [ "kubectl" "describe" "pod" ])
-        # (mkShortCommand "Kdd" [ "kubectl" "describe" "deployment" ])
-        # (mkShortCommand "Kdn" [ "kubectl" "describe" "node" ])
-        # (mkShortCommand "Kc" [ "kubectl" "create" ])
-        # (mkShortCommand "Kcp" [ "kubectl" "create" "pod" ])
-        # (mkShortCommand "Kcd" [ "kubectl" "create" "deployment" ])
-        # (mkShortCommand "Kcj" [ "kubectl" "create" "job" ])
-        # (mkShortCommand "Ke" [ "kubectl" "exec" ])
-        # (mkShortCommand "Keit" [ "kubectl" "exec" "-it" ])
-        # (mkShortCommand "Kl" [ "kubectl" "label" ])
-
-        # npm
-        (mkShortCommand "nPb" [ "npm" "run" "build" ])
-        (mkShortCommand "nPt" [ "npm" "run" "test" ])
-        (mkShortCommand "nPi" [ "npm" "install" ])
-        (mkShortCommand "nPci" [ "npm" "ci" ])
-        (mkShortCommand "nPu" [ "npm" "update" ])
-
-        # systemctl
-        (mkShortCommand "scs" [ "systemctl" "status" ])
-        (mkShortCommand "sclt" [ "systemctl" "list-timers" ])
-        (mkShortCommand "scls" [ "systemctl" "list-sockets" ])
-        (mkShortCommand "scjlt" [ "systemctl" "--output=json" "list-timers" ])
-        (mkShortCommand "scjls" [ "systemctl" "--output=json" "list-sockets" ])
-        # (mkShortCommand "jc" [ "journalctl" ])
-        (mkShortCommand "jF" [ "journalctl" "-f" ])
-        (mkShortCommand "JJf" [ "journalctl" "-f" ])
-        (mkShortCommand "bcj" [ "busctl" "--json" ])
-        (mkShortCommand "bcc" [ "busctl" "call" ])
-        (mkShortCommand "bci" [ "busctl" "introspect" ])
-        (mkShortCommand "bcu" [ "busctl" "--user" ])
-        (mkShortCommand "bcuj" [ "busctl" "--user" "--json" ])
-        (mkShortCommand "bcuc" [ "busctl" "--user" "call" ])
-        (mkShortCommand "bcui" [ "busctl" "--user" "introspect" ])
-
-        # misc
-        (mkShortCommand "J" [ "jq" "--monochrome-output" ])
-        (mkShortCommand "jqM" [ "jq" "--monochrome-output" ])
-        (mkShortCommand "Y" [ "yq" "--prettyPrint" "--no-colors" ])
-        (mkShortCommand "yqP" [ "yq" "--prettyPrint" ])
-        (mkShortCommand "yqPM" [ "yq" "--prettyPrint" "--no-colors" ])
-        (mkShortCommand "yqMP" [ "yq" "--no-colors" "--prettyPrint" ])
-        (mkShortCommand "yqM" [ "yq" "--no-colors" ])
-        (mkShortCommand "cpa" [ "cp" "--archive" ])
-        (mkShortCommand "rmf" [ "rm" "--force" ])
-        (mkShortCommand "I4" [ "ip" "-4" ])
-        (mkShortCommand "I6" [ "ip" "-6" ])
-      ]);
+      lib.mapAttrsToList mkShortCommand (defaultShortcommands // cfg);
 
   };
 
