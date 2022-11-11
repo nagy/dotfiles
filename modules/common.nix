@@ -259,7 +259,7 @@ with pkgs.lib; {
 
   environment.systemPackages = with pkgs; [
     # git # already in module
-    home-manager
+    # home-manager
     jq
     tig
     yq-go

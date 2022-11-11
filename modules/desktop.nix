@@ -71,7 +71,36 @@ in {
     excludePackages = [ pkgs.xterm ];
   };
 
+  environment.extraOutputsToInstall =
+    [ "dev" "bin" "info" "man" "devdoc" "out" "lib" ];
+
+  services.udisks2.enable = true;
+
   users.users.user.extraGroups = [ "video" "render" ];
+
+  environment.etc."X11/xinit/xinitrc".text = ''
+    set -euxo pipefail
+    xset r rate 260 40
+    ${pkgs.xorg.xhost}/bin/xhost +
+    xsetroot -cursor_name left_ptr # make default cursor not cross
+    # xrandr --output DisplayPort-0 --left-of DisplayPort-1
+    [[ -f /etc/X11/Xresources ]] && xrdb /etc/X11/Xresources
+    ${pkgs.unclutter-xfixes}/bin/unclutter &
+    if [[ "$(tty)" == /dev/tty1 ]]; then
+      WM=emacs exec emacs
+    fi
+    ${pkgs.sxhkd}/bin/sxhkd &
+    exec ${pkgs.bspwm}/bin/bspwm
+  '';
+
+  environment.etc."X11/Xresources".text = ''
+    *.font: Iosevka Comfy:size=12
+    *.background: #000000
+    *.foreground: #ffffff
+    Xcursor.size: 48
+    Xcursor.theme: whiteglass
+    Xft.dpi: 192   # for firefox
+  '';
 
   environment.systemPackages = [
     pkgs.xorg.xcursorthemes
@@ -82,6 +111,20 @@ in {
     # pkgs.gimp
     # pkgs.xorg.xmodmap
     pkgs.xclip
+
+    pkgs.firefox
+    pkgs.brave
+    pkgs.tor-browser-bundle-bin
+    pkgs.bspwm
+    pkgs.sxhkd
+    pkgs.pulsemixer
+    pkgs.pulseaudio # for pactl
+    pkgs.poppler_utils # pdf utils
+    (pkgs.gnupg.override { guiSupport = false; })
+
+    # for container
+    pkgs.binutils
+    pkgs.util-linux
   ] ++ [
     (pkgs.callPackage ../keyboard { }).flasher
     (pkgs.callPackage ../pkg-ala-switchers.nix {
