@@ -1,0 +1,27 @@
+{
+  "nodes": {
+    "nixpkgs-iosevka-comfy-040": {
+      "locked": {
+        "lastModified": 1663338016,
+        "narHash": "sha256-jtcOGOfpRzVacU1aMNcoXaakCmAWJGlzYnA3wihbu9w=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "bef209dc55a6b760b95ef7c08486a574fbd0cdd9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "bef209dc55a6b760b95ef7c08486a574fbd0cdd9",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs-iosevka-comfy-040": "nixpkgs-iosevka-comfy-040"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

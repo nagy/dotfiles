@@ -1,5 +1,12 @@
 {
-  outputs = { self }: {
+
+  # pre merge of https://github.com/NixOS/nixpkgs/pull/191459
+  # because line-height is too high with newest version
+  # https://protesilaos.com/codelog/2022-09-14-iosevka-comfy-1-0-0/
+  inputs.nixpkgs-iosevka-comfy-040.url =
+    "github:NixOS/nixpkgs?rev=bef209dc55a6b760b95ef7c08486a574fbd0cdd9";
+
+  outputs = { self, nixpkgs-iosevka-comfy-040 }: {
 
     nixosModules = with builtins;
       let
@@ -23,7 +30,10 @@
           value = import (./modules + "/${it}");
         }) fileNames;
         modules = listToAttrs preAttrList;
-      in modules;
+      in modules // {
+        # hack, to pass in the input argument
+        fonts = import ./modules/fonts.nix nixpkgs-iosevka-comfy-040;
+      };
 
     lib = { pkgs }:
       ({
