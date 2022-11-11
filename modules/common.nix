@@ -326,14 +326,32 @@ with pkgs.lib; {
     (zbar.override { enableVideo = false; })
     shellcheck
     (aspellWithDicts (ps: [ ps.en ]))
-    (lispPackages_new.sbclWithPackages
-      (ps: with ps; [ slynk april serapeum dbus ]))
+    (lispPackages_new.sbclWithPackages (ps:
+      with ps; [
+        (slynk.overrideLispAttrs (o: {
+          systems = o.systems ++ [
+            "slynk/mrepl"
+            "slynk/indentation"
+            "slynk/stickers"
+            "slynk/trace-dialog"
+            "slynk/package-fu"
+            "slynk/fancy-inspector"
+            "slynk/arglists"
+            "slynk/profiler"
+            "slynk/retro"
+          ];
+        }))
+        april
+        serapeum
+        dbus
+      ]))
 
     (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
     pinentry
     (gnupg.override { guiSupport = false; })
     gh
 
+    (hy.withPackages (ps: with ps; [ hyrule addict ]))
     (terraform.withPlugins (p: with p; [ github vultr ]))
     pyright
     qemu
@@ -344,6 +362,16 @@ with pkgs.lib; {
     nix-doc
     zed
   ];
+
+  # boot.binfmt.emulatedSystems = [
+  #   "wasm32-wasi"
+  # ];
+
+  boot.binfmt.registrations.oil = {
+    recognitionType = "extension";
+    magicOrExtension = "oil";
+    interpreter = pkgs.lib.getExe pkgs.oil;
+  };
 
   environment.variables.LESSHISTFILE = "-";
 
@@ -474,6 +502,11 @@ with pkgs.lib; {
       blobber.to = {
         owner = "nagy";
         repo = "blobber";
+        type = "github";
+      };
+      microvm.to = {
+        owner = "astro";
+        repo = "microvm.nix";
         type = "github";
       };
     };

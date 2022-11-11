@@ -21,7 +21,7 @@ in pkgs.symlinkJoin {
   name = "ala-switchers";
   paths = [
     # TODO replace with makeWrapper
-    (pkgs.writeShellScriptBin "ala" ''
+    (pkgs.writeShellScriptBin "alacritty" ''
       exec ${alacritty}/bin/alacritty --option live_config_reload=true --config-file ${alacrittyLiveConfigPath} "$@"'')
-  ] ++ lib.mapAttrsToList mkAlacrittySwitcher hmmodules;
+  ] ++ (lib.mapAttrsToList mkAlacrittySwitcher hmmodules ) ++ [ alacritty ];
 }

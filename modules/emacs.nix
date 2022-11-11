@@ -7,7 +7,7 @@ let
     (with epkgs;
       with epkgs.melpaPackages; [
         vterm
-        pdf-tools
+        # pdf-tools
         # org-pdftools
         pass
         nagy
