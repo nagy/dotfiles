@@ -34,6 +34,11 @@ in {
              key <RGHT> { [ Right, Right , U21C9, U21E2 ]};
              key <DOWN> { [ Down , Down  , U21CA, U21E3 ]};
 
+             key <PAUS> {
+                    type= "FOUR_LEVEL",
+                    symbols[Group1]= [ Pause, U23E3, U23E2, U25EB ]
+             };
+
              key <ESC>  { [ Escape, Escape, U25EB, U25A6 ] };
              key <END>  { [ End, End,   U2194, U2195  ] };
              key <MENU> { [ Menu, Menu, U2194, U2195  ] };

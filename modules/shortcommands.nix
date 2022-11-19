@@ -137,6 +137,7 @@ let
     # npm
     nPb = [ "npm" "run" "build" ];
     nPt = [ "npm" "run" "test" ];
+    nPs = [ "npm" "run" "start" ];
     nPi = [ "npm" "install" ];
     nPci = [ "npm" "ci" ];
     nPu = [ "npm" "update" ];
@@ -160,6 +161,7 @@ let
     # misc
     J = [ "jq" "--monochrome-output" ];
     jqM = [ "jq" "--monochrome-output" ];
+    Jr = [ "jq" "--monochrome-output" "--raw-output" ];
     Y = [ "yq" "--prettyPrint" "--no-colors" ];
     yqP = [ "yq" "--prettyPrint" ];
     yqPM = [ "yq" "--prettyPrint" "--no-colors" ];
@@ -167,8 +169,11 @@ let
     yqM = [ "yq" "--no-colors" ];
     cpa = [ "cp" "--archive" ];
     rmf = [ "rm" "--force" ];
-    I4 = [ "ip" "-4" ];
-    I6 = [ "ip" "-6" ];
+    i4 = [ "ip" "-4" ];
+    i6 = [ "ip" "-6" ];
+    ij = [ "ip" "--json" ];
+    i4j = [ "ip" "-4" "--json" ];
+    i6j = [ "ip" "-6" "--json" ];
   };
 in with import ../lib { inherit pkgs; }; {
 
@@ -176,6 +181,7 @@ in with import ../lib { inherit pkgs; }; {
     nagy.shortcommands = mkOption {
       type = types.attrsOf (types.listOf types.str);
       default = { };
+      description = "shortcommands";
     };
   };
 
