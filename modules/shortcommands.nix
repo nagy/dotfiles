@@ -175,7 +175,7 @@ let
     i4j = [ "ip" "-4" "--json" ];
     i6j = [ "ip" "-6" "--json" ];
   };
-in with import ../lib { inherit pkgs; }; {
+in with import ../lib pkgs; {
 
   options = {
     nagy.shortcommands = mkOption {

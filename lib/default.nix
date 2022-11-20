@@ -1,9 +1,9 @@
-{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib }:
+pkgs:
 
-with lib; rec {
+with pkgs.lib; rec {
 
   mapNumToString = num:
-    builtins.elemAt (splitString "" "abcdefghijklmnopqrstuvwxyz") num;
+    elemAt (splitString "" "abcdefghijklmnopqrstuvwxyz") num;
 
   mapStringToNum = str:
     let
@@ -18,7 +18,7 @@ with lib; rec {
       underscored = concatStringsSep "_" list;
       # TODO This should be wrapped in quotes
       spaced = concatStringsSep " " list;
-      len_minus_1 = (builtins.length list) - 1;
+      len_minus_1 = (length list) - 1;
     in (pkgs.writeTextDir "share/bash-completion/completions/${cmd}" ''
       function _complete_shortcommand_${underscored} {
         local __COMPS
@@ -43,7 +43,7 @@ with lib; rec {
   mkShortCommandScript = cmd: list:
     let
       # FIXME This should be surrounded by quotes
-      spaced = lib.concatStringsSep " " list;
+      spaced = concatStringsSep " " list;
     in (pkgs.writeShellScriptBin cmd ''exec ${spaced} "$@"'');
 
   mkShortCommand = cmd: list:
@@ -123,8 +123,8 @@ with lib; rec {
   mkMbsyncFetcher = { email, hostextra ? "", tls1dot ? 3, package ? pkgs.isync
     , configHead ? null }:
     let
-      # emailuser = builtins.elemAt (lib.splitString "@" email) 0;
-      emailhost = builtins.elemAt (lib.splitString "@" email) 1;
+      # emailuser = elemAt (splitString "@" email) 0;
+      emailhost = elemAt (splitString "@" email) 1;
       name = emailhost;
       configHeadLet = (if configHead == null then ''
         Host ${hostextra}${emailhost}
@@ -180,7 +180,7 @@ with lib; rec {
 
   mkGitMirror = url:
     pkgs.runCommandLocal "git-mirror" {
-      nativeBuildInputs = [ pkgs.git pkgs.cacert ];
+      nativeBuildInputs = with pkgs; [ git cacert ];
       inherit url;
       # to prevent junk
       GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;

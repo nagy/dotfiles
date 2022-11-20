@@ -6,12 +6,15 @@
     enable = true;
     scripts = [ pkgs.mpvScripts.mpris ];
     config = {
+      # audio
       mute = "yes";
-      cache-secs = "60";
+      ao = "pulse";
       # this gives better audio quality when speeding up a video
       af = "rubberband";
       # dont show album covers when they are embedded in music files
       audio-display = "no";
+
+      cache-secs = "60";
       sub-auto = "fuzzy";
       sid = "auto";
       ytdl-raw-options =

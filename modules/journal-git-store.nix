@@ -1,6 +1,6 @@
 { pkgs, lib, dot, ... }:
 
-with pkgs.callPackage dot.outputs.lib { }; {
+with dot.outputs.lib pkgs; {
   systemd.services.journal-logger = {
     description = "Logs the journal";
     requires = [ "network-online.target" ];

@@ -1,15 +1,18 @@
 # A function to convert an evaluated home-manager config of mpv
 # to a compatible nixos module
-{ pkgs, evalhmmodule }:
+evalhmmodule: hmmodule:
 
-{ hmmodule,  hmconfig ? evalhmmodule hmmodule }: {
+{ pkgs, lib, config, ... }:
+let hmconfig = evalhmmodule hmmodule pkgs;
+in with lib; {
   # write the config files from  ~/.config/mpv into /etc
-  environment.etc."mpv/input.conf".text =
-    pkgs.lib.mkIf (hmconfig.xdg.configFile ? "mpv/input.conf")
-    hmconfig.xdg.configFile."mpv/input.conf".text;
-  environment.etc."mpv/mpv.conf".text =
-    pkgs.lib.mkIf (hmconfig.xdg.configFile ? "mpv/mpv.conf")
-    hmconfig.xdg.configFile."mpv/mpv.conf".text;
-  environment.systemPackages = [ hmconfig.programs.mpv.package ];
-  environment.variables.MPV_HOME = "/etc/mpv";
+  environment = mkIf config.services.xserver.enable {
+    etc."mpv/input.conf".text =
+      mkIf (hmconfig.xdg.configFile ? "mpv/input.conf")
+      hmconfig.xdg.configFile."mpv/input.conf".text;
+    etc."mpv/mpv.conf".text = mkIf (hmconfig.xdg.configFile ? "mpv/mpv.conf")
+      hmconfig.xdg.configFile."mpv/mpv.conf".text;
+    systemPackages = [ hmconfig.programs.mpv.package ];
+    variables.MPV_HOME = "/etc/mpv";
+  };
 }

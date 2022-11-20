@@ -6,25 +6,14 @@
   inputs.nixpkgs-iosevka-comfy-040.url =
     "github:NixOS/nixpkgs?rev=bef209dc55a6b760b95ef7c08486a574fbd0cdd9";
 
-  outputs = { self, nixpkgs-iosevka-comfy-040 }: {
+  outputs = { self, nixpkgs-iosevka-comfy-040 }: rec {
 
     nixosModules = with builtins;
+      with nixpkgs-iosevka-comfy-040.lib;
       let
-        # copied from nixpkgs lib.nix
-        lib = {
-          removeSuffix = suffix: str:
-            let
-              sufLen = stringLength suffix;
-              sLen = stringLength str;
-            in if sufLen <= sLen && suffix
-            == substring (sLen - sufLen) sufLen str then
-              substring 0 (sLen - sufLen) str
-            else
-              str;
-        };
         files = readDir ./modules;
         fileNames = attrNames files;
-        nameFunc = filename: lib.removeSuffix ".nix" filename;
+        nameFunc = filename: removeSuffix ".nix" filename;
         preAttrList = map (it: {
           name = nameFunc it;
           value = import (./modules + "/${it}");
@@ -33,11 +22,23 @@
       in modules // {
         # hack, to pass in the input argument
         fonts = import ./modules/fonts.nix nixpkgs-iosevka-comfy-040;
+        converted-hmmpv = let dotlib = lib;
+        in { pkgs, lib, config, ... }:
+        with dotlib pkgs;
+        (conv-hmmpv2nixos hmmodule-mpv) { inherit pkgs lib config; };
+        converted-hmzathura = let dotlib = lib;
+        in { pkgs, lib, config, ... }:
+        with dotlib pkgs;
+        (conv-hmzathura2nixos hmmodule-zathura) { inherit pkgs lib config; };
+        converted-hmreadline = let dotlib = lib;
+        in { pkgs, lib, config, ... }:
+        with dotlib pkgs;
+        (conv-hmreadline2nixos hmmodule-readline) { inherit pkgs lib config; };
       };
 
-    lib = { pkgs }:
+    lib = pkgs:
       (rec {
-        evalhmmodule = module:
+        evalhmmodule = module: pkgs:
           (import ("${pkgs.home-manager.src}" + "/modules") {
             inherit pkgs;
             configuration = { ... }: {
@@ -54,16 +55,13 @@
         hmmodule-zathura = import ./hmmodule-zathura.nix;
         hmmodule-readline = import ./hmmodule-readline.nix;
 
-        conv-hmzathura2nixos =
-          import ./conv-hmzathura2nixos.nix { inherit pkgs evalhmmodule; };
-        conv-hmmpv2nixos =
-          import ./conv-hmmpv2nixos.nix { inherit pkgs evalhmmodule; };
-        conv-hmreadline2nixos =
-          import ./conv-hmreadline2nixos.nix { inherit pkgs evalhmmodule; };
+        conv-hmzathura2nixos = import ./conv-hmzathura2nixos.nix evalhmmodule;
+        conv-hmmpv2nixos = import ./conv-hmmpv2nixos.nix evalhmmodule;
+        conv-hmreadline2nixos = import ./conv-hmreadline2nixos.nix evalhmmodule;
 
         pkg-journal-file-store = pkgs.writeScriptBin "journal-file-store"
           (builtins.readFile ./bin/journal-file-store);
-      } // (import ./lib { inherit pkgs; }));
+      } // (import ./lib pkgs));
 
   };
 }
