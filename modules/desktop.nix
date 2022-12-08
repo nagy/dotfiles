@@ -35,8 +35,8 @@ in {
              key <DOWN> { [ Down , Down  , U21CA, U21E3 ]};
 
              key <PAUS> {
-                    type= "FOUR_LEVEL",
-                    symbols[Group1]= [ Pause, U23E3, U23E2, U25EB ]
+                    type = "FOUR_LEVEL",
+                    symbols[Group1] = [ Pause, U23E3, U23E2, U25EB ]
              };
 
              key <ESC>  { [ Escape, Escape, U25EB, U25A6 ] };
@@ -62,6 +62,7 @@ in {
              key <FK01>  { [F1,  F1,  U2641, U22CC] };
              key <FK02>  { [F2,  F2,  U2609, U22CB] };
              key <FK04>  { [F4,  F4,  U2642, U2640] };
+             key <FK05>  { [F5,  F5,  U25B1, U25B0] };
              key <FK06>  { [F6,  F6,  U25FA, U25F8] };
              key <FK07>  { [F7,  F7,  U25FF, U25F9] };
              key <FK11>  { [F11, F11, U203D, U2E18] };

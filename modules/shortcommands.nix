@@ -18,9 +18,9 @@ let
     H = [ "nix" "hash" ];
     run = [ "nix" "run" ];
     flake = [ "nix" "flake" ];
-    BL = [ "nix" "build" "--print-build-logs" ];
-    RL = [ "nix" "run" "--print-build-logs" ];
-    DL = [ "nix" "develop" "--print-build-logs" ];
+    BL = [ "nix" "build" "--print-build-logs" "-j" "1" ];
+    RL = [ "nix" "run" "--print-build-logs" "-j" "1" ];
+    DL = [ "nix" "develop" "--print-build-logs" "-j" "1" ];
     Ej = [ "nix" "eval" "--json" ];
     Er = [ "nix" "eval" "--raw" ];
     Bj = [ "nix" "build" "--json" "--no-link" ];
@@ -79,6 +79,12 @@ let
       "nixpkgs"
       "nixpkgs/nixos-unstable"
     ];
+
+    "Rø" = [ "nix" "run" "--override-input" "nixpkgs" "nixpkgs" ];
+    "Bø" = [ "nix" "build" "--override-input" "nixpkgs" "nixpkgs" ];
+    "Dø" = [ "nix" "develop" "--override-input" "nixpkgs" "nixpkgs" ];
+    "Fsø" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "nixpkgs" ];
+    "Fmø" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "nixpkgs" ];
 
     "B." = [ "nix" "build" "-f" "." ];
     "B.j" = [ "nix" "build" "-f" "." "--json" "--no-link" ];

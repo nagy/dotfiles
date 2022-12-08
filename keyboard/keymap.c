@@ -11,6 +11,8 @@ enum custom_layers {
 
 #define RAISE LT(_RAISE, KC_COPY)
 #define LOWER LT(_LOWER, KC_PASTE)
+#define SPC_C LCTL_T(KC_SPC)
+// #define SPC_S LSFT_T(KC_SPC)
 #define SPC_L LGUI_T(KC_SPC)
 #define SPC_R RGUI_T(KC_SPC)
 
@@ -22,17 +24,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_A  , KC_S  , KC_D  , KC_F  , KC_G  ,                         KC_H  , KC_J  , KC_K  , KC_L  ,KC_SCLN,SFT_T(KC_QUOT),
         KC_LCTL, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,                         KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_LBRC,CTL_T(KC_BSLASH),
                          KC_NUBS,LCAG_T(KC_INS),                                                KC_RBRC, KC_SLSH,
-                                         RAISE , KC_SPC,                         KC_SPC,  LOWER,
+                                         RAISE , SPC_C,                          KC_SPC,  LOWER,
                                          LALT_T(KC_WBAK), SPC_L,                  SPC_R, RALT_T(KC_WFWD),
                                          KC_BSPC, LALT_T(KC_TAB),        RALT_T(KC_ENT), KC_ESC
     ),
 
     [_LOWER] = LAYOUT_6x6(
         KC_F13 , KC_F14, KC_F15, KC_F16, KC_F17, KC_F18,                        KC_F19 , KC_F20, KC_F21,KC_F22 ,KC_F23 ,KC_F24,
-        KC_GRV, KC_LNG1,KC_LNG2,KC_LNG3,KC_LNG4,_______,                        _______,_______,_______,_______,KC_PAST,_______,
+        KC_GRV, KC_WFAV,KC_WREF,KC_MFFD,KC_MSEL,_______,                        KC_LNG1,KC_LNG2,KC_LNG3,KC_LNG4,KC_PAST,_______,
         _______,_______,_______,_______,_______,_______,                        _______, KC_P7 , KC_P8 , KC_P9 ,KC_PMNS,_______,
         _______,KC_HOME,KC_PGUP,KC_PGDN,KC_END ,KC_APP,                         _______, KC_P4 , KC_P5 , KC_P6 ,KC_PPLS,_______,
-        _______,_______,_______,_______,_______,_______,                        _______, KC_P1 , KC_P2 , KC_P3 ,KC_PENT,_______,
+        _______,KC_WREF,KC_WBAK,KC_WFWD,KC_WHOM,KC_WSCH,                        _______, KC_P1 , KC_P2 , KC_P3 ,KC_PENT,_______,
                         KC_PAUS,KC_PSCR,                                                         KC_P0 ,KC_PDOT,
                                                KC_FIND,KC_CALC,            KC_MYCM,_______,
                                                KC_AGIN,_______,            _______,_______,
@@ -41,10 +43,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_RAISE] = LAYOUT_6x6(
         KC_F13 , KC_F14, KC_F15, KC_F16, KC_F17, KC_F18,                        KC_F19 , KC_F20, KC_F21,KC_F22 ,KC_F23 ,KC_F24,
-        QK_BOOT,_______,_______,_______,_______,_______,                        _______,_______,KC_NLCK,_______,KC_SLCK,KC_MUTE,
-        KC_WAKE,_______,_______,_______,_______,_______,                        _______,KC_MPRV,KC_MPLY,KC_MNXT,_______,KC_VOLU,
-        _______,KC_LEFT,KC_UP  ,KC_DOWN,KC_RGHT,_______,                        _______,_______,KC_MS_UP,_______,_______,KC_VOLD,
-        _______,_______,_______,_______,_______,_______,                        _______,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,_______,_______,
+        QK_BOOT,_______,_______,_______,_______,_______,                        KC_LNG1,_______,KC_NLCK,_______,KC_SLCK,KC_MUTE,
+        KC_WAKE,_______,_______,_______,_______,_______,                        KC_LNG2,KC_MPRV,KC_MPLY,KC_MNXT,_______,KC_VOLU,
+        _______,KC_LEFT,KC_UP  ,KC_DOWN,KC_RGHT,_______,                        KC_LNG3,_______,KC_MS_UP,_______,_______,KC_VOLD,
+        _______,_______,_______,_______,_______,_______,                        KC_LNG4,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,_______,_______,
                         _______,_______,                                                        KC_EQL ,KC_MAIL,
                                                 _______,KC_CUT,          KC_MS_BTN1,KC_MS_BTN2,
                                                 _______,_______,            _______,KC_CNCL,

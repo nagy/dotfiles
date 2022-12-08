@@ -100,9 +100,9 @@ with pkgs.lib; rec {
       GIT_COMMITTER_EMAIL = src.meta.email or "root@localhost";
 
       GIT_AUTHOR_DATE =
-        "Sat, 03 Mar 1973 10:46:40 +0100"; # date -d@100000000 -R
+        "Sat, 03 Mar 1973 09:46:40 +0000"; # date -d@100000000 -R
       GIT_COMMITTER_DATE =
-        "Sat, 03 Mar 1973 10:46:40 +0100"; # date -d@100000000 -R
+        "Sat, 03 Mar 1973 09:46:40 +0000"; # date -d@100000000 -R
 
     } ''
       mkdir build
