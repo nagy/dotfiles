@@ -19,8 +19,10 @@
       map S feedkeys ":set first-page-column 1"<Return>
       map D feedkeys ":set first-page-column 2"<Return>
       map f toggle_page_mode
+      map m toggle_statusbar
       map d scroll half-down
       map u scroll half-up
+      map t recolor
       map Q quit
     '';
   };

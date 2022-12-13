@@ -85,6 +85,8 @@ let
     "Dø" = [ "nix" "develop" "--override-input" "nixpkgs" "nixpkgs" ];
     "Fsø" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "nixpkgs" ];
     "Fmø" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "nixpkgs" ];
+    "SHø" = [ "nix" "shell" "--override-input" "nixpkgs" "nixpkgs" ];
+    "Pø" = [ "nix" "profile" "--override-input" "nixpkgs" "nixpkgs" ];
 
     "B." = [ "nix" "build" "-f" "." ];
     "B.j" = [ "nix" "build" "-f" "." "--json" "--no-link" ];
@@ -92,6 +94,7 @@ let
     "SH." = [ "nix" "shell" "-f" "." ];
     "E." = [ "nix" "eval" "-f" "." ];
     "E.j" = [ "nix" "eval" "-f" "." "--json" ];
+    "S." = [ "nix" "search" "-f" "." ];
 
     # git
     G = [ "git" ];
@@ -180,6 +183,8 @@ let
     ij = [ "ip" "--json" ];
     i4j = [ "ip" "-4" "--json" ];
     i6j = [ "ip" "-6" "--json" ];
+    "⬡" = [ "hexdump" "--no-squeezing" "--canonical" ];
+    "⬡n" = [ "hexdump" "--no-squeezing" "--canonical" "--length" ];
   };
 in with import ../lib pkgs; {
 

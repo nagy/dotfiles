@@ -174,7 +174,7 @@ with pkgs.lib; rec {
           syslog
         '';
       };
-    in (pkgs.writeShellScriptBin ("msmtp-" + name) ''
+    in (pkgs.writeShellScriptBin "msmtp-${name}" ''
       exec ${pkgs.msmtp}/bin/msmtp --file=${configfile} "$@"
     '');
 

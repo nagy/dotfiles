@@ -16,6 +16,9 @@ enum custom_layers {
 #define SPC_L LGUI_T(KC_SPC)
 #define SPC_R RGUI_T(KC_SPC)
 
+// not working:
+// KC_ERAS
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_6x6(
         KC_F1  , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,                         KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,KC_F12 ,
@@ -32,23 +35,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER] = LAYOUT_6x6(
         KC_F13 , KC_F14, KC_F15, KC_F16, KC_F17, KC_F18,                        KC_F19 , KC_F20, KC_F21,KC_F22 ,KC_F23 ,KC_F24,
         KC_GRV, KC_WFAV,KC_WREF,KC_MFFD,KC_MSEL,_______,                        KC_LNG1,KC_LNG2,KC_LNG3,KC_LNG4,KC_PAST,_______,
-        _______,_______,_______,_______,_______,_______,                        _______, KC_P7 , KC_P8 , KC_P9 ,KC_PMNS,_______,
+        _______,_______,_______,_______,_______,KC_CALC,                        _______, KC_P7 , KC_P8 , KC_P9 ,KC_PMNS,_______,
         _______,KC_HOME,KC_PGUP,KC_PGDN,KC_END ,KC_APP,                         _______, KC_P4 , KC_P5 , KC_P6 ,KC_PPLS,_______,
         _______,KC_WREF,KC_WBAK,KC_WFWD,KC_WHOM,KC_WSCH,                        _______, KC_P1 , KC_P2 , KC_P3 ,KC_PENT,_______,
                         KC_PAUS,KC_PSCR,                                                         KC_P0 ,KC_PDOT,
-                                               KC_FIND,KC_CALC,            KC_MYCM,_______,
+                                               KC_FIND,_______,            KC_MYCM,_______,
                                                KC_AGIN,_______,            _______,_______,
-                                               KC_ERAS,_______,            _______,_______
+                                               _______,_______,            _______,_______
     ),
 
     [_RAISE] = LAYOUT_6x6(
         KC_F13 , KC_F14, KC_F15, KC_F16, KC_F17, KC_F18,                        KC_F19 , KC_F20, KC_F21,KC_F22 ,KC_F23 ,KC_F24,
         QK_BOOT,_______,_______,_______,_______,_______,                        KC_LNG1,_______,KC_NLCK,_______,KC_SLCK,KC_MUTE,
         KC_WAKE,_______,_______,_______,_______,_______,                        KC_LNG2,KC_MPRV,KC_MPLY,KC_MNXT,_______,KC_VOLU,
-        _______,KC_LEFT,KC_UP  ,KC_DOWN,KC_RGHT,_______,                        KC_LNG3,_______,KC_MS_UP,_______,_______,KC_VOLD,
+        _______,KC_LEFT,KC_UP  ,KC_DOWN,KC_RGHT,_______,                        KC_LNG3,KC_CUT,KC_MS_UP,_______,_______,KC_VOLD,
         _______,_______,_______,_______,_______,_______,                        KC_LNG4,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,_______,_______,
                         _______,_______,                                                        KC_EQL ,KC_MAIL,
-                                                _______,KC_CUT,          KC_MS_BTN1,KC_MS_BTN2,
+                                                _______,_______,          KC_MS_BTN1,KC_MS_BTN2,
                                                 _______,_______,            _______,KC_CNCL,
                                                 _______,_______,            _______,KC_SLCT
     )
