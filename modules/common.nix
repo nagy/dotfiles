@@ -109,8 +109,8 @@ with pkgs.lib; {
         git-alias = pkgs.fetchFromGitHub {
           owner = "GitAlias";
           repo = "gitalias";
-          rev = "a0bd5343f4dcc6e11ee9f5e04c36ebd1166eb4c0";
-          sha256 = "17fgg2znhl2n0vw1ym9dnjvm3sgj5ynzr1r9najw2rw3f07y8wd7";
+          rev = "8e8524550af6ccbbfd4ded73667ef352a9d7fb70";
+          sha256 = "sha256-8yZS/HCrpc/MeRBTMfrlyPtMhYZkJkw3Z9CONWcVVCQ=";
         };
       in "${git-alias}/gitalias.txt";
       merge.conflictStyle = "diff3";
@@ -123,6 +123,13 @@ with pkgs.lib; {
         "https://git.sr.ht/".insteadOf = "srht:";
         "https://bitbucket.org/".insteadOf = "bb:";
         "git@github.com:nagy/".insteadOf = "ghn:";
+        "git@gitlab.com:nagy/".insteadOf = "gln:";
+        "git@git.sr.ht:~nagy/".insteadOf = "srhtn:";
+        # organizations
+        "https://github.com/NixOS/".insteadOf = "nixos:";
+        "https://github.com/NixOS/nixpkgs".insteadOf = "n:";
+        # "https://github.com/NixOS/nixpkgs".insteadOf = "pkgs:";
+        "https://github.com/nix-community/NUR".insteadOf = "N:";
       };
       tar = {
         "tar.xz".command = "${pkgs.xz}/bin/xz -c";
@@ -301,9 +308,7 @@ with pkgs.lib; {
     isort
     cryptsetup
 
-    # ncdu_1
-    # need to rebuild because of broken zig
-    (ncdu_2.overrideAttrs (old: { pname = old.pname + "-rebuild"; }))
+    ncdu_2
 
     # documentation
     man-pages
@@ -383,11 +388,12 @@ with pkgs.lib; {
     '';
     gc = {
       automatic = true;
-      dates = "monthly";
+      dates = "weekly";
       options = "--delete-older-than 14d";
     };
     settings = {
       sandbox = true;
+      auto-optimise-store = true;
       trusted-users = [ "root" "@wheel" ];
       substituters = [ "https://nix-community.cachix.org" ];
       trusted-public-keys = [
@@ -507,6 +513,11 @@ with pkgs.lib; {
       microvm.to = {
         owner = "astro";
         repo = "microvm.nix";
+        type = "github";
+      };
+      mvn2nix.to = {
+        owner = "fzakaria";
+        repo = "mvn2nix";
         type = "github";
       };
     };
