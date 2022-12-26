@@ -80,6 +80,7 @@
        "\eph": "\C-a\C-khtop\C-m"
        "\epd": "\C-a\C-kdstat\C-m"
        "\ep\eh": "\C-e --help\C-m"
+       "\eh": "\C-e --help\C-m"
        "\ep\ev": "\C-e --version\C-m"
        "\ep\ej": "\C-e | jq .\C-m"
        "\eT": "\C-a\C-kcd $(mktemp -d)\C-m"

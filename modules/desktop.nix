@@ -2,7 +2,7 @@
 
 let
   nsxivBigThumbs = pkgs.nsxiv.overrideAttrs (old: {
-    postPatch = ''
+    postPatch = (old.postPatch or "") + ''
       # increase thumbnail sizes
       substituteInPlace config.def.h \
               --replace '96, 128, 160' '96, 128, 160, 320, 640'  \
@@ -89,7 +89,6 @@ in {
     xset r rate 260 40
     ${pkgs.xorg.xhost}/bin/xhost +
     xsetroot -cursor_name left_ptr # make default cursor not cross
-    # xrandr --output DisplayPort-0 --left-of DisplayPort-1
     [[ -f /etc/X11/Xresources ]] && xrdb /etc/X11/Xresources
     ${pkgs.unclutter-xfixes}/bin/unclutter &
     if [[ "$(tty)" == /dev/tty1 ]]; then
@@ -135,8 +134,8 @@ in {
     (pkgs.callPackage ../keyboard { }).flasher
     (pkgs.callPackage ../pkg-ala-switchers.nix {
       hmmodules = {
-        day = import ../hmmodule-alacritty-day.nix;
-        night = import ../hmmodule-alacritty-night.nix;
+        day = import ../hmmodule-alacritty-night.nix false;
+        night = import ../hmmodule-alacritty-night.nix true;
       };
     })
   ];

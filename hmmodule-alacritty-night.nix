@@ -1,3 +1,5 @@
+isDark:
+
 { ... }:
 
 {
@@ -13,8 +15,8 @@
       # https://github.com/eendroroy/alacritty-theme/blob/master/themes/xterm.yaml
       colors = {
         primary = {
-          background = "0x000000";
-          foreground = "0xffffff";
+          background = if isDark then "0x000000" else "0xffffff";
+          foreground = if isDark then "0xffffff" else "0x000000";
         };
         # Normal colors
         normal = {

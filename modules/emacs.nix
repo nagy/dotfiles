@@ -9,6 +9,7 @@ let
         vterm
         # pdf-tools
         # org-pdftools
+        elfeed
         pass
         nagy
       ]));
