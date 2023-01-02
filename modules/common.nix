@@ -127,9 +127,9 @@ with pkgs.lib; {
         "git@git.sr.ht:~nagy/".insteadOf = "srhtn:";
         # organizations
         "https://github.com/NixOS/".insteadOf = "nixos:";
-        "https://github.com/NixOS/nixpkgs".insteadOf = "n:";
-        # "https://github.com/NixOS/nixpkgs".insteadOf = "pkgs:";
-        "https://github.com/nix-community/NUR".insteadOf = "N:";
+        "https://github.com/NixOS/nixpkgs".insteadOf = "pkgs:";
+        "https://github.com/nix-community/NUR".insteadOf = "nur:";
+        "https://github.com/htop-dev/htop".insteadOf = "htop:";
       };
       tar = {
         "tar.xz".command = "${pkgs.xz}/bin/xz -c";
@@ -382,7 +382,7 @@ with pkgs.lib; {
 
   nix = {
     extraOptions = ''
-      experimental-features = nix-command flakes recursive-nix
+      experimental-features = nix-command flakes recursive-nix impure-derivations ca-derivations
       warn-dirty = false
       plugin-files = ${pkgs.nix-doc}/lib/libnix_doc_plugin.so
     '';

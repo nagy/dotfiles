@@ -46,7 +46,8 @@ let
     Fu = [ "nix" "flake" "update" ];
     Fl = [ "nix" "flake" "lock" ];
     Fs = [ "nix" "flake" "show" ];
-    Fc = [ "nix" "flake" "clone" ];
+    Fcl = [ "nix" "flake" "clone" ];
+    Fc = [ "nix" "flake" "check" ];
     Fa = [ "nix" "flake" "archive" ];
     Faj = [ "nix" "flake" "archive" "--json" ];
     Fp = [ "nix" "flake" "prefetch" ];
@@ -85,16 +86,17 @@ let
     "Dø" = [ "nix" "develop" "--override-input" "nixpkgs" "nixpkgs" ];
     "Fsø" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "nixpkgs" ];
     "Fmø" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "nixpkgs" ];
+    "Fcø" = [ "nix" "flake" "check" "--override-input" "nixpkgs" "nixpkgs" ];
     "SHø" = [ "nix" "shell" "--override-input" "nixpkgs" "nixpkgs" ];
     "Pø" = [ "nix" "profile" "--override-input" "nixpkgs" "nixpkgs" ];
 
-    "B." = [ "nix" "build" "-f" "." ];
-    "B.j" = [ "nix" "build" "-f" "." "--json" "--no-link" ];
-    "R." = [ "nix" "run" "-f" "." ];
-    "SH." = [ "nix" "shell" "-f" "." ];
-    "E." = [ "nix" "eval" "-f" "." ];
-    "E.j" = [ "nix" "eval" "-f" "." "--json" ];
-    "S." = [ "nix" "search" "-f" "." ];
+    "B." = [ "nix" "build" "--file" "." ];
+    "B.j" = [ "nix" "build" "--file" "." "--json" "--no-link" ];
+    "R." = [ "nix" "run" "--file" "." ];
+    "SH." = [ "nix" "shell" "--file" "." ];
+    "E." = [ "nix" "eval" "--file" "." ];
+    "E.j" = [ "nix" "eval" "--file" "." "--json" ];
+    "S." = [ "nix" "search" "--file" "." ];
 
     # git
     G = [ "git" ];
