@@ -11,7 +11,7 @@ let
   alacrittyLiveConfigPath = "/run/user/$UID/alacritty-conf.json";
   getAlaText = hmmodule:
     pkgs.writeText "ala-config" (lib.replaceStrings [ "\\\\" ] [ "\\" ]
-      (builtins.toJSON ((hmmodule { }).programs.alacritty.settings)));
+      (builtins.toJSON (hmmodule { }).programs.alacritty.settings));
   mkAlacrittySwitcher = name: configpath:
     (pkgs.writeShellScriptBin "ala-${name}" ''
       cat < '${getAlaText configpath}' > ${alacrittyLiveConfigPath}

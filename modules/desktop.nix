@@ -85,7 +85,7 @@ in {
   users.users.user.extraGroups = [ "video" "render" ];
 
   environment.etc."X11/xinit/xinitrc".text = ''
-    set -euxo pipefail
+    set -e
     xset r rate 260 40
     ${pkgs.xorg.xhost}/bin/xhost +
     xsetroot -cursor_name left_ptr # make default cursor not cross

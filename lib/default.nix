@@ -2,8 +2,7 @@ pkgs:
 
 with pkgs.lib; rec {
 
-  mapNumToString = num:
-    elemAt (splitString "" "abcdefghijklmnopqrstuvwxyz") num;
+  mapNumToString = elemAt (splitString "" "abcdefghijklmnopqrstuvwxyz");
 
   mapStringToNum = str:
     let
@@ -19,7 +18,7 @@ with pkgs.lib; rec {
       # TODO This should be wrapped in quotes
       spaced = concatStringsSep " " list;
       len_minus_1 = (length list) - 1;
-    in (pkgs.writeTextDir "share/bash-completion/completions/${cmd}" ''
+    in pkgs.writeTextDir "share/bash-completion/completions/${cmd}" ''
       function _complete_shortcommand_${underscored} {
         local __COMPS
         ((COMP_CWORD+=${toString len_minus_1}))
@@ -38,7 +37,7 @@ with pkgs.lib; rec {
         return 0
       }
       complete -F _complete_shortcommand_${underscored} ${cmd}
-    '');
+    '';
 
   mkShortCommandScript = cmd: list:
     let
@@ -104,6 +103,8 @@ with pkgs.lib; rec {
       GIT_COMMITTER_DATE =
         "Sat, 03 Mar 1973 09:46:40 +0000"; # date -d@100000000 -R
 
+      # cleaner git repos without the hooks
+      GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
     } ''
       mkdir build
       pushd build
@@ -126,11 +127,11 @@ with pkgs.lib; rec {
       # emailuser = elemAt (splitString "@" email) 0;
       emailhost = elemAt (splitString "@" email) 1;
       name = emailhost;
-      configHeadLet = (if configHead == null then ''
+      configHeadLet = if configHead == null then ''
         Host ${hostextra}${emailhost}
         User ${email}
         PassCmd "pass ${emailhost} | head -1"'' else
-        removeSuffix "\n" configHead);
+        removeSuffix "\n" configHead;
       configfile = pkgs.writeText "mbsync-config-${name}" ''
         IMAPAccount default
         ${configHeadLet}

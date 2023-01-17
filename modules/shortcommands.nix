@@ -21,13 +21,16 @@ let
     BL = [ "nix" "build" "--print-build-logs" "-j" "1" ];
     RL = [ "nix" "run" "--print-build-logs" "-j" "1" ];
     DL = [ "nix" "develop" "--print-build-logs" "-j" "1" ];
+    B1 = [ "nix" "build" "--print-build-logs" "-j" "1" ];
+    R1 = [ "nix" "run" "--print-build-logs" "-j" "1" ];
+    D1 = [ "nix" "develop" "--print-build-logs" "-j" "1" ];
     Ej = [ "nix" "eval" "--json" ];
     Er = [ "nix" "eval" "--raw" ];
     Bj = [ "nix" "build" "--json" "--no-link" ];
     Du = [ "nix" "develop" "--unpack" ];
     Dc = [ "nix" "develop" "--configure" ];
     Db = [ "nix" "develop" "--build" ];
-    Di = [ "nix" "develop" "--install" ];
+    Dn = [ "nix" "develop" "--install" ];
     DC = [ "nix" "develop" "--command" ];
     Pl = [ "nix" "profile" "list" ];
     Pi = [ "nix" "profile" "install" ];
@@ -97,6 +100,12 @@ let
     "E." = [ "nix" "eval" "--file" "." ];
     "E.j" = [ "nix" "eval" "--file" "." "--json" ];
     "S." = [ "nix" "search" "--file" "." ];
+    # impure variants
+    Ri = [ "nix" "run" "--impure" ];
+    Bi = [ "nix" "build" "--impure" ];
+    Di = [ "nix" "develop" "--impure" ];
+    Eri = [ "nix" "eval" "--raw" "--impure" ];
+    Eji = [ "nix" "eval" "--json" "--impure" ];
 
     # git
     G = [ "git" ];
@@ -170,9 +179,9 @@ let
     bcui = [ "busctl" "--user" "introspect" ];
 
     # misc
-    J = [ "jq" "--monochrome-output" ];
+    J = [ "jq" "--monochrome-output" "--sort-keys" ];
+    Jr = [ "jq" "--monochrome-output" "--sort-keys" "--raw-output" ];
     jqM = [ "jq" "--monochrome-output" ];
-    Jr = [ "jq" "--monochrome-output" "--raw-output" ];
     Y = [ "yq" "--prettyPrint" "--no-colors" ];
     yqP = [ "yq" "--prettyPrint" ];
     yqPM = [ "yq" "--prettyPrint" "--no-colors" ];
@@ -187,6 +196,11 @@ let
     i6j = [ "ip" "-6" "--json" ];
     "⬡" = [ "hexdump" "--no-squeezing" "--canonical" ];
     "⬡n" = [ "hexdump" "--no-squeezing" "--canonical" "--length" ];
+    sha1 = [ "sha1sum" ];
+    sha256 = [ "sha256sum" ];
+    sha2 = [ "sha256sum" ];
+    sha512 = [ "sha512sum" ];
+    sha5 = [ "sha512sum" ];
   };
 in with import ../lib pkgs; {
 

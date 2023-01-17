@@ -13,7 +13,7 @@
       let
         files = readDir ./modules;
         fileNames = attrNames files;
-        nameFunc = filename: removeSuffix ".nix" filename;
+        nameFunc = removeSuffix ".nix";
         preAttrList = map (it: {
           name = nameFunc it;
           value = import (./modules + "/${it}");

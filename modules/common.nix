@@ -424,6 +424,10 @@ with pkgs.lib; {
         id = "nixpkgs";
         type = "indirect";
       };
+      p.to = {
+        id = "nixpkgs";
+        type = "indirect";
+      };
       HW.to = {
         id = "nixos-hardware";
         type = "indirect";
