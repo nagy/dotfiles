@@ -10,7 +10,7 @@
       mute = "yes";
       ao = "pulse";
       # this gives better audio quality when speeding up a video
-      af = "rubberband";
+      # af = "rubberband";
       # dont show album covers when they are embedded in music files
       audio-display = "no";
 

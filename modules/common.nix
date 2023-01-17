@@ -247,6 +247,7 @@ with pkgs.lib; {
 
   # tmpfs on all machines
   boot.tmpOnTmpfs = true;
+  boot.tmpOnTmpfsSize = "100%";
 
   # cleaner git repos without the hooks
   environment.variables.GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
@@ -257,6 +258,9 @@ with pkgs.lib; {
   security.sudo.extraConfig = ''
     Defaults:user !tty_tickets, timestamp_timeout=60
   '';
+
+  # https://github.com/denoland/deno/blob/21065797f6dce285e55705007f54abe2bafb611c/cli/tools/upgrade.rs#L184-L187
+  environment.variables.DENO_NO_UPDATE_CHECK="1";
 
   programs.neovim = {
     enable = true;
@@ -357,12 +361,8 @@ with pkgs.lib; {
     gh
 
     (hy.withPackages (ps: with ps; [ hyrule addict ]))
-    (terraform.withPlugins (p: with p; [ github vultr ]))
+    (terraform.withPlugins (p: with p; [ github ]))
     pyright
-    qemu
-
-    fennel
-    fnlfmt
 
     nix-doc
     zed

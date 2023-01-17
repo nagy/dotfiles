@@ -93,6 +93,15 @@ let
     "SHø" = [ "nix" "shell" "--override-input" "nixpkgs" "nixpkgs" ];
     "Pø" = [ "nix" "profile" "--override-input" "nixpkgs" "nixpkgs" ];
 
+    "R~" = [ "nix" "run" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
+    "B~" = [ "nix" "build" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
+    "D~" = [ "nix" "develop" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
+    "Fs~" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
+    "Fm~" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
+    "Fc~" = [ "nix" "flake" "check" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
+    "SH~" = [ "nix" "shell" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
+    "P~" = [ "nix" "profile" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
+
     "B." = [ "nix" "build" "--file" "." ];
     "B.j" = [ "nix" "build" "--file" "." "--json" "--no-link" ];
     "R." = [ "nix" "run" "--file" "." ];
