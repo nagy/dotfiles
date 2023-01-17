@@ -366,6 +366,9 @@ with pkgs.lib; {
 
     nix-doc
     zed
+
+    (pkgs.writeScriptBin "blocker-cat" (builtins.readFile ../bin/blocker-cat))
+    (pkgs.writeScriptBin "blocker-put" (builtins.readFile ../bin/blocker-put))
   ];
 
   # boot.binfmt.emulatedSystems = [
