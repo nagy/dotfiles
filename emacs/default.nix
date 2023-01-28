@@ -1,4 +1,5 @@
-{ lib, fetchFromGitHub, trivialBuild, modus-themes, paren-face, nlinum }:
+{ lib, fetchFromGitHub, trivialBuild, modus-themes, paren-face, nlinum, general
+, evil, elpher }:
 
 let
   doom = fetchFromGitHub {
@@ -44,6 +45,22 @@ in {
     version = "unstable";
     dontUnpack = true;
     packageRequires = [ modus-themes paren-face ];
+
+    buildPhase = ''
+      runHook preBuild
+      addToEmacsLoadPath ${doom}/lisp
+      cp ${./${pname}.el} .
+      # emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
+      emacs -L . --batch -f batch-byte-compile *.el
+      runHook postBuild
+    '';
+  };
+
+  nagy-elpher = trivialBuild rec {
+    pname = "nagy-elpher";
+    version = "unstable";
+    dontUnpack = true;
+    packageRequires = [ general evil elpher ];
 
     buildPhase = ''
       runHook preBuild

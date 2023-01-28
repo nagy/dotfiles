@@ -9,6 +9,8 @@ let
         nagy.nagy-modus-themes
         nagy.nagy-nlinum
         nagy.nagy-formats
+        nagy.nagy-elpher
+
 
         vterm
         # pdf-tools
