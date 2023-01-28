@@ -6,12 +6,15 @@ let
   emacsAndPackages = customEmacsPackages.withPackages (epkgs:
     (with epkgs;
       with epkgs.melpaPackages; [
+        nagy.nagy-modus-themes
+        nagy.nagy-nlinum
+        nagy.nagy-formats
+
         vterm
         # pdf-tools
         # org-pdftools
         elfeed
         pass
-        nagy
       ]));
 in {
   environment.systemPackages = [
