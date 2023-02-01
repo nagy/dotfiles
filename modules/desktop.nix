@@ -11,6 +11,10 @@ let
   });
 in {
 
+  imports = [
+    ./converter.nix
+  ];
+
   # Configure keymap in X11
   services.xserver = {
     enable = true;
