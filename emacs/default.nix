@@ -1,5 +1,5 @@
-{ lib, fetchFromGitHub, trivialBuild, modus-themes, paren-face, nlinum, general
-, evil, elpher }:
+{ lib, pkgs, fetchFromGitHub, trivialBuild, elpaBuild, modus-themes, paren-face
+, nlinum, general, evil, elpher }:
 
 let
   doom = fetchFromGitHub {
@@ -18,7 +18,7 @@ in {
 
     buildPhase = ''
       runHook preBuild
-      cp ${./${pname}.el} .
+      cp ${./${pname}.el} $pname.el
       # emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
       emacs -L . --batch -f batch-byte-compile *.el
       runHook postBuild
@@ -29,11 +29,10 @@ in {
     pname = "nagy-nlinum";
     version = "unstable";
     dontUnpack = true;
-    packageRequires = [ nlinum ];
-
+    packageRequires = [ general nlinum ];
     buildPhase = ''
       runHook preBuild
-      cp ${./${pname}.el} .
+      cp ${./${pname}.el} $pname.el
       # emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
       emacs -L . --batch -f batch-byte-compile *.el
       runHook postBuild
@@ -49,7 +48,7 @@ in {
     buildPhase = ''
       runHook preBuild
       addToEmacsLoadPath ${doom}/lisp
-      cp ${./${pname}.el} .
+      cp ${./${pname}.el} $pname.el
       # emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
       emacs -L . --batch -f batch-byte-compile *.el
       runHook postBuild
@@ -65,7 +64,7 @@ in {
     buildPhase = ''
       runHook preBuild
       addToEmacsLoadPath ${doom}/lisp
-      cp ${./${pname}.el} .
+      cp ${./${pname}.el} $pname.el
       # emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
       emacs -L . --batch -f batch-byte-compile *.el
       runHook postBuild
