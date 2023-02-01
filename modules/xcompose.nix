@@ -46,6 +46,16 @@ let
     "🔅" = [ "Ctrl" "<Multi_key>" "<o>" "<x>" ];
     "🔆" = [ "Ctrl" "<Multi_key>" "<o>" "<X>" ];
     "💸" = [ "<Multi_key>" "<dollar>" "<slash>" ];
+    "🐕" = [ "<Multi_key>" "<d>" "<o>" "<g>" ];
+    # "🐕" = [ "<Multi_key>" "<k>" "<9>" ]; # canine
+    "🐖" = [ "<Multi_key>" "<p>" "<i>" "<g>" ];
+    "🐛" = [ "<Multi_key>" "<b>" "<u>" "<g>" ];
+    "📀" = [ "<Multi_key>" "<d>" "<v>" "<d>" ];
+    "📦" = [ "<Multi_key>" "<p>" "<k>" "<g>" ];
+    "🐍" = [ "<Multi_key>" "<s>" "<n>" "<a>" "<k>" "<e>" ];
+    # "🐍" = [ "<Multi_key>" "<s>" "<n>" "<e>" "<k>" ];
+    "🐜" = [ "<Multi_key>" "<a>" "<n>" "<t>" ];
+    "☉" = [ "<Multi_key>" "<s>" "<u>" "<n>" ];
 
     # fraktur
     "𝒻" = [ "<Multi_key>" "<dstroke>" "<f>" ];
