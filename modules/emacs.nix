@@ -11,12 +11,61 @@ let
         nagy.nagy-formats
         nagy.nagy-elpher
 
+        nameless
+        (sotlisp.overrideAttrs (old: {
+          src = pkgs.fetchFromGitHub {
+            owner = "nagy";
+            repo = "speed-of-thought-lisp";
+            rev = "bf1c906cfbd111d6d0218aa7b5f8f3d635d89083";
+            hash = "sha256-GsrIqnz+hPR1S0SkvduYp0rzmSHYkDDzFVWsLlgYEuM=";
+          };
+        }))
+        smart-mode-line
 
         vterm
-        # pdf-tools
-        # org-pdftools
+        pdf-tools
+        org-pdftools
         elfeed
         pass
+        forge
+        ob-mermaid
+        triples
+        bufler
+        focus
+        osm
+        devdocs
+        ts
+        lispy
+        lispyville
+        evil
+        evil-numbers
+        anaphora
+        general
+
+        lin
+        ov
+
+        # hy-mode
+        yaml-mode
+        paren-face
+        csv-mode
+
+        org
+        org-brain
+        all-the-icons
+        ascii-art-to-unicode
+        org-superstar
+        org-appear
+        org-ref
+        # org-fancy-priorities
+        nix-mode
+        mermaid-mode
+        gitlab-ci-mode
+        dockerfile-mode
+        adaptive-wrap
+        lorem-ipsum
+        corfu
+        cape
       ]));
 in {
   environment.systemPackages = [

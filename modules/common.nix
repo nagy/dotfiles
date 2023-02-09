@@ -371,10 +371,6 @@ with pkgs.lib; {
     (pkgs.writeScriptBin "blocker-put" (builtins.readFile ../bin/blocker-put))
   ];
 
-  # boot.binfmt.emulatedSystems = [
-  #   "wasm32-wasi"
-  # ];
-
   boot.binfmt.registrations.oil = {
     recognitionType = "extension";
     magicOrExtension = "oil";

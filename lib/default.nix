@@ -190,4 +190,17 @@ with pkgs.lib; rec {
       cd $out
       git clone --mirror $url .
     '';
+
+  mkGitCloneSingleBranch = { url, rev, outputHash }@args:
+    pkgs.runCommandLocal "${baseNameOf url}-clone" ({
+      nativeBuildInputs = with pkgs; [ git cacert ];
+      # to prevent junk
+      GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
+      outputHashMode = "recursive";
+      outputHashAlgo = "sha256";
+    } // args) ''
+      git init --bare $out
+      git -C $out fetch $url $rev
+      git -C $out update-ref HEAD $(git -C $out rev-list -n 1 FETCH_HEAD)
+    '';
 }

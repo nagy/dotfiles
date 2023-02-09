@@ -19,10 +19,8 @@
 ;;
 ;;; Code:
 
-;; (require 'elpher)
 (require 'general)
 (require 'bookmark)
-(require 'doom-lib)
 (require 'evil)
 (defvar doom-leader-map)
 
