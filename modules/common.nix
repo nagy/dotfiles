@@ -35,8 +35,6 @@ with pkgs.lib; {
   programs.fuse.userAllowOther = true;
   documentation.dev.enable = true;
   documentation.info.enable = true;
-  # documentation.nixos.enable = true; alreay the default
-  networking.firewall.enable = false;
   networking.useDHCP = false;
 
   # simpler version of starship

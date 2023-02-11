@@ -1,5 +1,5 @@
 { lib, pkgs, fetchFromGitHub, trivialBuild, elpaBuild, modus-themes, paren-face
-, nlinum, general, evil, elpher }:
+, nlinum, general, evil, elpher, yaml-mode }:
 
 let
   doom = fetchFromGitHub {
@@ -14,7 +14,7 @@ in {
     pname = "nagy-formats";
     version = "unstable";
     dontUnpack = true;
-    packageRequires = [ ];
+    packageRequires = [ yaml-mode ];
 
     buildPhase = ''
       runHook preBuild

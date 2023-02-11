@@ -7,7 +7,7 @@
 ;; Created: January 27, 2023
 ;; Modified: January 27, 2023
 ;; Version: 0.0.1
-;; Keywords:
+;; Keywords: convenience, files
 ;; Homepage: https://github.com/nagy/nagy-formats
 ;; Package-Requires: ((emacs "24.3"))
 ;;
@@ -20,6 +20,7 @@
 ;;; Code:
 
 (require 'format)
+(require 'yaml-mode)
 ;; (require 'hi-lock)
 
 ;; Modification of original function to use generate-new-buffer because the
@@ -155,7 +156,7 @@
   (interactive)
   (cond
    ((derived-mode-p 'js-json-mode)
-    (let ((oldbuf (current-buffer))
+    (let ((_oldbuf (current-buffer))
           (newbuf (generate-new-buffer (format "Into-yaml-mode"))))
       (copy-to-buffer newbuf (point-min) (point-max))
       (with-current-buffer newbuf
@@ -171,7 +172,7 @@
   (interactive)
   (cond
    ((derived-mode-p 'js-json-mode)
-    (let ((oldbuf (current-buffer))
+    (let ((_oldbuf (current-buffer))
           (newbuf (generate-new-buffer (format "Into-lines-mode"))))
       (copy-to-buffer newbuf (point-min) (point-max))
       (with-current-buffer newbuf

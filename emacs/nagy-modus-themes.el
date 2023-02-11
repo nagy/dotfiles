@@ -75,7 +75,6 @@
   (defun nagy/modus-theme-overrides ()
     (interactive)
     (window-divider-mode -1)
-    ;; (set-face-attribute 'modus-themes-tab-inactive nil :box nil)
     (set-face-attribute 'tab-bar-tab-inactive nil :background (face-attribute 'tab-bar :background nil t))
     (set-face-attribute 'vertical-border nil :foreground (if (dayp) "white" "black"))
     (after! dired

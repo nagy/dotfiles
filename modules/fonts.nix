@@ -18,8 +18,10 @@ nixpkgs-iosevka-comfy-040:
         iosevka-comfy.comfy
       ] ++ (with pkgs; [
         etBook # EtBembo https://edwardtufte.github.io/et-book/
-        emacs-all-the-icons-fonts
         noto-fonts
+        # Only one icon used: 〜
+        # From font "file-icons". May be a bit overkill
+        emacs-all-the-icons-fonts
       ]);
   };
 }
