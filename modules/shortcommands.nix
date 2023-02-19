@@ -93,6 +93,15 @@ let
     "SHø" = [ "nix" "shell" "--override-input" "nixpkgs" "nixpkgs" ];
     "Pø" = [ "nix" "profile" "--override-input" "nixpkgs" "nixpkgs" ];
 
+    "RØ" = [ "nix" "run" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
+    "BØ" = [ "nix" "build" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
+    "DØ" = [ "nix" "develop" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
+    "FsØ" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
+    "FmØ" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
+    "FcØ" = [ "nix" "flake" "check" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
+    "SHØ" = [ "nix" "shell" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
+    "PØ" = [ "nix" "profile" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
+
     "R~" = [ "nix" "run" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
     "B~" = [ "nix" "build" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
     "D~" = [ "nix" "develop" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
@@ -128,6 +137,15 @@ let
     Gp = [ "git" "push" ];
     Gpf = [ "git" "push" "--force" ];
     Gpl = [ "git" "pull" ];
+
+    # sqlite
+    Q = ["sqlite3" ];
+    Qj = ["sqlite3" "-json" ];
+    Qt = ["sqlite3" "-table" ];
+    Qb = ["sqlite3" "-box" ];
+    Qh = ["sqlite3" "-html" ];
+    Qc = ["sqlite3" "-csv" ];
+
     # docker
     # (mkShortCommand "dO" [ "docker" ])
     # (mkShortCommand "dOe" [ "docker" "exec" ])
