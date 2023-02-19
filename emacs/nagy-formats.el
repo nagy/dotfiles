@@ -21,7 +21,13 @@
 
 (require 'format)
 (require 'yaml-mode)
+(require 'dired)
 ;; (require 'hi-lock)
+(eval-when-compile
+  (require 'cl-lib))
+
+(defvar-local nagy-formats--base-buffer nil)
+;;  maybe permanent local ?
 
 ;; Modification of original function to use generate-new-buffer because the
 ;; original used get-buffer-create and that had problems with the kill hook
@@ -53,31 +59,21 @@
 ;; Copy of original function. Needed to add inhibit-read-only. might be possible
 ;; with an advice.
 (defun format-decode-run-method (method from to &optional _buffer)
-  (if (stringp method)
-      (let ((error-buff (get-buffer-create "*Format Errors*"))
-            (coding-system-for-write 'no-conversion)
-            (inhibit-read-only t)
-            format-alist)
-        (with-current-buffer error-buff
-          (widen)
-          (erase-buffer))
-        (if (and (zerop (save-window-excursion
-                          (shell-command-on-region from to method t 'no-mark error-buff)))
-                 (zerop (with-current-buffer error-buff (buffer-size))))
-            (bury-buffer error-buff)
-          (switch-to-buffer-other-window error-buff)
-          (error "Format decoding failed"))
-        (point))
-    (funcall method from to)))
+  (cl-assert (stringp method))
+  (let ((error-buff (generate-new-buffer "*Format Errors*"))
+        (coding-system-for-write 'no-conversion)
+        (inhibit-read-only t)
+        format-alist)
+    (cl-assert (and (zerop (save-window-excursion
+                             (shell-command-on-region from to method t 'no-mark error-buff)))
+                    (zerop (with-current-buffer error-buff
+                             (buffer-size)))))
+    (point)))
 
 
 (add-to-list 'format-alist '(pcap2txt "pcap2txt" nil ",pcap,txt" nil nil nil))
 (add-to-list 'format-alist '(pcap2json "pcap2json" nil ",pcap,json" nil nil nil))
-(add-to-list 'format-alist '(json2yaml "json2yaml" nil ",json,yaml" nil nil nil))
-(add-to-list 'format-alist '(json2lines "json2lines" nil ",json,lines" nil nil nil))
 (add-to-list 'format-alist '(pcap2xml "pcap2xml" nil ",pcap,xml" nil nil nil))
-(add-to-list 'format-alist '(any2hex "any2hex" nil ",any,hex" nil nil nil))
-(add-to-list 'format-alist '(wasm "wasm" nil "wasm2wat -" "wat2wasm - --output=-" t nil nil) 'append)
 
 (define-derived-mode pcap-mode fundamental-mode "PCAP"
   "hello"
@@ -91,21 +87,78 @@
         (highlight-lines-matching-regexp "RST" 'modus-themes-intense-red))))
 (add-to-list 'auto-mode-alist '("\\.pcap\\'" . pcap-mode))
 
-;; (define-derived-mode wasm-mode fundamental-mode "WASM"
-;;   "hello"
-;;   (if (derived-mode-p 'wasm-mode)
-;;     (format-decode-buffer '(wasm))))
-;; (add-to-list 'auto-mode-alist '("\\.wasm\\'" . wasm-mode))
+(defun nagy-formats--call-converter (from to)
+  (let ((result (nagy-formats-convert from to)))
+    (cl-typecase result
+      (string (shell-command-on-region (point-min) (point-max) result t 'no-mark (generate-new-buffer "*Format Errors*")))
+      (t ;; The function has already done the conversion
+       )))
+  (goto-char (point-min)))
 
+(defun nagy-formats-do-convert (into-mode)
+  (interactive "SDo Convert: ")
+  ;; TODO region-active-p
+  ;; TODO set revert-buffer function
+  ;; TODO evil mode g- prefix
+  ;; TODO embark integration ?
+  (let ((oldbuf (current-buffer))
+        (newbuf (generate-new-buffer (format "Into-%s" into-mode))))
+    (copy-to-buffer newbuf (point-min) (point-max))
+    (add-hook 'after-change-functions
+              (lambda (&rest _args)
+                (when (buffer-live-p newbuf)
+                  (with-current-buffer newbuf (erase-buffer))
+                  (copy-to-buffer newbuf (point-min) (point-max))
+                  (with-current-buffer newbuf
+                    (nagy-formats--call-converter (buffer-local-value 'major-mode oldbuf) into-mode)
+                    (cl-loop for f in after-change-functions
+                             do
+                             (when (functionp f)
+                               (funcall f (point-min) (point-max) (point-max)))))))
+              nil t)
+    (with-current-buffer newbuf
+      (nagy-formats--call-converter (buffer-local-value 'major-mode oldbuf) into-mode)
+      (setq-local nagy-formats--base-buffer oldbuf)
+      (set-window-buffer nil (current-buffer)))))
+(keymap-global-set "H-M-b" #'nagy-formats-do-convert)
+
+(cl-defgeneric nagy-formats-convert (from to)
+  "My documentation."
+  (message "converting from %S to %S" from to ))
+
+(add-to-list 'format-alist '(json2yaml "json2yaml" nil ",json,yaml" nil nil nil))
+(cl-defmethod nagy-formats-convert ((from (eql js-json-mode)) (to (eql yaml-mode)))
+  (ignore from to )
+  (format-decode-buffer 'json2yaml)
+  (unless (eq major-mode 'yaml-mode)
+    (yaml-mode)))
+
+;; (add-to-list 'format-alist '(any2toml "any2toml" nil "yj -jt" nil nil nil))
+(cl-defmethod nagy-formats-convert ((from (eql js-json-mode)) (to (eql conf-toml-mode)))
+  (ignore from to )
+  ;; (format-decode-buffer 'any2toml)
+  (shell-command-on-region (point-min) (point-max) "yj -jt -i" t 'no-mark (generate-new-buffer "*Format Errors*"))
+  (unless (eq major-mode 'conf-toml-mode)
+    (conf-toml-mode)))
+
+(cl-defmethod nagy-formats-convert (from (to (eql b64)))
+  (ignore from to )
+  "base64")
+
+(cl-defmethod nagy-formats-convert (from (to (eql hex)))
+  (ignore from to )
+  ",any,hex")
+
+(cl-defmethod nagy-formats-convert ((from (eql yaml-mode)) (to (eql js-json-mode)))
+  (ignore from to )
+  (shell-command-on-region (point-min) (point-max) "yj -yj -i" t 'no-mark (generate-new-buffer "*Format Errors*"))
+  (unless (eq major-mode 'js-json-mode)
+    (js-json-mode)))
 
 (defun mold-or-call-text-mode ()
   "Mold Or Call the text-mode"
   (interactive)
   (cond
-   ;; TODO region-active-p
-   ;; TODO set revert-buffer function
-   ;; TODO evil mode g- prefix
-   ;; TODO embark integration ?
    ((eq major-mode 'dired-mode)
     (let ((filename (car (dired-get-marked-files t))))
       (cond
@@ -118,89 +171,6 @@
        (t (user-error "No Conversion to text-mode found.")))))
    (t (text-mode))))
 (keymap-global-set "H-M-t" #'mold-or-call-text-mode)
-
-(defun mold-or-call-js-json-mode ()
-  "Mold Or Call the js-json-mode"
-  (interactive)
-  (cond
-   ((eq major-mode 'dired-mode)
-    (let ((filename (car (dired-get-marked-files t))))
-      (cond
-       ((string-suffix-p ".pcap" filename)
-        (with-current-buffer (generate-new-buffer (format "Into-js-json-mode: %s" filename))
-          (insert-file-contents-literally filename)
-          (format-decode-buffer 'pcap2json)
-          (js-json-mode)
-          (set-window-buffer nil (current-buffer)))))))
-   (t (js-json-mode))))
-(keymap-global-set "H-M-j" #'mold-or-call-js-json-mode)
-
-(defun mold-or-call-xml-mode ()
-  "Mold Or Call the xml-mode"
-  (interactive)
-  (cond
-   ((eq major-mode 'dired-mode)
-    (let ((filename (car (dired-get-marked-files t))))
-      (cond
-       ((string-suffix-p ".pcap" filename)
-        (with-current-buffer (generate-new-buffer (format "Into-xml-mode: %s" filename))
-          (insert-file-contents-literally filename)
-          (format-decode-buffer 'pcap2xml)
-          (xml-mode)
-          (set-window-buffer nil (current-buffer)))))))
-   (t (xml-mode))))
-(keymap-global-set "H-M-x" #'mold-or-call-xml-mode)
-
-(defun mold-or-call-yaml-mode ()
-  "Mold Or Call the yaml-mode"
-  (interactive)
-  (cond
-   ((derived-mode-p 'js-json-mode)
-    (let ((_oldbuf (current-buffer))
-          (newbuf (generate-new-buffer (format "Into-yaml-mode"))))
-      (copy-to-buffer newbuf (point-min) (point-max))
-      (with-current-buffer newbuf
-        (format-decode-buffer 'json2yaml)
-        (yaml-mode)
-        (set-buffer-modified-p nil)
-        (read-only-mode 1)
-        (set-window-buffer nil (current-buffer)))))
-   (t (yaml-mode))))
-(keymap-global-set "H-M-y" #'mold-or-call-yaml-mode)
-
-(defun mold-lines ()
-  (interactive)
-  (cond
-   ((derived-mode-p 'js-json-mode)
-    (let ((_oldbuf (current-buffer))
-          (newbuf (generate-new-buffer (format "Into-lines-mode"))))
-      (copy-to-buffer newbuf (point-min) (point-max))
-      (with-current-buffer newbuf
-        (format-decode-buffer 'json2lines)
-        (prog-mode)
-        (set-window-buffer nil (current-buffer)))))
-   (t (user-error "No Conversion to lines-mode found."))))
-(keymap-global-set "H-M-≢" #'mold-lines)
-
-(defun mold-any-hex ()
-  (interactive)
-  (cond
-   ((eq major-mode 'dired-mode)
-    (let ((filename (car (dired-get-marked-files t))))
-      (with-current-buffer (generate-new-buffer (format "Into-hex: %s" filename))
-        (insert-file-contents-literally filename)
-        (format-decode-buffer 'any2hex)
-        (text-mode)
-        (set-window-buffer nil (current-buffer)))))
-   (t (let ((oldbuf (current-buffer))
-            (newbuf (generate-new-buffer (format "Into-hex"))))
-        (copy-to-buffer newbuf (point-min) (point-max))
-        (with-current-buffer newbuf
-          (format-decode-buffer 'any2hex)
-          (text-mode)
-          (set-window-buffer nil (current-buffer)))))))
-(keymap-global-set "H-M-#" #'mold-any-hex)
-
 
 (provide 'nagy-formats)
 ;;; nagy-formats.el ends here

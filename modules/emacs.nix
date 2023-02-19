@@ -9,6 +9,7 @@ let
         nagy.nagy-modus-themes
         nagy.nagy-nlinum
         nagy.nagy-formats
+        nagy.nagy-quirky-shell-command
         nagy.nagy-elpher
 
         nameless
