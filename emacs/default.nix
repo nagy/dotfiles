@@ -40,6 +40,21 @@ in {
     '';
   };
 
+  nagy-pcap-converter = trivialBuild rec {
+    pname = "nagy-pcap-converter";
+    version = "unstable";
+    dontUnpack = true;
+    packageRequires = [  ];
+
+    buildPhase = ''
+      runHook preBuild
+      cp ${./${pname}.el} $pname.el
+      emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
+      # emacs -L . --batch -f batch-byte-compile *.el
+      runHook postBuild
+    '';
+  };
+
   nagy-nlinum = trivialBuild rec {
     pname = "nagy-nlinum";
     version = "unstable";

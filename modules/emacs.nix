@@ -10,6 +10,7 @@ let
         nagy.nagy-nlinum
         nagy.nagy-formats
         nagy.nagy-quirky-shell-command
+        nagy.nagy-pcap-converter
         nagy.nagy-elpher
 
         nameless
