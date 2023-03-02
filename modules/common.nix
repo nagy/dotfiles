@@ -363,7 +363,7 @@ with pkgs.lib; {
     pyright
 
     nix-doc
-    zed
+    # zed
 
     (pkgs.writeScriptBin "blocker-cat" (builtins.readFile ../bin/blocker-cat))
     (pkgs.writeScriptBin "blocker-put" (builtins.readFile ../bin/blocker-put))

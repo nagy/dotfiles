@@ -75,7 +75,7 @@
   (defun nagy/modus-theme-overrides ()
     (interactive)
     (window-divider-mode -1)
-    (set-face-attribute 'tab-bar-tab-inactive nil :background (face-attribute 'tab-bar :background nil t))
+    (set-face-attribute 'tab-bar-tab-inactive nil :box nil :background (face-attribute 'tab-bar :background nil t))
     (set-face-attribute 'vertical-border nil :foreground (if (dayp) "white" "black"))
     (after! dired
       (set-face-attribute 'dired-header nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)))

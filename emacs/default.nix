@@ -18,7 +18,7 @@ in {
 
     buildPhase = ''
       runHook preBuild
-      cp ${./${pname}.el} $pname.el
+      cp ${./.}/$pname.el $pname.el
       emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
       # emacs -L . --batch -f batch-byte-compile *.el
       runHook postBuild
@@ -33,7 +33,7 @@ in {
 
     buildPhase = ''
       runHook preBuild
-      cp ${./${pname}.el} $pname.el
+      cp ${./.}/$pname.el $pname.el
       emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
       # emacs -L . --batch -f batch-byte-compile *.el
       runHook postBuild
@@ -48,7 +48,7 @@ in {
 
     buildPhase = ''
       runHook preBuild
-      cp ${./${pname}.el} $pname.el
+      cp ${./.}/$pname.el $pname.el
       emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
       # emacs -L . --batch -f batch-byte-compile *.el
       runHook postBuild
@@ -62,7 +62,7 @@ in {
     packageRequires = [ general nlinum ];
     buildPhase = ''
       runHook preBuild
-      cp ${./${pname}.el} $pname.el
+      cp ${./.}/$pname.el $pname.el
       # emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
       emacs -L . --batch -f batch-byte-compile *.el
       runHook postBuild
@@ -78,7 +78,7 @@ in {
     buildPhase = ''
       runHook preBuild
       addToEmacsLoadPath ${doom}/lisp
-      cp ${./${pname}.el} $pname.el
+      cp ${./.}/$pname.el $pname.el
       # emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
       emacs -L . --batch -f batch-byte-compile *.el
       runHook postBuild
@@ -94,7 +94,7 @@ in {
     buildPhase = ''
       runHook preBuild
       addToEmacsLoadPath ${doom}/lisp
-      cp ${./${pname}.el} $pname.el
+      cp ${./.}/$pname.el $pname.el
       # emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
       emacs -L . --batch -f batch-byte-compile *.el
       runHook postBuild

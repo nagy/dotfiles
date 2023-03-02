@@ -59,19 +59,22 @@
 (cl-defgeneric nagy-formats-convert (from to)
   (message "converting from %S to %S" from to ))
 
-(cl-defmethod nagy-formats-convert ((from (eql js-json-mode)) (to (eql yaml-mode)))
+(cl-defmethod nagy-formats-convert ((from (derived-mode js-json-mode)) (to (eql yaml-mode)))
   (ignore from to )
   (shell-command-on-region (point-min) (point-max) ",json,yaml" t 'no-mark (generate-new-buffer "*Format Errors*"))
   (unless (eq major-mode 'yaml-mode)
     (yaml-mode)))
 
-(cl-defmethod nagy-formats-convert ((_from (eql js-json-mode)) (_to (eql conf-toml-mode)))
+(cl-defmethod nagy-formats-convert ((_from (derived-mode js-json-mode)) (_to (eql conf-toml-mode)))
   (shell-command-on-region (point-min) (point-max) "yj -jt -i" t 'no-mark (generate-new-buffer "*Format Errors*"))
   (unless (eq major-mode 'conf-toml-mode)
     (conf-toml-mode)))
 
 (cl-defmethod nagy-formats-convert (_from (_to (eql b64)))
   "base64")
+
+(cl-defmethod nagy-formats-convert (_from (_to (eql b64d)))
+  "base64 -d")
 
 (cl-defmethod nagy-formats-convert (_from (_to (eql b32)))
   "base32")

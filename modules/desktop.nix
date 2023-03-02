@@ -103,6 +103,18 @@ in {
                     type = "FOUR_LEVEL",
                     symbols[Group1] = [F11, F11, U203D, U2E18]
              };
+
+             // fix num block
+             key <KP0>  { [KP_0, KP_0, KP_0, KP_0] };
+             key <KP1>  { [KP_1, KP_1, KP_1, KP_1] };
+             key <KP2>  { [KP_2, KP_2, KP_2, KP_2] };
+             key <KP3>  { [KP_3, KP_3, KP_3, KP_3] };
+             key <KP4>  { [KP_4, KP_4, KP_4, KP_4] };
+             key <KP5>  { [KP_5, KP_5, KP_5, KP_5] };
+             key <KP6>  { [KP_6, KP_6, KP_6, KP_6] };
+             key <KP7>  { [KP_7, KP_7, KP_7, KP_7] };
+             key <KP8>  { [KP_8, KP_8, KP_8, KP_8] };
+             key <KP9>  { [KP_9, KP_9, KP_9, KP_9] };
           };
         '';
       };
