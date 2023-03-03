@@ -8,54 +8,32 @@ let
     rev = "d5ccac5d71c819035fa251f01d023b3f94b4fba4";
     hash = "sha256-7AzL08qo5WLeJo10lnF2b7g6FdWnExVYS8yipNyAMMM=";
   };
-in {
+  makeTrivialBuild = { pname, packageRequires ? [ ] }:
+    trivialBuild {
+      inherit pname packageRequires;
+      version = "unstable";
+      dontUnpack = true;
 
-  nagy-formats = trivialBuild rec {
+      buildPhase = ''
+        runHook preBuild
+        cp ${./.}/$pname.el $pname.el
+        emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
+        runHook postBuild
+      '';
+    };
+in rec {
+
+  nagy-formats = makeTrivialBuild {
     pname = "nagy-formats";
-    version = "unstable";
-    dontUnpack = true;
-    packageRequires = [ yaml-mode ];
-
-    buildPhase = ''
-      runHook preBuild
-      cp ${./.}/$pname.el $pname.el
-      emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
-      # emacs -L . --batch -f batch-byte-compile *.el
-      runHook postBuild
-    '';
+    packageRequires = [ yaml-mode wat-mode evil ];
   };
 
-  nagy-quirky-shell-command = trivialBuild rec {
-    pname = "nagy-quirky-shell-command";
-    version = "unstable";
-    dontUnpack = true;
-    packageRequires = [  ];
+  nagy-quirky-shell-command =
+    makeTrivialBuild { pname = "nagy-quirky-shell-command"; };
 
-    buildPhase = ''
-      runHook preBuild
-      cp ${./.}/$pname.el $pname.el
-      emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
-      # emacs -L . --batch -f batch-byte-compile *.el
-      runHook postBuild
-    '';
-  };
+  nagy-pcap-converter = makeTrivialBuild { pname = "nagy-pcap-converter"; };
 
-  nagy-pcap-converter = trivialBuild rec {
-    pname = "nagy-pcap-converter";
-    version = "unstable";
-    dontUnpack = true;
-    packageRequires = [  ];
-
-    buildPhase = ''
-      runHook preBuild
-      cp ${./.}/$pname.el $pname.el
-      emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
-      # emacs -L . --batch -f batch-byte-compile *.el
-      runHook postBuild
-    '';
-  };
-
-  nagy-nlinum = trivialBuild rec {
+  nagy-nlinum = trivialBuild {
     pname = "nagy-nlinum";
     version = "unstable";
     dontUnpack = true;
@@ -69,7 +47,7 @@ in {
     '';
   };
 
-  nagy-modus-themes = trivialBuild rec {
+  nagy-modus-themes = trivialBuild {
     pname = "nagy-modus-themes";
     version = "unstable";
     dontUnpack = true;
@@ -85,19 +63,8 @@ in {
     '';
   };
 
-  nagy-elpher = trivialBuild rec {
+  nagy-elpher = makeTrivialBuild {
     pname = "nagy-elpher";
-    version = "unstable";
-    dontUnpack = true;
     packageRequires = [ general evil elpher ];
-
-    buildPhase = ''
-      runHook preBuild
-      addToEmacsLoadPath ${doom}/lisp
-      cp ${./.}/$pname.el $pname.el
-      # emacs -L . --batch --eval '(setq byte-compile-error-on-warn t)' -f batch-byte-compile *.el
-      emacs -L . --batch -f batch-byte-compile *.el
-      runHook postBuild
-    '';
   };
 }

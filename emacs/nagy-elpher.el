@@ -25,7 +25,9 @@
 (defvar doom-leader-map)
 
 (use-package elpher
-  :commands (elpher-bookmark-handler)
+  :commands (elpher-bookmark-handler elpher-go elpher-bookmark-make-record)
+  :functions
+  elpher-redraw
   :hook
   (elpher-mode . visual-fill-column-mode)
   :bind
@@ -48,9 +50,11 @@
     (cons "elpher"
           `((location . ,(url-recreate-url (cadr elpher-current-page)))
             (handler . elpher-bookmark-handler))))
-  (add-hook! elpher-mode
-    (setq-local bookmark-make-record-function #'elpher-bookmark-make-record)
-    (setq-local revert-buffer-function (cmd! (elpher-redraw))))
+  (add-hook 'elpher-mode-hook
+            (defun +nagy/elpher-hook ()
+              (setq-local bookmark-make-record-function #'elpher-bookmark-make-record)
+              ;; (setq-local revert-buffer-function (cmd! (elpher-redraw)))
+              ))
   (define-key elpher-mode-map "f" nil)
   (evil-define-key 'motion elpher-mode-map "f" #'push-button)
   (evil-define-key 'motion elpher-mode-map "s" #'elpher-back)

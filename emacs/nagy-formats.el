@@ -18,6 +18,7 @@
 ;;
 ;;; Code:
 
+(require 'evil)
 (require 'yaml-mode)
 (eval-when-compile
   (require 'cl-lib))
@@ -25,7 +26,7 @@
 (defun nagy-formats--call-converter (from to)
   (let ((result (nagy-formats-convert from to)))
     (cl-typecase result
-      (string (shell-command-on-region (point-min) (point-max) result t 'no-mark (generate-new-buffer "*Format Errors*")))
+      (string (shell-command-on-region (point-min) (point-max) result t 'no-mark "*format-error*"))
       (t ;; The function has already done the conversion
        )))
   (goto-char (point-min)))
@@ -41,7 +42,9 @@
     (copy-to-buffer newbuf (point-min) (point-max))
     (add-hook 'after-change-functions
               (lambda (&rest _args)
-                (when (buffer-live-p newbuf)
+                (when (and (buffer-live-p newbuf)
+                           (not (buffer-local-value 'buffer-read-only newbuf))
+                           (not (eq evil-state 'insert)))
                   (with-current-buffer newbuf (erase-buffer))
                   (copy-to-buffer newbuf (point-min) (point-max))
                   (with-current-buffer newbuf
@@ -50,6 +53,20 @@
                              do
                              (when (functionp f)
                                (funcall f (point-min) (point-max) (point-max)))))))
+              nil t)
+    (add-hook 'evil-insert-state-exit-hook
+              (lambda (&rest _args)
+                (when (and (buffer-live-p newbuf)
+                           (not (buffer-local-value 'buffer-read-only newbuf)))
+                  (let ((inhibit-modification-hooks t))
+                    (with-current-buffer newbuf (erase-buffer))
+                    (copy-to-buffer newbuf (point-min) (point-max))
+                    (with-current-buffer newbuf
+                      (nagy-formats--call-converter (buffer-local-value 'major-mode oldbuf) into-mode)
+                      (cl-loop for f in after-change-functions
+                               do
+                               (when (functionp f)
+                                 (funcall f (point-min) (point-max) (point-max))))))))
               nil t)
     (with-current-buffer newbuf
       (nagy-formats--call-converter (buffer-local-value 'major-mode oldbuf) into-mode)
@@ -69,6 +86,16 @@
   (shell-command-on-region (point-min) (point-max) "yj -jt -i" t 'no-mark (generate-new-buffer "*Format Errors*"))
   (unless (eq major-mode 'conf-toml-mode)
     (conf-toml-mode)))
+
+(cl-defmethod nagy-formats-convert ((_from (derived-mode conf-toml-mode)) (_to (eql js-json-mode)))
+  (shell-command-on-region (point-min) (point-max) "yj -tj -i" t 'no-mark (generate-new-buffer "*Format Errors*"))
+  (unless (eq major-mode 'js-json-mode)
+    (js-json-mode)))
+
+(cl-defmethod nagy-formats-convert ((_from (derived-mode conf-toml-mode)) (_to (eql yaml-mode)))
+  (shell-command-on-region (point-min) (point-max) "yj -ty" t 'no-mark (generate-new-buffer "*Format Errors*"))
+  (unless (eq major-mode 'yaml-mode)
+    (yaml-mode)))
 
 (cl-defmethod nagy-formats-convert (_from (_to (eql b64)))
   "base64")
