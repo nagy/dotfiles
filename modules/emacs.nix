@@ -13,6 +13,7 @@ let
         nagy.nagy-pcap-converter
         nagy.nagy-elpher
         nagy.nagy-qrcode
+        nagy.nagy-use-package
 
         nameless
         (sotlisp.overrideAttrs (old: {

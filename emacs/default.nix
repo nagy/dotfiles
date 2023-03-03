@@ -72,4 +72,6 @@ in rec {
     pname = "nagy-qrcode";
     packageRequires = [ dash ];
   };
+
+  nagy-use-package = makeTrivialBuild { pname = "nagy-use-package"; };
 }
