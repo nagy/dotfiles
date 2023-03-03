@@ -79,4 +79,6 @@ in rec {
     pname = "nagy-misc";
     packageRequires = [ nameless ];
   };
+
+  nagy-emacs = makeTrivialBuild { pname = "nagy-emacs"; };
 }

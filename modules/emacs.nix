@@ -15,6 +15,7 @@ let
         nagy.nagy-qrcode
         nagy.nagy-use-package
         nagy.nagy-misc
+        nagy.nagy-emacs
 
         nameless
         (sotlisp.overrideAttrs (old: {

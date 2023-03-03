@@ -30,6 +30,5 @@
      ("ms" . "magit-section")
      ("ns" . "nix-store"))))
 
-
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
