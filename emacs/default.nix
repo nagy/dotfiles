@@ -1,5 +1,5 @@
 { lib, pkgs, fetchFromGitHub, trivialBuild, elpaBuild, modus-themes, paren-face
-, nlinum, general, evil, elpher, yaml-mode, dash }:
+, nlinum, general, evil, elpher, yaml-mode, dash, nameless }:
 
 let
   doom = fetchFromGitHub {
@@ -74,4 +74,9 @@ in rec {
   };
 
   nagy-use-package = makeTrivialBuild { pname = "nagy-use-package"; };
+
+  nagy-misc = makeTrivialBuild {
+    pname = "nagy-misc";
+    packageRequires = [ nameless ];
+  };
 }
