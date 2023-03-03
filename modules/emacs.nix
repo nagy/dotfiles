@@ -12,6 +12,7 @@ let
         nagy.nagy-quirky-shell-command
         nagy.nagy-pcap-converter
         nagy.nagy-elpher
+        nagy.nagy-qrcode
 
         nameless
         (sotlisp.overrideAttrs (old: {

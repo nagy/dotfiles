@@ -1,5 +1,5 @@
 { lib, pkgs, fetchFromGitHub, trivialBuild, elpaBuild, modus-themes, paren-face
-, nlinum, general, evil, elpher, yaml-mode }:
+, nlinum, general, evil, elpher, yaml-mode, dash }:
 
 let
   doom = fetchFromGitHub {
@@ -66,5 +66,10 @@ in rec {
   nagy-elpher = makeTrivialBuild {
     pname = "nagy-elpher";
     packageRequires = [ general evil elpher ];
+  };
+
+  nagy-qrcode = makeTrivialBuild {
+    pname = "nagy-qrcode";
+    packageRequires = [ dash ];
   };
 }
