@@ -20,6 +20,7 @@
 
 (require 'evil)
 (require 'yaml-mode)
+(require 'wat-mode)
 (eval-when-compile
   (require 'cl-lib))
 
@@ -108,6 +109,11 @@
 
 (cl-defmethod nagy-formats-convert (_from (_to (eql hex)))
   "hexdump -vC")
+
+(cl-defmethod nagy-formats-convert (_from (_to (eql wasm2wat)))
+  (shell-command-on-region (point-min) (point-max) "wasm2wat -" t 'no-mark (generate-new-buffer "*Format Errors*"))
+  (unless (eq major-mode 'wat-mode)
+    (wat-mode)))
 
 (cl-defmethod nagy-formats-convert ((_from (eql yaml-mode)) (_to (eql js-json-mode)))
   (shell-command-on-region (point-min) (point-max) "yj -yj -i" t 'no-mark (generate-new-buffer "*Format Errors*"))

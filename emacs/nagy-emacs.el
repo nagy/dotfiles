@@ -69,5 +69,16 @@
   ("<XF86Calculator>" . calc-dispatch)
   ("S-<XF86Calculator>" . calc-embedded-update-formula))
 
+(use-package tab-bar
+  :config
+  (tab-bar-mode)
+  :custom
+  (tab-bar-show 1)
+  (tab-bar-auto-width t)
+  (tab-bar-auto-width-max '(440 40))
+  (tab-bar-new-button-show nil)
+  (tab-bar-close-button-show nil)
+  (tab-bar-new-tab-choice t))
+
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

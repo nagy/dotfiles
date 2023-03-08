@@ -23,6 +23,18 @@ let
     };
 in rec {
 
+  wat-mode = trivialBuild {
+    pname = "wat-mode";
+    version = "unstable";
+    src = fetchFromGitHub {
+      owner = "devonsparks";
+      repo = "wat-mode";
+      rev = "46b4df83e92c585295d659d049560dbf190fe501";
+      hash = "sha256-jV5V3TRY+D3cPSz3yFwVWn9yInhGOYIaUTPEhsOBxto=";
+    };
+    packageRequires = [ yaml-mode ];
+  };
+
   nagy-formats = makeTrivialBuild {
     pname = "nagy-formats";
     packageRequires = [ yaml-mode wat-mode evil ];

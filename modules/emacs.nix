@@ -16,6 +16,7 @@ let
         nagy.nagy-use-package
         nagy.nagy-misc
         nagy.nagy-emacs
+        nagy.wat-mode
 
         nameless
         (sotlisp.overrideAttrs (old: {
