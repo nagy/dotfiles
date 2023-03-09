@@ -205,6 +205,15 @@ let
     bcuc = [ "busctl" "--user" "call" ];
     bcui = [ "busctl" "--user" "introspect" ];
 
+    # cargo
+    # may also be done via aliases
+    # https://doc.rust-lang.org/cargo/reference/config.html#alias
+    C = [ "cargo" ];
+    Cr = [ "cargo" "run" ];
+    Crr = [ "cargo" "run" "--release" ];
+    Cb = [ "cargo" "build" ];
+    Cbr = [ "cargo" "build" "--release" ];
+
     # misc
     J = [ "jq" "--monochrome-output" "--sort-keys" ];
     Jr = [ "jq" "--monochrome-output" "--sort-keys" "--raw-output" ];

@@ -258,7 +258,7 @@ with pkgs.lib; {
   '';
 
   # https://github.com/denoland/deno/blob/21065797f6dce285e55705007f54abe2bafb611c/cli/tools/upgrade.rs#L184-L187
-  environment.variables.DENO_NO_UPDATE_CHECK="1";
+  environment.variables.DENO_NO_UPDATE_CHECK = "1";
 
   programs.neovim = {
     enable = true;
@@ -367,6 +367,10 @@ with pkgs.lib; {
 
     (pkgs.writeScriptBin "blocker-cat" (builtins.readFile ../bin/blocker-cat))
     (pkgs.writeScriptBin "blocker-put" (builtins.readFile ../bin/blocker-put))
+    (pkgs.nur.repos.nagy.lib.mkRustScript {
+      file = ../bin/blocker.rs;
+      pname = "blocker";
+    })
   ];
 
   boot.binfmt.registrations.oil = {
