@@ -34,13 +34,12 @@ let
         org-pdftools
         elfeed
         pass
-        forge
         ob-mermaid
         triples
         bufler
         focus
         osm
-        devdocs
+        # devdocs
         ts
         lispy
         lispyville
@@ -54,12 +53,11 @@ let
 
         # hy-mode
         yaml-mode
-        paren-face
         csv-mode
 
         org
-        org-brain
-        all-the-icons
+        # org-brain
+        # all-the-icons
         ascii-art-to-unicode
         org-superstar
         org-appear
@@ -69,7 +67,7 @@ let
         mermaid-mode
         gitlab-ci-mode
         dockerfile-mode
-        adaptive-wrap
+        # adaptive-wrap
         lorem-ipsum
         corfu
         cape

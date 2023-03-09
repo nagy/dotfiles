@@ -80,5 +80,51 @@
   (tab-bar-close-button-show nil)
   (tab-bar-new-tab-choice t))
 
+(use-package wdired
+  :bind
+  (:map wdired-mode-map
+        ([remap save-kill-buffer] . wdired-finish-edit)
+        ([remap kill-this-buffer] . wdired-abort-changes))
+  :custom
+  (dired-vc-rename-file nil)) ; without this, some problems occured
+
+(use-package abbrev
+  :defines (nix-repl-mode-abbrev-table inferior-emacs-lisp-mode-abbrev-table)
+  :diminish abbrev-mode
+  :hook
+  (prog-mode . abbrev-mode)
+  (comint-mode . abbrev-mode)
+  (text-mode . abbrev-mode)
+  :config
+  (define-abbrev text-mode-abbrev-table "aaa" "AAAH AAAH AAAH" nil :system t)
+  (define-abbrev global-abbrev-table "afaict" "as far as I can tell" nil :system t)
+  (define-abbrev global-abbrev-table "btw" "by the way" nil :system t)
+  (define-abbrev global-abbrev-table "wether" "whether" nil :system t)
+  (define-abbrev global-abbrev-table "pov" "point of view" nil :system t)
+  (with-eval-after-load 'nix-repl
+    (define-abbrev nix-repl-mode-abbrev-table "PK" "pkgs" nil :system t)
+    (define-abbrev nix-repl-mode-abbrev-table "wpkgs" "with import <nixpkgs> {}; " nil :system t))
+  (with-eval-after-load 'ielm
+    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "LEN" "(length )" nil :system t)
+    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "CAR" "(car )" nil :system t)
+    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "CDR" "(cdr )" nil :system t)
+    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "SF" "(setf )" nil :system t)
+    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "AL" "(alist-get )" nil :system t)
+    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "SQ" "(setq )" nil :system t)
+    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "LOOP" "(cl-loop for x in '() do )" nil :system t)
+    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "KV" "kill-value" nil :system t)))
+
+(use-package hi-lock
+  :bind
+  ("A-s-H-." . highlight-symbol-at-point))
+
+(use-package emacs
+  ;; :custom
+  ;; (help-at-pt-display-when-idle t)
+  ;; (help-at-pt-timer-delay 0)
+  :bind
+  ("H-s-," . describe-char)
+  ("H-s-." . display-local-help))
+
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here
