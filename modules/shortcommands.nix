@@ -35,6 +35,7 @@ let
     Pl = [ "nix" "profile" "list" ];
     Pi = [ "nix" "profile" "install" ];
     Pu = [ "nix" "profile" "upgrade" ];
+    Pr = [ "nix" "profile" "remove" ];
     NA = [ "nix" "nar" ];
     NAl = [ "nix" "nar" "ls" ];
     NAd = [ "nix" "nar" "dump-path" ];

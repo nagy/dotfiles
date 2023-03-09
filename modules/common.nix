@@ -276,10 +276,6 @@ with pkgs.lib; {
     socat
     jo
     jc
-    # comma # somehow not loaded with its db
-    rustc
-    cargo
-    clippy
 
     # network
     dstat
@@ -299,9 +295,6 @@ with pkgs.lib; {
     lsof
     tokei
     unzip
-    jpegoptim
-    optipng
-    uhubctl
     usbutils
     sqlite
     oil
@@ -360,10 +353,6 @@ with pkgs.lib; {
 
     (hy.withPackages (ps: with ps; [ hyrule addict ]))
     (terraform.withPlugins (p: with p; [ github ]))
-    pyright
-
-    nix-doc
-    # zed
 
     (pkgs.writeScriptBin "blocker-cat" (builtins.readFile ../bin/blocker-cat))
     (pkgs.writeScriptBin "blocker-put" (builtins.readFile ../bin/blocker-put))
@@ -385,7 +374,6 @@ with pkgs.lib; {
     extraOptions = ''
       experimental-features = nix-command flakes recursive-nix impure-derivations ca-derivations
       warn-dirty = false
-      plugin-files = ${pkgs.nix-doc}/lib/libnix_doc_plugin.so
     '';
     gc = {
       automatic = true;
