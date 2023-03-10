@@ -16,6 +16,7 @@ use std::io::{copy, stdin, stdout, Result};
 #[derive(Default)]
 struct Hash {
     some: String,
+    hash: Vec<u8>,
     data: Vec<u8>,
 }
 
@@ -44,6 +45,7 @@ impl Hash {
                 .encode(hash)
                 .to_lowercase()
                 .replace("====", ""),
+            hash: hash.into(),
             data: data,
         }
     }
@@ -94,34 +96,25 @@ impl Hash {
         mask(&mut content);
         zstd::stream::decode_all(&content[..])
     }
-    fn calc_hash(&self) -> Vec<u8> {
-        use sha2::Digest;
-        let data = &self.data[..];
-        let mut hasher = sha2::Sha256::new();
-        hasher.update(data);
-        hasher.finalize()[..].into()
-    }
     fn write(&self) -> Result<String> {
-        let cohash: Self = (&self.calc_hash()[..]).into();
-        let cohash_filename = cohash.force_filename();
-        if std::path::Path::new(&cohash_filename).is_file() {
-            Ok(cohash.some[..32].into())
+        let filename = self.force_filename();
+        if std::path::Path::new(&filename).is_file() {
+            Ok(self.some[..32].into())
         } else {
-            create_dir_all(cohash.dirname())?;
+            create_dir_all(self.dirname())?;
             let mut file = File::options()
                 .read(false)
                 .write(true)
                 .create_new(true)
-                .open(cohash_filename)?;
+                .open(filename)?;
             self.write_to(&mut file)
         }
     }
     fn write_to<W: Write>(&self, mut writer: W) -> Result<String> {
-        let cohash: Self = (&self.calc_hash()[..]).into();
         let mut compr = zstd::stream::encode_all(&*self.data, 9).unwrap();
         mask(&mut compr);
         writer.write_all(&compr[..])?;
-        Ok(cohash.some[..32].into())
+        Ok(self.some[..32].into())
     }
 }
 
@@ -176,7 +169,7 @@ fn main() {
         {
             let h: Hash = ch.unwrap().into();
             h.write().unwrap();
-            combined_hash.extend_from_slice(&h.calc_hash()[..]);
+            combined_hash.extend_from_slice(&h.hash[..]);
         }
         let output = Hash::from_data(combined_hash).write().unwrap();
         println!("{output}");
