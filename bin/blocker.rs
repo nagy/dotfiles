@@ -9,7 +9,7 @@
 //! sha2 = "0.10.6"
 //! ```
 
-use std::fs::{create_dir_all, read, read_dir, File};
+use std::fs::{create_dir_all, read_dir, File};
 use std::io::prelude::*;
 use std::io::{copy, stdin, stdout, Result};
 
@@ -29,39 +29,37 @@ impl Hash {
     }
     fn from_binary(bin: &[u8]) -> Self {
         assert_eq!(bin.len(), 32);
+        let some = data_encoding::BASE32
+            .encode(bin)
+            .to_lowercase()
+            .replace("====", "");
         Self {
-            some: data_encoding::BASE32
-                .encode(bin)
-                .to_lowercase()
-                .replace("====", ""),
+            some,
             ..Default::default()
         }
     }
     fn from_data(data: Vec<u8>) -> Self {
         use sha2::Digest;
-        let hash = &sha2::Sha256::new_with_prefix(&data).finalize()[..];
-        Self {
-            some: data_encoding::BASE32
-                .encode(hash)
-                .to_lowercase()
-                .replace("====", ""),
-            hash: hash.into(),
-            data: data,
-        }
+        let hash: Vec<u8> = sha2::Sha256::new_with_prefix(&data).finalize()[..].into();
+        let some = data_encoding::BASE32
+            .encode(&hash)
+            .to_lowercase()
+            .replace("====", "");
+        Self { some, hash, data }
     }
     fn first(&self) -> String {
-        format!(
-            "{}{}",
+        let (one, two) = (
             self.some.chars().nth(0).unwrap(),
-            self.some.chars().nth(1).unwrap()
-        )
+            self.some.chars().nth(1).unwrap(),
+        );
+        format!("{one}{two}")
     }
     fn second(&self) -> String {
-        format!(
-            "{}{}",
+        let (three, four) = (
             self.some.chars().nth(2).unwrap(),
-            self.some.chars().nth(3).unwrap()
-        )
+            self.some.chars().nth(3).unwrap(),
+        );
+        format!("{three}{four}",)
     }
     fn dirname(&self) -> String {
         format!("{}/{}", self.first(), self.second())
@@ -72,8 +70,16 @@ impl Hash {
     }
 
     fn try_filename(&self) -> String {
-        let paths = read_dir(self.dirname()).unwrap();
-        let addr = paths
+        format!(
+            "{}/{}/{}",
+            self.first(),
+            self.second(),
+            self.find_filename()
+        )
+    }
+    fn find_filename(&self) -> String {
+        read_dir(self.dirname())
+            .unwrap()
             .filter(|p| {
                 p.as_ref()
                     .unwrap()
@@ -87,14 +93,27 @@ impl Hash {
             .unwrap()
             .file_name()
             .into_string()
-            .unwrap();
-        format!("{}/{}/{}", self.first(), self.second(), addr)
+            .unwrap()
     }
     fn read(&self) -> Result<Vec<u8>> {
-        let mut content = read(self.try_filename())?;
-        // TODO check hash
-        mask(&mut content);
-        zstd::stream::decode_all(&content[..])
+        use sha2::Digest;
+        // FIXME optimize
+        let found_filename = self.find_filename();
+        let file = File::open(self.try_filename())?;
+        let content = Self::read_from(file)?;
+        let hash: Vec<u8> = sha2::Sha256::new_with_prefix(&content).finalize()[..].into();
+        let encoded_hash = data_encoding::BASE32
+            .encode(&hash)
+            .to_lowercase()
+            .replace("====", "");
+        assert_eq!(found_filename, encoded_hash);
+        Ok(content)
+    }
+    fn read_from<R: Read>(mut reader: R) -> Result<Vec<u8>> {
+        let mut buffer = Vec::new();
+        reader.read_to_end(&mut buffer)?;
+        mask(&mut buffer);
+        zstd::stream::decode_all(&buffer[..])
     }
     fn write(&self) -> Result<String> {
         let filename = self.force_filename();
@@ -102,12 +121,12 @@ impl Hash {
             Ok(self.some[..32].into())
         } else {
             create_dir_all(self.dirname())?;
-            let mut file = File::options()
+            let file = File::options()
                 .read(false)
                 .write(true)
                 .create_new(true)
                 .open(filename)?;
-            self.write_to(&mut file)
+            self.write_to(file)
         }
     }
     fn write_to<W: Write>(&self, mut writer: W) -> Result<String> {
@@ -202,7 +221,7 @@ mod tests {
     fn test_write() {
         let h: Vec<u8> = hex_literal::hex!("01020304050607080910").into();
         let chs: Vec<Hash> = fastcdc::v2020::StreamCDC::new(
-            Box::new(Cursor::new(h)),
+            Box::new(Cursor::new(h.clone())),
             512 << 10,
             1024 << 10,
             2048 << 10,
@@ -221,5 +240,8 @@ mod tests {
             first.force_filename(),
             "yu/2z/yu2z5ogmhbfomjeyrhfxwwlzganb5csowpzqwsjfqh6p7wwx3lrq"
         );
+
+        let reread = Hash::read_from(Cursor::new(vec)).unwrap();
+        assert_eq!(reread, h);
     }
 }
