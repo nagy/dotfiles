@@ -79,22 +79,26 @@ impl Hash {
         )
     }
     fn find_filename(&self) -> String {
-        read_dir(self.dirname())
-            .unwrap()
-            .filter(|p| {
-                p.as_ref()
-                    .unwrap()
-                    .file_name()
-                    .into_string()
-                    .unwrap()
-                    .starts_with(&self.some)
-            })
-            .next()
-            .unwrap()
-            .unwrap()
-            .file_name()
-            .into_string()
-            .unwrap()
+        if self.some.len() < 52 {
+            read_dir(self.dirname())
+                .unwrap()
+                .filter(|p| {
+                    p.as_ref()
+                        .unwrap()
+                        .file_name()
+                        .into_string()
+                        .unwrap()
+                        .starts_with(&self.some)
+                })
+                .next()
+                .unwrap()
+                .unwrap()
+                .file_name()
+                .into_string()
+                .unwrap()
+        } else {
+            self.some.clone()
+        }
     }
     fn read(&self) -> Result<Vec<u8>> {
         use sha2::Digest;
