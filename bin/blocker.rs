@@ -111,7 +111,7 @@ impl Hash {
         Ok(content)
     }
     fn read_from<R: Read>(mut reader: R) -> Result<Vec<u8>> {
-        let mut buffer = Vec::new();
+        let mut buffer = Vec::with_capacity(1024 << 10);
         reader.read_to_end(&mut buffer)?;
         mask(&mut buffer);
         zstd::stream::decode_all(&buffer[..])
