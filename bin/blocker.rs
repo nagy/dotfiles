@@ -102,12 +102,14 @@ impl Hash {
         let found_filename = self.find_filename();
         let file = File::open(self.try_filename())?;
         let content = Self::read_from(file)?;
-        let hash: Vec<u8> = sha2::Sha256::new_with_prefix(&content).finalize()[..].into();
-        let encoded_hash = data_encoding::BASE32
-            .encode(&hash)
-            .to_lowercase()
-            .replace("====", "");
-        assert_eq!(found_filename, encoded_hash);
+        if std::env::var("BLOCKER_CHECKED_READ").unwrap_or("0".into()) == "1" {
+            let hash: Vec<u8> = sha2::Sha256::new_with_prefix(&content).finalize()[..].into();
+            let encoded_hash = data_encoding::BASE32
+                .encode(&hash)
+                .to_lowercase()
+                .replace("====", "");
+            assert_eq!(found_filename, encoded_hash);
+        }
         Ok(content)
     }
     fn read_from<R: Read>(mut reader: R) -> Result<Vec<u8>> {
