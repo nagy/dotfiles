@@ -7,6 +7,7 @@
 //! hex-literal = "0.3.4"
 //! zstd = "0.12.3"
 //! sha2 = "0.10.6"
+//! ctrlc = "3.2.5"
 //! ```
 
 use std::fs::{create_dir_all, read_dir, File};
@@ -169,6 +170,11 @@ fn mask(plaintext: &mut [u8]) {
 }
 
 fn main() {
+    let running = std::sync::Arc::new(std::sync::atomic::AtomicBool::new(true));
+    let r = running.clone();
+
+    ctrlc::set_handler(move || r.store(false, std::sync::atomic::Ordering::SeqCst)).unwrap();
+
     let args: Vec<String> = std::env::args().collect();
     assert!(args.len() <= 2);
     if args.len() == 2 {
@@ -189,6 +195,9 @@ fn main() {
             let h: Hash = ch.unwrap().into();
             h.write().unwrap();
             combined_hash.extend_from_slice(&h.hash[..]);
+            if !running.load(std::sync::atomic::Ordering::SeqCst) {
+                return;
+            }
         }
         let output = Hash::from_data(combined_hash).write().unwrap();
         println!("{output}");
