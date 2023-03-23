@@ -323,7 +323,10 @@ with pkgs.lib; {
     restic
     rclone
     bup
-    (zbar.override { enableVideo = false; })
+    (zbar.override {
+      withXorg = false;
+      enableVideo = false;
+    })
     shellcheck
     (aspellWithDicts (ps: [ ps.en ]))
     (lispPackages_new.sbclWithPackages (ps:
@@ -394,6 +397,11 @@ with pkgs.lib; {
       nagy.to = {
         owner = "nagy";
         repo = "nur-packages";
+        type = "github";
+      };
+      d.to = {
+        owner = "nagy";
+        repo = "dotfiles";
         type = "github";
       };
       dot.to = {

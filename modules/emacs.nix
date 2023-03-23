@@ -71,6 +71,7 @@ let
         lorem-ipsum
         corfu
         cape
+        jq-mode
       ]));
 in {
   environment.systemPackages = [

@@ -115,6 +115,7 @@
        "\epnei": "\C-a\C-knix-env -f . -i\C-m"
        "\eoFoi": "--override-input "
        "\eoFof": "--override-flake "
+       "\eo\ep": "~/pkgs "
 
        # Xorg
        "\ep\eX": "\C-a\C-k\C-lstartx\C-m"

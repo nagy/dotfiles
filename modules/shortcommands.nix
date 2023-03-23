@@ -218,6 +218,7 @@ let
     # misc
     J = [ "jq" "--monochrome-output" "--sort-keys" ];
     Jr = [ "jq" "--monochrome-output" "--sort-keys" "--raw-output" ];
+    Js = [ "jq" "--slurp" ];
     jqM = [ "jq" "--monochrome-output" ];
     Y = [ "yq" "--prettyPrint" "--no-colors" ];
     yqP = [ "yq" "--prettyPrint" ];

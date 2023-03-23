@@ -10,6 +10,12 @@ nixpkgs-iosevka-comfy-040:
         #   sansSerif = [ "" ];
         #   serif = [ "" ];
       };
+
+      # these revert the config from `fonts.optimizeForVeryHighDPI`.
+      antialias = true;
+      hinting.enable = true;
+      subpixel.lcdfilter = "default";
+      subpixel.rgba = "rgb";
     };
     enableDefaultFonts = true;
     fonts = with import nixpkgs-iosevka-comfy-040 { inherit (pkgs) system; };

@@ -56,6 +56,7 @@ let
     # "🐍" = [ "<Multi_key>" "<s>" "<n>" "<e>" "<k>" ];
     "🐜" = [ "<Multi_key>" "<a>" "<n>" "<t>" ];
     "☉" = [ "<Multi_key>" "<s>" "<u>" "<n>" ];
+    "🔥" = [ "<Multi_key>" "<f>" "<r>" ];
 
     # fraktur
     "𝒻" = [ "<Multi_key>" "<dstroke>" "<f>" ];
