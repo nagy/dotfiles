@@ -435,6 +435,11 @@ with pkgs.lib; {
         type = "github";
         ref = "nixos-unstable";
       };
+      U.to = {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        type = "github";
+      };
       G.to = {
         id = "gemini";
         type = "indirect";

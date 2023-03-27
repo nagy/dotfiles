@@ -103,14 +103,14 @@ let
     "SHØ" = [ "nix" "shell" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
     "PØ" = [ "nix" "profile" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
 
-    "R~" = [ "nix" "run" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
-    "B~" = [ "nix" "build" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
-    "D~" = [ "nix" "develop" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
-    "Fs~" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
-    "Fm~" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
-    "Fc~" = [ "nix" "flake" "check" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
-    "SH~" = [ "nix" "shell" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
-    "P~" = [ "nix" "profile" "--override-input" "nixpkgs" "~/tmp/nixpkgs" ];
+    "R~" = [ "nix" "run" "--override-input" "nixpkgs" "~/pkgs" ];
+    "B~" = [ "nix" "build" "--override-input" "nixpkgs" "~/pkgs" ];
+    "D~" = [ "nix" "develop" "--override-input" "nixpkgs" "~/pkgs" ];
+    "Fs~" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "~/pkgs" ];
+    "Fm~" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "~/pkgs" ];
+    "Fc~" = [ "nix" "flake" "check" "--override-input" "nixpkgs" "~/pkgs" ];
+    "SH~" = [ "nix" "shell" "--override-input" "nixpkgs" "~/pkgs" ];
+    "P~" = [ "nix" "profile" "--override-input" "nixpkgs" "~/pkgs" ];
 
     "B." = [ "nix" "build" "--file" "." ];
     "B.j" = [ "nix" "build" "--file" "." "--json" "--no-link" ];
@@ -214,6 +214,8 @@ let
     Crr = [ "cargo" "run" "--release" ];
     Cb = [ "cargo" "build" ];
     Cbr = [ "cargo" "build" "--release" ];
+    Ct = [ "cargo" "test" ];
+    Ctr = [ "cargo" "test" "--release" ];
 
     # misc
     J = [ "jq" "--monochrome-output" "--sort-keys" ];
