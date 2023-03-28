@@ -119,6 +119,7 @@ let
     "E." = [ "nix" "eval" "--file" "." ];
     "E.j" = [ "nix" "eval" "--file" "." "--json" ];
     "S." = [ "nix" "search" "--file" "." ];
+    "L." = [ "nix" "log" "--file" "." ];
     # impure variants
     Ri = [ "nix" "run" "--impure" ];
     Bi = [ "nix" "build" "--impure" ];

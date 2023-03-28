@@ -65,13 +65,16 @@ let
         # org-fancy-priorities
         nix-mode
         mermaid-mode
-        gitlab-ci-mode
-        dockerfile-mode
         # adaptive-wrap
         lorem-ipsum
         corfu
         cape
         jq-mode
+
+        # devops
+        terraform-mode
+        gitlab-ci-mode
+        dockerfile-mode
       ]));
 in {
   environment.systemPackages = [

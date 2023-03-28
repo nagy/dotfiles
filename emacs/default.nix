@@ -1,5 +1,5 @@
 { lib, pkgs, fetchFromGitHub, trivialBuild, elpaBuild, modus-themes, paren-face
-, nlinum, general, evil, elpher, yaml-mode, dash, nameless }:
+, nlinum, general, evil, elpher, yaml-mode, dash, nameless, anaphora }:
 
 let
   doom = fetchFromGitHub {
@@ -82,7 +82,7 @@ in rec {
 
   nagy-qrcode = makeTrivialBuild {
     pname = "nagy-qrcode";
-    packageRequires = [ dash ];
+    packageRequires = [ dash anaphora ];
   };
 
   nagy-use-package = makeTrivialBuild { pname = "nagy-use-package"; };

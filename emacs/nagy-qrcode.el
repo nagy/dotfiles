@@ -6,6 +6,7 @@
 (require 'dash)
 (require 'xml)
 (require 'dom)
+(require 'anaphora)
 
 (defun nagy-qr-datatag-todata (data-tag)
   (if (cadr data-tag)
@@ -41,8 +42,8 @@
 (defun qr-take-screenshot-and-kill ()
   (interactive)
   (when (fboundp 'take-screenshot)
-    (let ((scr (take-screenshot)))
-      (with-current-buffer (find-file-noselect scr)
+    (alet (take-screenshot)
+      (with-current-buffer (find-file-noselect it)
         (kill-qrcode)))))
 
 (provide 'nagy-qrcode)
