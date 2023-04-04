@@ -152,6 +152,8 @@ in {
     *.font: Iosevka Comfy:size=12
     *.background: #000000
     *.foreground: #ffffff
+    Xcursor.size: 48
+    Xcursor.theme: whiteglass
   '';
 
   environment.systemPackages = with pkgs; [

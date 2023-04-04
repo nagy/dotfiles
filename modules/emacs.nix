@@ -33,7 +33,6 @@ let
         pdf-tools
         org-pdftools
         elfeed
-        pass
         ob-mermaid
         triples
         bufler
@@ -50,6 +49,7 @@ let
 
         lin
         ov
+        visual-fill-column
 
         # hy-mode
         yaml-mode
@@ -70,11 +70,19 @@ let
         corfu
         cape
         jq-mode
+        rustic
+
+        # password and secrets
+        pass
+        password-store
+        password-store-otp
 
         # devops
         terraform-mode
         gitlab-ci-mode
         dockerfile-mode
+        eldoc-box
+        git-modes
       ]));
 in {
   environment.systemPackages = [
