@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
   nsxivBigThumbs = pkgs.nsxiv.overrideAttrs (old: {
@@ -22,9 +22,14 @@ in {
     displayManager.startx.enable = true;
     # https://discourse.nixos.org/t/enable-vertical-sync-on-amd-gpu/12369/5
     deviceSection = ''Option "TearFree" "true"''; # For amdgpu.
-    # xkbDir = "${pkgs.xorg.xkeyboardconfig.overrideAttrs(old:{
-    #   postPatch = "echo > rules/0026-evdev.m_s.part";
-    # })}/etc/X11/xkb";
+    # patch away the inet(evdev) appendix
+    xkbDir = let
+      xkb_patched = (pkgs.xorg.xkeyboardconfig_custom {
+        layouts = config.services.xserver.extraLayouts;
+      }).overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + "echo > rules/0026-evdev.m_s.part";
+      });
+    in lib.mkForce "${xkb_patched}/etc/X11/xkb";
     # keyboard
     layout = "mine";
     extraLayouts = {
