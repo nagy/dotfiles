@@ -269,6 +269,7 @@ with pkgs.lib; {
     # git # already in module
     # home-manager
     jq
+    fx
     tig
     yq-go
     hcl2json
@@ -302,7 +303,7 @@ with pkgs.lib; {
     isort
     cryptsetup
 
-    ncdu_2
+    ncdu
 
     # documentation
     man-pages
@@ -313,6 +314,7 @@ with pkgs.lib; {
     #   (builtins.readFile ../bin/journal-git-store))
     (pkgs.writeScriptBin "gitpack" (builtins.readFile ../bin/gitpack))
     nixfmt
+    nil
     wordnet
     yt-dlp
     nix-update
@@ -368,6 +370,12 @@ with pkgs.lib; {
     recognitionType = "extension";
     magicOrExtension = "oil";
     interpreter = pkgs.lib.getExe pkgs.oil;
+  };
+
+  boot.binfmt.registrations.wasm = {
+    recognitionType = "extension";
+    magicOrExtension = "wasm";
+    interpreter = pkgs.lib.getExe pkgs.wasmtime;
   };
 
   environment.variables.LESSHISTFILE = "-";
@@ -523,6 +531,16 @@ with pkgs.lib; {
       mvn2nix.to = {
         owner = "fzakaria";
         repo = "mvn2nix";
+        type = "github";
+      };
+      std.to = {
+        owner = "divnix";
+        repo = "std";
+        type = "github";
+      };
+      nixago.to = {
+        owner = "nix-community";
+        repo = "nixago";
         type = "github";
       };
     };

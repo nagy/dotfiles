@@ -71,6 +71,8 @@ let
         cape
         jq-mode
         rustic
+        format-all
+        sideline
 
         # password and secrets
         pass

@@ -120,6 +120,8 @@ in {
              key <KP7>  { [KP_7, KP_7, KP_7, KP_7] };
              key <KP8>  { [KP_8, KP_8, KP_8, KP_8] };
              key <KP9>  { [KP_9, KP_9, KP_9, KP_9] };
+             // remap f key to be more f-like
+             key <AC04> { [f, F, U2A0F, U2A0E] };
           };
         '';
       };
