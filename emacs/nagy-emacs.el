@@ -126,5 +126,22 @@
   ("H-s-," . describe-char)
   ("H-s-." . display-local-help))
 
+(defun nagy-ielm-init-history ()
+  (let ((path (expand-file-name "ielm/history" user-emacs-directory)))
+    (make-directory (file-name-directory path) t)
+    (setq-local comint-input-ring-file-name path))
+  (setq-local comint-input-ring-size 10000)
+  (setq-local comint-input-ignoredups t)
+  (comint-read-input-ring))
+(defun nagy-ielm-write-history (&rest _args)
+  (with-file-modes #o600
+    (comint-write-input-ring)))
+
+(use-package ielm
+  :config
+  (advice-add 'ielm-send-input :after #'nagy-ielm-write-history)
+  :hook
+  (ielm-mode . nagy-ielm-init-history))
+
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here
