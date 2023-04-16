@@ -141,12 +141,16 @@ let
     Gpl = [ "git" "pull" ];
 
     # sqlite
-    Q = ["sqlite3" ];
-    Qj = ["sqlite3" "-json" ];
-    Qt = ["sqlite3" "-table" ];
-    Qb = ["sqlite3" "-box" ];
-    Qh = ["sqlite3" "-html" ];
-    Qc = ["sqlite3" "-csv" ];
+    Q = [ "sqlite3" ];
+    Qj = [ "sqlite3" "-json" ];
+    Qt = [ "sqlite3" "-table" ];
+    Qb = [ "sqlite3" "-box" ];
+    Qh = [ "sqlite3" "-html" ];
+    Qc = [ "sqlite3" "-csv" ];
+
+    # zig
+    Z = [ "zig" ];
+    Zb = [ "zig" "build" ];
 
     # docker
     # (mkShortCommand "dO" [ "docker" ])

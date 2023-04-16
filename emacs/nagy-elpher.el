@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-elpher
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((emacs "24.3") elpher)
 ;;
 ;; This file is not part of GNU Emacs.
 ;;

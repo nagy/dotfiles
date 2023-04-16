@@ -19,6 +19,8 @@
 ;;
 ;;; Code:
 
+(require 'comint)
+
 (use-package help
   :hook
   (help-mode . visual-fill-column-mode)

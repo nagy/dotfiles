@@ -243,8 +243,8 @@ with pkgs.lib; {
   '';
 
   # tmpfs on all machines
-  boot.tmpOnTmpfs = true;
-  boot.tmpOnTmpfsSize = "100%";
+  boot.tmp.useTmpfs = true;
+  boot.tmp.tmpfsSize = "100%";
 
   # cleaner git repos without the hooks
   environment.variables.GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
