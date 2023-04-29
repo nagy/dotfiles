@@ -9,4 +9,4 @@ bootlog_json() {
    journalctl --boot="$BOOTID" --output=json \
        | jq --compact-output --sort-keys
 }
-bootlog_json | zstd -19 > $TAGNAME.journal.json.zst
+bootlog_json > $TAGNAME.journal.json
