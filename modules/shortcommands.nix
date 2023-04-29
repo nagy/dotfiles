@@ -196,11 +196,16 @@ let
     nPu = [ "npm" "update" ];
 
     # systemctl
+    sc = [ "systemctl" ];
+    scc = [ "systemctl" "cat" ];
     scs = [ "systemctl" "status" ];
+    sca = [ "systemctl" "start" ];
+    sco = [ "systemctl" "stop" ];
+    scr = [ "systemctl" "stop" ];
     sclt = [ "systemctl" "list-timers" ];
     scls = [ "systemctl" "list-sockets" ];
-    scjlt = [ "systemctl" "--output=json" "list-timers" ];
-    scjls = [ "systemctl" "--output=json" "list-sockets" ];
+    scltj = [ "systemctl" "list-timers" "--output=json" ];
+    sclsj = [ "systemctl" "list-sockets" "--output=json" ];
     jF = [ "journalctl" "-f" ];
     JJf = [ "journalctl" "-f" ];
     bcj = [ "busctl" "--json" ];

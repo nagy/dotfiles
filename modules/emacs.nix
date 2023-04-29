@@ -16,7 +16,7 @@ let
         nagy.nagy-use-package
         nagy.nagy-misc
         nagy.nagy-emacs
-        nagy.wat-mode
+        wat-mode
 
         nameless
         (sotlisp.overrideAttrs (old: {
@@ -82,13 +82,20 @@ let
         # devops
         terraform-mode
         gitlab-ci-mode
+        groovy-mode
         dockerfile-mode
         eldoc-box
         git-modes
+        jinx
+        tokei
+
+        # native packages with elisp files
+        pkgs.gforth
       ]));
 in {
   environment.systemPackages = [
     emacsAndPackages
     (pkgs.mu.override { inherit (customEmacsPackages) emacs; })
+    pkgs.gforth
   ];
 }

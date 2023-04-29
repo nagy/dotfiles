@@ -16,6 +16,7 @@ nixpkgs-iosevka-comfy-040:
       hinting.enable = true;
       subpixel.lcdfilter = "default";
       subpixel.rgba = "rgb";
+      includeUserConf = false;
     };
     enableDefaultFonts = true;
     fonts = with import nixpkgs-iosevka-comfy-040 { inherit (pkgs) system; };

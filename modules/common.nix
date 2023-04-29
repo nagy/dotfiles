@@ -12,6 +12,7 @@ with pkgs.lib; {
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZNW8uX6gKASOT+0XXKF2QmeXqMZfoEMIYFogbUF4jo"
     ];
   };
+  # users.mutableUsers = false; # this can break the manually set password !!!!
 
   services.openssh.enable = true;
   services.openssh.settings.permitRootLogin = "yes";
@@ -316,10 +317,12 @@ with pkgs.lib; {
     nixfmt
     nil
     wordnet
+    dnsutils
     yt-dlp
     nix-update
     nix-prefetch
     nix-prefetch-git
+    nix-diff
     qrencode
     restic
     rclone
@@ -354,6 +357,7 @@ with pkgs.lib; {
     pinentry
     (gnupg.override { guiSupport = false; })
     gh
+    xurls
 
     (hy.withPackages (ps: with ps; [ hyrule addict ]))
     (terraform.withPlugins (p: with p; [ github ]))
@@ -405,6 +409,12 @@ with pkgs.lib; {
         owner = "nagy";
         repo = "nur-packages";
         type = "github";
+      };
+      lib.to = {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        type = "github";
+        dir = "lib";
       };
       d.to = {
         owner = "nagy";
@@ -541,6 +551,12 @@ with pkgs.lib; {
       nixago.to = {
         owner = "nix-community";
         repo = "nixago";
+        type = "github";
+      };
+      # until https://github.com/NixOS/flake-registry/pull/41 is merged
+      haumea.to = {
+        owner = "nix-community";
+        repo = "haumea";
         type = "github";
       };
     };
