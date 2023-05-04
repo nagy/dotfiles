@@ -1,4 +1,4 @@
-{ lib, pkgs, emacs, }:
+{ lib, pkgs, emacs }:
 
 let
   makePackage = { path, warnIsError ? true }:
@@ -15,7 +15,7 @@ let
       packageRequires =
         pkgs.nur.repos.nagy.lib.emacsParsePackageSet { inherit emacs path; };
     };
-in rec {
+in {
 
   nagy-elpher = makePackage { path = ./nagy-elpher.el; };
   nagy-emacs = makePackage { path = ./nagy-emacs.el; };

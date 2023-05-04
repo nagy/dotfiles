@@ -19,7 +19,6 @@
 ;;
 ;;; Code:
 
-;; (require 'doom-lib)
 (require 'modus-themes)
 
 (eval-when-compile

@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
-with pkgs.lib; {
+with lib; {
 
   # services.getty.autologinUser = "user";
 
@@ -213,6 +213,13 @@ with pkgs.lib; {
     extraConfig = "bind C-k clear-history";
   };
 
+  networking.hosts = {
+    "1.1.1.1" = [ "1dot1dot1dot1.cloudflare-dns.com" "one.one.one.one" ];
+    "8.8.8.8" = [ "dns.google" ];
+    "194.242.2.2" = [ "doh.mullvad.net" ];
+    "194.242.2.3" = [ "adblock.doh.mullvad.net" ];
+  };
+
   services.openssh.knownHosts = {
     "github.com".publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
@@ -368,13 +375,13 @@ with pkgs.lib; {
   boot.binfmt.registrations.oil = {
     recognitionType = "extension";
     magicOrExtension = "oil";
-    interpreter = pkgs.lib.getExe pkgs.oil;
+    interpreter = lib.getExe pkgs.oil;
   };
 
   boot.binfmt.registrations.wasm = {
     recognitionType = "extension";
     magicOrExtension = "wasm";
-    interpreter = pkgs.lib.getExe pkgs.wasmtime;
+    interpreter = lib.getExe pkgs.wasmtime;
   };
 
   environment.variables.LESSHISTFILE = "-";
@@ -405,25 +412,25 @@ with pkgs.lib; {
         repo = "nur-packages";
         type = "github";
       };
-      lib.to = {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        type = "github";
-        dir = "lib";
-      };
-      d.to = {
-        owner = "nagy";
-        repo = "dotfiles";
-        type = "github";
+      N.to = {
+        id = "nagy";
+        type = "indirect";
       };
       dot.to = {
         owner = "nagy";
         repo = "dotfiles";
         type = "github";
       };
-      N.to = {
-        id = "nagy";
+      d.to = {
+        id = "dot";
         type = "indirect";
+      };
+
+      lib.to = {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        type = "github";
+        dir = "lib";
       };
       n.to = {
         id = "nixpkgs";
@@ -437,10 +444,6 @@ with pkgs.lib; {
         id = "nixpkgs";
         type = "indirect";
       };
-      HW.to = {
-        id = "nixos-hardware";
-        type = "indirect";
-      };
       u.to = {
         owner = "NixOS";
         repo = "nixpkgs";
@@ -451,6 +454,11 @@ with pkgs.lib; {
         owner = "NixOS";
         repo = "nixpkgs";
         type = "github";
+      };
+
+      HW.to = {
+        id = "nixos-hardware";
+        type = "indirect";
       };
       G.to = {
         id = "gemini";
@@ -492,11 +500,6 @@ with pkgs.lib; {
       nixos-generators.to = {
         owner = "nix-community";
         repo = "nixos-generators";
-        type = "github";
-      };
-      j2d.to = {
-        owner = "nagy";
-        repo = "json2dbus";
         type = "github";
       };
       nixos-shell.to = {

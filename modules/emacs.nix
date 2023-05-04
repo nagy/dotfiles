@@ -18,7 +18,6 @@ let
         nagy.nagy-emacs
         wat-mode
 
-        nameless
         (sotlisp.overrideAttrs (old: {
           src = pkgs.fetchFromGitHub {
             owner = "nagy";
@@ -42,22 +41,16 @@ let
         ts
         lispy
         lispyville
-        # evil
         evil-numbers
-        # anaphora
-        # general
 
         lin
         ov
         visual-fill-column
 
-        # hy-mode
         yaml-mode
         csv-mode
 
         org
-        # org-brain
-        # all-the-icons
         ascii-art-to-unicode
         org-superstar
         org-appear
@@ -84,18 +77,13 @@ let
         gitlab-ci-mode
         groovy-mode
         dockerfile-mode
-        eldoc-box
         git-modes
         jinx
         tokei
-
-        # native packages with elisp files
-        pkgs.gforth
       ]));
 in {
   environment.systemPackages = [
     emacsAndPackages
     (pkgs.mu.override { inherit (customEmacsPackages) emacs; })
-    pkgs.gforth
   ];
 }
