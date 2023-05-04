@@ -42,10 +42,10 @@ let
         ts
         lispy
         lispyville
-        evil
+        # evil
         evil-numbers
-        anaphora
-        general
+        # anaphora
+        # general
 
         lin
         ov

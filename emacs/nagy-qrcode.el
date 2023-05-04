@@ -1,4 +1,6 @@
 ;;; nagy-qrcode.el --- My qrcode config -*- lexical-binding: t -*-
+;; Homepage: https://github.com/nagy/nagy
+;; Package-Requires: ((emacs "29.1") dash anaphora)
 
 (eval-when-compile
   (require 'cl-lib))

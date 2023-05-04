@@ -8,7 +8,7 @@
 ;; Modified: January 27, 2023
 ;; Version: 0.0.1
 ;; Keywords: convenience, files
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((emacs "29.1") evil yaml-mode)
 ;;
 ;; This file is not part of GNU Emacs.
 ;;

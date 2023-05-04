@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-elpher
-;; Package-Requires: ((emacs "24.3") elpher)
+;; Package-Requires: ((emacs "29.1") elpher general evil)
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -23,6 +23,10 @@
 (require 'bookmark)
 (require 'evil)
 (defvar doom-leader-map)
+
+(eval-when-compile
+  ;; To catch errors during batch compilation
+  (require 'elpher))
 
 (use-package elpher
   :commands (elpher-bookmark-handler elpher-go elpher-bookmark-make-record)

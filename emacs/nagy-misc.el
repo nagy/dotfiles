@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: Symbol’s value as variable is void: finder-known-keywords
 ;; Homepage: https://github.com/nagy/nagy-misc
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((emacs "29.1") nameless)
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -18,6 +18,10 @@
 ;;  Description
 ;;
 ;;; Code:
+
+(eval-when-compile
+  ;; To catch errors during batch compilation
+  (require 'nameless))
 
 (use-package nameless
   :diminish nameless-mode
