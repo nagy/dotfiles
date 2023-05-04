@@ -35,7 +35,6 @@ let
         lispyville
         evil-numbers
 
-        lin
         ov
         visual-fill-column
 

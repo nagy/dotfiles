@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: (paren-face modus-themes)
+;; Package-Requires: ((emacs "29.1") paren-face modus-themes lin)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -23,6 +23,7 @@
 
 (eval-when-compile
   ;; To catch errors during batch compilation
+  (require 'lin)
   (require 'paren-face))
 
 (defun dayp ()
@@ -80,6 +81,28 @@
     (set-face-attribute 'parenthesis nil :foreground (if (dayp) "#ccc" "#333")))
   (add-hook 'modus-themes-after-load-theme-hook #'nagy/fix-parenface)
   (nagy/fix-parenface))
+
+(use-package lin
+  :functions lin-global-mode
+  :config
+  (setq lin-face 'lin-blue)
+  (setq lin-mode-hooks
+        '(dired-mode-hook
+          elfeed-search-mode-hook
+          grep-mode-hook
+          ibuffer-mode-hook
+          ilist-mode-hook
+          ledger-report-mode-hook
+          log-view-mode-hook
+          magit-log-mode-hook
+          mu4e-headers-mode-hook
+          occur-mode-hook
+          org-agenda-mode-hook
+          nix-search-mode-hook
+          proced-mode-hook
+          tabulated-list-mode-hook))
+  (lin-global-mode 1))
+
 
 (provide 'nagy-modus-themes)
 ;;; nagy.el ends here
