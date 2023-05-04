@@ -1,7 +1,15 @@
-nixpkgs-iosevka-comfy-040:
 { pkgs, ... }:
 
-{
+let
+  # because line-height is too high with newest version
+  overrideBuildPlan = old: {
+    buildPlan = pkgs.writeText "private-build-plans.toml"
+      ((builtins.readFile old.buildPlan) + "\n" + ''
+        [buildPlans.iosevka-comfy.metric-override]
+        leading = 1100
+      '');
+  };
+in {
   fonts = {
     fontconfig = {
       enable = true;
@@ -19,16 +27,13 @@ nixpkgs-iosevka-comfy-040:
       includeUserConf = false;
     };
     enableDefaultFonts = true;
-    fonts = with import nixpkgs-iosevka-comfy-040 { inherit (pkgs) system; };
-      [
-        # because line-height is too high with newest version
-        iosevka-comfy.comfy
-      ] ++ (with pkgs; [
-        etBook # EtBembo https://edwardtufte.github.io/et-book/
-        noto-fonts
-        # Only one icon used: 〜
-        # From font "file-icons". May be a bit overkill
-        emacs-all-the-icons-fonts
-      ]);
+    fonts = with pkgs; [
+      (iosevka-comfy.comfy.overrideAttrs overrideBuildPlan)
+      etBook # EtBembo https://edwardtufte.github.io/et-book/
+      noto-fonts
+      # Only one icon used: 〜
+      # From font "file-icons". May be a bit overkill
+      emacs-all-the-icons-fonts
+    ];
   };
 }

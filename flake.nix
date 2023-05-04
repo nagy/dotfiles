@@ -1,15 +1,11 @@
 {
 
-  # pre merge of https://github.com/NixOS/nixpkgs/pull/191459
-  # because line-height is too high with newest version
-  # https://protesilaos.com/codelog/2022-09-14-iosevka-comfy-1-0-0/
-  inputs.nixpkgs-iosevka-comfy-040.url =
-    "github:NixOS/nixpkgs?rev=bef209dc55a6b760b95ef7c08486a574fbd0cdd9";
+  inputs = { nixpkgs.url = "github:nix-community/nixpkgs.lib"; };
 
-  outputs = { self, nixpkgs-iosevka-comfy-040 }: rec {
+  outputs = { self, nixpkgs }: rec {
 
     nixosModules = with builtins;
-      with nixpkgs-iosevka-comfy-040.lib;
+      with nixpkgs.lib;
       let
         files = readDir ./modules;
         fileNames = attrNames files;
@@ -20,8 +16,6 @@
         }) fileNames;
         modules = listToAttrs preAttrList;
       in modules // {
-        # hack, to pass in the input argument
-        fonts = import ./modules/fonts.nix nixpkgs-iosevka-comfy-040;
         converted-hmmpv = let dotlib = lib;
         in { pkgs, lib, config, ... }:
         with dotlib pkgs;
