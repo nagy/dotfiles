@@ -1,4 +1,4 @@
-{ lib, pkgs, emacs }:
+{ lib, pkgs, emacs, emacs-overlay }:
 
 let
   makePackage = { path, warnIsError ? true }:
@@ -12,8 +12,10 @@ let
         text = builtins.readFile path;
       }) + destination;
       pname = name;
-      packageRequires =
-        pkgs.nur.repos.nagy.lib.emacsParsePackageSet { inherit emacs path; };
+      packageRequires = pkgs.nur.repos.nagy.lib.emacsParsePackageSet {
+        inherit emacs path;
+        parser = pkgs.callPackage "${emacs-overlay}/parse.nix" { };
+      };
     };
 in {
 

@@ -1,21 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, emacs-overlay, ... }:
 
 let
   customEmacsPackages = pkgs.emacsPackagesFor config.services.emacs.package;
-  nagy = customEmacsPackages.callPackage ../emacs { };
   emacsAndPackages = customEmacsPackages.withPackages (epkgs:
-    (with epkgs;
+    (lib.attrValues (import ../emacs {
+      inherit pkgs lib emacs-overlay;
+      inherit (epkgs) emacs;
+    })) ++ (with epkgs;
       with epkgs.melpaPackages; [
-        nagy.nagy-modus-themes
-        nagy.nagy-nlinum
-        nagy.nagy-formats
-        nagy.nagy-quirky-shell-command
-        nagy.nagy-pcap-converter
-        nagy.nagy-elpher
-        nagy.nagy-qrcode
-        nagy.nagy-use-package
-        nagy.nagy-misc
-        nagy.nagy-emacs
         wat-mode
 
         (sotlisp.overrideAttrs (old: {
