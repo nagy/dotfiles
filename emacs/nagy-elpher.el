@@ -22,7 +22,6 @@
 (require 'general)
 (require 'bookmark)
 (require 'evil)
-(defvar doom-leader-map)
 
 (eval-when-compile
   ;; To catch errors during batch compilation
@@ -34,9 +33,6 @@
   elpher-redraw
   :hook
   (elpher-mode . visual-fill-column-mode)
-  :bind
-  (:map doom-leader-map
-        ("ae" . elpher))
   :general
   (:states 'normal :keymaps 'elpher-mode-map
            "q" #'quit-window
