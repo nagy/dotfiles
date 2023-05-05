@@ -33,7 +33,6 @@ let
         ts
         lispy
         lispyville
-        evil-numbers
 
         ov
         visual-fill-column

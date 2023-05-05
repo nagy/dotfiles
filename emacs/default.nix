@@ -18,6 +18,7 @@ let
       };
     };
 in {
+  nagy-evil = makePackage { path = ./nagy-evil.el; };
   nagy-magit = makePackage { path = ./nagy-magit.el; };
   nagy-elpher = makePackage { path = ./nagy-elpher.el; };
   nagy-emacs = makePackage { path = ./nagy-emacs.el; };
