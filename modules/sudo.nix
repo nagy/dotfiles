@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ ... }:
 
 {
   # https://askubuntu.com/questions/493002/global-sudo-session-in-ubuntu

@@ -43,7 +43,7 @@ with pkgs.lib; rec {
     let
       # FIXME This should be surrounded by quotes
       spaced = concatStringsSep " " list;
-    in (pkgs.writeShellScriptBin cmd ''exec ${spaced} "$@"'');
+    in pkgs.writeShellScriptBin cmd ''exec ${spaced} "$@"'';
 
   mkShortCommand = cmd: list:
     pkgs.symlinkJoin {
@@ -55,7 +55,7 @@ with pkgs.lib; rec {
     # the code that should be executed before taking the screenshot
     emacsCode
     # change this if you want another format
-    , name ? "emacs-screenshot.png", lib ? pkgs.lib, emacs ? pkgs.emacs
+    , name ? "emacs-screenshot.png", emacs ? pkgs.emacs
     , imagemagick ? pkgs.imagemagick, light ? true, ... }:
 
     let
@@ -175,9 +175,9 @@ with pkgs.lib; rec {
           syslog
         '';
       };
-    in (pkgs.writeShellScriptBin "msmtp-${name}" ''
+    in pkgs.writeShellScriptBin "msmtp-${name}" ''
       exec ${pkgs.msmtp}/bin/msmtp --file=${configfile} "$@"
-    '');
+    '';
 
   mkGitMirror = url:
     pkgs.runCommandLocal "git-mirror" {
