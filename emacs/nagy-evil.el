@@ -7,9 +7,9 @@
 ;; Created: December 01, 2022
 ;; Modified: December 01, 2022
 ;; Version: 0.0.1
-;; Keywords:
+;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-evil
-;; Package-Requires: ((emacs "29.1") evil evil-numbers)
+;; Package-Requires: ((emacs "29.1") evil evil-numbers general)
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -19,6 +19,7 @@
 ;;
 ;;; Code:
 
+(require 'general)
 (eval-when-compile
   ;; To catch errors during batch compilation
   (require 'evil-numbers))
@@ -31,3 +32,6 @@
   (:states 'normal
            "g+" #'evil-numbers/inc-at-pt-incremental
            "g-" #'evil-numbers/dec-at-pt-incremental))
+
+(provide 'nagy-evil)
+;;; nagy-evil.el ends here
