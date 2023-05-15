@@ -9,8 +9,8 @@ mkQmkFirmware {
     runHook prePatch
     ${optionalString rightSideMaster ''
       substituteInPlace \
-          keyboards/$keyboard/keymaps/$keymap/config.h \
-          --replace MASTER_LEFT MASTER_RIGHT
+        keyboards/$keyboard/keymaps/$keymap/config.h \
+        --replace MASTER_LEFT MASTER_RIGHT
     ''}
     echo '#define MOUSEKEY_MOVE_DELTA 4' >> keyboards/$keyboard/keymaps/$keymap/config.h
     cp ${./keymap.c} keyboards/$keyboard/keymaps/$keymap/keymap.c

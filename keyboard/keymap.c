@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                         KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_BSPC,
         KC_TAB , KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  ,                         KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  ,KC_MINS,
         KC_LSFT, KC_A  , KC_S  , KC_D  , KC_F  , KC_G  ,                         KC_H  , KC_J  , KC_K  , KC_L  ,KC_SCLN,SFT_T(KC_QUOT),
-        KC_LCTL, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,                         KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_LBRC,CTL_T(KC_BSLASH),
+        KC_LCTL, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,                         KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_LBRC,CTL_T(KC_BACKSLASH),
                          KC_NUBS,RCTL_T(KC_INS),                                                KC_RBRC, KC_SLSH,
                                          RAISE , SPC_C,                          KC_SPC,  LOWER,
                                          LALT_T(KC_WBAK), SPC_L,                  SPC_R, RALT_T(KC_WFWD),
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_RAISE] = LAYOUT_6x6(
         KC_F13 , KC_F14, KC_F15, KC_F16, KC_F17, KC_F18,                        KC_F19 , KC_F20, KC_F21,KC_F22 ,KC_F23 ,KC_F24,
-        QK_BOOT,_______,_______,_______,_______,_______,                        KC_LNG1,_______,KC_NLCK,_______,KC_SLCK,KC_MUTE,
+        QK_BOOT,_______,_______,_______,_______,_______,                        KC_LNG1,_______,KC_NUM ,_______,KC_SCRL,KC_MUTE,
         KC_WAKE,_______,_______,_______,_______,_______,                        KC_LNG2,KC_MPRV,KC_MPLY,KC_MNXT,_______,KC_VOLU,
         _______,KC_LEFT,KC_UP  ,KC_DOWN,KC_RGHT,KC_HELP,                        KC_LNG3,_______,KC_MS_UP,_______,_______,KC_VOLD,
         _______,_______,KC_CUT ,KC_UNDO,KC_AGIN,KC_STOP,                        KC_LNG4,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,_______,_______,
