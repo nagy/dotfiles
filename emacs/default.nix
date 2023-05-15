@@ -1,12 +1,12 @@
 { lib, pkgs, emacs, emacs-overlay }:
 
 let
-  makePackage = { path, warnIsError ? true }:
+  makePackage = { path }:
     let
       name = lib.substring 44 999 path;
       destination = "/" + name;
     in pkgs.nur.repos.nagy.lib.emacsMakeSingleFilePackage {
-      inherit emacs warnIsError;
+      inherit emacs;
       src = (pkgs.writeTextFile {
         inherit name destination;
         text = builtins.readFile path;
@@ -25,10 +25,7 @@ in {
   nagy-formats = makePackage { path = ./nagy-formats.el; };
   nagy-misc = makePackage { path = ./nagy-misc.el; };
   nagy-modus-themes = makePackage { path = ./nagy-modus-themes.el; };
-  nagy-nlinum = makePackage {
-    path = ./nagy-nlinum.el;
-    warnIsError = false;
-  };
+  nagy-nlinum = makePackage { path = ./nagy-nlinum.el; };
   nagy-pcap-converter = makePackage { path = ./nagy-pcap-converter.el; };
   nagy-qrcode = makePackage { path = ./nagy-qrcode.el; };
   nagy-quirky-shell-command =

@@ -7,7 +7,7 @@
 ;; Created: December 01, 2022
 ;; Modified: December 01, 2022
 ;; Version: 0.0.1
-;; Keywords:
+;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-magit
 ;; Package-Requires: ((emacs "29.1") magit-section forge general)
 ;;
@@ -59,3 +59,6 @@
   (:map forge-post-mode-map
         ([remap kill-this-buffer] . forge-post-cancel)
         ([remap save-kill-buffer] . forge-post-submit)))
+
+(provide 'nagy-magit)
+;;; nagy-magit.el ends here
