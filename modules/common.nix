@@ -325,6 +325,7 @@ with lib; {
     nix-prefetch
     nix-prefetch-git
     nix-diff
+    nix-init
     qrencode
     restic
     rclone

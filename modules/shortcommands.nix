@@ -42,8 +42,10 @@ let
     NAc = [ "nix" "nar" "cat" ];
     CP = [ "nix" "copy" ];
     I = [ "nix" "path-info" ];
-    Is = [ "nix" "path-info" "--closure-size" "--human-readable" ];
-    Ij = [ "nix" "path-info" "--closure-size" "--json" ];
+    Is = [ "nix" "path-info" "--size" "--human-readable" ];
+    IS = [ "nix" "path-info" "--closure-size" "--human-readable" ];
+    Ij = [ "nix" "path-info" "--size" "--json" ];
+    IJ = [ "nix" "path-info" "--closure-size" "--json" ];
     Sj = [ "nix" "search" "--json" ];
     Fm = [ "nix" "flake" "metadata" ];
     Fn = [ "nix" "flake" "new" ];
@@ -103,6 +105,15 @@ let
     "SHØ" = [ "nix" "shell" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
     "PØ" = [ "nix" "profile" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
 
+    "R¯" = [ "nix" "run" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
+    "B¯" = [ "nix" "build" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
+    "D¯" = [ "nix" "develop" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
+    "Fs¯" = [ "nix" "flake" "show" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable"  ];
+    "Fm¯" = [ "nix" "flake" "metadata" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" "github:NixOS/nixpkgs/master" ];
+    "Fc¯" = [ "nix" "flake" "check" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
+    "SH¯" = [ "nix" "shell" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
+    "P¯" = [ "nix" "profile" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
+
     "R~" = [ "nix" "run" "--override-input" "nixpkgs" "~/pkgs" ];
     "B~" = [ "nix" "build" "--override-input" "nixpkgs" "~/pkgs" ];
     "D~" = [ "nix" "develop" "--override-input" "nixpkgs" "~/pkgs" ];
@@ -126,6 +137,8 @@ let
     Di = [ "nix" "develop" "--impure" ];
     Eri = [ "nix" "eval" "--raw" "--impure" ];
     Eji = [ "nix" "eval" "--json" "--impure" ];
+
+    Bp = [ "nix" "build" "--no-link" "--print-out-paths" "-j" "1" "-L" "--quiet" ];
 
     # git
     G = [ "git" ];
@@ -151,6 +164,7 @@ let
     # zig
     Z = [ "zig" ];
     Zb = [ "zig" "build" ];
+    Zbs = [ "zig" "build" "-O" "ReleaseSmall" ];
 
     # docker
     # (mkShortCommand "dO" [ "docker" ])
