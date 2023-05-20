@@ -39,17 +39,16 @@
         ("H-k" . magit-section-backward)))
 
 
-(defun forge--make-bookmark ()
+(defun nagy-magit--forge--make-bookmark ()
   (let ((bookmark (cons nil (bookmark-make-record-default 'no-file))))
-    (bookmark-prop-set bookmark 'handler  'forge--handle-bookmark)
+    (bookmark-prop-set bookmark 'handler  'nagy-magit--forge--handle-bookmark)
     (bookmark-prop-set bookmark 'mode     major-mode)
     (bookmark-prop-set bookmark 'filename (magit-toplevel))
     (bookmark-prop-set bookmark 'forge-topic-number (oref forge-buffer-topic number))
     (bookmark-prop-set bookmark 'defaults (list (magit-bookmark-name)))
     bookmark))
 
-;;;###autoload
-(defun forge--handle-bookmark (bookmark)
+(defun nagy-magit--forge--handle-bookmark (bookmark)
   (let ((default-directory (bookmark-get-filename bookmark))
         (number (bookmark-prop-get bookmark 'forge-topic-number)))
     (forge-visit (forge-get-topic number))))
