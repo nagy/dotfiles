@@ -10,33 +10,33 @@
 (require 'dom)
 (require 'anaphora)
 
-(defun nagy-qr-datatag-todata (data-tag)
+(defun nagy-qrcode-datatag-todata (data-tag)
   (if (cadr data-tag)
       (base64-decode-string (caddr data-tag))
     (caddr data-tag)))
 
-(defun nagy-qr-list-data (x)
-  (-map #'nagy-qr-datatag-todata (dom-by-tag x 'data)))
+(defun nagy-qrcode-list-data (x)
+  (-map #'nagy-qrcode-datatag-todata (dom-by-tag x 'data)))
 
-(cl-defun nagy-qr-raw-zbarimg-output (&optional (filename (buffer-file-name)))
+(cl-defun nagy-qrcode-raw-zbarimg-output (&optional (filename (buffer-file-name)))
   (with-temp-buffer
-    (when (zerop (call-process "zbarimg" filename t nil "--quiet" "--nodbus" "--xml" "-"))
-      (goto-char (point-min))
-      (xml-parse-tag-1))))
+    (cl-assert (zerop (call-process "zbarimg" filename t nil "--quiet" "--nodbus" "--xml" "-")))
+    (goto-char (point-min))
+    (xml-parse-tag-1)))
 
-(defun nagy-image-scan-qrcode ()
-  (nagy-qr-list-data (nagy-qr-raw-zbarimg-output)))
+(defun nagy-qrcode-image-scan ()
+  (nagy-qrcode-list-data (nagy-qrcode-raw-zbarimg-output)))
 
-(defun nagy-qr-choose (results)
+(defun nagy-qrcode-choose (results)
   (interactive)
   (cl-case (length results)
     (1 (car results))
     (0 nil)
-    (t (completing-read "QR Code: " (nagy-image-scan-qrcode)))))
+    (t (completing-read "QR Code: " (nagy-qrcode-image-scan)))))
 
-(defun kill-qrcode ()
+(defun nagy-qrcode-kill ()
   (interactive)
-  (let ((chosen (nagy-qr-choose (nagy-image-scan-qrcode))))
+  (let ((chosen (nagy-qrcode-choose (nagy-qrcode-image-scan))))
     (if chosen
         (message "QR-Code: %S" (kill-new chosen))
       (error "No QR-Code found"))))
@@ -46,7 +46,7 @@
   (when (fboundp 'take-screenshot)
     (alet (take-screenshot)
       (with-current-buffer (find-file-noselect it)
-        (kill-qrcode)))))
+        (nagy-qrcode-kill)))))
 
 (provide 'nagy-qrcode)
 ;;; nagy-qrcode.el ends here
