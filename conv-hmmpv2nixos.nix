@@ -4,13 +4,14 @@ evalhmmodule: hmmodule:
 
 { pkgs, lib, config, ... }:
 let hmconfig = evalhmmodule hmmodule pkgs;
-in with lib; {
+in {
   # write the config files from  ~/.config/mpv into /etc
-  environment = mkIf config.services.xserver.enable {
+  environment = lib.mkIf config.services.xserver.enable {
     etc."mpv/input.conf".text =
-      mkIf (hmconfig.xdg.configFile ? "mpv/input.conf")
+      lib.mkIf (hmconfig.xdg.configFile ? "mpv/input.conf")
       hmconfig.xdg.configFile."mpv/input.conf".text;
-    etc."mpv/mpv.conf".text = mkIf (hmconfig.xdg.configFile ? "mpv/mpv.conf")
+    etc."mpv/mpv.conf".text =
+      lib.mkIf (hmconfig.xdg.configFile ? "mpv/mpv.conf")
       hmconfig.xdg.configFile."mpv/mpv.conf".text;
     systemPackages = [ hmconfig.programs.mpv.package ];
     variables.MPV_HOME = "/etc/mpv";

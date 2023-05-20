@@ -7,8 +7,8 @@ evalhmmodule: hmmodule:
 
 { pkgs, lib, config, ... }:
 let hmconfig = evalhmmodule hmmodule pkgs;
-in with lib; {
+in {
   # write the config file from ~/.inputrc into /etc
-  environment.etc."inputrc".text =
-    mkIf (hmconfig.home.file ? ".inputrc") hmconfig.home.file.".inputrc".text;
+  environment.etc."inputrc".text = lib.mkIf (hmconfig.home.file ? ".inputrc")
+    hmconfig.home.file.".inputrc".text;
 }

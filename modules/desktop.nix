@@ -134,6 +134,9 @@ in {
   # for wayland compositors
   environment.variables.XKB_DEFAULT_LAYOUT = config.services.xserver.layout;
 
+  # https://doc.qt.io/qt-6/highdpi.html#platform-details
+  environment.variables.QT_USE_PHYSICAL_DPI = "1"; # for qt6
+
   environment.extraOutputsToInstall =
     [ "dev" "bin" "info" "man" "devdoc" "out" "lib" ];
 

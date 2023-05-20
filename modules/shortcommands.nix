@@ -140,6 +140,9 @@ let
 
     Bp = [ "nix" "build" "--no-link" "--print-out-paths" "-j" "1" "-L" "--quiet" ];
 
+    U = [ "nix" "bundle" ];
+    UL = [ "nix" "bundle" "--print-build-logs" ];
+
     # git
     G = [ "git" ];
     Gcl = [ "git" "clone" ];

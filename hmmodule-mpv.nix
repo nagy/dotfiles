@@ -4,7 +4,6 @@
 
   programs.mpv = {
     enable = true;
-    scripts = [ pkgs.mpvScripts.mpris ];
     config = {
       # audio
       mute = "yes";

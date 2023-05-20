@@ -4,7 +4,7 @@ with dot.outputs.lib pkgs; {
   systemd.services.journal-logger = {
     description = "Logs the journal";
     requires = [ "network-online.target" ];
-    path = with pkgs; [ jq ];
+    path = [ pkgs.jq ];
     # after = [ "systemd-journald.socket" ];
     # FIXME still one final store before poweroff/reboot is needed
     # this does not work

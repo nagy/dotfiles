@@ -10,12 +10,7 @@
       # tridactyl
       # https-everywhere
     ];
-    package = pkgs.firefox.override {
-      cfg = {
-        # Tridactyl native connector
-        enableTridactylNative = true;
-      };
-    };
+    # TODO use firefox esr
     profiles = {
       default = {
         isDefault = true;

@@ -4,9 +4,9 @@ evalhmmodule: hmmodule:
 
 { pkgs, lib, config, ... }:
 let hmconfig = evalhmmodule hmmodule pkgs;
-in with lib; {
+in {
   # write the config file from  ~/.config/zathura into /etc
-  environment = mkIf config.services.xserver.enable {
+  environment = lib.mkIf config.services.xserver.enable {
     etc."zathurarc".text = hmconfig.xdg.configFile."zathura/zathurarc".text;
     systemPackages = [ hmconfig.programs.zathura.package ];
   };

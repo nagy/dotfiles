@@ -1,13 +1,9 @@
-{ lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/hardware/i2c.nix
+  # https://discourse.nixos.org/t/brightness-control-of-external-monitors-with-ddcci-backlight/8639
+  boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
   hardware.i2c.enable = true;
-  environment.systemPackages = [
-    (pkgs.writeShellScriptBin "monbrightness" ''
-      set -eux
-      ${lib.getExe pkgs.ddcutil} --display=1 setvcp 10 "$1"
-      ${lib.getExe pkgs.ddcutil} --display=2 setvcp 10 "$1"
-    '')
-  ];
+  boot.kernelModules = [ "ddcci_backlight" ];
+  environment.systemPackages = [ pkgs.brightnessctl ];
 }

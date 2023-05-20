@@ -318,6 +318,8 @@ with lib; {
     (pkgs.writeScriptBin "gitpack" (builtins.readFile ../bin/gitpack))
     nixfmt
     nil
+    nickel
+    topiary
     wordnet
     dnsutils
     yt-dlp
@@ -330,6 +332,7 @@ with lib; {
     restic
     rclone
     bup
+    zig
     (zbar.override {
       withXorg = false;
       enableVideo = false;
