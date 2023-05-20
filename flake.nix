@@ -1,6 +1,5 @@
 {
-
-  inputs = { nixpkgs.url = "github:nix-community/nixpkgs.lib"; };
+  inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
 
   outputs = { self, nixpkgs }: rec {
 
