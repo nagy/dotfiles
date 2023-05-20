@@ -20,7 +20,6 @@
 
 (require 'evil)
 (require 'yaml-mode)
-(require 'wat-mode)
 (eval-when-compile
   (require 'cl-lib))
 
@@ -93,6 +92,11 @@
   (unless (eq major-mode 'js-json-mode)
     (js-json-mode)))
 
+(cl-defmethod nagy-formats-convert ((_from (derived-mode toml-ts-mode)) (_to (eql js-json-mode)))
+  (shell-command-on-region (point-min) (point-max) "yj -tj -i" t 'no-mark (generate-new-buffer "*Format Errors*"))
+  (unless (eq major-mode 'js-json-mode)
+    (js-json-mode)))
+
 (cl-defmethod nagy-formats-convert ((_from (derived-mode conf-toml-mode)) (_to (eql yaml-mode)))
   (shell-command-on-region (point-min) (point-max) "yj -ty" t 'no-mark (generate-new-buffer "*Format Errors*"))
   (unless (eq major-mode 'yaml-mode)
@@ -110,10 +114,10 @@
 (cl-defmethod nagy-formats-convert (_from (_to (eql hex)))
   "hexdump -vC")
 
-(cl-defmethod nagy-formats-convert (_from (_to (eql wasm2wat)))
-  (shell-command-on-region (point-min) (point-max) "wasm2wat -" t 'no-mark (generate-new-buffer "*Format Errors*"))
-  (unless (eq major-mode 'wat-mode)
-    (wat-mode)))
+(cl-defmethod nagy-formats-convert (_from (_to (eql civet)))
+  (shell-command-on-region (point-min) (point-max)"civet --compile" t 'no-mark (generate-new-buffer "*Format Errors*"))
+  (unless (eq major-mode 'js-mode)
+    (js-mode)))
 
 (cl-defmethod nagy-formats-convert ((_from (eql yaml-mode)) (_to (eql js-json-mode)))
   (shell-command-on-region (point-min) (point-max) "yj -yj -i" t 'no-mark (generate-new-buffer "*Format Errors*"))
