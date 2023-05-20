@@ -1,34 +1,28 @@
 { lib, pkgs, emacs, emacs-overlay }:
 
 let
-  makePackage = { path }:
-    let
-      name = lib.substring 44 999 path;
-      destination = "/" + name;
+  makePackage = { src }:
+    let name = lib.substring 44 999 src;
     in pkgs.nur.repos.nagy.lib.emacsMakeSingleFilePackage {
-      inherit emacs;
-      src = (pkgs.writeTextFile {
-        inherit name destination;
-        text = builtins.readFile path;
-      }) + destination;
+      inherit emacs src;
       pname = name;
       packageRequires = pkgs.nur.repos.nagy.lib.emacsParsePackageSet {
-        inherit emacs path;
+        inherit emacs src;
         parser = pkgs.callPackage "${emacs-overlay}/parse.nix" { };
       };
     };
 in {
-  nagy-evil = makePackage { path = ./nagy-evil.el; };
-  nagy-magit = makePackage { path = ./nagy-magit.el; };
-  nagy-elpher = makePackage { path = ./nagy-elpher.el; };
-  nagy-emacs = makePackage { path = ./nagy-emacs.el; };
-  nagy-formats = makePackage { path = ./nagy-formats.el; };
-  nagy-misc = makePackage { path = ./nagy-misc.el; };
-  nagy-modus-themes = makePackage { path = ./nagy-modus-themes.el; };
-  nagy-nlinum = makePackage { path = ./nagy-nlinum.el; };
-  nagy-pcap-converter = makePackage { path = ./nagy-pcap-converter.el; };
-  nagy-qrcode = makePackage { path = ./nagy-qrcode.el; };
+  nagy-evil = makePackage { src = ./nagy-evil.el; };
+  nagy-magit = makePackage { src = ./nagy-magit.el; };
+  nagy-elpher = makePackage { src = ./nagy-elpher.el; };
+  nagy-emacs = makePackage { src = ./nagy-emacs.el; };
+  nagy-formats = makePackage { src = ./nagy-formats.el; };
+  nagy-misc = makePackage { src = ./nagy-misc.el; };
+  nagy-modus-themes = makePackage { src = ./nagy-modus-themes.el; };
+  nagy-nlinum = makePackage { src = ./nagy-nlinum.el; };
+  nagy-pcap-converter = makePackage { src = ./nagy-pcap-converter.el; };
+  nagy-qrcode = makePackage { src = ./nagy-qrcode.el; };
   nagy-quirky-shell-command =
-    makePackage { path = ./nagy-quirky-shell-command.el; };
-  nagy-use-package = makePackage { path = ./nagy-use-package.el; };
+    makePackage { src = ./nagy-quirky-shell-command.el; };
+  nagy-use-package = makePackage { src = ./nagy-use-package.el; };
 }
