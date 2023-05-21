@@ -1,7 +1,5 @@
 { pkgs, lib, config, ... }:
 
-with lib;
-
 let
   cfg = config.nagy.shortcommands;
   defaultShortcommands = {
@@ -16,8 +14,6 @@ let
     P = [ "nix" "profile" ];
     SH = [ "nix" "shell" ];
     H = [ "nix" "hash" ];
-    run = [ "nix" "run" ];
-    flake = [ "nix" "flake" ];
     BL = [ "nix" "build" "--print-build-logs" "-j" "1" ];
     RL = [ "nix" "run" "--print-build-logs" "-j" "1" ];
     DL = [ "nix" "develop" "--print-build-logs" "-j" "1" ];
@@ -60,32 +56,6 @@ let
     Fpj = [ "nix" "flake" "prefetch" "--json" ];
     Fsj = [ "nix" "flake" "show" "--json" ];
     Fmj = [ "nix" "flake" "metadata" "--json" ];
-    Floin = [
-      "nix"
-      "flake"
-      "lock"
-      "--override-input"
-      "nixpkgs"
-      "nixpkgs/nixos-unstable"
-    ];
-    Floinuin = [
-      "nix"
-      "flake"
-      "lock"
-      "--override-input"
-      "nixpkgs"
-      "nixpkgs/nixos-unstable"
-      "--update-input"
-      "nixpkgs"
-    ];
-    Fuoin = [
-      "nix"
-      "flake"
-      "update"
-      "--override-input"
-      "nixpkgs"
-      "nixpkgs/nixos-unstable"
-    ];
 
     "Rø" = [ "nix" "run" "--override-input" "nixpkgs" "nixpkgs" ];
     "Bø" = [ "nix" "build" "--override-input" "nixpkgs" "nixpkgs" ];
@@ -272,8 +242,8 @@ let
 in with import ../lib pkgs; {
 
   options = {
-    nagy.shortcommands = mkOption {
-      type = types.attrsOf (types.listOf types.str);
+    nagy.shortcommands = lib.mkOption {
+      type = lib.types.attrsOf (lib.types.listOf lib.types.str);
       default = { };
       description = "shortcommands";
     };

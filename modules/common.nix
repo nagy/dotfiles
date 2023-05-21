@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 
-with lib; {
+{
 
   # services.getty.autologinUser = "user";
 
@@ -41,7 +41,7 @@ with lib; {
   # until https://github.com/starship/starship/issues/896 is fixed
   environment.variables.STARSHIP_CONFIG = let
     mkDollarPrompt =
-      replaceStrings [ ">](bold green)" ] [ "\\\\$](bold green)" ];
+      lib.replaceStrings [ ">](bold green)" ] [ "\\\\$](bold green)" ];
     basePreset = builtins.readFile
       "${pkgs.starship.src}/docs/.vuepress/public/presets/toml/plain-text-symbols.toml";
     basePresetModified = ''
@@ -379,7 +379,7 @@ with lib; {
   boot.binfmt.registrations.oil = {
     recognitionType = "extension";
     magicOrExtension = "oil";
-    interpreter = getExe pkgs.oil;
+    interpreter = lib.getExe pkgs.oil;
   };
 
   boot.binfmt.registrations.wasm = {
@@ -409,7 +409,7 @@ with lib; {
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
-    nixPath = mkOptionDefault [ "dot=${../.}" ];
+    nixPath = lib.mkOptionDefault [ "dot=${../.}" ];
     registry = {
       nagy.to = {
         owner = "nagy";

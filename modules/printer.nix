@@ -4,7 +4,7 @@
 
   services.printing = {
     enable = true;
-    drivers = with pkgs; [ samsung-unified-linux-driver ];
+    drivers = [ pkgs.samsung-unified-linux-driver ];
   };
   users.users.user.extraGroups = [ "lp" ];
   hardware.printers.ensureDefaultPrinter = "SamsungPrinter";
@@ -20,5 +20,5 @@
 
   # nixpkgs.config.allowUnfree = true; # for samsung driver
   nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [ "samsung-UnifiedLinuxDriver" ];
+    lib.elem (lib.getName pkg) [ "samsung-UnifiedLinuxDriver" ];
 }

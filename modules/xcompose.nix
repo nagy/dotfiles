@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib) escapeShellArg;
   cfg = config.nagy.xcompose;
   mkXComposeLine = key: lst: ''
     (
@@ -20,8 +19,8 @@ let
     } $ucode "$name"
     )
   '';
-  theScript = pkgs.writeShellScript "script"
-    (concatStrings (mapAttrsToList mkXComposeLine (cfg // defaultKeys)));
+  theScript = pkgs.writeShellScript "script" (lib.concatStrings
+    (lib.mapAttrsToList mkXComposeLine (cfg // defaultKeys)));
   generatedFile =
     pkgs.runCommandLocal "XCompose-gen" { } "${theScript}|sort> $out";
   defaultKeys = {
@@ -140,14 +139,14 @@ let
 in {
 
   options = {
-    nagy.xcompose = mkOption {
-      type = types.attrsOf (types.listOf types.str);
+    nagy.xcompose = lib.mkOption {
+      type = lib.types.attrsOf (lib.types.listOf lib.types.str);
       default = { };
       description = "xcompose keys";
     };
   };
 
-  config = mkIf config.services.xserver.enable {
+  config = lib.mkIf config.services.xserver.enable {
 
     environment.etc."XCompose".source = generatedFile;
 
