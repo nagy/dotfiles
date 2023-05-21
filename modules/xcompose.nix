@@ -135,6 +135,16 @@ let
     "⫫" = [ "<Multi_key>" "<macron>" "<macron>" ];
     "〜" = [ "<Multi_key>" "<Multi_key>" "<asciitilde>" ];
 
+    # APL
+    "⍳" = [ "Ctrl" "<Multi_key>" "<i>" ];
+    "⍴" = [ "Ctrl" "<Multi_key>" "<r>" ];
+    "≢" = [ "Ctrl" "<Multi_key>" "<l>" ];
+    "⍺" = [ "Ctrl" "<Multi_key>" "<a>" ];
+    "⍵" = [ "Ctrl" "<Multi_key>" "<w>" ];
+    "∧" = [ "Ctrl" "<Multi_key>" "<ampersand>" ];
+    "⍥" = [ "Ctrl" "<Multi_key>" "<odiaeresis>" ];
+    "⍸" = [ "Ctrl" "<Multi_key>" "<underscore>" "<i>" ];
+
   };
 in {
 
