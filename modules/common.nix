@@ -179,7 +179,6 @@
   };
 
   environment.shellAliases = {
-    t = "tmux";
     h = "htop";
     g = "git";
     hm = "home-manager";
@@ -204,13 +203,6 @@
     la = "ls --human-readable --all -l";
     path = "echo -e \${PATH//:/\\n}";
     fastping = "ping -c 20 -i.2";
-  };
-
-  programs.tmux = {
-    enable = true;
-    baseIndex = 1;
-    keyMode = "vi";
-    extraConfig = "bind C-k clear-history";
   };
 
   networking.hosts = {
