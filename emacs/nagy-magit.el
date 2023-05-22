@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-magit
-;; Package-Requires: ((emacs "29.1") magit-section forge general)
+;; Package-Requires: ((emacs "29.1") magit-section forge general with-editor)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -25,6 +25,7 @@
 (require 'general)
 (eval-when-compile
   ;; To catch errors during batch compilation
+  (require 'with-editor)
   (require 'forge))
 
 (use-package magit-section
@@ -58,6 +59,15 @@
   (:map forge-post-mode-map
         ([remap kill-this-buffer] . forge-post-cancel)
         ([remap save-kill-buffer] . forge-post-submit)))
+
+(use-package with-editor
+  :bind
+  (:map with-editor-mode-map
+        ([remap save-kill-buffer] . with-editor-finish)
+        ([remap kill-this-buffer] . with-editor-cancel))
+  :general
+  (:states 'normal :keymaps 'with-editor-mode-map
+           "ö" #'with-editor-finish))
 
 (provide 'nagy-magit)
 ;;; nagy-magit.el ends here
