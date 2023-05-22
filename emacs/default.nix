@@ -13,6 +13,7 @@ let
     };
 in {
   nagy-evil = makePackage { src = ./nagy-evil.el; };
+  nagy-corfu = makePackage { src = ./nagy-corfu.el; };
   nagy-magit = makePackage { src = ./nagy-magit.el; };
   nagy-elpher = makePackage { src = ./nagy-elpher.el; };
   nagy-emacs = makePackage { src = ./nagy-emacs.el; };
