@@ -11,7 +11,7 @@
 ;; Homepage: https://github.com/nagy/nagy-elpher
 ;; Package-Requires: ((emacs "29.1") elpher general evil)
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is NOT part of GNU Emacs.
 ;;
 ;;; Commentary:
 ;;

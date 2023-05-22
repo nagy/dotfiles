@@ -10,7 +10,7 @@
 ;; Keywords: convenience, files
 ;; Package-Requires: ((emacs "29.1") evil yaml-mode)
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is NOT part of GNU Emacs.
 ;;
 ;;; Commentary:
 ;;

@@ -11,7 +11,7 @@
 ;; Homepage: https://github.com/nagy/nagy-evil
 ;; Package-Requires: ((emacs "29.1") evil evil-numbers general)
 ;;
-;; This file is not part of GNU Emacs.
+;; This file is NOT part of GNU Emacs.
 ;;
 ;;; Commentary:
 ;;
