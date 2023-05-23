@@ -7,21 +7,18 @@
       nixosModules = let
         files = builtins.readDir ./modules;
         fileNames = pkgs.lib.attrNames files;
-        nameFunc = pkgs.lib.removeSuffix ".nix";
-        preAttrList = map (it: {
-          name = nameFunc it;
-          value = import (./modules + "/${it}");
+        preAttrList = map (name: {
+          name = pkgs.lib.removeSuffix ".nix" name;
+          value = import (./modules + "/${name}");
         }) fileNames;
         modules = pkgs.lib.listToAttrs preAttrList;
-      in modules // {
-        converted-hmmpv = self.lib.conv-hmmpv2nixos self.lib.hmmodule-mpv;
-        converted-hmzathura =
-          self.lib.conv-hmzathura2nixos self.lib.hmmodule-zathura;
-        converted-hmreadline =
-          self.lib.conv-hmreadline2nixos self.lib.hmmodule-readline;
-      };
+      in modules // (with self.lib; {
+        converted-hmmpv = conv-hmmpv2nixos hmmodule-mpv;
+        converted-hmzathura = conv-hmzathura2nixos hmmodule-zathura;
+        converted-hmreadline = conv-hmreadline2nixos hmmodule-readline;
+      });
 
-      lib = (rec {
+      lib = rec {
         evalhmmodule = module:
           (import "${pkgs.home-manager.src}/modules" {
             inherit pkgs;
@@ -45,7 +42,7 @@
 
         pkg-journal-file-store = pkgs.writeScriptBin "journal-file-store"
           (builtins.readFile ./bin/journal-file-store);
-      } // (import ./lib { inherit pkgs; }));
+      } // (import ./lib { inherit pkgs; });
 
     };
 }

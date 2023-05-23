@@ -10,7 +10,7 @@ let
       with epkgs.melpaPackages; [
         wat-mode
 
-        (sotlisp.overrideAttrs (old: {
+        (sotlisp.overrideAttrs (_: {
           src = pkgs.fetchFromGitHub {
             owner = "nagy";
             repo = "speed-of-thought-lisp";

@@ -5,7 +5,7 @@
 #   BEFORE EVALUATION
 evalhmmodule: hmmodule:
 
-{ pkgs, lib, config, ... }:
+{ lib, ... }:
 let hmconfig = evalhmmodule hmmodule;
 in {
   # write the config file from ~/.inputrc into /etc

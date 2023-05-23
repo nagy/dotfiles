@@ -83,7 +83,7 @@ with pkgs.lib; rec {
         xvfb-run --server-args="-screen 0 1024x576x24" \
             emacs --quick --fullscreen \
             --font Iosevka\ 18 \
-            ${pkgs.emacs.pkgs.melpaPackages.modus-themes.src} \
+            ${pkgs.emacs.pkgs.modus-themes.src} \
             -l ${screenshotScript} \
             -l ${emacsCodeFile}
     '';

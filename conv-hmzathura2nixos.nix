@@ -2,7 +2,7 @@
 # to a compatible nixos module
 evalhmmodule: hmmodule:
 
-{ pkgs, lib, config, ... }:
+{ lib, config, ... }:
 let hmconfig = evalhmmodule hmmodule;
 in {
   # write the config file from  ~/.config/zathura into /etc

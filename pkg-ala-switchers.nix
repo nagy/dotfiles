@@ -22,5 +22,5 @@ in pkgs.symlinkJoin {
     # TODO replace with makeWrapper
     (pkgs.writeShellScriptBin "alacritty" ''
       exec ${alacritty}/bin/alacritty --option live_config_reload=true --config-file ${alacrittyLiveConfigPath} "$@"'')
-  ] ++ (lib.mapAttrsToList mkAlacrittySwitcher hmmodules ) ++ [ alacritty ];
+  ] ++ (lib.mapAttrsToList mkAlacrittySwitcher hmmodules) ++ [ alacritty ];
 }
