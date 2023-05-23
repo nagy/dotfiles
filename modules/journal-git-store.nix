@@ -1,6 +1,6 @@
 { pkgs, lib, dot, ... }:
 
-with dot.outputs.lib pkgs; {
+{
   systemd.services.journal-logger = {
     description = "Logs the journal";
     requires = [ "network-online.target" ];
@@ -12,7 +12,7 @@ with dot.outputs.lib pkgs; {
     # wantedBy = [ "reboot.target" "halt.target" "poweroff.target" ];
 
     serviceConfig = {
-      ExecStart = lib.getExe pkg-journal-file-store;
+      ExecStart = lib.getExe dot.outputs.lib.pkg-journal-file-store;
       WorkingDirectory = "/var/lib/journalgit/";
       BindReadOnlyPaths = [
         "/dev/log"

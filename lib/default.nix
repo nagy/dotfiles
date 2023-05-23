@@ -1,5 +1,4 @@
-pkgs:
-
+{ pkgs }:
 with pkgs.lib; rec {
 
   mapNumToString = elemAt (splitString "" "abcdefghijklmnopqrstuvwxyz");

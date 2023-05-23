@@ -3,7 +3,7 @@
 evalhmmodule: hmmodule:
 
 { pkgs, lib, config, ... }:
-let hmconfig = evalhmmodule hmmodule pkgs;
+let hmconfig = evalhmmodule hmmodule;
 in {
   # write the config files from  ~/.config/mpv into /etc
   environment = lib.mkIf config.services.xserver.enable {

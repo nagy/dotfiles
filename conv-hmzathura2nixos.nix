@@ -3,7 +3,7 @@
 evalhmmodule: hmmodule:
 
 { pkgs, lib, config, ... }:
-let hmconfig = evalhmmodule hmmodule pkgs;
+let hmconfig = evalhmmodule hmmodule;
 in {
   # write the config file from  ~/.config/zathura into /etc
   environment = lib.mkIf config.services.xserver.enable {

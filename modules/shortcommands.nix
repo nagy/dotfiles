@@ -239,8 +239,8 @@ let
     sha512 = [ "sha512sum" ];
     sha5 = [ "sha512sum" ];
   };
-in with import ../lib pkgs; {
-
+  dotlib = import ../lib { inherit pkgs; };
+in {
   options = {
     nagy.shortcommands = lib.mkOption {
       type = lib.types.attrsOf (lib.types.listOf lib.types.str);
@@ -250,10 +250,7 @@ in with import ../lib pkgs; {
   };
 
   config = {
-
     environment.systemPackages =
-      lib.mapAttrsToList mkShortCommand (defaultShortcommands // cfg);
-
+      lib.mapAttrsToList dotlib.mkShortCommand (defaultShortcommands // cfg);
   };
-
 }
