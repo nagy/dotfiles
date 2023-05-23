@@ -21,6 +21,17 @@
 
 (require 'comint)
 
+(use-package emacs
+  ;; :custom
+  ;; (help-at-pt-display-when-idle t)
+  ;; (help-at-pt-timer-delay 0)
+  :init
+  (setq inhibit-startup-screen t
+      large-file-warning-threshold (* 100 1000 1000))
+  :bind
+  ("H-s-," . describe-char)
+  ("H-s-." . display-local-help))
+
 (use-package help
   :hook
   (help-mode . visual-fill-column-mode)
@@ -120,14 +131,6 @@
   :bind
   ("A-s-H-." . highlight-symbol-at-point))
 
-(use-package emacs
-  ;; :custom
-  ;; (help-at-pt-display-when-idle t)
-  ;; (help-at-pt-timer-delay 0)
-  :bind
-  ("H-s-," . describe-char)
-  ("H-s-." . display-local-help))
-
 (defun nagy-ielm-init-history ()
   (let ((path (expand-file-name "ielm/history" user-emacs-directory)))
     (make-directory (file-name-directory path) t)
@@ -144,6 +147,10 @@
   (advice-add 'ielm-send-input :after #'nagy-ielm-write-history)
   :hook
   (ielm-mode . nagy-ielm-init-history))
+
+(use-package epg
+  :config
+  (setq epg-pinentry-mode 'loopback))
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

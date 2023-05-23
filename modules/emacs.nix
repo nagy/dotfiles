@@ -70,6 +70,7 @@ let
         git-modes
         jinx
         tokei
+        dired-narrow
       ]));
 in {
   environment.systemPackages = [
