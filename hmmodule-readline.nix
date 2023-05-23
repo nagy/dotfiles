@@ -87,9 +87,6 @@
        "\et": "\C-a\C-ktree -l\C-m"
 
        # nix stuff
-       "\epnhb": "\C-a\C-khome-manager build\C-m"
-       "\epnhi": "\C-a\C-khome-manager instantiate\C-m"
-       "\epnhs": "\C-a\C-khome-manager switch\C-m"
        "\epnr": "\C-a\C-knix repl '<nixos>'\C-m"
        "\epnR": "\C-a\C-knix run\C-m"
        "\epnB": "\C-a\C-knix build\C-m"
@@ -105,7 +102,6 @@
        "\eone": "\C-a\C-knix-env -e "
        "\eonb": "\C-a\C-knix-build -A "
        "\eonc": "\C-a\C-knix-channel "
-       "\eonh": "\C-a\C-khome-manager "
        "\eonr": "\C-a\C-knix run "
        "\eonR": "\C-a\C-knix run "
        "\eonE": "\C-a\C-knix edit nixos."
@@ -123,17 +119,11 @@
        # misc
        "\C-xs": "\C-asudo \C-e\C-m"
        "\epp": "\C-a\C-kpython\C-m"
-       "\epSc": "\C-a\C-kscreen\C-m"
        "\epgs": "\C-a\C-kgit status\C-m"
        "\epgf": "\C-a\C-kgit fetch\C-m"
        "\epgd": "\C-a\C-kgit diff\C-m"
        "\epgw": "\C-a\C-kgit worktree\C-m"
-       "\eppm": "\C-a\C-kpulsemixer\C-m"
        "\eop": "\C-a\C-kpython "
-       "\eog": "\C-a\C-kgit "
-       "\eogcl": "\C-a\C-kgit clone "
-       "\eogco": "\C-a\C-kgit checkout "
-       "\eoq": "\C-a\C-ksqlite3 "
        "\eo\es": "\C-a\C-kssh "
        "\eod": "\C-a\C-kmkdir -p "
        "\em\em": "\C-a\C-kmake\C-m"
@@ -147,7 +137,6 @@
        "\emI": "\C-a\C-kmake install -j4\C-m"
        "\emA": "\C-a\C-kmake all -j4\C-m"
        "\eM": "\C-a\C-kmake -j4\C-m"
-       "\e\C-l": "\C-a\C-klf\C-m"
       $endif
     '';
   };
