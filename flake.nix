@@ -2,7 +2,19 @@
   inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
 
   outputs = { self, nixpkgs }:
-    let pkgs = nixpkgs.legacyPackages."x86_64-linux";
+    let
+      pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      evalhmmodule = module:
+        (import "${pkgs.home-manager.src}/modules" {
+          inherit pkgs;
+          configuration = { ... }: {
+            imports = [ module ];
+            # simulate state version. needed for flake build.
+            home.stateVersion = "21.11";
+            home.username = "user";
+            home.homeDirectory = "/home/user/";
+          };
+        }).config;
     in {
       nixosModules = let
         files = builtins.readDir ./modules;
@@ -19,18 +31,6 @@
       });
 
       lib = rec {
-        evalhmmodule = module:
-          (import "${pkgs.home-manager.src}/modules" {
-            inherit pkgs;
-            configuration = { ... }: {
-              imports = [ module ];
-              # simulate state version. needed for flake build.
-              home.stateVersion = "21.11";
-              home.username = "user";
-              home.homeDirectory = "/home/user/";
-            };
-          }).config;
-
         hmmodule-mpv = import ./hmmodule-mpv.nix;
         hmmodule-firefox = import ./hmmodule-firefox.nix;
         hmmodule-zathura = import ./hmmodule-zathura.nix;
