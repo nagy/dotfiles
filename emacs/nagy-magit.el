@@ -35,6 +35,10 @@
            "ö" #'magit-section-toggle)
   :bind
   (:map magit-section-mode-map
+        ("s-<kp-1>" . magit-section-show-level-1)
+        ("s-<kp-2>" . magit-section-show-level-2)
+        ("s-<kp-3>" . magit-section-show-level-3)
+        ("s-<kp-4>" . magit-section-show-level-4)
         ("C-ö" . magit-section-cycle-global)
         ("H-j" . magit-section-forward)
         ("H-k" . magit-section-backward)))

@@ -24,6 +24,10 @@
   ;; To catch errors during batch compilation
   (require 'evil-numbers))
 
+(use-package evil
+  :bind
+  ("H-z" . evil-scroll-line-to-center))
+
 (use-package evil-numbers
   :bind
   ("H-<up>" . evil-numbers/inc-at-pt-incremental)
