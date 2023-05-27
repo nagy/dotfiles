@@ -24,22 +24,16 @@
           value = import (./modules + "/${name}");
         }) fileNames;
         modules = pkgs.lib.listToAttrs preAttrList;
-      in modules // (with self.lib; {
-        converted-hmmpv = conv-hmmpv2nixos hmmodule-mpv;
-        converted-hmzathura = conv-hmzathura2nixos hmmodule-zathura;
-        converted-hmreadline = conv-hmreadline2nixos hmmodule-readline;
-      });
+      in modules // {
+        converted-hmmpv = (import ./conv-hmmpv2nixos.nix evalhmmodule)
+          (import ./hmmodule-mpv.nix);
+        converted-hmzathura = (import ./conv-hmzathura2nixos.nix evalhmmodule)
+          (import ./hmmodule-zathura.nix);
+        converted-hmreadline = (import ./conv-hmreadline2nixos.nix evalhmmodule)
+          (import ./hmmodule-readline.nix);
+      };
 
-      lib = rec {
-        hmmodule-mpv = import ./hmmodule-mpv.nix;
-        hmmodule-firefox = import ./hmmodule-firefox.nix;
-        hmmodule-zathura = import ./hmmodule-zathura.nix;
-        hmmodule-readline = import ./hmmodule-readline.nix;
-
-        conv-hmzathura2nixos = import ./conv-hmzathura2nixos.nix evalhmmodule;
-        conv-hmmpv2nixos = import ./conv-hmmpv2nixos.nix evalhmmodule;
-        conv-hmreadline2nixos = import ./conv-hmreadline2nixos.nix evalhmmodule;
-
+      lib = {
         pkg-journal-file-store = pkgs.writeScriptBin "journal-file-store"
           (builtins.readFile ./bin/journal-file-store);
       } // (import ./lib { inherit pkgs; });
