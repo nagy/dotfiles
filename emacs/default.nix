@@ -2,10 +2,9 @@
 
 let
   makePackage = { src }:
-    let name = lib.substring 44 999 src;
-    in pkgs.nur.repos.nagy.lib.emacsMakeSingleFilePackage {
+    pkgs.nur.repos.nagy.lib.emacsMakeSingleFilePackage {
       inherit emacs src;
-      pname = name;
+      pname = lib.substring 44 999 src;
       packageRequires = pkgs.nur.repos.nagy.lib.emacsParsePackageSet {
         inherit emacs src;
         parser = pkgs.callPackage "${emacs-overlay}/parse.nix" { };

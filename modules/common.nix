@@ -15,7 +15,7 @@
   # users.mutableUsers = false; # this can break the manually set password !!!!
 
   services.openssh.enable = true;
-  services.openssh.settings.permitRootLogin = "yes";
+  services.openssh.settings.PermitRootLogin = "yes";
   users.extraUsers.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZNW8uX6gKASOT+0XXKF2QmeXqMZfoEMIYFogbUF4jo"
   ];
@@ -107,8 +107,8 @@
         git-alias = pkgs.fetchFromGitHub {
           owner = "GitAlias";
           repo = "gitalias";
-          rev = "8e8524550af6ccbbfd4ded73667ef352a9d7fb70";
-          sha256 = "sha256-8yZS/HCrpc/MeRBTMfrlyPtMhYZkJkw3Z9CONWcVVCQ=";
+          rev = "ed036c1fd16c8e690329c594bc028f58c6e3b349";
+          sha256 = "sha256-OtKdN4SeJSswtF3Uvs3cMZwTwpL2wEm4KU1iKmfEr30=";
         };
       in "${git-alias}/gitalias.txt";
       merge.conflictStyle = "diff3";
@@ -400,6 +400,8 @@
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
+      # this keeps build logs clean at the expense of performance
+      max-jobs = 1;
     };
     nixPath = lib.mkOptionDefault [ "dot=${../.}" ];
     registry = {

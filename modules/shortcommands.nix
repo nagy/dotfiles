@@ -14,12 +14,9 @@ let
     P = [ "nix" "profile" ];
     SH = [ "nix" "shell" ];
     H = [ "nix" "hash" ];
-    BL = [ "nix" "build" "--print-build-logs" "-j" "1" ];
-    RL = [ "nix" "run" "--print-build-logs" "-j" "1" ];
-    DL = [ "nix" "develop" "--print-build-logs" "-j" "1" ];
-    B1 = [ "nix" "build" "--print-build-logs" "-j" "1" ];
-    R1 = [ "nix" "run" "--print-build-logs" "-j" "1" ];
-    D1 = [ "nix" "develop" "--print-build-logs" "-j" "1" ];
+    BL = [ "nix" "build" "--print-build-logs" ];
+    RL = [ "nix" "run" "--print-build-logs" ];
+    DL = [ "nix" "develop" "--print-build-logs" ];
     Ej = [ "nix" "eval" "--json" ];
     Er = [ "nix" "eval" "--raw" ];
     Bj = [ "nix" "build" "--json" "--no-link" ];
@@ -42,6 +39,7 @@ let
     IS = [ "nix" "path-info" "--closure-size" "--human-readable" ];
     Ij = [ "nix" "path-info" "--size" "--json" ];
     IJ = [ "nix" "path-info" "--closure-size" "--json" ];
+    Ia = [ "nix" "path-info" "-rsSh" ];
     Sj = [ "nix" "search" "--json" ];
     Fm = [ "nix" "flake" "metadata" ];
     Fn = [ "nix" "flake" "new" ];
@@ -108,7 +106,7 @@ let
     Eri = [ "nix" "eval" "--raw" "--impure" ];
     Eji = [ "nix" "eval" "--json" "--impure" ];
 
-    Bp = [ "nix" "build" "--no-link" "--print-out-paths" "-j" "1" "-L" "--quiet" ];
+    Bp = [ "nix" "build" "--no-link" "--print-out-paths" "-L" "--quiet" ];
 
     U = [ "nix" "bundle" ];
     UL = [ "nix" "bundle" "--print-build-logs" ];

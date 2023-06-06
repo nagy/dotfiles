@@ -106,6 +106,7 @@
        "\eonR": "\C-a\C-knix run "
        "\eonE": "\C-a\C-knix edit nixos."
        "\eonS": "\C-a\C-knix search "
+       "\eo\en": "/nix/store/"
        "\en\er": "\C-a\C-knix run\C-m"
        "\en\eb": "\C-a\C-knix build\C-m"
        "\epnei": "\C-a\C-knix-env -f . -i\C-m"
