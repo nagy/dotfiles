@@ -99,7 +99,7 @@
         ([remap save-kill-buffer] . wdired-finish-edit)
         ([remap kill-this-buffer] . wdired-abort-changes))
   :custom
-  (dired-vc-rename-file nil)) ; without this, some problems occured
+  (dired-vc-rename-file nil)) ; without this, some problems occurred
 
 (use-package abbrev
   :defines (nix-repl-mode-abbrev-table inferior-emacs-lisp-mode-abbrev-table)
@@ -113,7 +113,14 @@
   (define-abbrev global-abbrev-table "afaict" "as far as I can tell" nil :system t)
   (define-abbrev global-abbrev-table "btw" "by the way" nil :system t)
   (define-abbrev global-abbrev-table "wether" "whether" nil :system t)
+  (define-abbrev global-abbrev-table "occured" "occurred" nil :system t)
   (define-abbrev global-abbrev-table "pov" "point of view" nil :system t)
+  (define-abbrev global-abbrev-table "flase" "false" nil :system t)
+  (define-abbrev global-abbrev-table "truf" "truth" nil :system t)
+  (define-abbrev global-abbrev-table "gr8" "great" nil :system t)
+  (define-abbrev global-abbrev-table "thrf" "therefore" nil :system t)
+  (define-abbrev global-abbrev-table "bcs" "because" nil :system t)
+  (define-abbrev global-abbrev-table "teh" "the" nil :system t)
   (with-eval-after-load 'nix-repl
     (define-abbrev nix-repl-mode-abbrev-table "PK" "pkgs" nil :system t)
     (define-abbrev nix-repl-mode-abbrev-table "wpkgs" "with import <nixpkgs> {}; " nil :system t))

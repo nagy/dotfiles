@@ -135,6 +135,11 @@ let
     "⫫" = [ "<Multi_key>" "<macron>" "<macron>" ];
     "〜" = [ "<Multi_key>" "<Multi_key>" "<asciitilde>" ];
 
+    "🔳" = [ "<dead_belowdot>" "<oslash>" ];
+    "🔲" = [ "<dead_belowdot>" "<Oslash>" ];
+    "🌊" = [ "<dead_belowdot>" "<EuroSign>" ];
+    "🦴" = [ "<dead_belowdot>" "<at>" ];
+
     # APL
     "⍳" = [ "Ctrl" "<Multi_key>" "<i>" ];
     "⍴" = [ "Ctrl" "<Multi_key>" "<r>" ];

@@ -22,6 +22,10 @@
       map m toggle_statusbar
       map d scroll half-down
       map u scroll half-up
+      map , scroll full-down
+      map . scroll full-up
+      map ^j scroll full-down
+      map ^k scroll full-up
       map t recolor
       map Q quit
     '';
