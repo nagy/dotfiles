@@ -64,23 +64,96 @@ let
     "SHø" = [ "nix" "shell" "--override-input" "nixpkgs" "nixpkgs" ];
     "Pø" = [ "nix" "profile" "--override-input" "nixpkgs" "nixpkgs" ];
 
-    "RØ" = [ "nix" "run" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
-    "BØ" = [ "nix" "build" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
-    "DØ" = [ "nix" "develop" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
-    "FsØ" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
-    "FmØ" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
-    "FcØ" = [ "nix" "flake" "check" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
-    "SHØ" = [ "nix" "shell" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
-    "PØ" = [ "nix" "profile" "--override-input" "nixpkgs" "github:NixOS/nixpkgs/master" ];
+    "RØ" = [
+      "nix"
+      "run"
+      "--override-input"
+      "nixpkgs"
+      "github:NixOS/nixpkgs/master"
+    ];
+    "BØ" = [
+      "nix"
+      "build"
+      "--override-input"
+      "nixpkgs"
+      "github:NixOS/nixpkgs/master"
+    ];
+    "DØ" = [
+      "nix"
+      "develop"
+      "--override-input"
+      "nixpkgs"
+      "github:NixOS/nixpkgs/master"
+    ];
+    "FsØ" = [
+      "nix"
+      "flake"
+      "show"
+      "--override-input"
+      "nixpkgs"
+      "github:NixOS/nixpkgs/master"
+    ];
+    "FmØ" = [
+      "nix"
+      "flake"
+      "metadata"
+      "--override-input"
+      "nixpkgs"
+      "github:NixOS/nixpkgs/master"
+    ];
+    "FcØ" = [
+      "nix"
+      "flake"
+      "check"
+      "--override-input"
+      "nixpkgs"
+      "github:NixOS/nixpkgs/master"
+    ];
+    "SHØ" = [
+      "nix"
+      "shell"
+      "--override-input"
+      "nixpkgs"
+      "github:NixOS/nixpkgs/master"
+    ];
+    "PØ" = [
+      "nix"
+      "profile"
+      "--override-input"
+      "nixpkgs"
+      "github:NixOS/nixpkgs/master"
+    ];
 
     "R¯" = [ "nix" "run" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
-    "B¯" = [ "nix" "build" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
-    "D¯" = [ "nix" "develop" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
-    "Fs¯" = [ "nix" "flake" "show" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable"  ];
-    "Fm¯" = [ "nix" "flake" "metadata" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" "github:NixOS/nixpkgs/master" ];
-    "Fc¯" = [ "nix" "flake" "check" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
-    "SH¯" = [ "nix" "shell" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
-    "P¯" = [ "nix" "profile" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
+    "B¯" =
+      [ "nix" "build" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
+    "D¯" =
+      [ "nix" "develop" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
+    "Fs¯" = [
+      "nix"
+      "flake"
+      "show"
+      "--file"
+      "flake:github:NixOS/nixpkgs/nixos-unstable"
+    ];
+    "Fm¯" = [
+      "nix"
+      "flake"
+      "metadata"
+      "--file"
+      "flake:github:NixOS/nixpkgs/nixos-unstable"
+    ];
+    "Fc¯" = [
+      "nix"
+      "flake"
+      "check"
+      "--file"
+      "flake:github:NixOS/nixpkgs/nixos-unstable"
+    ];
+    "SH¯" =
+      [ "nix" "shell" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
+    "P¯" =
+      [ "nix" "profile" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
 
     "R~" = [ "nix" "run" "--override-input" "nixpkgs" "~/pkgs" ];
     "B~" = [ "nix" "build" "--override-input" "nixpkgs" "~/pkgs" ];
