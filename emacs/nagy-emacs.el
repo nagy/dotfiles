@@ -15,7 +15,7 @@
 ;;
 ;;; Commentary:
 ;;
-;;  Configuration of emacs internal packages
+;;  Configuration of Emacs internal packages
 ;;
 ;;; Code:
 
@@ -27,7 +27,8 @@
   ;; (help-at-pt-timer-delay 0)
   :init
   (setq inhibit-startup-screen t
-      large-file-warning-threshold (* 100 1000 1000))
+        use-short-answers t
+        large-file-warning-threshold (* 100 1000 1000))
   :bind
   ("H-s-," . describe-char)
   ("H-s-." . display-local-help))
@@ -145,6 +146,7 @@
   (setq-local comint-input-ring-size 10000)
   (setq-local comint-input-ignoredups t)
   (comint-read-input-ring))
+
 (defun nagy-ielm-write-history (&rest _args)
   (with-file-modes #o600
     (comint-write-input-ring)))
@@ -158,6 +160,26 @@
 (use-package epg
   :config
   (setq epg-pinentry-mode 'loopback))
+
+(use-package eldoc
+  :custom
+  (eldoc-echo-area-use-multiline-p nil)
+  (eldoc-idle-delay 0.01)
+  ;; (eldoc-idle-delay 0.05)
+  ;; TODO increase eldoc delay for sly buffers because the comm with the lisp is
+  ;; taking huge cpu.
+  )
+
+(use-package bookmark
+  :init
+  (setq bookmark-default-file (expand-file-name "~/.dotfiles/emacs-bookmarks")))
+
+(use-package recentf
+  :defer t
+  :config
+  ;; does not work in init
+  (setq recentf-max-saved-items nil))
+
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

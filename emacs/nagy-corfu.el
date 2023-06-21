@@ -1,4 +1,4 @@
-;;; nagy-misc.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-corfu.el --- Description -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2023 Daniel Nagy
 ;;
@@ -20,13 +20,12 @@
 
 (use-package corfu
   :defer t
-  :config
-  (setq completion-cycle-threshold 3)
-  (setq tab-always-indent 'complete)
-  (setq corfu-auto t
-        corfu-auto-delay 0.
-        corfu-auto-prefix 0))
-
+  :custom
+  (corfu-auto t)
+  (corfu-auto-delay 0)
+  (completion-cycle-threshold 3)
+  (tab-always-indent 'complete)
+  (corfu-auto-prefix 0))
 
 (provide 'nagy-corfu)
 ;;; nagy-corfu.el ends here

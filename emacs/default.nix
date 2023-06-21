@@ -13,14 +13,18 @@ let
 in {
   nagy-evil = makePackage { src = ./nagy-evil.el; };
   nagy-corfu = makePackage { src = ./nagy-corfu.el; };
+  nagy-company = makePackage { src = ./nagy-company.el; };
+  nagy-common-lisp = makePackage { src = ./nagy-common-lisp.el; };
   nagy-magit = makePackage { src = ./nagy-magit.el; };
   nagy-elpher = makePackage { src = ./nagy-elpher.el; };
   nagy-emacs = makePackage { src = ./nagy-emacs.el; };
   nagy-formats = makePackage { src = ./nagy-formats.el; };
+  nagy-forth = makePackage { src = ./nagy-forth.el; };
   nagy-misc = makePackage { src = ./nagy-misc.el; };
   nagy-modus-themes = makePackage { src = ./nagy-modus-themes.el; };
   nagy-nlinum = makePackage { src = ./nagy-nlinum.el; };
   nagy-pcap-converter = makePackage { src = ./nagy-pcap-converter.el; };
+  nagy-python = makePackage { src = ./nagy-python.el; };
   nagy-qrcode = makePackage { src = ./nagy-qrcode.el; };
   nagy-quirky-shell-command =
     makePackage { src = ./nagy-quirky-shell-command.el; };

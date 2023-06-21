@@ -323,7 +323,6 @@
     qrencode
     restic
     rclone
-    bup
     zig
     (zbar.override {
       withXorg = false;

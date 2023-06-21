@@ -138,7 +138,8 @@ let
     "🔳" = [ "<dead_belowdot>" "<oslash>" ];
     "🔲" = [ "<dead_belowdot>" "<Oslash>" ];
     "🌊" = [ "<dead_belowdot>" "<EuroSign>" ];
-    "🦴" = [ "<dead_belowdot>" "<at>" ];
+    "↞" = [ "<dead_diaeresis>" "<f>" ];
+    "↠" = [ "<dead_diaeresis>" "<g>" ];
 
     # APL
     "⍳" = [ "Ctrl" "<Multi_key>" "<i>" ];

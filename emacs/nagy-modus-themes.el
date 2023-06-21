@@ -63,6 +63,8 @@
   (add-hook 'modus-themes-after-load-theme-hook #'nagy/modus-theme-overrides)
   (add-hook 'doom-first-buffer-hook #'nagy/modus-theme-overrides)
   (add-hook 'doom-big-font-mode-hook #'nagy/modus-theme-overrides)
+  (with-eval-after-load 'simple
+    (set-face-attribute 'separator-line nil :underline "white"))
   (with-eval-after-load 'shr
     (set-face-attribute 'shr-h1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
     (set-face-attribute 'shr-h2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
@@ -106,4 +108,4 @@
 
 
 (provide 'nagy-modus-themes)
-;;; nagy.el ends here
+;;; nagy-modus-themes.el ends here

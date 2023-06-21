@@ -22,6 +22,8 @@
 (require 'general)
 (eval-when-compile
   ;; To catch errors during batch compilation
+  (require 'eshell)
+  (require 'esh-mode)
   (require 'evil-numbers))
 
 (use-package evil
@@ -36,6 +38,24 @@
   (:states 'normal
            "g+" #'evil-numbers/inc-at-pt-incremental
            "g-" #'evil-numbers/dec-at-pt-incremental))
+
+(use-package eshell
+  :bind
+  ("<s-return>" . eshell)
+  (:map eshell-mode-map
+        ("H-Ö" . eshell-previous-input)
+        ("H-ö" . eshell-send-input)
+        ("s-ö" . eshell-send-input)
+        ("M-ö" . eshell-send-input))
+  :custom
+  (eshell-banner-message "")
+  (eshell-scroll-to-bottom-on-output nil)
+  :general
+  (:states 'normal :keymaps 'eshell-mode-map
+           "k" #'evil-previous-visual-line
+           "j" #'evil-next-visual-line
+           "ö" #'eshell-send-input
+           "Ö" #'eshell-previous-input))
 
 (provide 'nagy-evil)
 ;;; nagy-evil.el ends here
