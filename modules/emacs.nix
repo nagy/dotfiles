@@ -67,6 +67,9 @@ let
         gitlab-ci-mode
         groovy-mode
         dockerfile-mode
+        jenkinsfile-mode
+        jenkins
+
         git-modes
         jinx
         tokei

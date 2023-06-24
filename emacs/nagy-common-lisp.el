@@ -16,7 +16,8 @@
 
 (eval-when-compile
   ;; To catch errors during batch compilation
-  (require 'sly))
+  ;; (require 'sly)
+  )
 
 ;; (use-package hyperspec
 ;;   :load-path (lambda () (concat doom-local-dir "/straight/repos/sly/lib/"))

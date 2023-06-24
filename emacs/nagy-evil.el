@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-evil
-;; Package-Requires: ((emacs "29.1") evil evil-numbers general)
+;; Package-Requires: ((emacs "29.1") general evil evil-numbers)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
