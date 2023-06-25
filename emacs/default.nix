@@ -4,10 +4,15 @@ let
   makePackage = src:
     pkgs.nur.repos.nagy.lib.emacsMakeSingleFilePackage {
       inherit emacs src;
+      epkgs = emacs.pkgs.overrideScope' (self: super: {
+        # TODO generalize this
+        nagy-use-package = makePackage ./nagy-use-package.el;
+      });
       pname = lib.substring 44 999 src;
     };
 in {
   nagy = makePackage ./nagy.el;
+  nagy-hy = makePackage ./nagy-hy.el;
   nagy-evil = makePackage ./nagy-evil.el;
   nagy-corfu = makePackage ./nagy-corfu.el;
   nagy-company = makePackage ./nagy-company.el;

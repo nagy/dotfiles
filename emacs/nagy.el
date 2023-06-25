@@ -13,5 +13,6 @@
 (require 'nagy-qrcode nil t)
 (require 'nagy-text nil t)
 (require 'nagy-use-package nil t)
+(require 'nagy-hy nil t)
 (provide 'nagy)
 ;;; nagy.el ends here
