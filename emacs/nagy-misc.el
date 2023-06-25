@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: Symbol’s value as variable is void: finder-known-keywords
 ;; Homepage: https://github.com/nagy/nagy-misc
-;; Package-Requires: ((emacs "29.1") nameless golden-ratio)
+;; Package-Requires: ((emacs "29.1") nameless golden-ratio macrostep)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -37,6 +37,18 @@
 (use-package golden-ratio
   :bind
   ("H-s-=" . golden-ratio-mode))
+
+(use-package macrostep
+  :bind
+  (:map macrostep-mode-map
+        ("c" . always)
+        ("s-k" . macrostep-collapse-all)))
+
+(use-package eww
+  :hook
+  ;; (eww-mode . visual-fill-column-mode)
+  (eww-mode . variable-pitch-mode))
+
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

@@ -70,7 +70,6 @@ let
         jenkins
 
         git-modes
-        jinx
         tokei
         dired-narrow
       ]));

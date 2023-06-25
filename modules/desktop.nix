@@ -1,8 +1,8 @@
 { pkgs, lib, config, ... }:
 
 let
-  nsxivBigThumbs = pkgs.nsxiv.overrideAttrs (old: {
-    postPatch = (old.postPatch or "") + ''
+  nsxivBigThumbs = pkgs.nsxiv.overrideAttrs ({ postPatch ? "", ... }: {
+    postPatch = postPatch + ''
       # increase thumbnail sizes
       substituteInPlace config.def.h \
               --replace '96, 128, 160' '96, 128, 160, 320, 640'  \
@@ -11,9 +11,9 @@ let
   });
 in {
 
-  imports = [
-    ./converter.nix
-  ];
+  imports = [ ./converter.nix ];
+
+  hardware.keyboard.qmk.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -26,8 +26,8 @@ in {
     xkbDir = let
       xkb_patched = (pkgs.xorg.xkeyboardconfig_custom {
         layouts = config.services.xserver.extraLayouts;
-      }).overrideAttrs (old: {
-        postPatch = (old.postPatch or "") + "echo > rules/0026-evdev.m_s.part";
+      }).overrideAttrs ({ postPatch ? "", ... }: {
+        postPatch = postPatch + "echo > rules/0026-evdev.m_s.part";
       });
     in lib.mkForce "${xkb_patched}/etc/X11/xkb";
     # keyboard
@@ -167,15 +167,6 @@ in {
   '';
 
   environment.systemPackages = with pkgs; [
-    # (pkgs.writeShellScriptBin "xkb-reeval" (let
-    #   patchedSetXkbmap = pkgs.xorg.setxkbmap.overrideAttrs(old: {
-    #     postInstall = (old.postInstall or "") + ''
-    #        ln -sfn ${pkgs.xorg.xkeyboardconfig.overrideAttrs(old: { postPatch = "echo > rules/0026-evdev.m_s.part"; })}/etc/X11 $out/share/X11
-    #     '';
-    #   });
-    #   in ''
-    #     ${patchedSetXkbmap}/bin/setxkbmap -I/etc/X11/xkb -print | ${pkgs.xorg.xkbcomp}/bin/xkbcomp -I/etc/X11/xkb - $DISPLAY
-    #   ''))
     xorg.xcursorthemes
     dmenu
     scrot

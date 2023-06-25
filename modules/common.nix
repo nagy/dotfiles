@@ -328,6 +328,7 @@
       withXorg = false;
       enableVideo = false;
     })
+    typos
     shellcheck
     (aspellWithDicts (ps: [ ps.en ]))
     (lispPackages_new.sbclWithPackages (ps:
