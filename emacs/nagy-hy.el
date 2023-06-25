@@ -7,9 +7,9 @@
 (use-package hy-mode
   :pretty 'hy-mode
   ("setv" . "🫧")
-  ("True" . true)
-  ("False" . false)
+  ("True" . true) ("False" . false)
   ("raise" . throw)
+  ("defmain" . "𝔐")
   )
 
 (provide 'nagy-hy)

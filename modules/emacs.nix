@@ -61,14 +61,6 @@ let
         password-store
         password-store-otp
 
-        # devops
-        terraform-mode
-        gitlab-ci-mode
-        groovy-mode
-        dockerfile-mode
-        jenkinsfile-mode
-        jenkins
-
         git-modes
         tokei
         dired-narrow

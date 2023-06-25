@@ -40,6 +40,8 @@
 (defvar nagy-pretty-symbols-default
   '((true . "✔") (false . "✘")
     (throw . "⍜")
+    (self . "░")
+    (if . "꜏") (else . "꜊") (then . "∴")
     (loop . "↻")))
 (defalias 'use-package-normalize/:pretty 'use-package-normalize-forms)
 (defun use-package-handler/:pretty (name-symbol _keyword rgx rest state)
