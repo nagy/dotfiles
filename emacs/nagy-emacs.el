@@ -1,4 +1,4 @@
-;;; nagy-emacs.el --- config emacs packages -*- lexical-binding: t; -*-
+;;; nagy-emacs.el --- config emacs packages -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;;
 ;; Copyright (C) 2023 Daniel Nagy
 ;;

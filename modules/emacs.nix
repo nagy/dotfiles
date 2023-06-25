@@ -1,10 +1,10 @@
-{ config, pkgs, lib, emacs-overlay, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   customEmacsPackages = pkgs.emacsPackagesFor config.services.emacs.package;
   emacsAndPackages = customEmacsPackages.withPackages (epkgs:
     (lib.attrValues (import ../emacs {
-      inherit pkgs lib emacs-overlay;
+      inherit pkgs lib;
       inherit (epkgs) emacs;
     })) ++ (with epkgs;
       with epkgs.melpaPackages; [
@@ -24,7 +24,6 @@ let
         pdf-tools
         org-pdftools
         elfeed
-        ob-mermaid
         triples
         bufler
         focus
@@ -48,6 +47,7 @@ let
         # org-fancy-priorities
         nix-mode
         mermaid-mode
+        ob-mermaid
         # adaptive-wrap
         lorem-ipsum
         corfu
@@ -55,7 +55,6 @@ let
         jq-mode
         rustic
         format-all
-        sideline
 
         # password and secrets
         pass

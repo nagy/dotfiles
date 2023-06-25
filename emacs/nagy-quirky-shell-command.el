@@ -1,4 +1,4 @@
-;;; nagy-quirky-shell-command.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-quirky-shell-command.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;;
 ;; Copyright (C) 2023 Daniel Nagy
 ;;

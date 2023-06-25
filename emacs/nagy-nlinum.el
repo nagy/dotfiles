@@ -21,7 +21,7 @@
 
 (eval-when-compile
   ;; To catch errors during batch compilation
-  (require 'nlinum) ; warns about being deprecated ;; NIX-IGNORE-WARNINGS
+  (require 'nlinum) ; warns about being deprecated
   )
 
 (use-package nlinum

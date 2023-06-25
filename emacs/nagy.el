@@ -1,0 +1,17 @@
+;;; nagy.el --- -*- lexical-binding: t; -*-
+(require 'nagy-company nil t)
+(require 'nagy-corfu nil t)
+(require 'nagy-elpher nil t)
+(require 'nagy-emacs nil t)
+(require 'nagy-evil nil t)
+(require 'nagy-formats nil t)
+(require 'nagy-magit nil t)
+(require 'nagy-misc nil t)
+(require 'nagy-modus-themes nil t)
+(require 'nagy-nlinum nil t)
+(require 'nagy-pcap-converter nil t)
+(require 'nagy-qrcode nil t)
+(require 'nagy-text nil t)
+(require 'nagy-use-package nil t)
+(provide 'nagy)
+;;; nagy.el ends here

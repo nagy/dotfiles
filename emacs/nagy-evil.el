@@ -1,4 +1,4 @@
-;;; nagy-evil.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-evil.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;;
 ;; Copyright (C) 2022 Daniel Nagy
 ;;

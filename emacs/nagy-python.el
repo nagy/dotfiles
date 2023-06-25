@@ -1,4 +1,4 @@
-;;; nagy-python.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-python.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;;
 ;; Copyright (C) 2023 Daniel Nagy
 ;;

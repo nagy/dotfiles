@@ -1,4 +1,4 @@
-;;; nagy-qrcode.el --- My qrcode config -*- lexical-binding: t -*-
+;;; nagy-qrcode.el --- My qrcode config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
 ;; Package-Requires: ((emacs "29.1") dash anaphora)
 

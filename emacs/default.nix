@@ -1,32 +1,29 @@
-{ lib, pkgs, emacs, emacs-overlay }:
+{ lib, pkgs, emacs }:
 
 let
-  makePackage = { src }:
+  makePackage = src:
     pkgs.nur.repos.nagy.lib.emacsMakeSingleFilePackage {
       inherit emacs src;
       pname = lib.substring 44 999 src;
-      packageRequires = pkgs.nur.repos.nagy.lib.emacsParsePackageSet {
-        inherit emacs src;
-        parser = pkgs.callPackage "${emacs-overlay}/parse.nix" { };
-      };
     };
 in {
-  nagy-evil = makePackage { src = ./nagy-evil.el; };
-  nagy-corfu = makePackage { src = ./nagy-corfu.el; };
-  nagy-company = makePackage { src = ./nagy-company.el; };
-  nagy-common-lisp = makePackage { src = ./nagy-common-lisp.el; };
-  nagy-magit = makePackage { src = ./nagy-magit.el; };
-  nagy-elpher = makePackage { src = ./nagy-elpher.el; };
-  nagy-emacs = makePackage { src = ./nagy-emacs.el; };
-  nagy-formats = makePackage { src = ./nagy-formats.el; };
-  nagy-forth = makePackage { src = ./nagy-forth.el; };
-  nagy-misc = makePackage { src = ./nagy-misc.el; };
-  nagy-modus-themes = makePackage { src = ./nagy-modus-themes.el; };
-  nagy-nlinum = makePackage { src = ./nagy-nlinum.el; };
-  nagy-pcap-converter = makePackage { src = ./nagy-pcap-converter.el; };
-  nagy-python = makePackage { src = ./nagy-python.el; };
-  nagy-qrcode = makePackage { src = ./nagy-qrcode.el; };
-  nagy-quirky-shell-command =
-    makePackage { src = ./nagy-quirky-shell-command.el; };
-  nagy-use-package = makePackage { src = ./nagy-use-package.el; };
+  nagy = makePackage ./nagy.el;
+  nagy-evil = makePackage ./nagy-evil.el;
+  nagy-corfu = makePackage ./nagy-corfu.el;
+  nagy-company = makePackage ./nagy-company.el;
+  nagy-common-lisp = makePackage ./nagy-common-lisp.el;
+  nagy-magit = makePackage ./nagy-magit.el;
+  nagy-elpher = makePackage ./nagy-elpher.el;
+  nagy-emacs = makePackage ./nagy-emacs.el;
+  nagy-formats = makePackage ./nagy-formats.el;
+  nagy-forth = makePackage ./nagy-forth.el;
+  nagy-misc = makePackage ./nagy-misc.el;
+  nagy-modus-themes = makePackage ./nagy-modus-themes.el;
+  nagy-nlinum = makePackage ./nagy-nlinum.el;
+  nagy-pcap-converter = makePackage ./nagy-pcap-converter.el;
+  nagy-python = makePackage ./nagy-python.el;
+  nagy-text = makePackage ./nagy-text.el;
+  nagy-qrcode = makePackage ./nagy-qrcode.el;
+  nagy-quirky-shell-command = makePackage ./nagy-quirky-shell-command.el;
+  nagy-use-package = makePackage ./nagy-use-package.el;
 }
