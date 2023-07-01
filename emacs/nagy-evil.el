@@ -43,13 +43,14 @@
   :bind
   ("<s-return>" . eshell)
   (:map eshell-mode-map
-        ("H-Ö" . eshell-previous-input)
-        ("H-ö" . eshell-send-input)
+        ("H-ö" . eshell-previous-input)
         ("s-ö" . eshell-send-input)
         ("M-ö" . eshell-send-input))
   :custom
   (eshell-banner-message "")
   (eshell-scroll-to-bottom-on-output nil)
+  :config
+  (evil-set-initial-state 'eshell-mode 'emacs)
   :general
   (:states 'normal :keymaps 'eshell-mode-map
            "k" #'evil-previous-visual-line

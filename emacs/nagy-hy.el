@@ -5,12 +5,16 @@
 (require 'nagy-use-package)
 
 (use-package hy-mode
+  :bind
+  ("H-M-h" . hy-mode)
   :pretty 'hy-mode
-  ("setv" . "🫧")
   ("True" . true) ("False" . false)
   ("raise" . throw)
   ("defmain" . "𝔐")
-  )
+  ("defclass" . defclass)
+  ("Path" . "𝕻")
+  :abbrev 'hy-mode
+  ("sv" . "setv"))
 
 (provide 'nagy-hy)
 ;;; nagy-hy.el ends here

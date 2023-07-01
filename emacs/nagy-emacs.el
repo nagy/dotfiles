@@ -181,5 +181,12 @@
   ;; does not work in init
   (setq recentf-max-saved-items nil))
 
+(use-package woman
+  :defer t
+  :custom
+  (woman-fill-frame t)
+  :hook
+  (woman-mode . visual-fill-column-mode))
+
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

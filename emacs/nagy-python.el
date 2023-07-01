@@ -25,5 +25,9 @@
 ;;         :localleader
 ;;         "tb" #'python-black-on-save-mode))
 
+(use-package python
+  :pretty 'python-mode
+  ("True" . true) ("False" . false))
+
 (provide 'nagy-python)
 ;;; nagy-python.el ends here

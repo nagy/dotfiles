@@ -6,9 +6,31 @@
 
 (use-package groovy-mode
   :pretty 'groovy-mode
+  ;; builtins
+  ("true" . true) ("false" . false)
   ("this" . self)
-  ("if" . if)
-  ("true" . true) ("false" . false))
+  ("if" . if) ("else" . else)
+  ("throw" . throw)
+  ("import" . import)
+  ("return" . return)
+  ("try" . try) ("catch" . except)
+  ("def" . def) ("class" . defclass)
+  ;; methods
+  ("println" . print)
+  ("while" . loop)
+  ("String" . tostring)
+  ("Object" . object)
+  ;; ("Map" . map)
+  ("void" . null)
+  ("new" . new)
+  ("final" . const)
+  ;; annotations
+  ("@Memoized" . "🧠")
+  ("@Lazy" . "💤")
+  ("@CompileStatic" . "🧱")
+  :abbrev 'groovy-mode
+  ;; ("df" . "def")
+  ("pr" . "println"))
 
 (provide 'nagy-devops)
 ;;; nagy-devops.el ends here

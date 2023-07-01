@@ -4,7 +4,7 @@
 ;;
 ;; Author: Daniel Nagy <danielnagy@posteo.de>
 ;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Package-Requires: ((emacs "29.1") corfu)
+;; Package-Requires: ((emacs "29.1") corfu cape)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -26,6 +26,8 @@
   (completion-cycle-threshold 3)
   (tab-always-indent 'complete)
   (corfu-auto-prefix 0))
+
+;; (use-package cape)
 
 (provide 'nagy-corfu)
 ;;; nagy-corfu.el ends here
