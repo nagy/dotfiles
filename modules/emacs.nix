@@ -42,15 +42,9 @@ let
       org-superstar
       org-appear
       org-ref
-      # org-fancy-priorities
       nix-mode
       mermaid-mode
       ob-mermaid
-      # adaptive-wrap
-      lorem-ipsum
-      corfu
-      cape
-      jq-mode
       rustic
       format-all
 
