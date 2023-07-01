@@ -35,7 +35,35 @@
   ("fetchFromGitLab" . "🧲″")
   ("fetchFromSourcehut" . "🧲‴")
   ;; Haumea
-  ("root" . "√"))
+  ("root" . "√")
+  :abbrev 'nix-mode
+  ("ts" . "toString")
+  ("ovr" . "overrideAttrs")
+  ("orr" . "overrideAttrs")
+  ("oo" . "override")
+  ("rcl" . "runCommandLocal")
+  ("ffgh" . "fetchFromGitHub")
+  ("ffgl" . "fetchFromGitLab")
+  ("ffsh" . "fetchFromSourcehut")
+  ("nbi" . "nativeBuildInputs =")
+  ("bi" . "buildInputs =")
+  ("ih" . "inherit")
+  ("pk" . "pkgs")
+  ("li" . "lib")
+  ("en" . "enable = true;")
+  ("winx" . "with import <nixpkgs> { };")
+  ("nvp" . "nameValuePair")
+  :cycle 'nix-mode
+  ("override" "overrideAttrs")
+  ("fetchurl" "fetchFromGitHub" "fetchFromGitLab"  "fetchFromSourcehut")
+  ("vendorHash" "vendorSha256")
+  ("cargoHash" "cargoSha256")
+  ("hash" "sha256")
+  ("buildPhase" "installPhase")
+  ("buildInputs" "nativeBuildInputs")
+  ;; hooks
+  ("preInstall" "postInstall")
+  ("preBuild" "postBuild"))
 
 (provide 'nagy-nix)
 ;;; nagy-nix.el ends here
