@@ -32,7 +32,6 @@ let
       lispy
       lispyville
 
-      ov
       visual-fill-column
 
       yaml-mode

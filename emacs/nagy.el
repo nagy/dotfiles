@@ -10,6 +10,7 @@
 (require 'nagy-magit nil t)
 (require 'nagy-misc nil t)
 (require 'nagy-modus-themes nil t)
+(require 'nagy-nix nil t)
 (require 'nagy-nlinum nil t)
 (require 'nagy-org nil t)
 (require 'nagy-pcap-converter nil t)
