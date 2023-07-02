@@ -7,6 +7,7 @@
 (require 'nagy-evil nil t)
 (require 'nagy-formats nil t)
 (require 'nagy-hy nil t)
+(require 'nagy-lsp nil t)
 (require 'nagy-magit nil t)
 (require 'nagy-misc nil t)
 (require 'nagy-modus-themes nil t)
