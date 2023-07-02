@@ -333,8 +333,8 @@
     (aspellWithDicts (ps: [ ps.en ]))
     (lispPackages_new.sbclWithPackages (ps:
       with ps; [
-        (slynk.overrideLispAttrs (o: {
-          systems = o.systems ++ [
+        (slynk.overrideLispAttrs ({ systems, ... }: {
+          systems = systems ++ [
             "slynk/mrepl"
             "slynk/indentation"
             "slynk/stickers"
@@ -351,7 +351,7 @@
         dbus
       ]))
 
-    (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
+    (pass.withExtensions (exts: [ exts.pass-otp ]))
     pinentry
     (gnupg.override { guiSupport = false; })
     gh

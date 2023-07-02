@@ -4,6 +4,7 @@
   outputs = { self, nixpkgs }:
     let
       pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      lib = pkgs.lib;
       evalhmmodule = module:
         (import "${pkgs.home-manager.src}/modules" {
           inherit pkgs;
@@ -18,12 +19,12 @@
     in {
       nixosModules = let
         files = builtins.readDir ./modules;
-        fileNames = pkgs.lib.attrNames files;
+        fileNames = lib.attrNames files;
         preAttrList = map (name: {
-          name = pkgs.lib.removeSuffix ".nix" name;
+          name = lib.removeSuffix ".nix" name;
           value = import (./modules + "/${name}");
         }) fileNames;
-        modules = pkgs.lib.listToAttrs preAttrList;
+        modules = lib.listToAttrs preAttrList;
       in modules // {
         converted-hmmpv = (import ./conv-hmmpv2nixos.nix evalhmmodule)
           (import ./hmmodule-mpv.nix);
