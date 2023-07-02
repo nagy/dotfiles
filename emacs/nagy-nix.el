@@ -7,6 +7,7 @@
 (use-package nix-mode
   :pretty 'nix-mode
   ("true" . true) ("false" . false)
+  ("if" . if) ("else" . else) ("then" . then)
   ("throw" . throw)
   ("self" . self)
   ;; ("pkgs" . "☐·")
@@ -19,6 +20,7 @@
   ("stdenv" . stdlib)
   ("description" . print)
   ("homepage" . "🌐")
+  ("changelog" . "🍃")
   ("inherit" . "↧")
   ("import" . import)
   ("overrideAttrs" . "🌀")
@@ -60,7 +62,7 @@
   ("cargoHash" "cargoSha256")
   ("hash" "sha256")
   ("buildPhase" "installPhase")
-  ("buildInputs" "nativeBuildInputs")
+  ("buildInputs" "nativeBuildInputs" "propagatedBuildInputs")
   ;; hooks
   ("preInstall" "postInstall")
   ("preBuild" "postBuild"))

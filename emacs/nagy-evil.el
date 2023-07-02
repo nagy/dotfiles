@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-evil
-;; Package-Requires: ((emacs "29.1") general evil evil-numbers)
+;; Package-Requires: ((emacs "29.1") general evil evil-numbers evil-surround)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -57,6 +57,11 @@
            "j" #'evil-next-visual-line
            "ö" #'eshell-send-input
            "Ö" #'eshell-previous-input))
+
+(use-package evil-surround
+  :bind
+  ("H-(" . evil-surround-region)
+  ("H-)" . evil-surround-delete))
 
 (provide 'nagy-evil)
 ;;; nagy-evil.el ends here

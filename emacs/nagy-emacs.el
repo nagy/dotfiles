@@ -188,5 +188,11 @@
   :hook
   (woman-mode . visual-fill-column-mode))
 
+(use-package replace                    ; occur
+  :bind
+  (:map occur-edit-mode-map
+        ([remap save-kill-buffer] . occur-cease-edit)
+        ([remap kill-this-buffer] . occur-cease-edit)))
+
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here
