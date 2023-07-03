@@ -360,8 +360,6 @@
     (hy.withPackages (ps: with ps; [ hyrule addict ]))
     (terraform.withPlugins (p: with p; [ github ]))
 
-    (pkgs.writeScriptBin "blocker-cat" (builtins.readFile ../bin/blocker-cat))
-    (pkgs.writeScriptBin "blocker-put" (builtins.readFile ../bin/blocker-put))
     (pkgs.nur.repos.nagy.lib.mkRustScript {
       file = ../bin/blocker.rs;
       pname = "blocker";
