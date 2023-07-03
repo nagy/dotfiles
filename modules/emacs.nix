@@ -9,14 +9,14 @@ let
     })) ++ (with epkgs; [
       wat-mode
 
-      (sotlisp.overrideAttrs (_: {
+      (sotlisp.overrideAttrs {
         src = pkgs.fetchFromGitHub {
           owner = "nagy";
           repo = "speed-of-thought-lisp";
           rev = "bf1c906cfbd111d6d0218aa7b5f8f3d635d89083";
           hash = "sha256-GsrIqnz+hPR1S0SkvduYp0rzmSHYkDDzFVWsLlgYEuM=";
         };
-      }))
+      })
       smart-mode-line
 
       vterm

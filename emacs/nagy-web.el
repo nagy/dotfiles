@@ -11,7 +11,9 @@
   ("if" . if) ("else" . else))
 
 (use-package typescript-mode
-  :defer t)
+  :defer t
+  :pretty 'typescript-mode
+  ("this" . self))
 
 (provide 'nagy-web)
 ;;; nagy-web.el ends here

@@ -134,10 +134,10 @@ let
     "⫪" = [ "<Multi_key>" "<underscore>" "<underscore>" ];
     "⫫" = [ "<Multi_key>" "<macron>" "<macron>" ];
     "〜" = [ "<Multi_key>" "<Multi_key>" "<asciitilde>" ];
-    "💤" = [ "<Multi_key>" "<z>" "<z>" "<z>"];
-    "💩" = [ "<Multi_key>" "<p>" "<o>" "<o>"];
-    "💧" = [ "<Multi_key>" "<d>" "<r>" "<o>" "<p>"];
-    "∑" = [ "<Multi_key>" "<s>" "<u>" "<m>"];
+    "💤" = [ "<Multi_key>" "<z>" "<z>" "<z>" ];
+    "💩" = [ "<Multi_key>" "<p>" "<o>" "<o>" ];
+    "💧" = [ "<Multi_key>" "<d>" "<r>" "<o>" "<p>" ];
+    "∑" = [ "<Multi_key>" "<s>" "<u>" "<m>" ];
 
     "🔳" = [ "<dead_belowdot>" "<oslash>" ];
     "🔲" = [ "<dead_belowdot>" "<Oslash>" ];
@@ -146,6 +146,7 @@ let
     "🫧" = [ "<dead_belowdot>" "<leftdoublequotemark>" ];
     "📋" = [ "<dead_belowdot>" "<cent>" ];
     "🎹" = [ "<dead_belowdot>" "<mu>" ];
+    "🦴" = [ "<dead_belowdot>" "<at>" ];
     "〣" = [ "<dead_belowdot>" "<threesuperior>" ];
     "↞" = [ "<dead_diaeresis>" "<f>" ];
     "↠" = [ "<dead_diaeresis>" "<g>" ];
