@@ -36,6 +36,7 @@
   ("fetchFromGitHub" . "🧲′")
   ("fetchFromGitLab" . "🧲″")
   ("fetchFromSourcehut" . "🧲‴")
+  ("fetchgit" . "🧲⁗")
   ;; Haumea
   ("root" . "√")
   :abbrev 'nix-mode

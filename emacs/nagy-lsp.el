@@ -2,11 +2,14 @@
 ;; Homepage: https://github.com/nagy/nagy
 ;; Package-Requires: ((emacs "29.1") eglot consult-eglot)
 
-(require 'nagy-use-package)
-
 (use-package eglot
+  :demand t
   :custom
-  (eglot-autoshutdown t))
+  (eglot-autoshutdown t)
+  :bind
+  ("H-s-e" . eglot-rename)
+  ("H-s-r" . eglot-inlay-hints-mode))
+
 (use-package consult-eglot
   :config)
 

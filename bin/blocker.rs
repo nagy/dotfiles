@@ -102,7 +102,7 @@ impl Hash {
     }
     fn read(&self) -> Result<Vec<u8>> {
         use sha2::Digest;
-        // FIXME optimize
+        // FIXME remove duplicate find_filename and try_filename usage
         let found_filename = self.find_filename();
         let file = File::open(self.try_filename())?;
         let content = Self::read_from(file)?;

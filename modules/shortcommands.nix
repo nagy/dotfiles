@@ -309,6 +309,7 @@ let
     sha2 = [ "sha256sum" ];
     sha512 = [ "sha512sum" ];
     sha5 = [ "sha512sum" ];
+    wcc = [ "wc" "-c" ];
   };
   dotlib = import ../lib { inherit pkgs; };
 in {

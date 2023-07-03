@@ -88,7 +88,6 @@
 (use-package lin
   :functions lin-global-mode
   :config
-  (setq lin-face 'lin-blue)
   (setq lin-mode-hooks
         '(dired-mode-hook
           elfeed-search-mode-hook

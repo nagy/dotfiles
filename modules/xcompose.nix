@@ -146,6 +146,7 @@ let
     "🫧" = [ "<dead_belowdot>" "<leftdoublequotemark>" ];
     "📋" = [ "<dead_belowdot>" "<cent>" ];
     "🎹" = [ "<dead_belowdot>" "<mu>" ];
+    "〣" = [ "<dead_belowdot>" "<threesuperior>" ];
     "↞" = [ "<dead_diaeresis>" "<f>" ];
     "↠" = [ "<dead_diaeresis>" "<g>" ];
 

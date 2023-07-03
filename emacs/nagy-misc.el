@@ -27,12 +27,21 @@
   :diminish nameless-mode
   :hook
   (emacs-lisp-mode . nameless-mode)
+  :general
+  (:states 'insert :keymaps 'nameless-mode-map
+           "s--" #'nameless-insert-name)
   :custom
   (nameless-private-prefix t)
   (nameless-global-aliases
    '(("fl" . "font-lock")
      ("ms" . "magit-section")
-     ("ns" . "nix-store"))))
+     ("○" . "nix")
+     ("〣" . "triples")
+     ("□" . "blocker")
+     ("▒" . "nagy")
+     ("⧖" . "dired")
+     ("ø" . "org")
+     ("ŧ" . "tokei"))))
 
 (use-package golden-ratio
   :bind

@@ -271,6 +271,7 @@
     socat
     jo
     jc
+    taplo
 
     # network
     dstat
