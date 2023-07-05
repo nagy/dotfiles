@@ -130,6 +130,10 @@ let
     "⏢" = [ "<dead_breve>" "<f>" ];
     "◇" = [ "<dead_breve>" "<d>" ];
     "⧖" = [ "<dead_breve>" "<D>" ];
+    "⌬" = [ "<dead_breve>" "<g>" ];
+    "〒" = [ "<dead_breve>" "<t>" ];
+    "※" = [ "<dead_breve>" "<r>" ];
+    "❌" = [ "<dead_breve>" "<x>" ];
     "‗" = [ "<Multi_key>" "<underscore>" "<minus>" ];
     "⫪" = [ "<Multi_key>" "<underscore>" "<underscore>" ];
     "⫫" = [ "<Multi_key>" "<macron>" "<macron>" ];
@@ -148,8 +152,13 @@ let
     "🎹" = [ "<dead_belowdot>" "<mu>" ];
     "🦴" = [ "<dead_belowdot>" "<at>" ];
     "〣" = [ "<dead_belowdot>" "<threesuperior>" ];
+    "💢" = [ "<dead_belowdot>" "<ae>" ];
+
     "↞" = [ "<dead_diaeresis>" "<f>" ];
     "↠" = [ "<dead_diaeresis>" "<g>" ];
+    # alt gr
+    "⦵" = [ "<dead_diaeresis>" "<eng>" ];
+    "🧪" = [ "<dead_diaeresis>" "<U2A0F>" ];
 
     # APL
     "⍳" = [ "Ctrl" "<Multi_key>" "<i>" ];

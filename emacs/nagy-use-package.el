@@ -58,6 +58,7 @@
     (new . "↙")
     (print . "⚶")
     (const . "𝕔")
+    (assert . "𝒂")
     (try . "〜") (except . "☇")
     (if . "꜏") (else . "꜊") (then . "∴")
     (loop . "↻")))
