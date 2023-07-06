@@ -39,6 +39,17 @@
   ("fetchgit" . "🧲⁗")
   ;; Haumea
   ("root" . "√")
+  ;; Nixos modules
+  ("boot" . "𝒃")
+  ("documentation" . "𝒅")
+  ("environment" . "𝒆")
+  ("hardware" . "𝒉")
+  ("networking" . "𝒏")
+  ("programs" . "𝒑")
+  ("services" . "𝒔")
+  ("time" . "𝒕")
+  ("users" . "𝒖")
+  ("imports" . "𝒊")
   :abbrev 'nix-mode
   ("ts" . "toString")
   ("ovr" . "overrideAttrs")

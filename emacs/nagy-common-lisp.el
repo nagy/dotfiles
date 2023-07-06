@@ -34,7 +34,6 @@
 ;;   (setq common-lisp-hyperspec-root "file:///nix/store/2hli5955grxkbyqp2vzzdnl556rn0bkz-hyperspec-7.0/share/HyperSpec/"))
 
 (use-package scheme
-  :config
   :bind
   (:map scheme-mode-map
         ("s-." . scheme-send-last-sexp)

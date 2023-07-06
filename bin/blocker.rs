@@ -1,13 +1,13 @@
 //! ```cargo
 //! [dependencies]
-//! aes = "0.8.2"
-//! ctr = "0.9.2"
-//! data-encoding = "2.3.3"
-//! fastcdc = "3.0.1"
-//! hex-literal = "0.3.4"
-//! zstd = "0.12.3"
-//! sha2 = "0.10.6"
-//! ctrlc = "3.2.5"
+//! aes = "0.8"
+//! ctr = "0.9"
+//! data-encoding = "2.4"
+//! fastcdc = "3"
+//! hex-literal = "0.4"
+//! zstd = "0.12"
+//! sha2 = "0.10"
+//! ctrlc = "3.4"
 //! ```
 
 use std::fs::{create_dir_all, read_dir, File};

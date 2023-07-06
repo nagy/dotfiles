@@ -27,6 +27,9 @@
   (require 'evil-numbers))
 
 (use-package evil
+  :custom
+  (evil-normal-state-cursor '(hbar . 5))
+  (evil-insert-state-cursor '(bar . 5))
   :bind
   ("H-z" . evil-scroll-line-to-center))
 

@@ -1,6 +1,6 @@
 ;;; nagy-web.el --nagy-web config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") coffee-mode jq-mode typescript-mode nagy-use-package)
+;; Package-Requires: ((emacs "29.1") coffee-mode typescript-mode wat-mode csv-mode yaml-mode jq-mode svelte-mode nagy-use-package)
 
 (require 'nagy-use-package)
 
@@ -14,6 +14,12 @@
   :defer t
   :pretty 'typescript-mode
   ("this" . self))
+
+(use-package wat-mode)
+(use-package csv-mode)
+(use-package yaml-mode)
+(use-package jq-mode)
+(use-package svelte-mode)
 
 (provide 'nagy-web)
 ;;; nagy-web.el ends here
