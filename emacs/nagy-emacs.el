@@ -75,14 +75,41 @@
   :bind
   ("s-f" . find-file))
 
+(require 'calc)
+(require 'calc-units)
+(require 'calc-yank)
 (use-package calc
   ;; Tutorial: https://nullprogram.com/blog/2009/06/23/
   :config
   ;; https://old.reddit.com/r/emacs/comments/hujbbm/why_calceval_390010015_026_instead_585/
   (setq calc-multiplication-has-precedence nil)
+  ;; https://www.n16f.net/blog/using-units-in-emacs-calc/
+  (require 'calc-units)
+  (setq math-additional-units
+      '((b nil "Bit")
+        (B "8 * b" "Byte")
+
+        (kiB "2^10 * B" "Kibibyte")
+        (MiB "2^20 * B" "Mebibyte")
+        (GiB "2^30 * B" "Gibibyte")
+        (TiB "2^40 * B" "Tebibyte")
+        (PiB "2^50 * B" "Pebibyte")
+        (EiB "2^60 * B" "Exbibyte")))
+  ;; (setq math-units-table nil)           ; recalc. maybe not needed
+  :custom
+  (calc-show-banner nil)
   :bind
   ("<XF86Calculator>" . calc-dispatch)
-  ("S-<XF86Calculator>" . calc-embedded-update-formula))
+  ("s-<XF86Calculator>" . calc)
+  ("H-<XF86Calculator>" . calc-embedded)
+  ("S-<XF86Calculator>" . calc-embedded-update-formula)
+  (:map calc-mode-map
+        ("H-d" . calc-pop)
+        ("H-u" . calc-undo)
+        ;; ([remap kill-this-buffer] . calc-quit))
+  (:map calc-edit-mode-map
+        ([remap save-kill-buffer] . calc-edit-finish)
+        ([remap kill-this-buffer] . calc-edit-cancel))))
 
 (use-package tab-bar
   :config
