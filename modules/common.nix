@@ -119,6 +119,7 @@
         "https://gitlab.com/".insteadOf = "gl:";
         "https://aur.archlinux.org/".insteadOf = "aur:";
         "https://git.sr.ht/".insteadOf = "srht:";
+        "https://codeberg.org/".insteadOf = "cb:";
         "https://bitbucket.org/".insteadOf = "bb:";
         "git@github.com:nagy/".insteadOf = "ghn:";
         "git@gitlab.com:nagy/".insteadOf = "gln:";
@@ -227,6 +228,8 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEuBKrPzbawxA/k2g6NcyV5jmqwJ2s+zpgZGZ7tpLIcN";
     "gitlab.freedesktop.org".publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOzdNH/aTnOOINO/iGupQ/rYnmKF40ESCrkRg+5JkLVN";
+    "codeberg.org".publicKey =
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB";
   };
 
   zramSwap = {
@@ -237,7 +240,7 @@
 
   programs.ssh.extraConfig = ''
     # Git remote hosts
-    Host github.com gitlab.com git.sr.ht aur.archlinux.org gitlab.freedesktop.org
+    Host github.com gitlab.com git.sr.ht aur.archlinux.org gitlab.freedesktop.org codeberg.org
       User git
       RequestTTY no
   '';
