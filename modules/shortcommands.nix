@@ -309,9 +309,14 @@ let
     sha2 = [ "sha256sum" ];
     sha512 = [ "sha512sum" ];
     sha5 = [ "sha512sum" ];
+    grepi = [ "grep" "-i" ];
     wcc = [ "wc" "-c" ];
     wcl = [ "wc" "-l" ];
+    "≢" = [ "wc" "-l" ];
     dush = [ "du" "sh" ];
+    dfh = [ "df" "-h" ];
+    dfhh = [ "df" "-h" "/home" ];
+    ungron = [ "gron" "--ungron" ];
   };
   dotlib = import ../lib { inherit pkgs; };
 in {

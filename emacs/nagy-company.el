@@ -27,9 +27,9 @@
   ;; (:map doom-leader-map
   ;;       ("M-c" . company-mode))
   :custom
-  (company-idle-delay 0.25)
+  (company-idle-delay 0.1)
   (company-minimum-prefix-length 1)
-  (company-tooltip-idle-delay 0.25)
+  (company-tooltip-idle-delay 0.1)
   (company-async-redisplay-delay 0.1))
 
 (provide 'nagy-company)

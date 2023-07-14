@@ -10,10 +10,12 @@
   :pretty 'hy-mode
   ("True" . true) ("False" . false)
   ("raise" . throw)
+  ("defn" . def)
   ("defmain" . "𝔐")
   ("defclass" . defclass)
   ("Path" . "𝕻")
   :abbrev 'hy-mode
+  ("df" . "defn")
   ("sv" . "setv"))
 
 (provide 'nagy-hy)

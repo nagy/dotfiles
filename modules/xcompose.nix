@@ -125,13 +125,13 @@ let
     "⑁" = [ "<Multi_key>" "<bar>" "<h>" ];
     "🞋" = [ "<dead_breve>" "<t>" ];
     "🞖" = [ "<dead_breve>" "<T>" ];
-    "🞜" = [ "<dead_breve>" "Alt" "<t>" ];
+    "🞜" = [ "<dead_breve>" "<R>" ];
     "⋔" = [ "<dead_breve>" "<h>" ];
     "⏢" = [ "<dead_breve>" "<f>" ];
     "◇" = [ "<dead_breve>" "<d>" ];
     "⧖" = [ "<dead_breve>" "<D>" ];
     "⌬" = [ "<dead_breve>" "<g>" ];
-    "〒" = [ "<dead_breve>" "<t>" ];
+    "〒" = [ "<dead_breve>" "<tslash>" ];
     "※" = [ "<dead_breve>" "<r>" ];
     "❌" = [ "<dead_breve>" "<x>" ];
     "‗" = [ "<Multi_key>" "<underscore>" "<minus>" ];

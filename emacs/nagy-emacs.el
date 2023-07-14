@@ -76,6 +76,7 @@
   ("s-f" . find-file))
 
 (use-package calc
+  ;; Tutorial: https://nullprogram.com/blog/2009/06/23/
   :config
   ;; https://old.reddit.com/r/emacs/comments/hujbbm/why_calceval_390010015_026_instead_585/
   (setq calc-multiplication-has-precedence nil)
@@ -123,6 +124,9 @@
   (define-abbrev global-abbrev-table "bcs" "because" nil :system t)
   (define-abbrev global-abbrev-table "teh" "the" nil :system t)
   (define-abbrev global-abbrev-table "tehn" "then" nil :system t)
+  (define-abbrev global-abbrev-table "fuond" "found" nil :system t)
+  (define-abbrev global-abbrev-table "lnux" "linux" nil :system t)
+  (define-abbrev global-abbrev-table "thsi" "this" nil :system t)
   (with-eval-after-load 'nix-repl
     (define-abbrev nix-repl-mode-abbrev-table "PK" "pkgs" nil :system t)
     (define-abbrev nix-repl-mode-abbrev-table "wpkgs" "with import <nixpkgs> {}; " nil :system t))

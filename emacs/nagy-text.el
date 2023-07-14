@@ -15,5 +15,7 @@
            "C-🫧" #'lorem-ipsum-insert-sentences
            "🫧" #'lorem-ipsum-insert-paragraphs))
 
+;; TODO markdown disable toggle markup when pretty key is pressed
+
 (provide 'nagy-text)
 ;;; nagy-text.el ends here

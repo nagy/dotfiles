@@ -41,7 +41,8 @@
      ("▒" . "nagy")
      ("⧖" . "dired")
      ("ø" . "org")
-     ("ŧ" . "tokei"))))
+     ("ŧ" . "tokei")
+     ("√" . "calc"))))
 
 (use-package golden-ratio
   :bind
@@ -54,6 +55,8 @@
         ("s-k" . macrostep-collapse-all)))
 
 (use-package eww
+  :bind
+  ("s-€" . eww)
   :hook
   ;; (eww-mode . visual-fill-column-mode)
   (eww-mode . variable-pitch-mode))
