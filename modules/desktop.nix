@@ -176,7 +176,6 @@ in {
     # xorg.xmodmap
     xclip
 
-    firefox
     brave
     tor-browser-bundle-bin
     bspwm
