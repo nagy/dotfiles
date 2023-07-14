@@ -225,5 +225,11 @@
         ([remap save-kill-buffer] . occur-cease-edit)
         ([remap kill-this-buffer] . occur-cease-edit)))
 
+;; (require 'rx)
+(rx-define md5 (repeat 32 hex))
+(rx-define sha1 (repeat 40 hex))
+(rx-define sha256 (repeat 64 hex))
+(rx-define sha512 (repeat 128 hex))
+
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

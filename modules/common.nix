@@ -114,16 +114,19 @@
       merge.conflictStyle = "diff3";
       gc = { auto = "0"; };
       url = {
+        # forges
         "https://github.com/".insteadOf = "gh:";
         "https://gist.github.com/".insteadOf = "gist:";
         "https://gitlab.com/".insteadOf = "gl:";
-        "https://aur.archlinux.org/".insteadOf = "aur:";
-        "https://git.sr.ht/".insteadOf = "srht:";
+        "https://git.sr.ht/".insteadOf = "sh:";
         "https://codeberg.org/".insteadOf = "cb:";
+        "https://aur.archlinux.org/".insteadOf = "aur:";
         "https://bitbucket.org/".insteadOf = "bb:";
+        # nagy repos
         "git@github.com:nagy/".insteadOf = "ghn:";
         "git@gitlab.com:nagy/".insteadOf = "gln:";
-        "git@git.sr.ht:~nagy/".insteadOf = "srhtn:";
+        "git@git.sr.ht:~nagy/".insteadOf = "shn:";
+        "git@codeberg.org:nagy/".insteadOf = "cbn:";
         # organizations
         "https://github.com/NixOS/".insteadOf = "nixos:";
         "https://github.com/rust-lang/".insteadOf = "rust:";
@@ -213,6 +216,7 @@
     "194.242.2.3" = [ "adblock.doh.mullvad.net" ];
   };
 
+  # TODO pull from NUR module
   services.openssh.knownHosts = {
     "github.com".publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
@@ -328,6 +332,7 @@
     restic
     rclone
     zig
+    wasmtime
     (zbar.override {
       withXorg = false;
       enableVideo = false;
@@ -370,17 +375,27 @@
     })
   ];
 
+  boot.binfmt.emulatedSystems =
+    [ "wasm32-wasi" "aarch64-linux" "armv6l-linux" ];
+
   boot.binfmt.registrations.oil = {
     recognitionType = "extension";
     magicOrExtension = "oil";
     interpreter = lib.getExe pkgs.oil;
   };
 
-  boot.binfmt.registrations.wasm = {
+  # not fulfilled by above "wasm32-wasi"
+  boot.binfmt.registrations.wat = {
     recognitionType = "extension";
-    magicOrExtension = "wasm";
+    magicOrExtension = "wat";
     interpreter = lib.getExe pkgs.wasmtime;
   };
+
+  # boot.binfmt.registrations.gba = {
+  #   recognitionType = "extension";
+  #   magicOrExtension = "gba";
+  #   interpreter = getExe pkgs.mgba;
+  # };
 
   environment.variables.LESSHISTFILE = "-";
 

@@ -41,6 +41,8 @@
   ("fetchgit" . "🧲⁗")
   ;; Haumea
   ("root" . "√")
+  ("python3" . "🐍")
+  ("chicken" . "🐔")
   ;; Nixos modules
   ("boot" . "𝒃")
   ("config" . "𝒄")
