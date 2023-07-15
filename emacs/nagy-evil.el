@@ -19,6 +19,7 @@
 ;;
 ;;; Code:
 
+(require 'evil)
 (require 'general)
 (eval-when-compile
   ;; To catch errors during batch compilation
@@ -65,6 +66,10 @@
   :bind
   ("H-(" . evil-surround-region)
   ("H-)" . evil-surround-delete))
+
+(use-package shell
+  :config
+  (evil-set-initial-state 'shell-mode 'normal))
 
 ;; (use-package sqlite-mode
 ;;   :same "^*SQLite ")

@@ -362,13 +362,14 @@
     (pass.withExtensions (exts: [ exts.pass-otp ]))
     pinentry
     (gnupg.override { guiSupport = false; })
-    gh
     xurls
-
     (hy.withPackages (ps: with ps; [ hyrule addict ]))
     (terraform.withPlugins (p: with p; [ github ]))
-
     (pkgs.nur.repos.nagy.lib.mkRustScript { file = ../bin/blocker.rs; })
+    # version control
+    gh
+    hut
+    tea
   ];
 
   boot.binfmt.emulatedSystems =

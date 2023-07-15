@@ -21,7 +21,6 @@ let
       triples
       bufler
       osm
-      ts
       lispy
       lispyville
 
@@ -32,7 +31,6 @@ let
 
       org
       ascii-art-to-unicode
-      nix-mode
       rustic
       format-all
 
