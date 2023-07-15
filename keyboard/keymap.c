@@ -36,25 +36,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LOWER] = LAYOUT_6x6(
         KC_F13 , KC_F14, KC_F15, KC_F16, KC_F17, KC_F18,                        KC_F19 , KC_F20, KC_F21,KC_F22 ,KC_F23 ,KC_F24,
-        KC_GRV, KC_WFAV,KC_MRWD,KC_MFFD,KC_WREF,KC_MSEL,                        _______,_______,_______,_______,KC_PAST,KC_BRIU,
-        _______,KC_CALC,KC_INT1,KC_INT2,KC_INT3,KC_INT4,                        _______, KC_P7 , KC_P8 , KC_P9 ,KC_PMNS,KC_BRID,
+        KC_GRV, KC_WFAV,KC_MRWD,KC_MFFD,KC_WREF,KC_MSEL,                        XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_PAST,KC_BRIU,
+        XXXXXXX,KC_CALC,KC_INT1,KC_INT2,KC_INT3,KC_INT4,                        XXXXXXX, KC_P7 , KC_P8 , KC_P9 ,KC_PMNS,KC_BRID,
         _______,KC_HOME,KC_PGUP,KC_PGDN,KC_END ,KC_APP,                         KC_SLCT, KC_P4 , KC_P5 , KC_P6 ,KC_PPLS,_______,
         _______,KC_WREF,KC_WBAK,KC_WFWD,KC_WHOM,KC_WSCH,                        KC_EXEC, KC_P1 , KC_P2 , KC_P3 ,KC_PENT,_______,
                         KC_PAUS,KC_PSCR,                                                         KC_P0 ,KC_PDOT,
-                                               KC_FIND,MYCM_C,             KC_MYCM,_______,
+                                               KC_FIND,MYCM_C,             KC_MYCM,XXXXXXX,
                                                _______,_______,            _______,_______,
-                                               _______,_______,            _______,_______
+                                               XXXXXXX,_______,            _______,XXXXXXX
     ),
 
     [_RAISE] = LAYOUT_6x6(
         KC_F13 , KC_F14, KC_F15, KC_F16, KC_F17, KC_F18,                        KC_F19 , KC_F20, KC_F21,KC_F22 ,KC_F23 ,KC_F24,
-        QK_BOOT,_______,_______,_______,_______,_______,                        KC_LNG1,_______,KC_NUM ,_______,KC_SCRL,KC_MUTE,
-        KC_WAKE,_______,_______,_______,_______,_______,                        KC_LNG2,KC_MPRV,KC_MPLY,KC_MNXT,_______,KC_VOLU,
-        _______,KC_LEFT,KC_UP  ,KC_DOWN,KC_RGHT,KC_HELP,                        KC_LNG3,_______,KC_MS_UP,_______,_______,KC_VOLD,
-        _______,_______,KC_CUT ,KC_UNDO,KC_AGIN,KC_STOP,                        KC_LNG4,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,_______,_______,
-                        _______,_______,                                                        KC_EQL ,KC_MAIL,
-                                                _______,_______,         KC_MS_BTN1,KC_MS_BTN2,
-                                                _______,_______,            _______,KC_MS_BTN3,
+        QK_BOOT,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                        KC_LNG1,XXXXXXX,KC_NUM ,XXXXXXX,KC_SCRL,KC_MUTE,
+        KC_WAKE,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                        KC_LNG2,KC_MPRV,KC_MPLY,KC_MNXT,XXXXXXX,KC_VOLU,
+        _______,KC_LEFT,KC_UP  ,KC_DOWN,KC_RGHT,KC_HELP,                        KC_LNG3,XXXXXXX,KC_MS_UP,XXXXXXX,XXXXXXX,KC_VOLD,
+        _______,XXXXXXX,KC_CUT ,KC_UNDO,KC_AGIN,KC_STOP,                        KC_LNG4,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,XXXXXXX,XXXXXXX,
+                        XXXXXXX,XXXXXXX,                                                        KC_EQL ,KC_MAIL,
+                                                XXXXXXX,_______,         KC_MS_BTN1,KC_MS_BTN2,
+                                                XXXXXXX,_______,            _______,KC_MS_BTN3,
                                                 KC_SLEP,_______,            _______,KC_MS_BTN4
     )
 };
