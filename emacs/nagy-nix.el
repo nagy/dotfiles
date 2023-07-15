@@ -92,5 +92,9 @@
   ("preInstall" "postInstall")
   ("preBuild" "postBuild"))
 
+(use-package nix-prettify-mode
+  :custom
+  (nix-prettify-char ?┃))
+
 (provide 'nagy-nix)
 ;;; nagy-nix.el ends here

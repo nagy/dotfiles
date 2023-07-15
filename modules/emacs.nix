@@ -2,13 +2,10 @@
 
 let
   customEmacsPackages = pkgs.emacsPackagesFor config.services.emacs.package;
+  emacs = customEmacsPackages.emacs;
   emacsAndPackages = customEmacsPackages.withPackages (epkgs:
-    (lib.attrValues (import ../emacs {
-      inherit pkgs lib;
-      inherit (epkgs) emacs;
-    })) ++ (with epkgs; [
-      wat-mode
-
+    (lib.attrValues (import ../emacs { inherit pkgs lib emacs; }))
+    ++ (with epkgs; [
       (sotlisp.overrideAttrs {
         src = pkgs.fetchFromGitHub {
           owner = "nagy";
@@ -17,17 +14,13 @@ let
           hash = "sha256-GsrIqnz+hPR1S0SkvduYp0rzmSHYkDDzFVWsLlgYEuM=";
         };
       })
-      smart-mode-line
-
       vterm
       pdf-tools
       org-pdftools
       elfeed
       triples
       bufler
-      focus
       osm
-      # devdocs
       ts
       lispy
       lispyville
@@ -39,7 +32,6 @@ let
 
       org
       ascii-art-to-unicode
-      org-superstar
       org-appear
       org-ref
       nix-mode
@@ -58,8 +50,6 @@ let
       dired-narrow
     ]));
 in {
-  environment.systemPackages = [
-    emacsAndPackages
-    (pkgs.mu.override { inherit (customEmacsPackages) emacs; })
-  ];
+  environment.systemPackages =
+    [ emacsAndPackages (pkgs.mu.override { inherit emacs; }) ];
 }

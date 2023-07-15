@@ -15,6 +15,10 @@
   :pretty 'typescript-mode
   ("this" . self))
 
+(use-package js
+  :pretty 'js-mode
+  ("true" . true) ("false" . false))
+
 (use-package wat-mode)
 (use-package csv-mode)
 (use-package yaml-mode)

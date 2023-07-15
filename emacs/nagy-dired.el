@@ -2,6 +2,7 @@
 ;; Homepage: https://github.com/nagy/nagy
 ;; Package-Requires: ((emacs "29.1") ov general dired-narrow dired-subtree dired-quick-sort)
 
+(require 'dired)
 (require 'ov)
 (require 'general)
 

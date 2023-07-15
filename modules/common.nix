@@ -320,7 +320,6 @@
     nil
     nickel
     topiary
-    wordnet
     dnsutils
     yt-dlp
     nix-update

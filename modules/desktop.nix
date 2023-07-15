@@ -189,6 +189,11 @@ in {
     binutils
     util-linux
 
+    wmctrl
+    xorg.xwininfo
+    # xorg.xlsclients
+    xdotool
+
     (callPackage ../pkg-ala-switchers.nix {
       hmmodules = {
         day = import ../hmmodule-alacritty-night.nix false;

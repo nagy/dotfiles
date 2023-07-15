@@ -155,6 +155,7 @@
   (define-abbrev global-abbrev-table "fuond" "found" nil :system t)
   (define-abbrev global-abbrev-table "lnux" "linux" nil :system t)
   (define-abbrev global-abbrev-table "thsi" "this" nil :system t)
+  (define-abbrev global-abbrev-table "kyes" "this" nil :system t)
   (with-eval-after-load 'nix-repl
     (define-abbrev nix-repl-mode-abbrev-table "PK" "pkgs" nil :system t)
     (define-abbrev nix-repl-mode-abbrev-table "wpkgs" "with import <nixpkgs> {}; " nil :system t))
