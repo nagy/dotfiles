@@ -54,38 +54,39 @@ with pkgs.lib; rec {
     # the code that should be executed before taking the screenshot
     emacsCode
     # change this if you want another format
-    , name ? "emacs-screenshot.png", emacs ? pkgs.emacs
-    , imagemagick ? pkgs.imagemagick, light ? true, ... }:
+    , name ? "emacs-screenshot.png", emacs ? pkgs.emacs, light ? true, ... }:
 
     let
-      Myemacs = emacs.pkgs.withPackages (e: [ e.magit-section e.modus-themes ]);
-      emacsCodeFile = pkgs.writeText "emacscode.el" emacsCode;
       screenshotScript = pkgs.writeText "script.el" ''
         (run-at-time 10 nil (lambda () (kill-emacs 1)))   ; fallback killing
-        (require 'modus-themes)
         (load-theme 'modus-${if light then "operandi" else "vivendi"} t )
         (menu-bar-mode -1) ; 3
         (tool-bar-mode -1)
         (toggle-scroll-bar -1)
         (message nil)                            ; clear out echo area
         (defun screenshot-this-frame-and-exit ()
-          (let ((window-id (frame-parameter (car (frame-list)) 'window-id)))
-            (kill-emacs
-              (call-process "import" nil nil nil
-                            "-window" window-id (getenv "out")))))
+          (kill-emacs
+            (call-process "import" nil nil nil
+                          "-window" (frame-parameter (car (frame-list)) 'window-id) (getenv "out"))))
         (run-at-time 2 nil #'screenshot-this-frame-and-exit)
       '';
     in pkgs.runCommand name {
-      nativeBuildInputs =
-        [ Myemacs pkgs.xvfb-run pkgs.iosevka pkgs.imagemagick ];
+      nativeBuildInputs = [
+        (emacs.pkgs.withPackages (e: [ e.magit-section e.modus-themes ]))
+        pkgs.xvfb-run
+        pkgs.iosevka
+        pkgs.imagemagick
+      ];
+      emacsCodeFile = pkgs.writeText "emacscode.el" emacsCode;
     } ''
       HOME=$PWD \
         xvfb-run --server-args="-screen 0 1024x576x24" \
             emacs --quick --fullscreen \
+            -l modus-themes \
             --font Iosevka\ 18 \
             ${pkgs.emacs.pkgs.modus-themes.src} \
             -l ${screenshotScript} \
-            -l ${emacsCodeFile}
+            -l $emacsCodeFile
     '';
 
   mkGitRepository = src:
