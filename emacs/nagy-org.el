@@ -26,5 +26,17 @@
   :hook
   (org-mode . org-superstar-mode))
 
+(use-package ox-latex
+  :defer t
+  :config
+  (add-to-list 'org-latex-classes
+               '("dinbrief"
+                 "\\documentclass{dinbrief}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
 (provide 'nagy-org)
 ;;; nagy-org.el ends here
