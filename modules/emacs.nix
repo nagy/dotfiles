@@ -32,11 +32,7 @@ let
 
       org
       ascii-art-to-unicode
-      org-appear
-      org-ref
       nix-mode
-      mermaid-mode
-      ob-mermaid
       rustic
       format-all
 

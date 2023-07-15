@@ -1,6 +1,6 @@
 ;;; nagy-org.el --- My org config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") org org-superstar nagy-use-package)
+;; Package-Requires: ((emacs "29.1") org org-superstar org-appear org-ref mermaid-mode ob-mermaid nagy-use-package)
 
 (require 'nagy-use-package)
 
@@ -25,6 +25,24 @@
   :disabled
   :hook
   (org-mode . org-superstar-mode))
+
+(use-package org-appear
+  :disabled
+  :after org
+  :custom
+  (org-hide-emphasis-markers t)
+  (org-appear-autolinks t)
+  (org-appear-autokeywords t)
+  (org-appear-autoentities t)
+  (org-appear-autosubmarkers t)
+  :bind
+  (:map org-src-mode-map
+        ([remap save-kill-buffer] . org-edit-src-exit)
+        ([remap kill-this-buffer] . org-edit-src-abort)
+        ("H-s-e" . org-babel-tangle)))
+
+;; (use-package ol-info
+;;   :after (org))
 
 (use-package ox-latex
   :defer t
