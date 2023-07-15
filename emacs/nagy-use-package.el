@@ -69,7 +69,7 @@
     (setf (cdr   i) (if (symbolp (cdr i))
                         (alist-get (cdr i) nagy-pretty-symbols-default)
                       (cdr i)))
-    (if (= 1 (length (cdr i)))
+    (if (or (vectorp (cdr i)) (= 1 (length (cdr i))))
         (push i prettify-symbols-alist)
       (ov-set (car i) 'display (cdr i)))))
 (defalias 'use-package-normalize/:pretty 'use-package-normalize-forms)

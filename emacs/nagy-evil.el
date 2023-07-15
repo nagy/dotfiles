@@ -66,5 +66,12 @@
   ("H-(" . evil-surround-region)
   ("H-)" . evil-surround-delete))
 
+;; (use-package sqlite-mode
+;;   :same "^*SQLite ")
+
+;; (use-package evil-collection-calc
+;;   :config
+;;   (evil-set-initial-state 'calc-mode 'emacs))
+
 (provide 'nagy-evil)
 ;;; nagy-evil.el ends here

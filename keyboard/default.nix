@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { }, rightSideMaster ? true }:
+{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib, rightSideMaster ? true }:
 
 with pkgs.nur.repos.nagy.lib;
 mkQmkFirmware {
@@ -7,7 +7,7 @@ mkQmkFirmware {
 
   patchPhase = ''
     runHook prePatch
-    ${optionalString rightSideMaster ''
+    ${lib.optionalString rightSideMaster ''
       substituteInPlace \
         keyboards/$keyboard/keymaps/$keymap/config.h \
         --replace MASTER_LEFT MASTER_RIGHT

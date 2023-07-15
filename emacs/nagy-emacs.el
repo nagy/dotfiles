@@ -28,6 +28,7 @@
   :init
   (setq inhibit-startup-screen t
         use-short-answers t
+        message-log-max t
         large-file-warning-threshold (* 100 1000 1000))
   :bind
   ("H-s-," . describe-char)
@@ -224,6 +225,12 @@
   (:map occur-edit-mode-map
         ([remap save-kill-buffer] . occur-cease-edit)
         ([remap kill-this-buffer] . occur-cease-edit)))
+
+(use-package occur
+  :bind
+  (:map occur-mode-map
+        ("H-j" . occur-next)
+        ("H-k" . occur-prev)))
 
 ;; (require 'rx)
 (rx-define md5 (repeat 32 hex))

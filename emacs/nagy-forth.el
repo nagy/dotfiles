@@ -40,6 +40,7 @@
   )
 
 (use-package elforth
+  :disabled t
   :general
   (:states 'normal
            "M-¼" #'elforth-eval-region))
