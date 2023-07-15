@@ -1,9 +1,12 @@
 {
   inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, nur }:
     let
-      pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        overlays = [ nur.overlay ];
+      };
       lib = pkgs.lib;
       evalhmmodule = module:
         (import "${pkgs.home-manager.src}/modules" {
@@ -33,6 +36,8 @@
         converted-hmreadline = (import ./conv-hmreadline2nixos.nix evalhmmodule)
           (import ./hmmodule-readline.nix);
       };
+      packages.x86_64-linux.blocker =
+        pkgs.nur.repos.nagy.lib.mkRustScript { file = ./bin/blocker.rs; };
 
       lib = {
         pkg-journal-file-store = pkgs.writeScriptBin "journal-file-store"

@@ -368,10 +368,7 @@
     (hy.withPackages (ps: with ps; [ hyrule addict ]))
     (terraform.withPlugins (p: with p; [ github ]))
 
-    (pkgs.nur.repos.nagy.lib.mkRustScript {
-      file = ../bin/blocker.rs;
-      pname = "blocker";
-    })
+    (pkgs.nur.repos.nagy.lib.mkRustScript { file = ../bin/blocker.rs; })
   ];
 
   boot.binfmt.emulatedSystems =
