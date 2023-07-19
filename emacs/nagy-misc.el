@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: Symbol’s value as variable is void: finder-known-keywords
 ;; Homepage: https://github.com/nagy/nagy-misc
-;; Package-Requires: ((emacs "29.1") nameless golden-ratio macrostep eros)
+;; Package-Requires: ((emacs "29.1") nameless golden-ratio macrostep eros git-modes)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -82,6 +82,11 @@
            "ö" #'calc-edit-finish)
   (:states 'normal :keymaps 'calc-mode-map
            "π" #'calc-pi))
+
+(use-package gitconfig-mode
+  :pretty 'gitconfig-mode
+  ("true" . true) ("false" . false)
+  ("branch" . "⌥"))
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

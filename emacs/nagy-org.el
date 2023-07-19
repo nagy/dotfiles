@@ -1,6 +1,6 @@
 ;;; nagy-org.el --- My org config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") org org-superstar org-appear org-ref mermaid-mode ob-mermaid nagy-use-package)
+;; Package-Requires: ((emacs "29.1") org org-superstar org-appear org-ref mermaid-mode nagy-use-package)
 
 (require 'nagy-use-package)
 
@@ -55,6 +55,10 @@
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+(use-package mermaid-mode
+  :pretty 'mermaid-mode
+  ("graph" . "⌥"))
 
 (provide 'nagy-org)
 ;;; nagy-org.el ends here

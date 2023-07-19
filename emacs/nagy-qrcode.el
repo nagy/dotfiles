@@ -1,13 +1,13 @@
 ;;; nagy-qrcode.el --- My qrcode config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") dash anaphora)
+;; Package-Requires: ((emacs "29.1") anaphora)
 
 (eval-when-compile
   (require 'cl-lib))
 
-(require 'dash)
-(require 'xml)
 (require 'dom)
+(require 'xml)
+
 (require 'anaphora)
 
 (defun nagy-qrcode-datatag-todata (data-tag)
@@ -16,7 +16,7 @@
     (caddr data-tag)))
 
 (defun nagy-qrcode-list-data (x)
-  (-map #'nagy-qrcode-datatag-todata (dom-by-tag x 'data)))
+  (mapcar #'nagy-qrcode-datatag-todata (dom-by-tag x 'data)))
 
 (cl-defun nagy-qrcode-raw-zbarimg-output (&optional (filename (buffer-file-name)))
   (with-temp-buffer

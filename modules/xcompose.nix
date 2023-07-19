@@ -51,6 +51,7 @@ let
     "🐛" = [ "<Multi_key>" "<b>" "<u>" "<g>" ];
     "📀" = [ "<Multi_key>" "<d>" "<v>" "<d>" ];
     "📦" = [ "<Multi_key>" "<p>" "<k>" "<g>" ];
+    "🐝" = [ "<Multi_key>" "<b>" "<e>" "<e>" ];
     "🐍" = [ "<Multi_key>" "<s>" "<n>" "<a>" "<k>" "<e>" ];
     # "🐍" = [ "<Multi_key>" "<s>" "<n>" "<e>" "<k>" ];
     "🐜" = [ "<Multi_key>" "<a>" "<n>" "<t>" ];
@@ -118,7 +119,7 @@ let
     "⦈" = [ "Ctrl" "<Multi_key>" "<parenright>" ];
 
     "⫽" = [ "<Multi_key>" "<slash>" "<slash>" ];
-    "≡" = [ "<Multi_key>" "<equal>" "<equal>" ];
+    # "≡" = [ "<Multi_key>" "<equal>" "<equal>" ];
     "⏻" = [ "<Multi_key>" "<o>" "<exclam>" ];
     "⎎" = [ "<Multi_key>" "<h>" "<y>" "<s>" ];
     # "⎎" = [ "<Multi_key>" "<asciitilde>" "<slash>" ];
@@ -166,6 +167,9 @@ let
     "≢" = [ "Ctrl" "<Multi_key>" "<l>" ];
     "⍺" = [ "Ctrl" "<Multi_key>" "<a>" ];
     "⍵" = [ "Ctrl" "<Multi_key>" "<w>" ];
+    "≡" = [ "Ctrl" "<Multi_key>" "<d>" ];
+    "⍪" = [ "Ctrl" "<Multi_key>" "<t>" ];
+    "⍉" = [ "Ctrl" "<Multi_key>" "<o>" ];
     "∧" = [ "Ctrl" "<Multi_key>" "<ampersand>" ];
     "⍥" = [ "Ctrl" "<Multi_key>" "<odiaeresis>" ];
     "⍸" = [ "Ctrl" "<Multi_key>" "<underscore>" "<i>" ];

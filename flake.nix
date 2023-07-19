@@ -38,6 +38,12 @@
       };
       packages.x86_64-linux.blocker =
         pkgs.nur.repos.nagy.lib.mkRustScript { file = ./bin/blocker.rs; };
+      packages.x86_64-linux.emacs = pkgs.emacs29-gtk3.pkgs.withPackages (epkgs:
+        pkgs.lib.attrValues (import ./emacs {
+          inherit pkgs;
+          inherit (pkgs) lib;
+          inherit (epkgs) emacs;
+        }));
 
       lib = {
         pkg-journal-file-store = pkgs.writeScriptBin "journal-file-store"

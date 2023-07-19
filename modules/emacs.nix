@@ -26,9 +26,6 @@ let
 
       visual-fill-column
 
-      yaml-mode
-      csv-mode
-
       org
       ascii-art-to-unicode
       rustic
@@ -39,7 +36,6 @@ let
       password-store
       password-store-otp
 
-      git-modes
       tokei
       dired-narrow
     ]));

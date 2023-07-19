@@ -210,40 +210,40 @@ let
     Zb = [ "zig" "build" ];
     Zbs = [ "zig" "build" "-O" "ReleaseSmall" ];
 
-    # docker
-    # (mkShortCommand "dO" [ "docker" ])
-    # (mkShortCommand "dOe" [ "docker" "exec" ])
-    # (mkShortCommand "dOeit" [ "docker" "exec" "-it" ])
-    # (mkShortCommand "dOr" [ "docker" "run" ])
-    # (mkShortCommand "dOc" [ "docker" "container" ])
-    # (mkShortCommand "dOcl" [ "docker" "container" "ls" ])
-    # (mkShortCommand "dOi" [ "docker" "image" ])
-    # (mkShortCommand "dOil" [ "docker" "image" "ls" ])
-    # (mkShortCommand "dOv" [ "docker" "volume" ])
-    # (mkShortCommand "dOvl" [ "docker" "volume" "ls" ])
-    # (mkShortCommand "dOn" [ "docker" "network" ])
-    # (mkShortCommand "dOnl" [ "docker" "network" "ls" ])
+    # # docker
+    # dO = [ "docker" ];
+    # dOe = [ "docker" "exec" ];
+    # dOeit = [ "docker" "exec" "-it" ];
+    # dOr = [ "docker" "run" ];
+    # dOc = [ "docker" "container" ];
+    # dOcl = [ "docker" "container" "ls" ];
+    # dOi = [ "docker" "image" ];
+    # dOil = [ "docker" "image" "ls" ];
+    # dOv = [ "docker" "volume" ];
+    # dOvl = [ "docker" "volume" "ls" ];
+    # dOn = [ "docker" "network" ];
+    # dOnl = [ "docker" "network" "ls" ];
 
-    # kubernetes
-    # (mkShortCommand "K" [ "kubectl" ])
-    # (mkShortCommand "Kg" [ "kubectl" "get" ])
-    # (mkShortCommand "Kgp" [ "kubectl" "get" "pod" ])
-    # (mkShortCommand "Kgd" [ "kubectl" "get" "deployment" ])
-    # (mkShortCommand "Kgn" [ "kubectl" "get" "node" ])
-    # (mkShortCommand "Kgpw" [ "kubectl" "get" "pod" "--watch" ])
-    # (mkShortCommand "Kgdw" [ "kubectl" "get" "deployment" "--watch" ])
-    # (mkShortCommand "Kgnw" [ "kubectl" "get" "node" "--watch" ])
-    # (mkShortCommand "Kd" [ "kubectl" "describe" ])
-    # (mkShortCommand "Kdp" [ "kubectl" "describe" "pod" ])
-    # (mkShortCommand "Kdd" [ "kubectl" "describe" "deployment" ])
-    # (mkShortCommand "Kdn" [ "kubectl" "describe" "node" ])
-    # (mkShortCommand "Kc" [ "kubectl" "create" ])
-    # (mkShortCommand "Kcp" [ "kubectl" "create" "pod" ])
-    # (mkShortCommand "Kcd" [ "kubectl" "create" "deployment" ])
-    # (mkShortCommand "Kcj" [ "kubectl" "create" "job" ])
-    # (mkShortCommand "Ke" [ "kubectl" "exec" ])
-    # (mkShortCommand "Keit" [ "kubectl" "exec" "-it" ])
-    # (mkShortCommand "Kl" [ "kubectl" "label" ])
+    # # kubernetes
+    # K = [ "kubectl" ];
+    # Kg = [ "kubectl" "get" ];
+    # Kgp = [ "kubectl" "get" "pod" ];
+    # Kgd = [ "kubectl" "get" "deployment" ];
+    # Kgn = [ "kubectl" "get" "node" ];
+    # Kgpw = [ "kubectl" "get" "pod" "--watch" ];
+    # Kgdw = [ "kubectl" "get" "deployment" "--watch" ];
+    # Kgnw = [ "kubectl" "get" "node" "--watch" ];
+    # Kd = [ "kubectl" "describe" ];
+    # Kdp = [ "kubectl" "describe" "pod" ];
+    # Kdd = [ "kubectl" "describe" "deployment" ];
+    # Kdn = [ "kubectl" "describe" "node" ];
+    # Kc = [ "kubectl" "create" ];
+    # Kcp = [ "kubectl" "create" "pod" ];
+    # Kcd = [ "kubectl" "create" "deployment" ];
+    # Kcj = [ "kubectl" "create" "job" ];
+    # Ke = [ "kubectl" "exec" ];
+    # Keit = [ "kubectl" "exec" "-it" ];
+    # Kl = [ "kubectl" "label" ];
 
     # npm
     nPb = [ "npm" "run" "build" ];

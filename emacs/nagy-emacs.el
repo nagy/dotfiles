@@ -31,6 +31,7 @@
         message-log-max t
         large-file-warning-threshold (* 100 1000 1000))
   :bind
+  ("H-r" . revert-buffer-quick)
   ("H-s-," . describe-char)
   ("H-s-." . display-local-help))
 
@@ -66,11 +67,10 @@
         ("M-s M-s" . tabulated-list-sort)))
 
 (use-package shr
-  :defer t
-  :config
-  (setq shr-inhibit-images t)
-  (setq shr-use-colors nil)
-  (setq shr-use-fonts nil))
+  :custom
+  (shr-inhibit-images t)
+  (shr-use-colors nil)
+  (shr-use-fonts nil))
 
 (use-package files
   :bind
@@ -87,15 +87,15 @@
   ;; https://www.n16f.net/blog/using-units-in-emacs-calc/
   (require 'calc-units)
   (setq math-additional-units
-      '((b nil "Bit")
-        (B "8 * b" "Byte")
+        '((b nil "Bit")
+          (B "8 * b" "Byte")
 
-        (kiB "2^10 * B" "Kibibyte")
-        (MiB "2^20 * B" "Mebibyte")
-        (GiB "2^30 * B" "Gibibyte")
-        (TiB "2^40 * B" "Tebibyte")
-        (PiB "2^50 * B" "Pebibyte")
-        (EiB "2^60 * B" "Exbibyte")))
+          (kiB "2^10 * B" "Kibibyte")
+          (MiB "2^20 * B" "Mebibyte")
+          (GiB "2^30 * B" "Gibibyte")
+          (TiB "2^40 * B" "Tebibyte")
+          (PiB "2^50 * B" "Pebibyte")
+          (EiB "2^60 * B" "Exbibyte")))
   ;; (setq math-units-table nil)           ; recalc. maybe not needed
   :custom
   (calc-show-banner nil)
@@ -108,9 +108,9 @@
         ("H-d" . calc-pop)
         ("H-u" . calc-undo)
         ;; ([remap kill-this-buffer] . calc-quit))
-  (:map calc-edit-mode-map
-        ([remap save-kill-buffer] . calc-edit-finish)
-        ([remap kill-this-buffer] . calc-edit-cancel))))
+        (:map calc-edit-mode-map
+              ([remap save-kill-buffer] . calc-edit-finish)
+              ([remap kill-this-buffer] . calc-edit-cancel))))
 
 (use-package tab-bar
   :config
