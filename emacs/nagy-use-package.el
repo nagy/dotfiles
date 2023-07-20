@@ -126,5 +126,9 @@
                      `(push ',zip nagy-cycle-alist)))))
 (add-to-list 'use-package-keywords :cycle t)
 
+(use-package emacs
+  :pretty 'emacs-lisp-mode
+  ("if" . if) ("else" . else))
+
 (provide 'nagy-use-package)
 ;;; nagy-use-package.el ends here
