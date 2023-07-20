@@ -31,6 +31,7 @@
   (:states 'insert :keymaps 'nameless-mode-map
            "s--" #'nameless-insert-name)
   :custom
+  (nameless-prefix "─")
   (nameless-private-prefix t)
   (nameless-global-aliases
    '(("fl" . "font-lock")

@@ -6,17 +6,22 @@
 
 (use-package hy-mode
   :bind
-  ("H-M-h" . hy-mode)
+  ("H-M-P" . hy-mode)
   :pretty 'hy-mode
   ("True" . true) ("False" . false)
   ("raise" . throw)
   ("defn" . def)
   ("defmain" . "𝔐")
   ("defclass" . defclass)
+  ("import" . import)
   ("Path" . "𝕻")
+  ("#/" . eval)
   :abbrev 'hy-mode
   ("df" . "defn")
-  ("sv" . "setv"))
+  ("sv" . "setv")
+  :same
+  "^\\*Hy\\*$"
+  )
 
 (provide 'nagy-hy)
 ;;; nagy-hy.el ends here

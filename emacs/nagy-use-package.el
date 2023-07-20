@@ -47,6 +47,7 @@
     (let . "↘")
     (import . "⟻") (return . "⟼")
     (defclass . "𝕂")
+    (eval . "⩏")
     (object . "𝕆")
     (map . "ℍ")
     (hash . "♯")
@@ -59,6 +60,9 @@
     (print . "⚶")
     (const . "𝕔")
     (assert . "𝒂")
+    (list . "⋯")
+    (setf . "↓")
+    (setq . "↡")
     (try . "〜") (except . "☇")
     (if . "꜏") (else . "꜊") (then . "∴")
     (loop . "↻")))
@@ -128,7 +132,26 @@
 
 (use-package emacs
   :pretty 'emacs-lisp-mode
-  ("if" . if) ("else" . else))
+  ("if" . if) ("else" . else)
+  ("nil" . null)
+  ("eval" . eval)
+  ("defun" . def)
+  ("list" . list)
+  ("rx" . "𝕏")
+  ("let-alist" . "⋱")
+  ("interactive" . "𝒊")
+  ("defvar" . "𝕍")
+  ("defmacro" . "𝕄")
+  ("setf" . setf)
+  ("setq" . setq)
+  ("setq-local" . "⇣")
+  ("setopt" . setf)
+  ("use-package" . "𝕌")
+  ("optional" . "◌")
+  ("key" . "⬚")
+  ("rest" . "⤑")
+  ("it" . "✦") ; anaphoric
+  )
 
 (provide 'nagy-use-package)
 ;;; nagy-use-package.el ends here
