@@ -6,7 +6,18 @@
 
 (require 'consult)
 
-(use-package vertico)
+(use-package vertico
+  :custom
+  (vertico-cycle nil)
+  (vertico-scroll-margin most-positive-fixnum)
+  (vertico-count 7))
+
+(use-package vertico-quick
+  :after vertico
+  :bind
+  (:map vertico-map
+        ("C-," . vertico-quick-exit)
+        ("C-." . vertico-quick-exit)))
 
 (use-package consult
   :general

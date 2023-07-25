@@ -31,11 +31,14 @@
   ;; :custom
   ;; (help-at-pt-display-when-idle t)
   ;; (help-at-pt-timer-delay 0)
-  :init
-  (setq inhibit-startup-screen t
-        use-short-answers t
-        message-log-max t
-        large-file-warning-threshold (* 100 1000 1000))
+  :custom
+  (inhibit-startup-screen t)
+  (use-short-answers t)
+  (message-log-max t)
+  (require-final-newline t)
+  (kill-ring-max 250)
+  (history-delete-duplicates t)
+  (large-file-warning-threshold (* 100 1000 1000))
   :bind
   ("H-r" . revert-buffer-quick)
   ("H-s-," . describe-char)
@@ -192,10 +195,18 @@
     (comint-write-input-ring)))
 
 (use-package ielm
-  :config
-  (advice-add 'ielm-send-input :after #'nagy-ielm-write-history)
+  :bind
+  ("M-s-→" . ielm)
+  (:map inferior-emacs-lisp-mode-map
+        ("H-ö" . ielm-send-input)
+        ("M-ö" . ielm-send-input)
+        ("s-." . eros-eval-last-sexp))
   :hook
-  (ielm-mode . nagy-ielm-init-history))
+  (ielm-mode . nagy-ielm-init-history)
+  :custom
+  (ielm-header "")
+  :config
+  (advice-add 'ielm-send-input :after #'nagy-ielm-write-history))
 
 (use-package epg
   :config

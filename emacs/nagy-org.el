@@ -7,6 +7,24 @@
 (require 'nagy-use-package)
 
 (use-package org
+  :custom
+  (org-image-actual-width 400)
+  (org-todo-keywords '((sequence "WAITING" "TODO" "DONE")
+                     (sequence "TO-WATCH" "WATCHING" "DONE")))
+  (org-confirm-babel-evaluate nil)
+  (org-tags-column -77)
+  (org-startup-indented nil)
+  :bind
+  ("H-M-o" . org-mode)
+  (:map org-mode-map
+        ("H-j"   . org-next-visible-heading)
+        ("H-k"   . org-previous-visible-heading)
+        ("H-s-n" . org-narrow-to-subtree)
+        ("H-w"   . org-ctrl-c-ctrl-c)
+        ("H-h"   . org-info-find-node)
+        ("s-."   . org-ctrl-c-ctrl-c)
+        ("C-H-#" . org-edit-special)
+        ("A-s-j" . org-edit-special))
   :pretty 'org-mode
   ("#+begin_example" . "↝")
   ("#+end_example" . "↜")

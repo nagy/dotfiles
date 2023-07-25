@@ -131,6 +131,8 @@
 (add-to-list 'use-package-keywords :cycle t)
 
 (use-package emacs
+  :bind
+  ("H-M-e" . emacs-lisp-mode)
   :pretty 'emacs-lisp-mode
   ("if" . if) ("else" . else)
   ("nil" . null)
@@ -150,7 +152,7 @@
   ("optional" . "◌")
   ("key" . "⬚")
   ("rest" . "⤑")
-  ("it" . "✦") ; anaphoric
+  ("it" . "✦")                          ; anaphoric
   ("cl-defgeneric" . "𝕘")
   ("cl-defmethod" . "𝕞")
   )
