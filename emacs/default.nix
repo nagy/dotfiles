@@ -10,8 +10,11 @@ let
   onlyNagyFiles = lib.filterAttrs
     (name: value: value == "regular" && lib.hasPrefix "nagy" name)
     (builtins.readDir ./.);
-  final = lib.mapAttrs' (name: value: {
-    name = (lib.removeSuffix ".el" name);
-    value = (makePackage (./. + "/${name}"));
-  }) onlyNagyFiles;
-in final
+  final = lib.mapAttrs'
+    (name: value: {
+      name = (lib.removeSuffix ".el" name);
+      value = (makePackage (./. + "/${name}"));
+    })
+    onlyNagyFiles;
+in
+final

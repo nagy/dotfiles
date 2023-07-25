@@ -39,15 +39,17 @@
 
   # simpler version of starship
   # until https://github.com/starship/starship/issues/896 is fixed
-  environment.variables.STARSHIP_CONFIG = let
-    mkDollarPrompt =
-      lib.replaceStrings [ ">](bold green)" ] [ "\\\\$](bold green)" ];
-    basePreset = builtins.readFile
-      "${pkgs.starship.src}/docs/.vuepress/public/presets/toml/plain-text-symbols.toml";
-    basePresetModified = ''
-      add_newline=false
-    '' + (mkDollarPrompt basePreset);
-  in toString (pkgs.writeText "starship-config.toml" basePresetModified);
+  environment.variables.STARSHIP_CONFIG =
+    let
+      mkDollarPrompt =
+        lib.replaceStrings [ ">](bold green)" ] [ "\\\\$](bold green)" ];
+      basePreset = builtins.readFile
+        "${pkgs.starship.src}/docs/.vuepress/public/presets/toml/plain-text-symbols.toml";
+      basePresetModified = ''
+        add_newline=false
+      '' + (mkDollarPrompt basePreset);
+    in
+    toString (pkgs.writeText "starship-config.toml" basePresetModified);
   environment.variables.STARSHIP_CACHE = "/tmp/starship-cache";
   programs.bash.interactiveShellInit = ''
     if [[ $TERM != "dumb" && (-z $INSIDE_EMACS || $INSIDE_EMACS == "vterm") ]]; then
@@ -103,14 +105,16 @@
       init = { defaultBranch = "master"; };
       push = { default = "current"; };
       pull.rebase = true;
-      include.path = let
-        git-alias = pkgs.fetchFromGitHub {
-          owner = "GitAlias";
-          repo = "gitalias";
-          rev = "ed036c1fd16c8e690329c594bc028f58c6e3b349";
-          sha256 = "sha256-OtKdN4SeJSswtF3Uvs3cMZwTwpL2wEm4KU1iKmfEr30=";
-        };
-      in "${git-alias}/gitalias.txt";
+      include.path =
+        let
+          git-alias = pkgs.fetchFromGitHub {
+            owner = "GitAlias";
+            repo = "gitalias";
+            rev = "ed036c1fd16c8e690329c594bc028f58c6e3b349";
+            sha256 = "sha256-OtKdN4SeJSswtF3Uvs3cMZwTwpL2wEm4KU1iKmfEr30=";
+          };
+        in
+        "${git-alias}/gitalias.txt";
       merge.conflictStyle = "diff3";
       gc = { auto = "0"; };
       url = {
@@ -416,6 +420,8 @@
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
+      # this reduces memory usage at the expense of performance
+      cores = 1;
       # this keeps build logs clean at the expense of performance
       max-jobs = 1;
     };

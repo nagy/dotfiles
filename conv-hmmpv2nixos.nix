@@ -9,10 +9,10 @@ in {
   environment = lib.mkIf config.services.xserver.enable {
     etc."mpv/input.conf".text =
       lib.mkIf (hmconfig.xdg.configFile ? "mpv/input.conf")
-      hmconfig.xdg.configFile."mpv/input.conf".text;
+        hmconfig.xdg.configFile."mpv/input.conf".text;
     etc."mpv/mpv.conf".text =
       lib.mkIf (hmconfig.xdg.configFile ? "mpv/mpv.conf")
-      hmconfig.xdg.configFile."mpv/mpv.conf".text;
+        hmconfig.xdg.configFile."mpv/mpv.conf".text;
     systemPackages = [ hmconfig.programs.mpv.package ];
     variables.MPV_HOME = "/etc/mpv";
   };

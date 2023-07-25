@@ -19,23 +19,28 @@
             home.homeDirectory = "/home/user/";
           };
         }).config;
-    in {
-      nixosModules = let
-        files = builtins.readDir ./modules;
-        fileNames = lib.attrNames files;
-        preAttrList = map (name: {
-          name = lib.removeSuffix ".nix" name;
-          value = import (./modules + "/${name}");
-        }) fileNames;
-        modules = lib.listToAttrs preAttrList;
-      in modules // {
-        converted-hmmpv = (import ./conv-hmmpv2nixos.nix evalhmmodule)
-          (import ./hmmodule-mpv.nix);
-        converted-hmzathura = (import ./conv-hmzathura2nixos.nix evalhmmodule)
-          (import ./hmmodule-zathura.nix);
-        converted-hmreadline = (import ./conv-hmreadline2nixos.nix evalhmmodule)
-          (import ./hmmodule-readline.nix);
-      };
+    in
+    {
+      nixosModules =
+        let
+          files = builtins.readDir ./modules;
+          fileNames = lib.attrNames files;
+          preAttrList = map
+            (name: {
+              name = lib.removeSuffix ".nix" name;
+              value = import (./modules + "/${name}");
+            })
+            fileNames;
+          modules = lib.listToAttrs preAttrList;
+        in
+        modules // {
+          converted-hmmpv = (import ./conv-hmmpv2nixos.nix evalhmmodule)
+            (import ./hmmodule-mpv.nix);
+          converted-hmzathura = (import ./conv-hmzathura2nixos.nix evalhmmodule)
+            (import ./hmmodule-zathura.nix);
+          converted-hmreadline = (import ./conv-hmreadline2nixos.nix evalhmmodule)
+            (import ./hmmodule-readline.nix);
+        };
       packages.x86_64-linux.blocker =
         pkgs.nur.repos.nagy.lib.mkRustScript { file = ./bin/blocker.rs; };
       packages.x86_64-linux.emacs = pkgs.emacs29-gtk3.pkgs.withPackages (epkgs:

@@ -9,7 +9,8 @@ let
               --replace 'THUMB_SIZE = 3' 'THUMB_SIZE = 5'  \
     '';
   });
-in {
+in
+{
 
   imports = [ ./converter.nix ];
 
@@ -23,13 +24,15 @@ in {
     # https://discourse.nixos.org/t/enable-vertical-sync-on-amd-gpu/12369/5
     deviceSection = ''Option "TearFree" "true"''; # For amdgpu.
     # patch away the inet(evdev) appendix
-    xkbDir = let
-      xkb_patched = (pkgs.xorg.xkeyboardconfig_custom {
-        layouts = config.services.xserver.extraLayouts;
-      }).overrideAttrs ({ postPatch ? "", ... }: {
-        postPatch = postPatch + "echo > rules/0026-evdev.m_s.part";
-      });
-    in lib.mkForce "${xkb_patched}/etc/X11/xkb";
+    xkbDir =
+      let
+        xkb_patched = (pkgs.xorg.xkeyboardconfig_custom {
+          layouts = config.services.xserver.extraLayouts;
+        }).overrideAttrs ({ postPatch ? "", ... }: {
+          postPatch = postPatch + "echo > rules/0026-evdev.m_s.part";
+        });
+      in
+      lib.mkForce "${xkb_patched}/etc/X11/xkb";
     # keyboard
     layout = "mine";
     extraLayouts = {

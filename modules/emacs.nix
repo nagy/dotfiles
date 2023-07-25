@@ -35,7 +35,8 @@ let
       tokei
       dired-narrow
     ]));
-in {
+in
+{
   environment.systemPackages =
     [ emacsAndPackages (pkgs.mu.override { inherit emacs; }) ];
 }

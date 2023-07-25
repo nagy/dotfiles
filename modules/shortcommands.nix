@@ -319,7 +319,8 @@ let
     ungron = [ "gron" "--ungron" ];
   };
   dotlib = import ../lib { inherit pkgs; };
-in {
+in
+{
   options = {
     nagy.shortcommands = lib.mkOption {
       type = lib.types.attrsOf (lib.types.listOf lib.types.str);

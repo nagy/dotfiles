@@ -9,7 +9,8 @@ let
         leading = 1100
       '');
   };
-in {
+in
+{
   fonts = {
     fontconfig = {
       enable = true;

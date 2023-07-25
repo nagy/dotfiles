@@ -175,7 +175,8 @@ let
     "⍸" = [ "Ctrl" "<Multi_key>" "<underscore>" "<i>" ];
 
   };
-in {
+in
+{
 
   options = {
     nagy.xcompose = lib.mkOption {

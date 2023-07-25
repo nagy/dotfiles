@@ -7,7 +7,8 @@ with pkgs.lib; rec {
     let
       thelist = imap0 (i: v: { inherit i v; })
         (splitString "" "abcdefghijklmnopqrstuvwxyz");
-    in (findFirst (x: x.v == str) (throw "Element not found in list iteration")
+    in
+    (findFirst (x: x.v == str) (throw "Element not found in list iteration")
       thelist).i;
 
   mkBashCompletion = cmd: list:
@@ -17,7 +18,8 @@ with pkgs.lib; rec {
       # TODO This should be wrapped in quotes
       spaced = concatStringsSep " " list;
       len_minus_1 = (length list) - 1;
-    in pkgs.writeTextDir "share/bash-completion/completions/${cmd}" ''
+    in
+    pkgs.writeTextDir "share/bash-completion/completions/${cmd}" ''
       function _complete_shortcommand_${underscored} {
         local __COMPS
         ((COMP_CWORD+=${toString len_minus_1}))
@@ -42,7 +44,8 @@ with pkgs.lib; rec {
     let
       # FIXME This should be surrounded by quotes
       spaced = concatStringsSep " " list;
-    in pkgs.writeShellScriptBin cmd ''exec ${spaced} "$@"'';
+    in
+    pkgs.writeShellScriptBin cmd ''exec ${spaced} "$@"'';
 
   mkShortCommand = cmd: list:
     pkgs.symlinkJoin {
@@ -50,11 +53,16 @@ with pkgs.lib; rec {
       paths = [ (mkBashCompletion cmd list) (mkShortCommandScript cmd list) ];
     };
 
-  mkEmacsScreenshot = {
-    # the code that should be executed before taking the screenshot
-    emacsCode
-    # change this if you want another format
-    , name ? "emacs-screenshot.png", emacs ? pkgs.emacs, light ? true, ... }:
+  mkEmacsScreenshot =
+    {
+      # the code that should be executed before taking the screenshot
+      emacsCode
+      # change this if you want another format
+    , name ? "emacs-screenshot.png"
+    , emacs ? pkgs.emacs
+    , light ? true
+    , ...
+    }:
 
     let
       screenshotScript = pkgs.writeText "script.el" ''
@@ -70,15 +78,17 @@ with pkgs.lib; rec {
                           "-window" (frame-parameter (car (frame-list)) 'window-id) (getenv "out"))))
         (run-at-time 2 nil #'screenshot-this-frame-and-exit)
       '';
-    in pkgs.runCommand name {
-      nativeBuildInputs = [
-        (emacs.pkgs.withPackages (e: [ e.magit-section e.modus-themes ]))
-        pkgs.xvfb-run
-        pkgs.iosevka
-        pkgs.imagemagick
-      ];
-      emacsCodeFile = pkgs.writeText "emacscode.el" emacsCode;
-    } ''
+    in
+    pkgs.runCommand name
+      {
+        nativeBuildInputs = [
+          (emacs.pkgs.withPackages (e: [ e.magit-section e.modus-themes ]))
+          pkgs.xvfb-run
+          pkgs.iosevka
+          pkgs.imagemagick
+        ];
+        emacsCodeFile = pkgs.writeText "emacscode.el" emacsCode;
+      } ''
       HOME=$PWD \
         xvfb-run --server-args="-screen 0 1024x576x24" \
             emacs --quick --fullscreen \
@@ -90,22 +100,23 @@ with pkgs.lib; rec {
     '';
 
   mkGitRepository = src:
-    pkgs.runCommandLocal "repository.git" rec {
-      inherit src;
-      nativeBuildInputs = [ pkgs.git ];
-      GIT_AUTHOR_NAME = src.meta.author or "root";
-      GIT_AUTHOR_EMAIL = src.meta.email or "root@localhost";
-      GIT_COMMITTER_NAME = src.meta.author or "root";
-      GIT_COMMITTER_EMAIL = src.meta.email or "root@localhost";
+    pkgs.runCommandLocal "repository.git"
+      rec {
+        inherit src;
+        nativeBuildInputs = [ pkgs.git ];
+        GIT_AUTHOR_NAME = src.meta.author or "root";
+        GIT_AUTHOR_EMAIL = src.meta.email or "root@localhost";
+        GIT_COMMITTER_NAME = src.meta.author or "root";
+        GIT_COMMITTER_EMAIL = src.meta.email or "root@localhost";
 
-      GIT_AUTHOR_DATE =
-        "Sat, 03 Mar 1973 09:46:40 +0000"; # date -d@100000000 -R
-      GIT_COMMITTER_DATE =
-        "Sat, 03 Mar 1973 09:46:40 +0000"; # date -d@100000000 -R
+        GIT_AUTHOR_DATE =
+          "Sat, 03 Mar 1973 09:46:40 +0000"; # date -d@100000000 -R
+        GIT_COMMITTER_DATE =
+          "Sat, 03 Mar 1973 09:46:40 +0000"; # date -d@100000000 -R
 
-      # cleaner git repos without the hooks
-      GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
-    } ''
+        # cleaner git repos without the hooks
+        GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
+      } ''
       mkdir build
       pushd build
       git -c init.defaultBranch=master init .
@@ -121,17 +132,23 @@ with pkgs.lib; rec {
       popd
     '';
 
-  mkMbsyncFetcher = { email, hostextra ? "", tls1dot ? 3, package ? pkgs.isync
-    , configHead ? null }:
+  mkMbsyncFetcher =
+    { email
+    , hostextra ? ""
+    , tls1dot ? 3
+    , package ? pkgs.isync
+    , configHead ? null
+    }:
     let
       # emailuser = elemAt (splitString "@" email) 0;
       emailhost = elemAt (splitString "@" email) 1;
       name = emailhost;
-      configHeadLet = if configHead == null then ''
-        Host ${hostextra}${emailhost}
-        User ${email}
-        PassCmd "pass ${emailhost} | head -1"'' else
-        removeSuffix "\n" configHead;
+      configHeadLet =
+        if configHead == null then ''
+          Host ${hostextra}${emailhost}
+          User ${email}
+          PassCmd "pass ${emailhost} | head -1"'' else
+          removeSuffix "\n" configHead;
       configfile = pkgs.writeText "mbsync-config-${name}" ''
         IMAPAccount default
         ${configHeadLet}
@@ -155,7 +172,8 @@ with pkgs.lib; rec {
         Expunge Both
         SyncState *
       '';
-    in pkgs.writeShellScriptBin "mbsync-fetcher-${name}" ''
+    in
+    pkgs.writeShellScriptBin "mbsync-fetcher-${name}" ''
       # a small sanity check
       [[ ! -d "INBOX" ]] && exit 1
       exec ${package}/bin/mbsync --config=${configfile} --all "$@"
@@ -175,30 +193,33 @@ with pkgs.lib; rec {
           syslog
         '';
       };
-    in pkgs.writeShellScriptBin "msmtp-${name}" ''
+    in
+    pkgs.writeShellScriptBin "msmtp-${name}" ''
       exec ${pkgs.msmtp}/bin/msmtp --file=${configfile} "$@"
     '';
 
   mkGitMirror = url:
-    pkgs.runCommandLocal "git-mirror" {
-      nativeBuildInputs = with pkgs; [ git cacert ];
-      inherit url;
-      # to prevent junk
-      GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
-    } ''
+    pkgs.runCommandLocal "git-mirror"
+      {
+        nativeBuildInputs = with pkgs; [ git cacert ];
+        inherit url;
+        # to prevent junk
+        GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
+      } ''
       mkdir $out
       cd $out
       git clone --mirror $url .
     '';
 
   mkGitCloneSingleBranch = { url, rev, outputHash }@args:
-    pkgs.runCommandLocal "${baseNameOf url}-clone" ({
-      nativeBuildInputs = with pkgs; [ git cacert ];
-      # to prevent junk
-      GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
-      outputHashMode = "recursive";
-      outputHashAlgo = "sha256";
-    } // args) ''
+    pkgs.runCommandLocal "${baseNameOf url}-clone"
+      ({
+        nativeBuildInputs = with pkgs; [ git cacert ];
+        # to prevent junk
+        GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
+        outputHashMode = "recursive";
+        outputHashAlgo = "sha256";
+      } // args) ''
       git init --bare $out
       git -C $out fetch $url $rev
       git -C $out update-ref HEAD $(git -C $out rev-list -n 1 FETCH_HEAD)

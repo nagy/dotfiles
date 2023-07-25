@@ -2,10 +2,13 @@
 # `ala-${name}` as defined by the hmmodules argument. With these scripts you can switch the setting
 # of the running terminal to that of the corresponding home-manager module setting
 
-{ pkgs, alacritty, lib,
-# A attrset of home-manager modules that define alacritty configs. You can switch to these with the
-# `ala-${name}` script.
-hmmodules ? { } }:
+{ pkgs
+, alacritty
+, lib
+, # A attrset of home-manager modules that define alacritty configs. You can switch to these with the
+  # `ala-${name}` script.
+  hmmodules ? { }
+}:
 
 let
   alacrittyLiveConfigPath = "/run/user/$UID/alacritty-conf.json";
@@ -16,7 +19,8 @@ let
     (pkgs.writeShellScriptBin "ala-${name}" ''
       cat < '${getAlaText configpath}' > ${alacrittyLiveConfigPath}
     '');
-in pkgs.symlinkJoin {
+in
+pkgs.symlinkJoin {
   name = "ala-switchers";
   paths = [
     # TODO replace with makeWrapper

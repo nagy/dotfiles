@@ -16,7 +16,8 @@ let
   json2lines = pkgs.writeShellScriptBin ",json,lines" ''
     ${pkgs.jq}/bin/jq | exec ${pkgs.gron}/bin/gron "$@"
   '';
-in {
+in
+{
   environment.systemPackages =
     [ pcap2txt pcap2json pcap2xml json2yaml json2lines ];
 }
