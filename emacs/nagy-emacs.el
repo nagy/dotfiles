@@ -21,6 +21,12 @@
 
 (require 'comint)
 
+(defun save-kill-buffer ()
+  "Save and kill a buffer."
+  (interactive)
+  (save-buffer)
+  (kill-buffer))
+
 (use-package emacs
   ;; :custom
   ;; (help-at-pt-display-when-idle t)

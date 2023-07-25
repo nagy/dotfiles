@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: Symbol’s value as variable is void: finder-known-keywords
 ;; Homepage: https://github.com/nagy/nagy-misc
-;; Package-Requires: ((emacs "29.1") nameless golden-ratio macrostep eros git-modes)
+;; Package-Requires: ((emacs "29.1") nameless golden-ratio macrostep ts ov paren-face systemd tokei wgrep focus eros git-modes general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -18,6 +18,11 @@
 ;;  Description
 ;;
 ;;; Code:
+
+(require 'ov)
+(require 'general)
+
+(require 'nagy-use-package)
 
 (eval-when-compile
   ;; To catch errors during batch compilation
@@ -87,7 +92,42 @@
 (use-package gitconfig-mode
   :pretty 'gitconfig-mode
   ("true" . true) ("false" . false)
-  ("branch" . "⌥"))
+  ;; ("core" . "♁")
+  ("branch" . "⌥")
+  ;; ("remote" . "🌐")
+  )
+
+(use-package info
+  :hook
+  (Info-mode . visual-fill-column-mode)
+  :bind
+  (:map Info-mode-map
+        ("H-j" . Info-next)
+        ("H-k" . Info-prev))
+  :general
+  (:states 'normal :keymaps 'Info-mode-map
+           ;; "o" #'nagy-hint-open-link
+           "f" #'Info-follow-nearest-node))
+
+(use-package cus-edit
+  :bind
+  (:map custom-mode-map
+        ([remap revert-buffer-quick] . Custom-reset-saved)
+        ([remap save-buffer] . Custom-set)
+        ([remap save-kill-buffer] . Custom-buffer-done))
+  (:map custom-field-keymap
+        ([remap revert-buffer-quick] . Custom-reset-saved)
+        ([remap save-buffer] . Custom-set)
+        ([remap save-kill-buffer] . Custom-buffer-done))
+  :hook
+  (Custom-mode . visual-fill-column-mode)
+  :custom
+  (custom-buffer-verbose-help nil)
+  (custom-search-field nil)
+  :general
+  (:states 'normal :keymaps 'custom-mode-map
+           "f" #'Custom-newline
+           "u" #'Custom-goto-parent))
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
