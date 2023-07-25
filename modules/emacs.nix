@@ -17,7 +17,6 @@ let
       vterm
       pdf-tools
       org-pdftools
-      elfeed
       triples
       bufler
       osm
@@ -26,9 +25,6 @@ let
 
       visual-fill-column
 
-      org
-      ascii-art-to-unicode
-      rustic
       format-all
 
       # password and secrets

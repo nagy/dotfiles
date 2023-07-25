@@ -31,8 +31,11 @@
   :custom
   (evil-normal-state-cursor '(hbar . 5))
   (evil-insert-state-cursor '(bar . 5))
+  (evil-echo-state nil)
+  (evil-mode-line-format 'before)
   :bind
-  ("H-z" . evil-scroll-line-to-center))
+  ("H-z" . evil-scroll-line-to-center)
+  ("H-u" . evil-undo))
 
 (use-package evil-numbers
   :bind

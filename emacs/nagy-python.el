@@ -4,7 +4,7 @@
 ;;
 ;; Author: Daniel Nagy <danielnagy@posteo.de>
 ;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Package-Requires: ((emacs "29.1") python-black hy-mode)
+;; Package-Requires: ((emacs "29.1") python-black hy-mode general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -14,20 +14,22 @@
 ;;
 ;;; Code:
 
+(require 'general)
+
+(require 'nagy-use-package)
+
 (eval-when-compile
   ;; To catch errors during batch compilation
   (require 'python-black))
 
-;; (use-package python-black
-;;   :after (python)
-;;   :config
-;;   (map! :map python-mode-map
-;;         :localleader
-;;         "tb" #'python-black-on-save-mode))
-
 (use-package python
+  :custom
+  (python-indent-offset 4)
   :pretty 'python-mode
-  ("True" . true) ("False" . false))
+  ("True" . true) ("False" . false)
+  :general
+  (:states 'normal
+           "þ" #'run-python))
 
 (provide 'nagy-python)
 ;;; nagy-python.el ends here

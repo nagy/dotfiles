@@ -279,6 +279,7 @@
     jo
     jc
     taplo
+    htmlq
 
     # network
     dstat
@@ -370,6 +371,7 @@
     gh
     hut
     tea
+    gron
   ];
 
   boot.binfmt.emulatedSystems =

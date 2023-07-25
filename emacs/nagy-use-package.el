@@ -151,6 +151,8 @@
   ("key" . "⬚")
   ("rest" . "⤑")
   ("it" . "✦") ; anaphoric
+  ("cl-defgeneric" . "𝕘")
+  ("cl-defmethod" . "𝕞")
   )
 
 (provide 'nagy-use-package)

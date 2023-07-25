@@ -1,6 +1,6 @@
 ;;; nagy-org.el --- My org config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") org org-superstar org-appear org-ref mermaid-mode general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") org ascii-art-to-unicode org-superstar org-appear org-ref mermaid-mode pikchr-mode general nagy-use-package)
 
 (require 'general)
 
@@ -43,9 +43,6 @@
         ([remap kill-this-buffer] . org-edit-src-abort)
         ("H-s-e" . org-babel-tangle)))
 
-;; (use-package ol-info
-;;   :after (org))
-
 (use-package ox-latex
   :defer t
   :config
@@ -61,6 +58,9 @@
 (use-package mermaid-mode
   :pretty 'mermaid-mode
   ("graph" . "⌥")
+  ("sequenceDiagram" . "⏳")
+  ("pie" . "◐")
+  ("gantt" . "↴")
   :general
   (:states 'normal :keymaps 'mermaid-mode-map
            "ö" #'mermaid-compile-buffer))

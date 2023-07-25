@@ -36,7 +36,7 @@
   :custom
   (jenkinsfile-mode-indent-offset 2))
 
-(use-package cmake-mode)
+;; (use-package cmake-mode)
 
 (provide 'nagy-devops)
 ;;; nagy-devops.el ends here

@@ -20,8 +20,7 @@
   ("df" . "defn")
   ("sv" . "setv")
   :same
-  "^\\*Hy\\*$"
-  )
+  "^\\*Hy\\*$")
 
 (provide 'nagy-hy)
 ;;; nagy-hy.el ends here
