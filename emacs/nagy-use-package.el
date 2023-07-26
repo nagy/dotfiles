@@ -67,7 +67,7 @@
     (if . "꜏") (else . "꜊") (then . "∴")
     (loop . "↻")))
 (defun nagy-pretty-init (symbol)
-  "Set pretty symbols."
+  "Set pretty symbols for mode SYMBOL."
   (interactive "SSymbol: ")
   (dolist (i (get symbol 'nagy-pretty))
     (setf (cdr   i) (if (symbolp (cdr i))

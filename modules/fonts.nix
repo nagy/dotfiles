@@ -27,8 +27,8 @@ in
       subpixel.rgba = "rgb";
       includeUserConf = false;
     };
-    enableDefaultFonts = true;
-    fonts = with pkgs; [
+    enableDefaultPackages = true;
+    packages = with pkgs; [
       (iosevka-comfy.comfy.overrideAttrs overrideBuildPlan)
       etBook # EtBembo https://edwardtufte.github.io/et-book/
       noto-fonts

@@ -38,6 +38,7 @@
   (require-final-newline t)
   (kill-ring-max 250)
   (history-delete-duplicates t)
+  (delete-by-moving-to-trash t)
   (large-file-warning-threshold (* 100 1000 1000))
   :bind
   ("H-r" . revert-buffer-quick)
@@ -148,26 +149,25 @@
   (comint-mode . abbrev-mode)
   (text-mode . abbrev-mode)
   :config
-  (define-abbrev text-mode-abbrev-table "aaa" "AAAH AAAH AAAH" nil :system t)
+  ;; Abbreviations
   (define-abbrev global-abbrev-table "afaict" "as far as I can tell" nil :system t)
   (define-abbrev global-abbrev-table "btw" "by the way" nil :system t)
-  (define-abbrev global-abbrev-table "wether" "whether" nil :system t)
-  (define-abbrev global-abbrev-table "occured" "occurred" nil :system t)
   (define-abbrev global-abbrev-table "pov" "point of view" nil :system t)
-  (define-abbrev global-abbrev-table "flase" "false" nil :system t)
   (define-abbrev global-abbrev-table "truf" "truth" nil :system t)
   (define-abbrev global-abbrev-table "gr8" "great" nil :system t)
   (define-abbrev global-abbrev-table "thrf" "therefore" nil :system t)
   (define-abbrev global-abbrev-table "bcs" "because" nil :system t)
+  ;; Typos
+  (define-abbrev global-abbrev-table "wether" "whether" nil :system t)
+  (define-abbrev global-abbrev-table "occured" "occurred" nil :system t)
+  (define-abbrev global-abbrev-table "flase" "false" nil :system t)
   (define-abbrev global-abbrev-table "teh" "the" nil :system t)
   (define-abbrev global-abbrev-table "tehn" "then" nil :system t)
   (define-abbrev global-abbrev-table "fuond" "found" nil :system t)
   (define-abbrev global-abbrev-table "lnux" "linux" nil :system t)
   (define-abbrev global-abbrev-table "thsi" "this" nil :system t)
-  (define-abbrev global-abbrev-table "kyes" "this" nil :system t)
   (with-eval-after-load 'nix-repl
-    (define-abbrev nix-repl-mode-abbrev-table "PK" "pkgs" nil :system t)
-    (define-abbrev nix-repl-mode-abbrev-table "wpkgs" "with import <nixpkgs> {}; " nil :system t))
+    (define-abbrev nix-repl-mode-abbrev-table "wpkgs" "with import <nixpkgs> { }; " nil :system t))
   (with-eval-after-load 'ielm
     (define-abbrev inferior-emacs-lisp-mode-abbrev-table "LEN" "(length )" nil :system t)
     (define-abbrev inferior-emacs-lisp-mode-abbrev-table "CAR" "(car )" nil :system t)
@@ -209,14 +209,13 @@
   (advice-add 'ielm-send-input :after #'nagy-ielm-write-history))
 
 (use-package epg
-  :config
-  (setq epg-pinentry-mode 'loopback))
+  :custom
+  (epg-pinentry-mode 'loopback))
 
 (use-package eldoc
   :custom
   (eldoc-echo-area-use-multiline-p nil)
   (eldoc-idle-delay 0.01)
-  ;; (eldoc-idle-delay 0.05)
   ;; TODO increase eldoc delay for sly buffers because the comm with the lisp is
   ;; taking huge cpu.
   )
