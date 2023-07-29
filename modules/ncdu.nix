@@ -5,6 +5,8 @@
     --disable-shell
     --shared-column off
     --show-itemcount
+    --apparent-size
+    --one-file-system
     --color off
   '';
 }

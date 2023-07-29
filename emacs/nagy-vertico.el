@@ -13,11 +13,17 @@
   (vertico-count 7))
 
 (use-package vertico-quick
-  :after vertico
   :bind
   (:map vertico-map
         ("C-," . vertico-quick-exit)
         ("C-." . vertico-quick-exit)))
+
+(use-package vertico-buffer
+  :custom
+  (vertico-buffer-display-action '(display-buffer-same-window))
+  :general
+  (:states 'normal
+           "°" #'vertico-buffer-mode))
 
 (use-package consult
   :general
@@ -34,9 +40,11 @@
 
 (use-package consult-imenu
   :defer t
-  :init
-  ;; (map! :n "ø" #'consult-imenu)
-  ;; (map! :n "M-ø" #'imenu-list)
+  :general
+  (:states 'normal
+           "ø" #'consult-imenu
+           ;; "M-ø" #'imenu-list
+           )
   :config
   (setq consult-imenu-config
         '((emacs-lisp-mode

@@ -81,5 +81,11 @@
 ;;   :config
 ;;   (evil-set-initial-state 'calc-mode 'emacs))
 
+(use-package eat
+  :custom
+  (eat-kill-buffer-on-exit t)
+  :config
+  (evil-set-initial-state 'eat-mode 'emacs))
+
 (provide 'nagy-evil)
 ;;; nagy-evil.el ends here

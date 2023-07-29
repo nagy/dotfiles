@@ -4,6 +4,7 @@ let
   cfg = config.nagy.shortcommands;
   defaultShortcommands = {
     # nix
+    n = [ "nix" ];
     R = [ "nix" "run" ];
     D = [ "nix" "develop" ];
     L = [ "nix" "log" ];
@@ -185,6 +186,7 @@ let
     UL = [ "nix" "bundle" "--print-build-logs" ];
 
     # git
+    g = [ "git" ];
     G = [ "git" ];
     Gcl = [ "git" "clone" ];
     Gcl1 = [ "git" "clone" "--depth=1" ];
@@ -273,6 +275,13 @@ let
     bcuj = [ "busctl" "--user" "--json" ];
     bcuc = [ "busctl" "--user" "call" ];
     bcui = [ "busctl" "--user" "introspect" ];
+
+    # zed
+    # zqz = [ "zq" "-z" ];
+    # zqZ = [ "zq" "-Z" ];
+    # zqj = [ "zq" "-j" ];
+    # zqn = [ "zq" "-f" "zng" ];
+    # zqs = [ "zq" "-f" "zjson" ];
 
     # cargo
     # may also be done via aliases

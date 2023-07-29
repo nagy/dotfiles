@@ -28,6 +28,10 @@
   :pretty 'org-mode
   ("#+begin_example" . "↝")
   ("#+end_example" . "↜")
+  ("#+begin_src" . "»")
+  ("#+end_src" . "«")
+  ("#+BEGIN_SRC" . "»")
+  ("#+END_SRC" . "«")
   ("#+title:" . "⨠")
   ("#+TITLE:" . "⨠")
   ("[ ]" . "☐")

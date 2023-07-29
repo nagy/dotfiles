@@ -41,6 +41,8 @@
   (delete-by-moving-to-trash t)
   (large-file-warning-threshold (* 100 1000 1000))
   :bind
+  ("H-e" . insert-char)
+  ("C-H-e" . emoji-insert)
   ("H-r" . revert-buffer-quick)
   ("H-s-," . describe-char)
   ("H-s-." . display-local-help))
