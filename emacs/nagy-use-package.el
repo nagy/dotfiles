@@ -65,6 +65,7 @@
     (setq . "↡")
     (try . "〜") (except . "☇")
     (if . "꜏") (else . "꜊") (then . "∴")
+    (when . "〉") (unless . "〈")
     (loop . "↻")))
 (defun nagy-pretty-init (symbol)
   "Set pretty symbols for mode SYMBOL."
@@ -129,33 +130,6 @@
                      collect
                      `(push ',zip nagy-cycle-alist)))))
 (add-to-list 'use-package-keywords :cycle t)
-
-(use-package emacs
-  :bind
-  ("H-M-e" . emacs-lisp-mode)
-  :pretty 'emacs-lisp-mode
-  ("if" . if) ("else" . else)
-  ("nil" . null)
-  ("eval" . eval)
-  ("defun" . def)
-  ("list" . list)
-  ("rx" . "𝕏")
-  ("let-alist" . "⋱")
-  ("interactive" . "𝒊")
-  ("defvar" . "𝕍")
-  ("defmacro" . "𝕄")
-  ("setf" . setf)
-  ("setq" . setq)
-  ("setq-local" . "⇣")
-  ("setopt" . setf)
-  ("use-package" . "𝕌")
-  ("optional" . "◌")
-  ("key" . "⬚")
-  ("rest" . "⤑")
-  ("it" . "✦")                          ; anaphoric
-  ("cl-defgeneric" . "𝕘")
-  ("cl-defmethod" . "𝕞")
-  )
 
 (provide 'nagy-use-package)
 ;;; nagy-use-package.el ends here

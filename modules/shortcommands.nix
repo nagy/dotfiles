@@ -311,6 +311,7 @@ let
     ij = [ "ip" "--json" ];
     i4j = [ "ip" "-4" "--json" ];
     i6j = [ "ip" "-6" "--json" ];
+    hex = [ "hexdump" "--no-squeezing" "--canonical" ];
     "⬡" = [ "hexdump" "--no-squeezing" "--canonical" ];
     "⬡n" = [ "hexdump" "--no-squeezing" "--canonical" "--length" ];
     sha1 = [ "sha1sum" ];
