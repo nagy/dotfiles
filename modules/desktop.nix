@@ -79,8 +79,6 @@ in
              key <RCTL> { [ Alt_L, Alt_L ] };
 
              key <TAB>  { [ Tab,  ISO_Left_Tab,  U22A2,  U22A3 ] };
-             // not used on current keyboard
-             // key <CAPS> { [ Escape, Escape, 4, 5  ] };
              key <SPCE> { [space, space, circle, U25A1 ] };
              // this next has problems with meta prefix
              // key <BKSP> { [ BackSpace, Delete, U2B20, U2B21 ] };

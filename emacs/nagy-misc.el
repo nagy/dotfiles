@@ -28,6 +28,11 @@
   ;; To catch errors during batch compilation
   (require 'nameless))
 
+(use-package emacs
+  :general
+  (:states 'normal
+           "²" #'duplicate-dwim))
+
 (use-package nameless
   :diminish nameless-mode
   :hook
@@ -77,10 +82,6 @@
   ("if" . if) ("else" . else)
   ("#define" . "⨠")
   ("const" . const))
-
-;; (use-package literate-calc-mode
-;;   :config
-;;   (setq literate-calc-mode-idle-time 0.1))
 
 (use-package calc
   :general

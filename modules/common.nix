@@ -169,9 +169,10 @@
       };
       # To work around the workaround of CVE-2022-24765.
       # See https://github.com/NixOS/nixpkgs/issues/169193 for more
-      safe.directory = "*";
+      # safe.directory = "*";
       filter = {
-        # use with `.gitattributes` file content: *.sqlite3 filter=sqlite3-sql
+        # use with `.gitattributes`
+        # file content: *.sqlite3 filter=sqlite3-sql
         # more info https://github.com/theTaikun/SQLite-git-smudge-and-clean
         sqlite3-sql = {
           clean = "${pkgs.sqlite}/bin/sqlite3 %f .dump";
@@ -187,9 +188,9 @@
   };
 
   environment.shellAliases = {
-    h = "htop";
+    # h = "htop";
     g = "git";
-    hm = "home-manager";
+    # hm = "home-manager";
     mv = "mv --no-clobber";
     smv = "mv --no-clobber";
     # If the last character of the alias value is a blank, then the next command
@@ -200,8 +201,8 @@
 
     # from jonringer
     to32 = "nix-hash --to-base32 --type sha256";
-    nfl = "nix flake lock";
-    nflu = "nix flake lock --update-input";
+    # nfl = "nix flake lock";
+    # nflu = "nix flake lock --update-input";
     # ns="nix-shell"; # eventually switch to `nix develop`
     gco = "git checkout";
     gst = "git status";
@@ -247,6 +248,8 @@
   };
 
   programs.ssh.extraConfig = ''
+    Host *
+      Protocol 2
     # Git remote hosts
     Host github.com gitlab.com git.sr.ht aur.archlinux.org gitlab.freedesktop.org codeberg.org
       User git
@@ -452,10 +455,6 @@
         type = "github";
         dir = "lib";
       };
-      n.to = {
-        id = "nixpkgs";
-        type = "indirect";
-      };
       pkgs.to = {
         id = "nixpkgs";
         type = "indirect";
@@ -476,46 +475,6 @@
         type = "github";
       };
 
-      HW.to = {
-        id = "nixos-hardware";
-        type = "indirect";
-      };
-      G.to = {
-        id = "gemini";
-        type = "indirect";
-      };
-      ncl.to = {
-        id = "nickel";
-        type = "indirect";
-      };
-      hm.to = {
-        id = "home-manager";
-        type = "indirect";
-      };
-      HM.to = {
-        id = "home-manager";
-        type = "indirect";
-      };
-      json2dbus.to = {
-        owner = "nagy";
-        repo = "json2dbus";
-        type = "github";
-      };
-      NG.to = {
-        id = "nixos-generators";
-        type = "indirect";
-      };
-      # not yet a PR
-      comma.to = {
-        owner = "nix-community";
-        repo = "comma";
-        type = "github";
-      };
-      nixt.to = {
-        owner = "nix-community";
-        repo = "nixt";
-        type = "github";
-      };
       # until https://github.com/NixOS/flake-registry/pull/33
       nixos-generators.to = {
         owner = "nix-community";
@@ -530,16 +489,6 @@
       eo.to = {
         id = "emacs-overlay";
         type = "indirect";
-      };
-      crystal2nix.to = {
-        owner = "nix-community";
-        repo = "crystal2nix";
-        type = "github";
-      };
-      nix-doom-emacs.to = {
-        owner = "nix-community";
-        repo = "nix-doom-emacs";
-        type = "github";
       };
       nix-mode.to = {
         owner = "NixOS";

@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: Symbol’s value as variable is void: finder-known-keywords
 ;; Homepage: https://github.com/nagy/nagy-emacs
-;; Package-Requires: ((emacs "29.1"))
+;; Package-Requires: ((emacs "29.1") ov)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -40,12 +40,16 @@
   (history-delete-duplicates t)
   (delete-by-moving-to-trash t)
   (large-file-warning-threshold (* 100 1000 1000))
+  (duplicate-line-final-position -1)    ; to last line
+  (backtrace-on-redisplay-error t)
+  (browse-url-default-scheme "https")
   :bind
   ("H-e" . insert-char)
   ("C-H-e" . emoji-insert)
   ("H-r" . revert-buffer-quick)
   ("H-s-," . describe-char)
-  ("H-s-." . display-local-help))
+  ("H-s-." . display-local-help)
+  ("H-s-:" . duplicate-dwim))
 
 (use-package help
   :hook
@@ -256,6 +260,30 @@
 (rx-define sha1 (repeat 40 hex))
 (rx-define sha256 (repeat 64 hex))
 (rx-define sha512 (repeat 128 hex))
+
+(use-package eww
+  ;; could also bind this to `special-mode'
+  :bind
+  ("H-j" . scroll-up-command)
+  ("H-k" . scroll-down-command))
+
+(require 'ov)
+(use-package elisp-mode
+  :preface
+  (defun nagy-highlight-doom! ()
+    "Highlight doom usage"
+    (ov-set "add-hook!" 'face 'flymake-error)
+    (ov-set "remove-hook!" 'face 'flymake-error)
+    (ov-set "map!" 'face 'flymake-error))
+  :hook
+  (emacs-lisp-mode . nagy-highlight-doom!)
+  :bind
+  ("H-M-e" . emacs-lisp-mode))
+
+(use-package mule-util
+  :custom
+  (truncate-string-ellipsis "┄")        ; use smaller char than default
+  )
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

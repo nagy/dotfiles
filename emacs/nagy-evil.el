@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-evil
-;; Package-Requires: ((emacs "29.1") general evil evil-numbers evil-surround)
+;; Package-Requires: ((emacs "29.1") general evil eat evil-numbers evil-surround)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;

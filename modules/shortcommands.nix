@@ -38,7 +38,7 @@ let
     I = [ "nix" "path-info" ];
     Is = [ "nix" "path-info" "--size" "--human-readable" ];
     IS = [ "nix" "path-info" "--closure-size" "--human-readable" ];
-    Ij = [ "nix" "path-info" "--size" "--json" ];
+    Ij = [ "nix" "path-info" "--json" ];
     IJ = [ "nix" "path-info" "--closure-size" "--json" ];
     Ia = [ "nix" "path-info" "-rsSh" ];
     Sj = [ "nix" "search" "--json" ];
