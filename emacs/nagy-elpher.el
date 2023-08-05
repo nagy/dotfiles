@@ -28,52 +28,55 @@
   (require 'elpher))
 
 (use-package elpher
-  :commands (elpher-bookmark-handler elpher-go elpher-bookmark-make-record)
-  :functions
-  elpher-redraw
-  :hook
-  (elpher-mode . visual-fill-column-mode)
-  :general
-  (:states 'normal :keymaps 'elpher-mode-map
-           "q" #'quit-window
-           "M-n" #'elpher-next-link
-           "M-p" #'elpher-prev-link)
-  :custom
-  (elpher-use-header nil)
-  (elpher-ipv4-always t)
-  (elpher-connection-timeout 10)
-  :config
-  (put 'elpher-bookmark-handler 'bookmark-handler-type "Elpher")
+  :preface
   (defun elpher-bookmark-handler (record)
     (elpher-go (bookmark-prop-get record 'location)))
   (defun elpher-bookmark-make-record ()
     (cons "elpher"
           `((location . ,(url-recreate-url (cadr elpher-current-page)))
             (handler . elpher-bookmark-handler))))
+  :commands (elpher-go)
+  :functions
+  elpher-redraw
+  :hook
+  (elpher-mode . visual-fill-column-mode)
+  :custom
+  (elpher-use-header nil)
+  (elpher-ipv4-always t)
+  (elpher-connection-timeout 10)
+  :config
+  (put 'elpher-bookmark-handler 'bookmark-handler-type "Elpher")
   (add-hook 'elpher-mode-hook
             (defun +nagy/elpher-hook ()
               (setq-local bookmark-make-record-function #'elpher-bookmark-make-record)
               ;; (setq-local revert-buffer-function (cmd! (elpher-redraw)))
               ))
-  (define-key elpher-mode-map "f" nil)
-  (evil-define-key 'motion elpher-mode-map "f" #'push-button)
-  (evil-define-key 'motion elpher-mode-map "s" #'elpher-back)
-  (evil-define-key 'motion elpher-mode-map (kbd "C-M-h") #'elpher-back)
-  (evil-define-key 'motion elpher-mode-map (kbd "C-o") #'elpher-back)
-  (evil-define-key 'motion elpher-mode-map (kbd "<C-i>") #'elpher-next-link)
-  (evil-define-key 'motion elpher-mode-map (kbd "S-TAB") #'elpher-prev-link)
-  (evil-define-key 'motion elpher-mode-map "J" #'elpher-next-link)
-  (evil-define-key 'motion elpher-mode-map "K" #'elpher-prev-link)
-  (evil-define-key 'motion elpher-mode-map "K" #'elpher-prev-link)
-  (evil-define-key 'motion elpher-mode-map "g" nil)
-  (evil-define-key 'motion elpher-mode-map "go" #'elpher-go-current)
-  (evil-define-key 'motion elpher-mode-map "o" #'nagy-link-hint-open-link)
-  (evil-define-key 'normal elpher-mode-map "o" #'nagy-link-hint-open-link)
-  (evil-define-key 'normal elpher-mode-map "g" nil)
   (set-face-attribute 'elpher-gemini-heading1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
   (set-face-attribute 'elpher-gemini-heading2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
   (set-face-attribute 'elpher-gemini-heading3 nil :font "Et Bembo" :height 1.2 :inherit 'modus-themes-heading-3)
-  (set-face-attribute 'elpher-gemini-preformatted nil :extend t :inherit 'modus-themes-nuanced-green))
+  (set-face-attribute 'elpher-gemini-preformatted nil :extend t :inherit 'modus-themes-nuanced-green)
+  :general
+  (:states 'normal :keymaps 'elpher-mode-map
+           "q" #'quit-window
+           "M-n" #'elpher-next-link
+           "M-p" #'elpher-prev-link)
+  (:states 'motion :keymaps 'elpher-mode-map
+           ;; (define-key elpher-mode-map "f" nil) ; this might be needed
+           "f" #'push-button
+           "s" #'elpher-back)
+  ;; (evil-define-key 'motion elpher-mode-map (kbd "C-M-h") #'elpher-back)
+  ;; (evil-define-key 'motion elpher-mode-map (kbd "C-o") #'elpher-back)
+  ;; (evil-define-key 'motion elpher-mode-map (kbd "<C-i>") #'elpher-next-link)
+  ;; (evil-define-key 'motion elpher-mode-map (kbd "S-TAB") #'elpher-prev-link)
+  ;; (evil-define-key 'motion elpher-mode-map "J" #'elpher-next-link)
+  ;; (evil-define-key 'motion elpher-mode-map "K" #'elpher-prev-link)
+  ;; (evil-define-key 'motion elpher-mode-map "K" #'elpher-prev-link)
+  ;; (evil-define-key 'motion elpher-mode-map "g" nil)
+  ;; (evil-define-key 'motion elpher-mode-map "go" #'elpher-go-current)
+  ;; (evil-define-key 'motion elpher-mode-map "o" #'nagy-link-hint-open-link)
+  ;; (evil-define-key 'normal elpher-mode-map "o" #'nagy-link-hint-open-link)
+  ;; (evil-define-key 'normal elpher-mode-map "g" nil)
+  )
 
 
 (provide 'nagy-elpher)
