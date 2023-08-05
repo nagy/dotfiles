@@ -14,6 +14,8 @@
 ;;
 ;;; Code:
 
+(require 'comint)
+
 (require 'general)
 (eval-when-compile
   ;; To catch errors during batch compilation

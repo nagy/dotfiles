@@ -1,6 +1,6 @@
 ;;; nagy-org.el --- My org config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") org ascii-art-to-unicode org-superstar org-appear org-ref mermaid-mode pikchr-mode general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") org ascii-art-to-unicode org-superstar org-appear org-ref mermaid-mode pikchr-mode markdown-mode orgit general nagy-use-package)
 
 (require 'general)
 
@@ -58,7 +58,9 @@
   (org-appear-autolinks t)
   (org-appear-autokeywords t)
   (org-appear-autoentities t)
-  (org-appear-autosubmarkers t)
+  (org-appear-autosubmarkers t))
+
+(use-package org-src
   :bind
   (:map org-src-mode-map
         ([remap save-kill-buffer] . org-edit-src-exit)
@@ -86,6 +88,23 @@
   :general
   (:states 'normal :keymaps 'mermaid-mode-map
            "ö" #'mermaid-compile-buffer))
+
+(require 'markdown-mode)
+(use-package markdown-mode
+  :preface
+  (defun nagy-markdown-delete-subtree ()
+    (interactive)
+    (markdown-mark-subtree)
+    (delete-region (region-beginning) (region-end)))
+  :bind
+  ("H-M-m" . markdown-mode)
+  (:map markdown-mode-map
+        ("H-d" . nagy-markdown-delete-subtree)
+        ("H-j" . markdown-next-visible-heading)
+        ("H-k" . markdown-previous-visible-heading)
+        ("H-s-n" . markdown-narrow-to-subtree))
+  :custom
+  (markdown-list-indent-width 2))
 
 (provide 'nagy-org)
 ;;; nagy-org.el ends here

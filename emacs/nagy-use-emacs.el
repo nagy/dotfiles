@@ -36,6 +36,7 @@
   ("car" . "⒈")
   ("cadr" . "⒉")
   ("caddr" . "⒊")
+  ("propertize" . "≔")
   ("cl-loop" . loop)
   ("cl-defgeneric" . "𝕘")
   ("cl-defmethod" . "𝕞")

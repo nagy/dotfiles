@@ -63,15 +63,15 @@ in
              // does not work yet because it gets overridden by inet(evdev)
              // see setxkbmap -print for why
              // key <KATA>  { [U2ADD, U22D4, U29FB, U223A] };
-             key <HNGL>  { [U269B, U2607, U237E, U238D] };
-             key <KATA>  { [U29FB, U29e7, includes, intersection] };
-             key <HJCV>  { [U2A5A, U2A5B, U2A51, U2A52] };
-             key <HENK>  { [U29D6, U27C1, U2220, U29A2] };
-             key <HKTG>  { [U29C7, U29C8, U2A4f, U2A4E] };
-             key <HIRA>  { [U1F5E4, U1F5E5, U223A, ff ] };
+             key <HNGL> { [ U269B, U2607, U237E, U238D] };
+             key <KATA> { [ U29FB, U29e7, includes, intersection] };
+             key <HJCV> { [ U2A5A, U2A5B, U2A51, U2A52] };
+             key <HENK> { [ U29D6, U27C1, U2220, U29A2] };
+             key <HKTG> { [ U29C7, U29C8, U2A4f, U2A4E] };
+             key <HIRA> { [ U1F5E4, U1F5E5, U223A, ff ] };
              // key <mineLower4> { [ ff, cent, U232F, Help ] };
              // same problem here
-             key <FK13>  { [ff, ht, includes, intersection] };
+             key <FK13> { [ ff, ht, includes, intersection] };
 
              // modifier_map Mod3   { <MENU> };
              modifier_map Mod3   { <RWIN> };
