@@ -373,6 +373,7 @@
     xurls
     (hy.withPackages (ps: with ps; [ hyrule addict ]))
     (terraform.withPlugins (p: with p; [ github ]))
+    pkgs.nur.repos.nagy.hyperspec
     (pkgs.nur.repos.nagy.lib.mkRustScript { file = ../bin/blocker.rs; })
     # version control
     gh

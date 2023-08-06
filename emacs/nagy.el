@@ -1,6 +1,6 @@
 ;;; nagy.el --- -*- lexical-binding: t; -*-
-(require 'nagy-company nil t)
 (require 'nagy-common-lisp nil t)
+(require 'nagy-company nil t)
 (require 'nagy-corfu nil t)
 (require 'nagy-devops nil t)
 (require 'nagy-dired nil t)
@@ -22,8 +22,8 @@
 (require 'nagy-qrcode nil t)
 (require 'nagy-rust nil t)
 (require 'nagy-text nil t)
-(require 'nagy-use-package nil t)
 (require 'nagy-use-emacs nil t)
+(require 'nagy-use-package nil t)
 (require 'nagy-vertico nil t)
 (require 'nagy-web nil t)
 (provide 'nagy)

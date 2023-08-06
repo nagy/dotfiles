@@ -20,8 +20,6 @@ let
       triples
       bufler
       osm
-      lispy
-      lispyville
 
       visual-fill-column
 

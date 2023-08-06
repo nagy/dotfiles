@@ -27,11 +27,11 @@
   (require 'lin)
   (require 'paren-face))
 
-(defun dayp ()
-  "Return non-nil if it is day (aka light theme)."
-  (eq (modus-themes--current-theme) 'modus-operandi))
-
 (use-package modus-themes
+  :preface
+  (defun dayp ()
+    "Return non-nil if it is day (aka light theme)."
+    (eq (modus-themes--current-theme) 'modus-operandi))
   :functions +modus-themes-fix-pitches
   :init
   (setq modus-themes-bold-constructs t
@@ -39,15 +39,17 @@
         modus-themes-org-blocks 'tinted-background
         modus-themes-mixed-fonts t
         modus-themes-variable-pitch-ui t
-        modus-themes-completions '((matches . (background))
-                                   (selection . (semibold accented intense))
-                                   (popup . (accented))))
-  ;; :config
-  ;; (defadvice! +modus-themes-fix-pitches (&rest _args)
-  ;;   :after '(modus-themes-toggle doom-big-font-mode)
-  ;;   (set-face-attribute 'variable-pitch nil :height 'unspecified)
-  ;;   (set-face-attribute 'fixed-pitch nil :height 'unspecified)
-  ;;   (set-face-attribute 'header-line nil :inherit 'unspecified))
+        modus-themes-completions
+        '((matches . (background))
+          (selection . (semibold accented intense))
+          (popup . (accented)))
+        modus-themes-common-palette-overrides
+        '((bg-mode-line-active bg-main)
+          (bg-mode-line-inactive bg-dim)
+          ;; (bg-tab-bar bg-main)
+          ;; (bg-tab-current bg-active)
+          ;; (bg-tab-other bg-inactive)
+          ))
   )
 
 (use-package modus-themes
@@ -86,6 +88,8 @@
   (nagy/fix-parenface))
 
 (use-package lin
+  ;; :preface
+  ;; (require 'lin)
   :functions lin-global-mode
   :config
   (setq lin-mode-hooks
@@ -94,7 +98,6 @@
           grep-mode-hook
           ibuffer-mode-hook
           ilist-mode-hook
-          ledger-report-mode-hook
           log-view-mode-hook
           magit-log-mode-hook
           mu4e-headers-mode-hook

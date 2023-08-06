@@ -10,7 +10,7 @@
   :custom
   (org-image-actual-width 400)
   (org-todo-keywords '((sequence "WAITING" "TODO" "DONE")
-                     (sequence "TO-WATCH" "WATCHING" "DONE")))
+                       (sequence "TO-WATCH" "WATCHING" "DONE")))
   (org-confirm-babel-evaluate nil)
   (org-tags-column -77)
   (org-startup-indented nil)
