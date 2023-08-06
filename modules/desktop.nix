@@ -1,14 +1,23 @@
 { pkgs, lib, config, ... }:
 
 let
-  nsxivBigThumbs = pkgs.nsxiv.overrideAttrs ({ postPatch ? "", ... }: {
-    postPatch = postPatch + ''
-      # increase thumbnail sizes
-      substituteInPlace config.def.h \
-              --replace '96, 128, 160' '96, 128, 160, 320, 640'  \
-              --replace 'THUMB_SIZE = 3' 'THUMB_SIZE = 5'  \
-    '';
-  });
+  nsxivBigThumbs = pkgs.nsxiv.overrideAttrs
+    ({ src, patches ? [ ], postPatch ? "", ... }: {
+      patches = patches ++ [
+        (pkgs.fetchpatch {
+          url =
+            "https://codeberg.org/nsxiv/nsxiv-extra/raw/branch/master/patches/square-thumbs/square-thumbs-v31.diff";
+          hash = "sha256-exY30/MxWInO5hTRSyxM5H5zv0bj2aAZpODWlJ31IyE=";
+        })
+      ];
+      postPatch = postPatch + ''
+        # increase thumbnail sizes
+        substituteInPlace config.def.h \
+                --replace '96, 128, 160' '96, 128, 160, 320, 640'  \
+                --replace 'THUMB_SIZE = 3' 'THUMB_SIZE = 5'  \
+                --replace 'SQUARE_THUMBS = false' 'SQUARE_THUMBS = true'
+      '';
+    });
 in
 {
 
