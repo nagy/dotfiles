@@ -139,9 +139,48 @@
             rm -f -- "$TMPFILE"
           '');
         };
+        jq = { clean = "${pkgs.jq}/bin/jq --sort-keys"; };
+      };
+      diff = {
+        wasm = {
+          textconv = "${pkgs.wabt}/bin/wasm2wat";
+          binary = true;
+        };
+        pdf = {
+          textconv = pkgs.writeShellScript "pdftostdout" ''
+            exec ${pkgs.poppler_utils}/bin/pdftotext -layout "$@" -
+          '';
+          binary = true;
+        };
+        tar = {
+          textconv = "${pkgs.gnutar}/bin/tar -tvf";
+          binary = true;
+        };
+        tar-gz = {
+          textconv = "${pkgs.gnutar}/bin/tar -tvzf";
+          binary = true;
+        };
+        tar-bz2 = {
+          textconv = "${pkgs.gnutar}/bin/tar -tvjf";
+          binary = true;
+        };
+        tar-xz = {
+          textconv = "${pkgs.gnutar}/bin/tar -tvJf";
+          binary = true;
+        };
       };
     };
   };
+  environment.etc.gitattributes.text = ''
+    *.wasm diff=wasm
+    *.pdf diff=pdf
+    *.tar diff=tar
+    *.tar.gz diff=tar-gz
+    *.tgz diff=tar-gz
+    *.tar.bz2 diff=tar-bz2
+    *.tar.xz diff=tar-xz
+    *.json filter=jq
+  '';
 
   environment.shellAliases = {
     # h = "htop";
