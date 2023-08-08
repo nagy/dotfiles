@@ -155,8 +155,6 @@
     isort
     cryptsetup
 
-    ncdu
-
     # documentation
     man-pages
     glibcInfo # info files for gnu glibc
