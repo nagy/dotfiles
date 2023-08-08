@@ -2,8 +2,6 @@
 
 {
 
-  # services.getty.autologinUser = "user";
-
   users.users.user = {
     isNormalUser = true;
     uid = 1000;
@@ -183,9 +181,6 @@
   '';
 
   environment.shellAliases = {
-    # h = "htop";
-    g = "git";
-    # hm = "home-manager";
     mv = "mv --no-clobber";
     smv = "mv --no-clobber";
     # If the last character of the alias value is a blank, then the next command
@@ -194,14 +189,7 @@
     # https://news.ycombinator.com/item?id=25243730
     sudo = "sudo ";
 
-    # from jonringer
     to32 = "nix-hash --to-base32 --type sha256";
-    # nfl = "nix flake lock";
-    # nflu = "nix flake lock --update-input";
-    # ns="nix-shell"; # eventually switch to `nix develop`
-    gco = "git checkout";
-    gst = "git status";
-
     lt = "ls --human-readable --size -1 -S --classify";
     ll = "ls --human-readable -l";
     la = "ls --human-readable --all -l";
