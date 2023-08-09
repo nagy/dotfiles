@@ -221,8 +221,11 @@
     gron
   ];
 
-  boot.binfmt.emulatedSystems =
-    [ "wasm32-wasi" "aarch64-linux" "armv6l-linux" ];
+  boot.binfmt.emulatedSystems = [
+    "wasm32-wasi"
+    # "aarch64-linux" # remove, because it causes any raspberry pi systems to become unbootable
+    "armv6l-linux"
+  ];
 
   boot.binfmt.registrations.oil = {
     recognitionType = "extension";
