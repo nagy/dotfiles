@@ -299,6 +299,7 @@ let
     Jr = [ "jq" "--monochrome-output" "--sort-keys" "--raw-output" ];
     Js = [ "jq" "--slurp" ];
     jqM = [ "jq" "--monochrome-output" ];
+    jcP = [ "jc" "--pretty" ];
     Y = [ "yq" "--prettyPrint" "--no-colors" ];
     yqP = [ "yq" "--prettyPrint" ];
     yqPM = [ "yq" "--prettyPrint" "--no-colors" ];

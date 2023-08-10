@@ -1,4 +1,4 @@
-;;; nagy-dired.el --nagy-dired config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-vertico.el --- nagy-vertico config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
 ;; Package-Requires: ((emacs "29.1") vertico consult general nagy-use-package)
 
