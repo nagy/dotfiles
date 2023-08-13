@@ -87,7 +87,7 @@
       };
       # To work around the workaround of CVE-2022-24765.
       # See https://github.com/NixOS/nixpkgs/issues/169193 for more
-      # safe.directory = "*";
+      safe.directory = "*";
       filter = {
         # use with `.gitattributes`
         # file content: *.sqlite3 filter=sqlite3-sql

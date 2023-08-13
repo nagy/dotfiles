@@ -13,9 +13,9 @@ let
       postPatch = postPatch + ''
         # increase thumbnail sizes
         substituteInPlace config.def.h \
-                --replace '96, 128, 160' '96, 128, 160, 320, 640'  \
-                --replace 'THUMB_SIZE = 3' 'THUMB_SIZE = 5'  \
-                --replace 'SQUARE_THUMBS = false' 'SQUARE_THUMBS = true'
+          --replace '96, 128, 160' '96, 128, 160, 320, 640'  \
+          --replace 'THUMB_SIZE = 3' 'THUMB_SIZE = 5'  \
+          --replace 'SQUARE_THUMBS = false' 'SQUARE_THUMBS = true'
       '';
     });
 in

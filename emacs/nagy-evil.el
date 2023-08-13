@@ -50,6 +50,7 @@
   :bind
   ("<s-return>" . eshell)
   (:map eshell-mode-map
+        ("H-h" . delete-backward-char)
         ("H-ö" . eshell-previous-input)
         ("s-ö" . eshell-send-input)
         ("M-ö" . eshell-send-input))

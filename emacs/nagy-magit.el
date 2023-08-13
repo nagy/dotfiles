@@ -31,6 +31,7 @@
 (use-package magit-section
   :general
   (:states 'normal :keymaps 'magit-section-mode-map
+           "r" #'magit-section-toggle
            "Ö" #'magit-section-cycle
            "ö" #'magit-section-toggle)
   :bind

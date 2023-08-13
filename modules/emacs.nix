@@ -10,8 +10,8 @@ let
         src = pkgs.fetchFromGitHub {
           owner = "nagy";
           repo = "speed-of-thought-lisp";
-          rev = "1762cb2d4b72315c54a17716f0e4ca7dbf28745e";
-          hash = "sha256-nkNZmkTyoRshaPTvCzwbARUB1LTI9ML3HNcZdP4MrIc=";
+          rev = "3e862df12361848be978d366fd4d9b74ac37b6bf";
+          hash = "sha256-cbuNNQjS6AMDIYsv5TRMysd+0aY02GZBY2Ada9EQ7ZY=";
         };
       })
       vterm

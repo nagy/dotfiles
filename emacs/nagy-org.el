@@ -43,7 +43,10 @@
   ("<-" . "←")
   ("<->" . "↔")
   ("=>" . "⇒")
-  ("<=" . "⇐"))
+  ("<=" . "⇐")
+  :general
+  (:states 'normal :keymaps 'org-mode-map
+           "r" #'org-cycle))
 
 (use-package org-superstar
   :disabled

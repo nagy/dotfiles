@@ -19,7 +19,12 @@
   :pretty 'js-mode
   ("true" . true) ("false" . false))
 
-(use-package wat-mode)
+(use-package wat-mode
+  :pretty 'wat-mode
+  ("export" . "⟼")
+  ("module" . "📦")
+  ("global" . "🌐"))
+
 (use-package csv-mode)
 (use-package yaml-mode)
 (use-package jq-mode)
