@@ -21,7 +21,7 @@
 
 (use-package wat-mode
   :pretty 'wat-mode
-  ("export" . "⟼")
+  ("export" . export)
   ("module" . "📦")
   ("global" . "🌐"))
 

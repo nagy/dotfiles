@@ -22,7 +22,7 @@
   ("let" . let)
   ("format!" . print)
   ("assert_eq!" . assert)
-  ("std" . std)
+  ("std" . stdlib)
   :abbrev 'rustic-mode
   )
 

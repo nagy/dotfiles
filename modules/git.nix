@@ -54,6 +54,7 @@
         "https://github.com/rust-lang/".insteadOf = "rust:";
         "https://github.com/NixOS/nixpkgs".insteadOf = "pkgs:";
         "https://github.com/nix-community/NUR".insteadOf = "nur:";
+        "https://code.tvl.fyi/depot.git".insteadOf = "tvl:";
       };
       tar = {
         "tar.xz".command = "${pkgs.xz}/bin/xz -c";

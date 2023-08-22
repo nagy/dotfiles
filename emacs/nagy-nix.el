@@ -18,6 +18,7 @@
   ("lib" . "☐")
   ("hash" . hash)
   ("let" . let)
+  ("in" . in)
   ("src" . source)
   ("callPackage" . "𝕔")
   ("stdenv" . stdlib)
@@ -61,16 +62,27 @@
   ("users" . "𝒖")
   ("imports" . "𝒊")
   ("options" . "𝒐")
+  ("final" . "′")
+  ("prev" . "″")
   ;; Nixos lib
   ("enable" . "¿")
   ("mkOption" . "⌥")
   ("mkEnableOption" . "⌥¿")
   ("nagy" . "ℕ")
+  ;; Flakes
+  ("inputs" . import)
+  ("outputs" . export)
+  ("nixosModules" . "𝒎")
+  ("packages" . "𝒑")
+  ;; ("nixpkgs" . "📦")
   :abbrev 'nix-mode
   ("ts" . "toString")
-  ("ovr" . "overrideAttrs")
+  ;; ("ovr" . "overrideAttrs")
   ("orr" . "overrideAttrs")
   ("oo" . "override")
+  ("ooo" . "overrideAttrs")
+  ;; ("ov" . "override")
+  ;; ("ova" . "overrideAttrs")
   ("rcl" . "runCommandLocal")
   ("ffgh" . "fetchFromGitHub")
   ("ffgl" . "fetchFromGitLab")
@@ -91,9 +103,11 @@
   ("hash" "sha256")
   ("buildPhase" "installPhase")
   ("buildInputs" "nativeBuildInputs" "propagatedBuildInputs")
-  ;; hooks
+  ;; Hooks
   ("preInstall" "postInstall")
-  ("preBuild" "postBuild"))
+  ("preBuild" "postBuild")
+  ;; Flakes
+  ("inputs" "outputs"))
 
 (use-package nix-prettify-mode
   :custom

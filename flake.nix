@@ -14,7 +14,7 @@
           configuration = { ... }: {
             imports = [ module ];
             # simulate state version. needed for flake build.
-            home.stateVersion = "21.11";
+            home.stateVersion = "23.05";
             home.username = "user";
             home.homeDirectory = "/home/user/";
           };

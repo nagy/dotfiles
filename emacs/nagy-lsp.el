@@ -18,6 +18,7 @@
            "q" #'eglot-code-action-quickfix
            "s-k" #'eglot-shutdown-all)
   (:states 'normal :keymaps 'prog-mode-map
+           "M-æ" #'eglot-code-actions
            "↓" #'xref-find-references
            "↑" #'xref-find-definitions))
 

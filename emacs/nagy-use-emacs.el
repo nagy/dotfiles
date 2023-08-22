@@ -18,6 +18,7 @@
   ("nil" . null)
   ("eval" . eval)
   ("defun" . def)
+  ("cond" . "∃")
   ("list" . list)
   ("rx" . "𝕏")
   ("let-alist" . "⋱")
@@ -34,12 +35,14 @@
   ("key" . "⬚")
   ("rest" . "⤑")
   ("it" . "✦")                          ; anaphoric
+  ("awhen" . when)
   ("car" . "⒈")
   ("cadr" . "⒉")
   ("caddr" . "⒊")
   ("propertize" . "≔")
   ("zerop" . [?0 (Br . Bl) ??])
   ("buffer-string" . [?𝒃 (Br . Bl) ?𝒔])
+  ("buffer-name" . [?𝒃 (Br . Bl) ?𝒏])
   ("cl-loop" . loop)
   ("cl-defgeneric" . "𝕘")
   ("cl-defmethod" . "𝕞")
@@ -53,10 +56,11 @@
   ("cl-seventh" . "⒎")
   ("cl-eighth" . "⒏")
   ("cl-ninth" . "⒐")
+  ("pcase" . "〣")                 ; same as :match
+  ("pcase-lambda" . "ƛ")
+  ("pcase-let" . "⤥")
+  ("pcase-setq" . "⤈")
   ;; ("defreader" . "ℝ")
-  ;;             :pcase "〣"                 ; same as :match
-  ;;             :pcase-lambda "ƛ" :pcase-let "⤥"
-  ;;             :pcase-setq "⤈"
   ;;             :eval-when-compile "ℂ"
   ;; :config
   ;; (add-hook! emacs-lisp-mode

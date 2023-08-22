@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_PAUS,KC_PSCR,                                                         KC_P0 ,KC_PDOT,
                                                KC_FIND,MYCM_C,             KC_MYCM,XXXXXXX,
                                                _______,_______,            _______,_______,
-                                               XXXXXXX,_______,            _______,XXXXXXX
+                                               KC_DEL ,_______,            _______,XXXXXXX
     ),
 
     [_RAISE] = LAYOUT_6x6(
