@@ -12,7 +12,7 @@
   (require 'rustic-lsp)
   ;; (setq rustic-lsp-setup-p nil)
   (remove-hook 'rustic-mode-hook #'rustic-setup-lsp)
-  :config
+  ;; :config
   ;; (setq rustic-lsp-client 'eglot)
   :pretty 'rustic-mode
   ("true" . true) ("false" . false)
@@ -23,8 +23,7 @@
   ("format!" . print)
   ("assert_eq!" . assert)
   ("std" . stdlib)
-  :abbrev 'rustic-mode
-  )
+  ("use" . import))
 
 (provide 'nagy-rust)
 ;;; nagy-rust.el ends here

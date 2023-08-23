@@ -41,7 +41,7 @@
   (delete-by-moving-to-trash t)
   (large-file-warning-threshold (* 100 1000 1000))
   (duplicate-line-final-position -1)    ; to last line
-  (backtrace-on-redisplay-error t)
+  ;; (backtrace-on-redisplay-error t)
   (browse-url-default-scheme "https")
   :bind
   ("H-e" . insert-char)
@@ -188,24 +188,24 @@
   :bind
   ("A-s-H-." . highlight-symbol-at-point))
 
-(defun nagy-ielm-init-history ()
-  (let ((path (expand-file-name "ielm/history" user-emacs-directory)))
-    (make-directory (file-name-directory path) t)
-    (setq-local comint-input-ring-file-name path))
-  (setq-local comint-input-ring-size 10000)
-  (setq-local comint-input-ignoredups t)
-  (comint-read-input-ring))
-
-(defun nagy-ielm-write-history (&rest _args)
-  (with-file-modes #o600
-    (comint-write-input-ring)))
-
 (use-package ielm
+  :preface
+  (defun nagy-ielm-init-history ()
+    (let ((path (expand-file-name "ielm/history" user-emacs-directory)))
+      (make-directory (file-name-directory path) t)
+      (setq-local comint-input-ring-file-name path))
+    (setq-local comint-input-ring-size 10000)
+    (setq-local comint-input-ignoredups t)
+    (comint-read-input-ring))
+  (defun nagy-ielm-write-history (&rest _args)
+    (with-file-modes #o600
+      (comint-write-input-ring)))
   :bind
   ("M-s-→" . ielm)
   (:map inferior-emacs-lisp-mode-map
         ("H-ö" . ielm-send-input)
         ("M-ö" . ielm-send-input)
+        ("<key-chord> f j" . ielm-send-input)
         ("s-." . eros-eval-last-sexp))
   :hook
   (ielm-mode . nagy-ielm-init-history)
@@ -247,10 +247,7 @@
   :bind
   (:map occur-edit-mode-map
         ([remap save-kill-buffer] . occur-cease-edit)
-        ([remap kill-this-buffer] . occur-cease-edit)))
-
-(use-package occur
-  :bind
+        ([remap kill-this-buffer] . occur-cease-edit))
   (:map occur-mode-map
         ("H-j" . occur-next)
         ("H-k" . occur-prev)))

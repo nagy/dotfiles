@@ -11,6 +11,7 @@
   :bind
   ("H-s-e" . eglot-rename)
   ("H-s-r" . eglot-inlay-hints-mode)
+  ("<key-chord> ü a" . eglot-code-action-quickfix)
   :general
   (:states 'normal :prefix "æ"
            "e" #'eglot

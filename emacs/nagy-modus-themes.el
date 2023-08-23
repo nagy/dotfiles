@@ -32,25 +32,23 @@
   (defun dayp ()
     "Return non-nil if it is day (aka light theme)."
     (eq (modus-themes--current-theme) 'modus-operandi))
-  :functions +modus-themes-fix-pitches
-  :init
-  (setq modus-themes-bold-constructs t
-        modus-themes-slanted-constructs t   ; kursiv
-        modus-themes-org-blocks 'tinted-background
-        modus-themes-mixed-fonts t
-        modus-themes-variable-pitch-ui t
-        modus-themes-completions
-        '((matches . (background))
-          (selection . (semibold accented intense))
-          (popup . (accented)))
-        modus-themes-common-palette-overrides
-        '((bg-mode-line-active bg-main)
-          (bg-mode-line-inactive bg-dim)
-          ;; (bg-tab-bar bg-main)
-          ;; (bg-tab-current bg-active)
-          ;; (bg-tab-other bg-inactive)
-          ))
-  )
+  :custom
+  (modus-themes-bold-constructs t)
+  (modus-themes-slanted-constructs t)   ; kursiv
+  (modus-themes-org-blocks 'tinted-background)
+  (modus-themes-mixed-fonts t)
+  (modus-themes-variable-pitch-ui nil)
+  (modus-themes-completions
+   '((matches . (background))
+     (selection . (semibold accented intense))
+     (popup . (accented))))
+  (modus-themes-common-palette-overrides
+   '((bg-mode-line-active bg-main)
+     (bg-mode-line-inactive bg-inactive)
+     ;; (bg-tab-bar bg-main)
+     ;; (bg-tab-current bg-active)
+     ;; (bg-tab-other bg-inactive)
+     )))
 
 (use-package modus-themes
   :functions nagy/modus-theme-overrides

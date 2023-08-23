@@ -41,11 +41,14 @@
 ;;; prettify symbols
 (defvar nagy-pretty-symbols-default
   '((true . "✔") (false . "✘")
+    (or . "∨") (and . "∧")
     (throw . "⍜")
     (self . "░")
     (def . "ƒ")
     (let . "↘")
-    (import . "⟻") (return . "⟼")
+    (import . "⟻")
+    (return . "⟼")
+    (export . "⟼")
     (defclass . "𝕂")
     (eval . "⩏")
     (object . "𝕆")
@@ -60,6 +63,7 @@
     (print . "⚶")
     (const . "𝕔")
     (assert . "𝒂")
+    (in . "∃")
     (list . "⋯")
     (setf . "↓")
     (setq . "↡")

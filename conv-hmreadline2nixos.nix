@@ -4,8 +4,8 @@
 #   THE MODULE NEEDS TO HAVE `programs.readline.includeSystemConfig` DISABLED
 #   BEFORE EVALUATION
 evalhmmodule: hmmodule:
-
 { lib, ... }:
+
 let hmconfig = evalhmmodule hmmodule;
 in {
   # write the config file from ~/.inputrc into /etc

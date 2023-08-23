@@ -47,11 +47,18 @@
            "g-" #'evil-numbers/dec-at-pt-incremental))
 
 (use-package eshell
+  :preface
+  (require 'esh-mode)
+  (defun nagy-eshell-clear-scrollback ()
+    (interactive)
+    (eshell/clear-scrollback)
+    (eshell-send-input))
   :bind
   ("<s-return>" . eshell)
   (:map eshell-mode-map
         ("H-h" . delete-backward-char)
         ("H-ö" . eshell-previous-input)
+        ([remap revert-buffer-quick] . nagy-eshell-clear-scrollback)
         ("s-ö" . eshell-send-input)
         ("M-ö" . eshell-send-input))
   :custom
@@ -86,7 +93,10 @@
   :custom
   (eat-kill-buffer-on-exit t)
   :config
-  (evil-set-initial-state 'eat-mode 'emacs))
+  (evil-set-initial-state 'eat-mode 'emacs)
+  :bind
+  ("<key-chord> ü x" . eat))
+
 
 (provide 'nagy-evil)
 ;;; nagy-evil.el ends here

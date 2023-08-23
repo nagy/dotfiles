@@ -40,10 +40,6 @@
         repo = "dotfiles";
         type = "github";
       };
-      d.to = {
-        id = "dot";
-        type = "indirect";
-      };
 
       lib.to = {
         owner = "NixOS";

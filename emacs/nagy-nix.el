@@ -42,9 +42,9 @@
   ("buildInputs" . "⬗")
   ("fetchurl" . "🧲")
   ("fetchFromGitHub" . [?🧲 (Br . Bl) ?′])
-  ("fetchFromGitLab" . "🧲″")
-  ("fetchFromSourcehut" . "🧲‴")
-  ("fetchgit" . "🧲⁗")
+  ("fetchFromGitLab" . [?🧲 (Br . Bl) ?″])
+  ("fetchFromSourcehut" . [?🧲 (Br . Bl) ?‴])
+  ("fetchgit" . [?🧲 (Br . Bl) ?⁗])
   ;; Haumea
   ("root" . "√")
   ("python3" . "🐍")
@@ -67,7 +67,7 @@
   ;; Nixos lib
   ("enable" . "¿")
   ("mkOption" . "⌥")
-  ("mkEnableOption" . "⌥¿")
+  ("mkEnableOption" . [?⌥ (Br . Bl) ?¿])
   ("nagy" . "ℕ")
   ;; Flakes
   ("inputs" . import)

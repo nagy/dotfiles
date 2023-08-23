@@ -34,7 +34,7 @@ in
       noto-fonts
       # Only one icon used: 〜
       # From font "file-icons". May be a bit overkill
-      emacs-all-the-icons-fonts
+      # emacs-all-the-icons-fonts
     ];
   };
 }
