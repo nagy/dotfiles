@@ -19,7 +19,6 @@ let
       org-pdftools
       triples
       bufler
-      osm
 
       visual-fill-column
 
