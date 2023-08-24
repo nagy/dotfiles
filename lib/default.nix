@@ -1,23 +1,25 @@
-{ pkgs }:
-with pkgs.lib; rec {
+{ pkgs, lib ? pkgs.lib }:
 
-  mapNumToString = elemAt (splitString "" "abcdefghijklmnopqrstuvwxyz");
+rec {
+
+  mapNumToString = lib.elemAt (lib.splitString "" "abcdefghijklmnopqrstuvwxyz");
 
   mapStringToNum = str:
     let
-      thelist = imap0 (i: v: { inherit i v; })
-        (splitString "" "abcdefghijklmnopqrstuvwxyz");
+      thelist = lib.imap0 (i: v: { inherit i v; })
+        (lib.splitString "" "abcdefghijklmnopqrstuvwxyz");
     in
-    (findFirst (x: x.v == str) (throw "Element not found in list iteration")
+    (lib.findFirst (x: x.v == str)
+      (throw "Element not found in list iteration")
       thelist).i;
 
   mkBashCompletion = cmd: list:
     let
-      first = head list;
-      underscored = concatStringsSep "_" list;
+      first = lib.head list;
+      underscored = lib.concatStringsSep "_" list;
       # TODO This should be wrapped in quotes
-      spaced = concatStringsSep " " list;
-      len_minus_1 = (length list) - 1;
+      spaced = lib.concatStringsSep " " list;
+      len_minus_1 = (lib.length list) - 1;
     in
     pkgs.writeTextDir "share/bash-completion/completions/${cmd}" ''
       function _complete_shortcommand_${underscored} {
@@ -43,7 +45,7 @@ with pkgs.lib; rec {
   mkShortCommandScript = cmd: list:
     let
       # FIXME This should be surrounded by quotes
-      spaced = concatStringsSep " " list;
+      spaced = lib.concatStringsSep " " list;
     in
     pkgs.writeShellScriptBin cmd ''exec ${spaced} "$@"'';
 
@@ -141,14 +143,14 @@ with pkgs.lib; rec {
     }:
     let
       # emailuser = elemAt (splitString "@" email) 0;
-      emailhost = elemAt (splitString "@" email) 1;
+      emailhost = lib.elemAt (lib.splitString "@" email) 1;
       name = emailhost;
       configHeadLet =
         if configHead == null then ''
           Host ${hostextra}${emailhost}
           User ${email}
           PassCmd "pass ${emailhost} | head -1"'' else
-          removeSuffix "\n" configHead;
+          lib.removeSuffix "\n" configHead;
       configfile = pkgs.writeText "mbsync-config-${name}" ''
         IMAPAccount default
         ${configHeadLet}

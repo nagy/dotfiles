@@ -85,6 +85,7 @@
   :defer t
   :bind
   (:map sly-mrepl-mode-map
+        ("H-ö" . nagy-common-lisp-sly-mrepl-return)
         ("H-r" . sly-mrepl-clear-repl))
   :general
   (:states 'normal :keymaps 'sly-mrepl-mode-map
@@ -109,6 +110,17 @@
   ("list" . list)
   )
 
+;; https://github.com/joaotavora/sly/issues/334
+;; (setf (cdr (assoc 'slynk:*string-elision-length* slynk:*slynk-pprint-bindings*)) nil) ; this can also go into "~/.slynkrc"
+;; (setf slynk::*inspector-slots-default-order* :unsorted)
+;; (setf slynk::*inspector-slots-default-order* :unsorted)
+;; (setf slynk::*inspector-slots-default-grouping* :inheritance)
+;; display reuse window
+;; (defadvice! +sly-mrepl-return-refresh-inspector (&rest args)
+;;   :after #'sly-mrepl-return
+;;   (when (get-buffer "*sly-inspector for sbcl*")
+;;     (with-current-buffer (get-buffer "*sly-inspector for sbcl*")
+;;       (revert-buffer))))
 
 ;;; Scheme
 

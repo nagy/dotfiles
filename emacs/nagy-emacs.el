@@ -264,8 +264,8 @@
   ("H-j" . scroll-up-command)
   ("H-k" . scroll-down-command))
 
-(require 'ov)
 (use-package elisp-mode
+  :functions (ov-set)
   :preface
   (defun nagy-highlight-doom! ()
     "Highlight doom usage"

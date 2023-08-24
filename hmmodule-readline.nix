@@ -3,7 +3,7 @@
 {
   programs.readline = {
     enable = true;
-    includeSystemConfig = false; # THIS IS IMPORTANT
+    includeSystemConfig = false; # this is necessary
     variables = {
       # Be 8 bit clean.
       input-meta = true;
