@@ -59,6 +59,7 @@ let
     "Rø" = [ "nix" "run" "--override-input" "nixpkgs" "nixpkgs" ];
     "Bø" = [ "nix" "build" "--override-input" "nixpkgs" "nixpkgs" ];
     "Dø" = [ "nix" "develop" "--override-input" "nixpkgs" "nixpkgs" ];
+    "Eø" = [ "nix" "eval" "--override-input" "nixpkgs" "nixpkgs" ];
     "Fsø" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "nixpkgs" ];
     "Fmø" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "nixpkgs" ];
     "Fcø" = [ "nix" "flake" "check" "--override-input" "nixpkgs" "nixpkgs" ];
@@ -295,9 +296,11 @@ let
     Ctr = [ "cargo" "test" "--release" ];
 
     # misc
-    J = [ "jq" "--monochrome-output" "--sort-keys" ];
-    Jr = [ "jq" "--monochrome-output" "--sort-keys" "--raw-output" ];
-    Js = [ "jq" "--slurp" ];
+    j = [ "jq" "--monochrome-output" "--sort-keys" ];
+    jr = [ "jq" "--monochrome-output" "--sort-keys" "--raw-output" ];
+    js = [ "jq" "--slurp" ];
+    "j≢" = [ "jq" "length" ];
+
     jqM = [ "jq" "--monochrome-output" ];
     jcP = [ "jc" "--pretty" ];
     Y = [ "yq" "--prettyPrint" "--no-colors" ];
@@ -327,7 +330,15 @@ let
     dush = [ "du" "sh" ];
     dfh = [ "df" "-h" ];
     dfhh = [ "df" "-h" "/home" ];
+    w1 = [ "watch" "--interval" "1" ];
+    w05 = [ "watch" "--interval" "0.5" ];
+    mask = [ "openssl" "env" "-e" "-aes-256-ctr" "-nopad" "-nosalt" "-k" "" ];
+
     ungron = [ "gron" "--ungron" ];
+    fd1 = [ "fd" "-j1" ];
+    fd1f = [ "fd" "-j1" "-tf" ];
+
+    fdf = [ "fd" "-tf" ];
   };
   dotlib = import ../lib { inherit pkgs; };
 in

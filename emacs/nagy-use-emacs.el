@@ -43,6 +43,9 @@
   ("zerop" . [?0 (Br . Bl) ??])
   ("buffer-string" . [?𝒃 (Br . Bl) ?𝒔])
   ("buffer-name" . [?𝒃 (Br . Bl) ?𝒏])
+  ("start-process" . [?𝒔 (Br . Bl) ?𝒑])
+  ("call-process" . [?𝒄 (Br . Bl) ?𝒑])
+  ("condition-case" . [?𝒄 (Br . Bl) ?𝒄])
   ("cl-loop" . loop)
   ("cl-defgeneric" . "𝕘")
   ("cl-defmethod" . "𝕞")
@@ -56,7 +59,7 @@
   ("cl-seventh" . "⒎")
   ("cl-eighth" . "⒏")
   ("cl-ninth" . "⒐")
-  ("pcase" . "〣")                 ; same as :match
+  ("pcase" . "〣")                      ; same as :match
   ("pcase-lambda" . "ƛ")
   ("pcase-let" . "⤥")
   ("pcase-setq" . "⤈")

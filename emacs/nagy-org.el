@@ -23,6 +23,7 @@
         ("H-w"   . org-ctrl-c-ctrl-c)
         ("H-h"   . org-info-find-node)
         ("s-."   . org-ctrl-c-ctrl-c)
+        ("<key-chord> f j" . org-ctrl-c-ctrl-c)
         ("C-H-#" . org-edit-special)
         ("A-s-j" . org-edit-special))
   :pretty 'org-mode
@@ -32,6 +33,10 @@
   ("#+end_src" . "«")
   ("#+BEGIN_SRC" . "»")
   ("#+END_SRC" . "«")
+  ("#+begin_quote" . "“")
+  ("#+end_quote" . "”")
+  ("#+BEGIN_QUOTE" . "“")
+  ("#+END_QUOTE" . "”")
   ("#+title:" . "⨠")
   ("#+TITLE:" . "⨠")
   ("[ ]" . "☐")

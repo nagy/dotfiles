@@ -1,4 +1,5 @@
 ;;; nagy.el --- -*- lexical-binding: t; -*-
+
 (require 'nagy-common-lisp nil t)
 (require 'nagy-company nil t)
 (require 'nagy-corfu nil t)
@@ -26,5 +27,6 @@
 (require 'nagy-use-package nil t)
 (require 'nagy-vertico nil t)
 (require 'nagy-web nil t)
+
 (provide 'nagy)
 ;;; nagy.el ends here

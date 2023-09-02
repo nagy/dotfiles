@@ -23,7 +23,21 @@
   ("format!" . print)
   ("assert_eq!" . assert)
   ("std" . stdlib)
-  ("use" . import))
+  ("use" . import)
+  ("Vec" . "𝕍")
+  ("String" . "𝕊")
+  ("Result" . "ℝ")
+  ("Option" . "𝕆")
+  ("unwrap" . "𝕌")
+  :abbrev 'rustic-mode
+  ("uw" . "unwrap")
+  ("rs" . "Result")
+  ("st" . "String")
+  ("v" . "Vec")
+  ("l" . "let")
+  ("m" . "mut")
+  :cycle 'rustic-mode
+  ("Result" "Option"))
 
 (provide 'nagy-rust)
 ;;; nagy-rust.el ends here

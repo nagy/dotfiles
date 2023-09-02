@@ -44,6 +44,7 @@
   ;; (backtrace-on-redisplay-error t)
   (browse-url-default-scheme "https")
   :bind
+  ("H-M-t" . text-mode)
   ("H-e" . insert-char)
   ("C-H-e" . emoji-insert)
   ("H-r" . revert-buffer-quick)
