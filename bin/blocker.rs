@@ -60,7 +60,7 @@ impl Hash {
             self.some.chars().nth(2).unwrap(),
             self.some.chars().nth(3).unwrap(),
         );
-        format!("{three}{four}",)
+        format!("{three}{four}")
     }
     fn dirname(&self) -> String {
         format!("{}/{}", self.first(), self.second())
@@ -191,6 +191,9 @@ fn main() {
             let chh: Hash = ch.into();
             let innercontent = chh.read().unwrap();
             copy(&mut &innercontent[..], &mut stdout()).unwrap();
+            if !running.load(std::sync::atomic::Ordering::SeqCst) {
+                return;
+            }
         }
     } else {
         // put mode

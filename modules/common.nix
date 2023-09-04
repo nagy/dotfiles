@@ -51,6 +51,9 @@
     lt = "ls --human-readable --size -1 -S --classify";
     ll = "ls --human-readable -l";
     la = "ls --human-readable --all -l";
+    llH = "ls --human-readable -l --dereference-command-line";
+    laH = "ls --human-readable --all -l --dereference-command-line";
+    ltH = "ls --human-readable --size -1 -S --classify --dereference-command-line";
     path = "echo -e \${PATH//:/\\n}";
     fastping = "ping -c 20 -i.2";
   };

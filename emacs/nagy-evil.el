@@ -92,6 +92,7 @@
 (use-package eat
   :custom
   (eat-kill-buffer-on-exit t)
+  (eat-enable-directory-tracking nil)
   :config
   (evil-set-initial-state 'eat-mode 'emacs)
   :bind

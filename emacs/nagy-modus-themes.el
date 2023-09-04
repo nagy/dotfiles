@@ -62,18 +62,7 @@
       (set-face-attribute 'dired-header nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)))
   (add-hook 'modus-themes-after-load-theme-hook #'nagy/modus-theme-overrides)
   (add-hook 'doom-first-buffer-hook #'nagy/modus-theme-overrides)
-  (add-hook 'doom-big-font-mode-hook #'nagy/modus-theme-overrides)
-  (with-eval-after-load 'simple
-    (set-face-attribute 'separator-line nil :underline "white"))
-  (with-eval-after-load 'shr
-    (set-face-attribute 'shr-h1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
-    (set-face-attribute 'shr-h2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
-    (set-face-attribute 'shr-h3 nil :font "Et Bembo" :height 1.2 :inherit 'modus-themes-heading-3))
-  (with-eval-after-load 'magit
-    (set-face-attribute 'magit-diff-added nil :inherit 'org-block)
-    (set-face-attribute 'magit-diff-removed nil :inherit 'org-block)
-    (set-face-attribute 'magit-diff-context nil :inherit 'org-block)
-    (set-face-attribute 'magit-diff-context-highlight nil :inherit 'org-block)))
+  (add-hook 'doom-big-font-mode-hook #'nagy/modus-theme-overrides))
 
 (use-package paren-face
   :functions nagy/fix-parenface

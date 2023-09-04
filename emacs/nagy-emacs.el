@@ -163,7 +163,6 @@
   (define-abbrev global-abbrev-table "truf" "truth" nil :system t)
   (define-abbrev global-abbrev-table "gr8" "great" nil :system t)
   (define-abbrev global-abbrev-table "thrf" "therefore" nil :system t)
-  (define-abbrev global-abbrev-table "bcs" "because" nil :system t)
   ;; Typos
   (define-abbrev global-abbrev-table "wether" "whether" nil :system t)
   (define-abbrev global-abbrev-table "occured" "occurred" nil :system t)

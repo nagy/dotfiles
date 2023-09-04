@@ -5,6 +5,10 @@
 (require 'nagy-use-package)
 
 (use-package emacs
+  :preface
+  (defun nagy-emacs-set-lexical ()
+    (interactive)
+    (setq lexical-binding t))
   :demand t
   :bind
   ("H-M-e" . emacs-lisp-mode)

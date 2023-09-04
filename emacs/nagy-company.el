@@ -23,7 +23,8 @@
   :bind
   ("C-M-s-¢" . company-mode)
   (:map company-active-map
-        ("C-l" . company-complete-selection))
+        ("C-l" . company-complete-selection)
+        ("<key-chord> f j" . company-complete-selection))
   ;; (:map doom-leader-map
   ;;       ("M-c" . company-mode))
   :custom

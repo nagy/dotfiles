@@ -64,7 +64,6 @@ let
     "Fmø" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "nixpkgs" ];
     "Fcø" = [ "nix" "flake" "check" "--override-input" "nixpkgs" "nixpkgs" ];
     "SHø" = [ "nix" "shell" "--override-input" "nixpkgs" "nixpkgs" ];
-    "Pø" = [ "nix" "profile" "--override-input" "nixpkgs" "nixpkgs" ];
 
     "RØ" = [
       "nix"

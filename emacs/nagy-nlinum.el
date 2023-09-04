@@ -1,4 +1,4 @@
-;;; nagy-nlinum.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-nlinum.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;;
 ;; Copyright (C) 2023 Daniel Nagy
 ;;
@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-nlinum
-;; Package-Requires: ((emacs "29.1") nlinum)
+;; Package-Requires: ((emacs "29.1"))
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -19,14 +19,12 @@
 ;;
 ;;; Code:
 
-(eval-when-compile
-  ;; To catch errors during batch compilation
-  (require 'nlinum) ; warns about being deprecated
-  )
-
-(use-package nlinum
+(use-package display-line-numbers
+  ;; :custom
+  ;; (display-line-numbers-type t)
   :bind
-  ("M-ĸ" . nlinum-mode))
+  ("M-ĸ" . display-line-numbers-mode)
+  ("s-M-ĸ" . global-display-line-numbers-mode))
 
 (provide 'nagy-nlinum)
 ;;; nagy-nlinum.el ends here
