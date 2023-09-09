@@ -10,6 +10,7 @@
 (require 'nagy-emacs nil t)
 (require 'nagy-evil nil t)
 (require 'nagy-formats nil t)
+(require 'nagy-gc nil t)
 (require 'nagy-hy nil t)
 (require 'nagy-lsp nil t)
 (require 'nagy-lua nil t)
