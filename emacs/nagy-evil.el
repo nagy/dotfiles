@@ -33,6 +33,8 @@
   (evil-insert-state-cursor '(bar . 5))
   (evil-echo-state nil)
   (evil-mode-line-format 'before)
+  ;; Does not work because deletion commands also are affected
+  ;; (evil-respect-visual-line-mode t)
   :bind
   ("H-z" . evil-scroll-line-to-center)
   ("H-u" . evil-undo))
@@ -82,8 +84,14 @@
   :config
   (evil-set-initial-state 'shell-mode 'normal))
 
-;; (use-package sqlite-mode
-;;   :same "^*SQLite ")
+(use-package sqlite-mode
+  ;; Tracking issue https://github.com/emacs-evil/evil-collection/issues/749
+  :general
+  (:states 'normal :keymaps 'sqlite-mode-map
+           "H-r" #'sqlite-mode-list-tables
+           "f" #'sqlite-mode-list-data
+           "RET" #'sqlite-mode-list-data)
+  :same "^*SQLite ")
 
 (use-package sql
   :abbrev 'sql-mode

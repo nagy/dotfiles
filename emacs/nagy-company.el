@@ -27,6 +27,9 @@
         ("<key-chord> f j" . company-complete-selection))
   ;; (:map doom-leader-map
   ;;       ("M-c" . company-mode))
+  ;; (map! :map company-active-map
+  ;;       "RET" nil
+  ;;       "<return>" nil)
   :custom
   (company-idle-delay 0.1)
   (company-minimum-prefix-length 1)

@@ -73,6 +73,21 @@
   ;; (eww-mode . visual-fill-column-mode)
   (eww-mode . variable-pitch-mode))
 
+;; (use-package hide-comnt
+;;   :bind
+;;   ("H-s-¢" . hide/show-comments-toggle))
+
+(use-package prog-mode
+  :config
+  ;; (setq prettify-symbols-unprettify-at-point nil)
+  :hook
+  (prog-mode . visual-line-mode)
+  (prog-mode . paren-face-mode))
+
+(use-package tokei
+  :hook
+  (tokei-mode . visual-fill-column-mode))
+
 (use-package eros
   :custom
   (eros-eval-result-prefix ""))
@@ -89,6 +104,16 @@
            "ö" #'calc-edit-finish)
   (:states 'normal :keymaps 'calc-mode-map
            "π" #'calc-pi))
+
+(use-package wdired
+  :general
+  (:states 'normal :keymaps 'wdired-mode-map
+           "ö" #'wdired-finish-edit))
+
+(use-package image
+  :general
+  (:states 'normal :keymaps 'image-mode-map
+           "P" #'image-transform-fit-to-window))
 
 (use-package gitconfig-mode
   :pretty 'gitconfig-mode
@@ -129,6 +154,27 @@
   (:states 'normal :keymaps 'custom-mode-map
            "f" #'Custom-newline
            "u" #'Custom-goto-parent))
+
+(use-package ielm
+  :general
+  (:states 'normal :keymaps 'inferior-emacs-lisp-mode-map
+           "ö" #'ielm-return))
+
+(use-package osm
+  :custom
+  (osm-copyright nil)
+  :bind
+  (:map osm-mode-map
+        ("<home>" . osm-left-left)
+        ("<end>" . osm-right-right)
+        ("<next>" . osm-down-down)
+        ("<prior>" . osm-up-up))
+  :same "^\\*osm")
+
+;; (use-package breadcrumb
+;;   :config
+;;   (map! "A-H-j" #'breadcrumb-jump)
+;;   (map! :n "¿" #'breadcrumb-mode))
 
 (use-package tabulated-list
   :general

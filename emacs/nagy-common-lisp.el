@@ -128,7 +128,11 @@
   :bind
   (:map scheme-mode-map
         ("s-." . scheme-send-last-sexp)
-        ("s--" . scheme-send-definition)))
+        ("s--" . scheme-send-definition))
+  :pretty 'scheme-mode
+  ("define" . setq)
+  ("if" . if)
+  ("import" . import))
 
 (provide 'nagy-common-lisp)
 ;;; nagy-common-lisp.el ends here

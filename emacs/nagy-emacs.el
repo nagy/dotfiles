@@ -99,6 +99,9 @@
 (use-package calc
   ;; Tutorial: https://nullprogram.com/blog/2009/06/23/
   :config
+  ;; https://github.com/sulami/literate-calc-mode.el/issues/27#issuecomment-1218113511
+  (defalias 'calcFunc-uconv 'math-convert-units)
+  ;; (defalias 'calcFunc-urem 'math-remove-units)
   ;; https://old.reddit.com/r/emacs/comments/hujbbm/why_calceval_390010015_026_instead_585/
   (setq calc-multiplication-has-precedence nil)
   ;; https://www.n16f.net/blog/using-units-in-emacs-calc/
@@ -288,11 +291,42 @@
 (rx-define sha256 (repeat 64 hex))
 (rx-define sha512 (repeat 128 hex))
 
+(require 'xwidget)
+(use-package xwidget
+  :preface
+  (defun nagy-emacs-xwidget-remove-header-line-h ()
+    (setq-local header-line-format nil))
+  (add-hook 'xwidget-webkit-mode-hook #'nagy-emacs-xwidget-remove-header-line-h)
+  :config
+  (remove-hook 'kill-buffer-query-functions #'xwidget-kill-buffer-query-function))
+
 (use-package eww
   ;; could also bind this to `special-mode'
   :bind
   ("H-j" . scroll-up-command)
   ("H-k" . scroll-down-command))
+
+(use-package epg
+  :config
+  ;; Known problems with gpg 2.4.1
+  ;; https://stackoverflow.com/questions/76388376/emacs-org-encrypt-entry-hangs-when-file-is-modified
+  (fset 'epg-wait-for-status 'ignore))
+
+(use-package ibuffer
+  :custom
+  (ibuffer-expert t)
+  :config
+  (setq ibuffer-formats
+        '((mark modified read-only locked " "
+           (name 42 42 :left :elide)
+           " "
+           (size 9 -1 :right)
+           " "
+           (mode 16 16 :left :elide)
+           " " filename-and-process)
+          (mark " "
+                (name 16 -1)
+                " " filename))))
 
 (use-package elisp-mode
   :functions (ov-set)
@@ -311,6 +345,12 @@
   :custom
   (truncate-string-ellipsis "┄")        ; use smaller char than default
   )
+
+(use-package paren
+  :custom
+  (show-paren-delay 0.0)
+  :config
+  (set-face-attribute 'show-paren-match nil :inherit 'modus-themes-subtle-blue :background 'unspecified))
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here
