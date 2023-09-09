@@ -85,6 +85,18 @@
 ;; (use-package sqlite-mode
 ;;   :same "^*SQLite ")
 
+(use-package sql
+  :abbrev 'sql-mode
+  ("c" . "create")
+  ("t" . "table")
+  ("s" . "select")
+  ("i" . "insert")
+  ("u" . "update")
+  ("f" . "from")
+  ("d" . "delete")
+  ("dr" . "drop")
+  ("e" . "exists"))
+
 ;; (use-package evil-collection-calc
 ;;   :config
 ;;   (evil-set-initial-state 'calc-mode 'emacs))

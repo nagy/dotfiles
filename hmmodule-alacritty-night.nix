@@ -10,6 +10,7 @@ isDark:
     settings = {
       # disable url launcher
       hints.enabled = [ ];
+      # 100k is the max
       scrolling = { history = 100 * 1000; };
       # xterm colors
       # https://github.com/eendroroy/alacritty-theme/blob/master/themes/xterm.yaml

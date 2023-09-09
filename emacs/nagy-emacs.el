@@ -140,6 +140,13 @@
   (tab-bar-close-button-show nil)
   (tab-bar-new-tab-choice t))
 
+(use-package tab-line
+  :config
+  (global-tab-line-mode 1)
+  :custom
+  (tab-line-close-button nil)
+  (tab-line-new-button nil))
+
 (use-package wdired
   :bind
   (:map wdired-mode-map
@@ -172,6 +179,29 @@
   (define-abbrev global-abbrev-table "fuond" "found" nil :system t)
   (define-abbrev global-abbrev-table "lnux" "linux" nil :system t)
   (define-abbrev global-abbrev-table "thsi" "this" nil :system t)
+  (with-eval-after-load 'text-mode
+    (define-abbrev text-mode-abbrev-table "t" "the" nil :system t)
+    (define-abbrev text-mode-abbrev-table "gr" "great" nil :system t)
+    (define-abbrev text-mode-abbrev-table "bc" "because" nil :system t)
+    (define-abbrev text-mode-abbrev-table "n" "and" nil :system t)
+    (define-abbrev text-mode-abbrev-table "w" "was" nil :system t)
+    (define-abbrev text-mode-abbrev-table "lo" "long" nil :system t)
+    (define-abbrev text-mode-abbrev-table "la" "last" nil :system t)
+    (define-abbrev text-mode-abbrev-table "ev" "ever" nil :system t)
+    (define-abbrev text-mode-abbrev-table "ng" "nothing" nil :system t)
+    (define-abbrev text-mode-abbrev-table "hr" "here" nil :system t)
+    (define-abbrev text-mode-abbrev-table "f" "for" nil :system t)
+    (define-abbrev text-mode-abbrev-table "fo" "found" nil :system t)
+    (define-abbrev text-mode-abbrev-table "aa" "against" nil :system t)
+    (define-abbrev text-mode-abbrev-table "hb" "husband" nil :system t)
+    (define-abbrev text-mode-abbrev-table "y" "you" nil :system t)
+    (define-abbrev text-mode-abbrev-table "yo" "your" nil :system t)
+    (define-abbrev text-mode-abbrev-table "tk" "think" nil :system t)
+    (define-abbrev text-mode-abbrev-table "kg" "keeping" nil :system t)
+    (define-abbrev text-mode-abbrev-table "dn" "down" nil :system t)
+    (define-abbrev text-mode-abbrev-table "ai" "making" nil :system t)
+    (define-abbrev text-mode-abbrev-table "h" "that" nil :system t)
+    (define-abbrev text-mode-abbrev-table "xl" "human" nil :system t))
   (with-eval-after-load 'nix-repl
     (define-abbrev nix-repl-mode-abbrev-table "wpkgs" "with import <nixpkgs> { }; " nil :system t))
   (with-eval-after-load 'ielm

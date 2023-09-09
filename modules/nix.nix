@@ -78,10 +78,6 @@
         repo = "nixos-shell";
         type = "github";
       };
-      eo.to = {
-        id = "emacs-overlay";
-        type = "indirect";
-      };
       nix-mode.to = {
         owner = "NixOS";
         repo = "nix-mode";

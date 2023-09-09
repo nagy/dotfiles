@@ -24,10 +24,6 @@
   ("void" . null)
   ("new" . new)
   ("final" . const)
-  ;; annotations
-  ("@Memoized" . "🧠")
-  ("@Lazy" . "💤")
-  ("@CompileStatic" . "🧱")
   :abbrev 'groovy-mode
   ;; ("df" . "def")
   ("pr" . "println"))
@@ -35,6 +31,14 @@
 (use-package jenkinsfile-mode
   :custom
   (jenkinsfile-mode-indent-offset 2))
+
+(use-package gitlab-ci-mode
+  :pretty 'gitlab-ci-mode
+  ("variables" . let)
+  ("default" . stdlib)
+  ("artifacts" . [?𝒂 (Br . Bl) ?𝒓])
+  ("script" . [?𝒔 (Br . Bl) ?𝒄])
+  ("dependencies" . [?𝒅 (Br . Bl) ?𝒆]))
 
 ;; (use-package cmake-mode)
 

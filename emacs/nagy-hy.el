@@ -9,16 +9,28 @@
   ("H-M-P" . hy-mode)
   :pretty 'hy-mode
   ("True" . true) ("False" . false)
-  ("raise" . throw)
-  ("defn" . def)
-  ("defmain" . "𝔐")
-  ("defclass" . defclass)
   ("import" . import)
+  ("let" . let)
+  ("setv" . setq)
+  ("when" . when) ("unless" . unless)
+  ("raise" . throw)
+  ("len" . "≢")
+  ("defn" . def)
+  ("defclass" . defclass)
+  ("defmain" . "𝔐")
+  ("with" . [?↗ (Bl . Bl) ?↘])
+  ("it" . "✦")                          ; anaphoric
+  ("ap-with" . [?↗ (Bl . Bl) ?↘])
   ("Path" . "𝕻")
   ("#/" . eval)
   :abbrev 'hy-mode
   ("df" . "defn")
+  ("dc" . "dict")
   ("sv" . "setv")
+  ("wh" . "when")
+  ("unl" . "unless")
+  ("req" . "require")
+  ("imp" . "import")
   :same
   "^\\*Hy\\*$")
 

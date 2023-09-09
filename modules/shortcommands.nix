@@ -187,30 +187,29 @@ let
 
     # git
     g = [ "git" ];
-    G = [ "git" ];
-    Gcl = [ "git" "clone" ];
-    Gcl1 = [ "git" "clone" "--depth=1" ];
-    Gf = [ "git" "fetch" ];
-    Gfp = [ "git" "fetch" "--prune" ];
-    Gt = [ "git" "tag" ];
-    Gtl = [ "git" "tag" "--list" ];
-    Gts = [ "git" "tags" ];
-    Gp = [ "git" "push" ];
-    Gpf = [ "git" "push" "--force" ];
-    Gpl = [ "git" "pull" ];
+    gcl = [ "git" "clone" ];
+    gcl1 = [ "git" "clone" "--depth=1" ];
+    gf = [ "git" "fetch" ];
+    gfp = [ "git" "fetch" "--prune" ];
+    gt = [ "git" "tag" ];
+    gtl = [ "git" "tag" "--list" ];
+    gts = [ "git" "tags" ];
+    gp = [ "git" "push" ];
+    gpf = [ "git" "push" "--force" ];
+    gpl = [ "git" "pull" ];
 
     # sqlite
-    Q = [ "sqlite3" ];
-    Qj = [ "sqlite3" "-json" ];
-    Qt = [ "sqlite3" "-table" ];
-    Qb = [ "sqlite3" "-box" ];
-    Qh = [ "sqlite3" "-html" ];
-    Qc = [ "sqlite3" "-csv" ];
+    q = [ "sqlite3" ];
+    qj = [ "sqlite3" "-json" ];
+    qt = [ "sqlite3" "-table" ];
+    qb = [ "sqlite3" "-box" ];
+    qh = [ "sqlite3" "-html" ];
+    qc = [ "sqlite3" "-csv" ];
 
     # zig
-    Z = [ "zig" ];
-    Zb = [ "zig" "build" ];
-    Zbs = [ "zig" "build" "-O" "ReleaseSmall" ];
+    z = [ "zig" ];
+    zb = [ "zig" "build" ];
+    zbs = [ "zig" "build" "-O" "ReleaseSmall" ];
 
     # # docker
     # dO = [ "docker" ];

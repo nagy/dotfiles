@@ -151,7 +151,7 @@
     tokei
     unzip
     usbutils
-    sqlite
+    sqlite-interactive
     oil
 
     black

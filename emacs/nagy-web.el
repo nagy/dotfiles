@@ -27,7 +27,19 @@
 
 (use-package csv-mode)
 (use-package yaml-mode)
-(use-package jq-mode)
+
+(use-package jq-mode
+  ;; :mode "\\.jq\\'"
+  :pretty 'jq-mode
+  ("def" . def)
+  ("try" . try) ("catch" . except)
+  :abbrev 'jq-mode
+  ("d" . "def")
+  ("t" . "try")
+  ("c" . "catch")
+  ("sel" . "select")
+  ("con" . "contains"))
+
 (use-package svelte-mode)
 
 (provide 'nagy-web)

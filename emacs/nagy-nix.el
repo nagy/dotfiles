@@ -88,6 +88,7 @@
   ("ffgl" . "fetchFromGitLab")
   ("ffsh" . "fetchFromSourcehut")
   ("nbi" . "nativeBuildInputs =")
+  ("pbi" . "propagatedBuildInputs =")
   ("bi" . "buildInputs =")
   ("ih" . "inherit")
   ("pk" . "pkgs")
@@ -106,6 +107,7 @@
   ;; Hooks
   ("preInstall" "postInstall")
   ("preBuild" "postBuild")
+  ("prePatch" "postPatch")
   ;; Flakes
   ("inputs" "outputs"))
 

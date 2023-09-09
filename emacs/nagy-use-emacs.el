@@ -63,6 +63,7 @@
   ("cl-seventh" . "⒎")
   ("cl-eighth" . "⒏")
   ("cl-ninth" . "⒐")
+  ("cl-tenth" . "⒑")
   ("pcase" . "〣")                      ; same as :match
   ("pcase-lambda" . "ƛ")
   ("pcase-let" . "⤥")

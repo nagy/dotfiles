@@ -130,5 +130,14 @@
            "f" #'Custom-newline
            "u" #'Custom-goto-parent))
 
+(use-package tabulated-list
+  :general
+  (:states 'normal :keymaps 'tabulated-list-mode-map
+           "ö" #'tabulated-list-widen-current-column
+           "a" #'tabulated-list-narrow-current-column
+           "s" #'tabulated-list-sort
+           "h" #'tabulated-list-previous-column
+           "l" #'tabulated-list-next-column))
+
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
