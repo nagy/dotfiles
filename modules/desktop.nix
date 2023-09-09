@@ -32,16 +32,6 @@ in
     displayManager.startx.enable = true;
     # https://discourse.nixos.org/t/enable-vertical-sync-on-amd-gpu/12369/5
     deviceSection = ''Option "TearFree" "true"''; # For amdgpu.
-    # patch away the inet(evdev) appendix
-    xkbDir =
-      let
-        xkb_patched = (pkgs.xorg.xkeyboardconfig_custom {
-          layouts = config.services.xserver.extraLayouts;
-        }).overrideAttrs ({ postPatch ? "", ... }: {
-          postPatch = postPatch + "echo > rules/0026-evdev.m_s.part";
-        });
-      in
-      lib.mkForce "${xkb_patched}/etc/X11/xkb";
     # keyboard
     layout = "mine";
     extraLayouts = {
@@ -69,20 +59,14 @@ in
              key <MENU> { [ Menu, Menu, U2194, U2195  ] };
              key <RWIN> { [ Hyper_R, Hyper_R ] };
              key <INS>  { [ Multi_key, Multi_key, U232F, U223F ] };
-             // does not work yet because it gets overridden by inet(evdev)
-             // see setxkbmap -print for why
-             // key <KATA>  { [U2ADD, U22D4, U29FB, U223A] };
              key <HNGL> { [ U269B, U2607, U237E, U238D] };
              key <KATA> { [ U29FB, U29e7, includes, intersection] };
              key <HJCV> { [ U2A5A, U2A5B, U2A51, U2A52] };
              key <HENK> { [ U29D6, U27C1, U2220, U29A2] };
              key <HKTG> { [ U29C7, U29C8, U2A4f, U2A4E] };
              key <HIRA> { [ U1F5E4, U1F5E5, U223A, ff ] };
-             // key <mineLower4> { [ ff, cent, U232F, Help ] };
-             // same problem here
              key <FK13> { [ ff, ht, includes, intersection] };
 
-             // modifier_map Mod3   { <MENU> };
              modifier_map Mod3   { <RWIN> };
              modifier_map Mod2   { <RCTL> };  // linux ALT key
              key <RCTL> { [ Alt_L, Alt_L ] };
