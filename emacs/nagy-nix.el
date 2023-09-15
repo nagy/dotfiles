@@ -67,6 +67,7 @@
   ;; Nixos lib
   ("enable" . "¿")
   ("mkOption" . "⌥")
+  ("mkIf" . if)
   ("mkEnableOption" . [?⌥ (Br . Bl) ?¿])
   ("nagy" . "ℕ")
   ;; Flakes

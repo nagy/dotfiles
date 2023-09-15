@@ -13,11 +13,22 @@
 (use-package typescript-mode
   :defer t
   :pretty 'typescript-mode
-  ("this" . self))
+  ("this" . self)
+  ("import" . import)
+  ("return" . return)
+  ("new" . new)
+  ("function" . def)
+  ("const" . const))
 
 (use-package js
   :pretty 'js-mode
-  ("true" . true) ("false" . false))
+  ("true" . true) ("false" . false)
+  ("if" . if) ("else" . else)
+  ("function" . def)
+  ("return" . return)
+  ("while" . loop)
+  ("var" . let)
+  ("const" . const))
 
 (use-package wat-mode
   :pretty 'wat-mode
@@ -26,7 +37,10 @@
   ("global" . "🌐"))
 
 (use-package csv-mode)
-(use-package yaml-mode)
+
+(use-package yaml-mode
+  :bind
+  ("H-M-y" . yaml-mode))
 
 (use-package jq-mode
   ;; :mode "\\.jq\\'"

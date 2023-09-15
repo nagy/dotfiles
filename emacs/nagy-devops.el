@@ -5,6 +5,8 @@
 (require 'nagy-use-package)
 
 (use-package groovy-mode
+  :custom
+  (groovy-indent-offset 2)
   :pretty 'groovy-mode
   ;; builtins
   ("true" . true) ("false" . false)
@@ -24,13 +26,17 @@
   ("void" . null)
   ("new" . new)
   ("final" . const)
+  ("private" . "󰂵")
+  ("List" . list)
   :abbrev 'groovy-mode
   ;; ("df" . "def")
   ("pr" . "println"))
 
 (use-package jenkinsfile-mode
   :custom
-  (jenkinsfile-mode-indent-offset 2))
+  (jenkinsfile-mode-indent-offset 2)
+  :pretty 'jenkinsfile-mode
+  ("echo" . print))
 
 (use-package gitlab-ci-mode
   :pretty 'gitlab-ci-mode
@@ -40,7 +46,10 @@
   ("script" . [?𝒔 (Br . Bl) ?𝒄])
   ("dependencies" . [?𝒅 (Br . Bl) ?𝒆]))
 
-;; (use-package cmake-mode)
+(use-package terraform-mode
+  :pretty 'terraform-mode
+  ("data" . [?𝒅 (Br . Bl) ?𝒂])
+  ("resource" . [?𝒓 (Br . Bl) ?𝒆]))
 
 (provide 'nagy-devops)
 ;;; nagy-devops.el ends here

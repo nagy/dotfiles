@@ -28,6 +28,8 @@
   (defun nagy-forth-send-dot ()
     (interactive)
     (comint-send-string (get-buffer-process (current-buffer)) ".\n"))
+  :bind
+  ("H-M-¼" . forth-mode)
   ;; (map! :map forth-interaction-mode-map
   ;;       "H-." #'nagy-forth-send-dot
   ;;       :n "." #'nagy-forth-send-dot)

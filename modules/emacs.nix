@@ -31,9 +31,7 @@ let
 
       tokei
       dired-narrow
+      mu4e
     ]));
 in
-{
-  environment.systemPackages =
-    [ emacsAndPackages (pkgs.mu.override { inherit emacs; }) ];
-}
+{ environment.systemPackages = [ emacsAndPackages pkgs.mu ]; }

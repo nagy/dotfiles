@@ -32,6 +32,7 @@ in
       (iosevka-comfy.comfy.overrideAttrs overrideBuildPlan)
       etBook # EtBembo https://edwardtufte.github.io/et-book/
       noto-fonts
+      nerdfonts
       # Only one icon used: 〜
       # From font "file-icons". May be a bit overkill
       # emacs-all-the-icons-fonts

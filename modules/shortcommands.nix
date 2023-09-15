@@ -174,11 +174,11 @@ let
     "S." = [ "nix" "search" "--file" "." ];
     "L." = [ "nix" "log" "--file" "." ];
     # impure variants
-    Ri = [ "nix" "run" "--impure" ];
-    Bi = [ "nix" "build" "--impure" ];
-    Di = [ "nix" "develop" "--impure" ];
-    Eri = [ "nix" "eval" "--raw" "--impure" ];
-    Eji = [ "nix" "eval" "--json" "--impure" ];
+    # Ri = [ "nix" "run" "--impure" ];
+    # Bi = [ "nix" "build" "--impure" ];
+    # Di = [ "nix" "develop" "--impure" ];
+    # Eri = [ "nix" "eval" "--raw" "--impure" ];
+    # Eji = [ "nix" "eval" "--json" "--impure" ];
 
     Bp = [ "nix" "build" "--no-link" "--print-out-paths" "-L" "--quiet" ];
 
@@ -254,6 +254,12 @@ let
     nPci = [ "npm" "ci" ];
     nPu = [ "npm" "update" ];
 
+    # restic
+    rE = [ "restic" ];
+    rEb = [ "restic" "backup" ];
+    rEs = [ "restic" "snapshots" ];
+    rEsj = [ "restic" "snapshots" "--json" ];
+
     # systemctl
     sc = [ "systemctl" ];
     scc = [ "systemctl" "cat" ];
@@ -325,7 +331,7 @@ let
     wcc = [ "wc" "-c" ];
     wcl = [ "wc" "-l" ];
     "≢" = [ "wc" "-l" ];
-    dush = [ "du" "sh" ];
+    dush = [ "du" "-sh" ];
     dfh = [ "df" "-h" ];
     dfhh = [ "df" "-h" "/home" ];
     w1 = [ "watch" "--interval" "1" ];
