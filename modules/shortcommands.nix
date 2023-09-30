@@ -303,7 +303,7 @@ let
     j = [ "jq" "--monochrome-output" "--sort-keys" ];
     jr = [ "jq" "--monochrome-output" "--sort-keys" "--raw-output" ];
     js = [ "jq" "--slurp" ];
-    "j≢" = [ "jq" "length" ];
+    jl = [ "jq" "length" ];
 
     jqM = [ "jq" "--monochrome-output" ];
     jcP = [ "jc" "--pretty" ];
@@ -320,8 +320,7 @@ let
     i4j = [ "ip" "-4" "--json" ];
     i6j = [ "ip" "-6" "--json" ];
     hex = [ "hexdump" "--no-squeezing" "--canonical" ];
-    "⬡" = [ "hexdump" "--no-squeezing" "--canonical" ];
-    "⬡n" = [ "hexdump" "--no-squeezing" "--canonical" "--length" ];
+    hexn = [ "hexdump" "--no-squeezing" "--canonical" "--length" ];
     sha1 = [ "sha1sum" ];
     sha256 = [ "sha256sum" ];
     sha2 = [ "sha256sum" ];
@@ -330,7 +329,6 @@ let
     grepi = [ "grep" "-i" ];
     wcc = [ "wc" "-c" ];
     wcl = [ "wc" "-l" ];
-    "≢" = [ "wc" "-l" ];
     dush = [ "du" "-sh" ];
     dfh = [ "df" "-h" ];
     dfhh = [ "df" "-h" "/home" ];

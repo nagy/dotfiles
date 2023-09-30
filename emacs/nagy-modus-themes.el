@@ -45,6 +45,8 @@
   (modus-themes-common-palette-overrides
    '((bg-mode-line-active bg-main)
      (bg-mode-line-inactive bg-inactive)
+     (bg-region bg-blue-subtle)
+     (fg-region unspecified)
      ;; (bg-tab-bar bg-main)
      ;; (bg-tab-current bg-active)
      ;; (bg-tab-other bg-inactive)

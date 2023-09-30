@@ -28,6 +28,7 @@
         ("<key-chord> f j" . company-complete-selection))
   ;; (:map doom-leader-map
   ;;       ("M-c" . company-mode))
+  ;; :config
   ;; (map! :map company-active-map
   ;;       "RET" nil
   ;;       "<return>" nil)

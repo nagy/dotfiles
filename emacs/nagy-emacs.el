@@ -43,6 +43,8 @@
   (duplicate-line-final-position -1)    ; to last line
   ;; (backtrace-on-redisplay-error t)
   (browse-url-default-scheme "https")
+  ;; :config
+  ;; (setq-default lexical-binding t) ; does not work yet
   :bind
   ("H-M-t" . text-mode)
   ("H-e" . insert-char)
@@ -138,17 +140,17 @@
   :custom
   (tab-bar-show 1)
   (tab-bar-auto-width t)
-  (tab-bar-auto-width-max '(440 40))
+  (tab-bar-auto-width-max '(330 30))
   (tab-bar-new-button-show nil)
   (tab-bar-close-button-show nil)
   (tab-bar-new-tab-choice t))
 
-(use-package tab-line
-  :config
-  (global-tab-line-mode 1)
-  :custom
-  (tab-line-close-button nil)
-  (tab-line-new-button nil))
+;; (use-package tab-line
+;;   :config
+;;   (global-tab-line-mode 1)
+;;   :custom
+;;   (tab-line-close-button nil)
+;;   (tab-line-new-button nil))
 
 (use-package wdired
   :bind
@@ -331,13 +333,12 @@
 (use-package elisp-mode
   :functions (ov-set)
   :preface
-  (defun nagy-highlight-doom! ()
+  (defun nagy-emacs-highlight-doom! ()
     "Highlight doom usage"
-    (ov-set "add-hook!" 'face 'flymake-error)
-    (ov-set "remove-hook!" 'face 'flymake-error)
-    (ov-set "map!" 'face 'flymake-error))
+    (ov-set (rx (or "add-hook!" "remove-hook!" "map!"))
+            'face 'flymake-error))
   :hook
-  (emacs-lisp-mode . nagy-highlight-doom!)
+  (emacs-lisp-mode . nagy-emacs-highlight-doom!)
   :bind
   ("H-M-e" . emacs-lisp-mode))
 
