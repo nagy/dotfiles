@@ -28,6 +28,16 @@
   (kill-buffer))
 
 (use-package emacs
+  :preface
+  (defun nagy-emacs-window-scroll-bars (&optional _win)
+    (dolist (w (window-list))
+      (if (string-equal "All" (format-mode-line "%p" nil w))
+          (set-window-scroll-bars w nil nil 0 nil)
+        (set-window-scroll-bars w nil t 0 nil))))
+  :config
+  (add-hook 'window-selection-change-functions #'nagy-emacs-window-scroll-bars)
+  (advice-add 'text-scale-increase :after #'nagy-emacs-window-scroll-bars)
+  (advice-add 'text-scale-decrease :after #'nagy-emacs-window-scroll-bars)
   ;; :custom
   ;; (help-at-pt-display-when-idle t)
   ;; (help-at-pt-timer-delay 0)
