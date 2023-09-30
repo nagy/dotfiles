@@ -6,11 +6,6 @@
       experimental-features = nix-command flakes recursive-nix impure-derivations ca-derivations
       warn-dirty = false
     '';
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 14d";
-    };
     settings = {
       sandbox = true;
       auto-optimise-store = true;
