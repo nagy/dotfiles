@@ -2,7 +2,7 @@
 
 {
 
-  programs.mpv = {
+  homeconfig.programs.mpv = {
     enable = true;
     config = {
       # audio

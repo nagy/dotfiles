@@ -8,17 +8,6 @@
         overlays = [ nur.overlay ];
       };
       lib = pkgs.lib;
-      evalhmmodule = module:
-        (import "${pkgs.home-manager.src}/modules" {
-          inherit pkgs;
-          configuration = { ... }: {
-            imports = [ module ];
-            # simulate state version. needed for flake build.
-            home.stateVersion = "23.05";
-            home.username = "user";
-            home.homeDirectory = "/home/user/";
-          };
-        }).config;
     in
     {
       nixosModules =
@@ -34,12 +23,14 @@
           modules = lib.listToAttrs preAttrList;
         in
         modules // {
-          converted-hmmpv = (import ./conv-hmmpv2nixos.nix evalhmmodule)
-            (import ./hmmodule-mpv.nix);
-          converted-hmzathura = (import ./conv-hmzathura2nixos.nix evalhmmodule)
-            (import ./hmmodule-zathura.nix);
-          converted-hmreadline = (import ./conv-hmreadline2nixos.nix evalhmmodule)
-            (import ./hmmodule-readline.nix);
+          hmconvert = pkgs.nur.repos.nagy.lib.modules.hmconvert;
+          hmconfig = {
+            imports = [
+              ./hmmodule-mpv.nix
+              ./hmmodule-zathura.nix
+              ./hmmodule-readline.nix
+            ];
+          };
         };
       packages.x86_64-linux.blocker =
         pkgs.nur.repos.nagy.lib.mkRustScript { file = ./bin/blocker.rs; };

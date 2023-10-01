@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  programs.readline = {
+  homeconfig.programs.readline = {
     enable = true;
     includeSystemConfig = false; # this is necessary
     variables = {
