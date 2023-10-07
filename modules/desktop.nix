@@ -103,6 +103,9 @@ in
                     symbols[Group1] = [F11, F11, U203D, U2E18]
              };
 
+             // put DVD on 8
+             key <AE08> { [8, parenleft, bracketleft, U1F4C0] };
+
              // fix num block
              key <KP0>  { [KP_0, KP_0, KP_0, KP_0] };
              key <KP1>  { [KP_1, KP_1, KP_1, KP_1] };

@@ -29,7 +29,7 @@
   :general
   (:states 'normal "Ø" #'consult-outline)
   :bind
-  ("H-b" . consult-buffer)
+  ("s-b" . consult-buffer)
   ("s-/" . consult-focus-lines)
   ("H-/" . consult-keep-lines)
   :config

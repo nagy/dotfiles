@@ -27,6 +27,14 @@
   (python-indent-offset 4)
   :pretty 'python-mode
   ("True" . true) ("False" . false)
+  ("def" . def)
+  ("class" . class)
+  ("class" . defclass)
+  ("raise" . throw)
+  ("import" . import)
+  ("try" . try) ("except" . except)
+  ("return" . return)
+  ("pass" . "…")
   :general
   (:states 'normal
            "þ" #'run-python))

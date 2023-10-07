@@ -115,6 +115,12 @@
           '';
           binary = true;
         };
+        png = {
+          textconv = pkgs.writeShellScript "pngtostdout" ''
+            exec ${pkgs.imagemagick}/bin/magick identify -verbose - < "$1"
+          '';
+          binary = true;
+        };
         tar = {
           textconv = "${pkgs.gnutar}/bin/tar -tvf";
           binary = true;
@@ -137,6 +143,7 @@
   environment.etc.gitattributes.text = ''
     *.wasm diff=wasm
     *.pdf diff=pdf
+    *.png diff=png
     *.tar diff=tar
     *.tar.gz diff=tar-gz
     *.tgz diff=tar-gz

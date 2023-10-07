@@ -122,6 +122,10 @@
       "browser.tabs.crashReporting.sendReport" = false;
       "browser.tabs.firefox-view" = false;
 
+      "widget.gtk.overlay-scrollbars.enabled" = false;
+      "widget.non-native-theme.scrollbar.size.override" = 20;
+      "widget.non-native-theme.scrollbar.style" = 4; # sharp corners
+
       # "media.autoplay.default" = 0;
       # "media.autoplay.enabled" = true;
       # "media.eme.enabled" = false;

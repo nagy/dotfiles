@@ -33,6 +33,7 @@
   ("interactive" . "𝒊")
   ("defvar" . "𝕍")
   ("defmacro" . "𝕄")
+  ("defclass" . defclass)
   ("length" . "≢")
   ("setf" . setf)
   ("setq" . setq)
@@ -83,6 +84,7 @@
   ("switch-to-buffer" . [ ;; ?𝒔 (Br . Bl)
                             ?𝟐 (Br . Bl) ?𝒃])
   ("cl-loop" . loop)
+  ("cl-defstruct" . "𝕤")
   ("cl-defgeneric" . "𝕘")
   ("cl-defmethod" . "𝕞")
   ("cl-assert" . assert)
@@ -96,6 +98,7 @@
   ("cl-eighth" . "⒏")
   ("cl-ninth" . "⒐")
   ("cl-tenth" . "⒑")
+  ("require" . import)
   ("prog1" . "′")
   ("aprog1" . "′")
   ("prog2" . "″")
@@ -105,6 +108,8 @@
   ("pcase-let" . "⤥")
   ("pcase-setq" . "⤈")
   ("apcase" . "〣")                     ; anaphoric
+  ;; dash.el
+  ("-lambda" . "λ")
   :cycle 'emacs-lisp-mode
   ("nil" "t")
   ;; ("defreader" . "ℝ")

@@ -16,9 +16,11 @@
     toString (pkgs.writeText "starship-config.toml" basePresetModified);
   environment.variables.STARSHIP_CACHE = "/tmp/starship-cache";
   programs.bash.interactiveShellInit = ''
-    if [[ $TERM != "dumb" && (-z $INSIDE_EMACS || $INSIDE_EMACS == "vterm") ]]; then
+    if [[ $TERM != "dumb" && (-z $INSIDE_EMACS || $INSIDE_EMACS == "29.1,eat") ]]; then
       eval "$(${pkgs.starship}/bin/starship init bash --print-full-init)"
     fi
+    [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
+      source "$EAT_SHELL_INTEGRATION_DIR/bash"
     HISTCONTROL=ignoredups:ignorespace
     HISTFILESIZE=10000000
     HISTSIZE=1000000

@@ -8,6 +8,8 @@
 (use-package rustic
   :mode
   ("Cargo\\.lock\\'" . conf-toml-mode)
+  :bind
+  ("H-M-r" . rustic-mode)
   :init
   (require 'rustic-lsp)
   ;; (setq rustic-lsp-setup-p nil)
@@ -26,6 +28,8 @@
   ("assert_eq!" . assert)
   ("std" . stdlib)
   ("use" . import)
+  ("enum" . "ⅇ")
+  ("struct" . "𝕤")
   ("Vec" . "𝕍")
   ("String" . "𝕊")
   ("Result" . "ℝ")

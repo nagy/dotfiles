@@ -29,7 +29,7 @@
     (interactive)
     (comint-send-string (get-buffer-process (current-buffer)) ".\n"))
   :bind
-  ("H-M-¼" . forth-mode)
+  ("H-M-4" . forth-mode)
   ;; (map! :map forth-interaction-mode-map
   ;;       "H-." #'nagy-forth-send-dot
   ;;       :n "." #'nagy-forth-send-dot)
@@ -41,7 +41,20 @@
   ;;       :n "Ö" #'forth-eval-buffer
   ;;       :n "↑" #'forth-eval-buffer
   ;;       :n "ö" #'forth-eval-defun)
-  )
+  :pretty 'forth-mode
+  ("begin" . "→")
+  ("again" . "←")
+  (":" . "»")
+  (":noname" . [?» (Br . Bl) ??])
+  (";" . "«")
+  :cycle 'forth-mode
+  ("begin" "again")
+  :abbrev 'forth-mode
+  ("beg" . "begin")
+  ("cre" . "create")
+  ("var" . "variable")
+  ("const" . "constant")
+  ("ag" . "again"))
 
 (use-package elforth
   :disabled t

@@ -29,10 +29,10 @@
 
 (defun nagy-qrcode-choose (results)
   (interactive)
-  (cl-case (length results)
+  (pcase (length results)
     (1 (car results))
     (0 nil)
-    (t (completing-read "QR Code: " (nagy-qrcode-image-scan)))))
+    (_ (completing-read "QR Code: " (nagy-qrcode-image-scan)))))
 
 (defun nagy-qrcode-kill ()
   (interactive)

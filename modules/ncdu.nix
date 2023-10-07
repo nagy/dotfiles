@@ -12,6 +12,7 @@
     --show-itemcount
     --apparent-size
     --one-file-system
+    --exclude-kernfs
     --color off
   '';
 }
