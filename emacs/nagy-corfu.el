@@ -25,7 +25,11 @@
   (corfu-auto-delay 0)
   (completion-cycle-threshold 3)
   (tab-always-indent 'complete)
-  (corfu-auto-prefix 0))
+  (corfu-auto-prefix 0)
+  :bind
+  (:map corfu-map
+        ("RET" . nil)
+        ("<key-chord> f j" . corfu-insert)))
 
 ;; (use-package cape)
 

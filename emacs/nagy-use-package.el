@@ -28,6 +28,7 @@
     (lambda (label arg)
       (cond
        ((stringp arg) arg)
+       ((and (consp arg) (eq 'rx (car arg))) (eval arg))
        (t (use-package-error (concat label " :same did not get a string")))))))
 (defun use-package-handler/:same (name-symbol _keyword rgx rest state)
   (let ((body (use-package-process-keywords name-symbol rest state)))
@@ -40,7 +41,7 @@
 
 ;;; prettify symbols
 (defvar nagy-pretty-symbols-default
-  '((true . "✔") (false . "✘")
+  '((true . "") (false . "")
     (or . "∨") (and . "∧")
     (throw . "⍜")
     (self . "░")
@@ -63,6 +64,7 @@
     (print . "⚶")
     (const . "𝕔")
     (assert . "𝒂")
+    (not . "!")          ; "¬"
     (in . "∃")
     (list . "⋯")
     (setf . "↓")

@@ -94,8 +94,12 @@
 
 (use-package cc-mode
   :pretty 'c-mode
-  ("if" . if) ("else" . else)
-  ("#define" . "⨠")
+  ("if" . if) ("else" . else) ("endif" . else)
+  ("#define" . "»")
+  ("#undef" . "«")
+  ("void" . null)
+  ("return" . return)
+  ("while" . loop)
   ("const" . const))
 
 (use-package calc

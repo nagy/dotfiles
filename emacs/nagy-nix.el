@@ -1,6 +1,6 @@
 ;;; nagy-nix.el --- My nix config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") nix-mode nagy-use-package)
+;; Package-Requires: ((emacs "29.1") nix-mode nickel-mode nagy-use-package)
 
 (require 'eglot)
 
@@ -115,6 +115,13 @@
 (use-package nix-prettify-mode
   :custom
   (nix-prettify-char ?┃))
+
+;; TODO has an lsp nls
+(use-package nickel-mode
+  :pretty 'nickel-mode
+  ("let" . let)
+  ("in" . in)
+  ("if" . if) ("else" . else) ("then" . then))
 
 (provide 'nagy-nix)
 ;;; nagy-nix.el ends here

@@ -62,5 +62,9 @@
   (:states 'normal
            "M-¼" #'elforth-eval-region))
 
+(use-package term
+  :custom
+  (serial-speed-history '("115200")))
+
 (provide 'nagy-forth)
 ;;; nagy-forth.el ends here

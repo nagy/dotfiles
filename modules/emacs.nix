@@ -14,7 +14,6 @@ let
           hash = "sha256-cbuNNQjS6AMDIYsv5TRMysd+0aY02GZBY2Ada9EQ7ZY=";
         };
       })
-      vterm
       pdf-tools
       org-pdftools
       triples

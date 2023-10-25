@@ -24,6 +24,8 @@
   :bind
   ("C-M-s-¢" . company-mode)
   (:map company-active-map
+        ("RET" . nil)
+        ("<return>" . nil)
         ("C-l" . company-complete-selection)
         ("<key-chord> f j" . company-complete-selection))
   ;; (:map doom-leader-map

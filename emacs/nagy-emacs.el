@@ -38,6 +38,7 @@
   (add-hook 'window-selection-change-functions #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-increase :after #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-decrease :after #'nagy-emacs-window-scroll-bars)
+  ;; (setq-default show-trailing-whitespace t)
   ;; :custom
   ;; (help-at-pt-display-when-idle t)
   ;; (help-at-pt-timer-delay 0)
@@ -49,6 +50,7 @@
   (kill-ring-max 250)
   (history-delete-duplicates t)
   (delete-by-moving-to-trash t)
+  (load-prefer-newer t)
   (large-file-warning-threshold (* 100 1000 1000))
   (duplicate-line-final-position -1)    ; to last line
   ;; (backtrace-on-redisplay-error t)
@@ -264,6 +266,7 @@
   (epg-pinentry-mode 'loopback))
 
 (use-package eldoc
+  :diminish 'eldoc-mode
   :custom
   (eldoc-echo-area-use-multiline-p nil)
   (eldoc-idle-delay 0.01)

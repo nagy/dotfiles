@@ -19,11 +19,31 @@
 ;;
 ;;; Code:
 
+(require 'general)
+
 (defmacro k-time (&rest body)
   "Measure and return the time it takes evaluating BODY."
   `(let ((time (current-time)))
      ,@body
      (float-time (time-since time))))
+
+(defun GC-DISABLE ()
+  (interactive)
+  (setq gc-cons-threshold most-positive-fixnum)
+  (setq gc-cons-percentage 1.0)
+  (setq garbage-collection-messages t)
+  (garbage-collect)
+  (fset 'garbage-collect #'ignore))
+
+(defvar real-garbage-collect (symbol-function 'garbage-collect))
+(use-package emacs
+  :preface
+  (defun real-garbage-collect ()
+    (interactive)
+    (funcall real-garbage-collect))
+  :general
+  (:states 'normal
+           "🗑" #'real-garbage-collect))
 
 (defun GC-ENABLE ()
   "Gc tame https://akrl.sdf.org/#org1ce771c ."

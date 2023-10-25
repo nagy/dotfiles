@@ -49,10 +49,10 @@
   (sly-description-autofocus t)
   (inferior-lisp-program "sbcl")
   :same
-  "^\\*sly-inspector "
-  ;; "^\\*sly-mrepl "
-  ;; "^\\*sly-description\\*"
-  ;; "^\\*sly-macroexpansion"
+  (rx bos "*sly-" (or "inspector"
+                      "mrepl"
+                      "description"
+                      "macroexpansion"))
   ;;   :hook
   ;;   (sly-inspector-mode . visual-line-mode)
   ;;   (sly-db-mode . visual-line-mode)
