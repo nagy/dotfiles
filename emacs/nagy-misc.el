@@ -7,7 +7,7 @@
 ;; Created: March 03, 2023
 ;; Modified: March 03, 2023
 ;; Version: 0.0.1
-;; Keywords: Symbol’s value as variable is void: finder-known-keywords
+;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-misc
 ;; Package-Requires: ((emacs "29.1") nameless golden-ratio macrostep ts ov paren-face systemd tokei wgrep focus eros git-modes osm general nagy-use-package)
 ;;
@@ -50,7 +50,8 @@
      ("〣" . "triples")
      ("□" . "blocker")
      ("▱" . "map")                      ; or 𝒎
-     ("▒" . "nagy")                     ; or ℕ
+     ("ℕd" . "nagy-data")
+     ("ℕ" . "nagy")
      ("⧖" . "dired")
      ("ø" . "org")
      ("ŧ" . "tokei")

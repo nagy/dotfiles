@@ -7,6 +7,10 @@
 (require 'nagy-use-package)
 
 (use-package hy-mode
+  :config
+  (setq hy-jedhy--enable? nil)
+  ;; this does not work in :custom
+  (setq hy-shell--interpreter-args nil)      ; remove --spy
   :bind
   ("H-M-P" . hy-mode)
   :general

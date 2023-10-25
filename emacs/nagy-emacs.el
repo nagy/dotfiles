@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: Symbol’s value as variable is void: finder-known-keywords
 ;; Homepage: https://github.com/nagy/nagy-emacs
-;; Package-Requires: ((emacs "29.1") ov)
+;; Package-Requires: ((emacs "29.1") anaphora ov)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -20,12 +20,39 @@
 ;;; Code:
 
 (require 'comint)
+(require 'anaphora)
 
 (defun save-kill-buffer ()
   "Save and kill a buffer."
   (interactive)
   (save-buffer)
   (kill-buffer))
+
+(defun nagy-emacs-split-window-below-and-focus (arg)
+  "Split the window vertically and focus the new window."
+  (interactive "P")
+  (alet (if arg (split-root-window-below) (split-window-below))
+    (if (and (eq major-mode 'exwm-mode) (called-interactively-p 'any))
+        ;; for exwm compatibility
+        (redisplay))
+    (select-window it)
+    (balance-windows)))
+
+(defun nagy-emacs-split-window-right-and-focus (arg)
+  "Split the window horizontally and focus the new window."
+  (interactive "P")
+  (alet (if arg (split-root-window-right) (split-window-right))
+    (if (and (eq major-mode 'exwm-mode) (called-interactively-p 'any))
+        ;; for exwm compatibility
+        (redisplay))
+    (select-window it)
+    (balance-windows)))
+
+(defmacro with-directory (dir &rest body)
+  "Set `default-directory' to DIR and execute BODY."
+  (declare (indent 1) (debug (sexp body)))
+  `(let ((default-directory ,dir))
+     ,@body))
 
 (use-package emacs
   :preface
@@ -58,6 +85,11 @@
   ;; :config
   ;; (setq-default lexical-binding t) ; does not work yet
   :bind
+  ("s-s" . nagy-emacs-split-window-below-and-focus)
+  ("s-v" . nagy-emacs-split-window-right-and-focus)
+  ("s-q" . bury-buffer)
+  ("s-g" . keyboard-quit)
+  ("s-=" . balance-windows)
   ("H-M-t" . text-mode)
   ("H-e" . insert-char)
   ("C-H-e" . emoji-insert)
@@ -157,6 +189,16 @@
   (tab-bar-close-button-show nil)
   (tab-bar-new-tab-choice t))
 
+;; exwm overlaps with tab line
+;; (defun +nagy-window-edges-with-tab-line-mode (orig-fn &rest args)
+;;   "Bug fix https://github.com/ch11ng/exwm/issues/788"
+;;   (let ((result (apply orig-fn args)))
+;;     (when (and tab-line-mode
+;;                (equal '(t t t) (cdr args)))
+;;       (cl-incf (cadr result) (frame-char-height)))
+;;     result))
+;; (advice-add 'window-edges :around #'+nagy-window-edges-with-tab-line-mode)
+;; https://github.com/ch11ng/exwm/issues/788
 ;; (use-package tab-line
 ;;   :config
 ;;   (global-tab-line-mode 1)
@@ -356,8 +398,10 @@
   ("H-M-e" . emacs-lisp-mode))
 
 (use-package mule-util
-  :custom
-  (truncate-string-ellipsis "┄")        ; use smaller char than default
+  :defer t
+  :config
+  ;; Does not work in custom and needs :defer t
+  (setq truncate-string-ellipsis "┄")        ; use smaller char than default
   )
 
 (use-package paren
@@ -365,6 +409,19 @@
   (show-paren-delay 0.0)
   :config
   (set-face-attribute 'show-paren-match nil :inherit 'modus-themes-subtle-blue :background 'unspecified))
+
+(use-package winner
+  :bind
+  ("s-u" . winner-undo)
+  ("s-U" . winner-redo))
+
+(use-package project
+  :bind
+  ("C-s-<return>" . project-eshell)
+  ("C-H-s--" . project-dired))
+
+(keymap-global-set "<mouse-8>" #'bury-buffer)
+(keymap-global-set "<mouse-9>" #'unbury-buffer)
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

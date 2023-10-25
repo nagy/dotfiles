@@ -20,8 +20,13 @@
 ;;; Code:
 
 (use-package display-line-numbers
-  ;; :custom
-  ;; (display-line-numbers-type t)
+  :custom
+  (display-line-numbers-type t)
+  :config
+  ;; this comes from doom
+  (remove-hook 'prog-mode-hook #'display-line-numbers-mode)
+  (remove-hook 'text-mode-hook #'display-line-numbers-mode)
+  (remove-hook 'conf-mode-hook #'display-line-numbers-mode)
   :bind
   ("M-ĸ" . display-line-numbers-mode)
   ("s-M-ĸ" . global-display-line-numbers-mode))

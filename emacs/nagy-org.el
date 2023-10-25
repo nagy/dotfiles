@@ -14,6 +14,7 @@
   (org-confirm-babel-evaluate nil)
   (org-tags-column -77)
   (org-startup-indented nil)
+  ;; (org-src-preserve-indentation nil)
   :bind
   ("H-M-o" . org-mode)
   (:map org-mode-map
@@ -113,6 +114,12 @@
         ("H-s-n" . markdown-narrow-to-subtree))
   :custom
   (markdown-list-indent-width 2))
+
+(use-package org-agenda
+  :defer t
+  :config
+  (setq org-agenda-window-setup 'current-window)
+  (setq org-agenda-files nil))
 
 (provide 'nagy-org)
 ;;; nagy-org.el ends here
