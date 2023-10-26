@@ -27,8 +27,10 @@
            "a" #'eglot-code-actions
            "q" #'eglot-code-action-quickfix
            "s-k" #'eglot-shutdown-all)
+  (:states 'normal :keymaps 'eglot-mode-map
+           "ſ" #'eglot-code-actions
+           "M-æ" #'eglot-code-actions)
   (:states 'normal :keymaps 'prog-mode-map
-           "M-æ" #'eglot-code-actions
            "↓" #'xref-find-references
            "↑" #'xref-find-definitions))
 

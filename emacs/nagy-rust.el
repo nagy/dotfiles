@@ -1,11 +1,20 @@
 ;;; nagy-rust.el --nagy-rust config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") rustic nagy-use-package)
+;; Package-Requires: ((emacs "29.1") rustic reformatter nagy-use-package)
 
 (require 'nagy-use-package)
+
+(require 'reformatter)
+
 (require 'rustic)
 
 (use-package rustic
+  :preface
+  (reformatter-define rustfmt
+    :group 'rustic
+    :program "rustfmt")
+  :hook
+  (rustic-mode . rustfmt-on-save-mode)
   :mode
   ("Cargo\\.lock\\'" . conf-toml-mode)
   :bind
@@ -32,6 +41,7 @@
   ("enum" . "ⅇ")
   ("const" . const)
   ("struct" . "𝕤")
+  ("impl" . "𝕚")
   ("Vec" . "𝕍")
   ("String" . "𝕊")
   ("Result" . "ℝ")

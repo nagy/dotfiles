@@ -7,7 +7,7 @@
 ;; Created: February 19, 2023
 ;; Modified: February 19, 2023
 ;; Version: 0.0.1
-;; Keywords: Symbol’s value as variable is void: finder-known-keywords
+;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-pcap-converter
 ;; Package-Requires: ((emacs "29.1"))
 ;;

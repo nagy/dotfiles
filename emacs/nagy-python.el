@@ -50,7 +50,9 @@
   ("H-M-p" . python-mode)
   :general
   (:states 'normal
-           "þ" #'run-python))
+           "þ" #'run-python)
+  :cycle 'python-mode
+  ("class" "def"))
 
 (provide 'nagy-python)
 ;;; nagy-python.el ends here
