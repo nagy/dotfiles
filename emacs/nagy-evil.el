@@ -66,8 +66,6 @@
   :custom
   (eshell-banner-message "")
   (eshell-scroll-to-bottom-on-output nil)
-  :config
-  (evil-set-initial-state 'eshell-mode 'emacs)
   :general
   (:states 'normal :keymaps 'eshell-mode-map
            "k" #'evil-previous-visual-line

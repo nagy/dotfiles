@@ -6,6 +6,7 @@
   (require 'cl-lib))
 
 (require 'dom)
+(require 'image-mode)
 (require 'xml)
 
 (require 'anaphora)
@@ -36,10 +37,9 @@
 
 (defun nagy-qrcode-kill ()
   (interactive)
-  (let ((chosen (nagy-qrcode-choose (nagy-qrcode-image-scan))))
-    (if chosen
-        (message "QR-Code: %S" (kill-new chosen))
-      (error "No QR-Code found"))))
+  (aif (nagy-qrcode-choose (nagy-qrcode-image-scan))
+    (message "QR-Code: %S" (kill-new it))
+    (error "No QR-Code found")))
 
 (defun qr-take-screenshot-and-kill ()
   (interactive)
@@ -47,6 +47,18 @@
     (alet (take-screenshot)
       (with-current-buffer (find-file-noselect it)
         (nagy-qrcode-kill)))))
+
+(defun qrcode-region (start end)
+  "Show a QR code of the region between START and END.
+A simple way to transfer text to the phone."
+  (interactive "r")
+  (let ((buf (generate-new-buffer "*qr*")))
+    (let ((coding-system-for-read 'raw-text))
+      (shell-command-on-region start end "qrencode --output=-" buf))
+    (with-current-buffer buf
+      (set-auto-mode)
+      (image-transform-fit-to-window))
+    (switch-to-buffer buf)))
 
 (provide 'nagy-qrcode)
 ;;; nagy-qrcode.el ends here

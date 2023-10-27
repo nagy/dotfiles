@@ -8,6 +8,7 @@
 
 (use-package hy-mode
   :config
+  (advice-add 'run-hy :around #'nagy-replace-switch-to-buffer-other-window)
   (setq hy-jedhy--enable? nil)
   ;; this does not work in :custom
   (setq hy-shell--interpreter-args nil)      ; remove --spy

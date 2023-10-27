@@ -5,7 +5,7 @@ let
     pkgs.nur.repos.nagy.lib.emacsMakeSingleFilePackage {
       inherit emacs src;
       epkgs = emacs.pkgs.overrideScope' (_self: _super: final);
-      pname = builtins.baseNameOf src;
+      pname = lib.removeSuffix ".el" (builtins.baseNameOf src);
     };
   onlyNagyFiles = lib.filterAttrs
     (name: value: value == "regular" && lib.hasPrefix "nagy" name)

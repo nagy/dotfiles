@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-misc
-;; Package-Requires: ((emacs "29.1") nameless golden-ratio macrostep ts ov paren-face systemd tokei wgrep focus eros git-modes osm general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") nameless golden-ratio macrostep ts ov paren-face systemd tokei wgrep focus eros git-modes osm literate-calc-mode nhexl-mode breadcrumb sotlisp general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -55,7 +55,8 @@
      ("⧖" . "dired")
      ("ø" . "org")
      ("ŧ" . "tokei")
-     ("√" . "calc"))))
+     ("√" . "calc")
+     ("e4" . "elforth"))))
 
 (use-package golden-ratio
   :bind
@@ -71,23 +72,43 @@
   :bind
   ("s-€" . eww)
   :hook
-  ;; (eww-mode . visual-fill-column-mode)
   (eww-mode . variable-pitch-mode))
 
-;; (use-package hide-comnt
-;;   :bind
-;;   ("H-s-¢" . hide/show-comments-toggle))
-
 (use-package prog-mode
-  :config
-  ;; (setq prettify-symbols-unprettify-at-point nil)
   :hook
-  (prog-mode . visual-line-mode)
-  (prog-mode . paren-face-mode))
+  (prog-mode . visual-line-mode))
 
 (use-package tokei
   :hook
-  (tokei-mode . visual-fill-column-mode))
+  (tokei-mode . visual-fill-column-mode)
+  :bind
+  ("<key-chord> ß t" . tokei))
+
+(use-package wgrep
+  :bind
+  (:map wgrep-mode-map
+        ([remap kill-this-buffer] . wgrep-abort-changes)
+        ([remap save-kill-buffer] . wgrep-finish-edit))
+  :general
+  (:states 'normal :keymaps 'wgrep-mode-map
+           "ö" #'wgrep-finish-edit))
+
+(use-package focus
+  :preface
+  (defun nagy/fix-focus-face ()
+    (set-face-attribute 'focus-unfocused nil :foreground 'unspecified :inherit 'parenthesis))
+  :init
+  (setq focus-mode-to-thing
+        '((prog-mode . defun)
+          (markdown-mode . paragraph)
+          (elpher-mode . paragraph)
+          (nix-mode . paragraph)
+          (text-mode . sentence)))
+  :commands focus-mode
+  :bind
+  ("H-M-f" . focus-mode)
+  :config
+  (add-hook 'modus-themes-after-load-theme-hook #'nagy/fix-focus-face))
 
 (use-package eros
   :custom
@@ -160,6 +181,49 @@
            "f" #'Custom-newline
            "u" #'Custom-goto-parent))
 
+(use-package comint
+  :hook
+  (comint-mode . visual-line-mode)
+  :custom
+  ;; can freeze emacs on something like sleep 10 if non-nil
+  ;; https://old.reddit.com/r/emacs/comments/14377k9/weekly_tips_tricks_c_thread/jn8igpu/
+  (comint-process-echoes nil)
+  :bind
+  (:map comint-mode-map
+        ("<key-chord> f j" . comint-send-input)
+        ("H-Ö" . comint-previous-input)
+        ("M-Ö" . comint-previous-input)
+        ("H-d" . comint-send-eof)
+        ("H-j" . comint-next-prompt)
+        ("H-k" . comint-previous-prompt)))
+
+(use-package sotlisp
+  :diminish 'sotlisp-mode)
+
+(use-package gitattributes-mode
+  ;; also catch files in nix store
+  :mode "-gitattributes\\'")
+
+(use-package gitconfig-mode
+  ;; also catch files in nix store
+  :mode "-gitconfig\\'")
+
+;; (use-package gitignore-mode
+;;   ;; also catch files in nix store
+;;   :mode "-gitignore\\'")
+
+(require 'hideshow)
+(use-package hideshow
+  :preface
+  (defun nagy-hs-toggle-hiding ()
+    (interactive)
+    (save-excursion
+      (end-of-line)
+      (hs-toggle-hiding)))
+  :general
+  (:states 'normal
+           "r" #'nagy-hs-toggle-hiding))
+
 (use-package ielm
   :general
   (:states 'normal :keymaps 'inferior-emacs-lisp-mode-map
@@ -176,10 +240,18 @@
         ("<prior>" . osm-up-up))
   :same "^\\*osm")
 
-;; (use-package breadcrumb
-;;   :config
-;;   (map! "A-H-j" #'breadcrumb-jump)
-;;   (map! :n "¿" #'breadcrumb-mode))
+(use-package literate-calc-mode
+  :custom
+  (literate-calc-mode-idle-time .1)
+  ;; (literate-calc-mode-idle-time nil)
+  )
+
+(use-package breadcrumb
+  :bind
+  ("C-H-j" . breadcrumb-jump)
+  :general
+  (:states 'normal
+           "¿" #'breadcrumb-mode))
 
 (use-package tabulated-list
   :general
@@ -189,6 +261,11 @@
            "s" #'tabulated-list-sort
            "h" #'tabulated-list-previous-column
            "l" #'tabulated-list-next-column))
+
+(use-package nhexl-mode
+  :general
+  (:states 'normal
+           "⬡" #'nhexl-mode))
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

@@ -59,34 +59,40 @@
     (interactive)
     (setenv "GTK_THEME" (if (dayp) "" "Adwaita:dark"))
     (set-face-attribute 'tab-bar-tab-inactive nil :box nil :background (face-attribute 'tab-bar :background nil t))
-    (set-face-attribute 'vertical-border nil :foreground (if (dayp) "white" "black"))
+    (set-face-attribute 'window-divider nil :foreground (if (dayp) "black" "gray20"))
     (with-eval-after-load 'dired
       (set-face-attribute 'dired-header nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)))
-  (add-hook 'modus-themes-after-load-theme-hook #'nagy/modus-theme-overrides)
-  (add-hook 'doom-first-buffer-hook #'nagy/modus-theme-overrides)
-  (add-hook 'doom-big-font-mode-hook #'nagy/modus-theme-overrides))
+  (add-hook 'modus-themes-after-load-theme-hook #'nagy/modus-theme-overrides))
 
 (use-package paren-face
-  :functions nagy/fix-parenface
+  :preface
+  (defun nagy/fix-parenface ()
+    (set-face-attribute 'parenthesis nil :foreground (if (dayp) "#ccc" "#333")))
   :config
   (setq paren-face-regexp "[][(){};,]")
-  (defun nagy/fix-parenface ()
-    (interactive)
-    (set-face-attribute 'parenthesis nil :foreground (if (dayp) "#ccc" "#333")))
-  (add-hook 'modus-themes-after-load-theme-hook #'nagy/fix-parenface)
-  (nagy/fix-parenface))
+  (global-paren-face-mode 1)
+  (push 'js-mode paren-face-modes)
+  (push 'c-mode paren-face-modes)
+  (push 'nix-mode paren-face-modes)
+  (push 'rustic-mode paren-face-modes)
+  (push 'hy-mode paren-face-modes)
+  (push 'groovy-mode paren-face-modes)
+  (push 'terraform-mode paren-face-modes)
+  (push 'jenkinsfile-mode paren-face-modes)
+  (push 'nickel-mode paren-face-modes)
+  (push 'python-mode paren-face-modes)
+  (push 'python-ts-mode paren-face-modes)
+  (push 'conf-toml-mode paren-face-modes)
+  (push 'sql-mode paren-face-modes)
+  (add-hook 'modus-themes-after-load-theme-hook #'nagy/fix-parenface))
 
 (use-package lin
-  ;; :preface
-  ;; (require 'lin)
   :functions lin-global-mode
   :config
   (setq lin-mode-hooks
         '(dired-mode-hook
           elfeed-search-mode-hook
-          grep-mode-hook
           ibuffer-mode-hook
-          ilist-mode-hook
           log-view-mode-hook
           magit-log-mode-hook
           mu4e-headers-mode-hook

@@ -41,6 +41,8 @@
             inherit (pkgs) lib;
             inherit (epkgs) emacs;
           }));
+      packages.${pkgs.system}.keyboard-firmware =
+        import ./keyboard { inherit pkgs; };
 
       lib = {
         pkg-journal-file-store = pkgs.writeScriptBin "journal-file-store"
