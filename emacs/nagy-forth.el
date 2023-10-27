@@ -47,6 +47,10 @@
   (":" . "»")
   (":noname" . [?» (Br . Bl) ??])
   (";" . "«")
+  ;; elforth
+  ("window-buffer" . [?𝒘 (Br . Bl) ?𝒃])
+  ("selected-window" . [?𝒔 (Br . Bl) ?𝒘])
+  ("buffer-size" . [?𝒃 (Br . Bl) ?𝒔])
   :cycle 'forth-mode
   ("begin" "again")
   :abbrev 'forth-mode

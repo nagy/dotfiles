@@ -57,6 +57,7 @@
   :config
   (defun nagy/modus-theme-overrides ()
     (interactive)
+    (setenv "GTK_THEME" (if (dayp) "" "Adwaita:dark"))
     (set-face-attribute 'tab-bar-tab-inactive nil :box nil :background (face-attribute 'tab-bar :background nil t))
     (set-face-attribute 'vertical-border nil :foreground (if (dayp) "white" "black"))
     (with-eval-after-load 'dired

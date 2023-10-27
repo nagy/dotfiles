@@ -222,6 +222,7 @@
     hut
     tea
     gron
+    ruff
   ];
 
   boot.binfmt.emulatedSystems = [

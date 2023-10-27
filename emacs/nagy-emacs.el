@@ -78,6 +78,8 @@
   (history-delete-duplicates t)
   (delete-by-moving-to-trash t)
   (load-prefer-newer t)
+  (dired-free-space nil)
+  (suggest-key-bindings nil)
   (large-file-warning-threshold (* 100 1000 1000))
   (duplicate-line-final-position -1)    ; to last line
   ;; (backtrace-on-redisplay-error t)
@@ -297,7 +299,7 @@
         ("<key-chord> f j" . ielm-send-input)
         ("s-." . eros-eval-last-sexp))
   :hook
-  (ielm-mode . nagy-ielm-init-history)
+  (inferior-emacs-lisp-mode . nagy-ielm-init-history)
   :custom
   (ielm-header "")
   :config

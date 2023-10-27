@@ -3,6 +3,14 @@
 let
   nsxivBigThumbs = pkgs.nsxiv.overrideAttrs
     ({ src, patches ? [ ], postPatch ? "", ... }: {
+      # old version because patches are not updated yet.
+      src = pkgs.fetchFromGitea {
+        domain = "codeberg.org";
+        owner = "nsxiv";
+        repo = "nsxiv";
+        rev = "v31";
+        hash = "sha256-X1ZMr5OADs9GIe/kp/kEqKMMHZMymd58m9+f0SPzn7s=";
+      };
       patches = patches ++ [
         (pkgs.fetchpatch {
           url =
@@ -143,16 +151,15 @@ in
 
   environment.etc."X11/xinit/xinitrc".text = ''
     set -e
+    xset s 300 300
     xset r rate 260 40
     ${pkgs.xorg.xhost}/bin/xhost +
     xsetroot -cursor_name left_ptr # make default cursor not cross
     [[ -f /etc/X11/Xresources ]] && xrdb /etc/X11/Xresources
     ${pkgs.unclutter-xfixes}/bin/unclutter &
     if [[ "$(tty)" == /dev/tty1 ]]; then
-      WM=emacs exec emacs
+      exec emacs
     fi
-    ${pkgs.sxhkd}/bin/sxhkd &
-    exec ${pkgs.bspwm}/bin/bspwm
   '';
 
   environment.etc."X11/Xresources".text = ''
@@ -172,6 +179,7 @@ in
     # gimp
     # xorg.xmodmap
     xclip
+    redshift
 
     brave
     tor-browser-bundle-bin
