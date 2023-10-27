@@ -7,7 +7,7 @@
 ;; Created: March 03, 2023
 ;; Modified: March 03, 2023
 ;; Version: 0.0.1
-;; Keywords: Symbol’s value as variable is void: finder-known-keywords
+;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-emacs
 ;; Package-Requires: ((emacs "29.1") anaphora ov)
 ;;

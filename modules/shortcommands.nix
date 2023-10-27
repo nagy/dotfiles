@@ -321,6 +321,7 @@ let
     i6j = [ "ip" "-6" "--json" ];
     hex = [ "hexdump" "--no-squeezing" "--canonical" ];
     hexn = [ "hexdump" "--no-squeezing" "--canonical" "--length" ];
+    hexx = [ "hexyl" "--border" "none" ];
     sha1 = [ "sha1sum" ];
     sha256 = [ "sha256sum" ];
     sha2 = [ "sha256sum" ];

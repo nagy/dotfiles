@@ -23,10 +23,11 @@
 (require 'eieio)                        ; because of 'oref
 (require 'magit)
 (require 'general)
+(require 'forge)
+
 (eval-when-compile
   ;; To catch errors during batch compilation
-  (require 'with-editor)
-  (require 'forge))
+  (require 'with-editor))
 
 (use-package magit-section
   :general
@@ -57,7 +58,7 @@
 (defun nagy-magit--forge--handle-bookmark (bookmark)
   (let ((default-directory (bookmark-get-filename bookmark))
         (number (bookmark-prop-get bookmark 'forge-topic-number)))
-    (forge-visit (forge-get-topic number))))
+    (forge-visit-topic (forge-get-topic number))))
 
 (use-package forge
   :bind
