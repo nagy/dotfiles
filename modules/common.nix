@@ -133,7 +133,7 @@
     htmlq
 
     # network
-    dstat
+    # dstat
     nftables
     sshfs-fuse
 
@@ -214,7 +214,7 @@
     (gnupg.override { guiSupport = false; })
     xurls
     (hy.withPackages (ps: with ps; [ hyrule addict ]))
-    (terraform.withPlugins (p: with p; [ github ]))
+    (opentofu.withPlugins (p: with p; [ github vultr ]))
     pkgs.nur.repos.nagy.hyperspec
     (pkgs.nur.repos.nagy.lib.mkRustScript { file = ../bin/blocker.rs; })
     # version control

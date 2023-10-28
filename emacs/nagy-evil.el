@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-evil
-;; Package-Requires: ((emacs "29.1") general evil eat evil-numbers evil-surround)
+;; Package-Requires: ((emacs "29.1") evil eat evil-numbers evil-surround evil-goggles general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -18,6 +18,8 @@
 ;;  Description
 ;;
 ;;; Code:
+
+(require 'nagy-use-package)
 
 (require 'evil)
 (require 'general)
@@ -116,6 +118,21 @@
   :bind
   ("<key-chord> ü x" . eat))
 
+(use-package tar-mode
+  :general
+  (:states 'normal :keymaps 'tar-mode-map
+           "f" #'tar-extract))
+
+(require 'evil-goggles)
+(use-package evil-goggles
+  :diminish 'evil-goggles-mode
+  :init
+  (setq evil-goggles-duration 0.1
+        evil-goggles-pulse nil
+        evil-goggles-enable-delete nil
+        evil-goggles-enable-change nil)
+  :config
+  (evil-goggles-mode 1))
 
 (provide 'nagy-evil)
 ;;; nagy-evil.el ends here

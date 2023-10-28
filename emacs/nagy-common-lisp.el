@@ -72,8 +72,7 @@
   ("saf" . "safety")
   ("la" . "lambda")
   ("req" . "require")
-  ("rfs" . "read-from-string")
-  )
+  ("rfs" . "read-from-string"))
 
 (use-package sly-mrepl
   :disabled
