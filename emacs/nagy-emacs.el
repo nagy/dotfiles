@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-emacs
-;; Package-Requires: ((emacs "29.1") anaphora ov)
+;; Package-Requires: ((emacs "29.1") anaphora ov visual-fill-column)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;

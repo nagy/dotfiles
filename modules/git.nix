@@ -103,6 +103,8 @@
           '');
         };
         jq = { clean = "${pkgs.jq}/bin/jq --sort-keys"; };
+        # without this, restic snapshots output is not deterministic
+        jq-restic = { clean = "${pkgs.jq}/bin/jq --sort-keys 'sort_by(.id)'"; };
       };
       diff = {
         wasm = {
@@ -116,6 +118,7 @@
           binary = true;
         };
         png = {
+          # potentially use exiftool if magick turns out to be slow.
           textconv = pkgs.writeShellScript "pngtostdout" ''
             exec ${pkgs.imagemagick}/bin/magick identify -verbose - < "$1"
           '';
@@ -137,6 +140,10 @@
           textconv = "${pkgs.gnutar}/bin/tar -tvJf";
           binary = true;
         };
+        tar-zstd = {
+          textconv = "${pkgs.gnutar}/bin/tar --zstd -tvf";
+          binary = true;
+        };
       };
     };
   };
@@ -149,6 +156,8 @@
     *.tgz diff=tar-gz
     *.tar.bz2 diff=tar-bz2
     *.tar.xz diff=tar-xz
+    *.tar.zst diff=tar-zstd
     *.json filter=jq
+    *.restic.json filter=jq-restic
   '';
 }

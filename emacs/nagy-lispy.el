@@ -25,6 +25,7 @@
 (require 'general)
 
 (use-package lispy
+  :diminish 'lispy-mode
   :commands (lispy-mode)
   :custom
   (lispy-completion-method 'default)
@@ -33,10 +34,13 @@
   ;; (map! :map lispy-mode-map
   ;;       "f" nil  ;; was special-lispy-flow
   ;;       )
+  :hook
+  (emacs-lisp-mode . lispy-mode)
   :bind
-  ("H-x" . lispy-kill-at-point)
   ("s-(" . lispy-mode)
   ("s-)" . lispyville-mode)
+  (:map lispy-mode-map
+        ("H-x" . lispy-kill-at-point))
   (:map lispy-mode-map-lispy
         ("]" . nil)
         ("[" . nil)
@@ -44,10 +48,13 @@
         ))
 
 (use-package lispyville
+  :diminish 'lispyville-mode
   :bind
   (:map lispyville-mode-map
         ("C-M-S-o" . lispy-oneline)
         ("M-S-RET" . lispy-multiline))
+  :hook
+  (lispy-mode . lispyville-mode)
   :general
   (:states 'normal :keymaps 'lispyville-mode-map
            "g C-j" #'lispy-down

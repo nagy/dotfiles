@@ -47,7 +47,6 @@ let
       org-pdftools
       triples
       bufler
-      visual-fill-column
 
       pass
       password-store

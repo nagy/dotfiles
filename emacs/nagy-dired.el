@@ -30,7 +30,7 @@
 
   (ov-set (rx ".el" eol) 'face 'modus-themes-intense-magenta)
 
-  ;; programming
+  ;; code
   (ov-set (rx ".rs" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".js" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".fs" eol) 'face 'modus-themes-intense-blue)
@@ -43,12 +43,15 @@
   (ov-set (rx ".asd" eol) 'face '(:underline t))
 
   ;; documentation
-  (ov-set (rx ".org" eol) 'face 'modus-themes-bold)
-  (ov-set (rx ".org" eol) 'face 'modus-themes-intense-yellow)
+  (ov-set (rx ".org" eol) 'face '(modus-themes-intense-yellow bold))
   (ov-set (rx ".info" eol) 'face 'modus-themes-intense-yellow)
   (ov-set (rx ".pdf" eol) 'face 'modus-themes-intense-yellow)
   (ov-set (rx ".rst" eol) 'face 'modus-themes-intense-yellow)
   (ov-set (rx ".txt" eol) 'face 'modus-themes-intense-yellow)
+
+  ;; data
+  (ov-set (rx "restic.json" eol) 'face 'modus-themes-subtle-red)
+  (ov-set (rx ".json" eol) 'face 'modus-themes-intense-red)
 
   (ov-set (rx ".nix" eol) 'face 'modus-themes-intense-green)
   (ov-set (rx ".gmi" eol) 'face 'modus-themes-intense-yellow)

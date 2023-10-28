@@ -80,6 +80,7 @@
        "\eph": "\C-a\C-khtop\C-m"
        "\epd": "\C-a\C-kdstat\C-m"
        "\eh": "\C-e --help\C-m"
+       "\eg": "git "
        "\ep\ev": "\C-e --version\C-m"
        "\ep\ej": "\C-e|j\C-m"
        "\eT": "\C-a\C-kcd $(mktemp -d)\C-m"
