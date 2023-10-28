@@ -141,13 +141,21 @@
   (:states 'normal :keymaps 'image-mode-map
            "P" #'image-transform-fit-to-window))
 
+(use-package apropos
+  :hook
+  (apropos-mode . visual-fill-column-mode)
+  :bind
+  (:map apropos-mode-map
+        ("H-j" . apropos-next-symbol)
+        ("H-k" . apropos-previous-symbol))
+  :general
+  (:states 'normal :keymaps 'apropos-mode-map
+           "f" #'apropos-follow))
+
 (use-package gitconfig-mode
   :pretty 'gitconfig-mode
   ("true" . true) ("false" . false)
-  ;; ("core" . "♁")
-  ("branch" . "⌥")
-  ;; ("remote" . "🌐")
-  )
+  ("branch" . "⌥"))
 
 (use-package info
   :hook
@@ -158,7 +166,6 @@
         ("H-k" . Info-prev))
   :general
   (:states 'normal :keymaps 'Info-mode-map
-           ;; "o" #'nagy-hint-open-link
            "f" #'Info-follow-nearest-node))
 
 (use-package cus-edit

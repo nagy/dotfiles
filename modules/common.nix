@@ -5,7 +5,7 @@
   users.users.user = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "dialout" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZNW8uX6gKASOT+0XXKF2QmeXqMZfoEMIYFogbUF4jo"
     ];
@@ -133,7 +133,6 @@
     htmlq
 
     # network
-    # dstat
     nftables
     sshfs-fuse
 

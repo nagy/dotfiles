@@ -2,7 +2,7 @@
 
 let
   patchedEmacs = config.services.emacs.package.overrideAttrs (old: {
-    patches = (old.patches or []) ++[
+    patches = (old.patches or [ ]) ++ [
       (pkgs.fetchpatch {
         # lower gc latency, already merged upstream
         url =
