@@ -137,5 +137,12 @@
                      `(push ',zip nagy-cycle-alist)))))
 (add-to-list 'use-package-keywords :cycle t)
 
+;; also try `switch-to-buffer-obey-display-actions'. Does not solve it completely.
+(defun nagy-replace-switch-to-buffer-other-window (orig-fun &rest args)
+  "Advice that replaces calls to `switch-to-buffer-other-window'
+with `switch-to-buffer'."
+  (cl-letf (((symbol-function 'switch-to-buffer-other-window) #'switch-to-buffer))
+    (apply orig-fun args)))
+
 (provide 'nagy-use-package)
 ;;; nagy-use-package.el ends here

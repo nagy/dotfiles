@@ -42,22 +42,33 @@ let
   emacsAndPackages = customEmacsPackages.withPackages (epkgs:
     (lib.attrValues (import ../emacs { inherit pkgs lib emacs; }))
     ++ (with epkgs; [
+      treesit-grammars.with-all-grammars
       pdf-tools
       org-pdftools
       triples
       bufler
-
       visual-fill-column
 
-      format-all
-
-      # password and secrets
       pass
       password-store
       password-store-otp
 
-      dired-narrow
+      info-colors
+      exwm
+      centered-cursor-mode
+      ht
+      fn
+
+      # json-par               # depends on json-mode, causes problem with assigning js-json-mode
+      # dwim-coder-mode        # only works in -ts-modes
+
+      # super-save # https://github.com/bbatsov/super-save
+      # literate-calc-mode
+      # https://github.com/emacs-mirror/emacs/blob/master/lisp/emacs-lisp/trace.el
+      # dumb-jump # https://github.com/jacktasia/dumb-jump
       mu4e
+      aggressive-indent
+      # (assert consult-gh.version == 2.0; consult-gh)
     ]));
 in
 { environment.systemPackages = [ emacsAndPackages pkgs.mu ]; }

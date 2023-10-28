@@ -38,7 +38,7 @@
 (defun nagy-qrcode-kill ()
   (interactive)
   (aif (nagy-qrcode-choose (nagy-qrcode-image-scan))
-    (message "QR-Code: %S" (kill-new it))
+      (message "QR-Code: %S" (kill-new it))
     (error "No QR-Code found")))
 
 (defun qr-take-screenshot-and-kill ()
