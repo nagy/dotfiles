@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-evil
-;; Package-Requires: ((emacs "29.1") evil eat evil-numbers evil-surround evil-goggles general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") evil eat evil-numbers evil-surround evil-goggles key-chord vertico general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -42,13 +42,24 @@
   ("H-u" . evil-undo))
 
 (use-package evil-numbers
+  :preface
+  (defun nagy-evil-numbers-inc-10 ()
+    (interactive)
+    (evil-numbers/inc-at-pt-incremental 10 nil))
+  (defun nagy-evil-numbers-dec-10 ()
+    (interactive)
+    (evil-numbers/dec-at-pt-incremental 10 nil))
   :bind
   ("H-<up>" . evil-numbers/inc-at-pt-incremental)
   ("H-<down>" . evil-numbers/dec-at-pt-incremental)
   :general
   (:states 'normal
-           "g+" #'evil-numbers/inc-at-pt-incremental
-           "g-" #'evil-numbers/dec-at-pt-incremental))
+           "↑" #'evil-numbers/inc-at-pt-incremental
+           "↓" #'evil-numbers/dec-at-pt-incremental
+           "→" #'nagy-evil-numbers-inc-10
+           "←" #'nagy-evil-numbers-dec-10
+           "g +" #'evil-numbers/inc-at-pt-incremental
+           "g -" #'evil-numbers/dec-at-pt-incremental))
 
 (use-package eshell
   :preface

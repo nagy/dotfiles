@@ -78,7 +78,6 @@
   (history-delete-duplicates t)
   (delete-by-moving-to-trash t)
   (load-prefer-newer t)
-  (dired-free-space nil)
   (suggest-key-bindings nil)
   (large-file-warning-threshold (* 100 1000 1000))
   (duplicate-line-final-position -1)    ; to last line
@@ -92,6 +91,7 @@
   ("s-q" . bury-buffer)
   ("s-g" . keyboard-quit)
   ("s-=" . balance-windows)
+  ("H-M-_" . fundamental-mode)
   ("H-M-t" . text-mode)
   ("H-e" . insert-char)
   ("C-H-e" . emoji-insert)

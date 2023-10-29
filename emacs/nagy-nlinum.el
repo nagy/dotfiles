@@ -22,6 +22,7 @@
 (use-package display-line-numbers
   :custom
   (display-line-numbers-type t)
+  (display-line-numbers-width 2)
   :config
   ;; this comes from doom
   (remove-hook 'prog-mode-hook #'display-line-numbers-mode)

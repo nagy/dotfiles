@@ -29,10 +29,7 @@
            "s-k" #'eglot-shutdown-all)
   (:states 'normal :keymaps 'eglot-mode-map
            "ſ" #'eglot-code-actions
-           "M-æ" #'eglot-code-actions)
-  (:states 'normal :keymaps 'prog-mode-map
-           "↓" #'xref-find-references
-           "↑" #'xref-find-definitions))
+           "M-æ" #'eglot-code-actions))
 
 (use-package consult-eglot)
 

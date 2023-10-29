@@ -65,6 +65,8 @@
   (:map forge-post-mode-map
         ([remap kill-this-buffer] . forge-post-cancel)
         ([remap save-kill-buffer] . forge-post-submit))
+  (:map magit-mode-map
+        ("@" . forge-dispatch))
   ;; :general
   ;; (:states 'normal :keymaps 'forge-post-mode-map
   ;;          "ö" #'forge-post-submit)

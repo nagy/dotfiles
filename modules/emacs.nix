@@ -57,6 +57,8 @@ let
       centered-cursor-mode
       ht
       fn
+      yasnippet
+      yasnippet-snippets
 
       # json-par               # depends on json-mode, causes problem with assigning js-json-mode
       # dwim-coder-mode        # only works in -ts-modes

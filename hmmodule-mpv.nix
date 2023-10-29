@@ -57,6 +57,7 @@
       "DOWN" = "add volume -3";
 
       "Ü" = "add volume -3";
+      "M" = "cycle ao-mute";
 
       "J" = "seek 60";
       "K" = "seek -60";
