@@ -14,9 +14,9 @@
       '' + (mkDollarPrompt basePreset);
     in
     toString (pkgs.writeText "starship-config.toml" basePresetModified);
-  environment.variables.STARSHIP_CACHE = "/tmp/starship-cache";
   programs.bash.interactiveShellInit = ''
     if [[ $TERM != "dumb" && (-z $INSIDE_EMACS || $INSIDE_EMACS == "29.1,eat") ]]; then
+      export STARSHIP_CACHE=/run/user/$UID/starship-cache
       eval "$(${pkgs.starship}/bin/starship init bash --print-full-init)"
     fi
     [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \

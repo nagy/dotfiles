@@ -2,7 +2,7 @@
 
 {
   services.searx = {
-    enable = true;
+    enable = false;
     package = pkgs.searxng;
     # runInUwsgi = true;
     settings = {

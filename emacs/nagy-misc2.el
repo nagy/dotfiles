@@ -31,8 +31,9 @@
     :program "taplo"
     :args `("fmt" "-"))
   :bind
-  ("H-j" . forward-paragraph)
-  ("H-k" . backward-paragraph)
+  (:map conf-mode-map
+        ("H-j" . forward-paragraph)
+        ("H-k" . backward-paragraph))
   :general
   (:states 'normal :keymaps 'conf-toml-mode
            "ö" #'save-buffer)

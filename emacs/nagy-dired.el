@@ -37,9 +37,12 @@
   (ov-set (rx ".fs" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".c" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".cc" eol) 'face 'modus-themes-intense-blue)
+  (ov-set (rx ".groovy" eol) 'face 'modus-themes-intense-blue)
+  (ov-set (rx ".zig" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".go" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".ts" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".py" eol) 'face 'modus-themes-intense-blue)
+  (ov-set (rx ".jq" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".hy" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".lisp" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".asd" eol) 'face 'modus-themes-intense-blue)
@@ -75,6 +78,7 @@
 
   ;; wasm
   (ov-set (rx ".wasm" eol) 'face '(modus-themes-fg-blue-intense modus-themes-subtle-blue))
+  (ov-set (rx ".wat" eol) 'face '(modus-themes-fg-blue-intense modus-themes-subtle-blue))
   )
 
 (add-hook 'dired-after-readin-hook #'nagy-dired-flake-underline)
@@ -91,6 +95,9 @@
           (ov-set ov 'display "⨏")))
     (dired-next-line 1))
   :custom
+  (dired-dwim-target t)
+  (dired-recursive-copies  'always)
+  (dired-create-destination-dirs 'ask)
   (dired-deletion-confirmer #'y-or-n-p)
   (dired-do-revert-buffer t)
   (dired-free-space nil)

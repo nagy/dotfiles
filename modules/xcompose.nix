@@ -115,6 +115,7 @@ let
     "⟀" = [ "<Multi_key>" "<3>" "<d>" ];
 
     "⌚" = [ "<Multi_key>" "<tslash>" ];
+    "🌲" = [ "<Multi_key>" "<Tslash>" ];
     "⦇" = [ "Ctrl" "<Multi_key>" "<parenleft>" ];
     "⦈" = [ "Ctrl" "<Multi_key>" "<parenright>" ];
 

@@ -56,6 +56,7 @@
   ("buffer-string" . [?𝒃 (Br . Bl) ?𝒔])
   ("eval-when-compile" . [?𝒆 (Br . Bl) ?𝒄])
   ("buffer-name" . [?𝒃 (Br . Bl) ?𝒏])
+  ("erase-buffer" . [?𝒆 (Br . Bl) ?𝒃])
   ("save-excursion" . [?𝒔 (Br . Bl) ?𝒙])
   ("start-process" . [?𝒔 (Br . Bl) ?𝒑])
   ("call-process" . [?𝒄 (Br . Bl) ?𝒑])

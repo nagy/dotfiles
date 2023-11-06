@@ -15,6 +15,7 @@
   (org-tags-column -77)
   (org-startup-indented nil)
   ;; (org-src-preserve-indentation nil)
+  (org-edit-src-content-indentation 0)
   :bind
   ("H-M-o" . org-mode)
   (:map org-mode-map
@@ -42,6 +43,12 @@
   ("#+TITLE:" . "⨠")
   ("#+name:" . "⁝")
   ("#+NAME:" . "⁝")
+  ("#+date:" . "")
+  ("#+DATE:" . "")
+  ("#+begin_comment" . "󰿟")
+  ("#+end_comment" . "󰿟")
+  ("#+BEGIN_COMMENT" . "󰿟")
+  ("#+END_COMMENT" . "󰿟")
   ("[ ]" . "☐")
   ("[X]" . "☑")
   ("[-]" . "❍")

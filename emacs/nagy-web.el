@@ -49,6 +49,7 @@
 (use-package wat-mode
   :pretty 'wat-mode
   ("export" . export)
+  ("func" . def)
   ("module" . "📦")
   ("global" . "🌐"))
 

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib ? pkgs.lib, ... }:
 
 {
 
@@ -16,6 +16,9 @@
       };
       user.name = "Daniel Nagy";
       user.email = "danielnagy@posteo.de";
+      # spend more time to produce a smaller diff
+      # https://git-scm.com/docs/diff-config#Documentation/diff-config.txt-diffalgorithm
+      diff.algorithm = "minimal";
       commit = {
         # Show my changes when writing the message
         verbose = true;
@@ -51,7 +54,6 @@
         "git@codeberg.org:nagy/".insteadOf = "cbn:";
         # organizations
         "https://github.com/NixOS/".insteadOf = "nixos:";
-        "https://github.com/rust-lang/".insteadOf = "rust:";
         "https://github.com/NixOS/nixpkgs".insteadOf = "pkgs:";
         "https://github.com/nix-community/NUR".insteadOf = "nur:";
         "https://code.tvl.fyi/depot.git".insteadOf = "tvl:";
@@ -105,6 +107,8 @@
         jq = { clean = "${pkgs.jq}/bin/jq --sort-keys"; };
         # without this, restic snapshots output is not deterministic
         jq-restic = { clean = "${pkgs.jq}/bin/jq --sort-keys 'sort_by(.id)'"; };
+        taplo-fmt = { clean = "${pkgs.taplo}/bin/taplo fmt -"; };
+        ruff-format = { clean = "ruff format -"; };
       };
       diff = {
         wasm = {
@@ -117,11 +121,8 @@
           '';
           binary = true;
         };
-        png = {
-          # potentially use exiftool if magick turns out to be slow.
-          textconv = pkgs.writeShellScript "pngtostdout" ''
-            exec ${pkgs.imagemagick}/bin/magick identify -verbose - < "$1"
-          '';
+        exif = {
+          textconv = lib.getExe pkgs.exiftool;
           binary = true;
         };
         tar = {
@@ -144,13 +145,22 @@
           textconv = "${pkgs.gnutar}/bin/tar --zstd -tvf";
           binary = true;
         };
+        orgmode = {
+          xfuncname = "^(\\*+.*)$";
+        };
+        lisp = {
+          xfuncname = "^(\\(.*)$";
+        };
       };
     };
   };
   environment.etc.gitattributes.text = ''
     *.wasm diff=wasm
     *.pdf diff=pdf
-    *.png diff=png
+    *.png diff=exif
+    *.jpg diff=exif
+    *.jpeg diff=exif
+    *.gif diff=exif
     *.tar diff=tar
     *.tar.gz diff=tar-gz
     *.tgz diff=tar-gz
@@ -159,5 +169,29 @@
     *.tar.zst diff=tar-zstd
     *.json filter=jq
     *.restic.json filter=jq-restic
+    # *.toml filter=taplo-fmt
+    # *.py filter=ruff-format
+    *.org  diff=orgmode
+    *.hy   diff=lisp
+    *.el   diff=lisp
+    *.lisp diff=lisp
+    ### git builtin
+    *.md    diff=markdown
+    *.rs    diff=rust
+    *.c     diff=cpp
+    *.h     diff=cpp
+    *.c++   diff=cpp
+    *.h++   diff=cpp
+    *.cpp   diff=cpp
+    *.hpp   diff=cpp
+    *.cc    diff=cpp
+    *.hh    diff=cpp
+    *.go    diff=golang
+    *.py    diff=python
+    *.scm   diff=scheme
+    *.sh    diff=bash
+    *.tex   diff=tex
+    *.bib   diff=bibtex
+    *.css   diff=css
   '';
 }
