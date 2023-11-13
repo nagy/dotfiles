@@ -163,7 +163,7 @@ in
   '';
 
   environment.etc."X11/Xresources".text = ''
-    *.font: Iosevka Comfy:size=12
+    *.font: ${builtins.elemAt config.fonts.fontconfig.defaultFonts.monospace 0}:size=12
     *.background: #000000
     *.foreground: #ffffff
     Xcursor.size: 48

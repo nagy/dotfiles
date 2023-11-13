@@ -46,6 +46,7 @@
   ("try" . try) ("except" . except)
   ("return" . return)
   ("pass" . "…")
+  ("with" . [?↗ (Bl . Bl) ?↘])
   :bind
   ("H-M-p" . python-mode)
   :general

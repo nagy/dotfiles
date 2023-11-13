@@ -42,6 +42,28 @@ isDark:
           white = "0xffffff";
         };
       };
+      key_bindings = [
+        {
+          key = "PageUp";
+          mode = "Vi|~Search";
+          action = "ScrollPageUp";
+        }
+        {
+          key = "PageDown";
+          mode = "Vi|~Search";
+          action = "ScrollPageDown";
+        }
+        {
+          key = "Home";
+          mode = "Vi|~Search";
+          action = "ScrollToTop";
+        }
+        {
+          key = "End";
+          mode = "Vi|~Search";
+          action = "ScrollToBottom";
+        }
+      ];
     };
   };
 }

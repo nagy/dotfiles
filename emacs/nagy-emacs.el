@@ -84,7 +84,7 @@
   ;; (backtrace-on-redisplay-error t)
   (browse-url-default-scheme "https")
   ;; :config
-  ;; (setq-default lexical-binding t) ; does not work yet
+  ;; (setq-default lexical-binding t) ;; has no effect yet
   :bind
   ("s-s" . nagy-emacs-split-window-below-and-focus)
   ("s-v" . nagy-emacs-split-window-right-and-focus)

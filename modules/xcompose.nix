@@ -82,6 +82,11 @@ let
     "⓵" = [ "<Multi_key>" "<Multi_key>" "<circle>" "<1>" ];
     "⓶" = [ "<Multi_key>" "<Multi_key>" "<circle>" "<2>" ];
     "⓷" = [ "<Multi_key>" "<Multi_key>" "<circle>" "<3>" ];
+    "🌀" = [ "<Multi_key>" "<at>" ];
+    "☿" = [ "<Multi_key>" "<hstroke>" ];
+    "℥" = [ "<Multi_key>" "<Hstroke>" ];
+    # <Multi_key> <h> <g>            : "☿"    U263f # MERCURY aka hg
+    # <Multi_key> <3> <3>            : "℥"     U2125 # OUNCE SIGN
 
     # dice
     "⚀" = [ "<Multi_key>" "<onesuperior>" ];

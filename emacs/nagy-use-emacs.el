@@ -111,6 +111,10 @@
   ("pcase-lambda" . "ƛ")
   ("pcase-let" . "⤥")
   ("pcase-setq" . "⤈")
+  ("bindat-pack" . [?󱃲 (Br . Bl) ?↑])
+  ("bindat-unpack" . [?󱃲 (Br . Bl) ?↓])
+  ("bindat-type" . [?󱃲 (Br . Bl) ?𝒕])
+  ("bindat-defmacro" . [?󱃲 (Br . Bl) ?𝒎])
   ("apcase" . "〣")                     ; anaphoric
   ;; dash.el
   ("-lambda" . "λ")

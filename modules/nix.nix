@@ -1,6 +1,18 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
+
+  environment.systemPackages = with pkgs; [
+    nixfmt
+    nil
+    nickel
+    nix-prefetch
+    nix-prefetch-git
+    nix-diff
+    nix-init
+    nix-update
+  ];
+
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes recursive-nix impure-derivations ca-derivations

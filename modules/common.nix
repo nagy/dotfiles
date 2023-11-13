@@ -152,6 +152,7 @@
     usbutils
     sqlite-interactive
     oil
+    optipng
 
     black
     isort
@@ -165,21 +166,15 @@
     # (pkgs.writeScriptBin "journal-git-store"
     #   (builtins.readFile ../bin/journal-git-store))
     (pkgs.writeScriptBin "gitpack" (builtins.readFile ../bin/gitpack))
-    nixfmt
-    nil
-    nickel
     topiary
     dnsutils
     yt-dlp
-    nix-update
-    nix-prefetch
-    nix-prefetch-git
-    nix-diff
-    nix-init
     qrencode
     restic
     rclone
     zig
+    zls
+    wabt
     wasmtime
     (zbar.override {
       withXorg = false;

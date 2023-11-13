@@ -67,14 +67,19 @@
   (ov-set (rx ".tokei.json") 'face 'modus-themes-subtle-red)
   (ov-set (rx ".restic.json") 'face 'modus-themes-subtle-red)
   (ov-set (rx ".rclone.json") 'face 'modus-themes-subtle-red)
+  (ov-set (rx ".info.json") 'face 'modus-themes-subtle-red)
   (ov-set (rx ".json") 'face 'modus-themes-intense-red)
-  (ov-set (rx (or ".tar" ".zip")) 'face 'eshell-ls-archive)
+  (ov-set (rx (or ".yml" ".yaml")) 'face 'modus-themes-intense-red)
+  (ov-set (rx ".xml") 'face 'modus-themes-intense-red)
+  (ov-set (rx (or ".tar" ".zip" ".nar")) 'face 'eshell-ls-archive)
   (ov-set (rx (or ".zst" ".gz" ".bz2" ".xz")) 'face '(:background "grey" :foreground "black"))
 
   ;; media
   (ov-set (rx ".png" eol) 'face 'modus-themes-intense-cyan)
   (ov-set (rx ".jpg" eol) 'face 'modus-themes-intense-cyan)
   (ov-set (rx ".jpeg" eol) 'face 'modus-themes-intense-cyan)
+  (ov-set (rx ".jxl" eol) 'face 'modus-themes-intense-cyan)
+  (ov-set (rx ".webp" eol) 'face 'modus-themes-intense-cyan)
 
   ;; wasm
   (ov-set (rx ".wasm" eol) 'face '(modus-themes-fg-blue-intense modus-themes-subtle-blue))

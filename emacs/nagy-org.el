@@ -49,6 +49,8 @@
   ("#+end_comment" . "󰿟")
   ("#+BEGIN_COMMENT" . "󰿟")
   ("#+END_COMMENT" . "󰿟")
+  ("#+results:" . "‼")
+  ("#+RESULTS:" . "‼")
   ("[ ]" . "☐")
   ("[X]" . "☑")
   ("[-]" . "❍")
@@ -59,6 +61,9 @@
   ("<->" . "↔")
   ("=>" . "⇒")
   ("<=" . "⇐")
+  :cycle 'org-mode
+  ("no" "yes")
+  ("output" "value")
   :general
   (:states 'normal :keymaps 'org-mode-map
            "r" #'org-cycle))

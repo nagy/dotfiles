@@ -3,13 +3,12 @@
 ;; Package-Requires: ((emacs "29.1") anaphora)
 
 (eval-when-compile
+  (require 'anaphora)
   (require 'cl-lib))
 
 (require 'dom)
 (require 'image-mode)
 (require 'xml)
-
-(require 'anaphora)
 
 (defun nagy-qrcode-datatag-todata (data-tag)
   (if (cadr data-tag)
