@@ -63,21 +63,7 @@
   (:states 'motion :keymaps 'elpher-mode-map
            ;; (define-key elpher-mode-map "f" nil) ; this might be needed
            "f" #'push-button
-           "s" #'elpher-back)
-  ;; (evil-define-key 'motion elpher-mode-map (kbd "C-M-h") #'elpher-back)
-  ;; (evil-define-key 'motion elpher-mode-map (kbd "C-o") #'elpher-back)
-  ;; (evil-define-key 'motion elpher-mode-map (kbd "<C-i>") #'elpher-next-link)
-  ;; (evil-define-key 'motion elpher-mode-map (kbd "S-TAB") #'elpher-prev-link)
-  ;; (evil-define-key 'motion elpher-mode-map "J" #'elpher-next-link)
-  ;; (evil-define-key 'motion elpher-mode-map "K" #'elpher-prev-link)
-  ;; (evil-define-key 'motion elpher-mode-map "K" #'elpher-prev-link)
-  ;; (evil-define-key 'motion elpher-mode-map "g" nil)
-  ;; (evil-define-key 'motion elpher-mode-map "go" #'elpher-go-current)
-  ;; (evil-define-key 'motion elpher-mode-map "o" #'nagy-link-hint-open-link)
-  ;; (evil-define-key 'normal elpher-mode-map "o" #'nagy-link-hint-open-link)
-  ;; (evil-define-key 'normal elpher-mode-map "g" nil)
-  )
-
+           "s" #'elpher-back))
 
 (provide 'nagy-elpher)
 ;;; nagy-elpher.el ends here

@@ -72,8 +72,6 @@
   ("string-suffix-p" . [? (Br . Bl) ??])
   ("thread-first" . [?| (Br . Bl) ?…])
   ("thread-last" . [?… (Br . Bl) ?|])
-  (":general" . [?: (Br . Bl) ?𝒈])
-  (":mode" . [?: (Br . Bl) ?𝒎])
   ("concat" . "◇")
   ("string-remove-prefix" . [?𝒙 (Br . Bl) ?])
   ("string-remove-suffix" . [?𝒙 (Br . Bl) ?])

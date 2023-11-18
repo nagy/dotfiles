@@ -31,7 +31,7 @@
            "ſ" #'eglot-code-actions
            "M-æ" #'eglot-code-actions))
 
-(use-package consult-eglot)
+;; (use-package consult-eglot)
 
 (provide 'nagy-lsp)
 ;;; nagy-lsp.el ends here

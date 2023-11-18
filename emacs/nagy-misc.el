@@ -53,7 +53,9 @@
      ("ℕd" . "nagy-data")
      ("ℕ" . "nagy")
      ("⧖" . "dired")
-     ("ø" . "org")
+     ("ol" . "org-link")
+     ("ob" . "org-babel")
+     ("o" . "org")
      ("ŧ" . "tokei")
      ("√" . "calc")
      ("e4" . "elforth"))))
@@ -82,7 +84,7 @@
   :hook
   (tokei-mode . visual-fill-column-mode)
   :bind
-  ("<key-chord> ß t" . tokei))
+  ("M-⧖" . tokei))
 
 (use-package wgrep
   :bind

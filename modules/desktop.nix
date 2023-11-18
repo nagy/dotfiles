@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, config, ... }:
 
 let
   nsxivBigThumbs = pkgs.nsxiv.overrideAttrs

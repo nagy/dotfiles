@@ -6,7 +6,11 @@
 
 (require 'nagy-use-package)
 
-(use-package tablist)
+(use-package tablist
+  :bind
+  (:map tablist-mode-map
+        ("M-r" . tablist-pop-filter)
+        ("M-/" . tablist-push-regexp-filter)))
 
 (provide 'nagy-tablist)
 ;;; nagy-tablist.el ends here

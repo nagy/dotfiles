@@ -156,15 +156,6 @@ let
     "P¯" =
       [ "nix" "profile" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
 
-    "R~" = [ "nix" "run" "--override-input" "nixpkgs" "~/pkgs" ];
-    "B~" = [ "nix" "build" "--override-input" "nixpkgs" "~/pkgs" ];
-    "D~" = [ "nix" "develop" "--override-input" "nixpkgs" "~/pkgs" ];
-    "Fs~" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "~/pkgs" ];
-    "Fm~" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "~/pkgs" ];
-    "Fc~" = [ "nix" "flake" "check" "--override-input" "nixpkgs" "~/pkgs" ];
-    "SH~" = [ "nix" "shell" "--override-input" "nixpkgs" "~/pkgs" ];
-    "P~" = [ "nix" "profile" "--override-input" "nixpkgs" "~/pkgs" ];
-
     "B." = [ "nix" "build" "--file" "." ];
     "B.j" = [ "nix" "build" "--file" "." "--json" "--no-link" ];
     "R." = [ "nix" "run" "--file" "." ];

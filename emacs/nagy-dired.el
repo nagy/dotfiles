@@ -54,8 +54,10 @@
   (ov-set (rx ".org" eol) 'face '(modus-themes-intense-yellow bold))
   (ov-set (rx ".md" eol) 'face 'modus-themes-intense-yellow)
   (ov-set (rx ".info" eol) 'face 'modus-themes-intense-yellow)
-  (ov-set (rx ".pdf" eol) 'face 'modus-themes-intense-yellow)
+  (ov-set (rx ".pdf") 'face 'modus-themes-intense-yellow)
   (ov-set (rx ".rst" eol) 'face 'modus-themes-intense-yellow)
+  (ov-set (rx ".rsync.txt") 'face 'modus-themes-subtle-yellow)
+  (ov-set (rx ".jenkins.txt") 'face 'modus-themes-subtle-yellow)
   (ov-set (rx ".txt") 'face 'modus-themes-intense-yellow)
   (ov-set (rx "README."
               (or "md" "org" "rst" "txt") eol)
@@ -67,7 +69,10 @@
   (ov-set (rx ".tokei.json") 'face 'modus-themes-subtle-red)
   (ov-set (rx ".restic.json") 'face 'modus-themes-subtle-red)
   (ov-set (rx ".rclone.json") 'face 'modus-themes-subtle-red)
+  (ov-set (rx ".ncdu.json") 'face 'modus-themes-subtle-red)
   (ov-set (rx ".info.json") 'face 'modus-themes-subtle-red)
+  (ov-set (rx ".journal.json") 'face 'modus-themes-subtle-red)
+  (ov-set (rx ".jc.json") 'face 'modus-themes-subtle-red)
   (ov-set (rx ".json") 'face 'modus-themes-intense-red)
   (ov-set (rx (or ".yml" ".yaml")) 'face 'modus-themes-intense-red)
   (ov-set (rx ".xml") 'face 'modus-themes-intense-red)
@@ -80,6 +85,7 @@
   (ov-set (rx ".jpeg" eol) 'face 'modus-themes-intense-cyan)
   (ov-set (rx ".jxl" eol) 'face 'modus-themes-intense-cyan)
   (ov-set (rx ".webp" eol) 'face 'modus-themes-intense-cyan)
+  (ov-set (rx ".mp4" eol) 'face 'modus-themes-subtle-cyan)
 
   ;; wasm
   (ov-set (rx ".wasm" eol) 'face '(modus-themes-fg-blue-intense modus-themes-subtle-blue))
@@ -104,6 +110,8 @@
   (dired-recursive-copies  'always)
   (dired-create-destination-dirs 'ask)
   (dired-deletion-confirmer #'y-or-n-p)
+  (dired-keep-marker-rename nil)
+  (dired-keep-marker-copy nil)
   (dired-do-revert-buffer t)
   (dired-free-space nil)
   (dired-compress-directory-default-suffix ".tar.zst")
@@ -111,7 +119,10 @@
   ("s-j" . dired-jump)
   (:map dired-mode-map
         ("M-l" . dired-do-load)
-        ("M-m" . dired-do-chmod))
+        ("M-m" . dired-do-chmod)
+        ("H-i" . dired-do-info)
+        ("H-m" . dired-do-man)
+        ("H-e" . dired-do-eww))
   :general
   (:states 'normal :keymaps 'dired-mode-map
            "f" #'dired-find-file
@@ -126,7 +137,9 @@
            "e" #'dired-subtree-toggle))
 
 (use-package dired-narrow
-  :config)
+  :bind
+  (:map dired-mode-map
+        ("M-/" . dired-narrow-regexp)))
 
 (provide 'nagy-dired)
 ;;; nagy-dired.el ends here

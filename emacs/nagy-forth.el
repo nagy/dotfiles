@@ -4,7 +4,7 @@
 ;;
 ;; Author: Daniel Nagy <danielnagy@posteo.de>
 ;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Package-Requires: ((emacs "29.1") general forth-mode elforth)
+;; Package-Requires: ((emacs "29.1") general forth-mode elforth nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -17,6 +17,9 @@
 (require 'comint)
 
 (require 'general)
+
+(require 'nagy-use-package)
+
 (eval-when-compile
   ;; To catch errors during batch compilation
   (require 'forth-mode) ; warns about using cl ;; NIX-IGNORE-WARNINGS

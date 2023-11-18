@@ -9,6 +9,8 @@
       dbus-raise-window = false;
       database = "null";
       first-page-column = "1";
+      selection-clipboard = "clipboard";
+      pages-per-row = 2;
       # recolor-reverse-video = true; # this prevents image pdfs from being recolored
       # sandbox = "strict"; # this is broken. with this zathura does not show a window
     };

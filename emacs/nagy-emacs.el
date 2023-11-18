@@ -83,6 +83,10 @@
   (duplicate-line-final-position -1)    ; to last line
   ;; (backtrace-on-redisplay-error t)
   (browse-url-default-scheme "https")
+  (auto-save-default nil)
+  (scroll-conservatively 0)
+  (scroll-step 15)
+  (scroll-bar-adjust-thumb-portion nil)
   ;; :config
   ;; (setq-default lexical-binding t) ;; has no effect yet
   :bind
@@ -98,7 +102,9 @@
   ("H-r" . revert-buffer-quick)
   ("H-s-," . describe-char)
   ("H-s-." . display-local-help)
-  ("H-s-:" . duplicate-dwim))
+  ("H-s-:" . duplicate-dwim)
+  ("M-s-ł" . find-library)
+  ("s-<f8>" . scroll-bar-mode))
 
 (use-package help
   :hook
@@ -300,9 +306,10 @@
         ("s-." . eros-eval-last-sexp))
   :hook
   (inferior-emacs-lisp-mode . nagy-ielm-init-history)
-  :custom
-  (ielm-header "")
+  ;; :custom
+  ;; (ielm-header "")
   :config
+  (setq ielm-header "")                 ; does not work in :custom because it is a defvar
   (advice-add 'ielm-send-input :after #'nagy-ielm-write-history))
 
 (use-package epg

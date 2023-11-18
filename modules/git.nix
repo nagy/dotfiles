@@ -1,4 +1,4 @@
-{ pkgs, lib ? pkgs.lib, ... }:
+{ pkgs, lib, ... }:
 
 {
 
@@ -145,12 +145,8 @@
           textconv = "${pkgs.gnutar}/bin/tar --zstd -tvf";
           binary = true;
         };
-        orgmode = {
-          xfuncname = "^(\\*+.*)$";
-        };
-        lisp = {
-          xfuncname = "^(\\(.*)$";
-        };
+        orgmode = { xfuncname = "^(\\*+.*)$"; };
+        lisp = { xfuncname = "^(\\(.*)$"; };
       };
     };
   };

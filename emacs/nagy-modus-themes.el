@@ -82,8 +82,10 @@
   (push 'nickel-mode paren-face-modes)
   (push 'python-mode paren-face-modes)
   (push 'python-ts-mode paren-face-modes)
+  (push 'rust-ts-mode paren-face-modes)
   (push 'conf-toml-mode paren-face-modes)
   (push 'sql-mode paren-face-modes)
+  (push 'zig-mode paren-face-modes)
   (add-hook 'modus-themes-after-load-theme-hook #'nagy/fix-parenface))
 
 (use-package lin

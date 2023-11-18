@@ -70,7 +70,10 @@
               nil t)
     (with-current-buffer newbuf
       (nagy-formats--call-converter (buffer-local-value 'major-mode oldbuf) into-mode)
-      (set-window-buffer nil (current-buffer)))))
+      (set-window-buffer nil (current-buffer))
+      (set-buffer-modified-p nil)
+      (read-only-mode))
+    newbuf))
 (keymap-global-set "H-M-b" #'nagy-formats-do-convert)
 
 (cl-defgeneric nagy-formats-convert (from to)

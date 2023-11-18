@@ -49,9 +49,13 @@
   ("with" . [?↗ (Bl . Bl) ?↘])
   :bind
   ("H-M-p" . python-mode)
+  (:map python-mode-map
+        ("C-⊢" . ruff-format-buffer))
   :general
   (:states 'normal
            "þ" #'run-python)
+  (:states 'normal :keymaps 'python-mode-map
+           "⊢" #'ruff-format-buffer)
   :cycle 'python-mode
   ("class" "def"))
 

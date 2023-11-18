@@ -29,6 +29,7 @@
       title = "\${?media-title:\${media-title}}\${!media-title:No file.}";
       # https://news.ycombinator.com/item?id=32140083
       video-sync = "display-resample";
+      screenshot-template = "%F - [%P] (%#01n)";
     };
     profiles = {
       "extension.webm" = { loop-file = "inf"; };
