@@ -86,6 +86,7 @@
   (push 'conf-toml-mode paren-face-modes)
   (push 'sql-mode paren-face-modes)
   (push 'zig-mode paren-face-modes)
+  (push 'java-mode paren-face-modes)
   (add-hook 'modus-themes-after-load-theme-hook #'nagy/fix-parenface))
 
 (use-package lin

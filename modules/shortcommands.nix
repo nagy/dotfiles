@@ -310,6 +310,7 @@ let
     ij = [ "ip" "--json" ];
     i4j = [ "ip" "-4" "--json" ];
     i6j = [ "ip" "-6" "--json" ];
+    ipa = [ "ip" "a" ];
     hex = [ "hexdump" "--no-squeezing" "--canonical" ];
     hexn = [ "hexdump" "--no-squeezing" "--canonical" "--length" ];
     hexx = [ "hexyl" "--border" "none" ];

@@ -39,7 +39,8 @@
   ("const" . const)
   :bind
   ("H-M-j" . js-json-mode)
-  ("C-⊢" . jq-format-buffer)
+  (:map js-json-mode-map
+        ("C-⊢" . jq-format-buffer))
   :hook
   (js-json-mode . jq-format-on-save-mode)
   :general
@@ -50,10 +51,11 @@
   :pretty 'wat-mode
   ("export" . export)
   ("func" . def)
+  ("type" . "ƭ")
   ("module" . "📦")
-  ("global" . "🌐"))
-
-(use-package csv-mode)
+  ("global" . "🌐")
+  ("memory" . "󰘨")
+  ("table" . "󰣟"))
 
 (use-package yaml-mode
   :preface
@@ -65,7 +67,8 @@
   (yaml-mode . yq-format-on-save-mode)
   :bind
   ("H-M-y" . yaml-mode)
-  ("C-⊢" . yq-format-buffer)
+  (:map yaml-mode-map
+        ("C-⊢" . yq-format-buffer))
   :general
   (:states 'normal :keymaps 'yaml-mode-map
            "⊢" #'yq-format-buffer))
@@ -81,8 +84,6 @@
   ("c" . "catch")
   ("sel" . "select")
   ("con" . "contains"))
-
-(use-package svelte-mode)
 
 (provide 'nagy-web)
 ;;; nagy-web.el ends here

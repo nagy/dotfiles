@@ -77,7 +77,7 @@
   (ov-set (rx (or ".yml" ".yaml")) 'face 'modus-themes-intense-red)
   (ov-set (rx ".xml") 'face 'modus-themes-intense-red)
   (ov-set (rx (or ".tar" ".zip" ".nar")) 'face 'eshell-ls-archive)
-  (ov-set (rx (or ".zst" ".gz" ".bz2" ".xz")) 'face '(:background "grey" :foreground "black"))
+  (ov-set (rx (or ".zst" ".gz" ".bz2" ".xz" ".gitbundle")) 'face '(:background "grey" :foreground "black"))
 
   ;; media
   (ov-set (rx ".png" eol) 'face 'modus-themes-intense-cyan)
@@ -86,6 +86,8 @@
   (ov-set (rx ".jxl" eol) 'face 'modus-themes-intense-cyan)
   (ov-set (rx ".webp" eol) 'face 'modus-themes-intense-cyan)
   (ov-set (rx ".mp4" eol) 'face 'modus-themes-subtle-cyan)
+  (ov-set (rx ".opus" eol) 'face 'modus-themes-subtle-cyan)
+  (ov-set (rx ".ogg" eol) 'face 'modus-themes-subtle-cyan)
 
   ;; wasm
   (ov-set (rx ".wasm" eol) 'face '(modus-themes-fg-blue-intense modus-themes-subtle-blue))

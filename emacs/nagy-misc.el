@@ -35,8 +35,6 @@
 
 (use-package nameless
   :diminish nameless-mode
-  :hook
-  (emacs-lisp-mode . nameless-mode)
   :general
   (:states 'insert :keymaps 'nameless-mode-map
            "s--" #'nameless-insert-name)
@@ -81,8 +79,6 @@
   (prog-mode . visual-line-mode))
 
 (use-package tokei
-  :hook
-  (tokei-mode . visual-fill-column-mode)
   :bind
   ("M-⧖" . tokei))
 
@@ -144,8 +140,6 @@
            "P" #'image-transform-fit-to-window))
 
 (use-package apropos
-  :hook
-  (apropos-mode . visual-fill-column-mode)
   :bind
   (:map apropos-mode-map
         ("H-j" . apropos-next-symbol)
@@ -160,8 +154,6 @@
   ("branch" . "⌥"))
 
 (use-package info
-  :hook
-  (Info-mode . visual-fill-column-mode)
   :bind
   (:map Info-mode-map
         ("H-j" . Info-next)
@@ -180,8 +172,6 @@
         ([remap revert-buffer-quick] . Custom-reset-saved)
         ([remap save-buffer] . Custom-set)
         ([remap save-kill-buffer] . Custom-buffer-done))
-  :hook
-  (Custom-mode . visual-fill-column-mode)
   :custom
   (custom-buffer-verbose-help nil)
   (custom-search-field nil)

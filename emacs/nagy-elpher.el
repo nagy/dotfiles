@@ -38,8 +38,6 @@
   :commands (elpher-go)
   :functions
   elpher-redraw
-  :hook
-  (elpher-mode . visual-fill-column-mode)
   :custom
   (elpher-use-header nil)
   (elpher-ipv4-always t)

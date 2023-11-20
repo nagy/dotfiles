@@ -73,7 +73,6 @@
   (inhibit-startup-screen t)
   (use-short-answers t)
   (message-log-max t)
-  (require-final-newline t)
   (kill-ring-max 250)
   (history-delete-duplicates t)
   (delete-by-moving-to-trash t)
@@ -107,8 +106,6 @@
   ("s-<f8>" . scroll-bar-mode))
 
 (use-package help
-  :hook
-  (help-mode . visual-fill-column-mode)
   :bind
   ("C-H-h" . describe-key-briefly))
 
@@ -247,28 +244,49 @@
   (define-abbrev global-abbrev-table "lnux" "linux" nil :system t)
   (define-abbrev global-abbrev-table "thsi" "this" nil :system t)
   (with-eval-after-load 'text-mode
-    (define-abbrev text-mode-abbrev-table "t" "the" nil :system t)
     (define-abbrev text-mode-abbrev-table "gr" "great" nil :system t)
     (define-abbrev text-mode-abbrev-table "bc" "because" nil :system t)
-    (define-abbrev text-mode-abbrev-table "n" "and" nil :system t)
-    (define-abbrev text-mode-abbrev-table "w" "was" nil :system t)
     (define-abbrev text-mode-abbrev-table "lo" "long" nil :system t)
     (define-abbrev text-mode-abbrev-table "la" "last" nil :system t)
     (define-abbrev text-mode-abbrev-table "ev" "ever" nil :system t)
     (define-abbrev text-mode-abbrev-table "ng" "nothing" nil :system t)
     (define-abbrev text-mode-abbrev-table "hr" "here" nil :system t)
-    (define-abbrev text-mode-abbrev-table "f" "for" nil :system t)
     (define-abbrev text-mode-abbrev-table "fo" "found" nil :system t)
     (define-abbrev text-mode-abbrev-table "aa" "against" nil :system t)
     (define-abbrev text-mode-abbrev-table "hb" "husband" nil :system t)
-    (define-abbrev text-mode-abbrev-table "y" "you" nil :system t)
     (define-abbrev text-mode-abbrev-table "yo" "your" nil :system t)
     (define-abbrev text-mode-abbrev-table "tk" "think" nil :system t)
     (define-abbrev text-mode-abbrev-table "kg" "keeping" nil :system t)
     (define-abbrev text-mode-abbrev-table "dn" "down" nil :system t)
     (define-abbrev text-mode-abbrev-table "ai" "making" nil :system t)
-    (define-abbrev text-mode-abbrev-table "h" "that" nil :system t)
-    (define-abbrev text-mode-abbrev-table "xl" "human" nil :system t))
+    (define-abbrev text-mode-abbrev-table "xl" "human" nil :system t)
+    ;; More https://jonaquino.blogspot.com/2007/06/yublin-shorthand-for-speed-writing.html?m=1
+    ;; Idea: put yublin on QMK?
+    (define-abbrev text-mode-abbrev-table "t" "the" nil :system t)
+    (define-abbrev text-mode-abbrev-table "n" "and" nil :system t)
+    (define-abbrev text-mode-abbrev-table "w" "was" nil :system t)
+    (define-abbrev text-mode-abbrev-table "h" "that" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "i" "his" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "e" "her" nil :system t)
+    (define-abbrev text-mode-abbrev-table "y" "you" nil :system t)
+    (define-abbrev text-mode-abbrev-table "d" "had" nil :system t)
+    (define-abbrev text-mode-abbrev-table "b" "with" nil :system t)
+    (define-abbrev text-mode-abbrev-table "f" "for" nil :system t)
+    (define-abbrev text-mode-abbrev-table "s" "she" nil :system t)
+    (define-abbrev text-mode-abbrev-table "o" "not" nil :system t)
+    (define-abbrev text-mode-abbrev-table "u" "but" nil :system t)
+    (define-abbrev text-mode-abbrev-table "v" "have" nil :system t)
+    (define-abbrev text-mode-abbrev-table "m" "him" nil :system t)
+    (define-abbrev text-mode-abbrev-table "c" "said" nil :system t)
+    (define-abbrev text-mode-abbrev-table "g" "which" nil :system t)
+    (define-abbrev text-mode-abbrev-table "j" "this" nil :system t)
+    (define-abbrev text-mode-abbrev-table "l" "all" nil :system t)
+    (define-abbrev text-mode-abbrev-table "r" "from" nil :system t)
+    (define-abbrev text-mode-abbrev-table "k" "they" nil :system t)
+    (define-abbrev text-mode-abbrev-table "p" "were" nil :system t)
+    (define-abbrev text-mode-abbrev-table "q" "would" nil :system t)
+    (define-abbrev text-mode-abbrev-table "x" "when" nil :system t)
+    (define-abbrev text-mode-abbrev-table "z" "what" nil :system t))
   (with-eval-after-load 'nix-repl
     (define-abbrev nix-repl-mode-abbrev-table "wpkgs" "with import <nixpkgs> { }; " nil :system t))
   (with-eval-after-load 'ielm
@@ -303,7 +321,7 @@
         ("H-ö" . ielm-send-input)
         ("M-ö" . ielm-send-input)
         ("<key-chord> f j" . ielm-send-input)
-        ("s-." . eros-eval-last-sexp))
+        ("s-." . eval-last-sexp))
   :hook
   (inferior-emacs-lisp-mode . nagy-ielm-init-history)
   ;; :custom
@@ -338,9 +356,7 @@
 (use-package woman
   :defer t
   :custom
-  (woman-fill-frame t)
-  :hook
-  (woman-mode . visual-fill-column-mode))
+  (woman-fill-frame t))
 
 (use-package replace                    ; occur
   :bind

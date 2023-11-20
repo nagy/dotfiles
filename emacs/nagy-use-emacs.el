@@ -82,6 +82,7 @@
   ("set-face-attribute" . [?𝑭 (Br . Bl) ?=])
   ("switch-to-buffer" . [ ;; ?𝒔 (Br . Bl)
                             ?𝟐 (Br . Bl) ?𝒃])
+  ("append" .  [?⋯ (Br . Bl) ?+])
   ("cl-loop" . loop)
   ("cl-defstruct" . "𝕤")
   ("cl-defgeneric" . "𝕘")
@@ -106,9 +107,11 @@
   ("prog2" . "″")
   ("aprog2" . "″")
   ("pcase" . "〣")                      ; same as :match
-  ("pcase-lambda" . "ƛ")
-  ("pcase-let" . "⤥")
-  ("pcase-setq" . "⤈")
+  ("pcase-lambda" . [?〣 (Br . Bl) ?λ])
+  ("pcase-let" . [?〣 (Br . Bl) ?↘])
+  ("pcase-setq" . [?〣 (Br . Bl) ?↡])
+  ("pcase-dolist" . [?〣 (Br . Bl) ?↻])
+  ("pcase-defmacro" . [?〣 (Br . Bl) ?𝕄])
   ("bindat-pack" . [?󱃲 (Br . Bl) ?↑])
   ("bindat-unpack" . [?󱃲 (Br . Bl) ?↓])
   ("bindat-type" . [?󱃲 (Br . Bl) ?𝒕])
@@ -116,6 +119,7 @@
   ("apcase" . "〣")                     ; anaphoric
   ;; dash.el
   ("-lambda" . "λ")
+  ("thing" . "💎")
   :cycle 'emacs-lisp-mode
   ("nil" "t")
   ;; ("defreader" . "ℝ")

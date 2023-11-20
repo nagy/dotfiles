@@ -36,10 +36,12 @@
   (fset 'garbage-collect #'ignore))
 
 (defvar real-garbage-collect (symbol-function 'garbage-collect))
+
 (use-package emacs
   :preface
   (defun real-garbage-collect ()
     (interactive)
+    (setq values nil)                   ; cleanup references
     (funcall real-garbage-collect))
   :general
   (:states 'normal
