@@ -26,6 +26,7 @@
   ("cl-defun" . def)
   ("cond" . "∃")
   ("list" . list)
+  ("format" . print)
   ("t" . "𝒕")
   ("not" . not)
   ("rx" . "𝕏")
@@ -109,6 +110,7 @@
   ("pcase" . "〣")                      ; same as :match
   ("pcase-lambda" . [?〣 (Br . Bl) ?λ])
   ("pcase-let" . [?〣 (Br . Bl) ?↘])
+  ("pcase-let*" . [?〣 (Br . Bl) ?⇘])
   ("pcase-setq" . [?〣 (Br . Bl) ?↡])
   ("pcase-dolist" . [?〣 (Br . Bl) ?↻])
   ("pcase-defmacro" . [?〣 (Br . Bl) ?𝕄])

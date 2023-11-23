@@ -99,10 +99,15 @@
   ("H-e" . insert-char)
   ("C-H-e" . emoji-insert)
   ("H-r" . revert-buffer-quick)
+  ("<XF86Reload>" . revert-buffer-quick)
   ("H-s-," . describe-char)
   ("H-s-." . display-local-help)
   ("H-s-:" . duplicate-dwim)
   ("M-s-ł" . find-library)
+  ("H-s-m" . widen)
+  ("H-0" . text-scale-adjust)
+  ("H-+" . text-scale-increase)
+  ("H--" . text-scale-decrease)
   ("s-<f8>" . scroll-bar-mode))
 
 (use-package help
@@ -231,7 +236,6 @@
   (define-abbrev global-abbrev-table "afaict" "as far as I can tell" nil :system t)
   (define-abbrev global-abbrev-table "btw" "by the way" nil :system t)
   (define-abbrev global-abbrev-table "pov" "point of view" nil :system t)
-  (define-abbrev global-abbrev-table "truf" "truth" nil :system t)
   (define-abbrev global-abbrev-table "gr8" "great" nil :system t)
   (define-abbrev global-abbrev-table "thrf" "therefore" nil :system t)
   ;; Typos

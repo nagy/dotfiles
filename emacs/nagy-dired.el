@@ -44,6 +44,7 @@
   (ov-set (rx ".py" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".jq" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".hy" eol) 'face 'modus-themes-intense-blue)
+  (ov-set (rx ".tf" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".lisp" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".asd" eol) 'face 'modus-themes-intense-blue)
   (ov-set (rx ".asd" eol) 'face '(:underline t))

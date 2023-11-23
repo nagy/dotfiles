@@ -150,6 +150,7 @@ let
     # "💧" = [ "<Multi_key>" "<d>" "<r>" "<o>" "<p>" ];
     # "💧" = [ "<Multi_key>" "<eth>" ];
     "∑" = [ "<Multi_key>" "<s>" "<u>" "<m>" ];
+    "󱗼" = [ "<Multi_key>" "<oslash>" ];
 
     "🔳" = [ "<dead_belowdot>" "<oslash>" ];
     "🔲" = [ "<dead_belowdot>" "<Oslash>" ];
