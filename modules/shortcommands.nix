@@ -217,25 +217,25 @@ let
     # dOnl = [ "docker" "network" "ls" ];
 
     # # kubernetes
-    # K = [ "kubectl" ];
-    # Kg = [ "kubectl" "get" ];
-    # Kgp = [ "kubectl" "get" "pod" ];
-    # Kgd = [ "kubectl" "get" "deployment" ];
-    # Kgn = [ "kubectl" "get" "node" ];
-    # Kgpw = [ "kubectl" "get" "pod" "--watch" ];
-    # Kgdw = [ "kubectl" "get" "deployment" "--watch" ];
-    # Kgnw = [ "kubectl" "get" "node" "--watch" ];
-    # Kd = [ "kubectl" "describe" ];
-    # Kdp = [ "kubectl" "describe" "pod" ];
-    # Kdd = [ "kubectl" "describe" "deployment" ];
-    # Kdn = [ "kubectl" "describe" "node" ];
-    # Kc = [ "kubectl" "create" ];
-    # Kcp = [ "kubectl" "create" "pod" ];
-    # Kcd = [ "kubectl" "create" "deployment" ];
-    # Kcj = [ "kubectl" "create" "job" ];
-    # Ke = [ "kubectl" "exec" ];
-    # Keit = [ "kubectl" "exec" "-it" ];
-    # Kl = [ "kubectl" "label" ];
+    K = [ "kubectl" ];
+    Kg = [ "kubectl" "get" ];
+    Kgp = [ "kubectl" "get" "pod" ];
+    Kgd = [ "kubectl" "get" "deployment" ];
+    Kgn = [ "kubectl" "get" "node" ];
+    Kgpw = [ "kubectl" "get" "pod" "--watch" ];
+    Kgdw = [ "kubectl" "get" "deployment" "--watch" ];
+    Kgnw = [ "kubectl" "get" "node" "--watch" ];
+    Kd = [ "kubectl" "describe" ];
+    Kdp = [ "kubectl" "describe" "pod" ];
+    Kdd = [ "kubectl" "describe" "deployment" ];
+    Kdn = [ "kubectl" "describe" "node" ];
+    Kc = [ "kubectl" "create" ];
+    Kcp = [ "kubectl" "create" "pod" ];
+    Kcd = [ "kubectl" "create" "deployment" ];
+    Kcj = [ "kubectl" "create" "job" ];
+    Ke = [ "kubectl" "exec" ];
+    Keit = [ "kubectl" "exec" "-it" ];
+    Kl = [ "kubectl" "label" ];
 
     # npm
     nPb = [ "npm" "run" "build" ];

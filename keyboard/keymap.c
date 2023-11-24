@@ -1,6 +1,8 @@
 // Copyright 2021 david@impstyle.com (@zwnk)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+// https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes.md
+
 #include QMK_KEYBOARD_H
 
 enum custom_layers {
@@ -37,12 +39,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER] = LAYOUT_6x6(
         KC_F13 , KC_F14, KC_F15, KC_F16, KC_F17, KC_F18,                        KC_F19 , KC_F20, KC_F21,KC_F22 ,KC_F23 ,KC_F24,
         KC_GRV, KC_WFAV,KC_MRWD,KC_MFFD,KC_WREF,KC_MSEL,                        XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_PAST,KC_BRIU,
-        XXXXXXX,KC_CALC,KC_INT1,KC_INT2,KC_INT3,KC_INT4,                        XXXXXXX, KC_P7 , KC_P8 , KC_P9 ,KC_PMNS,KC_BRID,
+        XXXXXXX,KC_CALC,KC_INT1,KC_INT2,KC_INT3,KC_INT4,                        KC_WSTP, KC_P7 , KC_P8 , KC_P9 ,KC_PMNS,KC_BRID,
         _______,KC_HOME,KC_PGUP,KC_PGDN,KC_END ,KC_APP,                         KC_SLCT, KC_P4 , KC_P5 , KC_P6 ,KC_PPLS,_______,
         _______,KC_WREF,KC_WBAK,KC_WFWD,KC_WHOM,KC_WSCH,                        KC_EXEC, KC_P1 , KC_P2 , KC_P3 ,KC_PENT,_______,
                         KC_PAUS,KC_PSCR,                                                         KC_P0 ,KC_PDOT,
                                                KC_FIND,MYCM_C,             KC_MYCM,XXXXXXX,
-                                               _______,_______,            _______,_______,
+                                               _______,_______,            _______,XXXXXXX,
                                                KC_DEL ,_______,            _______,XXXXXXX
     ),
 
