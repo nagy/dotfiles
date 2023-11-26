@@ -8,12 +8,12 @@ let
     R = [ "nix" "run" ];
     D = [ "nix" "develop" ];
     L = [ "nix" "log" ];
-    S = [ "nix" "search" ];
+    SE = [ "nix" "search" ];
     B = [ "nix" "build" ];
     E = [ "nix" "eval" ];
     F = [ "nix" "flake" ];
     P = [ "nix" "profile" ];
-    SH = [ "nix" "shell" ];
+    S = [ "nix" "shell" ];
     H = [ "nix" "hash" ];
     BL = [ "nix" "build" "--print-build-logs" ];
     RL = [ "nix" "run" "--print-build-logs" ];
@@ -41,7 +41,7 @@ let
     Ij = [ "nix" "path-info" "--json" ];
     IJ = [ "nix" "path-info" "--closure-size" "--json" ];
     Ia = [ "nix" "path-info" "-rsSh" ];
-    Sj = [ "nix" "search" "--json" ];
+    SEj = [ "nix" "search" "--json" ];
     Fm = [ "nix" "flake" "metadata" ];
     Fn = [ "nix" "flake" "new" ];
     Fu = [ "nix" "flake" "update" ];
@@ -63,7 +63,7 @@ let
     "Fsø" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "nixpkgs" ];
     "Fmø" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "nixpkgs" ];
     "Fcø" = [ "nix" "flake" "check" "--override-input" "nixpkgs" "nixpkgs" ];
-    "SHø" = [ "nix" "shell" "--override-input" "nixpkgs" "nixpkgs" ];
+    "Sø" = [ "nix" "shell" "--override-input" "nixpkgs" "nixpkgs" ];
 
     "RØ" = [
       "nix"
@@ -110,7 +110,7 @@ let
       "nixpkgs"
       "github:NixOS/nixpkgs/master"
     ];
-    "SHØ" = [
+    "SØ" = [
       "nix"
       "shell"
       "--override-input"
@@ -151,7 +151,7 @@ let
       "--file"
       "flake:github:NixOS/nixpkgs/nixos-unstable"
     ];
-    "SH¯" =
+    "S¯" =
       [ "nix" "shell" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
     "P¯" =
       [ "nix" "profile" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
@@ -159,10 +159,10 @@ let
     "B." = [ "nix" "build" "--file" "." ];
     "B.j" = [ "nix" "build" "--file" "." "--json" "--no-link" ];
     "R." = [ "nix" "run" "--file" "." ];
-    "SH." = [ "nix" "shell" "--file" "." ];
+    "S." = [ "nix" "shell" "--file" "." ];
     "E." = [ "nix" "eval" "--file" "." ];
     "E.j" = [ "nix" "eval" "--file" "." "--json" ];
-    "S." = [ "nix" "search" "--file" "." ];
+    "SE." = [ "nix" "search" "--file" "." ];
     "L." = [ "nix" "log" "--file" "." ];
     # impure variants
     # Ri = [ "nix" "run" "--impure" ];

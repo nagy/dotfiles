@@ -100,11 +100,6 @@
         repo = "microvm.nix";
         type = "github";
       };
-      mvn2nix.to = {
-        owner = "fzakaria";
-        repo = "mvn2nix";
-        type = "github";
-      };
       std.to = {
         owner = "divnix";
         repo = "std";

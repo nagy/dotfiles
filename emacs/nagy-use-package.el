@@ -50,7 +50,7 @@
     (import . "⟻")
     (return . "⟼")
     (export . "⟼")
-    (defclass . "𝕂")
+    (defclass . "𝑲")
     (eval . "⩏")
     (object . "𝕆")
     (map . "ℍ")
