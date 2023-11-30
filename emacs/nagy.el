@@ -16,6 +16,7 @@
 (require 'nagy-lispy nil t)
 (require 'nagy-lsp nil t)
 (require 'nagy-lua nil t)
+(require 'nagy-mail nil t)
 (require 'nagy-magit nil t)
 (require 'nagy-misc nil t)
 (require 'nagy-misc2 nil t)
