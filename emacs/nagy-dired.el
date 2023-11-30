@@ -87,6 +87,7 @@
   (ov-set (rx ".jxl" eol) 'face 'modus-themes-intense-cyan)
   (ov-set (rx ".webp" eol) 'face 'modus-themes-intense-cyan)
   (ov-set (rx ".mp4" eol) 'face 'modus-themes-subtle-cyan)
+  (ov-set (rx ".webm" eol) 'face 'modus-themes-subtle-cyan)
   (ov-set (rx ".opus" eol) 'face 'modus-themes-subtle-cyan)
   (ov-set (rx ".ogg" eol) 'face 'modus-themes-subtle-cyan)
 

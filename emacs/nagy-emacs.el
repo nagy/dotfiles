@@ -83,7 +83,7 @@
   ;; (backtrace-on-redisplay-error t)
   (browse-url-default-scheme "https")
   (auto-save-default nil)
-  (scroll-conservatively 0)
+  (scroll-conservatively 101)
   (scroll-step 15)
   (scroll-bar-adjust-thumb-portion nil)
   ;; :config

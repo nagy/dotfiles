@@ -49,7 +49,9 @@
 (use-package terraform-mode
   :pretty 'terraform-mode
   ("data" . [?𝒅 (Br . Bl) ?𝒂])
-  ("resource" . [?𝒓 (Br . Bl) ?𝒆]))
+  ("provider" . [?𝒑 (Br . Bl) ?𝒓])
+  ("resource" . [?𝒓 (Br . Bl) ?𝒆])
+  ("output" . [?𝒐 (Br . Bl) ?𝒑]))
 
 (provide 'nagy-devops)
 ;;; nagy-devops.el ends here

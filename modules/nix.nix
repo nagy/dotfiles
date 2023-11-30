@@ -16,7 +16,6 @@
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes recursive-nix impure-derivations ca-derivations
-      warn-dirty = false
     '';
     settings = {
       sandbox = true;
@@ -26,6 +25,7 @@
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
+      warn-dirty = false;
       # this reduces memory usage at the expense of performance
       cores = 1;
       # this keeps build logs clean at the expense of performance

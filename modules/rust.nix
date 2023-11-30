@@ -14,6 +14,8 @@ in
     pkgs.cargo-deps
     pkgs.cargo-bloat
     pkgs.rust-analyzer
+    pkgs.rust-script
+    pkgs.cargo-modules
 
     # convenience
     pkgs.cargo-watch

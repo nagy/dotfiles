@@ -10,8 +10,6 @@
   :config
   (advice-add 'run-hy :around #'nagy-replace-switch-to-buffer-other-window)
   (setq hy-jedhy--enable? nil)
-  ;; this does not work in :custom
-  (setq hy-shell--interpreter-args nil)      ; remove --spy
   :bind
   ("H-M-P" . hy-mode)
   :general
@@ -42,6 +40,13 @@
   ("imp" . "import")
   :same
   "^\\*Hy\\*$")
+
+(use-package hy-shell
+  :defer t
+  :config
+  ;; this does not work in :custom because it is a variable
+  (setq hy-shell--interpreter-args nil)      ; remove --spy
+  )
 
 (provide 'nagy-hy)
 ;;; nagy-hy.el ends here

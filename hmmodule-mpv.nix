@@ -60,6 +60,8 @@
       "Ü" = "add volume -3";
       "M" = "cycle ao-mute";
 
+      "j" = "seek 1";
+      "k" = "seek -1";
       "J" = "seek 60";
       "K" = "seek -60";
 

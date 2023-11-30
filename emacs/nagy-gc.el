@@ -31,7 +31,7 @@
   (interactive)
   (setq gc-cons-threshold most-positive-fixnum)
   (setq gc-cons-percentage 1.0)
-  (setq garbage-collection-messages t)
+  ;; (setq garbage-collection-messages t)
   (garbage-collect)
   (fset 'garbage-collect #'ignore))
 
