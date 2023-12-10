@@ -45,7 +45,6 @@
    '(("fl" . "font-lock")
      ("ms" . "magit-section")
      ("○" . "nix")
-     ("〣" . "triples")
      ("□" . "blocker")
      ("▱" . "map")                      ; or 𝒎
      ("ℕd" . "nagy-data")

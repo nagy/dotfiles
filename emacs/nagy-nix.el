@@ -62,6 +62,7 @@
   ("users" . "𝒖")
   ("imports" . "𝒊")
   ("options" . "𝒐")
+  ("toString" . print)
   ("final" . "′")
   ("prev" . "″")
   ;; Nixos lib
@@ -70,6 +71,7 @@
   ("mkIf" . if)
   ("mkEnableOption" . [?⌥ (Br . Bl) ?¿])
   ("nagy" . "ℕ")
+  ("assert" . assert)
   ;; Flakes
   ("inputs" . import)
   ("outputs" . export)

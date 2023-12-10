@@ -61,8 +61,8 @@
   networking.hosts = {
     "1.1.1.1" = [ "1dot1dot1dot1.cloudflare-dns.com" "one.one.one.one" ];
     "8.8.8.8" = [ "dns.google" ];
-    "194.242.2.2" = [ "doh.mullvad.net" ];
-    "194.242.2.3" = [ "adblock.doh.mullvad.net" ];
+    "194.242.2.2" = [ "dns.mullvad.net" ];
+    "194.242.2.3" = [ "adblock.dns.mullvad.net" ];
   };
 
   # TODO pull from NUR module

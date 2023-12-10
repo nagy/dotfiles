@@ -201,6 +201,8 @@ let
     z = [ "zig" ];
     zb = [ "zig" "build" ];
     zbs = [ "zig" "build" "-O" "ReleaseSmall" ];
+    zbe = [ "zig" "build-exe" ];
+    zbes = [ "zig" "build-exe" "-O" "ReleaseSmall" ];
 
     # # docker
     # dO = [ "docker" ];
@@ -236,6 +238,7 @@ let
     Ke = [ "kubectl" "exec" ];
     Keit = [ "kubectl" "exec" "-it" ];
     Kl = [ "kubectl" "label" ];
+    Kw = [ "kubectl" "wait" ];
 
     # npm
     nPb = [ "npm" "run" "build" ];
