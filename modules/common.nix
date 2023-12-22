@@ -54,7 +54,8 @@
     llH = "ls --human-readable -l --dereference-command-line";
     laH = "ls --human-readable --all -l --dereference-command-line";
     ltH = "ls --human-readable --size -1 -S --classify --dereference-command-line";
-    path = "echo -e \${PATH//:/\\n}";
+    path = "echo -e \${PATH//:/\\\\n}";
+    nixpath = "echo -e \${NIX_PATH//:/\\\\n}";
     fastping = "ping -c 20 -i.2";
   };
 
@@ -98,6 +99,8 @@
     Host github.com gitlab.com git.sr.ht aur.archlinux.org gitlab.freedesktop.org codeberg.org
       User git
       RequestTTY no
+    Host ssh.github.com
+      Port 443
   '';
 
   # tmpfs on all machines
@@ -112,6 +115,9 @@
   # https://github.com/denoland/deno/blob/21065797f6dce285e55705007f54abe2bafb611c/cli/tools/upgrade.rs#L184-L187
   environment.variables.DENO_NO_UPDATE_CHECK = "1";
 
+  # https://developer.hashicorp.com/terraform/cli/commands
+  environment.variables.CHECKPOINT_DISABLE = "1";
+
   programs.neovim = {
     enable = true;
     vimAlias = true;
@@ -119,8 +125,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # git # already in module
-    # home-manager
     jq
     fx
     tig
@@ -132,7 +136,7 @@
     taplo
     htmlq
 
-    # network
+    ## Network
     nftables
     sshfs-fuse
 
@@ -217,6 +221,7 @@
     tea
     gron
     ruff
+    dool
   ];
 
   boot.binfmt.emulatedSystems = [

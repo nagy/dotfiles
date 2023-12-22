@@ -5,6 +5,8 @@ let
   defaultShortcommands = {
     # nix
     n = [ "nix" ];
+    b = [ "nix-build" ];
+    i = [ "nix-instantiate" ];
     R = [ "nix" "run" ];
     D = [ "nix" "develop" ];
     L = [ "nix" "log" ];
@@ -335,8 +337,14 @@ let
     ungron = [ "gron" "--ungron" ];
     fd1 = [ "fd" "-j1" ];
     fd1f = [ "fd" "-j1" "-tf" ];
+    fd1d = [ "fd" "-j1" "-td" ];
+
+    fd2 = [ "fd" "-j2" ];
+    fd2f = [ "fd" "-j2" "-tf" ];
+    fd2d = [ "fd" "-j2" "-td" ];
 
     fdf = [ "fd" "-tf" ];
+    fdd = [ "fd" "-td" ];
   };
   dotlib = import ../lib { inherit pkgs; };
 in

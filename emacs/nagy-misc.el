@@ -51,6 +51,7 @@
      ("ℕ" . "nagy")
      ("⧖" . "dired")
      ("ol" . "org-link")
+     ("ox" . "org-export")
      ("ob" . "org-babel")
      ("o" . "org")
      ("ŧ" . "tokei")

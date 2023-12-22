@@ -55,7 +55,7 @@
   (ov-set (rx ".org" eol) 'face '(modus-themes-intense-yellow bold))
   (ov-set (rx ".md" eol) 'face 'modus-themes-intense-yellow)
   (ov-set (rx ".info" eol) 'face 'modus-themes-intense-yellow)
-  (ov-set (rx ".pdf") 'face 'modus-themes-intense-yellow)
+  (ov-set (rx ".pdf" eol) 'face 'modus-themes-intense-yellow)
   (ov-set (rx ".rst" eol) 'face 'modus-themes-intense-yellow)
   (ov-set (rx ".rsync.txt") 'face 'modus-themes-subtle-yellow)
   (ov-set (rx ".jenkins.txt") 'face 'modus-themes-subtle-yellow)
@@ -122,6 +122,7 @@
   (dired-do-revert-buffer t)
   (dired-free-space nil)
   (dired-compress-directory-default-suffix ".tar.zst")
+  (dired-switches-in-mode-line 3)
   :bind
   ("s-j" . dired-jump)
   (:map dired-mode-map

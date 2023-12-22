@@ -11,6 +11,7 @@
   (elfeed-show-truncate-long-urls nil)
   (elfeed-search-filter "+unread")
   (elfeed-search-title-max-width 100)
+  (elfeed-curl-max-connections 1)
   :config
   (put 'elfeed-search-bookmark-handler 'bookmark-handler-type "Elfeed Search")
   :general
