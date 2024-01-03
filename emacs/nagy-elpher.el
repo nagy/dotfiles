@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-elpher
-;; Package-Requires: ((emacs "29.1") elpher general evil)
+;; Package-Requires: ((emacs "29.1") elpher general)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -21,11 +21,6 @@
 
 (require 'general)
 (require 'bookmark)
-(require 'evil)
-
-(eval-when-compile
-  ;; To catch errors during batch compilation
-  (require 'elpher))
 
 (use-package elpher
   :preface

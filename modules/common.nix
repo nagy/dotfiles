@@ -57,6 +57,12 @@
     path = "echo -e \${PATH//:/\\\\n}";
     nixpath = "echo -e \${NIX_PATH//:/\\\\n}";
     fastping = "ping -c 20 -i.2";
+    ".." = "cd ..";
+    "..." = "cd ../..";
+    "...." = "cd ../../..";
+    "....." = "cd ../../../..";
+    "......" = "cd ../../../../..";
+    "......." = "cd ../../../../../..";
   };
 
   networking.hosts = {
@@ -140,8 +146,7 @@
     nftables
     sshfs-fuse
 
-    # processes
-    # ltrace # not available on aarch64
+    ## Processes
     killall
     bubblewrap
 
@@ -186,7 +191,7 @@
     })
     typos
     shellcheck
-    (aspellWithDicts (ps: [ ps.en ]))
+    (aspellWithDicts (ps: [ ps.en ps.de]))
     (lispPackages_new.sbclWithPackages (ps:
       with ps; [
         (slynk.overrideLispAttrs ({ systems, ... }: {

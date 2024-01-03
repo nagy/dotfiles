@@ -26,6 +26,8 @@
         ("H-h"   . org-info-find-node)
         ("s-."   . org-ctrl-c-ctrl-c)
         ("<key-chord> f j" . org-ctrl-c-ctrl-c)
+        ("<key-chord> ü q" . org-shifttab)
+        ("M-ŋ" . org-update-all-dblocks)
         ("C-H-#" . org-edit-special)
         ("A-s-j" . org-edit-special))
   :pretty 'org-mode
@@ -70,12 +72,14 @@
   ("output" "value")
   :general
   (:states 'normal :keymaps 'org-mode-map
+           "ŋ" #'org-update-all-dblocks
            "r" #'org-cycle))
 
 (use-package org-superstar
-  :disabled
   :hook
-  (org-mode . org-superstar-mode))
+  (org-mode . org-superstar-mode)
+  :custom
+  (org-superstar-leading-bullet ""))
 
 (use-package org-appear
   :disabled

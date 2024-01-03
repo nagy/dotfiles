@@ -38,10 +38,10 @@
   (push '("^file:///nix/store/.*hyperspec.*/Body/" . my-browser-url-eww-hyperspec)
         browse-url-handlers)
   :same
-  "^\\*hypserspec\\*"
-  :custom
+  "^\\*hyperspec\\*"
+  :config
   ;; nix-build "<nixos>" -A nur.repos.nagy.hyperspec --no-out-link
-  (common-lisp-hyperspec-root "file:///nix/store/2hli5955grxkbyqp2vzzdnl556rn0bkz-hyperspec-7.0/share/HyperSpec/"))
+  (setq common-lisp-hyperspec-root "file:///nix/store/2hli5955grxkbyqp2vzzdnl556rn0bkz-hyperspec-7.0/share/HyperSpec/"))
 
 (use-package sly
   :custom

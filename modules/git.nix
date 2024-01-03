@@ -38,6 +38,11 @@
         "${git-alias}/gitalias.txt";
       merge.conflictStyle = "diff3";
       gc = { auto = "0"; };
+      # https://baecher.dev/stdout/reproducible-git-bundles/
+      # to make packs reproducible
+      pack.threads = 1;
+      # another attempt. untested.
+      index.threads = 1;
       url = {
         # forges
         "https://github.com/".insteadOf = "gh:";

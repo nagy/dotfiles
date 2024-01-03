@@ -12,8 +12,8 @@ let
     (builtins.readDir ./.);
   final = lib.mapAttrs'
     (name: value: {
-      name = (lib.removeSuffix ".el" name);
-      value = (makePackage (./. + "/${name}"));
+      name = lib.removeSuffix ".el" name;
+      value = makePackage (./. + "/${name}");
     })
     onlyNagyFiles;
 in
