@@ -9,6 +9,7 @@
 (require 'nagy-elpher nil t)
 (require 'nagy-emacs nil t)
 (require 'nagy-evil nil t)
+(require 'nagy-exwm nil t)
 (require 'nagy-formats nil t)
 (require 'nagy-forth nil t)
 (require 'nagy-gc nil t)
