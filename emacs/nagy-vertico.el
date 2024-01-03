@@ -1,12 +1,15 @@
 ;;; nagy-vertico.el --- nagy-vertico config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") vertico consult general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") vertico consult marginalia orderless general nagy-use-package)
 
 (require 'general)
 
 (require 'consult)
 
 (use-package vertico
+  :commands (vertico-mode)
+  :config
+  (vertico-mode)
   :custom
   (vertico-cycle nil)
   (vertico-scroll-margin most-positive-fixnum)
@@ -69,6 +72,20 @@
            :toplevel "Branches"
            :types ((?b "Branches"  modus-themes-diff-added)
                    (?t "Tags"     font-lock-function-name-face))))))
+
+(require 'orderless)
+(orderless-define-completion-style orderless+initialism
+  (orderless-matching-styles '(orderless-initialism
+                               orderless-literal
+                               orderless-regexp)))
+(push '(command (styles orderless+initialism)) completion-category-overrides)
+(push '(variable (styles orderless+initialism)) completion-category-overrides)
+(push '(symbol (styles orderless+initialism)) completion-category-overrides)
+
+(use-package marginalia
+  :commands (marginalia-mode)
+  :config
+  (marginalia-mode))
 
 (provide 'nagy-vertico)
 ;;; nagy-vertico.el ends here

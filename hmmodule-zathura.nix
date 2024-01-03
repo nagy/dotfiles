@@ -12,7 +12,7 @@
       selection-clipboard = "clipboard";
       pages-per-row = 2;
       # recolor-reverse-video = true; # this prevents image pdfs from being recolored
-      # sandbox = "strict"; # this is broken. with this zathura does not show a window
+      sandbox = "strict";
     };
     # for extraconfig:
     #    this is so you can open links in your browser. otherwise seccomp is active

@@ -183,6 +183,13 @@ let
     "⍥" = [ "Ctrl" "<Multi_key>" "<odiaeresis>" ];
     "⍸" = [ "Ctrl" "<Multi_key>" "<underscore>" "<i>" ];
 
+    # nerd icons
+    "🚿" = [ "Shift" "<Multi_key>" "<s>" ];
+    "৸" = [ "Shift" "<Multi_key>" "<cent>" ];
+    "অ" = [ "Shift" "<Multi_key>" "<a>" ];
+    "☂" = [ "Shift" "<Multi_key>" "<u>" ];
+    "" = [ "Alt" "<Multi_key>" "<oslash>" ];
+    "" = [ "Alt" "<Multi_key>" "<lstroke>" ];
   };
 in
 {

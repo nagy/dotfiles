@@ -44,5 +44,14 @@
   :cycle 'conf-toml-mode
   ("true" "false"))
 
+(use-package ace-window
+  :init
+  (setq aw-keys (list ?a ?s ?d ?f ?h ?j ?k ?l ))
+  (setq aw-background nil)
+  (setq aw-scope 'visible)
+  (setq aw-leading-char-style 'path)
+  :bind
+  ("s-'" . ace-window))
+
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here

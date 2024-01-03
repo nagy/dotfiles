@@ -26,6 +26,7 @@
 
 (use-package python
   :preface
+  ;; or use https://github.com/scop/emacs-ruff-format
   (reformatter-define ruff-format
     :group 'python
     :program "ruff"                     ; needs ruff >= 0.1.2
@@ -38,6 +39,7 @@
   (python-indent-guess-indent-offset nil)
   :pretty 'python-mode
   ("True" . true) ("False" . false)
+  ("if" . if) ("else" . else)
   ("def" . def)
   ("class" . class)
   ("class" . defclass)

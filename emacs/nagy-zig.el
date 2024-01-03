@@ -6,8 +6,6 @@
 
 (require 'nagy-use-package)
 
-;; (require 'reformatter)
-
 (use-package zig-mode
   :pretty 'zig-mode
   ("true" . true) ("false" . false)
