@@ -102,7 +102,7 @@
     Host *
       Protocol 2
     # Git remote hosts
-    Host github.com gitlab.com git.sr.ht aur.archlinux.org gitlab.freedesktop.org codeberg.org
+    Host github.com ssh.github.com gitlab.com git.sr.ht aur.archlinux.org codeberg.org gitlab.*
       User git
       RequestTTY no
     Host ssh.github.com
@@ -144,7 +144,6 @@
 
     ## Network
     nftables
-    sshfs-fuse
 
     ## Processes
     killall

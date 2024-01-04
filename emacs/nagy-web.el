@@ -48,6 +48,10 @@
            "⊢" #'jq-format-buffer))
 
 (use-package wat-mode
+  ;; until https://github.com/devonsparks/wat-mode/pull/3 is merged and the package is in melpa
+  :commands (wat-mode)
+  ;; until the package is in melpa
+  :mode ("\\.wat\\'" . wat-mode)
   :pretty 'wat-mode
   ("export" . export)
   ("func" . def)
@@ -69,12 +73,15 @@
   ("H-M-y" . yaml-mode)
   (:map yaml-mode-map
         ("C-⊢" . yq-format-buffer))
+  :pretty 'yaml-mode
+  ("true" . true) ("false" . false)
   :general
   (:states 'normal :keymaps 'yaml-mode-map
            "⊢" #'yq-format-buffer))
 
 (use-package jq-mode
   ;; :mode "\\.jq\\'"
+  ;; :interpreter "jq"
   :pretty 'jq-mode
   ("def" . def)
   ("try" . try) ("catch" . except)
