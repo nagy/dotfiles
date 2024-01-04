@@ -17,8 +17,16 @@ let
         src = pkgs.fetchFromGitHub {
           owner = "nagy";
           repo = "speed-of-thought-lisp";
-          rev = "3e862df12361848be978d366fd4d9b74ac37b6bf";
-          hash = "sha256-cbuNNQjS6AMDIYsv5TRMysd+0aY02GZBY2Ada9EQ7ZY=";
+          rev = "39930acbc4e8674fe36613d7d0961b49d21bcf50";
+          hash = "sha256-tfEZLqYhq9HasR8T/QVgkyXrivXTLMzw2hZWxwwhr9g=";
+        };
+      };
+      tablist = super.tablist.overrideAttrs {
+        src = pkgs.fetchFromGitHub {
+          owner = "nagy";
+          repo = "tablist";
+          rev = "1de3a025066bb3c5649bcb6e75201bffa96595db";
+          hash = "sha256-yFjbO/BK72vJVINky6v10yLpFQWXYVUi1j9zFkIsBIU=";
         };
       };
       anaphora = super.anaphora.overrideAttrs {
@@ -29,12 +37,12 @@ let
           hash = "sha256-ukT4Ftm09Kp/B/UPcgOWlwI0nPiWR9q48PSSoz5GI0w=";
         };
       };
-      jq-mode = super.jq-mode.overrideAttrs {
+      memoize = super.memoize.overrideAttrs {
         src = pkgs.fetchFromGitHub {
           owner = "nagy";
-          repo = "jq-mode";
-          rev = "10f6edd81043374307e72cb279327b920716eb3b";
-          hash = "sha256-oPhAJlsPdTnZfODqc2Yi7q9S7C6dsf/DAI/fXnj6Yao=";
+          repo = "emacs-memoize";
+          rev = "961765962f3803503406e03b5c59eaaa23da22c3";
+          hash = "sha256-dXEalMx1mT6F7WmWsx5eCdXFXEzbMnv+iLMmIElO1HI=";
         };
       };
     });
@@ -45,7 +53,6 @@ let
       treesit-grammars.with-all-grammars
       pdf-tools
       org-pdftools
-      triples
       bufler
 
       pass

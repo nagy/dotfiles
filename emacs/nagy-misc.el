@@ -189,6 +189,7 @@
   (comint-process-echoes nil)
   :bind
   (:map comint-mode-map
+        ([remap revert-buffer-quick] . comint-clear-buffer)
         ("<key-chord> f j" . comint-send-input)
         ("H-Ö" . comint-previous-input)
         ("M-Ö" . comint-previous-input)

@@ -145,9 +145,28 @@
            "e" #'dired-subtree-toggle))
 
 (use-package dired-narrow
+  :general
+  (:states 'normal :keymaps 'dired-mode-map
+           "s" #'dired-narrow-regexp)
   :bind
   (:map dired-mode-map
         ("M-/" . dired-narrow-regexp)))
+(defun dired-home ()
+  (interactive)
+  (dired "~"))
+
+(defun dired-do-delete-force ()
+  (interactive)
+  (let ((delete-by-moving-to-trash
+         (not (or (string-prefix-p temporary-file-directory default-directory)
+                  (string-prefix-p (expand-file-name "~/.local/share/Trash/") default-directory))))
+        (dired-deletion-confirmer #'always)
+        (dired-recursive-deletes 'always)
+        (dired-clean-confirm-killing-deleted-buffers nil))
+    (dired-do-delete)))
+(keymap-set dired-mode-map
+            "H-d" #'dired-do-delete-force)
+
 
 (provide 'nagy-dired)
 ;;; nagy-dired.el ends here

@@ -11,13 +11,13 @@ let
     exec ${pkgs.wireshark-cli}/bin/tshark -r - -T pdml "$@"
   '';
   json2yaml = pkgs.writeShellScriptBin ",json,yaml" ''
-    ${pkgs.jq}/bin/jq | exec ${pkgs.yq-go}/bin/yq --prettyPrint --no-colors "$@"
+    ${pkgs.jq}/bin/jq --sort-keys | exec ${pkgs.yq-go}/bin/yq --prettyPrint --no-colors "$@"
   '';
-  json2lines = pkgs.writeShellScriptBin ",json,lines" ''
-    ${pkgs.jq}/bin/jq | exec ${pkgs.gron}/bin/gron "$@"
+  json2txt = pkgs.writeShellScriptBin ",json,txt" ''
+    ${pkgs.jq}/bin/jq --sort-keys | exec ${pkgs.gron}/bin/gron "$@"
   '';
 in
 {
   environment.systemPackages =
-    [ pcap2txt pcap2json pcap2xml json2yaml json2lines ];
+    [ pcap2txt pcap2json pcap2xml json2yaml json2txt ];
 }

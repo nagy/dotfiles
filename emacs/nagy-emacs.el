@@ -108,7 +108,8 @@
   ("H-0" . text-scale-adjust)
   ("H-+" . text-scale-increase)
   ("H--" . text-scale-decrease)
-  ("s-<f8>" . scroll-bar-mode))
+  ("s-<f8>" . scroll-bar-mode)
+  ("S-<menu>" . execute-extended-command-for-buffer))
 
 (use-package help
   :bind
@@ -266,7 +267,7 @@
     (define-abbrev text-mode-abbrev-table "xl" "human" nil :system t)
     ;; More https://jonaquino.blogspot.com/2007/06/yublin-shorthand-for-speed-writing.html?m=1
     ;; Idea: put yublin on QMK?
-    (define-abbrev text-mode-abbrev-table "t" "the" nil :system t)
+    (define-abbrev text-mode-abbrev-table "t" "the" nil :system t :case-fixed t)
     (define-abbrev text-mode-abbrev-table "n" "and" nil :system t)
     (define-abbrev text-mode-abbrev-table "w" "was" nil :system t)
     (define-abbrev text-mode-abbrev-table "h" "that" nil :system t :case-fixed t)
@@ -284,7 +285,7 @@
     (define-abbrev text-mode-abbrev-table "c" "said" nil :system t)
     (define-abbrev text-mode-abbrev-table "g" "which" nil :system t)
     (define-abbrev text-mode-abbrev-table "j" "this" nil :system t)
-    (define-abbrev text-mode-abbrev-table "l" "all" nil :system t)
+    (define-abbrev text-mode-abbrev-table "l" "all" nil :system t :case-fixed t)
     (define-abbrev text-mode-abbrev-table "r" "from" nil :system t)
     (define-abbrev text-mode-abbrev-table "k" "they" nil :system t)
     (define-abbrev text-mode-abbrev-table "p" "were" nil :system t)
