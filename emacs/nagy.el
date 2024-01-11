@@ -22,6 +22,7 @@
 (require 'nagy-magit nil t)
 (require 'nagy-misc nil t)
 (require 'nagy-misc2 nil t)
+(require 'nagy-mode-line nil t)
 (require 'nagy-modus-themes nil t)
 (require 'nagy-nix nil t)
 (require 'nagy-nlinum nil t)
