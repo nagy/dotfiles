@@ -14,6 +14,9 @@
   (elfeed-curl-max-connections 1)
   :config
   (put 'elfeed-search-bookmark-handler 'bookmark-handler-type "Elfeed Search")
+  :bind
+  (:map elfeed-search-mode-map
+        ("M-↓" . elfeed-search-fetch))
   :general
   (:states 'normal :keymaps 'elfeed-search-mode-map
            "r" #'elfeed-search-untag-all-unread

@@ -20,7 +20,7 @@
 (eval-when-compile
   ;; To catch errors during batch compilation
   (require 'sly)
-  )
+  (sly--setup-contribs))
 
 (use-package hyperspec
   :disabled
@@ -75,17 +75,17 @@
   ("rfs" . "read-from-string"))
 
 (use-package sly-mrepl
-  :disabled
+  :defer t
   :preface
   (defun nagy-common-lisp-sly-mrepl-return ()
     (interactive)
     (sly-mrepl-return)
-    (evil-goto-line nil))
-  :defer t
+    (goto-char (point-max)))
   :bind
   (:map sly-mrepl-mode-map
         ("H-ö" . nagy-common-lisp-sly-mrepl-return)
-        ("H-r" . sly-mrepl-clear-repl))
+        ("H-r" . sly-mrepl-clear-repl)
+        ("<key-chord> f j" . sly-mrepl-return))
   :general
   (:states 'normal :keymaps 'sly-mrepl-mode-map
            "ð" #'sly-disassemble-symbol
@@ -106,8 +106,7 @@
   :bind
   ("H-M-l" . lisp-mode)
   :pretty 'lisp-mode
-  ("list" . list)
-  )
+  ("list" . list))
 
 ;; https://github.com/joaotavora/sly/issues/334
 ;; (setf (cdr (assoc 'slynk:*string-elision-length* slynk:*slynk-pprint-bindings*)) nil) ; this can also go into "~/.slynkrc"

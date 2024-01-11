@@ -5,6 +5,8 @@
 (require 'dired)
 (require 'ov)
 (require 'general)
+(eval-when-compile
+  (require 'subr-x))
 
 (defun nagy-dired-flake-underline ()
   (interactive)

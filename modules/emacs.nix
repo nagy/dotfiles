@@ -41,8 +41,8 @@ let
         src = pkgs.fetchFromGitHub {
           owner = "nagy";
           repo = "emacs-memoize";
-          rev = "961765962f3803503406e03b5c59eaaa23da22c3";
-          hash = "sha256-dXEalMx1mT6F7WmWsx5eCdXFXEzbMnv+iLMmIElO1HI=";
+          rev = "33fcd1ec5a93f3768c43904fecc68399a84b8924";
+          hash = "sha256-00C8WLR7CVCnp/VPgAP564XpMmXkaaddmi1tXdEevZI=";
         };
       };
     });

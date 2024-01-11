@@ -34,12 +34,12 @@
                   ;; (vc-mode vc-mode)
                   (:eval (unless (derived-mode-p 'exwm-mode)
                            mode-line-modes))       ; already includes a space at the end
-                  (:eval (unless (derived-mode-p 'exwm-mode))
-                         (:propertize (:eval
-                                       (propertize (abbreviate-file-name default-directory)
-                                                   'face (if (buffer-file-name)
-                                                             '(:inherit (bold dired-directory))
-                                                           '(:inherit dired-directory))))))
+                  (:eval (unless (derived-mode-p 'exwm-mode)
+                           '(:propertize (:eval
+                                         (propertize (abbreviate-file-name default-directory)
+                                                     'face (if (buffer-file-name)
+                                                               '(:inherit (bold dired-directory))
+                                                             '(:inherit dired-directory)))))))
                   mode-line-misc-info
                   ;; mode-line-end-spaces
                   (:eval (nagy-mode-line-fill (if (mode-line-window-selected-p)
