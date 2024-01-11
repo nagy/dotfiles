@@ -17,10 +17,12 @@
   :preface
   (defun ibuffer-exwm ()
     (interactive)
-    (when (get-buffer "*Ibuffer*")
-      (kill-buffer "*Ibuffer*"))
-    (ibuffer)
-    (ibuffer-filter-by-used-mode 'exwm-mode))
+    (if (get-buffer "*Ibuffer*")
+        (progn
+          (switch-to-buffer "*Ibuffer*")
+          (revert-buffer))
+      (ibuffer)
+      (ibuffer-filter-by-used-mode 'exwm-mode)))
   (defun nagy-fix-frame ()
     "Frames directly started in exwm have some missing keys like s-💤.
 aka xcompose is not properly initialized in the first frame."
