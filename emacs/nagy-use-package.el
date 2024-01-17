@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-use-package
-;; Package-Requires: ((emacs "29.1") ov dash)
+;; Package-Requires: ((emacs "29.1") dash)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -19,7 +19,6 @@
 ;;
 ;;; Code:
 
-(require 'ov)
 (require 'dash)
 (require 'use-package)
 
@@ -80,9 +79,7 @@
     (setf (cdr   i) (if (symbolp (cdr i))
                         (alist-get (cdr i) nagy-pretty-symbols-default)
                       (cdr i)))
-    (if (or (vectorp (cdr i)) (= 1 (length (cdr i))))
-        (push i prettify-symbols-alist)
-      (ov-set (car i) 'display (cdr i)))))
+    (push i prettify-symbols-alist)))
 (defalias 'use-package-normalize/:pretty 'use-package-normalize-forms)
 (defun use-package-handler/:pretty (name-symbol _keyword rgx rest state)
   (let* ((body (use-package-process-keywords name-symbol rest state))
