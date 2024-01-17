@@ -22,6 +22,7 @@
 (require 'dash)
 (require 'use-package)
 
+;;;###autoload
 (defun use-package-normalize/:same (_name-symbol keyword args)
   (use-package-only-one (symbol-name keyword) args
     (lambda (label arg)
@@ -29,6 +30,7 @@
        ((stringp arg) arg)
        ((and (consp arg) (eq 'rx (car arg))) (eval arg))
        (t (use-package-error (concat label " :same did not get a string")))))))
+;;;###autoload
 (defun use-package-handler/:same (name-symbol _keyword rgx rest state)
   (let ((body (use-package-process-keywords name-symbol rest state)))
     (if (null rgx)
@@ -36,7 +38,10 @@
       (use-package-concat
        body
        `((push '(,rgx display-buffer-same-window) display-buffer-alist))))))
-(add-to-list 'use-package-keywords :same t)
+
+;;;###autoload
+(with-eval-after-load 'use-package-core
+  (add-to-list 'use-package-keywords :same t))
 
 ;;; prettify symbols
 (defvar nagy-pretty-symbols-default
@@ -80,7 +85,11 @@
                         (alist-get (cdr i) nagy-pretty-symbols-default)
                       (cdr i)))
     (push i prettify-symbols-alist)))
+
+;;;###autoload
 (defalias 'use-package-normalize/:pretty 'use-package-normalize-forms)
+
+;;;###autoload
 (defun use-package-handler/:pretty (name-symbol _keyword rgx rest state)
   (let* ((body (use-package-process-keywords name-symbol rest state))
          (mode (car rgx))
@@ -95,9 +104,16 @@
            (nagy-pretty-init ,mode)))
        `((add-hook ',(intern (concat mode-name "-hook")) #',(intern (concat "nagy-pretty-" mode-name "-h"))))
        `((setf (get ,mode 'nagy-pretty) ',(cdr rgx)))))))
-(add-to-list 'use-package-keywords :pretty t)
+
+;;;###autoload
+(with-eval-after-load 'use-package-core
+  (add-to-list 'use-package-keywords :pretty t))
 ;;; abbrev
+
+;;;###autoload
 (defalias 'use-package-normalize/:abbrev 'use-package-normalize-forms)
+
+;;;###autoload
 (defun use-package-handler/:abbrev (name-symbol _keyword rgx rest state)
   (let* ((body (use-package-process-keywords name-symbol rest state))
          (mode (car rgx))
@@ -110,7 +126,9 @@
                 collect
                 `(define-abbrev ,(intern (concat mode-name "-abbrev-table")) ,(car x) ,(cdr x) nil :system t))
        ))))
-(add-to-list 'use-package-keywords :abbrev t)
+;;;###autoload
+(with-eval-after-load 'use-package-core
+  (add-to-list 'use-package-keywords :abbrev t))
 ;;; cycle
 ;; TODO look at https://melpa.org/#/cycle-at-point
 (defvar nagy-cycle-alist nil)
@@ -132,7 +150,13 @@
             (cl-loop for zip in (-zip-pair x rotated)
                      collect
                      `(push ',zip nagy-cycle-alist)))))
-(add-to-list 'use-package-keywords :cycle t)
+(keymap-global-set "H-s-f" #'nagy-cycle-dwim)
+
+;;;###autoload
+(with-eval-after-load 'use-package-core
+  (add-to-list 'use-package-keywords :cycle t)
+  (add-to-list 'use-package-merge-key-alist
+               '(:pretty . (lambda (new old) (append new old))) t))
 
 ;; also try `switch-to-buffer-obey-display-actions'. Does not solve it completely.
 (defun nagy-replace-switch-to-buffer-other-window (orig-fun &rest args)
