@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-misc2
-;; Package-Requires: ((emacs "29.1") reformatter general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") aggressive-indent reformatter general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -52,6 +52,14 @@
   (setq aw-leading-char-style 'path)
   :bind
   ("s-'" . ace-window))
+
+(use-package aggressive-indent
+  :diminish 'aggressive-indent-mode
+  :custom
+  (aggressive-indent-sit-for-time 0.3)
+  :general
+  (:states 'normal :keymaps 'prog-mode-map
+           "»" #'aggressive-indent-mode))
 
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here
