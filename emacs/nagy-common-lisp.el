@@ -85,10 +85,10 @@
   (:map sly-mrepl-mode-map
         ("H-ö" . nagy-common-lisp-sly-mrepl-return)
         ("H-r" . sly-mrepl-clear-repl)
+        ("M-ð" . sly-disassemble-symbol)
         ("<key-chord> f j" . sly-mrepl-return))
   :general
   (:states 'normal :keymaps 'sly-mrepl-mode-map
-           "ð" #'sly-disassemble-symbol
            "µ" #'sly-expand-1-inplace
            "Ö" #'sly-mrepl-previous-input-or-button
            "C-ö" #'sly-mrepl-next-input-or-button

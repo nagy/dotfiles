@@ -26,6 +26,7 @@
       init = { defaultBranch = "master"; };
       push = { default = "current"; };
       pull.rebase = true;
+      # fetch.prune = true;
       include.path =
         let
           git-alias = pkgs.fetchFromGitHub {
@@ -51,7 +52,8 @@
         "https://git.sr.ht/".insteadOf = "sh:";
         "https://codeberg.org/".insteadOf = "cb:";
         "https://aur.archlinux.org/".insteadOf = "aur:";
-        "https://bitbucket.org/".insteadOf = "bb:";
+        "https://gitlab.archlinux.org/".insteadOf = "archlinux:";
+        "https://gitlab.alpinelinux.org/".insteadOf = "alpine:";
         # nagy repos
         "git@github.com:nagy/".insteadOf = "ghn:";
         "git@gitlab.com:nagy/".insteadOf = "gln:";

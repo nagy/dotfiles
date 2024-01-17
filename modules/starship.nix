@@ -3,6 +3,7 @@
 {
   # simpler version of starship
   # until https://github.com/starship/starship/issues/896 is fixed
+  # FIXME rework this for 24.05. presets are now part of the module
   environment.variables.STARSHIP_CONFIG =
     let
       mkDollarPrompt =

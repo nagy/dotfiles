@@ -111,6 +111,8 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-<end>") . tab-last)
             (,(kbd "<XF86Back>") . silent-tab-previous)
             (,(kbd "<XF86Forward>") . silent-tab-next)
+            ;; (,(kbd "<XF86AudioPause>") . emms-pause)
+            ;; (,(kbd "S-<XF86AudioPlay>") . emms-pause)
             ;; (,(kbd "s-<SunFront>") . start-firefox-browser)
             ;; (,(kbd "s-f") . find-file)
             (,(kbd "s-<f9>") . toggle-tool-bar-mode-from-frame)

@@ -29,6 +29,7 @@ in
     };
     enableDefaultPackages = true;
     packages = with pkgs; [
+      # the override may not be needed if iosevka-comfy is not the main font
       (iosevka-comfy.comfy.overrideAttrs overrideBuildPlan)
       etBook # EtBembo https://edwardtufte.github.io/et-book/
       noto-fonts

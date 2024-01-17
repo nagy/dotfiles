@@ -1,14 +1,15 @@
 ;;; nagy-rust.el --nagy-rust config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") rustic reformatter nagy-use-package)
+;; Package-Requires: ((emacs "29.1") rustic reformatter general nagy-use-package)
+
+(require 'general)
 
 (require 'nagy-use-package)
 
 (require 'reformatter)
 
-(require 'rustic)
-
 (use-package rustic
+  :commands (rustic-setup-lsp)
   :preface
   (reformatter-define rustfmt
     :group 'rustic
@@ -19,7 +20,12 @@
   ("Cargo\\.lock\\'" . conf-toml-mode)
   :bind
   ("H-M-r" . rustic-mode)
-  :init
+  (:map rustic-mode-map
+        ("C-⊢" . rustfmt-buffer))
+  :general
+  (:states 'normal :keymaps 'rustic-mode-map
+           "⊢" #'rustfmt-buffer)
+  :config
   (require 'rustic-lsp)
   ;; (setq rustic-lsp-setup-p nil)
   (remove-hook 'rustic-mode-hook #'rustic-setup-lsp)

@@ -14,9 +14,7 @@
 ;;
 ;;; Code:
 
-(eval-when-compile
-  ;; To catch errors during batch compilation
-  (require 'company))
+(require 'company)
 
 (use-package company
   :diminish 'company-mode

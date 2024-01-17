@@ -71,7 +71,14 @@
 
 (use-package term
   :config
-  (setq serial-speed-history '("115200")))
+  (setq serial-speed-history '("115200"))
+  :bind
+  (:map term-mode-map
+        ;; ("H-h" . term-line-mode)  ; does not work
+        ("H-l" . term-char-mode))
+  (:map term-raw-map
+        ("H-h" . term-line-mode)
+        ("H-l" . term-char-mode)))
 
 (provide 'nagy-forth)
 ;;; nagy-forth.el ends here

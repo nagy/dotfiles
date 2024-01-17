@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-emacs
-;; Package-Requires: ((emacs "29.1") anaphora ov visual-fill-column)
+;; Package-Requires: ((emacs "29.1") anaphora memoize ov visual-fill-column general)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -19,8 +19,10 @@
 ;;
 ;;; Code:
 
+(require 'general)
 (require 'comint)
 (require 'anaphora)
+(require 'memoize)
 
 (defun save-kill-buffer ()
   "Save and kill a buffer."
@@ -73,6 +75,7 @@
   (inhibit-startup-screen t)
   (use-short-answers t)
   (message-log-max t)
+  (x-stretch-cursor t)
   (kill-ring-max 250)
   (history-delete-duplicates t)
   (delete-by-moving-to-trash t)
@@ -355,7 +358,7 @@
 (use-package recentf
   :defer t
   :config
-  ;; does not work in init
+  ;; does not work in init because of doom
   (setq recentf-max-saved-items nil))
 
 (use-package woman

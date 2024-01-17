@@ -4,6 +4,11 @@ let
   cfg = config.nagy.shortcommands;
   defaultShortcommands = {
     # nix
+    nb = [ "nix-build" ];
+    ni = [ "nix-instantiate" ];
+    ns = [ "nix-store" ];
+    nsh = [ "nix-shell" ];
+    # nix flakes
     n = [ "nix" ];
     b = [ "nix-build" ];
     i = [ "nix-instantiate" ];

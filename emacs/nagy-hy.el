@@ -6,9 +6,13 @@
 
 (require 'nagy-use-package)
 
+(use-package hy-shell
+  :defer t
+  :config
+  (advice-add 'run-hy :around #'nagy-replace-switch-to-buffer-other-window))
+
 (use-package hy-mode
   :config
-  (advice-add 'run-hy :around #'nagy-replace-switch-to-buffer-other-window)
   (setq hy-jedhy--enable? nil)
   :bind
   ("H-M-P" . hy-mode)

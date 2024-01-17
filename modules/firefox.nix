@@ -121,6 +121,8 @@
       "network.dns.disablePrefetch" = true;
       "network.dns.disablePrefetchFromHTTPS" = true;
       "network.captive-portal-service.enabled" = false;
+      # "geo.enabled" = false;
+      # "beacon.enabled" = false;
 
       "browser.tabs.crashReporting.sendReport" = false;
       "browser.tabs.firefox-view" = false;

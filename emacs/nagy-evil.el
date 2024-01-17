@@ -114,7 +114,9 @@
   ("f" . "from")
   ("d" . "delete")
   ("dr" . "drop")
-  ("e" . "exists"))
+  ("e" . "exists")
+  :bind
+  ("H-M-q" . sql-mode))
 
 ;; (use-package evil-collection-calc
 ;;   :config
