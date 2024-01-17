@@ -42,8 +42,8 @@
                                                      (alist-get it (alist-get 'metadata obj))))
                        (nagy-list-column-names))])))
 
-(defun tabulated-list-current-column-number ()
-  "Return the current column number in the tabulated list."
+(defun tabulated-list-column-number-at-point ()
+  "Return the column number in the tabulated list at POS."
   (declare (side-effect-free t))
   (cl-loop with sum = 0
            for width in (mapcar 'cadr tabulated-list-format)
@@ -54,8 +54,8 @@
 
 (defun tabulated-list-kill-ring-save ()
   (interactive)
-  (aprog1 (substring-no-properties (elt (tabulated-list-get-entry (point))
-                                        (tabulated-list-current-column-number)))
+  (aprog1 (substring-no-properties (elt (tabulated-list-get-entry)
+                                        (tabulated-list-column-number-at-point)))
     (kill-new it)
     (when (called-interactively-p 'interactive)
       (message "%s" it))))

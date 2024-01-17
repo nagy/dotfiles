@@ -18,7 +18,6 @@
 
 (use-package company
   :diminish 'company-mode
-  :defer t
   :bind
   ("C-M-s-¢" . company-mode)
   (:map company-active-map

@@ -19,9 +19,6 @@
 ;;
 ;;; Code:
 
-(require 'lispy)
-(require 'lispyville)
-
 (require 'general)
 
 (use-package lispy

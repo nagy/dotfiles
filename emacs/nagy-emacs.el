@@ -144,6 +144,7 @@
         ("M-s M-s" . tabulated-list-sort)))
 
 (use-package shr
+  :defer t
   :custom
   (shr-inhibit-images t)
   (shr-use-colors nil)

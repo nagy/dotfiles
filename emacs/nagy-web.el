@@ -48,6 +48,7 @@
            "⊢" #'jq-format-buffer))
 
 (use-package wat-mode
+  :defer t
   ;; until https://github.com/devonsparks/wat-mode/pull/3 is merged and the package is in melpa
   :commands (wat-mode)
   ;; until the package is in melpa
@@ -80,6 +81,7 @@
            "⊢" #'yq-format-buffer))
 
 (use-package jq-mode
+  :defer t
   ;; :mode "\\.jq\\'"
   ;; :interpreter "jq"
   :pretty 'jq-mode

@@ -113,6 +113,7 @@
   (eros-eval-result-prefix ""))
 
 (use-package cc-mode
+  :defer t
   :pretty 'c-mode
   ("if" . if) ("else" . else) ("endif" . else)
   ("#define" . "»")
@@ -149,6 +150,7 @@
            "f" #'apropos-follow))
 
 (use-package gitconfig-mode
+  :defer t
   :pretty 'gitconfig-mode
   ("true" . true) ("false" . false)
   ("branch" . "⌥"))
@@ -241,6 +243,7 @@
   :same "^\\*osm")
 
 (use-package literate-calc-mode
+  :defer t
   :custom
   (literate-calc-mode-idle-time .1)
   ;; (literate-calc-mode-idle-time nil)
