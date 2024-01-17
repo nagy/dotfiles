@@ -20,14 +20,14 @@
 ;;; Code:
 
 (require 'bookmark)
-(require 'eieio)                        ; because of 'oref
-(require 'magit)
 (require 'general)
-(require 'forge)
 
-(eval-when-compile
-  ;; To catch errors during batch compilation
-  (require 'with-editor))
+(use-package magit
+  :bind
+  ("H-g" . magit-status)
+  :custom
+  (magit-pull-or-fetch t)
+  (magit-revision-show-gravatars nil))
 
 (use-package magit-section
   :general
@@ -45,29 +45,21 @@
         ("H-j" . magit-section-forward)
         ("H-k" . magit-section-backward)))
 
-
-(defun nagy-magit--forge--make-bookmark ()
-  (let ((bookmark (cons nil (bookmark-make-record-default 'no-file))))
-    (bookmark-prop-set bookmark 'handler  'nagy-magit--forge--handle-bookmark)
-    (bookmark-prop-set bookmark 'mode     major-mode)
-    (bookmark-prop-set bookmark 'filename (magit-toplevel))
-    (bookmark-prop-set bookmark 'forge-topic-number (oref forge-buffer-topic number))
-    (bookmark-prop-set bookmark 'defaults (list (magit-bookmark-name)))
-    bookmark))
-
-(defun nagy-magit--forge--handle-bookmark (bookmark)
-  (let ((default-directory (bookmark-get-filename bookmark))
-        (number (bookmark-prop-get bookmark 'forge-topic-number)))
-    (forge-visit-topic (forge-get-topic number))))
-
 (use-package forge
   :bind
+  ("H-ß" . forge-dispatch)
   (:map forge-post-mode-map
         ([remap kill-this-buffer] . forge-post-cancel)
         ([remap save-kill-buffer] . forge-post-submit))
+  ;; (:map forge-topic-mode-map
+  ;;       ("M-↓" . forge-pull))
   (:map magit-mode-map
-        ("@" . forge-dispatch))
-  ;; :general
+        ("M-ß" . forge-pull))
+  (:map dired-mode-map
+        ("M-ß" . forge-pull))
+  :general
+  (:states 'normal :keymaps 'magit-mode-map
+           "ß" #'forge-dispatch)
   ;; (:states 'normal :keymaps 'forge-post-mode-map
   ;;          "ö" #'forge-post-submit)
   )
