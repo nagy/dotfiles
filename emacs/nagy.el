@@ -20,6 +20,7 @@
 (require 'nagy-lua nil t)
 (require 'nagy-mail nil t)
 (require 'nagy-magit nil t)
+(require 'nagy-media nil t)
 (require 'nagy-misc nil t)
 (require 'nagy-misc2 nil t)
 (require 'nagy-mode-line nil t)
