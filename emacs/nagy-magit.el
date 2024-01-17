@@ -26,8 +26,7 @@
   :bind
   ("H-g" . magit-status)
   :custom
-  (magit-pull-or-fetch t)
-  (magit-revision-show-gravatars nil))
+  (magit-pull-or-fetch t))
 
 (use-package magit-section
   :general

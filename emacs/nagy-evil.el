@@ -23,18 +23,13 @@
 
 (require 'evil)
 (require 'general)
-(eval-when-compile
-  ;; To catch errors during batch compilation
-  (require 'eshell)
-  (require 'esh-mode)
-  (require 'evil-numbers))
 
 (use-package evil
   :custom
   (evil-normal-state-cursor '(hbar . 5))
   (evil-insert-state-cursor '(bar . 5))
   (evil-echo-state nil)
-  (evil-mode-line-format 'before)
+  (evil-mode-line-format nil)
   ;; Does not work because deletion commands also are affected
   ;; (evil-respect-visual-line-mode t)
   :bind

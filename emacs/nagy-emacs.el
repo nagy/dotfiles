@@ -30,6 +30,19 @@
   (save-buffer)
   (kill-buffer))
 
+;; from https://gist.github.com/3402786
+(defun spacemacs/toggle-maximize-buffer ()
+  "Maximize buffer."
+  (interactive)
+  (save-excursion
+    (if (and (= 1 (length (window-list)))
+             (assoc ?_ register-alist))
+        (jump-to-register ?_)
+      (progn                                ; implicit
+        (window-configuration-to-register ?_)
+        (delete-other-windows)))))
+(keymap-global-set "s-m" #'spacemacs/toggle-maximize-buffer)
+
 (defun nagy-emacs-split-window-below-and-focus (arg)
   "Split the window vertically and focus the new window."
   (interactive "P")

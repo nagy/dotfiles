@@ -225,6 +225,21 @@
     gron
     ruff
     dool
+    ( # malloc-trim.sh
+      # From http://notes.secretsauce.net/notes/2016/04/08_glibc-malloc-inefficiency.html
+      pkgs.writeShellScriptBin "malloc-trim" ''
+        set -e
+        PID=$1
+        test -n "$PID" || { echo "Need PID on the cmdline" > /dev/stderr; exit 1; }
+
+        before=`ps -h -p $PID -O rss  | awk '{print $2}'`
+        gdb --batch-silent --eval-command 'call (int)malloc_trim(0)' -p $PID
+        after=`ps -h -p $PID -O rss  | awk '{print $2}'`
+
+        echo "before: $before"
+        echo "after: $after"
+        echo "freed: $(($before - $after))"
+      '')
   ];
 
   boot.binfmt.emulatedSystems = [
