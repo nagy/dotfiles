@@ -141,5 +141,21 @@ with `switch-to-buffer'."
   (cl-letf (((symbol-function 'switch-to-buffer-other-window) #'switch-to-buffer))
     (apply orig-fun args)))
 
+(pcase-defmacro suffix (suffix)
+  "Pattern (suffix SUFFIX) matches if the string ends with SUFFIX."
+  `(pred (string-suffix-p ,suffix)))
+
+(pcase-defmacro prefix (prefix)
+  "Pattern (prefix PREFIX) matches if the string starts with PREFIX."
+  `(pred (string-prefix-p ,prefix)))
+
+(pcase-defmacro infix (infix)
+  "Pattern (infix INFIX) matches if the string contains INFIX."
+  `(pred (s-contains-p ,infix)))
+
+(pcase-defmacro derived (&rest prefix)
+  "Pattern (prefix PREFIX) matches if the string starts with PREFIX."
+  `(pred (lambda (s) (provided-mode-derived-p s ,@prefix))))
+
 (provide 'nagy-use-package)
 ;;; nagy-use-package.el ends here
