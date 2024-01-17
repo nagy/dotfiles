@@ -21,11 +21,11 @@
 
 (require 'general)
 
-(defmacro k-time (&rest body)
-  "Measure and return the time it takes evaluating BODY."
-  `(let ((time (current-time)))
-     ,@body
-     (float-time (time-since time))))
+;; More info
+;; https://news.ycombinator.com/item?id=15802409
+;; https://akrl.sdf.org/#org1ce771c
+
+(defvar gc-idle-timer)
 
 (defun GC-DISABLE ()
   (interactive)
@@ -33,7 +33,8 @@
   (setq gc-cons-percentage 1.0)
   ;; (setq garbage-collection-messages t)
   (garbage-collect)
-  (fset 'garbage-collect #'ignore))
+  (fset 'garbage-collect #'ignore)
+  (setq gc-idle-timer (run-with-idle-timer 120 t #'real-garbage-collect)))
 
 (defvar real-garbage-collect (symbol-function 'garbage-collect))
 
@@ -47,41 +48,10 @@
   (:states 'normal
            "🗑" #'real-garbage-collect))
 
-(defun GC-ENABLE ()
-  "Gc tame https://akrl.sdf.org/#org1ce771c ."
+(defun real-memory-report ()
   (interactive)
-  ;; Set garbage collection threshold to 1GB.
-  (setq gc-cons-threshold #x40000000)      ; somehow this does not apply, it gets set back by somebody else
-  (setq gc-cons-threshold #x10000000)
-  ;; (setq garbage-collection-messages t)
-  ;; (defadvice! +timed-gargabe-collect (orig-fn &rest args)
-  ;;   :around #'garbage-collect
-  ;;   (message "Garbage Collector has run for %.06fsec"
-  ;;            (k-time
-  ;;             (apply orig-fn args))))
-  ;; When idle for 15sec run the GC no matter what.
-  (defvar k-gc-timer
-    (run-with-idle-timer 15 t
-                         (lambda ()
-                           (garbage-collect)
-                           ;; (message "Garbage Collector has run for %.06fsec"
-                           ;;   (k-time (garbage-collect)))
-                           ))))
-
-(defun timed-garbage-collect ()
-  (interactive)
-  (message "(garbage-collect) took: %f seconds" (k-time (garbage-collect))))
-
-;; (map! :n "⏢" #'timed-garbage-collect)
-;; (map! :n "⏢" #'garbage-collect)
-
-;; https://news.ycombinator.com/item?id=15802409
-;; ;; never collect.
-;;  (setq gc-cons-threshold 10000000000)
-;;  (defun garbage-collect (&rest args)
-;;    (message "trying to garbage collect. probably you want to quit emacs."))
-;;  (setq garbage-collection-messages t)
-
+  (cl-letf (((symbol-function 'garbage-collect) #'real-garbage-collect))
+    (memory-report)))
 
 (provide 'nagy-gc)
 ;;; nagy-gc.el ends here
