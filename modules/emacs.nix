@@ -21,22 +21,6 @@ let
           hash = "sha256-tfEZLqYhq9HasR8T/QVgkyXrivXTLMzw2hZWxwwhr9g=";
         };
       };
-      tablist = super.tablist.overrideAttrs {
-        src = pkgs.fetchFromGitHub {
-          owner = "nagy";
-          repo = "tablist";
-          rev = "1de3a025066bb3c5649bcb6e75201bffa96595db";
-          hash = "sha256-yFjbO/BK72vJVINky6v10yLpFQWXYVUi1j9zFkIsBIU=";
-        };
-      };
-      anaphora = super.anaphora.overrideAttrs {
-        src = pkgs.fetchFromGitHub {
-          owner = "nagy";
-          repo = "anaphora";
-          rev = "d40b018f55361042825a8c07a17abcb86a7794b2";
-          hash = "sha256-ukT4Ftm09Kp/B/UPcgOWlwI0nPiWR9q48PSSoz5GI0w=";
-        };
-      };
       memoize = super.memoize.overrideAttrs {
         src = pkgs.fetchFromGitHub {
           owner = "nagy";
