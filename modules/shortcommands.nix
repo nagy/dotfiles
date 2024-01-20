@@ -3,11 +3,6 @@
 let
   cfg = config.nagy.shortcommands;
   defaultShortcommands = {
-    # nix
-    nb = [ "nix-build" ];
-    ni = [ "nix-instantiate" ];
-    ns = [ "nix-store" ];
-    nsh = [ "nix-shell" ];
     # nix flakes
     n = [ "nix" ];
     b = [ "nix-build" ];
@@ -171,17 +166,8 @@ let
     "E.j" = [ "nix" "eval" "--file" "." "--json" ];
     "SE." = [ "nix" "search" "--file" "." ];
     "L." = [ "nix" "log" "--file" "." ];
-    # impure variants
-    # Ri = [ "nix" "run" "--impure" ];
-    # Bi = [ "nix" "build" "--impure" ];
-    # Di = [ "nix" "develop" "--impure" ];
-    # Eri = [ "nix" "eval" "--raw" "--impure" ];
-    # Eji = [ "nix" "eval" "--json" "--impure" ];
 
     Bp = [ "nix" "build" "--no-link" "--print-out-paths" "-L" "--quiet" ];
-
-    U = [ "nix" "bundle" ];
-    UL = [ "nix" "bundle" "--print-build-logs" ];
 
     # git
     g = [ "git" ];
