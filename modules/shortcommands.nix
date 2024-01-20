@@ -340,18 +340,16 @@ let
     mask = [ "openssl" "env" "-e" "-aes-256-ctr" "-nopad" "-nosalt" "-k" "" ];
 
     ungron = [ "gron" "--ungron" ];
+
     fd1 = [ "fd" "-j1" ];
     fd1f = [ "fd" "-j1" "-tf" ];
     fd1d = [ "fd" "-j1" "-td" ];
-
     fd2 = [ "fd" "-j2" ];
     fd2f = [ "fd" "-j2" "-tf" ];
     fd2d = [ "fd" "-j2" "-td" ];
-
     fdf = [ "fd" "-tf" ];
     fdd = [ "fd" "-td" ];
   };
-  dotlib = import ../lib { inherit pkgs; };
 in
 {
   options = {
@@ -364,6 +362,7 @@ in
 
   config = {
     environment.systemPackages =
-      lib.mapAttrsToList dotlib.mkShortCommand (defaultShortcommands // cfg);
+      lib.mapAttrsToList config.nur.repos.nagy.lib.mkShortCommand
+        (defaultShortcommands // cfg);
   };
 }
