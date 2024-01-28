@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-use-package
-;; Package-Requires: ((emacs "29.1") dash)
+;; Package-Requires: ((emacs "29.1") dash diminish)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -32,12 +32,9 @@
        (t (use-package-error (concat label " :same did not get a string")))))))
 ;;;###autoload
 (defun use-package-handler/:same (name-symbol _keyword rgx rest state)
-  (let ((body (use-package-process-keywords name-symbol rest state)))
-    (if (null rgx)
-        body
-      (use-package-concat
-       body
-       `((push '(,rgx display-buffer-same-window) display-buffer-alist))))))
+  (use-package-concat (use-package-process-keywords name-symbol rest state)
+                      `((push '(,rgx display-buffer-same-window)
+                              display-buffer-alist))))
 
 ;;;###autoload
 (with-eval-after-load 'use-package-core

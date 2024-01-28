@@ -34,7 +34,7 @@ let
     "😛" = [ "<Multi_key>" "<colon>" "<P>" ];
     "🤓" = [ "<Multi_key>" "<n>" "<e>" "<r>" "<d>" ];
     # "❤️" = [ "<Multi_key>" "<h>" "<e>" "<a>" "<r>" "<t>" ];
-    "🔑" = [ "<Multi_key>" "<k>" "<e>" "<y>" ];
+    # "🔑" = [ "<Multi_key>" "<k>" "<e>" "<y>" ];
     "👀" = [ "<Multi_key>" "<e>" "<y>" "<e>" "<s>" ];
     "🥚" = [ "<Multi_key>" "<e>" "<g>" "<g>" ];
     "⎈" = [ "<Multi_key>" "<h>" "<e>" "<l>" "<m>" ];
@@ -147,6 +147,7 @@ let
     "〜" = [ "<Multi_key>" "<Multi_key>" "<asciitilde>" ];
     "💤" = [ "<Multi_key>" "<z>" "<z>" "<z>" ];
     "💩" = [ "<Multi_key>" "<p>" "<o>" "<o>" ];
+    "🔑" = [ "<Multi_key>" "<kra>" ];
     # "💧" = [ "<Multi_key>" "<d>" "<r>" "<o>" "<p>" ];
     # "💧" = [ "<Multi_key>" "<eth>" ];
     "∑" = [ "<Multi_key>" "<s>" "<u>" "<m>" ];

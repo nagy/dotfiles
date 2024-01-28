@@ -44,6 +44,12 @@
     (interactive)
     (setq values nil)                   ; cleanup references
     (funcall real-garbage-collect))
+  (defun nagy-gc-malloc-trim ()
+    (interactive)
+    (shell-command (format "malloc-trim %d" (emacs-pid))
+                   (generate-new-buffer "*malloc-trim*")))
+  :bind
+  ("s-🗑" . nagy-gc-malloc-trim)
   :general
   (:states 'normal
            "🗑" #'real-garbage-collect))

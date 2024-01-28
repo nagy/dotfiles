@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   # Upstream DoH is not supported yet
   # https://github.com/NLnetLabs/unbound/issues/308

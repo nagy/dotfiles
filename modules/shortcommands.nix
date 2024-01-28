@@ -7,6 +7,8 @@ let
     n = [ "nix" ];
     b = [ "nix-build" ];
     i = [ "nix-instantiate" ];
+    "b," = [ "nix-build" "<nixpkgs>" "--attr" ];
+    "i," = [ "nix-instantiate" "<nixpkgs>" "--attr" ];
     R = [ "nix" "run" ];
     D = [ "nix" "develop" ];
     L = [ "nix" "log" ];
@@ -174,6 +176,7 @@ let
     gcl = [ "git" "clone" ];
     gcl1 = [ "git" "clone" "--depth=1" ];
     gf = [ "git" "fetch" ];
+    gfa = [ "git" "fetch" "--all" ];
     gfp = [ "git" "fetch" "--prune" ];
     gt = [ "git" "tag" ];
     gtl = [ "git" "tag" "--list" ];

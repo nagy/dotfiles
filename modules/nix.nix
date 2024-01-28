@@ -90,11 +90,6 @@
         repo = "nix-mode";
         type = "github";
       };
-      blobber.to = {
-        owner = "nagy";
-        repo = "blobber";
-        type = "github";
-      };
       microvm.to = {
         owner = "astro";
         repo = "microvm.nix";
@@ -103,11 +98,6 @@
       std.to = {
         owner = "divnix";
         repo = "std";
-        type = "github";
-      };
-      nixago.to = {
-        owner = "nix-community";
-        repo = "nixago";
         type = "github";
       };
       # until https://github.com/NixOS/flake-registry/pull/41 is merged

@@ -29,8 +29,8 @@
                                      ;; "--save-position-on-quit"
                                      "--no-audio-display"
                                      "--mute=no"
-                                     ;; "--force-window=no"
-                                     ;; "--vo=null"
+                                     "--force-window=no"
+                                     "--vo=null"
                                      )))
 
 (use-package emms-playlist-mode
@@ -38,6 +38,30 @@
   ;; :config
   :bind
   ("<XF86AudioPause>" . emms))
+
+(use-package emms
+  :defer t
+  :custom
+  ;; dont make the buffer hidden
+  (emms-playlist-buffer-name "*EMMS Playlist*"))
+
+(defun mute ()
+  "Silences/mutes the audio output via pulseaudio."
+  (interactive)
+  (let ((default-directory "~/"))
+    (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-mute" "alsa_output.pci-0000_00_1b.0.analog-stereo" "toggle")))))
+
+(defun volume-increase ()
+  "Louder."
+  (interactive)
+  (let ((default-directory "~/"))
+    (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-volume" "alsa_output.pci-0000_00_1b.0.analog-stereo" "+1000")))))
+
+(defun volume-decrease ()
+  "Silenter."
+  (interactive)
+  (let ((default-directory "~/"))
+    (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-volume" "alsa_output.pci-0000_00_1b.0.analog-stereo" "-1000")))))
 
 (provide 'nagy-media)
 ;;; nagy-media.el ends here

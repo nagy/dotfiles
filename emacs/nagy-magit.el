@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-magit
-;; Package-Requires: ((emacs "29.1") magit-section forge general with-editor)
+;; Package-Requires: ((emacs "29.1") magit-section forge embark general with-editor)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -21,6 +21,7 @@
 
 (require 'bookmark)
 (require 'general)
+(require 'embark)
 
 (use-package magit
   :bind

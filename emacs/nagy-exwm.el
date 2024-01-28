@@ -15,6 +15,12 @@
 (use-package exwm
   :if (display-graphic-p)
   :preface
+  (defun tab-last ()
+    (interactive)
+    (tab-bar-switch-to-last-tab))
+  (defun tab-first ()
+    (interactive)
+    (tab-bar-select-tab 1))
   (defun ibuffer-exwm ()
     (interactive)
     (if (get-buffer "*Ibuffer*")

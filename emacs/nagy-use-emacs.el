@@ -1,6 +1,6 @@
 ;;; nagy-use-emacs.el --- My hy config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") benchmark-init general nagy-use-package)
 
 (require 'nagy-use-package)
 
@@ -148,6 +148,11 @@
   ;;   ;; This adds the paragraph symbol as valid function character
   ;;   (set-char-table-range (syntax-table) ?§ '(2)))
   )
+
+;; (when init-file-debug
+;;   (require 'benchmark-init)
+;;   ;;(add-hook 'doom-first-input-hook #'benchmark-init/deactivate)
+;;   )
 
 ;; (use-package make-mode
 ;;   :pretty 'makefile-gmake-mode

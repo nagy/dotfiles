@@ -57,4 +57,7 @@
   ;; (setq-default mode-line-buffer-identification '((:propertize "%b" face bold)))
   )
 
+(nagy-mode-line-init)
+;; (add-hook 'before-init-hook #'nagy-mode-line-init)
+
 (provide 'nagy-mode-line)
