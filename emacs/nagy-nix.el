@@ -2,13 +2,9 @@
 ;; Homepage: https://github.com/nagy/nagy
 ;; Package-Requires: ((emacs "29.1") nix-mode nickel-mode nagy-use-package)
 
-(require 'eglot)
-
 (require 'nagy-use-package)
 
 (use-package nix-mode
-  ;; :hook
-  ;; (nix-mode . eglot-ensure)
   :pretty 'nix-mode
   ("true" . true) ("false" . false)
   ("if" . if) ("else" . else) ("then" . then)

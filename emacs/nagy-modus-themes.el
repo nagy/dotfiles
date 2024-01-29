@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") paren-face modus-themes ef-themes lin)
+;; Package-Requires: ((emacs "29.1") paren-face nerd-icons modus-themes ef-themes lin)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -106,6 +106,9 @@
           tabulated-list-mode-hook))
   (lin-global-mode 1))
 
+(use-package nerd-icons
+  :bind
+  ("C-H-s-e" . nerd-icons-insert))
 
 (provide 'nagy-modus-themes)
 ;;; nagy-modus-themes.el ends here

@@ -83,6 +83,12 @@
   ;; this removes the yes/no question on a process killing
   (setq kill-buffer-query-functions
         (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
+  (push '("^\\*Shell Command"  display-buffer-same-window) display-buffer-alist)
+  (push '("^\\*compilation"  display-buffer-same-window) display-buffer-alist)
+  (push '("^\\*Diff"  display-buffer-same-window) display-buffer-alist)
+  (push '("^\\*Messages"  display-buffer-same-window) display-buffer-alist)
+  (push '("^\\*Disassemble"  display-buffer-same-window) display-buffer-alist)
+  (push '("^Shell Command:"  display-buffer-same-window) display-buffer-alist)
   (add-hook 'window-selection-change-functions #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-increase :after #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-decrease :after #'nagy-emacs-window-scroll-bars)

@@ -59,7 +59,8 @@
   (:states 'normal :keymaps 'python-mode-map
            "⊢" #'ruff-format-buffer)
   :cycle 'python-mode
-  ("class" "def"))
+  ("class" "def")
+  :same "^\\*Python")
 
 (provide 'nagy-python)
 ;;; nagy-python.el ends here
