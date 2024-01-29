@@ -7,6 +7,7 @@
 (require 'nagy-use-package)
 
 (use-package org
+  :commands (find-file-org)
   :custom
   (org-image-actual-width 400)
   (org-todo-keywords '((sequence "WAITING" "TODO" "DONE")
@@ -17,8 +18,13 @@
   ;; (org-src-preserve-indentation nil)
   (org-edit-src-content-indentation 0)
   (org-modules nil)
+  :config
+  (defun find-file-org ()
+    (interactive)
+    (find-file org-directory))
   :bind
   ("H-M-o" . org-mode)
+  ("s-ø" . find-file-org)
   (:map org-mode-map
         ("H-j"   . org-next-visible-heading)
         ("H-k"   . org-previous-visible-heading)
@@ -121,13 +127,16 @@
   (:states 'normal :keymaps 'mermaid-mode-map
            "ö" #'mermaid-compile-buffer))
 
-(require 'markdown-mode)
 (use-package markdown-mode
   :preface
   (defun nagy-markdown-delete-subtree ()
     (interactive)
     (markdown-mark-subtree)
     (delete-region (region-beginning) (region-end)))
+  ;; TODO needs to be put into modus themes hook
+  (set-face-attribute 'markdown-header-face-1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
+  (set-face-attribute 'markdown-header-face-2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
+  (set-face-attribute 'markdown-header-face-3 nil :font "Et Bembo" :height 1.2 :inherit 'modus-themes-heading-3)
   :bind
   ("H-M-m" . markdown-mode)
   (:map markdown-mode-map
@@ -143,6 +152,12 @@
   :config
   (setq org-agenda-window-setup 'current-window)
   (setq org-agenda-files nil))
+
+(use-package org-element
+  :defer t
+  :config
+  (setq org-element-use-cache nil)
+  (setq org-element-cache-persistent nil))
 
 (provide 'nagy-org)
 ;;; nagy-org.el ends here

@@ -14,21 +14,19 @@
 ;;
 ;;; Code:
 
-(eval-when-compile
-  ;; To catch errors during batch compilation
-  (require 'corfu))
-
 (use-package corfu
   :defer t
   :custom
   (corfu-auto t)
   (corfu-auto-delay 0)
+  (corfu-auto-prefix 0)
   (completion-cycle-threshold 3)
   (tab-always-indent 'complete)
-  (corfu-auto-prefix 0)
   :bind
   (:map corfu-map
         ("RET" . nil)
+        ("C-n" . corfu-next)
+        ("C-p" . corfu-previous)
         ("<key-chord> f j" . corfu-insert)))
 
 ;; (use-package cape)

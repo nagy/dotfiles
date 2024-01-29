@@ -74,6 +74,24 @@
   :hook
   (eww-mode . variable-pitch-mode))
 
+(defun nagy/delete-paragraph ()
+  (interactive)
+  (if (region-active-p)
+      (progn
+        (copy-region-as-kill (region-beginning) (region-end))
+        (delete-region (region-beginning) (region-end)))
+    (save-excursion
+      (mark-paragraph)
+      (copy-region-as-kill (region-beginning) (region-end))
+      (delete-region (region-beginning) (region-end)))))
+(defun nagy/yank-paragraph ()
+  (interactive)
+  (if (region-active-p)
+      (copy-region-as-kill (region-beginning) (region-end))
+    (save-mark-and-excursion
+      (mark-paragraph)
+      (copy-region-as-kill (region-beginning) (region-end)))))
+
 (use-package prog-mode
   :hook
   (prog-mode . visual-line-mode))

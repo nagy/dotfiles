@@ -33,6 +33,10 @@
         ("H-k" . mu4e-view-headers-prev))
   (:map mu4e-compose-mode-map
         ("s-z" . message-send-and-exit))
+  :general
+  (:states 'normal :keymaps 'mu4e-headers-mode-map
+           "q" #'mu4e-quit
+           "f" #'mu4e-headers-view-message)
   :custom
   (mail-user-agent 'mu4e-user-agent)
   (mu4e-confirm-quit nil)
@@ -43,12 +47,19 @@
   (mu4e-get-mail-command "true")
   (mu4e-view-auto-mark-as-read nil)
   (mu4e-change-filenames-when-moving t)
+  (mu4e-cache-maildir-list t)
   (mu4e-headers-fields '(;;(:account . 10)
                          (:mailing-list . 12)
                          (:human-date . 12)
                          (:flags . 6)
                          (:from . 25)
                          (:subject)))
+  (mu4e-bookmarks '(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+                    ("date:today..now" "Today's messages" ?t)
+                    ("date:7d..now" "Last 7 days" ?w)
+                    ("mime:application/pdf" "Messages with pdfs" ?p)
+                    ("maildir:\"/local/\"" "local Inbox" ?L)
+                    ("NOT maildir:\"/local/\"" "External Inbox" ?E)))
   ;; ( mu4e-compose-signature user-full-name)
   :config
   (setq mu4e-user-agent-string nil)

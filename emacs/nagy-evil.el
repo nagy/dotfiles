@@ -30,6 +30,7 @@
   (evil-insert-state-cursor '(bar . 5))
   (evil-echo-state nil)
   (evil-mode-line-format nil)
+  (evil-want-minibuffer t)
   ;; Does not work because deletion commands also are affected
   ;; (evil-respect-visual-line-mode t)
   :bind

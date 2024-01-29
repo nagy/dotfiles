@@ -35,7 +35,9 @@
   (company-idle-delay 0.1)
   (company-minimum-prefix-length 1)
   (company-tooltip-idle-delay 0.1)
-  (company-async-redisplay-delay 0.1))
+  (company-async-redisplay-delay 0.1)
+  (company-dabbrev-downcase nil)
+  )
 
 (provide 'nagy-company)
 ;;; nagy-company.el ends here
