@@ -1,35 +1,24 @@
 { config, pkgs, lib, ... }:
 
 let
-  patchedEmacs = config.services.emacs.package.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [
-      (pkgs.fetchpatch {
-        # lower gc latency, already merged upstream
-        url =
-          "https://github.com/emacs-mirror/emacs/commit/396f46d904ab7509476b0d824ec2e4d9a231a2df.patch";
-        hash = "sha256-U+ms+g712eRWVN/9Tm2HjVuCc5Z3g4BT0PDKzvqXALE=";
-      })
-    ];
+  customEmacsPackages = pkgs.emacs29-gtk3.pkgs.overrideScope' (self: super: {
+    sotlisp = super.sotlisp.overrideAttrs {
+      src = pkgs.fetchFromGitHub {
+        owner = "nagy";
+        repo = "speed-of-thought-lisp";
+        rev = "39930acbc4e8674fe36613d7d0961b49d21bcf50";
+        hash = "sha256-tfEZLqYhq9HasR8T/QVgkyXrivXTLMzw2hZWxwwhr9g=";
+      };
+    };
+    memoize = super.memoize.overrideAttrs {
+      src = pkgs.fetchFromGitHub {
+        owner = "nagy";
+        repo = "emacs-memoize";
+        rev = "33fcd1ec5a93f3768c43904fecc68399a84b8924";
+        hash = "sha256-00C8WLR7CVCnp/VPgAP564XpMmXkaaddmi1tXdEevZI=";
+      };
+    };
   });
-  customEmacsPackages = (pkgs.emacsPackagesFor patchedEmacs).overrideScope'
-    (self: super: {
-      sotlisp = super.sotlisp.overrideAttrs {
-        src = pkgs.fetchFromGitHub {
-          owner = "nagy";
-          repo = "speed-of-thought-lisp";
-          rev = "39930acbc4e8674fe36613d7d0961b49d21bcf50";
-          hash = "sha256-tfEZLqYhq9HasR8T/QVgkyXrivXTLMzw2hZWxwwhr9g=";
-        };
-      };
-      memoize = super.memoize.overrideAttrs {
-        src = pkgs.fetchFromGitHub {
-          owner = "nagy";
-          repo = "emacs-memoize";
-          rev = "33fcd1ec5a93f3768c43904fecc68399a84b8924";
-          hash = "sha256-00C8WLR7CVCnp/VPgAP564XpMmXkaaddmi1tXdEevZI=";
-        };
-      };
-    });
   emacs = customEmacsPackages.emacs;
   emacsAndPackages = customEmacsPackages.withPackages (epkgs:
     (lib.attrValues (import ../emacs { inherit pkgs lib emacs; }))
@@ -62,5 +51,4 @@ let
       aggressive-indent
       # (assert consult-gh.version == 2.0; consult-gh)
     ]));
-in
-{ environment.systemPackages = [ emacsAndPackages pkgs.mu ]; }
+in { environment.systemPackages = [ emacsAndPackages pkgs.mu ]; }
