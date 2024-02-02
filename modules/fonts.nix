@@ -9,8 +9,7 @@ let
         leading = 1100
       '');
   };
-in
-{
+in {
   fonts = {
     fontconfig = {
       enable = true;
@@ -33,7 +32,7 @@ in
       (iosevka-comfy.comfy.overrideAttrs overrideBuildPlan)
       etBook # EtBembo https://edwardtufte.github.io/et-book/
       noto-fonts
-      nerdfonts
+      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
       # Only one icon used: 〜
       # From font "file-icons". May be a bit overkill
       # emacs-all-the-icons-fonts

@@ -62,6 +62,7 @@ aka xcompose is not properly initialized in the first frame."
       (blink-cursor-mode -1)
       (evil-mode)
       (GC-DISABLE)
+      (setq menu-updating-frame nil) ; without this, kill-current-buffer is broken
       ;; (font-size-toggle)
       (setq-default lexical-binding t)))
   (defun nagy-exwm-rename-buffer ()
@@ -110,7 +111,6 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-Q") . unbury-buffer)
             (,(kbd "H-<f2>") . modus-themes-toggle)
             (,(kbd "s-t") . find-tmp)
-            (,(kbd "s-⧖") . find-tmp)
             (,(kbd "s-=") . balance-windows)
             (,(kbd "s-n") . universal-argument)
             (,(kbd "<XF86AudioMute>") . mute)

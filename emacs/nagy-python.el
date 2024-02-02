@@ -15,14 +15,8 @@
 ;;; Code:
 
 (require 'reformatter)
-
 (require 'general)
-
 (require 'nagy-use-package)
-
-(eval-when-compile
-  ;; To catch errors during batch compilation
-  (require 'python-black))
 
 (use-package python
   :preface
@@ -48,6 +42,9 @@
   ("try" . try) ("except" . except)
   ("return" . return)
   ("pass" . "…")
+  ("self" . "▒")
+  ("None" . null)
+  ("not" . not)
   ("with" . [?↗ (Bl . Bl) ?↘])
   :bind
   ("H-M-p" . python-mode)
@@ -61,6 +58,12 @@
   :cycle 'python-mode
   ("class" "def")
   :same "^\\*Python")
+
+;; (use-package python-black
+;;   :custom
+;;   (python-black-extra-args '("--line-length" "100"))
+;;   :hook
+;;   (python-mode . python-black-on-save-mode))
 
 (provide 'nagy-python)
 ;;; nagy-python.el ends here

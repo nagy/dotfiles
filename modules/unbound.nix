@@ -1,4 +1,5 @@
 {
+  networking.nameservers = [ "127.0.0.1" ];
   # Upstream DoH is not supported yet
   # https://github.com/NLnetLabs/unbound/issues/308
   services.unbound = {
@@ -14,8 +15,6 @@
           [ "1.1.1.1@853#cloudflare-dns.com" "1.0.0.1@853#cloudflare-dns.com" ];
       }];
       server = {
-        interface = [ "0.0.0.0" ];
-        access-control = [ "0.0.0.0/0 allow" ];
         log-queries = true;
         log-replies = true;
         hide-identity = true;

@@ -111,11 +111,16 @@
   ("inputs" "outputs"))
 
 (use-package nix-prettify-mode
+  :diminish 'nix-prettify-mode
   :custom
-  (nix-prettify-char ?┃))
+  (nix-prettify-char ?┃)
+  :hook
+  (dired-mode . nix-prettify-mode)
+  (nix-repl-mode . nix-prettify-mode))
 
 ;; TODO has an lsp nls
 (use-package nickel-mode
+  :defer t
   :pretty 'nickel-mode
   ("let" . let)
   ("in" . in)

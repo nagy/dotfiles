@@ -66,7 +66,7 @@
 (defmacro with-directory (dir &rest body)
   "Set `default-directory' to DIR and execute BODY."
   (declare (indent 1) (debug (sexp body)))
-  `(let ((default-directory ,dir))
+  `(let ((default-directory ,(expand-file-name dir)))
      ,@body))
 
 (use-package emacs
@@ -92,6 +92,13 @@
   (add-hook 'window-selection-change-functions #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-increase :after #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-decrease :after #'nagy-emacs-window-scroll-bars)
+  (push 'inhibit-message set-message-functions)
+  (setq inhibit-message-regexps
+        (list
+         (rx "[mu4e] ")
+         (rx bol "Note: file is write protected" eol)
+         ))
+
   ;; (setq-default show-trailing-whitespace t)
   ;; :custom
   ;; (help-at-pt-display-when-idle t)
@@ -115,6 +122,7 @@
   (scroll-step 15)
   (scroll-bar-adjust-thumb-portion nil)
   ;; :config
+  (initial-scratch-message nil)
   ;; (setq-default lexical-binding t) ;; has no effect yet
   :bind
   ("s-s" . nagy-emacs-split-window-below-and-focus)

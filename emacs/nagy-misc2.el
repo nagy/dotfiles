@@ -61,5 +61,26 @@
   (:states 'normal :keymaps 'prog-mode-map
            "»" #'aggressive-indent-mode))
 
+
+(use-package highlight-quoted
+  :hook
+  (emacs-lisp-mode . highlight-quoted-mode))
+
+(use-package avy
+  :custom
+  (avy-all-windows nil)
+  (avy-background nil)
+  (avy-single-candidate-jump t)
+  (avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l
+                 ?q ?w ?e ?r       ?i ?o ?p)))
+(use-package iedit
+  :bind
+  ("C-;" . iedit-mode))
+
+(use-package expand-region
+  :bind
+  ("M-→" . er/expand-region)
+  ("M-←" . er/contract-region))
+
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here

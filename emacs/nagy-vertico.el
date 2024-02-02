@@ -29,8 +29,13 @@
         ("s--" . vertico-flat-mode)))
 
 (use-package vertico-quick
+  :custom
+  (vertico-quick1 "asdfghjklö")
+  (vertico-quick2 "vbnm")
   :bind
   (:map vertico-map
+        ("<key-chord> f h" . vertico-quick-exit)
+        ("<key-chord> f l" . vertico-quick-insert)
         ("C-," . vertico-quick-exit)
         ("C-." . vertico-quick-exit)))
 

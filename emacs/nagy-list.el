@@ -58,7 +58,7 @@
                                         (tabulated-list-column-number-at-point)))
     (kill-new it)
     (when (called-interactively-p 'interactive)
-      (message "%s" it))))
+      (message "Copied %S" it))))
 
 (use-package tabulated-list
   :bind
@@ -77,7 +77,9 @@
 (define-derived-mode nagy-list-mode tabulated-list-mode "nagy-list"
   (setq nagy-list-sym (nagy-list-buffer-file-name-sym))
   (setq tabulated-list-format
-        `[,@(--map `(,(symbol-name it) ,(nagy-list-column-width it) t)
+        `[,@(--map `(,(propertize (capitalize (symbol-name it))
+                                  'face 'bold)
+                     ,(nagy-list-column-width it) t)
                    (nagy-list-column-names)) ])
   (setq tabulated-list-entries #'nagy-list-table-entries)
   (tabulated-list-init-header)
