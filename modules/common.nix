@@ -203,7 +203,6 @@
     (hy.withPackages (ps: with ps; [ hyrule addict ]))
     (opentofu.withPlugins (p: with p; [ github vultr ]))
     pkgs.nur.repos.nagy.hyperspec
-    (pkgs.nur.repos.nagy.lib.mkRustScript { file = ../bin/blocker.rs; })
     # version control
     gh
     hut

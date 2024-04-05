@@ -33,8 +33,6 @@
           };
         };
       packages.${pkgs.system} = {
-        blocker =
-          pkgs.nur.repos.nagy.lib.mkRustScript { file = ./bin/blocker.rs; };
         emacs = pkgs.emacs29-gtk3.pkgs.withPackages (epkgs:
           pkgs.lib.attrValues (import ./emacs {
             inherit pkgs;
