@@ -57,6 +57,7 @@
     path = "echo -e \${PATH//:/\\\\n}";
     nixpath = "echo -e \${NIX_PATH//:/\\\\n}";
     fastping = "ping -c 20 -i.2";
+    reset = "tput reset";
     ".." = "cd ..";
     "..." = "cd ../..";
     "...." = "cd ../../..";
@@ -66,8 +67,12 @@
   };
 
   networking.hosts = {
-    "1.1.1.1" = [ "1dot1dot1dot1.cloudflare-dns.com" "one.one.one.one" ];
+    "1.1.1.1" = [
+      "1dot1dot1dot1.cloudflare-dns.com"
+      "one.one.one.one"
+    ];
     "8.8.8.8" = [ "dns.google" ];
+    # https://mullvad.net/de/help/dns-over-https-and-dns-over-tls
     "194.242.2.2" = [ "dns.mullvad.net" ];
     "194.242.2.3" = [ "adblock.dns.mullvad.net" ];
   };
@@ -188,7 +193,8 @@
         april
         serapeum
         dbus
-      ]))
+      ]
+    ))
 
     (pass.withExtensions (exts: [ exts.pass-otp ]))
     pinentry
@@ -205,7 +211,8 @@
     gron
     ruff
     dool
-    ( # malloc-trim.sh
+    (
+      # malloc-trim.sh
       # From http://notes.secretsauce.net/notes/2016/04/08_glibc-malloc-inefficiency.html
       pkgs.writeShellScriptBin "malloc-trim" ''
         set -e
@@ -219,7 +226,8 @@
         echo "before: $before"
         echo "after: $after"
         echo "freed: $(($before - $after))"
-      '')
+      ''
+    )
   ];
 
   boot.binfmt.emulatedSystems = [

@@ -100,7 +100,6 @@
         # Default = "Random SearX";
         Default = "Google";
       };
-
     };
     preferences = {
       # "general.smoothScroll" = false;
@@ -135,7 +134,6 @@
       # "media.autoplay.enabled" = true;
       # "media.eme.enabled" = false;
       "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
-
     };
   };
 

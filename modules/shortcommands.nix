@@ -7,10 +7,13 @@ let
     n = [ "nix" ];
     b = [ "nix-build" ];
     i = [ "nix-instantiate" ];
+    bM = [ "nix-build" "-I" "nixpkgs=https://github.com/NixOS/nixpkgs/archive/master.tar.gz" ];
+    iM = [ "nix-instantiate" "-I" "nixpkgs=https://github.com/NixOS/nixpkgs/archive/master.tar.gz"];
+    bU = [ "nix-build" "-I" "nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz" ];
+    iU = [ "nix-instantiate" "-I" "nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"];
     "b," = [ "nix-build" "<nixpkgs>" "--attr" ];
     "i," = [ "nix-instantiate" "<nixpkgs>" "--attr" ];
     R = [ "nix" "run" ];
-    D = [ "nix" "develop" ];
     L = [ "nix" "log" ];
     SE = [ "nix" "search" ];
     B = [ "nix" "build" ];
@@ -21,15 +24,9 @@ let
     H = [ "nix" "hash" ];
     BL = [ "nix" "build" "--print-build-logs" ];
     RL = [ "nix" "run" "--print-build-logs" ];
-    DL = [ "nix" "develop" "--print-build-logs" ];
     Ej = [ "nix" "eval" "--json" ];
     Er = [ "nix" "eval" "--raw" ];
     Bj = [ "nix" "build" "--json" "--no-link" ];
-    Du = [ "nix" "develop" "--unpack" ];
-    Dc = [ "nix" "develop" "--configure" ];
-    Db = [ "nix" "develop" "--build" ];
-    Dn = [ "nix" "develop" "--install" ];
-    DC = [ "nix" "develop" "--command" ];
     Pl = [ "nix" "profile" "list" ];
     Pi = [ "nix" "profile" "install" ];
     Pu = [ "nix" "profile" "upgrade" ];
@@ -62,7 +59,6 @@ let
 
     "Rø" = [ "nix" "run" "--override-input" "nixpkgs" "nixpkgs" ];
     "Bø" = [ "nix" "build" "--override-input" "nixpkgs" "nixpkgs" ];
-    "Dø" = [ "nix" "develop" "--override-input" "nixpkgs" "nixpkgs" ];
     "Eø" = [ "nix" "eval" "--override-input" "nixpkgs" "nixpkgs" ];
     "Fsø" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "nixpkgs" ];
     "Fmø" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "nixpkgs" ];
@@ -79,13 +75,6 @@ let
     "BØ" = [
       "nix"
       "build"
-      "--override-input"
-      "nixpkgs"
-      "github:NixOS/nixpkgs/master"
-    ];
-    "DØ" = [
-      "nix"
-      "develop"
       "--override-input"
       "nixpkgs"
       "github:NixOS/nixpkgs/master"
@@ -132,8 +121,6 @@ let
     "R¯" = [ "nix" "run" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
     "B¯" =
       [ "nix" "build" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
-    "D¯" =
-      [ "nix" "develop" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
     "Fs¯" = [
       "nix"
       "flake"
@@ -200,41 +187,44 @@ let
     zbe = [ "zig" "build-exe" ];
     zbes = [ "zig" "build-exe" "-O" "ReleaseSmall" ];
 
-    # # docker
-    # dO = [ "docker" ];
-    # dOe = [ "docker" "exec" ];
-    # dOeit = [ "docker" "exec" "-it" ];
-    # dOr = [ "docker" "run" ];
-    # dOc = [ "docker" "container" ];
-    # dOcl = [ "docker" "container" "ls" ];
-    # dOi = [ "docker" "image" ];
-    # dOil = [ "docker" "image" "ls" ];
-    # dOv = [ "docker" "volume" ];
-    # dOvl = [ "docker" "volume" "ls" ];
-    # dOn = [ "docker" "network" ];
-    # dOnl = [ "docker" "network" "ls" ];
+    # docker
+    D = [ "docker" ];
+    De = [ "docker" "exec" ];
+    Deit = [ "docker" "exec" "-it" ];
+    Dr = [ "docker" "run" ];
+    Dc = [ "docker" "container" ];
+    Dcl = [ "docker" "container" "ls" ];
+    Di = [ "docker" "image" ];
+    Dil = [ "docker" "image" "ls" ];
+    Dv = [ "docker" "volume" ];
+    Dvl = [ "docker" "volume" "ls" ];
+    Dn = [ "docker" "network" ];
+    Dnl = [ "docker" "network" "ls" ];
 
     # # kubernetes
-    K = [ "kubectl" ];
-    Kg = [ "kubectl" "get" ];
-    Kgp = [ "kubectl" "get" "pod" ];
-    Kgd = [ "kubectl" "get" "deployment" ];
-    Kgn = [ "kubectl" "get" "node" ];
-    Kgpw = [ "kubectl" "get" "pod" "--watch" ];
-    Kgdw = [ "kubectl" "get" "deployment" "--watch" ];
-    Kgnw = [ "kubectl" "get" "node" "--watch" ];
-    Kd = [ "kubectl" "describe" ];
-    Kdp = [ "kubectl" "describe" "pod" ];
-    Kdd = [ "kubectl" "describe" "deployment" ];
-    Kdn = [ "kubectl" "describe" "node" ];
-    Kc = [ "kubectl" "create" ];
-    Kcp = [ "kubectl" "create" "pod" ];
-    Kcd = [ "kubectl" "create" "deployment" ];
-    Kcj = [ "kubectl" "create" "job" ];
-    Ke = [ "kubectl" "exec" ];
-    Keit = [ "kubectl" "exec" "-it" ];
-    Kl = [ "kubectl" "label" ];
-    Kw = [ "kubectl" "wait" ];
+    k = [ "kubectl" ];
+    kg = [ "kubectl" "get" ];
+    kgp = [ "kubectl" "get" "pod" ];
+    kgd = [ "kubectl" "get" "deployment" ];
+    kgn = [ "kubectl" "get" "node" ];
+    kgpw = [ "kubectl" "get" "pod" "--watch" ];
+    kgdw = [ "kubectl" "get" "deployment" "--watch" ];
+    kgnw = [ "kubectl" "get" "node" "--watch" ];
+    kgsw = [ "kubectl" "get" "service" ];
+    kd = [ "kubectl" "describe" ];
+    kdp = [ "kubectl" "describe" "pod" ];
+    kdd = [ "kubectl" "describe" "deployment" ];
+    kdn = [ "kubectl" "describe" "node" ];
+    kc = [ "kubectl" "create" ];
+    kcp = [ "kubectl" "create" "pod" ];
+    kcd = [ "kubectl" "create" "deployment" ];
+    kcj = [ "kubectl" "create" "job" ];
+    kcn = [ "kubectl" "create" "namespace" ];
+    ke = [ "kubectl" "exec" ];
+    keti = [ "kubectl" "exec" "-it" ];
+    kl = [ "kubectl" "label" ];
+    kw = [ "kubectl" "wait" ];
+    kr = [ "kubectl" "run" ];
 
     # npm
     nPb = [ "npm" "run" "build" ];
@@ -243,6 +233,12 @@ let
     nPi = [ "npm" "install" ];
     nPci = [ "npm" "ci" ];
     nPu = [ "npm" "update" ];
+
+    # argocd
+    A = [ "argocd" ];
+    Aa = [ "argocd" "app" ];
+    Aal = [ "argocd" "app" "list" ];
+    Ac = [ "argocd" "cluster" ] ;
 
     # restic
     rE = [ "restic" ];
@@ -338,6 +334,11 @@ let
     fd2d = [ "fd" "-j2" "-td" ];
     fdf = [ "fd" "-tf" ];
     fdd = [ "fd" "-td" ];
+
+    tf = [ "terraform" ];
+    tfp = [ "terraform" "plan" ];
+    tfa = [ "terraform" "apply" ];
+    tfs = [ "terraform" "show" ];
   };
 in
 {
