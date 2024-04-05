@@ -13,7 +13,7 @@ let
                | ${pkgs.perl}/bin/perl -ne 'print uc')
     unumber=$(sed -r 's/^U/0x/' <<< $ucode)
     list=${escapeShellArg lst}
-    name=$(${config.nur.repos.nagy.unum}/bin/unum $unumber|sed 1d|awk '{$1="";$2="";$3="";$4="";$5=""}1'|xargs)
+    name=$(${pkgs.nur.repos.nagy.unum}/bin/unum $unumber|sed 1d|awk '{$1="";$2="";$3="";$4="";$5=""}1'|xargs)
     printf "%-50s : \"%s\" %9s # %s\n" "$list" ${
       escapeShellArg key
     } $ucode "$name"

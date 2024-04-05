@@ -352,7 +352,7 @@ in
 
   config = {
     environment.systemPackages =
-      lib.mapAttrsToList config.nur.repos.nagy.lib.mkShortCommand
+      lib.mapAttrsToList pkgs.nur.repos.nagy.lib.mkShortCommand
         (defaultShortcommands // cfg);
   };
 }

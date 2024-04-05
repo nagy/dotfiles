@@ -148,7 +148,7 @@
     dmenu
     scrot
     playerctl
-    config.nur.repos.nagy.nsxivBigThumbs
+    pkgs.nur.repos.nagy.nsxivBigThumbs
     # gimp
     # xorg.xmodmap
     xclip
