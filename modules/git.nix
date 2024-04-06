@@ -23,10 +23,14 @@
         # Show my changes when writing the message
         verbose = true;
       };
-      init = { defaultBranch = "master"; };
-      push = { default = "current"; };
+      init = {
+        defaultBranch = "master";
+      };
+      push = {
+        default = "current";
+      };
       pull.rebase = true;
-      # fetch.prune = true;
+      fetch.prune = true;
       include.path =
         let
           git-alias = pkgs.fetchFromGitHub {
@@ -38,7 +42,9 @@
         in
         "${git-alias}/gitalias.txt";
       merge.conflictStyle = "diff3";
-      gc = { auto = "0"; };
+      gc = {
+        auto = "0";
+      };
       # https://baecher.dev/stdout/reproducible-git-bundles/
       # to make packs reproducible
       pack.threads = 1;
@@ -104,18 +110,28 @@
         # more info https://github.com/theTaikun/SQLite-git-smudge-and-clean
         sqlite3-sql = {
           clean = "${pkgs.sqlite}/bin/sqlite3 %f .dump";
-          smudge = toString (pkgs.writeShellScript "git-smudge-sqlite3" ''
-            TMPFILE=$(mktemp)
-            cat | ${pkgs.sqlite}/bin/sqlite3 "$TMPFILE"
-            cat -- "$TMPFILE"
-            rm -f -- "$TMPFILE"
-          '');
+          smudge = toString (
+            pkgs.writeShellScript "git-smudge-sqlite3" ''
+              TMPFILE=$(mktemp)
+              cat | ${pkgs.sqlite}/bin/sqlite3 "$TMPFILE"
+              cat -- "$TMPFILE"
+              rm -f -- "$TMPFILE"
+            ''
+          );
         };
-        jq = { clean = "${pkgs.jq}/bin/jq --sort-keys"; };
+        jq = {
+          clean = "${pkgs.jq}/bin/jq --sort-keys";
+        };
         # without this, restic snapshots output is not deterministic
-        jq-restic = { clean = "${pkgs.jq}/bin/jq --sort-keys 'sort_by(.id)'"; };
-        taplo-fmt = { clean = "${pkgs.taplo}/bin/taplo fmt -"; };
-        ruff-format = { clean = "ruff format -"; };
+        jq-restic = {
+          clean = "${pkgs.jq}/bin/jq --sort-keys 'sort_by(.id)'";
+        };
+        taplo-fmt = {
+          clean = "${pkgs.taplo}/bin/taplo fmt -";
+        };
+        ruff-format = {
+          clean = "ruff format -";
+        };
       };
       diff = {
         wasm = {
@@ -152,8 +168,12 @@
           textconv = "${pkgs.gnutar}/bin/tar --zstd -tvf";
           binary = true;
         };
-        orgmode = { xfuncname = "^(\\*+.*)$"; };
-        lisp = { xfuncname = "^(\\(.*)$"; };
+        orgmode = {
+          xfuncname = "^(\\*+.*)$";
+        };
+        lisp = {
+          xfuncname = "^(\\(.*)$";
+        };
       };
     };
   };

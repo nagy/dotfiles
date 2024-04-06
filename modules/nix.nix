@@ -20,11 +20,12 @@
     settings = {
       sandbox = true;
       auto-optimise-store = true;
-      trusted-users = [ "root" "@wheel" ];
-      substituters = [ "https://nix-community.cachix.org" ];
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      trusted-users = [
+        "root"
+        "@wheel"
       ];
+      substituters = [ "https://nix-community.cachix.org" ];
+      trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
       warn-dirty = false;
       eval-cache = false;
       # Build logs are backed up. Backup is supposed to already be compressed.

@@ -25,8 +25,6 @@
 ;; https://news.ycombinator.com/item?id=15802409
 ;; https://akrl.sdf.org/#org1ce771c
 
-(defvar gc-idle-timer)
-
 (defun GC-DISABLE ()
   (interactive)
   (setq gc-cons-threshold most-positive-fixnum)
@@ -34,7 +32,7 @@
   ;; (setq garbage-collection-messages t)
   (garbage-collect)
   (fset 'garbage-collect #'ignore)
-  (setq gc-idle-timer (run-with-idle-timer 120 t #'real-garbage-collect)))
+  (run-with-idle-timer 120 t #'real-garbage-collect))
 
 (defvar real-garbage-collect (symbol-function 'garbage-collect))
 
@@ -46,6 +44,7 @@
     (funcall real-garbage-collect))
   (defun nagy-gc-malloc-trim ()
     (interactive)
+    (real-garbage-collect)
     (shell-command (format "malloc-trim %d" (emacs-pid))
                    (generate-new-buffer "*malloc-trim*")))
   :bind

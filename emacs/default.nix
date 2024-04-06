@@ -1,4 +1,7 @@
-{ lib, pkgs, emacs }:
+{ pkgs ? import <nixpkgs> { }
+, lib ? pkgs.lib
+, emacs ? pkgs.emacs
+}:
 
 let
   makePackage = src:

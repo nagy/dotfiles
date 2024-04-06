@@ -1,9 +1,6 @@
-{ pkgs, ... }:
-
 {
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-esr;
     policies = {
       Cookies = {
         AcceptThirdParty = "never";
@@ -142,5 +139,7 @@
   # variable. This improves touchscreen support and enables additional touchpad
   # gestures. It also enables smooth scrolling as opposed to the stepped
   # scrolling that Firefox has by default.
-  environment.sessionVariables = { MOZ_USE_XINPUT2 = "1"; };
+  environment.sessionVariables = {
+    MOZ_USE_XINPUT2 = "1";
+  };
 }

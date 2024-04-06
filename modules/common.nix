@@ -5,12 +5,16 @@
   users.users.user = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" "dialout" ];
+    extraGroups = [
+      "wheel"
+      "dialout"
+    ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZNW8uX6gKASOT+0XXKF2QmeXqMZfoEMIYFogbUF4jo"
     ];
   };
   # users.mutableUsers = false; # this can break the manually set password !!!!
+  networking.enableIPv6 = false;
 
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "yes";
@@ -174,22 +178,28 @@
     })
     typos
     shellcheck
-    (aspellWithDicts (ps: [ ps.en ps.de]))
-    (lispPackages_new.sbclWithPackages (ps:
-      with ps; [
-        (slynk.overrideLispAttrs ({ systems, ... }: {
-          systems = systems ++ [
-            "slynk/mrepl"
-            "slynk/indentation"
-            "slynk/stickers"
-            "slynk/trace-dialog"
-            "slynk/package-fu"
-            "slynk/fancy-inspector"
-            "slynk/arglists"
-            "slynk/profiler"
-            "slynk/retro"
-          ];
-        }))
+    (aspellWithDicts (ps: [
+      ps.en
+      ps.de
+    ]))
+    (lispPackages_new.sbclWithPackages (
+      ps: with ps; [
+        (slynk.overrideLispAttrs (
+          { systems, ... }:
+          {
+            systems = systems ++ [
+              "slynk/mrepl"
+              "slynk/indentation"
+              "slynk/stickers"
+              "slynk/trace-dialog"
+              "slynk/package-fu"
+              "slynk/fancy-inspector"
+              "slynk/arglists"
+              "slynk/profiler"
+              "slynk/retro"
+            ];
+          }
+        ))
         april
         serapeum
         dbus
@@ -200,8 +210,18 @@
     pinentry
     (gnupg.override { guiSupport = false; })
     xurls
-    (hy.withPackages (ps: with ps; [ hyrule addict ]))
-    (opentofu.withPlugins (p: with p; [ github vultr ]))
+    (hy.withPackages (
+      ps: with ps; [
+        hyrule
+        addict
+      ]
+    ))
+    (opentofu.withPlugins (
+      p: with p; [
+        github
+        vultr
+      ]
+    ))
     pkgs.nur.repos.nagy.hyperspec
     # version control
     gh
@@ -256,4 +276,7 @@
 
   environment.variables.LESSHISTFILE = "-";
 
+  environment.variables.PYTHONDONTWRITEBYTECODE = "1";
+
+  environment.variables.WATCH_INTERVAL = "1";
 }

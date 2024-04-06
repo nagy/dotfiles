@@ -31,6 +31,8 @@
   ;; (map! :map company-active-map
   ;;       "RET" nil
   ;;       "<return>" nil)
+  :config
+  (global-company-mode)
   :custom
   (company-idle-delay 0.1)
   (company-minimum-prefix-length 1)

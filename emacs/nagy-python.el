@@ -46,6 +46,7 @@
   ("None" . null)
   ("not" . not)
   ("with" . [?↗ (Bl . Bl) ?↘])
+  ("match" . "〣")
   :bind
   ("H-M-p" . python-mode)
   (:map python-mode-map
@@ -57,6 +58,8 @@
            "⊢" #'ruff-format-buffer)
   :cycle 'python-mode
   ("class" "def")
+  ("str" "bytes")
+  ("True" "False")
   :same "^\\*Python")
 
 ;; (use-package python-black

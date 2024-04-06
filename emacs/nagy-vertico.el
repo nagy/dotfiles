@@ -18,6 +18,7 @@
   (vertico-cycle nil)
   (vertico-scroll-margin most-positive-fixnum)
   (vertico-count 7)
+  (vertico-resize nil)
   :bind
   ("C-s--" . vertico-flat-mode)
   (:map vertico-map

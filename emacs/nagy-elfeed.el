@@ -15,10 +15,17 @@
   (elfeed-curl-max-connections 1)
   :config
   (put 'elfeed-search-bookmark-handler 'bookmark-handler-type "Elfeed Search")
+  ;; (keymap-set elfeed-show-mode-map "SPC" nil)
+  ;; :bind
+  ;; (:map elfeed-show-mode-map
+  ;;       ("SPC" . nil))
   :general
   (:states 'normal :keymaps 'elfeed-search-mode-map
+           "SPC" nil
            "r" #'elfeed-search-untag-all-unread
            "↓" #'elfeed-search-fetch)
+  (:states 'normal :keymaps 'elfeed-show-mode-map
+           "SPC" nil)
   (:keymaps 'elfeed-search-mode-map
             [remap kill-this-buffer] #'elfeed-db-unload
             [remap save-kill-buffer] #'elfeed-db-unload)

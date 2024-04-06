@@ -18,6 +18,8 @@
   ;; (org-src-preserve-indentation nil)
   (org-edit-src-content-indentation 0)
   (org-modules nil)
+  :hook
+  (org-mode . visual-line-mode)
   :config
   (defun find-file-org ()
     (interactive)
@@ -25,6 +27,7 @@
   :bind
   ("H-M-o" . org-mode)
   ("s-ø" . find-file-org)
+  ("<XF86Copy>" . org-open-at-point-global)
   (:map org-mode-map
         ("H-j"   . org-next-visible-heading)
         ("H-k"   . org-previous-visible-heading)

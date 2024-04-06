@@ -70,6 +70,8 @@
            "M-¼" #'elforth-eval-region))
 
 (use-package term
+  :custom
+  (term-buffer-maximum-size 0)
   :config
   (setq serial-speed-history '("115200"))
   :bind

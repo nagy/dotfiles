@@ -1,26 +1,34 @@
-{ config, pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
-  customEmacsPackages = pkgs.emacs29-gtk3.pkgs.overrideScope' (self: super: {
-    sotlisp = super.sotlisp.overrideAttrs {
-      src = pkgs.fetchFromGitHub {
-        owner = "nagy";
-        repo = "speed-of-thought-lisp";
-        rev = "55eb75635490ec89c0903ccc21fd5c37fdb2a8d6";
-        hash = "sha256-SZH4foUlazaJwlJAYGJNw2iTTvyQ6nrs1RhxppStILI=";
+  customEmacsPackages = pkgs.emacs29-gtk3.pkgs.overrideScope' (
+    self: super: {
+      sotlisp = super.sotlisp.overrideAttrs {
+        src = pkgs.fetchFromGitHub {
+          owner = "nagy";
+          repo = "speed-of-thought-lisp";
+          rev = "55eb75635490ec89c0903ccc21fd5c37fdb2a8d6";
+          hash = "sha256-SZH4foUlazaJwlJAYGJNw2iTTvyQ6nrs1RhxppStILI=";
+        };
       };
-    };
-    memoize = super.memoize.overrideAttrs {
-      src = pkgs.fetchFromGitHub {
-        owner = "nagy";
-        repo = "emacs-memoize";
-        rev = "33fcd1ec5a93f3768c43904fecc68399a84b8924";
-        hash = "sha256-00C8WLR7CVCnp/VPgAP564XpMmXkaaddmi1tXdEevZI=";
+      memoize = super.memoize.overrideAttrs {
+        src = pkgs.fetchFromGitHub {
+          owner = "nagy";
+          repo = "emacs-memoize";
+          rev = "33fcd1ec5a93f3768c43904fecc68399a84b8924";
+          hash = "sha256-00C8WLR7CVCnp/VPgAP564XpMmXkaaddmi1tXdEevZI=";
+        };
       };
-    };
-  });
+    }
+  );
   emacs = customEmacsPackages.emacs;
-  emacsAndPackages = customEmacsPackages.withPackages (epkgs:
+  emacsAndPackages = customEmacsPackages.withPackages (
+    epkgs:
     (lib.attrValues (import ../emacs { inherit pkgs lib emacs; }))
     ++ (with epkgs; [
       treesit-grammars.with-all-grammars
@@ -44,5 +52,12 @@ let
       # dumb-jump # https://github.com/jacktasia/dumb-jump
       aggressive-indent
       # (assert consult-gh.version == 2.0; consult-gh)
-    ]));
-in { environment.systemPackages = [ emacsAndPackages pkgs.mu ]; }
+    ])
+  );
+in
+{
+  environment.systemPackages = [
+    emacsAndPackages
+    pkgs.mu
+  ];
+}
