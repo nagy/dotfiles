@@ -9,8 +9,6 @@ let
     i = [ "nix-instantiate" ];
     bM = [ "nix-build" "-I" "nixpkgs=https://github.com/NixOS/nixpkgs/archive/master.tar.gz" ];
     iM = [ "nix-instantiate" "-I" "nixpkgs=https://github.com/NixOS/nixpkgs/archive/master.tar.gz"];
-    bU = [ "nix-build" "-I" "nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz" ];
-    iU = [ "nix-instantiate" "-I" "nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"];
     "b," = [ "nix-build" "<nixpkgs>" "--attr" ];
     "i," = [ "nix-instantiate" "<nixpkgs>" "--attr" ];
     R = [ "nix" "run" ];
@@ -117,35 +115,6 @@ let
       "nixpkgs"
       "github:NixOS/nixpkgs/master"
     ];
-
-    "R¯" = [ "nix" "run" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
-    "B¯" =
-      [ "nix" "build" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
-    "Fs¯" = [
-      "nix"
-      "flake"
-      "show"
-      "--file"
-      "flake:github:NixOS/nixpkgs/nixos-unstable"
-    ];
-    "Fm¯" = [
-      "nix"
-      "flake"
-      "metadata"
-      "--file"
-      "flake:github:NixOS/nixpkgs/nixos-unstable"
-    ];
-    "Fc¯" = [
-      "nix"
-      "flake"
-      "check"
-      "--file"
-      "flake:github:NixOS/nixpkgs/nixos-unstable"
-    ];
-    "S¯" =
-      [ "nix" "shell" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
-    "P¯" =
-      [ "nix" "profile" "--file" "flake:github:NixOS/nixpkgs/nixos-unstable" ];
 
     "B." = [ "nix" "build" "--file" "." ];
     "B.j" = [ "nix" "build" "--file" "." "--json" "--no-link" ];
