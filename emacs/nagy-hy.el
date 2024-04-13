@@ -27,6 +27,7 @@
   ("when" . when) ("unless" . unless)
   ("raise" . throw)
   ("len" . "≢")
+  ("self" . "▒")
   ("defn" . def)
   ("defclass" . defclass)
   ("defmain" . "𝔐")
