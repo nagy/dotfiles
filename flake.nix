@@ -1,7 +1,12 @@
 {
-  inputs.nixpkgs.url = "nixpkgs/nixos-23.11";
+  inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
 
-  outputs = { self, nixpkgs, nur }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nur,
+    }:
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
@@ -14,15 +19,14 @@
         let
           files = builtins.readDir ./modules;
           fileNames = lib.attrNames files;
-          preAttrList = map
-            (name: {
-              name = lib.removeSuffix ".nix" name;
-              value = import (./modules + "/${name}");
-            })
-            fileNames;
+          preAttrList = map (name: {
+            name = lib.removeSuffix ".nix" name;
+            value = import (./modules + "/${name}");
+          }) fileNames;
           modules = lib.listToAttrs preAttrList;
         in
-        modules // {
+        modules
+        // {
           hmconvert = pkgs.nur.repos.nagy.lib.modules.hmconvert;
           hmconfig = {
             imports = [
@@ -33,18 +37,22 @@
           };
         };
       packages.${pkgs.system} = {
-        emacs = pkgs.emacs29-gtk3.pkgs.withPackages (epkgs:
-          pkgs.lib.attrValues (import ./emacs {
-            inherit pkgs;
-            inherit (pkgs) lib;
-            inherit (epkgs) emacs;
-          }));
+        emacs = pkgs.emacs29-gtk3.pkgs.withPackages (
+          epkgs:
+          pkgs.lib.attrValues (
+            import ./emacs {
+              inherit pkgs;
+              inherit (pkgs) lib;
+              inherit (epkgs) emacs;
+            }
+          )
+        );
         keyboard-firmware = import ./keyboard { inherit pkgs; };
       };
       lib = {
-        pkg-journal-file-store = pkgs.writeScriptBin "journal-file-store"
-          (builtins.readFile ./bin/journal-file-store);
+        pkg-journal-file-store = pkgs.writeScriptBin "journal-file-store" (
+          builtins.readFile ./bin/journal-file-store
+        );
       } // (import ./lib { inherit pkgs; });
-
     };
 }

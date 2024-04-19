@@ -11,7 +11,9 @@ isDark:
       # disable url launcher
       hints.enabled = [ ];
       # 100k is the max
-      scrolling = { history = 100 * 1000; };
+      scrolling = {
+        history = 100 * 1000;
+      };
       # xterm colors
       # https://github.com/eendroroy/alacritty-theme/blob/master/themes/xterm.yaml
       colors = {
@@ -42,7 +44,7 @@ isDark:
           white = "0xffffff";
         };
       };
-      key_bindings = [
+      keyboard.bindings = [
         {
           key = "PageUp";
           mode = "Vi|~Search";
@@ -62,6 +64,15 @@ isDark:
           key = "End";
           mode = "Vi|~Search";
           action = "ScrollToBottom";
+        }
+        {
+          key = "Slash";
+          mode = "Vi|~Search";
+          action = "SearchForward";
+          # even this this entry is already in the default
+          # configuration, because this line is not present there, the
+          # bindings has no effect on qwertz keyboards.
+          mods = "Shift";
         }
       ];
     };

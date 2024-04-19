@@ -11,7 +11,6 @@ in
     pkgs.rustc
     pkgs.rustfmt
     pkgs.cargo
-    pkgs.cargo-deps
     pkgs.cargo-bloat
     pkgs.rust-analyzer
     pkgs.rust-script

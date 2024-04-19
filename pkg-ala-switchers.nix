@@ -2,20 +2,27 @@
 # `ala-${name}` as defined by the hmmodules argument. With these scripts you can switch the setting
 # of the running terminal to that of the corresponding home-manager module setting
 
-{ pkgs
-, alacritty
-, lib
-, # A attrset of home-manager modules that define alacritty configs. You can switch to these with the
+{
+  pkgs,
+  alacritty,
+  lib,
+  # A attrset of home-manager modules that define alacritty configs. You can switch to these with the
   # `ala-${name}` script.
-  hmmodules ? { }
+  hmmodules ? { },
 }:
 
 let
   alacrittyLiveConfigPath = "/run/user/$UID/alacritty-conf.json";
-  getAlaText = hmmodule:
-    pkgs.writeText "ala-config" (lib.replaceStrings [ "\\\\" ] [ "\\" ]
-      (builtins.toJSON (hmmodule { }).programs.alacritty.settings));
-  mkAlacrittySwitcher = name: configpath:
+  getAlaText =
+    hmmodule:
+    let
+      tomlFormat = pkgs.formats.toml { };
+      cfg = (hmmodule { }).programs.alacritty;
+      tomlFile = tomlFormat.generate "alacritty.toml" cfg.settings;
+    in
+    pkgs.writeText "ala-config" (lib.replaceStrings [ "\\\\" ] [ "\\" ] (builtins.readFile tomlFile));
+  mkAlacrittySwitcher =
+    name: configpath:
     (pkgs.writeShellScriptBin "ala-${name}" ''
       cat < '${getAlaText configpath}' > ${alacrittyLiveConfigPath}
     '');
@@ -24,7 +31,6 @@ pkgs.symlinkJoin {
   name = "ala-switchers";
   paths = [
     # TODO replace with makeWrapper
-    (pkgs.writeShellScriptBin "alacritty" ''
-      exec ${alacritty}/bin/alacritty --option live_config_reload=true --config-file ${alacrittyLiveConfigPath} "$@"'')
+    (pkgs.writeShellScriptBin "alacritty" ''exec ${alacritty}/bin/alacritty --option live_config_reload=true --config-file ${alacrittyLiveConfigPath} "$@"'')
   ] ++ (lib.mapAttrsToList mkAlacrittySwitcher hmmodules) ++ [ alacritty ];
 }

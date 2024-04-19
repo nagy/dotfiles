@@ -1,23 +1,23 @@
-{ pkgs ? import <nixpkgs> { }
-, lib ? pkgs.lib
-, emacs ? pkgs.emacs
+{
+  pkgs ? import <nixpkgs> { },
+  lib ? pkgs.lib,
+  emacs ? pkgs.emacs,
 }:
 
 let
-  makePackage = src:
+  makePackage =
+    src:
     pkgs.nur.repos.nagy.lib.emacsMakeSingleFilePackage {
       inherit emacs src;
-      epkgs = emacs.pkgs.overrideScope' (_self: _super: final);
+      epkgs = emacs.pkgs.overrideScope (_self: _super: final);
       pname = lib.removeSuffix ".el" (builtins.baseNameOf src);
     };
-  onlyNagyFiles = lib.filterAttrs
-    (name: value: value == "regular" && lib.hasPrefix "nagy" name)
-    (builtins.readDir ./.);
-  final = lib.mapAttrs'
-    (name: value: {
-      name = lib.removeSuffix ".el" name;
-      value = makePackage (./. + "/${name}");
-    })
-    onlyNagyFiles;
+  onlyNagyFiles = lib.filterAttrs (name: value: value == "regular" && lib.hasPrefix "nagy" name) (
+    builtins.readDir ./.
+  );
+  final = lib.mapAttrs' (name: value: {
+    name = lib.removeSuffix ".el" name;
+    value = makePackage (./. + "/${name}");
+  }) onlyNagyFiles;
 in
 final

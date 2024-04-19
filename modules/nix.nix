@@ -3,7 +3,7 @@
 {
 
   environment.systemPackages = with pkgs; [
-    nixfmt
+    nixfmt-rfc-style
     nil
     nickel
     nix-prefetch

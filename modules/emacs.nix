@@ -60,4 +60,7 @@ in
     emacsAndPackages
     pkgs.mu
   ];
+
+  # to allow "malloc-trim" to trim memory of emacs.
+  boot.kernel.sysctl."kernel.yama.ptrace_scope" = lib.mkForce 0;
 }
