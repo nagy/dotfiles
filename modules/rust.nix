@@ -14,7 +14,7 @@ in
     pkgs.cargo-bloat
     pkgs.rust-analyzer
     pkgs.rust-script
-    pkgs.cargo-modules
+    # pkgs.cargo-modules # build failure
 
     # convenience
     pkgs.cargo-watch

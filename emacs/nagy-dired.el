@@ -29,6 +29,7 @@
   (dired-free-space nil)
   (dired-compress-directory-default-suffix ".tar.zst")
   (dired-switches-in-mode-line 3)
+  (dired-hide-details-hide-symlink-targets nil)
   :bind
   ("s-j" . dired-jump)
   (:map dired-mode-map

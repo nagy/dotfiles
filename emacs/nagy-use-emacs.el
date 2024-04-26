@@ -130,6 +130,7 @@
   ("pcase-setq" . [?〣 (Br . Bl) ?↡])
   ("pcase-dolist" . [?〣 (Br . Bl) ?↻])
   ("pcase-defmacro" . [?〣 (Br . Bl) ?𝕄])
+  ("pcase-exhaustive" . [?〣 (Br . Bl) ?E])
   ("bindat-pack" . [?󱃲 (Br . Bl) ?↑])
   ("bindat-unpack" . [?󱃲 (Br . Bl) ?↓])
   ("bindat-type" . [?󱃲 (Br . Bl) ?𝒕])

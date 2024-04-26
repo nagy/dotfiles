@@ -33,7 +33,7 @@
 
                key <PAUS> {
                       type = "FOUR_LEVEL",
-                      symbols[Group1] = [ Pause, U23E3, U23E2, U25EB ]
+                      symbols[Group1] = [ Pause, Pause, U23E3, U23E2 ]
                };
 
                key <ESC>  { [ Escape, Escape, U25EB, U25A6 ] };
@@ -154,15 +154,12 @@
     scrot
     playerctl
     pkgs.nur.repos.nagy.nsxivBigThumbs
-    # gimp
-    # xorg.xmodmap
     xclip
     redshift
 
     brave
-    tor-browser-bundle-bin
-    bspwm
-    sxhkd
+    tor-browser
+    qutebrowser
     pulsemixer
     pulseaudio # for pactl
     poppler_utils # pdf utils
@@ -174,8 +171,8 @@
 
     wmctrl
     xorg.xwininfo
-    # xorg.xlsclients
     xdotool
+    pyright
 
     (callPackage ../pkg-ala-switchers.nix {
       hmmodules = {

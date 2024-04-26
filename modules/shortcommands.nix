@@ -7,12 +7,9 @@ let
     n = [ "nix" ];
     b = [ "nix-build" ];
     i = [ "nix-instantiate" ];
-    bM = [ "nix-build" "-I" "nixpkgs=https://github.com/NixOS/nixpkgs/archive/master.tar.gz" ];
-    iM = [ "nix-instantiate" "-I" "nixpkgs=https://github.com/NixOS/nixpkgs/archive/master.tar.gz"];
     "b," = [ "nix-build" "<nixpkgs>" "--attr" ];
     "i," = [ "nix-instantiate" "<nixpkgs>" "--attr" ];
     R = [ "nix" "run" ];
-    L = [ "nix" "log" ];
     SE = [ "nix" "search" ];
     B = [ "nix" "build" ];
     E = [ "nix" "eval" ];
@@ -123,7 +120,6 @@ let
     "E." = [ "nix" "eval" "--file" "." ];
     "E.j" = [ "nix" "eval" "--file" "." "--json" ];
     "SE." = [ "nix" "search" "--file" "." ];
-    "L." = [ "nix" "log" "--file" "." ];
 
     Bp = [ "nix" "build" "--no-link" "--print-out-paths" "-L" "--quiet" ];
 
