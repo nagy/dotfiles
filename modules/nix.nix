@@ -5,12 +5,15 @@
   environment.systemPackages = with pkgs; [
     nixfmt-rfc-style
     nil
-    nickel
+
     nix-prefetch
     nix-prefetch-git
     nix-diff
     nix-init
     nix-update
+
+    nickel
+    nls
   ];
 
   nix = {
@@ -75,39 +78,6 @@
       U.to = {
         owner = "NixOS";
         repo = "nixpkgs";
-        type = "github";
-      };
-
-      # until https://github.com/NixOS/flake-registry/pull/33
-      nixos-generators.to = {
-        owner = "nix-community";
-        repo = "nixos-generators";
-        type = "github";
-      };
-      nixos-shell.to = {
-        owner = "Mic92";
-        repo = "nixos-shell";
-        type = "github";
-      };
-      nix-mode.to = {
-        owner = "NixOS";
-        repo = "nix-mode";
-        type = "github";
-      };
-      microvm.to = {
-        owner = "astro";
-        repo = "microvm.nix";
-        type = "github";
-      };
-      std.to = {
-        owner = "divnix";
-        repo = "std";
-        type = "github";
-      };
-      # until https://github.com/NixOS/flake-registry/pull/41 is merged
-      haumea.to = {
-        owner = "nix-community";
-        repo = "haumea";
         type = "github";
       };
     };

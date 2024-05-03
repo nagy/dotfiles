@@ -26,10 +26,6 @@ let
     Pi = [ "nix" "profile" "install" ];
     Pu = [ "nix" "profile" "upgrade" ];
     Pr = [ "nix" "profile" "remove" ];
-    NA = [ "nix" "nar" ];
-    NAl = [ "nix" "nar" "ls" ];
-    NAd = [ "nix" "nar" "dump-path" ];
-    NAc = [ "nix" "nar" "cat" ];
     CP = [ "nix" "copy" ];
     I = [ "nix" "path-info" ];
     Is = [ "nix" "path-info" "--size" "--human-readable" ];
@@ -224,13 +220,6 @@ let
     sclsj = [ "systemctl" "list-sockets" "--output=json" ];
     jF = [ "journalctl" "-f" ];
     JJf = [ "journalctl" "-f" ];
-    bcj = [ "busctl" "--json" ];
-    bcc = [ "busctl" "call" ];
-    bci = [ "busctl" "introspect" ];
-    bcu = [ "busctl" "--user" ];
-    bcuj = [ "busctl" "--user" "--json" ];
-    bcuc = [ "busctl" "--user" "call" ];
-    bcui = [ "busctl" "--user" "introspect" ];
 
     # zed
     # zqz = [ "zq" "-z" ];
@@ -304,6 +293,7 @@ let
     tfp = [ "terraform" "plan" ];
     tfa = [ "terraform" "apply" ];
     tfs = [ "terraform" "show" ];
+    tfo = [ "terraform" "output" ];
   };
 in
 {

@@ -27,10 +27,16 @@
   )
 
 (use-package forth-mode
-  :config
-  (defun nagy-forth-send-dot ()
-    (interactive)
-    (comint-send-string (get-buffer-process (current-buffer)) ".\n"))
+  :preface
+  (defun nagy-misc2-forth-mode-hook ()
+    (setq-local outline-regexp "\\\\ #\\{2,3\\} ")
+    (setq-local outline-heading-alist '(("## " . 1) ("### " . 2)))
+    (outline-minor-mode 1))
+  ;; (defun nagy-forth-send-dot ()
+  ;;   (interactive)
+  ;;   (comint-send-string (get-buffer-process (current-buffer)) ".\n"))
+  :hook
+  (forth-mode . nagy-misc2-forth-mode-hook)
   :bind
   ("H-M-4" . forth-mode)
   ;; (map! :map forth-interaction-mode-map

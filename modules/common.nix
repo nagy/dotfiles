@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
 
@@ -18,9 +23,9 @@
 
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "yes";
-  users.extraUsers.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZNW8uX6gKASOT+0XXKF2QmeXqMZfoEMIYFogbUF4jo"
-  ];
+  services.openssh.settings.ClientAliveInterval = 60;
+  users.extraUsers.root.openssh.authorizedKeys.keys =
+    config.users.users.user.openssh.authorizedKeys.keys;
 
   boot.kernel.sysctl = {
     # disable coredumps
@@ -38,6 +43,7 @@
   documentation.dev.enable = true;
   documentation.info.enable = true;
   networking.useDHCP = false;
+  # networking.dhcpcd.enable = false;
 
   environment.localBinInPath = true;
   environment.homeBinInPath = true;
@@ -90,6 +96,9 @@
   programs.ssh.extraConfig = ''
     Host *
       Protocol 2
+      StrictHostKeyChecking accept-new
+      ServerAliveInterval 300
+      ServerAliveCountMax 2
     # Git remote hosts
     Host github.com ssh.github.com gitlab.com git.sr.ht aur.archlinux.org codeberg.org gitlab.*
       User git
@@ -148,20 +157,19 @@
     unzip
     usbutils
     sqlite-interactive
-    oil
+    # oil
     optipng
 
     black
     isort
     cryptsetup
+    # unrar-free
 
     # documentation
     man-pages
     glibcInfo # info files for gnu glibc
 
     # custom tooling
-    # (pkgs.writeScriptBin "journal-git-store"
-    #   (builtins.readFile ../bin/journal-git-store))
     topiary
     dnsutils
     yt-dlp
@@ -182,7 +190,14 @@
       ps.en
       ps.de
     ]))
-    (lispPackages_new.sbclWithPackages (
+    # for jinx-mode to set DICPATH
+    hunspellDicts.en-us
+    hunspellDicts.de-de
+    # (nuspellWithDicts [
+    # hunspellDicts.en-us
+    # hunspellDicts.de-de
+    # ])
+    (sbcl.withPackages (
       ps: with ps; [
         (slynk.overrideLispAttrs (
           { systems, ... }:
@@ -202,7 +217,6 @@
         ))
         april
         serapeum
-        dbus
       ]
     ))
 
@@ -210,26 +224,32 @@
     pinentry
     (gnupg.override { guiSupport = false; })
     xurls
-    (hy.withPackages (
-      ps: with ps; [
-        hyrule
-        addict
-      ]
-    ))
-    (opentofu.withPlugins (
-      p: with p; [
-        github
-        vultr
-      ]
-    ))
+    (python3.withPackages (ps: [
+      ps.hy
+      ps.hyrule
+      ps.addict
+    ]))
+    (terraform.withPlugins (p: [
+      p.aws
+      p.github
+      p.gitlab
+      p.vultr
+      p.kubernetes
+      # p.backblaze
+    ]))
+    terraform-ls
+    k9s
     pkgs.nur.repos.nagy.hyperspec
+    pkgs.nur.repos.nagy.cxxmatrix
+    # opentofu
     # version control
     gh
-    hut
-    tea
+    # hut
+    # tea
     gron
     ruff
     dool
+    universal-ctags
     (
       # malloc-trim.sh
       # From http://notes.secretsauce.net/notes/2016/04/08_glibc-malloc-inefficiency.html
@@ -247,6 +267,8 @@
         echo "freed: $(($before - $after))"
       ''
     )
+    # for man pages only
+    (lib.getMan isync)
   ];
 
   boot.binfmt.emulatedSystems = [
@@ -255,11 +277,11 @@
     "armv6l-linux"
   ];
 
-  boot.binfmt.registrations.oil = {
-    recognitionType = "extension";
-    magicOrExtension = "oil";
-    interpreter = lib.getExe pkgs.oil;
-  };
+  # boot.binfmt.registrations.oil = {
+  #   recognitionType = "extension";
+  #   magicOrExtension = "oil";
+  #   interpreter = lib.getExe pkgs.oil;
+  # };
 
   # not fulfilled by above "wasm32-wasi"
   boot.binfmt.registrations.wat = {

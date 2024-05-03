@@ -15,7 +15,6 @@
   (elfeed-curl-max-connections 1)
   :config
   (put 'elfeed-search-bookmark-handler 'bookmark-handler-type "Elfeed Search")
-  ;; (keymap-set elfeed-show-mode-map "SPC" nil)
   ;; :bind
   ;; (:map elfeed-show-mode-map
   ;;       ("SPC" . nil))

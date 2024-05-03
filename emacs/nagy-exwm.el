@@ -16,14 +16,15 @@
 (defun brightness-up ()
   (interactive)
   (let ((default-directory "~/"))
-    (cl-assert (zerop (call-process "brightnessctl" nil nil nil "--device=ddcci5" "set" "+5%")))
-    (cl-assert (zerop (call-process "brightnessctl" nil nil nil "--device=ddcci6" "set" "+5%")))))
+    (call-process "brightnessctl" nil nil nil "--device=ddcci5" "set" "+5%")
+    (call-process "brightnessctl" nil nil nil "--device=ddcci6" "set" "+5%")))
 
 (defun brightness-down ()
   (interactive)
   (let ((default-directory "~/"))
-    (cl-assert (zerop (call-process "brightnessctl" nil nil nil "--device=ddcci5" "set" "5%-")))
-    (cl-assert (zerop (call-process "brightnessctl" nil nil nil "--device=ddcci6" "set" "5%-")))))
+    (call-process "brightnessctl" nil nil nil "--device=ddcci5" "set" "5%-")
+    (call-process "brightnessctl" nil nil nil "--device=ddcci6" "set" "5%-")))
+
 (use-package exwm
   :if (display-graphic-p)
   :preface
@@ -127,6 +128,7 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-<end>") . tab-last)
             (,(kbd "<XF86Back>") . tab-previous)
             (,(kbd "<XF86Forward>") . tab-next)
+            (,(kbd "<XF86Search>") . other-frame)
             ;; (,(kbd "A-C-s-}") . tab-duplicate)
             (,(kbd "<f9>") . emms-pause)
             (,(kbd "s-<f11>") . global-hide-mode-line-mode)

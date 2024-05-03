@@ -36,6 +36,7 @@
   :custom
   (company-idle-delay 0.1)
   (company-minimum-prefix-length 2)
+  ;; (company-tooltip-align-annotations t)
   (company-tooltip-idle-delay 0.1)
   (company-async-redisplay-delay 0.1)
   (company-dabbrev-downcase nil)

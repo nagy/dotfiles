@@ -60,16 +60,19 @@
   ("module" . "📦")
   ("global" . "🌐")
   ("memory" . "󰘨")
-  ("table" . "󰣟"))
+  ("table" . "󰣟")
+  ("import" . import)
+  :bind
+  ("H-M-w" . wat-mode))
 
 (use-package yaml-mode
   :preface
   (reformatter-define yq-format
     :group 'js
     :program "yq"
-    :args '("--prettyPrint"))
-  :hook
-  (yaml-mode . yq-format-on-save-mode)
+    :args `("--prettyPrint" ,(or (buffer-file-name) input-file)))
+  ;; :hook
+  ;; (yaml-mode . yq-format-on-save-mode)
   :bind
   ("H-M-y" . yaml-mode)
   (:map yaml-mode-map

@@ -1,7 +1,8 @@
 ;;; nagy-devops.el --- nagy-devops config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") groovy-mode terraform-mode hcl-mode gitlab-ci-mode dockerfile-mode jenkinsfile-mode cmake-mode nagy-use-package)
+;; Package-Requires: ((emacs "29.1") groovy-mode terraform-mode hcl-mode gitlab-ci-mode dockerfile-mode jenkinsfile-mode reformatter cmake-mode nagy-use-package)
 
+(require 'reformatter)
 (require 'nagy-use-package)
 
 (use-package groovy-mode
@@ -50,6 +51,12 @@
   ("dependencies" . [?𝒅 (Br . Bl) ?𝒆]))
 
 (use-package terraform-mode
+  :preface
+  (reformatter-define terraform-fmt
+    :program "terraform"
+    :args '("fmt" "-")
+    ;; :lighter " TFmt"
+    :group 'terraform-mode)
   :defer t
   :pretty 'terraform-mode
   ("data" . [?𝒅 (Br . Bl) ?𝒂])
@@ -58,6 +65,8 @@
   ("output" . [?𝒐 (Br . Bl) ?𝒑])
   :config
   ;; (push '(terraform-mode "terraform-ls" "serve") eglot-server-programs)
+  ;; :hook
+  ;; (terraform-mode . terraform-fmt-on-save-mode)
   )
 
 (provide 'nagy-devops)
