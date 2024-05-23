@@ -1,6 +1,8 @@
+{ config, ... }:
+
 {
   programs.firefox = {
-    enable = true;
+    enable = config.services.xserver.enable;
     policies = {
       Cookies = {
         AcceptThirdParty = "never";
