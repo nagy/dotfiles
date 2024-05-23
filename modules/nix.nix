@@ -31,7 +31,7 @@
       trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
       warn-dirty = false;
       eval-cache = false;
-      # Build logs are backed up. Backup is supposed to already be compressed.
+      # Build logs are backed up. Backup mechanism itself takes care of the compression already.
       compress-build-log = false;
       # this reduces memory usage at the expense of performance
       cores = 1;

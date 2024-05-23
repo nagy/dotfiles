@@ -124,6 +124,7 @@
   :pretty 'mermaid-mode
   ("graph" . "⌥")
   ("sequenceDiagram" . "⏳")
+  ("classDiagram" . defclass)
   ("pie" . "◐")
   ("gantt" . "↴")
   :general

@@ -148,19 +148,19 @@ let
     zbe = [ "zig" "build-exe" ];
     zbes = [ "zig" "build-exe" "-O" "ReleaseSmall" ];
 
-    # docker
-    D = [ "docker" ];
-    De = [ "docker" "exec" ];
-    Deit = [ "docker" "exec" "-it" ];
-    Dr = [ "docker" "run" ];
-    Dc = [ "docker" "container" ];
-    Dcl = [ "docker" "container" "ls" ];
-    Di = [ "docker" "image" ];
-    Dil = [ "docker" "image" "ls" ];
-    Dv = [ "docker" "volume" ];
-    Dvl = [ "docker" "volume" "ls" ];
-    Dn = [ "docker" "network" ];
-    Dnl = [ "docker" "network" "ls" ];
+    # # docker
+    # D = [ "docker" ];
+    # De = [ "docker" "exec" ];
+    # Deit = [ "docker" "exec" "-it" ];
+    # Dr = [ "docker" "run" ];
+    # Dc = [ "docker" "container" ];
+    # Dcl = [ "docker" "container" "ls" ];
+    # Di = [ "docker" "image" ];
+    # Dil = [ "docker" "image" "ls" ];
+    # Dv = [ "docker" "volume" ];
+    # Dvl = [ "docker" "volume" "ls" ];
+    # Dn = [ "docker" "network" ];
+    # Dnl = [ "docker" "network" "ls" ];
 
     # # kubernetes
     k = [ "kubectl" ];
@@ -187,13 +187,13 @@ let
     kw = [ "kubectl" "wait" ];
     kr = [ "kubectl" "run" ];
 
-    # npm
-    nPb = [ "npm" "run" "build" ];
-    nPt = [ "npm" "run" "test" ];
-    nPs = [ "npm" "run" "start" ];
-    nPi = [ "npm" "install" ];
-    nPci = [ "npm" "ci" ];
-    nPu = [ "npm" "update" ];
+    # # npm
+    # nPb = [ "npm" "run" "build" ];
+    # nPt = [ "npm" "run" "test" ];
+    # nPs = [ "npm" "run" "start" ];
+    # nPi = [ "npm" "install" ];
+    # nPci = [ "npm" "ci" ];
+    # nPu = [ "npm" "update" ];
 
     # argocd
     A = [ "argocd" ];
@@ -201,11 +201,11 @@ let
     Aal = [ "argocd" "app" "list" ];
     Ac = [ "argocd" "cluster" ] ;
 
-    # restic
-    rE = [ "restic" ];
-    rEb = [ "restic" "backup" ];
-    rEs = [ "restic" "snapshots" ];
-    rEsj = [ "restic" "snapshots" "--json" ];
+    # # restic
+    # rE = [ "restic" ];
+    # rEb = [ "restic" "backup" ];
+    # rEs = [ "restic" "snapshots" ];
+    # rEsj = [ "restic" "snapshots" "--json" ];
 
     # systemctl
     sc = [ "systemctl" ];
@@ -218,7 +218,7 @@ let
     scls = [ "systemctl" "list-sockets" ];
     scltj = [ "systemctl" "list-timers" "--output=json" ];
     sclsj = [ "systemctl" "list-sockets" "--output=json" ];
-    jF = [ "journalctl" "-f" ];
+    JF = [ "journalctl" "-f" ];
     JJf = [ "journalctl" "-f" ];
 
     # zed
@@ -274,7 +274,7 @@ let
     dush = [ "du" "-sh" ];
     dfh = [ "df" "-h" ];
     dfhh = [ "df" "-h" "/home" ];
-    w1 = [ "watch" "--interval" "1" ];
+    # w1 = [ "watch" "--interval" "1" ];
     w05 = [ "watch" "--interval" "0.5" ];
     mask = [ "openssl" "env" "-e" "-aes-256-ctr" "-nopad" "-nosalt" "-k" "" ];
 
