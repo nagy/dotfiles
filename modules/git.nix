@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 
 {
-
   programs.git = {
     enable = true;
     config = {
@@ -177,6 +176,7 @@
       };
     };
   };
+
   environment.etc.gitattributes.text = ''
     *.wasm diff=wasm
     *.pdf diff=pdf

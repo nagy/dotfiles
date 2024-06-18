@@ -7,8 +7,10 @@ let
     n = [ "nix" ];
     b = [ "nix-build" ];
     i = [ "nix-instantiate" ];
-    "b," = [ "nix-build" "<nixpkgs>" "--attr" ];
-    "i," = [ "nix-instantiate" "<nixpkgs>" "--attr" ];
+    "b," = [ "nix-build" "<nixpkgs>" ];
+    "i," = [ "nix-instantiate" "<nixpkgs>" ];
+    "b,," = [ "nix-build" "<nixpkgs/nixos>" ];
+    "i,," = [ "nix-instantiate" "<nixpkgs/nixos>" ];
     R = [ "nix" "run" ];
     SE = [ "nix" "search" ];
     B = [ "nix" "build" ];
@@ -16,7 +18,6 @@ let
     F = [ "nix" "flake" ];
     P = [ "nix" "profile" ];
     S = [ "nix" "shell" ];
-    H = [ "nix" "hash" ];
     BL = [ "nix" "build" "--print-build-logs" ];
     RL = [ "nix" "run" "--print-build-logs" ];
     Ej = [ "nix" "eval" "--json" ];
@@ -24,9 +25,8 @@ let
     Bj = [ "nix" "build" "--json" "--no-link" ];
     Pl = [ "nix" "profile" "list" ];
     Pi = [ "nix" "profile" "install" ];
-    Pu = [ "nix" "profile" "upgrade" ];
-    Pr = [ "nix" "profile" "remove" ];
-    CP = [ "nix" "copy" ];
+    # Pu = [ "nix" "profile" "upgrade" ];
+    # Pr = [ "nix" "profile" "remove" ];
     I = [ "nix" "path-info" ];
     Is = [ "nix" "path-info" "--size" "--human-readable" ];
     IS = [ "nix" "path-info" "--closure-size" "--human-readable" ];
@@ -48,66 +48,66 @@ let
     Fsj = [ "nix" "flake" "show" "--json" ];
     Fmj = [ "nix" "flake" "metadata" "--json" ];
 
-    "Rø" = [ "nix" "run" "--override-input" "nixpkgs" "nixpkgs" ];
-    "Bø" = [ "nix" "build" "--override-input" "nixpkgs" "nixpkgs" ];
-    "Eø" = [ "nix" "eval" "--override-input" "nixpkgs" "nixpkgs" ];
-    "Fsø" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "nixpkgs" ];
-    "Fmø" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "nixpkgs" ];
-    "Fcø" = [ "nix" "flake" "check" "--override-input" "nixpkgs" "nixpkgs" ];
-    "Sø" = [ "nix" "shell" "--override-input" "nixpkgs" "nixpkgs" ];
+    # "Rø" = [ "nix" "run" "--override-input" "nixpkgs" "nixpkgs" ];
+    # "Bø" = [ "nix" "build" "--override-input" "nixpkgs" "nixpkgs" ];
+    # "Eø" = [ "nix" "eval" "--override-input" "nixpkgs" "nixpkgs" ];
+    # "Fsø" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "nixpkgs" ];
+    # "Fmø" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "nixpkgs" ];
+    # "Fcø" = [ "nix" "flake" "check" "--override-input" "nixpkgs" "nixpkgs" ];
+    # "Sø" = [ "nix" "shell" "--override-input" "nixpkgs" "nixpkgs" ];
 
-    "RØ" = [
-      "nix"
-      "run"
-      "--override-input"
-      "nixpkgs"
-      "github:NixOS/nixpkgs/master"
-    ];
-    "BØ" = [
-      "nix"
-      "build"
-      "--override-input"
-      "nixpkgs"
-      "github:NixOS/nixpkgs/master"
-    ];
-    "FsØ" = [
-      "nix"
-      "flake"
-      "show"
-      "--override-input"
-      "nixpkgs"
-      "github:NixOS/nixpkgs/master"
-    ];
-    "FmØ" = [
-      "nix"
-      "flake"
-      "metadata"
-      "--override-input"
-      "nixpkgs"
-      "github:NixOS/nixpkgs/master"
-    ];
-    "FcØ" = [
-      "nix"
-      "flake"
-      "check"
-      "--override-input"
-      "nixpkgs"
-      "github:NixOS/nixpkgs/master"
-    ];
-    "SØ" = [
-      "nix"
-      "shell"
-      "--override-input"
-      "nixpkgs"
-      "github:NixOS/nixpkgs/master"
-    ];
-    "PØ" = [
-      "nix"
-      "profile"
-      "--override-input"
-      "nixpkgs"
-      "github:NixOS/nixpkgs/master"
-    ];
+    # "RØ" = [
+    #   "nix"
+    #   "run"
+    #   "--override-input"
+    #   "nixpkgs"
+    #   "github:NixOS/nixpkgs/master"
+    # ];
+    # "BØ" = [
+    #   "nix"
+    #   "build"
+    #   "--override-input"
+    #   "nixpkgs"
+    #   "github:NixOS/nixpkgs/master"
+    # ];
+    # "FsØ" = [
+    #   "nix"
+    #   "flake"
+    #   "show"
+    #   "--override-input"
+    #   "nixpkgs"
+    #   "github:NixOS/nixpkgs/master"
+    # ];
+    # "FmØ" = [
+    #   "nix"
+    #   "flake"
+    #   "metadata"
+    #   "--override-input"
+    #   "nixpkgs"
+    #   "github:NixOS/nixpkgs/master"
+    # ];
+    # "FcØ" = [
+    #   "nix"
+    #   "flake"
+    #   "check"
+    #   "--override-input"
+    #   "nixpkgs"
+    #   "github:NixOS/nixpkgs/master"
+    # ];
+    # "SØ" = [
+    #   "nix"
+    #   "shell"
+    #   "--override-input"
+    #   "nixpkgs"
+    #   "github:NixOS/nixpkgs/master"
+    # ];
+    # "PØ" = [
+    #   "nix"
+    #   "profile"
+    #   "--override-input"
+    #   "nixpkgs"
+    #   "github:NixOS/nixpkgs/master"
+    # ];
 
     "B." = [ "nix" "build" "--file" "." ];
     "B.j" = [ "nix" "build" "--file" "." "--json" "--no-link" ];
@@ -199,7 +199,8 @@ let
     A = [ "argocd" ];
     Aa = [ "argocd" "app" ];
     Aal = [ "argocd" "app" "list" ];
-    Ac = [ "argocd" "cluster" ] ;
+    Ac = [ "argocd" "cluster" ];
+    Acl = [ "argocd" "cluster" "list" ];
 
     # # restic
     # rE = [ "restic" ];
@@ -219,7 +220,7 @@ let
     scltj = [ "systemctl" "list-timers" "--output=json" ];
     sclsj = [ "systemctl" "list-sockets" "--output=json" ];
     JF = [ "journalctl" "-f" ];
-    JJf = [ "journalctl" "-f" ];
+    # JJf = [ "journalctl" "-f" ];
 
     # zed
     # zqz = [ "zq" "-z" ];
@@ -279,6 +280,7 @@ let
     mask = [ "openssl" "env" "-e" "-aes-256-ctr" "-nopad" "-nosalt" "-k" "" ];
 
     ungron = [ "gron" "--ungron" ];
+    pingc3 = [ "ping" "-c" "3" ];
 
     fd1 = [ "fd" "-j1" ];
     fd1f = [ "fd" "-j1" "-tf" ];

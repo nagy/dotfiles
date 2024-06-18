@@ -28,7 +28,8 @@
   (reformatter-define jq-format
     :group 'js
     :program "jq"
-    :args '("--sort-keys"))
+    :args '("--sort-keys")
+    )
   :pretty 'js-mode
   ("true" . true) ("false" . false)
   ("if" . if) ("else" . else)

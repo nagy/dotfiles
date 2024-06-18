@@ -1,11 +1,5 @@
 { pkgs, ... }:
 
-let
-  # rustc-wasm = pkgs.rust-bin.stable.latest.default.override {
-  #   extensions = [ "rust-src" ];
-  #   targets = [ "wasm32-wasi" ];
-  # };
-in
 {
   environment.systemPackages = [
     pkgs.rustc

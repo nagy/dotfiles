@@ -65,10 +65,6 @@
         id = "nixpkgs";
         type = "indirect";
       };
-      p.to = {
-        id = "nixpkgs";
-        type = "indirect";
-      };
       u.to = {
         owner = "NixOS";
         repo = "nixpkgs";
