@@ -8,12 +8,16 @@
     # man:unbound.conf
     settings = {
       # localControlSocketPath = "/run/unbound/unbound.ctl";
-      forward-zone = [{
-        name = ".";
-        forward-tls-upstream = true;
-        forward-addr =
-          [ "1.1.1.1@853#cloudflare-dns.com" "1.0.0.1@853#cloudflare-dns.com" ];
-      }];
+      forward-zone = [
+        {
+          name = ".";
+          forward-tls-upstream = true;
+          forward-addr = [
+            "1.1.1.1@853#cloudflare-dns.com"
+            "1.0.0.1@853#cloudflare-dns.com"
+          ];
+        }
+      ];
       server = {
         log-queries = true;
         log-replies = true;

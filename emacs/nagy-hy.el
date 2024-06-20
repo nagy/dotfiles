@@ -44,7 +44,10 @@
   ("req" . "require")
   ("imp" . "import")
   :same
-  "^\\*Hy\\*$")
+  "^\\*Hy\\*$"
+  :hook
+  (hy-mode . lispy-mode)
+  )
 
 (use-package hy-shell
   :defer t
