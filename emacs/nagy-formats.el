@@ -81,27 +81,27 @@
 
 (cl-defmethod nagy-formats-convert ((from (derived-mode js-json-mode)) (to (eql yaml-mode)))
   (ignore from to )
-  (shell-command-on-region (point-min) (point-max) ",json,yaml" t 'no-mark (generate-new-buffer "*Format Errors*"))
+  (shell-command-on-region (point-min) (point-max) ",json,yaml" t 'no-mark (get-buffer-create "*Format Errors*"))
   (unless (eq major-mode 'yaml-mode)
     (yaml-mode)))
 
 (cl-defmethod nagy-formats-convert ((_from (derived-mode js-json-mode)) (_to (eql conf-toml-mode)))
-  (shell-command-on-region (point-min) (point-max) "yj -jt -i" t 'no-mark (generate-new-buffer "*Format Errors*"))
+  (shell-command-on-region (point-min) (point-max) "yj -jt -i" t 'no-mark (get-buffer-create "*Format Errors*"))
   (unless (eq major-mode 'conf-toml-mode)
     (conf-toml-mode)))
 
 (cl-defmethod nagy-formats-convert ((_from (derived-mode conf-toml-mode)) (_to (eql js-json-mode)))
-  (shell-command-on-region (point-min) (point-max) "yj -tj -i" t 'no-mark (generate-new-buffer "*Format Errors*"))
+  (shell-command-on-region (point-min) (point-max) "yj -tj -i" t 'no-mark (get-buffer-create "*Format Errors*"))
   (unless (eq major-mode 'js-json-mode)
     (js-json-mode)))
 
 (cl-defmethod nagy-formats-convert ((_from (derived-mode toml-ts-mode)) (_to (eql js-json-mode)))
-  (shell-command-on-region (point-min) (point-max) "yj -tj -i" t 'no-mark (generate-new-buffer "*Format Errors*"))
+  (shell-command-on-region (point-min) (point-max) "yj -tj -i" t 'no-mark (get-buffer-create "*Format Errors*"))
   (unless (eq major-mode 'js-json-mode)
     (js-json-mode)))
 
 (cl-defmethod nagy-formats-convert ((_from (derived-mode conf-toml-mode)) (_to (eql yaml-mode)))
-  (shell-command-on-region (point-min) (point-max) "yj -ty" t 'no-mark (generate-new-buffer "*Format Errors*"))
+  (shell-command-on-region (point-min) (point-max) "yj -ty" t 'no-mark (get-buffer-create "*Format Errors*"))
   (unless (eq major-mode 'yaml-mode)
     (yaml-mode)))
 

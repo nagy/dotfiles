@@ -117,6 +117,14 @@ let
     "E.j" = [ "nix" "eval" "--file" "." "--json" ];
     "SE." = [ "nix" "search" "--file" "." ];
 
+    "B:" = ["nix" "build" "--file" "flake:nixpkgs"];
+    "B:j" = ["nix" "build" "--file" "flake:nixpkgs" "--json" "--no-link"];
+    "R:" = ["nix" "run" "--file" "flake:nixpkgs"];
+    "D:" = ["nix" "develop" "--file" "flake:nixpkgs"];
+    "S:" = ["nix" "shell" "--file" "flake:nixpkgs"];
+    "E:" = ["nix" "eval" "--file" "flake:nixpkgs"];
+    "E:j" = ["nix" "eval" "--file" "flake:nixpkgs" "--json"];
+
     Bp = [ "nix" "build" "--no-link" "--print-out-paths" "-L" "--quiet" ];
 
     # git

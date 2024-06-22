@@ -34,7 +34,6 @@
       # https://superuser.com/questions/601992/how-can-i-disable-that-display-all-possibilities-and-more-stuff-in-bash
       completion-query-items = 0;
       page-completions = false;
-
     };
 
     extraConfig = ''

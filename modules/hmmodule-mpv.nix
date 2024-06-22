@@ -3,7 +3,7 @@
 {
 
   homeconfig.programs.mpv = {
-    enable = true;
+    enable = config.services.xserver.enable;
     config = {
       # audio
       mute = "yes";

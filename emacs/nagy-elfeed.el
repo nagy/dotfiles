@@ -27,7 +27,8 @@
            "SPC" nil)
   (:keymaps 'elfeed-search-mode-map
             [remap kill-this-buffer] #'elfeed-db-unload
-            [remap save-kill-buffer] #'elfeed-db-unload)
+            [remap save-kill-buffer] #'elfeed-db-unload
+            )
   ;; :same "^\\*elfeed-entry"
   )
 

@@ -1,9 +1,9 @@
+{ config, ... }:
+
 {
   users.users.test = {
     isNormalUser = true;
     uid = 1001;
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZNW8uX6gKASOT+0XXKF2QmeXqMZfoEMIYFogbUF4jo"
-    ];
+    openssh.authorizedKeys.keys = config.users.users.user.openssh.authorizedKeys.keys;
   };
 }

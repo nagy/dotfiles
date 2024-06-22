@@ -2,7 +2,7 @@
 
 {
   homeconfig.programs.zathura = {
-    enable = true;
+    enable = config.services.xserver.enable;
     package = (pkgs.zathuraPkgs.override { useMupdf = false; }).zathuraWrapper;
     options = {
       render-loading = false;
@@ -12,7 +12,7 @@
       selection-clipboard = "clipboard";
       pages-per-row = 2;
       # recolor-reverse-video = true; # this prevents image pdfs from being recolored
-      sandbox = "strict";
+      # sandbox = "strict";
     };
     # for extraconfig:
     #    this is so you can open links in your browser. otherwise seccomp is active
@@ -32,5 +32,4 @@
       map Q quit
     '';
   };
-
 }

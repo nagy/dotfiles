@@ -1,4 +1,8 @@
-{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib, rightSideMaster ? true }:
+{
+  pkgs ? import <nixpkgs> { },
+  lib ? pkgs.lib,
+  rightSideMaster ? true,
+}:
 
 pkgs.nur.repos.nagy.lib.mkQmkFirmware {
   name = "nagy-keyboard-firmware";
