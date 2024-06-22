@@ -1,6 +1,12 @@
-{ pkgs, ... }:
+{
+  config,
+  pkgs,
+  nur,
+  ...
+}:
 
 {
+  imports = [ nur.repos.nagy.modules.hmconvert ];
 
   homeconfig.programs.mpv = {
     enable = config.services.xserver.enable;
@@ -16,8 +22,7 @@
       cache-secs = "60";
       sub-auto = "fuzzy";
       sid = "auto";
-      ytdl-raw-options =
-        "write-sub=,write-auto-sub=,sub-lang=en,sub-format=en,write-srt=";
+      ytdl-raw-options = "write-sub=,write-auto-sub=,sub-lang=en,sub-format=en,write-srt=";
       script-opts = "ytdl_hook-ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";
 
       # https://nixos.wiki/wiki/Accelerated_Video_Playback
@@ -32,8 +37,30 @@
       screenshot-template = "%F - [%P] (%#01n)";
     };
     profiles = {
-      "extension.webm" = { loop-file = "inf"; };
-      "extension.gif" = { loop-file = "inf"; };
+      "extension.webm" = {
+        loop-file = "inf";
+      };
+      "extension.gif" = {
+        loop-file = "inf";
+      };
+      "extension.png" = {
+        # apng files
+        loop-file = "inf";
+        # keep-open = true;
+        # image-display-duration = "inf";
+      };
+      # "extension.jpg" = {
+      #   keep-open = true;
+      #   image-display-duration = "inf";
+      # };
+      # "extension.jpeg" = {
+      #   keep-open = true;
+      #   image-display-duration = "inf";
+      # };
+      # "extension.jxl" = {
+      #   keep-open = true;
+      #   image-display-duration = "inf";
+      # };
     };
     bindings = {
       k = "cycle pause";
@@ -64,8 +91,7 @@
       "K" = "seek -60";
 
       # https://old.reddit.com/r/mpv/comments/bqz37b/hotkey_to_reset_zoom_brightness_at_once/
-      "X" =
-        "set contrast 0; set brightness 0; set gamma 0; set saturation 0; set hue 0; set video-zoom 0.0; set video-pan-x 0.0 ; set video-pan-y 0.0 ; ";
+      "X" = "set contrast 0; set brightness 0; set gamma 0; set saturation 0; set hue 0; set video-zoom 0.0; set video-pan-x 0.0 ; set video-pan-y 0.0 ; ";
 
       # "æ" = "af set rubberband"; # altgr + a
       # "ſ" = "af remove rubberband"; # altgr + s
@@ -78,13 +104,13 @@
       ")" = "add saturation 1";
 
       "Alt+r" = ''cycle-values video-rotate  "90" "180" "270" "0"'';
-      # mirror the video horizontally
       "Alt+|" = "vf toggle hflip";
+      "a" = "vf toggle vflip";
 
-      "Alt+h" = "add video-pan-x -0.1";
-      "Alt+l" = "add video-pan-x  0.1";
-      "Alt+k" = "add video-pan-y -0.1";
-      "Alt+j" = "add video-pan-y  0.1";
+      "Alt+h" = "add video-pan-x  0.1";
+      "Alt+l" = "add video-pan-x -0.1";
+      "Alt+k" = "add video-pan-y  0.1";
+      "Alt+j" = "add video-pan-y -0.1";
 
       "Ctrl+Alt+j" = "add sub-scale -0.1";
       "Ctrl+Alt+k" = "add sub-scale +0.1";

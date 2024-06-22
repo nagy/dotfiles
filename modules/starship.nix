@@ -4,7 +4,7 @@
   # simpler version of starship
   # until https://github.com/starship/starship/issues/896 is fixed
   # FIXME rework this for 24.05. presets are now part of the module
-  environment.variables.STARSHIP_CONFIG =
+  environment.sessionVariables.STARSHIP_CONFIG =
     let
       mkDollarPrompt = lib.replaceStrings [ ">](bold green)" ] [ "\\\\$](bold green)" ];
       basePreset = builtins.readFile "${pkgs.starship}/share/starship/presets/plain-text-symbols.toml";
@@ -12,7 +12,13 @@
         ''
           add_newline=false
         ''
-        + (mkDollarPrompt basePreset);
+        + (mkDollarPrompt basePreset)
+        +
+          # TODO pr this
+          ''
+            [container]
+            symbol = "container"
+          '';
     in
     toString (pkgs.writeText "starship-config.toml" basePresetModified);
   programs.bash.interactiveShellInit = ''
@@ -22,11 +28,13 @@
     fi
     [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
       source "$EAT_SHELL_INTEGRATION_DIR/bash"
-    HISTCONTROL=ignoredups:ignorespace
-    HISTFILESIZE=10000000
-    HISTSIZE=1000000
-    HISTFILE="$HOME/.local/share/bash_history"
   '';
+  environment.sessionVariables = {
+    HISTCONTROL = "ignoredups:ignorespace";
+    HISTFILESIZE = "10000000";
+    HISTSIZE = "1000000";
+    HISTFILE = "$HOME/.local/share/bash_history";
+  };
   # the starship binary could also be added to system packages. This is needed
   # when using prompt explanations
 }

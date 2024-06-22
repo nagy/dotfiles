@@ -8,7 +8,7 @@
     pkgs.cargo-bloat
     pkgs.rust-analyzer
     pkgs.rust-script
-    # pkgs.cargo-modules # build failure
+    pkgs.cargo-modules
 
     # convenience
     pkgs.cargo-watch
@@ -16,7 +16,8 @@
     pkgs.cargo-sort
 
     # wasm
-    ## rustc-wasm
+    # pkgs.rustc-wasm32
     pkgs.binaryen
+    pkgs.cargo-component
   ];
 }

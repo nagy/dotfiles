@@ -142,7 +142,5 @@
   # variable. This improves touchscreen support and enables additional touchpad
   # gestures. It also enables smooth scrolling as opposed to the stepped
   # scrolling that Firefox has by default.
-  environment.sessionVariables = {
-    MOZ_USE_XINPUT2 = "1";
-  };
+  environment.sessionVariables = lib.mkIf config.services.xserver.enable { MOZ_USE_XINPUT2 = "1"; };
 }

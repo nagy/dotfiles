@@ -1,10 +1,17 @@
-{ pkgs, config, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  nur,
+  ...
+}:
 
 {
 
-  imports = [ ./converter.nix ];
-
   hardware.keyboard.qmk.enable = true;
+
+  # https://docs.mesa3d.org/envvars.html
+  environment.sessionVariables.MESA_SHADER_CACHE_DISABLE = "true";
 
   # Configure keymap in X11
   services.xserver = {
@@ -116,9 +123,17 @@
 
   # https://doc.qt.io/qt-6/highdpi.html#platform-details
   environment.variables.QT_USE_PHYSICAL_DPI = "1"; # for qt6
+  # environment.variables.QT_SCALE_FACTOR = "2"; # for qutebrowser
 
-  environment.extraOutputsToInstall =
-    [ "dev" "bin" "info" "man" "devdoc" "out" "lib" ];
+  environment.extraOutputsToInstall = [
+    "dev"
+    "bin"
+    "info"
+    "man"
+    "devdoc"
+    "out"
+    "lib"
+  ];
 
   services.udisks2.enable = true;
 
@@ -148,37 +163,40 @@
     Xcursor.theme: whiteglass
   '';
 
-  environment.systemPackages = with pkgs; [
-    xorg.xcursorthemes
-    dmenu
-    scrot
-    playerctl
-    pkgs.nur.repos.nagy.nsxivBigThumbs
-    xclip
-    redshift
+  environment.systemPackages = lib.mkIf (config.services.xserver.enable) (
+    with pkgs;
+    [
+      xorg.xcursorthemes
+      dmenu
+      scrot
+      playerctl
+      nur.repos.nagy.nsxivBigThumbs
+      xclip
+      redshift
 
-    brave
-    tor-browser
-    qutebrowser
-    pulsemixer
-    pulseaudio # for pactl
-    poppler_utils # pdf utils
-    (gnupg.override { guiSupport = false; })
+      brave
+      tor-browser
+      qutebrowser
+      pulsemixer
+      pulseaudio # for pactl
+      poppler_utils # pdf utils
+      (gnupg.override { guiSupport = false; })
 
-    # for container
-    binutils
-    util-linux
+      # for container
+      binutils
+      util-linux
 
-    wmctrl
-    xorg.xwininfo
-    xdotool
-    pyright
+      wmctrl
+      xorg.xwininfo
+      xdotool
+      pyright
 
-    (callPackage ../pkg-ala-switchers.nix {
-      hmmodules = {
-        day = import ../hmmodule-alacritty-night.nix false;
-        night = import ../hmmodule-alacritty-night.nix true;
-      };
-    })
-  ];
+      (callPackage ../pkg-ala-switchers.nix {
+        hmmodules = {
+          day = import ../hmmodule-alacritty-night.nix false;
+          night = import ../hmmodule-alacritty-night.nix true;
+        };
+      })
+    ]
+  );
 }

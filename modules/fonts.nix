@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   # because line-height is too high with newest version
@@ -12,7 +12,7 @@ let
 in {
   fonts = {
     fontconfig = {
-      enable = true;
+      enable = config.services.xserver.enable;
       defaultFonts = {
         monospace = [ "Iosevka Comfy" ];
         #   sansSerif = [ "" ];

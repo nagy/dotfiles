@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, nur, ... }:
 
 let
   cfg = config.nagy.shortcommands;
@@ -317,7 +317,7 @@ in
 
   config = {
     environment.systemPackages =
-      lib.mapAttrsToList pkgs.nur.repos.nagy.lib.mkShortCommand
+      lib.mapAttrsToList nur.repos.nagy.lib.mkShortCommand
         (defaultShortcommands // cfg);
   };
 }

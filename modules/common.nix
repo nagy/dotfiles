@@ -1,7 +1,8 @@
 {
+  config,
   pkgs,
   lib,
-  config,
+  nur,
   ...
 }:
 
@@ -85,6 +86,8 @@
     # https://mullvad.net/de/help/dns-over-https-and-dns-over-tls
     "194.242.2.2" = [ "dns.mullvad.net" ];
     "194.242.2.3" = [ "adblock.dns.mullvad.net" ];
+
+    "222:3bd:cc26:9545:caaa:9fd6:ec56:cc1" = [ "y.www.nncpgo.org" ];
   };
 
   zramSwap = {
@@ -180,6 +183,7 @@
     zls
     wabt
     wasmtime
+    wasmer
     (zbar.override {
       withXorg = false;
       enableVideo = false;
@@ -239,8 +243,8 @@
     ]))
     terraform-ls
     k9s
-    pkgs.nur.repos.nagy.hyperspec
-    pkgs.nur.repos.nagy.cxxmatrix
+    nur.repos.nagy.hyperspec
+    nur.repos.nagy.cxxmatrix
     # opentofu
     # version control
     gh
@@ -250,23 +254,6 @@
     ruff
     dool
     universal-ctags
-    (
-      # malloc-trim.sh
-      # From http://notes.secretsauce.net/notes/2016/04/08_glibc-malloc-inefficiency.html
-      pkgs.writeShellScriptBin "malloc-trim" ''
-        set -e
-        PID=$1
-        test -n "$PID" || { echo "Need PID on the cmdline" > /dev/stderr; exit 1; }
-
-        before=`ps -h -p $PID -O rss  | awk '{print $2}'`
-        gdb --batch-silent --eval-command 'call (int)malloc_trim(0)' -p $PID
-        after=`ps -h -p $PID -O rss  | awk '{print $2}'`
-
-        echo "before: $before"
-        echo "after: $after"
-        echo "freed: $(($before - $after))"
-      ''
-    )
     # for man pages only
     (lib.getMan isync)
   ];
@@ -274,7 +261,7 @@
   boot.binfmt.emulatedSystems = [
     "wasm32-wasi"
     # "aarch64-linux" # remove, because it causes any raspberry pi systems to become unbootable
-    "armv6l-linux"
+    # "armv6l-linux"
   ];
 
   # boot.binfmt.registrations.oil = {
@@ -301,4 +288,13 @@
   environment.variables.PYTHONDONTWRITEBYTECODE = "1";
 
   environment.variables.WATCH_INTERVAL = "1";
+
+  programs.screen = {
+    enable = true;
+    # [[man:screen]]
+    screenrc = ''
+      defscrollback 100000
+      startup_message off
+    '';
+  };
 }

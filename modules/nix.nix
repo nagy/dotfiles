@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
 
@@ -15,6 +20,10 @@
     nickel
     nls
   ];
+
+  environment.etc."nixos-options.json" = lib.mkIf config.documentation.nixos.enable {
+    source = "${config.system.build.manual.optionsJSON}/share/doc/nixos/options.json";
+  };
 
   nix = {
     extraOptions = ''

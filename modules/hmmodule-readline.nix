@@ -1,4 +1,8 @@
+{ nur, ... }:
+
 {
+  imports = [ nur.repos.nagy.modules.hmconvert ];
+
   homeconfig.programs.readline = {
     enable = true;
     includeSystemConfig = false; # this is necessary
@@ -72,14 +76,17 @@
        "\eL": "\C-uls -lah\C-j"
        "\ew": "\C-awatch \C-m"
        "\ee": "\C-aexec \C-e\C-m"
-       "\ep\eR": "\C-a\C-kreset\C-m"
-       "\epN": "\C-a\C-kncdu\C-m"
-       "\eph": "\C-a\C-khtop\C-m"
-       "\epd": "\C-a\C-kdool -N eth0 --bytes\C-m"
+       "\eR": "\C-a\C-k reset\C-m"
        "\eh": "\C-e --help\C-m"
+       "\ev": "\C-e --version\C-m"
        "\ep\ev": "\C-e --version\C-m"
        "\ep\ej": "\C-e|j\C-m"
        "\eT": "\C-a\C-kcd $(mktemp -d)\C-m"
+
+       # apps
+       "\epN": "\C-a\C-kncdu\C-m"
+       "\eph": "\C-a\C-khtop\C-m"
+       "\epd": "\C-a\C-kdool -N eth0 --bytes\C-m"
        "\et": "\C-a\C-ktree -l\C-m"
 
        # nix stuff

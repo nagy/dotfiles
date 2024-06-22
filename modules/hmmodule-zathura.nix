@@ -1,6 +1,13 @@
-{ pkgs, ... }:
+{
+  config,
+  pkgs,
+  nur,
+  ...
+}:
 
 {
+  imports = [ nur.repos.nagy.modules.hmconvert ];
+
   homeconfig.programs.zathura = {
     enable = config.services.xserver.enable;
     package = (pkgs.zathuraPkgs.override { useMupdf = false; }).zathuraWrapper;

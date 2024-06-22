@@ -1,4 +1,35 @@
 ;;; nagy-mode-line.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;; Package-Requires: ((emacs "29.1") anaphora)
+
+(require 'anaphora)
+
+(defvar-local nagy-mode-line--jsvar nil)
+(defvar-local nagy-mode-line--jsvar-point nil)
+
+(defun nagy-mode-line--jsvar-calc ()
+  (when (derived-mode-p 'js-json-mode)
+    (alet (ignore-errors (save-excursion (json-parse-buffer)))
+      (when it
+        (pcase-exhaustive (type-of it)
+          ('string (format "S%d" (length it)))
+          ('hash-table (format "H%d" (hash-table-count it)))
+          ('integer (format "N%d" it))
+          ('symbol (format "%S" it))
+          ('vector (format "A%d" (length it))))))
+    ))
+
+(defun nagy-mode-line--jsvar-update ()
+  (setq nagy-mode-line--jsvar-point (aand (nagy-mode-line--jsvar-calc) (propertize it 'face 'button)))
+  (unless nagy-mode-line--jsvar
+    (setq nagy-mode-line--jsvar (or nagy-mode-line--jsvar
+                                    (save-excursion (goto-char (point-min))
+                                                    (aand
+                                                     (nagy-mode-line--jsvar-calc)
+                                                     (propertize it 'face 'nerd-icons-lsilver))))))
+  (force-mode-line-update)
+  )
+
+(run-with-idle-timer 0.1 t #'nagy-mode-line--jsvar-update)
 
 (defun nagy-mode-line-fill (face reserve)
   "Return empty space using FACE and leaving RESERVE space on the right."
@@ -6,14 +37,31 @@
               'display `(space :align-to (- (+ right right-fringe right-margin) ,reserve))
               'face face))
 
+;; (memoize 'nagy-mode-line-fill)
+;; (memoize-restore 'nagy-mode-line-fill)
+
 (defvar nagy-mode-line-right
-  '((:eval
-     (if (or (get-buffer-process (current-buffer))
-             (string= "*elfeed-vultr*" (buffer-name)))
+  ;; FIXME these string creations could cause garbage
+  '(
+    (nagy-mode-line--jsvar (:eval (concat (format "%s" nagy-mode-line--jsvar) " ")))
+    (nagy-mode-line--jsvar-point (:eval (concat (format "%s" nagy-mode-line--jsvar-point) " ")))
+    (:eval
+     (unless (derived-mode-p 'exwm-mode)
+       (propertize
+        (concat (file-size-human-readable (buffer-size)) "B ")
+        ;; 'face (if (mode-line-window-selected-p)
+        ;;           'line-number
+        ;;         'mode-line-inactive)
+        )))
+    (:eval
+     (if (get-buffer-process (current-buffer))
          (if (get-buffer-process (current-buffer))
-             (format "%s%d" (propertize "⚋" 'face 'font-lock-comment-face) (process-id (get-buffer-process (current-buffer)))))
+             (format "%s%d" (propertize "⚋" 'face 'font-lock-comment-face)
+                     (or
+                      (process-id (get-buffer-process (current-buffer)))
+                      0)))
        (if (derived-mode-p 'exwm-mode)
-           `(:propertize ,(number-to-string exwm--id) face mode-line-buffer-id)
+           `(:propertize ,(format "0x%X" exwm--id) face mode-line-buffer-id)
          mode-line-position)))))
 (put 'nagy-mode-line-right 'risky-local-variable t)
 
@@ -35,11 +83,12 @@
                   (:eval (unless (derived-mode-p 'exwm-mode)
                            mode-line-modes))       ; already includes a space at the end
                   (:eval (unless (derived-mode-p 'exwm-mode)
-                           '(:propertize (:eval
-                                         (propertize (abbreviate-file-name default-directory)
-                                                     'face (if (buffer-file-name)
-                                                               '(:inherit (bold dired-directory))
-                                                             '(:inherit dired-directory)))))))
+                           '(:eval (propertize (abbreviate-file-name
+                                                (--> default-directory
+                                                     (string-replace "%" "%%" it)))
+                                               'face (if (buffer-file-name)
+                                                         '(:inherit (bold dired-directory))
+                                                       '(:inherit dired-directory))))))
                   mode-line-misc-info
                   ;; mode-line-end-spaces
                   (:eval (nagy-mode-line-fill (if (mode-line-window-selected-p)
