@@ -66,8 +66,10 @@
         ("M-w" . tabulated-list-kill-ring-save)))
 
 (cl-defun nagy-list-buffer-file-name-sym (&optional (filename (or nagy-list-buffer-file-name buffer-file-name "")))
-  (when (string-suffix-p ".json" filename)
+  (when (or (string-suffix-p ".json" filename)
+            (string-suffix-p ".json.zst" filename))
     (->> filename
+         (string-remove-suffix ".zst")
          (string-remove-suffix ".json")
          (s-split "\\.")
          last

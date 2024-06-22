@@ -101,6 +101,7 @@
   ("vendorHash" "vendorSha256")
   ("cargoHash" "cargoSha256")
   ("hash" "sha256")
+  ("true" "false")
   ("buildPhase" "installPhase")
   ("buildInputs" "nativeBuildInputs" "propagatedBuildInputs")
   ;; Hooks
@@ -120,11 +121,20 @@
 
 ;; TODO has an lsp nls
 (use-package nickel-mode
+  :preface
+  (reformatter-define nickel-format
+    :group 'nickel
+    :program "nickel"
+    :args '("format"))
   :defer t
   :pretty 'nickel-mode
   ("let" . let)
   ("in" . in)
-  ("if" . if) ("else" . else) ("then" . then))
+  ("if" . if) ("else" . else) ("then" . then)
+  ("fun" . def)
+  ("import" . import)
+  :hook
+  (nickel-mode . nickel-format-on-save-mode))
 
 (provide 'nagy-nix)
 ;;; nagy-nix.el ends here

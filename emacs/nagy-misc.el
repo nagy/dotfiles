@@ -58,6 +58,7 @@
      ("√" . "calc")
      ("e4" . "elforth"))))
 
+;; TODO replace with golden mode
 (use-package golden-ratio
   :bind
   ("H-s-=" . golden-ratio-mode))
