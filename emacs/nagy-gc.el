@@ -32,7 +32,8 @@
   ;; (setq garbage-collection-messages t)
   (garbage-collect)
   (fset 'garbage-collect #'ignore)
-  (run-with-idle-timer 120 t #'real-garbage-collect))
+  ;; (run-with-idle-timer 60 t #'real-garbage-collect)
+  )
 
 (defvar real-garbage-collect (symbol-function 'garbage-collect))
 
@@ -41,14 +42,10 @@
   (defun real-garbage-collect ()
     (interactive)
     (setq values nil)                   ; cleanup references
-    (funcall real-garbage-collect))
-  (defun nagy-gc-malloc-trim ()
-    (interactive)
-    (real-garbage-collect)
-    (shell-command (format "malloc-trim %d" (emacs-pid))
-                   (generate-new-buffer "*malloc-trim*")))
-  :bind
-  ("s-🗑" . nagy-gc-malloc-trim)
+    (prog1 (funcall real-garbage-collect)
+      (malloc-trim 0)))
+  :config
+  (run-with-idle-timer 60 t #'real-garbage-collect)
   :general
   (:states 'normal
            "🗑" #'real-garbage-collect))

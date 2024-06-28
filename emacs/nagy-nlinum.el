@@ -23,11 +23,6 @@
   :custom
   (display-line-numbers-type t)
   (display-line-numbers-width 2)
-  :config
-  ;; this comes from doom
-  (remove-hook 'prog-mode-hook #'display-line-numbers-mode)
-  (remove-hook 'text-mode-hook #'display-line-numbers-mode)
-  (remove-hook 'conf-mode-hook #'display-line-numbers-mode)
   :bind
   ("M-ĸ" . display-line-numbers-mode)
   ("s-M-ĸ" . global-display-line-numbers-mode))

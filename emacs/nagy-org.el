@@ -18,6 +18,7 @@
   ;; (org-src-preserve-indentation nil)
   (org-edit-src-content-indentation 0)
   (org-modules nil)
+  (org-return-follows-link t)
   :hook
   (org-mode . visual-line-mode)
   :config
@@ -83,6 +84,7 @@
   :general
   (:states 'normal :keymaps 'org-mode-map
            "ŋ" #'org-update-all-dblocks
+           "RET" #'org-return
            "r" #'org-cycle))
 
 (use-package org-superstar
@@ -137,6 +139,8 @@
     (interactive)
     (markdown-mark-subtree)
     (delete-region (region-beginning) (region-end)))
+  ;; (map! :map markdown-mode-map :n "r" #'markdown-cycle)
+
   ;; TODO needs to be put into modus themes hook
   (set-face-attribute 'markdown-header-face-1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
   (set-face-attribute 'markdown-header-face-2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)

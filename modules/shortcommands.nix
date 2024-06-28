@@ -48,67 +48,6 @@ let
     Fsj = [ "nix" "flake" "show" "--json" ];
     Fmj = [ "nix" "flake" "metadata" "--json" ];
 
-    # "Rø" = [ "nix" "run" "--override-input" "nixpkgs" "nixpkgs" ];
-    # "Bø" = [ "nix" "build" "--override-input" "nixpkgs" "nixpkgs" ];
-    # "Eø" = [ "nix" "eval" "--override-input" "nixpkgs" "nixpkgs" ];
-    # "Fsø" = [ "nix" "flake" "show" "--override-input" "nixpkgs" "nixpkgs" ];
-    # "Fmø" = [ "nix" "flake" "metadata" "--override-input" "nixpkgs" "nixpkgs" ];
-    # "Fcø" = [ "nix" "flake" "check" "--override-input" "nixpkgs" "nixpkgs" ];
-    # "Sø" = [ "nix" "shell" "--override-input" "nixpkgs" "nixpkgs" ];
-
-    # "RØ" = [
-    #   "nix"
-    #   "run"
-    #   "--override-input"
-    #   "nixpkgs"
-    #   "github:NixOS/nixpkgs/master"
-    # ];
-    # "BØ" = [
-    #   "nix"
-    #   "build"
-    #   "--override-input"
-    #   "nixpkgs"
-    #   "github:NixOS/nixpkgs/master"
-    # ];
-    # "FsØ" = [
-    #   "nix"
-    #   "flake"
-    #   "show"
-    #   "--override-input"
-    #   "nixpkgs"
-    #   "github:NixOS/nixpkgs/master"
-    # ];
-    # "FmØ" = [
-    #   "nix"
-    #   "flake"
-    #   "metadata"
-    #   "--override-input"
-    #   "nixpkgs"
-    #   "github:NixOS/nixpkgs/master"
-    # ];
-    # "FcØ" = [
-    #   "nix"
-    #   "flake"
-    #   "check"
-    #   "--override-input"
-    #   "nixpkgs"
-    #   "github:NixOS/nixpkgs/master"
-    # ];
-    # "SØ" = [
-    #   "nix"
-    #   "shell"
-    #   "--override-input"
-    #   "nixpkgs"
-    #   "github:NixOS/nixpkgs/master"
-    # ];
-    # "PØ" = [
-    #   "nix"
-    #   "profile"
-    #   "--override-input"
-    #   "nixpkgs"
-    #   "github:NixOS/nixpkgs/master"
-    # ];
-
     "B." = [ "nix" "build" "--file" "." ];
     "B.j" = [ "nix" "build" "--file" "." "--json" "--no-link" ];
     "R." = [ "nix" "run" "--file" "." ];

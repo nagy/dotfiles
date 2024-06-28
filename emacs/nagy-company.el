@@ -40,6 +40,10 @@
   (company-tooltip-idle-delay 0.1)
   (company-async-redisplay-delay 0.1)
   (company-dabbrev-downcase nil)
+  ;; Only search the current buffer for `company-dabbrev' (a backend that
+  ;; suggests text your open buffers). This prevents Company from causing
+  ;; lag once you have a lot of buffers open.
+  (company-dabbrev-other-buffers nil)
   )
 
 (provide 'nagy-company)

@@ -2,9 +2,10 @@
   pkgs ? import <nixpkgs> { },
   lib ? pkgs.lib,
   rightSideMaster ? true,
+  mkQmkFirmware ? pkgs.nur.repos.nagy.lib.mkQmkFirmware,
 }:
 
-pkgs.nur.repos.nagy.lib.mkQmkFirmware {
+mkQmkFirmware {
   name = "nagy-keyboard-firmware";
   keyboard = "handwired/dactyl_manuform/6x6";
 

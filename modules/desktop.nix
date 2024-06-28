@@ -176,7 +176,6 @@
 
       brave
       tor-browser
-      qutebrowser
       pulsemixer
       pulseaudio # for pactl
       poppler_utils # pdf utils
