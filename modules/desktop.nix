@@ -167,9 +167,7 @@
     with pkgs;
     [
       xorg.xcursorthemes
-      dmenu
       scrot
-      playerctl
       nur.repos.nagy.nsxivBigThumbs
       xclip
       redshift

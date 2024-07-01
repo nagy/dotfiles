@@ -65,6 +65,8 @@
 
 (use-package macrostep
   :bind
+  (:map emacs-lisp-mode-map
+        ("<normal-state> µ" . macrostep-expand))
   (:map macrostep-mode-map
         ("c" . always)
         ("s-k" . macrostep-collapse-all)))
@@ -202,6 +204,11 @@
            "u" #'Custom-goto-parent))
 
 (use-package comint
+  ;; :preface
+  ;; (defun +nagy/comint-delete-clear ()
+  ;;   (interactive)
+  ;;   (comint-delete-input)
+  ;;   (comint-clear-buffer))
   :hook
   (comint-mode . visual-line-mode)
   :custom

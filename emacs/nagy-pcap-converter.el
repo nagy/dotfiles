@@ -69,16 +69,37 @@
 (add-to-list 'format-alist '(pcap2json "pcap2json" nil ",pcap,json" nil nil nil))
 (add-to-list 'format-alist '(pcap2xml "pcap2xml" nil ",pcap,xml" nil nil nil))
 
+(defface pcap-blue
+  '((t :inherit modus-themes-subtle-blue :extend t))
+  "some")
+
+(defface pcap-rst
+  '((t :inherit modus-themes-subtle-red :extend t))
+  "some")
+
+(defface pcap-magenta
+  '((t :inherit modus-themes-subtle-magenta :extend t))
+  "some")
+
+(defface pcap-udp
+  '((t :inherit modus-themes-subtle-cyan :extend t))
+  "some")
+
+(defface pcap-arp
+  '((t :inherit modus-themes-nuanced-yellow :extend t))
+  "some")
+
 (define-derived-mode pcap-mode fundamental-mode "PCAP"
   "hello"
   (if (derived-mode-p 'pcap-mode)
       (progn
         (format-decode-buffer '(pcap2txt))
-        (highlight-lines-matching-regexp "ICMP" 'modus-themes-intense-magenta)
-        (highlight-lines-matching-regexp "TCP" 'modus-themes-intense-blue)
-        (highlight-lines-matching-regexp "HTTP" 'modus-themes-intense-green)
-        (highlight-lines-matching-regexp (rx (or "UDP" "NTP" "DNS")) 'modus-themes-intense-cyan)
-        (highlight-lines-matching-regexp "RST" 'modus-themes-intense-red))))
+        (highlight-lines-matching-regexp "ICMP" 'pcap-magenta)
+        (highlight-lines-matching-regexp "TCP" 'pcap-blue)
+        (highlight-lines-matching-regexp "HTTP" 'modus-themes-subtle-green)
+        (highlight-lines-matching-regexp (rx (or "UDP" "NTP" "DNS")) 'pcap-udp)
+        (highlight-lines-matching-regexp (rx (or "ARP")) 'pcap-arp)
+        (highlight-lines-matching-regexp "RST" 'pcap-rst))))
 (add-to-list 'auto-mode-alist '("\\.pcap\\'" . pcap-mode))
 
 (provide 'nagy-pcap-converter)

@@ -33,10 +33,6 @@
 
 (defun nagy-formats-do-convert (into-mode)
   (interactive "SDo Convert: ")
-  ;; TODO region-active-p
-  ;; TODO set revert-buffer function
-  ;; TODO evil mode g- prefix
-  ;; TODO embark integration ?
   (let ((oldbuf (current-buffer))
         (newbuf (generate-new-buffer (format "Into-%s" into-mode))))
     (copy-to-buffer newbuf (point-min) (point-max))

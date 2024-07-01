@@ -20,13 +20,17 @@
     ];
   };
   # users.mutableUsers = false; # this can break the manually set password !!!!
-  networking.enableIPv6 = false;
 
-  services.openssh.enable = true;
-  services.openssh.settings.PermitRootLogin = "yes";
-  services.openssh.settings.ClientAliveInterval = 60;
   users.extraUsers.root.openssh.authorizedKeys.keys =
     config.users.users.user.openssh.authorizedKeys.keys;
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "yes";
+      ClientAliveInterval = 60;
+    };
+  };
 
   boot.kernel.sysctl = {
     # disable coredumps
@@ -75,19 +79,6 @@
     "....." = "cd ../../../..";
     "......" = "cd ../../../../..";
     "......." = "cd ../../../../../..";
-  };
-
-  networking.hosts = {
-    "1.1.1.1" = [
-      "1dot1dot1dot1.cloudflare-dns.com"
-      "one.one.one.one"
-    ];
-    "8.8.8.8" = [ "dns.google" ];
-    # https://mullvad.net/de/help/dns-over-https-and-dns-over-tls
-    "194.242.2.2" = [ "dns.mullvad.net" ];
-    "194.242.2.3" = [ "adblock.dns.mullvad.net" ];
-
-    "222:3bd:cc26:9545:caaa:9fd6:ec56:cc1" = [ "y.www.nncpgo.org" ];
   };
 
   zramSwap = {
@@ -288,6 +279,10 @@
   # environment.variables.PYTHONDONTWRITEBYTECODE = "1";
 
   environment.variables.WATCH_INTERVAL = "1";
+
+  environment.etc."rfc" = lib.mkIf config.documentation.nixos.enable {
+    source = "${nur.repos.nagy.rfcs}/share/rfc";
+  };
 
   programs.screen = {
     enable = true;

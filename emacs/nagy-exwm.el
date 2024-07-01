@@ -121,6 +121,7 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-<XF86Paste>") . tab-new)
             (,(kbd "s-h") . tab-previous)
             (,(kbd "s-l") . tab-next)
+            (,(kbd "s-f") . find-file)
             ;; (,(kbd "s-ø") . find-file-org)
             (,(kbd "s-<prior>") . tab-previous)
             (,(kbd "s-<next>") . tab-next)
@@ -141,7 +142,7 @@ aka xcompose is not properly initialized in the first frame."
   (add-hook 'exwm-init-hook #'nagy-fix-frame)
   (evil-set-initial-state 'exwm-mode 'emacs)
   (require 'exwm-randr)
-  (exwm-randr-enable)
+  (exwm-randr-mode 1)
   (exwm-enable)
   (evil-define-key 'normal dired-mode-map "." #'terminal)
   :bind
