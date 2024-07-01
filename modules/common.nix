@@ -285,7 +285,7 @@
 
   environment.variables.LESSHISTFILE = "-";
 
-  environment.variables.PYTHONDONTWRITEBYTECODE = "1";
+  # environment.variables.PYTHONDONTWRITEBYTECODE = "1";
 
   environment.variables.WATCH_INTERVAL = "1";
 

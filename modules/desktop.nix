@@ -177,7 +177,6 @@
       brave
       tor-browser
       pulsemixer
-      pulseaudio # for pactl
       poppler_utils # pdf utils
       (gnupg.override { guiSupport = false; })
 

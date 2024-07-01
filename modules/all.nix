@@ -21,13 +21,17 @@
     # ./printer.nix
     # ./rust.nix
     # ./scanner.nix
+    ./simpleaddress.nix
     ./shortcommands.nix
     ./starship.nix
     ./sudo.nix
     # ./systemd-resolved.nix
     # ./test-user.nix
-    # ./unbound.nix
     ./xcompose.nix
+    ./simpleaddress.nix
+    ./espressif.nix
+    # ./automount-ext4.nix
+    # ./automount-btrfs.nix
 
     ./hmmodule-mpv.nix
     ./hmmodule-readline.nix

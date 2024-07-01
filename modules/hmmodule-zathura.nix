@@ -10,7 +10,7 @@
 
   homeconfig.programs.zathura = {
     enable = config.services.xserver.enable;
-    package = (pkgs.zathuraPkgs.override { useMupdf = false; }).zathuraWrapper;
+    # package = (pkgs.zathuraPkgs.override { useMupdf = false; }).zathuraWrapper;
     options = {
       render-loading = false;
       dbus-raise-window = false;

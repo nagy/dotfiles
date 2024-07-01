@@ -145,6 +145,8 @@
   (set-face-attribute 'markdown-header-face-1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
   (set-face-attribute 'markdown-header-face-2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
   (set-face-attribute 'markdown-header-face-3 nil :font "Et Bembo" :height 1.2 :inherit 'modus-themes-heading-3)
+  :hook
+  (markdown-mode . markdown-toggle-markup-hiding)
   :bind
   ("H-M-m" . markdown-mode)
   (:map markdown-mode-map

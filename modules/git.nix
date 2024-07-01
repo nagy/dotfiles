@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   programs.git = {
@@ -177,44 +182,46 @@
     };
   };
 
-  environment.etc.gitattributes.text = ''
-    *.wasm diff=wasm
-    *.pdf diff=pdf
-    *.png diff=exif
-    *.jpg diff=exif
-    *.jpeg diff=exif
-    *.gif diff=exif
-    *.tar diff=tar
-    *.tar.gz diff=tar-gz
-    *.tgz diff=tar-gz
-    *.tar.bz2 diff=tar-bz2
-    *.tar.xz diff=tar-xz
-    *.tar.zst diff=tar-zstd
-    *.json filter=jq
-    *.restic.json filter=jq-restic
-    # *.toml filter=taplo-fmt
-    # *.py filter=ruff-format
-    *.org  diff=orgmode
-    *.hy   diff=lisp
-    *.el   diff=lisp
-    *.lisp diff=lisp
-    ### git builtin
-    *.md    diff=markdown
-    *.rs    diff=rust
-    *.c     diff=cpp
-    *.h     diff=cpp
-    *.c++   diff=cpp
-    *.h++   diff=cpp
-    *.cpp   diff=cpp
-    *.hpp   diff=cpp
-    *.cc    diff=cpp
-    *.hh    diff=cpp
-    *.go    diff=golang
-    *.py    diff=python
-    *.scm   diff=scheme
-    *.sh    diff=bash
-    *.tex   diff=tex
-    *.bib   diff=bibtex
-    *.css   diff=css
-  '';
+  environment.etc.gitattributes = lib.mkIf config.programs.git.enable {
+    text = ''
+      *.wasm diff=wasm
+      *.pdf diff=pdf
+      *.png diff=exif
+      *.jpg diff=exif
+      *.jpeg diff=exif
+      *.gif diff=exif
+      *.tar diff=tar
+      *.tar.gz diff=tar-gz
+      *.tgz diff=tar-gz
+      *.tar.bz2 diff=tar-bz2
+      *.tar.xz diff=tar-xz
+      *.tar.zst diff=tar-zstd
+      *.json filter=jq
+      *.restic.json filter=jq-restic
+      # *.toml filter=taplo-fmt
+      # *.py filter=ruff-format
+      *.org  diff=orgmode
+      *.hy   diff=lisp
+      *.el   diff=lisp
+      *.lisp diff=lisp
+      ### git builtin
+      *.md    diff=markdown
+      *.rs    diff=rust
+      *.c     diff=cpp
+      *.h     diff=cpp
+      *.c++   diff=cpp
+      *.h++   diff=cpp
+      *.cpp   diff=cpp
+      *.hpp   diff=cpp
+      *.cc    diff=cpp
+      *.hh    diff=cpp
+      *.go    diff=golang
+      *.py    diff=python
+      *.scm   diff=scheme
+      *.sh    diff=bash
+      *.tex   diff=tex
+      *.bib   diff=bibtex
+      *.css   diff=css
+    '';
+  };
 }

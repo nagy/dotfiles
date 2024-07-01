@@ -56,7 +56,7 @@
   ("services" . "𝒔")
   ("time" . "𝒕")
   ("users" . "𝒖")
-  ("imports" . "𝒊")
+  ;; ("imports" . "𝒊")
   ("options" . "𝒐")
   ("toString" . print)
   ("final" . "′")

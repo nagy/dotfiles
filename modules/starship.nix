@@ -7,11 +7,18 @@
   environment.sessionVariables.STARSHIP_CONFIG =
     let
       mkDollarPrompt = lib.replaceStrings [ ">](bold green)" ] [ "\\\\$](bold green)" ];
+      mkDirectoryConfig = lib.replaceStrings [ "[directory]\n" ] [
+        "[directory]\ntruncation_length = 20\ntruncate_to_repo = false\n"
+      ];
       basePreset = builtins.readFile "${pkgs.starship}/share/starship/presets/plain-text-symbols.toml";
       basePresetModified =
         ''
           add_newline=false
         ''
+        # somehow add this:
+        # [directory]
+        # truncation_length = 20
+        # truncate_to_repo = false
         + (mkDollarPrompt basePreset)
         +
           # TODO pr this
@@ -23,7 +30,9 @@
     toString (pkgs.writeText "starship-config.toml" basePresetModified);
   programs.bash.interactiveShellInit = ''
     if [[ $TERM != "dumb" && (-z $INSIDE_EMACS || $INSIDE_EMACS == "29.1,eat") ]]; then
-      export STARSHIP_CACHE=/run/user/$UID/starship-cache
+      if [[ -w /run/user/$UID/starship-cache ]] ; then
+        export STARSHIP_CACHE=/run/user/$UID/starship-cache
+      fi
       eval "$(${pkgs.starship}/bin/starship init bash --print-full-init)"
     fi
     [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
