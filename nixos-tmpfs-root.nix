@@ -1,5 +1,5 @@
 {
-  moreImports ? [ ],
+  extraModules ? [ ],
 }:
 
 import <nixpkgs/nixos/lib/eval-config.nix> {
@@ -25,8 +25,7 @@ import <nixpkgs/nixos/lib/eval-config.nix> {
         imports = [
           "${modulesPath}/installer/netboot/netboot-base.nix"
           ./modules/all.nix
-          # ./modules/desktop.nix
-        ] ++ moreImports;
+        ];
 
         netboot.squashfsCompression = "zstd -Xcompression-level 6";
         nixpkgs.config.packageOverrides = pkgs: { inherit nur; };
@@ -68,5 +67,5 @@ import <nixpkgs/nixos/lib/eval-config.nix> {
         system.stateVersion = "24.11";
       }
     )
-  ];
+  ] ++ extraModules;
 }
