@@ -2,11 +2,14 @@
   config,
   pkgs,
   lib,
+  nur,
   ...
 }:
 
 let
-  customEmacsPackages = pkgs.emacs29-gtk3.pkgs.overrideScope' (
+  emacs = pkgs.emacs-git.override { withGTK3 = true; };
+  emacsPackages = pkgs.emacsPackagesFor emacs;
+  customEmacsPackages = emacsPackages.overrideScope (
     self: super: {
       sotlisp = super.sotlisp.overrideAttrs {
         src = pkgs.fetchFromGitHub {
@@ -26,12 +29,18 @@ let
       };
     }
   );
-  emacs = customEmacsPackages.emacs;
   emacsAndPackages = customEmacsPackages.withPackages (
-    epkgs: (lib.attrValues (import ../emacs { inherit pkgs lib emacs; }))
+    epkgs: (lib.attrValues (import ../emacs { inherit pkgs lib epkgs; }))
   );
 in
 {
+  nixpkgs.overlays = [
+    # Cannot use pkgs.fetchFromGitHub in an overlay
+    (import (fetchTarball {
+      url = "https://github.com/nix-community/emacs-overlay/archive/e3e9ef4c9904fddbd8c00f3288e6a3be26a6bf0b.tar.gz";
+      sha256 = "sha256-4jggHHDsLt+i4/6lMNlZkHd3bzgV50feNpZGe4X3eMQ=";
+    }))
+  ];
   environment.systemPackages = lib.mkIf config.services.xserver.enable [
     emacsAndPackages
     pkgs.mu

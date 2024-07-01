@@ -1,23 +1,28 @@
 {
   pkgs ? import <nixpkgs> { },
   lib ? pkgs.lib,
-  emacs ? pkgs.emacs,
+  epkgs ? pkgs.emacs.pkgs,
+  path ? ./.,
 }:
 
 let
-  makePackage =
-    src:
-    pkgs.nur.repos.nagy.lib.emacsMakeSingleFilePackage {
-      inherit emacs src;
-      epkgs = emacs.pkgs.overrideScope (_self: _super: final);
-      pname = lib.removeSuffix ".el" (builtins.baseNameOf src);
-    };
-  onlyNagyFiles = lib.filterAttrs (name: value: value == "regular" && lib.hasPrefix "nagy" name) (
-    builtins.readDir ./.
-  );
-  final = lib.mapAttrs' (name: value: {
-    name = lib.removeSuffix ".el" name;
-    value = makePackage (./. + "/${name}");
-  }) onlyNagyFiles;
+  final =
+    lib.mapAttrs'
+      (name: value: {
+        name = lib.removeSuffix ".el" name;
+        # The package
+        value = pkgs.nur.repos.nagy.lib.emacsMakeSingleFilePackage {
+          src = (path + "/${name}");
+          epkgs = epkgs.overrideScope (_self: _super: final);
+        };
+      })
+      # The elisp files in `path`
+      (
+        lib.filterAttrs
+          # Filter elisp files
+          (name: value: value == "regular" && lib.hasSuffix ".el" name)
+          # All files in `path`
+          (builtins.readDir path)
+      );
 in
 final
