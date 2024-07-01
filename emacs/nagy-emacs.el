@@ -313,30 +313,30 @@
     ;; More https://jonaquino.blogspot.com/2007/06/yublin-shorthand-for-speed-writing.html?m=1
     ;; Idea: put yublin on QMK?
     (define-abbrev text-mode-abbrev-table "t" "the" nil :system t :case-fixed t)
-    (define-abbrev text-mode-abbrev-table "n" "and" nil :system t)
-    (define-abbrev text-mode-abbrev-table "w" "was" nil :system t)
+    (define-abbrev text-mode-abbrev-table "n" "and" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "w" "was" nil :system t :case-fixed t)
     (define-abbrev text-mode-abbrev-table "h" "that" nil :system t :case-fixed t)
     (define-abbrev text-mode-abbrev-table "i" "his" nil :system t :case-fixed t)
-    (define-abbrev text-mode-abbrev-table "e" "her" nil :system t)
-    (define-abbrev text-mode-abbrev-table "y" "you" nil :system t)
-    (define-abbrev text-mode-abbrev-table "d" "had" nil :system t)
-    (define-abbrev text-mode-abbrev-table "b" "with" nil :system t)
-    (define-abbrev text-mode-abbrev-table "f" "for" nil :system t)
-    (define-abbrev text-mode-abbrev-table "s" "she" nil :system t)
-    (define-abbrev text-mode-abbrev-table "o" "not" nil :system t)
-    (define-abbrev text-mode-abbrev-table "u" "but" nil :system t)
-    (define-abbrev text-mode-abbrev-table "v" "have" nil :system t)
-    (define-abbrev text-mode-abbrev-table "m" "him" nil :system t)
-    (define-abbrev text-mode-abbrev-table "c" "said" nil :system t)
-    (define-abbrev text-mode-abbrev-table "g" "which" nil :system t)
-    (define-abbrev text-mode-abbrev-table "j" "this" nil :system t)
+    (define-abbrev text-mode-abbrev-table "e" "her" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "y" "you" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "d" "had" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "b" "with" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "f" "for" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "s" "she" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "o" "not" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "u" "but" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "v" "have" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "m" "him" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "c" "said" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "g" "which" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "j" "this" nil :system t :case-fixed t)
     (define-abbrev text-mode-abbrev-table "l" "all" nil :system t :case-fixed t)
-    (define-abbrev text-mode-abbrev-table "r" "from" nil :system t)
-    (define-abbrev text-mode-abbrev-table "k" "they" nil :system t)
-    (define-abbrev text-mode-abbrev-table "p" "were" nil :system t)
-    (define-abbrev text-mode-abbrev-table "q" "would" nil :system t)
-    (define-abbrev text-mode-abbrev-table "x" "when" nil :system t)
-    (define-abbrev text-mode-abbrev-table "z" "what" nil :system t))
+    (define-abbrev text-mode-abbrev-table "r" "from" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "k" "they" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "p" "were" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "q" "would" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "x" "when" nil :system t :case-fixed t)
+    (define-abbrev text-mode-abbrev-table "z" "what" nil :system t :case-fixed t))
   (with-eval-after-load 'nix-repl
     (define-abbrev nix-repl-mode-abbrev-table "wpkgs" "with import <nixpkgs> { }; " nil :system t))
   (with-eval-after-load 'ielm
@@ -450,12 +450,12 @@
   :config
   (setq ibuffer-formats
         '((mark modified read-only locked " "
-           (name 42 42 :left :elide)
-           " "
-           (size 9 -1 :right)
-           " "
-           (mode 16 16 :left :elide)
-           " " filename-and-process)
+                (name 42 42 :left :elide)
+                " "
+                (size 9 -1 :right)
+                " "
+                (mode 16 16 :left :elide)
+                " " filename-and-process)
           (mark " "
                 (name 16 -1)
                 " " filename))))
@@ -497,6 +497,11 @@
 
 (keymap-global-set "<mouse-8>" #'bury-buffer)
 (keymap-global-set "<mouse-9>" #'unbury-buffer)
+
+(use-package timer-list
+  :bind
+  (:map timer-list-mode-map
+        ("H-d" . timer-list-cancel)))
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

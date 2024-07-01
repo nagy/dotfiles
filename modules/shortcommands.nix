@@ -11,6 +11,8 @@ let
     "i," = [ "nix-instantiate" "<nixpkgs>" ];
     "b,," = [ "nix-build" "<nixpkgs/nixos>" ];
     "i,," = [ "nix-instantiate" "<nixpkgs/nixos>" ];
+    "b." = [ "nix-build" "<dot>" ];
+    "i." = [ "nix-instantiate" "<dot>" ];
     R = [ "nix" "run" ];
     SE = [ "nix" "search" ];
     B = [ "nix" "build" ];

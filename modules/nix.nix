@@ -25,6 +25,25 @@
     source = "${config.system.build.manual.optionsJSON}/share/doc/nixos/options.json";
   };
 
+  environment.etc."nix-search.json" = lib.mkIf config.documentation.nixos.enable {
+    source =
+      pkgs.runCommandLocal "nix-search.json"
+        {
+          nativeBuildInputs = [
+            pkgs.nixVersions.latest
+            # optional
+            pkgs.jq
+          ];
+        }
+        ''
+          echo '{"flakes":[],"version":2}' > empty-registry.json
+          nix --offline --store ./. \
+            --extra-experimental-features 'nix-command flakes' \
+            --option flake-registry $PWD/empty-registry.json \
+            search path:${pkgs.path} --json "" | jq --sort-keys > $out
+        '';
+  };
+
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes recursive-nix impure-derivations ca-derivations
@@ -47,7 +66,14 @@
       # this keeps build logs clean at the expense of performance
       max-jobs = 1;
     };
-    nixPath = lib.mkOptionDefault [ "dot=${../.}" ];
+
+    nixPath = [
+      "nixpkgs=${pkgs.path}"
+      "dot=${lib.cleanSource ../.}"
+      "haumea=${lib.cleanSource <haumea>}"
+      "nur=${lib.cleanSource <nur>}"
+    ];
+
     registry = {
       nagy.to = {
         owner = "nagy";
