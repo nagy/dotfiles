@@ -170,9 +170,6 @@
     qrencode
     restic
     rclone
-    wabt
-    wasmtime
-    wasmer
     (zbar.override {
       withXorg = false;
       enableVideo = false;
@@ -247,24 +244,11 @@
     (lib.getMan isync)
   ];
 
-  boot.binfmt.emulatedSystems = [
-    "wasm32-wasi"
-    # "aarch64-linux" # remove, because it causes any raspberry pi systems to become unbootable
-    # "armv6l-linux"
-  ];
-
   # boot.binfmt.registrations.oil = {
   #   recognitionType = "extension";
   #   magicOrExtension = "oil";
   #   interpreter = lib.getExe pkgs.oil;
   # };
-
-  # not fulfilled by above "wasm32-wasi"
-  boot.binfmt.registrations.wat = {
-    recognitionType = "extension";
-    magicOrExtension = "wat";
-    interpreter = lib.getExe pkgs.wasmtime;
-  };
 
   # boot.binfmt.registrations.gba = {
   #   recognitionType = "extension";

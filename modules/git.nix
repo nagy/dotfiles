@@ -138,10 +138,6 @@
         };
       };
       diff = {
-        wasm = {
-          textconv = "${pkgs.wabt}/bin/wasm2wat";
-          binary = true;
-        };
         pdf = {
           textconv = pkgs.writeShellScript "pdftostdout" ''
             exec ${pkgs.poppler_utils}/bin/pdftotext -layout "$@" -
