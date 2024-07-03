@@ -170,8 +170,6 @@
     qrencode
     restic
     rclone
-    zig
-    zls
     wabt
     wasmtime
     wasmer

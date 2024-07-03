@@ -90,13 +90,6 @@ let
     qh = [ "sqlite3" "-html" ];
     qc = [ "sqlite3" "-csv" ];
 
-    # zig
-    z = [ "zig" ];
-    zb = [ "zig" "build" ];
-    zbs = [ "zig" "build" "-O" "ReleaseSmall" ];
-    zbe = [ "zig" "build-exe" ];
-    zbes = [ "zig" "build-exe" "-O" "ReleaseSmall" ];
-
     # # docker
     # D = [ "docker" ];
     # De = [ "docker" "exec" ];
