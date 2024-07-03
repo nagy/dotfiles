@@ -37,8 +37,8 @@ in
   nixpkgs.overlays = [
     # Cannot use pkgs.fetchFromGitHub in an overlay
     (import (fetchTarball {
-      url = "https://github.com/nix-community/emacs-overlay/archive/e3e9ef4c9904fddbd8c00f3288e6a3be26a6bf0b.tar.gz";
-      sha256 = "sha256-4jggHHDsLt+i4/6lMNlZkHd3bzgV50feNpZGe4X3eMQ=";
+      url = "https://github.com/nix-community/emacs-overlay/archive/3b7942fc6a8f7b67e285b4ca38f4b8c311cd17b0.tar.gz";
+      sha256 = "sha256-YXdiLpTp8HBcTxbeYj8eYHutRRKQUwKYgUUrtwWpBew=";
     }))
   ];
   environment.systemPackages = lib.mkIf config.services.xserver.enable [

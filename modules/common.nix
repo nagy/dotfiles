@@ -166,14 +166,9 @@
     # custom tooling
     topiary
     dnsutils
-    yt-dlp
     qrencode
     restic
     rclone
-    (zbar.override {
-      withXorg = false;
-      enableVideo = false;
-    })
     typos
     shellcheck
     (aspellWithDicts (ps: [
@@ -210,9 +205,6 @@
       ]
     ))
 
-    (pass.withExtensions (exts: [ exts.pass-otp ]))
-    pinentry
-    (gnupg.override { guiSupport = false; })
     xurls
     (python3.withPackages (ps: [
       ps.hy
@@ -244,18 +236,6 @@
     (lib.getMan isync)
   ];
 
-  # boot.binfmt.registrations.oil = {
-  #   recognitionType = "extension";
-  #   magicOrExtension = "oil";
-  #   interpreter = lib.getExe pkgs.oil;
-  # };
-
-  # boot.binfmt.registrations.gba = {
-  #   recognitionType = "extension";
-  #   magicOrExtension = "gba";
-  #   interpreter = getExe pkgs.mgba;
-  # };
-
   environment.variables.LESSHISTFILE = "-";
 
   # environment.variables.PYTHONDONTWRITEBYTECODE = "1";
@@ -265,6 +245,9 @@
   environment.etc."rfc" = lib.mkIf config.documentation.nixos.enable {
     source = "${nur.repos.nagy.rfcs}/share/rfc";
   };
+
+  # not used anywhere, might save some space.
+  boot.supportedFilesystems.zfs = lib.mkForce false;
 
   programs.screen = {
     enable = true;

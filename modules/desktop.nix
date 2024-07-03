@@ -186,6 +186,16 @@
       xorg.xwininfo
       xdotool
       pyright
+      yt-dlp
+
+      (pass.withExtensions (exts: [ exts.pass-otp ]))
+      pinentry
+      (gnupg.override { guiSupport = false; })
+
+      (zbar.override {
+        withXorg = false;
+        enableVideo = false;
+      })
 
       (callPackage ../pkg-ala-switchers.nix {
         hmmodules = {
