@@ -113,9 +113,6 @@
   # https://github.com/denoland/deno/blob/21065797f6dce285e55705007f54abe2bafb611c/cli/tools/upgrade.rs#L184-L187
   environment.variables.DENO_NO_UPDATE_CHECK = "1";
 
-  # https://developer.hashicorp.com/terraform/cli/commands
-  environment.variables.CHECKPOINT_DISABLE = "1";
-
   programs.neovim = {
     enable = true;
     vimAlias = true;
@@ -211,15 +208,6 @@
       ps.hyrule
       ps.addict
     ]))
-    (terraform.withPlugins (p: [
-      p.aws
-      p.github
-      p.gitlab
-      p.vultr
-      p.kubernetes
-      # p.backblaze
-    ]))
-    terraform-ls
     k9s
     nur.repos.nagy.hyperspec
     nur.repos.nagy.cxxmatrix

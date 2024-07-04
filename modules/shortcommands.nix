@@ -233,11 +233,6 @@ let
     fdf = [ "fd" "-tf" ];
     fdd = [ "fd" "-td" ];
 
-    tf = [ "terraform" ];
-    tfp = [ "terraform" "plan" ];
-    tfa = [ "terraform" "apply" ];
-    tfs = [ "terraform" "show" ];
-    tfo = [ "terraform" "output" ];
   };
 in
 {
