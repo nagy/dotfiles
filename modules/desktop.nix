@@ -16,6 +16,7 @@
   # Configure keymap in X11
   services.xserver = {
     enable = true;
+    dpi = 192;
     # Configure X11 window manager
     displayManager.startx.enable = true;
     # https://discourse.nixos.org/t/enable-vertical-sync-on-amd-gpu/12369/5

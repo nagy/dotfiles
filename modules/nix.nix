@@ -14,8 +14,12 @@
     nix-prefetch
     nix-prefetch-git
     nix-diff
+    nvd
+    nix-du
+    nix-tree
     nix-init
     nix-update
+    nix-output-monitor
 
     nickel
     nls

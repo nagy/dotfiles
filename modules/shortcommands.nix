@@ -1,4 +1,4 @@
-{ pkgs, lib, config, nur, ... }:
+{ config, lib, nur, ... }:
 
 let
   cfg = config.nagy.shortcommands;

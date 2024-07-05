@@ -170,6 +170,8 @@ let
     # alt gr
     "⦵" = [ "<dead_diaeresis>" "<eng>" ];
     "🧪" = [ "<dead_diaeresis>" "<U2A0F>" ];
+    "🗑" = [ "<dead_belowdot>" "<eng>" ];
+    "🎶" = [ "<dead_belowdot>" "<U2A0F>" ];
 
     # APL
     "⍳" = [ "Ctrl" "<Multi_key>" "<i>" ];

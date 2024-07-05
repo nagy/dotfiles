@@ -154,6 +154,7 @@
     black
     isort
     cryptsetup
+    pv
     # unrar-free
 
     # documentation

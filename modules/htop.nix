@@ -1,3 +1,5 @@
+{ config, ...}:
+
 {
   programs.htop = {
     enable = true;
@@ -20,5 +22,6 @@
       fields = "0 48 38 39 40 2 46 47 49 1";
     };
   };
-  environment.sessionVariables.HTOPRC = "/etc/htoprc";
+
+  environment.sessionVariables.HTOPRC = config.environment.etc."htoprc".source;
 }
