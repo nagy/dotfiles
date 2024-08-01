@@ -1,5 +1,4 @@
-;;; nagy-web.el --nagy-web config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Homepage: https://github.com/nagy/nagy
+;;; nagy-web.el --- Web config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Package-Requires: ((emacs "29.1") coffee-mode typescript-mode wat-mode csv-mode yaml-mode jq-mode svelte-mode reformatter general nagy-use-package)
 
 (require 'reformatter)

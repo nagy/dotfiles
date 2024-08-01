@@ -1,9 +1,7 @@
 ;;; nagy-elfeed.el --- nagy-elfeed config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Homepage: https://github.com/nagy/nagy
 ;; Package-Requires: ((emacs "29.1") elfeed general nagy-use-package)
 
 (require 'general)
-
 (require 'nagy-use-package)
 
 (use-package elfeed

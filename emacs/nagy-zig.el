@@ -1,9 +1,7 @@
-;;; nagy-zig.el --nagy-zig config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Homepage: https://github.com/nagy/nagy
+;;; nagy-zig.el --- zig config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Package-Requires: ((emacs "29.1") zig-mode general nagy-use-package)
 
 (require 'general)
-
 (require 'nagy-use-package)
 
 (use-package zig-mode

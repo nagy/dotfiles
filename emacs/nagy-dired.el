@@ -1,6 +1,5 @@
-;;; nagy-dired.el --nagy-dired config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") ov general dired-narrow dired-subtree)
+;;; nagy-dired.el --- Dired config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;; Package-Requires: ((emacs "29.1") ov general dired-collapse dired-narrow dired-subtree nagy-evil)
 
 (require 'dired)
 (require 'ov)

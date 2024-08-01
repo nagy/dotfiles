@@ -130,6 +130,7 @@
     jc
     taplo
     htmlq
+    yj
 
     ## Network
     nftables

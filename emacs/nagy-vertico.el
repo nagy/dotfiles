@@ -1,5 +1,4 @@
-;;; nagy-vertico.el --- nagy-vertico config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Homepage: https://github.com/nagy/nagy
+;;; nagy-vertico.el --- vertico config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Package-Requires: ((emacs "29.1") vertico embark consult consult-dir embark-consult marginalia orderless general nagy-evil nagy-use-package)
 
 (require 'nagy-evil)

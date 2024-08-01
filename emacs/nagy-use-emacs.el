@@ -1,5 +1,4 @@
-;;; nagy-use-emacs.el --- My hy config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Homepage: https://github.com/nagy/nagy
+;;; nagy-use-emacs.el --- My emacs config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Package-Requires: ((emacs "29.1") benchmark-init general nagy-use-package)
 
 (require 'nagy-use-package)

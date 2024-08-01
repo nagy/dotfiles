@@ -1,6 +1,5 @@
 ;;; nagy-nix.el --- My nix config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") nix-mode nickel-mode nagy-use-package)
+;; Package-Requires: ((emacs "29.1") nix-mode nickel-mode reformatter general nagy-use-package)
 
 (require 'nagy-use-package)
 

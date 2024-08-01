@@ -12,14 +12,15 @@
     nil
 
     nix-prefetch
-    nix-prefetch-git
+    # nix-prefetch-git # creates spooky temporary files during fetch.
     nix-diff
     nvd
-    nix-du
+    # nix-du
     nix-tree
     nix-init
     nix-update
     nix-output-monitor
+    # nix-eval-jobs
 
     nickel
     nls
@@ -34,6 +35,7 @@
       pkgs.runCommandLocal "nix-search.json"
         {
           nativeBuildInputs = [
+            # config.nix.package
             pkgs.nixVersions.latest
             # optional
             pkgs.jq
@@ -49,10 +51,15 @@
   };
 
   nix = {
-    extraOptions = ''
-      experimental-features = nix-command flakes recursive-nix impure-derivations ca-derivations
-    '';
+    package = lib.mkDefault pkgs.nixVersions.latest;
     settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "recursive-nix"
+        "impure-derivations"
+        "ca-derivations"
+      ];
       sandbox = true;
       auto-optimise-store = true;
       trusted-users = [
@@ -66,19 +73,24 @@
       # Build logs are backed up. Backup mechanism itself takes care of the compression already.
       compress-build-log = false;
       # this reduces memory usage at the expense of performance
-      cores = 1;
+      # cores = 1;
       # this keeps build logs clean at the expense of performance
-      max-jobs = 1;
+      # max-jobs = 1;
     };
 
     nixPath = [
-      "nixpkgs=${pkgs.path}"
+      "nixpkgs=${lib.cleanSource pkgs.path}"
       "dot=${lib.cleanSource ../.}"
       "haumea=${lib.cleanSource <haumea>}"
       "nur=${lib.cleanSource <nur>}"
     ];
 
+    # from @atemu
+    # daemonCPUSchedPolicy = "idle";
+    # daemonIOSchedClass = "idle";
+
     registry = {
+      nixpkgs.flake = lib.cleanSource pkgs.path;
       nagy.to = {
         owner = "nagy";
         repo = "nur-packages";

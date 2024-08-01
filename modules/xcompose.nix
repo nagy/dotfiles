@@ -20,7 +20,7 @@ let
     )
   '';
   theScript = pkgs.writeShellScript "script" (lib.concatStrings
-    (lib.mapAttrsToList mkXComposeLine (cfg // defaultKeys)));
+    (lib.mapAttrsToList mkXComposeLine (defaultKeys // cfg)));
   generatedFile =
     pkgs.runCommandLocal "XCompose-gen" { } "${theScript}|sort> $out";
   defaultKeys = {

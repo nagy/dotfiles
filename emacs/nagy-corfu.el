@@ -1,18 +1,5 @@
-;;; nagy-corfu.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;;
-;; Copyright (C) 2023 Daniel Nagy
-;;
-;; Author: Daniel Nagy <danielnagy@posteo.de>
-;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
+;;; nagy-corfu.el --- Autocompletion -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Package-Requires: ((emacs "29.1") corfu cape)
-;;
-;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Description
-;;
-;;; Code:
 
 (use-package corfu
   :defer t

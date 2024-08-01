@@ -1,6 +1,5 @@
-;;; nagy-lsp.el --nagy-lsp config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") eglot consult-eglot general)
+;;; nagy-lsp.el --- Language server config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;; Package-Requires: ((emacs "29.1") evil eglot consult-eglot general)
 
 (require 'general)
 

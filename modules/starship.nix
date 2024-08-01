@@ -14,6 +14,8 @@
       basePresetModified =
         ''
           add_newline=false
+          [line_break]
+          disabled = true
         ''
         # somehow add this:
         # [directory]
