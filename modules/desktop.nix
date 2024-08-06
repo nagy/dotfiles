@@ -13,6 +13,12 @@
   # https://docs.mesa3d.org/envvars.html
   environment.sessionVariables.MESA_SHADER_CACHE_DISABLE = "true";
 
+  boot.kernel.sysctl = {
+    # This allows a special scape key: alt+print+<key>
+    # https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html
+    "kernel.sysrq" = 1;
+  };
+
   # Configure keymap in X11
   services.xserver = {
     enable = true;
