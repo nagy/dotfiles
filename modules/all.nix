@@ -25,6 +25,7 @@
     ./shortcommands.nix
     ./starship.nix
     ./sudo.nix
+    ./yggdrasil.nix
     # ./systemd-resolved.nix
     # ./test-user.nix
     ./xcompose.nix
