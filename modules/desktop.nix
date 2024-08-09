@@ -157,9 +157,7 @@
     xsetroot -cursor_name left_ptr # make default cursor not cross
     [[ -f /etc/X11/Xresources ]] && xrdb /etc/X11/Xresources
     ${pkgs.unclutter-xfixes}/bin/unclutter &
-    if [[ "$(tty)" == /dev/tty1 ]]; then
-      exec emacs
-    fi
+    exec emacs
   '';
 
   environment.etc."X11/Xresources".text = ''
@@ -174,6 +172,7 @@
     with pkgs;
     [
       xorg.xcursorthemes
+      xorg.xwininfo
       scrot
       nur.repos.nagy.nsxivBigThumbs
       xclip

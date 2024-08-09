@@ -101,24 +101,33 @@
       };
     };
     preferences = {
-      # "general.smoothScroll" = false;
+      "general.smoothScroll" = false;
       "browser.aboutConfig.showWarning" = false;
       "dom.image-lazy-loading.enabled" = false;
+      # "dom.iframe_lazy_loading.enabled" = false;
       "pdfjs.enableScripting" = false;
       # "browser.urlbar.dnsResolveSingleWordsAfterSearch" = 0;
-      # "browser.display.background_color" = "#000000";
+      "browser.display.background_color.dark" = "#000000";
+
+      # https://support.mozilla.org/en-US/questions/1287625
+      "dom.push.enabled" = false;
+      "dom.webnotifications.enabled" = false;
+      "notification.feature.enabled" = false; # this was not present in about:config
 
       "browser.safebrowsing.downloads.enabled" = false;
       "browser.safebrowsing.downloads.remote.enabled" = false;
       "browser.safebrowsing.downloads.remote.url" = "";
       "browser.safebrowsing.enabled" = false;
       "browser.safebrowsing.malware.enabled" = false;
-
       "browser.safebrowsing.phishing.enabled" = false;
+
+      "browser.translations.enable" = false;
 
       "network.dns.disablePrefetch" = true;
       "network.dns.disablePrefetchFromHTTPS" = true;
       "network.captive-portal-service.enabled" = false;
+      # https://wiki.archlinux.org/title/Firefox/Privacy#Disable/enforce_'Trusted_Recursive_Resolver'
+      "network.trr.mode" = 5;
       # "geo.enabled" = false;
       # "beacon.enabled" = false;
 
@@ -134,7 +143,35 @@
       # "media.eme.enabled" = false;
       "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
       "media.webspeech.synth.enabled" = false;
+
+      # https://support.mozilla.org/en-US/kb/privacy-preserving-attribution?as=u&utm_source=inproduct
+      # https://michael.kjorling.se/blog/2024/disabling-privacy-preserving-ad-measurement-in-firefox-128/
+      "dom.private-attribution.submission.enabled" = false;
+
+      # no more search by url bar typing
+      "keyword.enabled" = false;
+
+      # disable favicons
+      "browser.chrome.site_icons" = false;
+
+      # HIDDEN PREF: disable recommendation pane in about:addons (uses Google Analytics)
+      "extensions.getAddons.showPane" = false;
+      # recommendations in about:addons' Extensions and Themes panes [FF68+]
+      "extensions.htmlaboutaddons.recommendations.enabled" = false;
+
+      # from here https://git.sr.ht/~toastal/nixcfg/tree/trunk/item/program/browser/firefox/settings.nix
+      "browser.uidensity" = 1;
     };
+  };
+
+  # Firefox connects to these hosts on every start.
+  # Hard disable them on the whole host.
+  networking.hosts = {
+    "0.0.0.0" = [
+      "content-signature-2.cdn.mozilla.net"
+      # maybe this one can still be disabled via `about:config`
+      "firefox.settings.services.mozilla.com"
+    ];
   };
 
   # From https://nixos.wiki/wiki/Firefox

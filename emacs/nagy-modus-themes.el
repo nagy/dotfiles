@@ -93,6 +93,8 @@
        `(mode-line ((,c :box unspecified)))
        `(mode-line-inactive ((,c :box unspecified)))
        `(nameless-face ((,c :inherit font-lock-comment-delimiter-face)))
+       `(forge-pullreq-open ((,c :inherit modus-themes-fg-green)))
+       `(forge-pullreq-merged ((,c :inherit modus-themes-fg-magenta)))
        `(eglot-highlight-symbol-face ((,c :underline t :bold t)))
        `(scroll-bar ((,c :box unspecified :background ,bg-main :foreground ,(if (dayp) "#ccc" "#333")))))))
   (defun my-modus-themes-custom-faces-twice ()

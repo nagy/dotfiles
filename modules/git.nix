@@ -69,11 +69,10 @@
         "git@gitlab.com:nagy/".insteadOf = "gln:";
         "git@git.sr.ht:~nagy/".insteadOf = "shn:";
         "git@codeberg.org:nagy/".insteadOf = "cbn:";
-        # organizations
-        "https://github.com/NixOS/".insteadOf = "nixos:";
-        "https://github.com/NixOS/nixpkgs".insteadOf = "pkgs:";
-        "https://github.com/nix-community/NUR".insteadOf = "nur:";
-        "https://code.tvl.fyi/depot.git".insteadOf = "tvl:";
+        # external repos
+        "https://github.com/NixOS/nixpkgs".insteadOf = "nixpkgs:";
+        "https://github.com/nix-community/NUR".insteadOf = "NUR:";
+        # "https://code.tvl.fyi/depot.git".insteadOf = "tvl:";
       };
       tar = {
         "tar.xz".command = "${pkgs.xz}/bin/xz -c";
