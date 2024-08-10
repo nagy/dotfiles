@@ -1,10 +1,10 @@
-{ config, lib, nur, ... }:
+{ nur, ... }:
 
-let
-  cfg = config.nagy.shortcommands;
-  defaultShortcommands = {
+{
+  imports = [ nur.repos.nagy.modules.shortcommands ];
+
+  config.nagy.shortcommands = {
     # nix flakes
-    n = [ "nix" ];
     b = [ "nix-build" ];
     i = [ "nix-instantiate" ];
     "b," = [ "nix-build" "<nixpkgs>" ];
@@ -180,20 +180,5 @@ let
     digt = [ "dig" "TXT" ];
     digts = [ "dig" "TXT" "+short" ];
 
-  };
-in
-{
-  options = {
-    nagy.shortcommands = lib.mkOption {
-      type = lib.types.attrsOf (lib.types.listOf lib.types.str);
-      default = { };
-      description = "shortcommands";
-    };
-  };
-
-  config = {
-    environment.systemPackages =
-      lib.mapAttrsToList nur.repos.nagy.lib.mkShortCommand
-        (defaultShortcommands // cfg);
   };
 }
