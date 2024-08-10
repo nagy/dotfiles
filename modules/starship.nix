@@ -10,6 +10,9 @@
       mkDirectoryConfig = lib.replaceStrings [ "[directory]\n" ] [
         "[directory]\ntruncation_length = 20\ntruncate_to_repo = false\n"
       ];
+      mkGitBranch = lib.replaceStrings [ "[git_branch]\n" ] [
+        "[git_branch]\nignore_branches = ['master', 'main']\n"
+      ];
       basePreset = builtins.readFile "${pkgs.starship}/share/starship/presets/plain-text-symbols.toml";
       basePresetModified =
         ''
@@ -21,7 +24,7 @@
         # [directory]
         # truncation_length = 20
         # truncate_to_repo = false
-        + (mkDollarPrompt basePreset)
+        + (mkGitBranch (mkDollarPrompt basePreset))
         +
           # TODO pr this
           ''
@@ -47,5 +50,6 @@
     HISTFILE = "$HOME/.local/share/bash_history";
   };
   # the starship binary could also be added to system packages. This is needed
-  # when using prompt explanations
+  # when using prompt explanations and timings
+  environment.systemPackages = [ pkgs.starship ];
 }
