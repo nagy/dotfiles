@@ -3,7 +3,6 @@
 {
   systemd.services.journal-logger = {
     description = "Logs the journal";
-    requires = [ "network-online.target" ];
     path = [
       pkgs.jq
       pkgs.inetutils

@@ -68,20 +68,6 @@ let
 
     Bp = [ "nix" "build" "--no-link" "--print-out-paths" "-L" "--quiet" ];
 
-    # git
-    g = [ "git" ];
-    gcl = [ "git" "clone" ];
-    gcl1 = [ "git" "clone" "--depth=1" ];
-    gf = [ "git" "fetch" ];
-    gfa = [ "git" "fetch" "--all" ];
-    gfp = [ "git" "fetch" "--prune" ];
-    gt = [ "git" "tag" ];
-    gtl = [ "git" "tag" "--list" ];
-    gts = [ "git" "tags" ];
-    gp = [ "git" "push" ];
-    gpf = [ "git" "push" "--force" ];
-    gpl = [ "git" "pull" ];
-
     # sqlite
     q = [ "sqlite3" ];
     qj = [ "sqlite3" "-json" ];
@@ -89,20 +75,6 @@ let
     qb = [ "sqlite3" "-box" ];
     qh = [ "sqlite3" "-html" ];
     qc = [ "sqlite3" "-csv" ];
-
-    # # docker
-    # D = [ "docker" ];
-    # De = [ "docker" "exec" ];
-    # Deit = [ "docker" "exec" "-it" ];
-    # Dr = [ "docker" "run" ];
-    # Dc = [ "docker" "container" ];
-    # Dcl = [ "docker" "container" "ls" ];
-    # Di = [ "docker" "image" ];
-    # Dil = [ "docker" "image" "ls" ];
-    # Dv = [ "docker" "volume" ];
-    # Dvl = [ "docker" "volume" "ls" ];
-    # Dn = [ "docker" "network" ];
-    # Dnl = [ "docker" "network" "ls" ];
 
     # # kubernetes
     k = [ "kubectl" ];
@@ -129,14 +101,6 @@ let
     kw = [ "kubectl" "wait" ];
     kr = [ "kubectl" "run" ];
 
-    # # npm
-    # nPb = [ "npm" "run" "build" ];
-    # nPt = [ "npm" "run" "test" ];
-    # nPs = [ "npm" "run" "start" ];
-    # nPi = [ "npm" "install" ];
-    # nPci = [ "npm" "ci" ];
-    # nPu = [ "npm" "update" ];
-
     # argocd
     A = [ "argocd" ];
     Aa = [ "argocd" "app" ];
@@ -144,61 +108,41 @@ let
     Ac = [ "argocd" "cluster" ];
     Acl = [ "argocd" "cluster" "list" ];
 
-    # # restic
-    # rE = [ "restic" ];
-    # rEb = [ "restic" "backup" ];
-    # rEs = [ "restic" "snapshots" ];
-    # rEsj = [ "restic" "snapshots" "--json" ];
-
     # systemctl
     sc = [ "systemctl" ];
     scc = [ "systemctl" "cat" ];
     scs = [ "systemctl" "status" ];
     sca = [ "systemctl" "start" ];
     sco = [ "systemctl" "stop" ];
-    scr = [ "systemctl" "stop" ];
+    scr = [ "systemctl" "restart" ];
     sclt = [ "systemctl" "list-timers" ];
     scls = [ "systemctl" "list-sockets" ];
     sclm = [ "systemctl" "list-machines" ];
     sclu = [ "systemctl" "list-units" ];
+    sclf = [ "systemctl" "list-unit-files" ];
     scltj = [ "systemctl" "list-timers" "--output=json" ];
     sclsj = [ "systemctl" "list-sockets" "--output=json" ];
     sclmj = [ "systemctl" "list-machines" "--output=json" ];
     scluj = [ "systemctl" "list-units" "--output=json" ];
+    sclfj = [ "systemctl" "list-unit-files" "--output=json" ];
     scU = [ "systemctl" "--user" ];
     scUc = [ "systemctl" "--user" "cat" ];
     scUs = [ "systemctl" "--user" "status" ];
     scUa = [ "systemctl" "--user" "start" ];
     scUo = [ "systemctl" "--user" "stop" ];
-    scUr = [ "systemctl" "--user" "stop" ];
+    scUr = [ "systemctl" "--user" "restart" ];
     scUlt = [ "systemctl" "--user" "list-timers" ];
     scUls = [ "systemctl" "--user" "list-sockets" ];
     scUlm = [ "systemctl" "--user" "list-machines" ];
     scUlu = [ "systemctl" "--user" "list-units" ];
+    scUlf = [ "systemctl" "--user" "list-unit-files" ];
     scUltj = [ "systemctl" "--user" "list-timers" "--output=json" ];
     scUlsj = [ "systemctl" "--user" "list-sockets" "--output=json" ];
     scUlmj = [ "systemctl" "--user" "list-machines" "--output=json" ];
     scUluj = [ "systemctl" "--user" "list-units" "--output=json" ];
+    scUlfj = [ "systemctl" "--user" "list-unit-files" "--output=json" ];
     JF = [ "journalctl" "-f" ];
     # JJf = [ "journalctl" "-f" ];
-
-    # zed
-    # zqz = [ "zq" "-z" ];
-    # zqZ = [ "zq" "-Z" ];
-    # zqj = [ "zq" "-j" ];
-    # zqn = [ "zq" "-f" "zng" ];
-    # zqs = [ "zq" "-f" "zjson" ];
-
-    # cargo
-    # may also be done via aliases
-    # https://doc.rust-lang.org/cargo/reference/config.html#alias
-    C = [ "cargo" ];
-    Cr = [ "cargo" "run" ];
-    Crr = [ "cargo" "run" "--release" ];
-    Cb = [ "cargo" "build" ];
-    Cbr = [ "cargo" "build" "--release" ];
-    Ct = [ "cargo" "test" ];
-    Ctr = [ "cargo" "test" "--release" ];
 
     # misc
     j = [ "jq" "--monochrome-output" "--sort-keys" ];
@@ -206,8 +150,8 @@ let
     js = [ "jq" "--slurp" ];
     jl = [ "jq" "length" ];
 
-    jqM = [ "jq" "--monochrome-output" ];
     jcP = [ "jc" "--pretty" ];
+
     Y = [ "yq" "--prettyPrint" "--no-colors" ];
     yqP = [ "yq" "--prettyPrint" ];
     yqPM = [ "yq" "--prettyPrint" "--no-colors" ];
@@ -222,10 +166,16 @@ let
     i6j = [ "ip" "-6" "--json" ];
     ipa = [ "ip" "address" ];
     ipl = [ "ip" "link" ];
+    ipr = [ "ip" "route" ];
+    ipn = [ "ip" "neighbour" ];
     i4a = [ "ip" "-4" "address" ];
     i4l = [ "ip" "-4" "link" ];
+    i4r = [ "ip" "-4" "route" ];
+    i4n = [ "ip" "-4" "neighbour" ];
     i6a = [ "ip" "-6" "address" ];
     i6l = [ "ip" "-6" "link" ];
+    i6r = [ "ip" "-6" "route" ];
+    i6n = [ "ip" "-6" "neighbour" ];
     hex = [ "hexdump" "--no-squeezing" "--canonical" ];
     hexn = [ "hexdump" "--no-squeezing" "--canonical" "--length" ];
     hexx = [ "hexyl" "--border" "none" ];
@@ -255,6 +205,12 @@ let
     fd2d = [ "fd" "-j2" "-td" ];
     fdf = [ "fd" "-tf" ];
     fdd = [ "fd" "-td" ];
+
+    digs = [ "dig" "+short" ];
+    dig6 = [ "dig" "AAAA" ];
+    dig6s = [ "dig" "AAAA" "+short" ];
+    digt = [ "dig" "TXT" ];
+    digts = [ "dig" "TXT" "+short" ];
 
   };
 in

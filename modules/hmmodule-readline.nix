@@ -88,6 +88,8 @@
        "\eph": "\C-a\C-khtop\C-m"
        "\epd": "\C-a\C-kdool -N eth0 --bytes\C-m"
        "\et": "\C-a\C-ktree -l\C-m"
+       "\eF": "\C-a\C-kfind -L\C-m"
+       "\eG": "\C-a\C-kfd -L\C-m"
 
        # nix stuff
        "\eo\en": "/nix/store/"
