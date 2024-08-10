@@ -31,6 +31,7 @@
     ./xcompose.nix
     ./simpleaddress.nix
     ./espressif.nix
+    ./restic.nix
     # ./automount-ext4.nix
     # ./automount-btrfs.nix
 
