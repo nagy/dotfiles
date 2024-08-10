@@ -143,6 +143,16 @@
       "list"
     ];
 
+    Ar = [
+      "argocd"
+      "repo"
+    ];
+    Arl = [
+      "argocd"
+      "repo"
+      "list"
+    ];
+
   };
 
 }

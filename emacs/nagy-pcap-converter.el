@@ -97,7 +97,7 @@
         (highlight-lines-matching-regexp "ICMP" 'pcap-magenta)
         (highlight-lines-matching-regexp "TCP" 'pcap-blue)
         (highlight-lines-matching-regexp "HTTP" 'modus-themes-subtle-green)
-        (highlight-lines-matching-regexp (rx (or "UDP" "NTP" "DNS")) 'pcap-udp)
+        (highlight-lines-matching-regexp (rx (or "UDP" "NTP" "DNS" "QUIC")) 'pcap-udp)
         (highlight-lines-matching-regexp (rx (or "ARP")) 'pcap-arp)
         (highlight-lines-matching-regexp "RST" 'pcap-rst))))
 (add-to-list 'auto-mode-alist '("\\.pcap\\'" . pcap-mode))

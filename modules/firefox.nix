@@ -1,8 +1,14 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   programs.firefox = {
     enable = config.services.xserver.enable;
+    package = pkgs.firefox-esr;
     policies = {
       Cookies = {
         AcceptThirdParty = "never";
