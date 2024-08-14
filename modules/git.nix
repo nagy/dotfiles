@@ -9,6 +9,8 @@
 
   imports = [ ./shortcommands.nix ];
 
+  environment.systemPackages = with pkgs; [ tig ];
+
   programs.git = {
     enable = true;
     config = {

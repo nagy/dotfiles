@@ -57,6 +57,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         XXXXXXX,XXXXXXX,                                                        KC_EQL ,KC_MAIL,
                                                 XXXXXXX,_______,         KC_MS_BTN1,KC_MS_BTN2,
                                                 XXXXXXX,_______,            _______,KC_MS_BTN3,
-                                                KC_SLEP,_______,            _______,KC_MS_BTN4
+                                                KC_SLEP,_______,         KC_MS_BTN5,KC_MS_BTN4
     )
 };

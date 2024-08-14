@@ -86,7 +86,6 @@
 
   programs.ssh.extraConfig = ''
     Host *
-      Protocol 2
       StrictHostKeyChecking accept-new
       ServerAliveInterval 300
       ServerAliveCountMax 2
@@ -119,7 +118,6 @@
   environment.systemPackages = with pkgs; [
     jq
     fx
-    tig
     yq-go
     hcl2json
     socat
@@ -163,7 +161,6 @@
     topiary
     dnsutils
     qrencode
-    restic
     rclone
     typos
     shellcheck

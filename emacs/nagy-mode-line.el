@@ -21,7 +21,7 @@
 (defun nagy-mode-line--jsvar-update ()
   (setq nagy-mode-line--jsvar-point (aand (nagy-mode-line--jsvar-calc) (propertize it 'face 'button)))
   (unless nagy-mode-line--jsvar
-    (setq nagy-mode-line--jsvar (or nagy-mode-line--jsvar
+    (setq nagy-mode-line--jsvar (or nagy-mode-line--jsvar ; this should rather be memoized on the buffer content
                                     (save-excursion (goto-char (point-min))
                                                     (aand
                                                      (nagy-mode-line--jsvar-calc)
@@ -61,7 +61,7 @@
                       (process-id (get-buffer-process (current-buffer)))
                       0)))
        (if (derived-mode-p 'exwm-mode)
-           `(:propertize ,(format "0x%X" exwm--id) face mode-line-buffer-id)
+           `(:propertize ,(format "#x%X" exwm--id) face mode-line-buffer-id)
          mode-line-position)))))
 (put 'nagy-mode-line-right 'risky-local-variable t)
 

@@ -1,8 +1,9 @@
 {
+  nixosEval ? import <nixpkgs/nixos/lib/eval-config.nix>,
   extraModules ? [ ],
 }:
 
-import <nixpkgs/nixos/lib/eval-config.nix> {
+nixosEval {
   system = "x86_64-linux";
   specialArgs = {
     # dot = import ./. { };

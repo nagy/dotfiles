@@ -95,7 +95,10 @@ in
   };
 
   config = {
-    environment.systemPackages = cfg.packages;
+    environment.systemPackages = [
+      pkgs.restic
+      # pkgs.rustic
+    ] ++ cfg.packages;
     nagy.shortcommands = lib.mergeAttrsList (map (x: x.shortcommands) cfg.packages);
   };
 }
