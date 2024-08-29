@@ -1,4 +1,4 @@
-;;; pcase-buffer.el --- My local config -*- lexical-binding: t -*-
+;;; pcase-buffer.el --- My local config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 
 (pcase-defmacro buffer (&rest fields)
   (let ((pcase-buffer--expval (gensym "pcase-buffer--expval"))

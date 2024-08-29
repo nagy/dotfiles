@@ -9,7 +9,6 @@
   ];
 
   nagy.shortcommands = {
-    z = [ "zig" ];
     zb = [
       "zig"
       "build"
@@ -17,8 +16,7 @@
     zbs = [
       "zig"
       "build"
-      "-O"
-      "ReleaseSmall"
+      "-Doptimize=ReleaseSmall"
     ];
     zbe = [
       "zig"
@@ -27,8 +25,17 @@
     zbes = [
       "zig"
       "build-exe"
-      "-O"
-      "ReleaseSmall"
+      "-Doptimize=ReleaseSmall"
+    ];
+    zbr = [
+      "zig"
+      "build"
+      "run"
+    ];
+    zbt = [
+      "zig"
+      "build"
+      "test"
     ];
   };
 

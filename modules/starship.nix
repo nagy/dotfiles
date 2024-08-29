@@ -30,6 +30,8 @@
           ''
             [container]
             symbol = "container"
+            [helm]
+            symbol = "helm"
           '';
     in
     toString (pkgs.writeText "starship-config.toml" basePresetModified);
