@@ -25,9 +25,11 @@
   ("<XF86Mail>" . mu4e)
   (:map mu4e-main-mode-map
         ([remap save-kill-buffer] . mu4e-quit)
-        ([remap kill-this-buffer] . mu4e-quit))
+        ([remap kill-this-buffer] . mu4e-quit)
+        ([remap nagy-kill-this-buffer] . mu4e-quit))
   (:map mu4e-headers-mode-map
-        ([remap kill-this-buffer] . mu4e-quit))
+        ([remap kill-this-buffer] . mu4e-quit)
+        ([remap nagy-kill-this-buffer] . mu4e-quit))
   (:map mu4e-view-mode-map
         ("H-j" . mu4e-view-headers-next)
         ("H-k" . mu4e-view-headers-prev))
@@ -61,7 +63,7 @@
                     ("date:7d..now" "Last 7 days" ?w)
                     ("mime:application/pdf" "Messages with pdfs" ?p)
                     ("maildir:\"/local/\"" "local Inbox" ?L)
-                    ("NOT maildir:\"/local/\"" "External Inbox" ?E)))
+                    ("NOT maildir:\"/local/\"" "External Inbox" ?e)))
   ;; ( mu4e-compose-signature user-full-name)
   :config
   (setq mu4e-user-agent-string nil)

@@ -29,9 +29,11 @@
           # TODO pr this
           ''
             [container]
-            symbol = "container"
+            symbol = "container "
             [helm]
-            symbol = "helm"
+            symbol = "helm "
+            [haskell]
+            symbol = "haskell "
           '';
     in
     toString (pkgs.writeText "starship-config.toml" basePresetModified);

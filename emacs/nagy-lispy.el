@@ -22,7 +22,7 @@
 (require 'general)
 
 (use-package lispy
-  :diminish 'lispy-mode
+  :diminish lispy-mode
   :commands (lispy-mode)
   :custom
   (lispy-completion-method 'default)

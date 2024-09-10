@@ -6,6 +6,7 @@
     pkgs.wabt
     pkgs.wasmtime
     pkgs.wasmer
+    # pkgs.wasmedge
   ];
 
   boot.binfmt.emulatedSystems = [ "wasm32-wasi" ];

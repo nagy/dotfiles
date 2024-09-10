@@ -36,7 +36,6 @@
         ("H-h"   . org-info-find-node)
         ("s-."   . org-ctrl-c-ctrl-c)
         ("<key-chord> f j" . org-ctrl-c-ctrl-c)
-        ("<key-chord> ü q" . org-shifttab)
         ("M-ŋ" . org-update-all-dblocks)
         ("C-H-#" . org-edit-special)
         ("A-s-j" . org-edit-special))
@@ -133,7 +132,8 @@
            "ö" #'mermaid-compile-buffer))
 
 (use-package markdown-mode
-  :preface
+  :commands (markdown-mark-subtree nagy-markdown-delete-subtree)
+  :config
   (defun nagy-markdown-delete-subtree ()
     (interactive)
     (markdown-mark-subtree)

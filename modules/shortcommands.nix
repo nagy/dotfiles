@@ -161,6 +161,7 @@
     # w1 = [ "watch" "--interval" "1" ];
     w05 = [ "watch" "--interval" "0.5" ];
     mask = [ "openssl" "env" "-e" "-aes-256-ctr" "-nopad" "-nosalt" "-k" "" ];
+    numiec = [ "numfmt" "--to=iec" ];
 
     ungron = [ "gron" "--ungron" ];
     pingc3 = [ "ping" "-c" "3" ];

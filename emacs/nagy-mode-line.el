@@ -6,6 +6,7 @@
 (defvar-local nagy-mode-line--jsvar nil)
 (defvar-local nagy-mode-line--jsvar-point nil)
 
+
 (defun nagy-mode-line--jsvar-calc ()
   (when (derived-mode-p 'js-json-mode)
     (alet (ignore-errors (save-excursion (json-parse-buffer)))

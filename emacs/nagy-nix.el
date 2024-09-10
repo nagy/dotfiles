@@ -1,6 +1,8 @@
 ;;; nagy-nix.el --- My nix config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Package-Requires: ((emacs "29.1") nix-mode nickel-mode reformatter general nagy-use-package)
 
+(require 'general)
+
 (require 'nagy-use-package)
 
 (use-package nix-mode
@@ -108,7 +110,8 @@
   ("preBuild" "postBuild")
   ("prePatch" "postPatch")
   ;; Flakes
-  ("inputs" "outputs"))
+  ("inputs" "outputs")
+  )
 
 (use-package nix-prettify-mode
   :diminish 'nix-prettify-mode
