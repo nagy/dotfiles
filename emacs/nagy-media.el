@@ -49,19 +49,19 @@
   "Silences/mutes the audio output via pulseaudio."
   (interactive)
   (let ((default-directory "~/"))
-    (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-mute" "alsa_output.pci-0000_00_1b.0.analog-stereo" "toggle")))))
+    (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-mute" "alsa_output.pci-0000_c5_00.6.analog-stereo" "toggle")))))
 
 (defun volume-increase ()
   "Louder."
   (interactive)
   (let ((default-directory "~/"))
-    (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-volume" "alsa_output.pci-0000_00_1b.0.analog-stereo" "+1000")))))
+    (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-volume" "alsa_output.pci-0000_c5_00.6.analog-stereo" "+1000")))))
 
 (defun volume-decrease ()
   "Silenter."
   (interactive)
   (let ((default-directory "~/"))
-    (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-volume" "alsa_output.pci-0000_00_1b.0.analog-stereo" "-1000")))))
+    (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-volume" "alsa_output.pci-0000_c5_00.6.analog-stereo" "-1000")))))
 
 (provide 'nagy-media)
 ;;; nagy-media.el ends here

@@ -15,10 +15,10 @@ nixosEval {
   modules = [
     (
       {
-        pkgs,
         lib,
         modulesPath,
         nur,
+        pkgs,
         ...
       }:
 

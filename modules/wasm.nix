@@ -5,7 +5,7 @@
   environment.systemPackages = [
     pkgs.wabt
     pkgs.wasmtime
-    pkgs.wasmer
+    # pkgs.wasmer
     # pkgs.wasmedge
   ];
 
