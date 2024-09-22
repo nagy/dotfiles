@@ -5,8 +5,9 @@
   environment.systemPackages = [
     pkgs.wabt
     pkgs.wasmtime
-    # pkgs.wasmer
-    # pkgs.wasmedge
+    pkgs.wamr
+    # pkgs.wasmer  # https://github.com/NixOS/nixpkgs/pull/337692
+    pkgs.wasmedge
   ];
 
   boot.binfmt.emulatedSystems = [ "wasm32-wasi" ];

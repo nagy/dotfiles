@@ -58,13 +58,13 @@
     "E.j" = [ "nix" "eval" "--file" "." "--json" ];
     "SE." = [ "nix" "search" "--file" "." ];
 
-    "B:" = ["nix" "build" "--file" "flake:nixpkgs"];
-    "B:j" = ["nix" "build" "--file" "flake:nixpkgs" "--json" "--no-link"];
-    "R:" = ["nix" "run" "--file" "flake:nixpkgs"];
-    "D:" = ["nix" "develop" "--file" "flake:nixpkgs"];
-    "S:" = ["nix" "shell" "--file" "flake:nixpkgs"];
-    "E:" = ["nix" "eval" "--file" "flake:nixpkgs"];
-    "E:j" = ["nix" "eval" "--file" "flake:nixpkgs" "--json"];
+    "B:" = ["nix" "build" "--file" "<nixpkgs>"];
+    "B:j" = ["nix" "build" "--file" "<nixpkgs>" "--json" "--no-link"];
+    "R:" = ["nix" "run" "--file" "<nixpkgs>"];
+    "D:" = ["nix" "develop" "--file" "<nixpkgs>"];
+    "S:" = ["nix" "shell" "--file" "<nixpkgs>"];
+    "E:" = ["nix" "eval" "--file" "<nixpkgs>"];
+    "E:j" = ["nix" "eval" "--file" "<nixpkgs>" "--json"];
 
     Bp = [ "nix" "build" "--no-link" "--print-out-paths" "-L" "--quiet" ];
 

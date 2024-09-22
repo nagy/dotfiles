@@ -55,13 +55,13 @@
   "Louder."
   (interactive)
   (let ((default-directory "~/"))
-    (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-volume" "alsa_output.pci-0000_c5_00.6.analog-stereo" "+1000")))))
+    (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-volume" "alsa_output.pci-0000_c5_00.6.analog-stereo" "+5000")))))
 
 (defun volume-decrease ()
   "Silenter."
   (interactive)
   (let ((default-directory "~/"))
-    (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-volume" "alsa_output.pci-0000_c5_00.6.analog-stereo" "-1000")))))
+    (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-volume" "alsa_output.pci-0000_c5_00.6.analog-stereo" "-5000")))))
 
 (provide 'nagy-media)
 ;;; nagy-media.el ends here
