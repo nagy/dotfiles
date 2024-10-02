@@ -130,8 +130,11 @@
   (add-hook 'modus-themes-after-load-theme-hook #'nagy/fix-focus-face))
 
 (use-package eros
+  :commands (eros-mode)
   :custom
-  (eros-eval-result-prefix ""))
+  (eros-eval-result-prefix "")
+  :config
+  (eros-mode 1))
 
 (use-package cc-mode
   :defer t

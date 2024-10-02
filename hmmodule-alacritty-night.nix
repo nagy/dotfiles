@@ -24,23 +24,33 @@ isDark:
         # Normal colors
         normal = {
           black = "0x000000";
-          red = "0xcd0000";
-          green = "0x00cd00";
-          yellow = "0xcdcd00";
-          blue = "0x0000ee";
-          magenta = "0xcd00cd";
-          cyan = "0x00cdcd";
-          white = "0xe5e5e5";
+          # # modus-themese fg colors
+          # red = if isDark then "#ff5f59" else "#a60000";
+          # green = if isDark then "#44bc44" else "#006800";
+          # yellow = if isDark then "#d0bc00" else "#6f5500";
+          # blue = if isDark then "#2fafff" else "#0031a9";
+          # magenta = if isDark then "#feacd0" else "#721045";
+          # cyan = if isDark then "#00d3d0" else "#005e8b";
+          # modus-themese fg intense colors
+          red = if isDark then "#ff5f5f" else "#d00000";
+          green = if isDark then "#44df44" else "#008900";
+          yellow = if isDark then "#efef00" else "#808000";
+          blue = if isDark then "#338fff" else "0x0000ee";
+          magenta = if isDark then "#ff66ff" else "#dd22dd";
+          cyan = if isDark then "#00eff0" else "#008899";
+          # white = "0xe5e5e5";
+          white = "0xffffff";
         };
         # Bright colors
         bright = {
           black = "0x7f7f7f";
-          red = "0xff0000";
-          green = "0x00ff00";
-          yellow = "0xffff00";
-          blue = "0x5c5cff";
-          magenta = "0xff00ff";
-          cyan = "0x00ffff";
+          # modus-themese fg intense colors
+          red = if isDark then "#ff5f5f" else "#d00000";
+          green = if isDark then "#44df44" else "#008900";
+          yellow = if isDark then "#efef00" else "#808000";
+          blue = if isDark then "#338fff" else "0x0000ee";
+          magenta = if isDark then "#ff66ff" else "#dd22dd";
+          cyan = if isDark then "#00eff0" else "#008899";
           white = "0xffffff";
         };
       };

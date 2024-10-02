@@ -1,8 +1,7 @@
 ;;; pcase-buffer.el --- My local config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 
 (pcase-defmacro buffer (&rest fields)
-  (let ((pcase-buffer--expval (gensym "pcase-buffer--expval"))
-        (pcase-buffer-- (gensym "pcase-buffer--")))
+  (let ((pcase-buffer--expval (gensym "pcase-buffer--expval")))
     `(and ,pcase-buffer--expval
           (guard ,pcase-buffer--expval)
           ,@(mapcar (lambda (field)

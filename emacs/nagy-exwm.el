@@ -13,17 +13,23 @@
 (declare-function modus-themes-toggle "modus-themes")
 
 
+;; For emacs 30. the upstream one now requires an event.
+(defun nagy-kill-this-buffer ()
+  "Kill the current buffer."
+  (interactive)
+  (kill-this-buffer))
+
 (defun brightness-up ()
   (interactive)
   (let ((default-directory "~/"))
-    (call-process "brightnessctl" nil nil nil "--device=ddcci5" "set" "+5%")
-    (call-process "brightnessctl" nil nil nil "--device=ddcci6" "set" "+5%")))
+    (call-process "brightnessctl" nil nil nil "--device=ddcci4" "set" "+5%")
+    (call-process "brightnessctl" nil nil nil "--device=ddcci12" "set" "+5%")))
 
 (defun brightness-down ()
   (interactive)
   (let ((default-directory "~/"))
-    (call-process "brightnessctl" nil nil nil "--device=ddcci5" "set" "5%-")
-    (call-process "brightnessctl" nil nil nil "--device=ddcci6" "set" "5%-")))
+    (call-process "brightnessctl" nil nil nil "--device=ddcci4" "set" "5%-")
+    (call-process "brightnessctl" nil nil nil "--device=ddcci12" "set" "5%-")))
 
 (use-package exwm
   :if (display-graphic-p)
@@ -77,7 +83,7 @@ aka xcompose is not properly initialized in the first frame."
   (exwm-layout-show-all-buffers t)
   (exwm-manage-configurations '((t char-mode t)))
   ;; TODO use (display-monitor-attributes-list)
-  (exwm-randr-workspace-monitor-plist '(0 "DP-1" 1 "DP-2"))
+  (exwm-randr-workspace-monitor-plist '(0 "DP-1" 1 "HDMI-1"))
   :init
   ;; https://github.com/ch11ng/exwm/issues/889
   ;; Frame focus bug
@@ -117,7 +123,7 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "<XF86AudioRaiseVolume>") . volume-increase)
             (,(kbd "<XF86MonBrightnessUp>") . brightness-up)
             (,(kbd "<XF86MonBrightnessDown>") . brightness-down)
-            (,(kbd "s-k") . kill-this-buffer)
+            (,(kbd "s-k") . nagy-kill-this-buffer) ; for emacs-30 . the upstream one now requires an event.
             (,(kbd "s-<XF86Paste>") . tab-new)
             (,(kbd "s-h") . tab-previous)
             (,(kbd "s-l") . tab-next)

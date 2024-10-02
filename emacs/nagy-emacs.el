@@ -76,8 +76,17 @@
       (if (string-equal "All" (format-mode-line "%p" nil w))
           (set-window-scroll-bars w nil nil 0 nil)
         (set-window-scroll-bars w nil t 0 nil))))
+  ;; From Doom:
+  ;; FIX: The native border "consumes" a pixel of the fringe on righter-most
+  ;;   splits, `window-divider' does not. Available since Emacs 25.1.
+  (setq window-divider-default-places t
+        window-divider-default-bottom-width 1
+        window-divider-default-right-width 1)
+  (add-hook 'after-init-hook #'window-divider-mode)
   :config
-  (add-to-list 'default-frame-alist '(scroll-bar-width . 30))
+  (setq-default indent-tabs-mode nil)
+  (add-to-list 'default-frame-alist '(scroll-bar-width . 20))
+  (tooltip-mode 0)
   (scroll-bar-mode 1)
   (fringe-mode 0)
   ;; this removes the yes/no question on a process killing
@@ -132,7 +141,6 @@
   (scroll-conservatively 101)
   (scroll-step 15)
   (scroll-bar-adjust-thumb-portion nil)
-  ;; :config
   (initial-scratch-message nil)
   ;; (setq-default lexical-binding t) ;; has no effect yet
   :bind
@@ -193,7 +201,9 @@
   ;; (text-scale-remap-header-line t)
   :bind
   (:map tabulated-list-mode-map
-        ("M-s M-s" . tabulated-list-sort)))
+        ("M-s M-s" . tabulated-list-sort)
+        ("<normal-state> →" . tabulated-list-next-column)
+        ("<normal-state> ←" . tabulated-list-previous-column)))
 
 (use-package shr
   :defer t
@@ -239,11 +249,12 @@
   ("S-<XF86Calculator>" . calc-embedded-update-formula)
   (:map calc-mode-map
         ("H-d" . calc-pop)
-        ("H-u" . calc-undo)
+        ;; ("H-u" . calc-undo)
         ;; ([remap kill-this-buffer] . calc-quit))
         (:map calc-edit-mode-map
               ([remap save-kill-buffer] . calc-edit-finish)
-              ([remap kill-this-buffer] . calc-edit-cancel))))
+              ([remap kill-this-buffer] . calc-edit-cancel)
+              ([remap nagy-kill-this-buffer] . calc-edit-cancel))))
 
 (use-package tab-bar
   :config
@@ -281,6 +292,7 @@
         ([remap save-kill-buffer] . wdired-finish-edit)
         ([remap kill-this-buffer] . wdired-abort-changes))
   :custom
+  (wdired-allow-to-change-permissions t)
   (dired-vc-rename-file nil)) ; without this, some problems occurred
 
 (use-package abbrev
@@ -367,18 +379,6 @@
   ("A-s-H-." . highlight-symbol-at-point))
 
 (use-package ielm
-  :preface
-  (defun nagy-ielm-init-history ()
-    (let ((path (expand-file-name "ielm/history" user-emacs-directory)))
-      (make-directory (file-name-directory path) t)
-      (shell-command-to-string (format "touch -- %s" path))
-      (setq-local comint-input-ring-file-name path))
-    (setq-local comint-input-ring-size 10000)
-    (setq-local comint-input-ignoredups t)
-    (comint-read-input-ring))
-  (defun nagy-ielm-write-history (&rest _args)
-    (with-file-modes #o600
-      (comint-write-input-ring)))
   :bind
   ("M-s-→" . ielm)
   (:map inferior-emacs-lisp-mode-map
@@ -387,13 +387,9 @@
         ("M-ö" . ielm-send-input)
         ("<key-chord> f j" . ielm-send-input)
         ("s-." . eval-last-sexp))
-  :hook
-  (inferior-emacs-lisp-mode . nagy-ielm-init-history)
-  ;; :custom
-  ;; (ielm-header "")
   :config
-  (setq ielm-header "")                 ; does not work in :custom because it is a defvar
-  (advice-add 'ielm-send-input :after #'nagy-ielm-write-history))
+  (setq ielm-header "") ; does not work in :custom because it is a defvar
+  )
 
 (use-package epg
   :custom

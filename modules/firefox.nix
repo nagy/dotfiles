@@ -137,6 +137,8 @@
       # "geo.enabled" = false;
       # "beacon.enabled" = false;
 
+      "browser.urlbar.suggest.calculator" = true;
+
       "browser.tabs.crashReporting.sendReport" = false;
       "browser.tabs.firefox-view" = false;
 
@@ -144,7 +146,7 @@
       "widget.non-native-theme.scrollbar.size.override" = 20;
       "widget.non-native-theme.scrollbar.style" = 4; # sharp corners
 
-      # "media.autoplay.default" = 0;
+      "media.autoplay.default" = 5; # block audio and video by default
       # "media.autoplay.enabled" = true;
       # "media.eme.enabled" = false;
       "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;

@@ -15,7 +15,7 @@
 (require 'general)
 (require 's)
 
-(defvar nagy-list-table-default-column-width 40)
+(defvar nagy-list-table-default-column-width 30)
 (defvar-local nagy-list-buffer-file-name nil)
 (put 'nagy-list-buffer-file-name 'permanent-local t)
 (defvar-local nagy-list-sym nil)

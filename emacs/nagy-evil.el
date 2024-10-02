@@ -143,5 +143,14 @@
   :config
   (evil-goggles-mode 1))
 
+(defun show-date()
+  "Show the current date as a message."
+  (interactive)
+  ;; prevent tramp problems
+  (let ((default-directory temporary-file-directory))
+    (message (string-trim-right (shell-command-to-string "date")))))
+(keymap-global-set "s-⌚" #'show-date)
+(keymap-global-set "s-⧖" #'show-date)
+
 (provide 'nagy-evil)
 ;;; nagy-evil.el ends here

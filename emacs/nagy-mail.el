@@ -46,7 +46,7 @@
   (mu4e-completing-read-function #'completing-read)
   (mu4e-headers-leave-behavior 'apply)
   (mu4e-update-interval nil)
-  (mu4e-get-mail-command "true")
+  (mu4e-get-mail-command "sh -c \"cd /home/user/Maildir/posteo.de && nix run -f ./. && cd ../gmail.com && nix run -f ./.\"")
   (mu4e-view-auto-mark-as-read nil)
   (mu4e-change-filenames-when-moving t)
   (mu4e-cache-maildir-list t)

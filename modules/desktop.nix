@@ -19,6 +19,8 @@
     "kernel.sysrq" = 1;
   };
 
+  console.useXkbConfig = true;
+
   # Configure keymap in X11
   services.xserver = {
     enable = true;
@@ -175,7 +177,7 @@
       scrot
       nur.repos.nagy.nsxivBigThumbs
       xclip
-      redshift
+      (redshift.override { withGeolocation = false; })
 
       brave
       tor-browser

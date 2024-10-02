@@ -54,6 +54,7 @@
   (lispy-mode . lispyville-mode)
   :general
   (:states 'normal :keymaps 'lispyville-mode-map
+           "¢" #'lispy-clone
            "g C-j" #'lispy-down
            "g C-k" #'lispy-up
            ";" #'lispy-comment

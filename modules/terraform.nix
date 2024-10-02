@@ -4,7 +4,7 @@
   imports = [ ./shortcommands.nix ];
 
   environment.systemPackages = [
-    (pkgs.terraform.withPlugins (p: [
+    (pkgs.opentofu.withPlugins (p: [
       p.aws
       p.github
       p.gitlab
@@ -12,28 +12,29 @@
       p.kubernetes
       # p.backblaze
     ]))
-    pkgs.terraform-ls
+    # pkgs.terraform-ls
   ];
 
   # https://developer.hashicorp.com/terraform/cli/commands
+  # may not be needed with opentofu anymore
   environment.variables.CHECKPOINT_DISABLE = "1";
 
   nagy.shortcommands = {
-    tf = [ "terraform" ];
+    # tf = [ "terraform" ];
     tfp = [
-      "terraform"
+      "tofu"
       "plan"
     ];
     tfa = [
-      "terraform"
+      "tofu"
       "apply"
     ];
     tfs = [
-      "terraform"
+      "tofu"
       "show"
     ];
     tfo = [
-      "terraform"
+      "tofu"
       "output"
     ];
   };

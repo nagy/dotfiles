@@ -21,11 +21,12 @@
            "SPC" nil
            "r" #'elfeed-search-untag-all-unread
            "↓" #'elfeed-search-fetch)
-  (:states 'normal :keymaps 'elfeed-show-mode-map
-           "SPC" nil)
+  ;; (:states 'normal :keymaps 'elfeed-show-mode-map
+  ;;          "SPC" nil)
   (:keymaps 'elfeed-search-mode-map
             [remap kill-this-buffer] #'elfeed-db-unload
             [remap save-kill-buffer] #'elfeed-db-unload
+            [remap nagy-kill-this-buffer] #'elfeed-db-unload
             )
   ;; :same "^\\*elfeed-entry"
   )
