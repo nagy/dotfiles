@@ -1,6 +1,7 @@
 ;;; nagy-mode-line.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Package-Requires: ((emacs "29.1") anaphora)
+;; Package-Requires: ((emacs "29.1") dash anaphora)
 
+(require 'dash)
 (require 'anaphora)
 
 (defvar-local nagy-mode-line--jsvar nil)
@@ -8,13 +9,15 @@
 
 
 (defun nagy-mode-line--jsvar-calc ()
-  (when (derived-mode-p 'js-json-mode)
+  (when (and (derived-mode-p 'js-json-mode)
+             (< (buffer-size) large-file-warning-threshold))
     (alet (ignore-errors (save-excursion (json-parse-buffer)))
       (when it
         (pcase-exhaustive (type-of it)
           ('string (format "S%d" (length it)))
           ('hash-table (format "H%d" (hash-table-count it)))
           ('integer (format "N%d" it))
+          ('float (format "F%f" it))
           ('symbol (format "%S" it))
           ('vector (format "A%d" (length it))))))
     ))

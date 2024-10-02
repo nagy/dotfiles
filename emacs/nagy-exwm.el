@@ -19,6 +19,10 @@
   (interactive)
   (kill-this-buffer))
 
+(defun update-current-frame-fontset ()
+  (interactive)
+)
+
 (defun brightness-up ()
   (interactive)
   (let ((default-directory "~/"))
@@ -64,14 +68,12 @@ aka xcompose is not properly initialized in the first frame."
       (global-hl-line-mode -1)
       (when (fboundp 'evil-escape-mode)
         (evil-escape-mode -1))
-      (set-face-attribute 'default nil :height 120)
       (exwm-randr-refresh)
-      (blink-cursor-mode -1)
       (evil-mode)
       (GC-DISABLE)
       (setq menu-updating-frame nil) ; without this, kill-current-buffer is broken
-      ;; (font-size-toggle)
-      (setq-default lexical-binding t)))
+      (setq-default lexical-binding t)
+      (update-current-frame-fontset)))
   (defun nagy-exwm-rename-buffer ()
     (exwm-workspace-rename-buffer
      (concat exwm-class-name ":" exwm-title)))
@@ -167,6 +169,38 @@ aka xcompose is not properly initialized in the first frame."
 (keymap-global-set "s-L" #'evil-window-move-far-right)
 (keymap-global-set "s-J" #'evil-window-move-very-bottom)
 (keymap-global-set "s-K" #'evil-window-move-very-top)
+
+(defvar nagy-exwm-hosts '("p" "q" "z"))
+(defun completing-read-host ()
+  (completing-read "host> " nagy-exwm-hosts))
+
+(defmacro start-terminal (&rest body)
+  (declare (debug (form body)))
+  `(start-process "terminal" nil "alacritty"
+                  "--option" (format "font.size=%d" (/  (face-attribute 'default :height) 9))
+                  ,@body))
+
+(defun htop ()
+  (interactive)
+  (start-terminal "--title" "htop" "-e" "htop"))
+
+(defvar terminal-number 1)
+
+(defun terminal (&optional arg)
+  (interactive "P")
+  (pcase arg
+    ('(4)
+     (let ((host (completing-read-host)))
+       (start-terminal "--title" host "--option" "env.TERM=xterm-256color" "-e" "ssh" host)))
+    ('(16)
+     (let ((host (completing-read-host)))
+       (start-terminal "--title" host "--option" "env.TERM=xterm-256color" "-e" "ssh" "-l" "root" host)))
+    (_
+     (start-terminal "--title" (number-to-string (cl-incf terminal-number))))))
+(keymap-global-set "s-+" #'terminal)
+;; (evil-global-set-key 'normal "." #'terminal)
+(evil-global-set-key 'normal "," #'terminal)
+(evil-define-key 'normal dired-mode-map "." #'terminal)
 
 (provide 'nagy-exwm)
 ;;; nagy-exwm.el ends here

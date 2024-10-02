@@ -29,6 +29,11 @@
   (dired-compress-directory-default-suffix ".tar.zst")
   (dired-switches-in-mode-line 3)
   (dired-hide-details-hide-symlink-targets nil)
+  (dired-listing-switches "-I systemd-private-* -I .ICE-unix -I .font-unix -I .XIM-unix -I .X11-unix -I nix-build-* -h --almost-all -l  -g --no-group --group-directories-first")
+  :config
+  (advice-add #'dired-create-directory :after #'+revert-when-dired)
+  (advice-add #'dired-do-flagged-delete :after #'+revert-when-dired)
+  (advice-add #'dired-do-delete :after #'+revert-when-dired)
   :bind
   ("s-j" . dired-jump)
   (:map dired-mode-map
@@ -36,13 +41,23 @@
         ("M-m" . dired-do-chmod)
         ("H-i" . dired-do-info)
         ("H-m" . dired-do-man)
-        ("H-e" . dired-do-eww))
+        ("H-e" . dired-do-eww)
+        ("<home>" . evil-goto-first-line)
+        ("<end>" . evil-goto-line)
+        )
   :general
   (:states 'normal :keymaps 'dired-mode-map
            "f" #'dired-find-file
+           "r" #'revert-buffer
+           "q" #'bury-buffer
+           "gg" #'evil-goto-first-line
+           "G" #'evil-goto-line
+           "a" #'magit-status
+           "H" #'evil-window-top
+           "M" #'evil-window-middle
+           "L" #'evil-window-bottom
            "o" #'dired-find-file-other-window
-           "F" #'embark-act
-           "ł" #'nagy-dired-mark-if-git))
+           "ö" #'browse-url-of-dired-file))
 
 (use-package dired-subtree
   :demand t
@@ -56,7 +71,11 @@
            "s" #'dired-narrow-regexp)
   :bind
   (:map dired-mode-map
-        ("M-/" . dired-narrow-regexp)))
+        ("M-/" . dired-narrow-regexp))
+  (:map dired-narrow-map
+        ("<key-chord> f j" . exit-minibuffer)
+        ("<key-chord> j f" . minibuffer-keyboard-quit)))
+
 (defun dired-add-actual-S-switch ()
   (interactive)
   (setq-local dired-actual-switches (concat dired-listing-switches " -S"))

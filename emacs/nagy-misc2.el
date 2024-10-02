@@ -60,7 +60,7 @@
   (aggressive-indent-sit-for-time 0.3)
   :general
   (:states 'normal :keymaps 'prog-mode-map
-           "»" #'aggressive-indent-mode))
+           "«" #'aggressive-indent-mode))
 
 
 (use-package highlight-quoted

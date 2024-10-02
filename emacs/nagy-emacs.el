@@ -66,8 +66,13 @@
 (defmacro with-directory (dir &rest body)
   "Set `default-directory' to DIR and execute BODY."
   (declare (indent 1) (debug (sexp body)))
-  `(let ((default-directory ,(expand-file-name dir)))
+  `(let ((default-directory ,(if (stringp dir)
+                                 (expand-file-name dir)
+                               `(expand-file-name ,dir))))
      ,@body))
+
+(defvar-keymap nagy-leader
+  :doc "leader key")
 
 (use-package emacs
   :preface
@@ -142,6 +147,23 @@
   (scroll-step 15)
   (scroll-bar-adjust-thumb-portion nil)
   (initial-scratch-message nil)
+  (debugger-stack-frame-as-list t)
+  (read-minibuffer-restore-windows nil)
+  ;; this disables the blinking cursor in the terminal; blink-mode is not enough.
+  (visible-cursor nil)
+  (echo-keystrokes 0.02)                ; this has problems with `which-key'
+  ;; (uniquify-buffer-name-style nil)
+  (cursor-in-non-selected-windows nil)
+  (create-lockfiles nil)
+  (make-backup-files nil)
+  (echo-keystrokes-help nil)            ; emacs 30
+  ;; (image-scaling-factor 2.0)
+  (browse-url-firefox-program "firefox-esr")
+  :config
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (blink-cursor-mode -1)
+  ;; (keymap-global-set "H-m" nagy-leader)
   ;; (setq-default lexical-binding t) ;; has no effect yet
   :bind
   ("s-s" . nagy-emacs-split-window-below-and-focus)
@@ -172,11 +194,29 @@
   ("H-+" . text-scale-increase)
   ("H--" . text-scale-decrease)
   ("s-<f8>" . scroll-bar-mode)
-  ("S-<menu>" . execute-extended-command-for-buffer))
+  ("S-<menu>" . execute-extended-command-for-buffer)
+  ("s-n" . universal-argument)
+  ("A-C-s-}" . tab-duplicate)
+  ("C-H-r" . rename-buffer)
+  ("H-M-a" . normal-mode)
+  (:map minibuffer-local-map
+        ("H-j" . next-history-element)
+        ("H-k" . previous-history-element)
+        ("s-g" . minibuffer-keyboard-quit))
+  (:map universal-argument-map
+        ("s-n" . universal-argument-more))
+  (:map y-or-n-p-map
+        ([remap save-kill-buffer] . y-or-n-p-insert-y)
+        ([remap kill-this-buffer] . minibuffer-keyboard-quit)
+        ([remap embark-act] . y-or-n-p-insert-y))
+  (:map help-map
+        ("C-k" . describe-key-briefly)))
 
 (use-package help
   :bind
-  ("C-H-h" . describe-key-briefly))
+  ("C-H-h" . describe-key-briefly)
+  (:map help-map
+        ("C-l" . find-library)))
 
 (use-package repeat
   :bind
@@ -184,7 +224,24 @@
 
 (use-package man
   :custom
-  (Man-notify-method 'pushy))
+  (Man-notify-method 'pushy)
+  :bind
+  (:map Man-mode-map
+        ("H-j" . Man-next-section)
+        ("H-k" . Man-previous-section)))
+
+(use-package simple
+  :preface
+  (defun nagy-emacs-process-menu-dired-jump ()
+    (interactive)
+    (and-let* ((fourth-col (elt (tabulated-list-get-entry (point)) 3))
+               (buffer (plist-get (cdr fourth-col) 'process-buffer)))
+      (switch-to-buffer buffer)))
+  :bind
+  (:map process-menu-mode-map
+        ([remap dired-jump] . nagy-emacs-process-menu-dired-jump)
+        ("H-d" . process-menu-delete-process))
+  :diminish 'visual-line-mode)
 
 (use-package compile
   :bind
@@ -402,6 +459,7 @@
   (eldoc-idle-delay 0.01)
   ;; TODO increase eldoc delay for sly buffers because the comm with the lisp is
   ;; taking huge cpu.
+  ;; :same "^\\*eldoc\\*"
   )
 
 (use-package bookmark
@@ -509,13 +567,58 @@
   ("C-s-<return>" . project-eshell)
   ("C-H-s--" . project-dired))
 
+(use-package debug
+  :hook
+  (debugger-mode . visual-line-mode)
+  :bind
+  (:map debugger-mode-map
+        ("H-w" . edebug-where)))
+
+(use-package message
+  :bind
+  (:map message-mode-map
+        ([remap save-kill-buffer] . message-send-and-exit)
+        ([remap kill-this-buffer] . message-kill-buffer)))
+
+(use-package autorevert
+  :diminish auto-revert-mode
+  :custom
+  (auto-revert-verbose nil)
+  :hook
+  (dired-mode . auto-revert-mode)
+  :bind
+  ("C-⧖" . auto-revert-mode))
+
 (keymap-global-set "<mouse-8>" #'bury-buffer)
 (keymap-global-set "<mouse-9>" #'unbury-buffer)
+
+(defun find-file-home () "To ~/" (interactive) (find-file "~/"))
+(keymap-global-set "<XF86HomePage>" #'find-file-home)
+(keymap-global-set "H-#" #'other-window-prefix)
+(keymap-global-set "H-s-#" #'other-tab-prefix)
+
+(defun get-buffer-create-or-current (&optional object)
+  (declare (side-effect-free t))
+  (cl-etypecase object
+    (null (current-buffer))
+    (string (get-buffer-create object))
+    (buffer object)
+    (process (process-buffer object))
+    (window (window-buffer object))
+    (marker (marker-buffer object))
+    (overlay (overlay-buffer object))))
 
 (use-package timer-list
   :bind
   (:map timer-list-mode-map
         ("H-d" . timer-list-cancel)))
+
+(defun json-parse-file (file &rest args)
+  (declare (side-effect-free t))
+  (with-temp-buffer
+    (insert-file-contents file)
+    (goto-char (point-min))
+    (apply #'json-parse-buffer args)))
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

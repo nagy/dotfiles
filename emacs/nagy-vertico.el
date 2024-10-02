@@ -24,9 +24,18 @@
         ("C-j"   . vertico-next)
         ("C-M-j" . vertico-next-group)
         ("C-k"   . vertico-previous)
-        ("C-M-k" . vertico-previous-group))
-  (:map minibuffer-mode-map
-        ("s--" . vertico-flat-mode)))
+        ("C-M-k" . vertico-previous-group)
+        ;; ("C-n"   . vertico-next)
+        ;; ("C-p"   . vertico-previous)
+        ("<next>" . vertico-scroll-up)
+        ("<prior>" . vertico-scroll-down)
+        ("s-j"   . vertico-next)
+        ("s-k"   . vertico-previous)
+        ("H-j"   . vertico-next)
+        ("H-k"   . vertico-previous))
+  (:map minibuffer-local-map
+        ("s--" . vertico-flat-mode)
+        ("H-h" . delete-backward-char)))
 
 (use-package vertico-quick
   :custom
@@ -34,8 +43,6 @@
   (vertico-quick2 "vbnm")
   :bind
   (:map vertico-map
-        ("<key-chord> f h" . vertico-quick-exit)
-        ("<key-chord> f l" . vertico-quick-insert)
         ("C-," . vertico-quick-exit)
         ("C-." . vertico-quick-exit)))
 
@@ -74,8 +81,6 @@
   ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
   ([remap recentf-open-files] . consult-recent-file)
   :config
-  (keymap-global-set "<key-chord> ü j" #'consult-bookmark)
-  (keymap-global-set "<key-chord> ü b" #'consult-buffer)
   (consult-customize
    consult-buffer
    :preview-key nil
@@ -118,19 +123,89 @@
            :types ((?b "Branches"  modus-themes-diff-added)
                    (?t "Tags"     font-lock-function-name-face))))))
 
-(require 'orderless)
-(orderless-define-completion-style orderless+initialism
-  (orderless-matching-styles '(orderless-initialism
-                               orderless-literal
-                               orderless-regexp)))
-(push '(command (styles orderless+initialism)) completion-category-overrides)
-(push '(variable (styles orderless+initialism)) completion-category-overrides)
-(push '(symbol (styles orderless+initialism)) completion-category-overrides)
+(use-package orderless
+  :commands (orderless-define-completion-style)
+  :preface
+  ;; from doom
+  (defun +vertico-orderless-dispatch (pattern _index _total)
+    (cond
+     ;; Ensure $ works with Consult commands, which add disambiguation suffixes
+     ((string-suffix-p "$" pattern)
+      `(orderless-regexp . ,(concat (substring pattern 0 -1) "[\x200000-\x300000]*$")))
+     ;; Ignore single !
+     ((string= "!" pattern) `(orderless-literal . ""))
+     ;; Without literal
+     ((string-prefix-p "!" pattern) `(orderless-without-literal . ,(substring pattern 1)))
+     ;; Character folding
+     ((string-prefix-p "%" pattern) `(char-fold-to-regexp . ,(substring pattern 1)))
+     ((string-suffix-p "%" pattern) `(char-fold-to-regexp . ,(substring pattern 0 -1)))
+     ;; Initialism matching
+     ((string-prefix-p "`" pattern) `(orderless-initialism . ,(substring pattern 1)))
+     ((string-suffix-p "`" pattern) `(orderless-initialism . ,(substring pattern 0 -1)))
+     ;; Literal matching
+     ((string-prefix-p "=" pattern) `(orderless-literal . ,(substring pattern 1)))
+     ((string-suffix-p "=" pattern) `(orderless-literal . ,(substring pattern 0 -1)))
+     ;; Flex matching
+     ((string-prefix-p "~" pattern) `(orderless-flex . ,(substring pattern 1)))
+     ((string-suffix-p "~" pattern) `(orderless-flex . ,(substring pattern 0 -1)))))
+  :demand t
+  :config
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        ;; note that despite override in the name orderless can still be used in
+        ;; find-file etc.
+        completion-category-overrides '((file (styles orderless partial-completion)))
+        orderless-style-dispatchers '(+vertico-orderless-dispatch)
+        orderless-component-separator "[ &]")
+  ;; (orderless-define-completion-style orderless+initialism
+
+  ;;   (orderless-matching-styles '(orderless-initialism
+  ;;                                orderless-literal
+  ;;                                orderless-regexp)))
+  ;; (push '(command (styles orderless+initialism)) completion-category-overrides)
+  ;; (push '(variable (styles orderless+initialism)) completion-category-overrides)
+  ;; (push '(symbol (styles orderless+initialism)) completion-category-overrides)
+  )
 
 (use-package marginalia
   :commands (marginalia-mode)
-  :config
-  (marginalia-mode))
+  :init
+  ;; Marginalia must be activated in the :init section of use-package such that
+  ;; the mode gets enabled right away. Note that this forces loading the
+  ;; package.
+  (marginalia-mode 1))
+
+;; nice examples
+;; https://karthinks.com/software/fifteen-ways-to-use-embark/
+(use-package embark
+  :demand t
+  :custom
+  (embark-confirm-act-all nil)
+  (embark-mixed-indicator-delay most-positive-fixnum)
+  :bind
+  ("<XF86Paste>" . embark-act)
+  ("C-<XF86Paste>" . embark-dwim)
+  ("S-<XF86Paste>" . embark-act-all)
+  ("A-<XF86Paste>" . embark-collect)
+  (:map minibuffer-local-map
+        ("H-m" . (lambda ()
+                   (interactive)
+                   (embark-select)
+                   (vertico-next))))
+  (:map embark-collect-mode-map
+        ("H-m" . (lambda ()
+                   (interactive)
+                   (embark-select)
+                   (forward-line))))
+  (:map embark-collect-mode-map
+        ("s-." . embark-export))
+  (:map emacs-lisp-mode-map
+        ("<normal-state> <key-chord> f j" . embark-act)
+        ("<normal-state> <key-chord> f h" . embark-dwim))
+  (:map minibuffer-mode-map
+        ("s-." . embark-export)
+        ("s-:" . embark-collect)
+        ("s-<XF86Back>" . embark-live)))
 
 (use-package consult-dir
   :bind
