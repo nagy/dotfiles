@@ -27,7 +27,6 @@
     ./sudo.nix
     ./yggdrasil.nix
     # ./systemd-resolved.nix
-    # ./test-user.nix
     ./xcompose.nix
     ./simpleaddress.nix
     ./espressif.nix

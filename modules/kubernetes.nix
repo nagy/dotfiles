@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
   ...
 }:
 
@@ -12,6 +10,7 @@
   environment.systemPackages = [
     pkgs.kubectl
     pkgs.kubernetes-helm
+    pkgs.argocd
   ];
 
   nagy.shortcommands = {

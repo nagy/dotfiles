@@ -7,7 +7,7 @@
 }:
 
 let
-  emacs = pkgs.emacs-git.override { withGTK3 = true; };
+  emacs = pkgs.emacs30-gtk3;
   emacsPackages = pkgs.emacsPackagesFor emacs;
   customEmacsPackages = emacsPackages.overrideScope (
     self: super: {
@@ -27,6 +27,8 @@ let
           hash = "sha256-00C8WLR7CVCnp/VPgAP564XpMmXkaaddmi1tXdEevZI=";
         };
       };
+      elisp-reader = nur.repos.nagy.emacsPackages.elisp-reader;
+      obvious = nur.repos.nagy.emacsPackages.obvious;
     }
   );
   emacsAndPackages = customEmacsPackages.withPackages (
@@ -34,13 +36,6 @@ let
   );
 in
 {
-  nixpkgs.overlays = [
-    # Cannot use pkgs.fetchFromGitHub in an overlay
-    (import (fetchTarball {
-      url = "https://github.com/nix-community/emacs-overlay/archive/dc8dcea003994cabed49d84e448cab3a781527ec.tar.gz";
-      sha256 = "sha256-13WtlSH2iAIvLoQl6WSl3Zz/pZC5Fnj6oHviyk0LY9M=";
-    }))
-  ];
   environment.systemPackages = lib.mkIf config.services.xserver.enable [
     emacsAndPackages
     pkgs.mu
@@ -50,11 +45,4 @@ in
   boot.kernel.sysctl."kernel.yama.ptrace_scope" = lib.mkIf config.services.xserver.enable (
     lib.mkForce 0
   );
-
-  # try to not overcommit memory
-  # [[info:emacs#Memory Full]]
-  # https://www.gnu.org/software/emacs/manual/html_node/emacs/Memory-Full.html
-  # boot.kernel.sysctl."vm.overcommit_memory" = lib.mkForce 2;
-  # boot.kernel.sysctl."vm.overcommit_ratio" = lib.mkForce 0;
-  # this may lead to "failed to start mount-pstore" systemd error
 }

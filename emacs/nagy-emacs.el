@@ -83,11 +83,21 @@
   ;; this removes the yes/no question on a process killing
   (setq kill-buffer-query-functions
         (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
+  ;; the #'enable-command function does not work. it causes a `~/.emacs` file to be created.
+  (push '("^\\*Help" display-buffer-same-window) display-buffer-alist)
+  (push '("^\\*info" display-buffer-same-window) display-buffer-alist)
+  (push '("^\\*Occur" display-buffer-same-window) display-buffer-alist)
+  (push '("^\\*Async Shell Command"  display-buffer-same-window) display-buffer-alist)
+  (push '("^\\*Org-Babel"  display-buffer-same-window) display-buffer-alist)
+  (push '("^\\*Process"  display-buffer-same-window) display-buffer-alist)
+  (push '("^\\*Embark Export"  display-buffer-same-window) display-buffer-alist)
+  (push '("^\\€"  display-buffer-same-window) display-buffer-alist)
   (push '("^\\*Shell Command"  display-buffer-same-window) display-buffer-alist)
   (push '("^\\*compilation"  display-buffer-same-window) display-buffer-alist)
   (push '("^\\*Diff"  display-buffer-same-window) display-buffer-alist)
   (push '("^\\*Messages"  display-buffer-same-window) display-buffer-alist)
   (push '("^\\*Disassemble"  display-buffer-same-window) display-buffer-alist)
+  (push '("^\\*Network Connection"  display-buffer-same-window) display-buffer-alist)
   (push '("^Shell Command:"  display-buffer-same-window) display-buffer-alist)
   (add-hook 'window-selection-change-functions #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-increase :after #'nagy-emacs-window-scroll-bars)
@@ -104,6 +114,7 @@
   ;; (help-at-pt-display-when-idle t)
   ;; (help-at-pt-timer-delay 0)
   :custom
+  ;; (fill-column 150)
   (inhibit-startup-screen t)
   (use-short-answers t)
   (message-log-max t)
@@ -113,7 +124,7 @@
   (delete-by-moving-to-trash t)
   (load-prefer-newer t)
   (suggest-key-bindings nil)
-  (large-file-warning-threshold (* 100 1000 1000))
+  (large-file-warning-threshold (* 1000 1000 1000))
   (duplicate-line-final-position -1)    ; to last line
   ;; (backtrace-on-redisplay-error t)
   (browse-url-default-scheme "https")
@@ -240,7 +251,9 @@
   :custom
   (tab-bar-show 1)
   (tab-bar-auto-width t)
-  (tab-bar-auto-width-max '(330 30))
+  ;; (tab-bar-auto-width-max '(330 30))
+  ;; (tab-bar-auto-width-max '(440 40))
+  (tab-bar-auto-width-max '(10000 1000))
   (tab-bar-new-button-show nil)
   (tab-bar-close-button-show nil)
   (tab-bar-new-tab-choice t))
@@ -358,6 +371,7 @@
   (defun nagy-ielm-init-history ()
     (let ((path (expand-file-name "ielm/history" user-emacs-directory)))
       (make-directory (file-name-directory path) t)
+      (shell-command-to-string (format "touch -- %s" path))
       (setq-local comint-input-ring-file-name path))
     (setq-local comint-input-ring-size 10000)
     (setq-local comint-input-ignoredups t)
@@ -369,6 +383,7 @@
   ("M-s-→" . ielm)
   (:map inferior-emacs-lisp-mode-map
         ("H-ö" . ielm-send-input)
+        ("H-b" . ielm-change-working-buffer)
         ("M-ö" . ielm-send-input)
         ("<key-chord> f j" . ielm-send-input)
         ("s-." . eval-last-sexp))
@@ -482,6 +497,9 @@
 (use-package paren
   :custom
   (show-paren-delay 0.0)
+  (show-paren-highlight-openparen t)
+  (show-paren-when-point-inside-paren t)
+  (show-paren-when-point-in-periphery t)
   :config
   (set-face-attribute 'show-paren-match nil :inherit 'modus-themes-subtle-blue :background 'unspecified))
 

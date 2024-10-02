@@ -104,7 +104,7 @@
   # cleaner git repos without the hooks
   environment.variables.GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
 
-  console.keyMap = "de";
+  console.keyMap = lib.mkDefault "de";
 
   # https://github.com/denoland/deno/blob/21065797f6dce285e55705007f54abe2bafb611c/cli/tools/upgrade.rs#L184-L187
   environment.variables.DENO_NO_UPDATE_CHECK = "1";

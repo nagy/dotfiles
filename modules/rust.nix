@@ -18,7 +18,6 @@
     pkgs.cargo-sort
 
     # wasm
-    # pkgs.rustc-wasm32
     pkgs.binaryen
     pkgs.cargo-component
   ];

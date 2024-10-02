@@ -25,8 +25,7 @@
     dpi = 192;
     # Configure X11 window manager
     displayManager.startx.enable = true;
-    # https://discourse.nixos.org/t/enable-vertical-sync-on-amd-gpu/12369/5
-    deviceSection = ''Option "TearFree" "true"''; # For amdgpu.
+    enableTearFree = true;
     # keyboard
     xkb = {
       layout = "mine";
@@ -161,7 +160,7 @@
   '';
 
   environment.etc."X11/Xresources".text = ''
-    *.font: ${builtins.elemAt config.fonts.fontconfig.defaultFonts.monospace 0}:size=12
+    *.font: ${builtins.elemAt config.fonts.fontconfig.defaultFonts.monospace 0}:size=10
     *.background: #000000
     *.foreground: #ffffff
     Xcursor.size: 48

@@ -80,6 +80,7 @@
     sc = [ "systemctl" ];
     scc = [ "systemctl" "cat" ];
     scs = [ "systemctl" "status" ];
+    scw = [ "watch" "--color" "SYSTEMD_COLORS=1" "systemctl" "status" ];
     sca = [ "systemctl" "start" ];
     sco = [ "systemctl" "stop" ];
     scr = [ "systemctl" "restart" ];
@@ -96,6 +97,7 @@
     scU = [ "systemctl" "--user" ];
     scUc = [ "systemctl" "--user" "cat" ];
     scUs = [ "systemctl" "--user" "status" ];
+    scUw = [ "watch" "--color" "SYSTEMD_COLORS=1" "systemctl" "--user" "status" ];
     scUa = [ "systemctl" "--user" "start" ];
     scUo = [ "systemctl" "--user" "stop" ];
     scUr = [ "systemctl" "--user" "restart" ];

@@ -25,8 +25,8 @@ in
   environment.etc."xdg/gtk-3.0/gtk.css".text = ''
     scrollbar slider{
         /* Size of the slider */
-        min-width: 15px;
-        min-height: 15px;
+        min-width: 10px;
+        min-height: 10px;
         border-radius: 0px;
         /* Padding around the slider */
         border: 0px solid transparent;
@@ -34,10 +34,18 @@ in
 
     /* This prevents a border on the scrollbars in Emacs */
     scrollbar trough, scrollbar slider {
-        min-width: 15px;
+        min-width: 10px;
         border: 0px;
     }
   '';
+
+  environment.etc."xdg/gtk-4.0/settings.ini".source = format.generate "gtk4-settings.ini" {
+    Settings = {
+      gtk-enable-animations = false;
+      gtk-im-module = "xim";
+      gtk-overlay-scrolling = false;
+    };
+  };
 
   # Fix gdk/gtk for highdpi. otherwise icons are too small and webkitgtk is also skewed.
   environment.variables = {
