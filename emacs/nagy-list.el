@@ -68,10 +68,10 @@
 (cl-defun nagy-list-buffer-file-name-sym (&optional (filename (or nagy-list-buffer-file-name buffer-file-name "")))
   (when (or (string-suffix-p ".json" filename)
             (string-suffix-p ".json.zst" filename))
-    (->> filename
-         (string-remove-suffix ".zst")
-         (string-remove-suffix ".json")
-         (s-split "\\.")
+    (--> filename
+         (string-remove-suffix ".zst" it)
+         (string-remove-suffix ".json" it)
+         (s-split "\\." it)
          last
          car
          intern)))
@@ -99,6 +99,14 @@
 
 (require 'dired)
 (keymap-set dired-mode-map "H-," #'nagy-list-table-dired-find-file)
+
+(defun nagy-list-sort-by-time ()
+  (interactive)
+  (aif (-elem-index 'time (nagy-list-column-names))
+      (progn (tabulated-list-sort it)
+             (tabulated-list-sort it)
+             (goto-char (point-min)))
+    (user-error "No 'time column found")))
 
 (provide 'nagy-list)
 ;;; nagy-list.el ends here

@@ -1,10 +1,13 @@
 ;;; url-knowledge.el --- url info mode -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 
+;; Package-Requires: ((emacs "29.1") nagy-use-package)
 ;;; Commentary:
 
 ;;; Code:
 
 (require 'cl-lib)
+
+(require 'nagy-use-package)
 
 (defvar-local url-knowledge-url nil)
 (put 'url-knowledge-url 'permanent-local t)
@@ -33,9 +36,15 @@
       (setf (alist-get name url-knowledge--known-configs nil nil #'equal) config))))
 
 (defun url-knowledge--get-url ()
-  (cl-loop for config in url-knowledge--known-configs
-           for cdr = (cdr config)
-           thereis (funcall (url-knowledge-config-buffer cdr))))
+  (or url-knowledge-url
+      (setq url-knowledge-url
+            (cl-loop for config in url-knowledge--known-configs
+                     for cdr = (cdr config)
+                     thereis (ignore-errors
+                               (funcall (url-knowledge-config-buffer cdr)))))))
+
+;; (dolist (hook '(magit-mode-hook elfeed-show-mode-hook))
+;;   (add-hook hook #'url-knowledge--get-url))
 
 ;;; Contrib
 
@@ -48,9 +57,9 @@
  :buffer
  (lambda ()
    (pcase major-mode
-     ('elfeed-search-mode
-      (elfeed-entry-link (car (elfeed-search-selected))))
-     ('elfeed-show-mode
+     ;; ((derived 'elfeed-search-mode)
+     ;;  (elfeed-entry-link (car (elfeed-search-selected))))
+     ((derived 'elfeed-show-mode)
       (elfeed-entry-link elfeed-show-entry)))))
 
 (declare-function eww-current-url "eww")
@@ -60,14 +69,22 @@
  :buffer
  (lambda ()
    (pcase major-mode
-     ('eww-mode
+     ((derived 'eww-mode)
       (eww-current-url)))))
+
+(declare-function magit-get-current-remote "magit")
+(declare-function magit-get "magit")
+(declare-function browse-at-remote-get-url "browse-at-remote")
 
 (url-knowledge-make
  "Magit"
  :buffer
  (lambda ()
-   (magit-get "--local" (format "remote.%s.url" (magit-get-current-remote)))))
+   (pcase major-mode
+     ((derived 'magit-revision-mode)
+      (browse-at-remote-get-url))
+     ((derived 'magit-mode)
+      (magit-get "--local" (format "remote.%s.url" (magit-get-current-remote)))))))
 
 (provide 'url-knowledge)
 ;;; url-knowledge.el ends here

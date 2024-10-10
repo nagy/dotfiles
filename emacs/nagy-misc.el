@@ -239,10 +239,6 @@
   ;; also catch files in nix store
   :mode "-gitconfig\\'")
 
-;; (use-package gitignore-mode
-;;   ;; also catch files in nix store
-;;   :mode "-gitignore\\'")
-
 (require 'hideshow)
 (use-package hideshow
   :preface
@@ -263,6 +259,7 @@
 (use-package osm
   :custom
   (osm-copyright nil)
+  (osm-max-age nil)
   :bind
   (:map osm-mode-map
         ("<home>" . osm-left-left)

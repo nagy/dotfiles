@@ -174,9 +174,9 @@ with `switch-to-buffer'."
   "Pattern (infix INFIX) matches if the string contains INFIX."
   `(pred (s-contains-p ,infix)))
 
-(pcase-defmacro derived (&rest prefix)
-  "Pattern (prefix PREFIX) matches if the string starts with PREFIX."
-  `(pred (lambda (s) (provided-mode-derived-p s ,@prefix))))
+(pcase-defmacro derived (&rest modes)
+  "Pattern (derived MODES...)."
+  `(pred (lambda (mode) (provided-mode-derived-p mode ,@modes))))
 
 (provide 'nagy-use-package)
 ;;; nagy-use-package.el ends here
