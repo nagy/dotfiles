@@ -31,8 +31,7 @@
           `((location . ,(url-recreate-url (cadr elpher-current-page)))
             (handler . elpher-bookmark-handler))))
   :commands (elpher-go)
-  :functions
-  elpher-redraw
+  :functions (elpher-redraw)
   :custom
   (elpher-use-header nil)
   (elpher-ipv4-always t)

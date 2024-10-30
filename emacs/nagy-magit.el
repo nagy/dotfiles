@@ -41,6 +41,7 @@
         ("s-<kp-2>" . magit-section-show-level-2)
         ("s-<kp-3>" . magit-section-show-level-3)
         ("s-<kp-4>" . magit-section-show-level-4)
+        ("H-a" . magit-section-cycle)
         ("C-ö" . magit-section-cycle-global)
         ("H-j" . magit-section-forward)
         ("H-k" . magit-section-backward)))

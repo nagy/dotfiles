@@ -48,6 +48,10 @@
            "⊢" #'jq-format-buffer))
 
 (use-package wat-mode
+  ;; :preface
+  ;; (reformatter-define wat-format
+  ;;   :program "deno"
+  ;;   :args `("run" "--allow-read" "npm:@webassemblyjs/wast-refmt" ,input-file))
   :defer t
   ;; until https://github.com/devonsparks/wat-mode/pull/3 is merged and the package is in melpa
   :commands (wat-mode)

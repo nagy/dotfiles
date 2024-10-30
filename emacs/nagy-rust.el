@@ -5,8 +5,6 @@
 
 (require 'nagy-use-package)
 
-(require 'reformatter)
-
 (use-package rustic
   :commands (rustic-setup-lsp)
   :preface

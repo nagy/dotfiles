@@ -162,18 +162,22 @@ with `switch-to-buffer'."
   (cl-letf (((symbol-function 'switch-to-buffer-other-window) #'switch-to-buffer))
     (apply orig-fun args)))
 
+;;;###autoload
 (pcase-defmacro suffix (suffix)
   "Pattern (suffix SUFFIX) matches if the string ends with SUFFIX."
   `(pred (string-suffix-p ,suffix)))
 
+;;;###autoload
 (pcase-defmacro prefix (prefix)
   "Pattern (prefix PREFIX) matches if the string starts with PREFIX."
   `(pred (string-prefix-p ,prefix)))
 
+;;;###autoload
 (pcase-defmacro infix (infix)
   "Pattern (infix INFIX) matches if the string contains INFIX."
   `(pred (s-contains-p ,infix)))
 
+;;;###autoload
 (pcase-defmacro derived (&rest modes)
   "Pattern (derived MODES...)."
   `(pred (lambda (mode) (provided-mode-derived-p mode ,@modes))))

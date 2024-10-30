@@ -18,6 +18,8 @@
   "Kill the current buffer."
   (interactive)
   (kill-this-buffer))
+;; this does not work yet
+;; (defalias 'nagy-kill-this-buffer (symbol-function 'kill-this-buffer))
 
 (defun update-current-frame-fontset ()
   (interactive)
@@ -135,6 +137,7 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-<next>") . tab-next)
             (,(kbd "s-<home>") . tab-first)
             (,(kbd "s-<end>") . tab-last)
+            ;; (,(kbd "s-SPC") . find-file-home)
             (,(kbd "<XF86Back>") . tab-previous)
             (,(kbd "<XF86Forward>") . tab-next)
             (,(kbd "<XF86Search>") . other-frame)
@@ -184,6 +187,13 @@ aka xcompose is not properly initialized in the first frame."
   (interactive)
   (start-terminal "--title" "htop" "-e" "htop"))
 
+(declare-function dayp "nagy-modus-themes")
+(defun dool ()
+  (interactive)
+  (if (dayp)
+      (start-terminal "--title" "dool" "-e" "dool" "-N" "wlp4s0" "--bw")
+    (start-terminal "--title" "dool" "-e" "dool" "-N" "wlp4s0")))
+
 (defvar terminal-number 1)
 
 (defun terminal (&optional arg)
@@ -201,6 +211,42 @@ aka xcompose is not properly initialized in the first frame."
 ;; (evil-global-set-key 'normal "." #'terminal)
 (evil-global-set-key 'normal "," #'terminal)
 (evil-define-key 'normal dired-mode-map "." #'terminal)
+
+(defun nsxiv ()
+  (interactive)
+  (with-environment-variables
+      (("XDG_CACHE_HOME" (concat temporary-file-directory "/xdg-cache")))
+    (start-process "nsxiv" nil "nsxiv" "-sf" "-t" ".")))
+(keymap-global-set "<pause>" #'nsxiv)
+
+(defun firefox (&optional arg)
+  (interactive "P")
+  (pcase (prefix-numeric-value arg)
+    (4  (call-interactively #'ff-app))
+    (_ (with-environment-variables
+           (("XDG_CACHE_HOME" "/tmp/xdg-cache")
+            ("https_proxy" "http://127.0.0.1:40404")
+            ("http_proxy" "http://127.0.0.1:40404")
+            ("no_proxy" ".ygg"))
+         (start-process "firefox" nil browse-url-firefox-program "--new-window")))))
+(keymap-global-set "<XF86Explorer>" #'firefox)
+
+(defun font-size-toggle ()
+  (interactive)
+  (alet (face-attribute 'default :height)
+    (set-face-attribute 'default nil
+                        :height (if (>= it 139) 100 140))))
+;; (setopt split-window-preferred-function #'split-window-horizontally)
+
+(keymap-global-set "H-<f1>" #'font-size-toggle)
+(keymap-set evil-normal-state-map "<key-chord> - r" #'font-size-toggle)
+
+(defun font-size-smol ()
+  (interactive)
+  (alet (face-attribute 'default :height)
+    (set-face-attribute 'default nil
+                        :height (if (>= it 100) 90 100))))
+(keymap-global-set "H-<f12>" #'font-size-smol)
 
 (provide 'nagy-exwm)
 ;;; nagy-exwm.el ends here

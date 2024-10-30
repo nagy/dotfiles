@@ -1,7 +1,10 @@
-;;; pcase-url.el --- My local config -*- lexical-binding: t -*-
+;;; pcase-url.el --- My local config -*- lexical-binding: t; byte-compile-error-on-warn: t;  -*-
 
 ;; todo set autoload here
 
+(require 'url-parse)
+
+;;;###autoload
 (pcase-defmacro url (&rest fields)
   "Parses EXPVAL according to `url-generic-parse-url'.
 

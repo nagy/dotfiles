@@ -63,6 +63,7 @@
     (select-window it)
     (balance-windows)))
 
+;;;###autoload
 (defmacro with-directory (dir &rest body)
   "Set `default-directory' to DIR and execute BODY."
   (declare (indent 1) (debug (sexp body)))

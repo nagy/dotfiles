@@ -1,13 +1,15 @@
 ;;; url-knowledge.el --- url info mode -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 
-;; Package-Requires: ((emacs "29.1") nagy-use-package)
+;; Package-Requires: ((emacs "29.1") anaphora pcase-url nagy-use-package)
 ;;; Commentary:
 
 ;;; Code:
 
 (require 'cl-lib)
+(require 'anaphora)
 
 (require 'nagy-use-package)
+(require 'pcase-url)
 
 (defvar-local url-knowledge-url nil)
 (put 'url-knowledge-url 'permanent-local t)
@@ -43,8 +45,15 @@
                      thereis (ignore-errors
                                (funcall (url-knowledge-config-buffer cdr)))))))
 
-;; (dolist (hook '(magit-mode-hook elfeed-show-mode-hook))
-;;   (add-hook hook #'url-knowledge--get-url))
+(defun url-knowledge-browse-url ()
+  (interactive)
+  (browse-url (url-knowledge--get-url)))
+
+(defun url-knowledge-kill-url ()
+  (interactive)
+  (let ((url (url-knowledge--get-url)))
+    (kill-new url)
+    (message "Killed: %s" url)))
 
 ;;; Contrib
 

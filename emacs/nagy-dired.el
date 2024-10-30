@@ -111,10 +111,6 @@
   (setq-local dired-actual-switches (concat dired-listing-switches " -t -r"))
   (revert-buffer))
 
-(defun dired-home ()
-  (interactive)
-  (dired "~"))
-
 (defun dired-do-delete-force ()
   (interactive)
   (let ((delete-by-moving-to-trash
@@ -127,6 +123,18 @@
 (keymap-set dired-mode-map
             "H-d" #'dired-do-delete-force)
 
+(defun nagy-dired-do-copy ()
+  (interactive)
+  (cl-letf (((symbol-function 'read-file-name)
+             (lambda (_prompt dir _default-filename &rest _rest)
+               dir
+               )))
+    (dired-do-copy)))
+(keymap-set dired-mode-map "H-c" #'nagy-dired-do-copy)
+
+;; (defmacro defun-dired ()
+;;   "a macro to create functions, that apply to dired files.
+;; marks the created function to be M-X able in dired-mode")
 
 (provide 'nagy-dired)
 ;;; nagy-dired.el ends here

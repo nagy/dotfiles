@@ -13,6 +13,11 @@
     "i,," = [ "nix-instantiate" "<nixpkgs/nixos>" ];
     "b." = [ "nix-build" "<dot>" ];
     "i." = [ "nix-instantiate" "<dot>" ];
+    "b+" = [ "nix-build-package" ];
+    "i+" = [ "nix-instantiate-package" ];
+    s = [ "nix-shell" ];
+    sp = [ "nix-shell" "-p" ];
+    sE = [ "nix-shell" "-E" ];
     R = [ "nix" "run" ];
     SE = [ "nix" "search" ];
     B = [ "nix" "build" ];

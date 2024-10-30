@@ -5,6 +5,8 @@
 (require 'nagy-use-package)
 
 (use-package elfeed
+  :preface
+  (defvar elfeed-show-mode-hook nil)
   :defer t
   :custom
   (elfeed-show-truncate-long-urls nil)
