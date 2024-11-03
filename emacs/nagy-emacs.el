@@ -20,9 +20,11 @@
 ;;; Code:
 
 (require 'general)
-(require 'comint)
-(require 'anaphora)
+;; (require 'comint)
+;; (require 'anaphora)
 (require 'memoize)
+
+;; (require 'reformatter)
 
 (defun save-kill-buffer ()
   "Save and kill a buffer."
@@ -450,6 +452,7 @@
   )
 
 (use-package epg
+  :defer t
   :custom
   (epg-pinentry-mode 'loopback))
 
@@ -509,6 +512,7 @@
   ("H-k" . scroll-down-command))
 
 (use-package epg
+  :defer t
   :config
   ;; Known problems with gpg 2.4.1
   ;; https://stackoverflow.com/questions/76388376/emacs-org-encrypt-entry-hangs-when-file-is-modified

@@ -29,6 +29,7 @@ let
       };
       elisp-reader = nur.repos.nagy.emacsPackages.elisp-reader;
       obvious = nur.repos.nagy.emacsPackages.obvious;
+      emacspy = nur.repos.nagy.emacsPackages.emacspy;
     }
   );
   emacsAndPackages = customEmacsPackages.withPackages (

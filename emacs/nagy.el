@@ -31,7 +31,7 @@
 (require 'nagy-org nil t)
 (require 'nagy-pcap-converter nil t)
 (require 'nagy-python nil t)
-(require 'nagy-qrcode nil t)
+;; (require 'nagy-qrcode nil t)
 (require 'nagy-rust nil t)
 (require 'nagy-tablist nil t)
 (require 'nagy-text nil t)

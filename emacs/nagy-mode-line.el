@@ -2,7 +2,7 @@
 ;; Package-Requires: ((emacs "29.1") dash anaphora)
 
 (require 'dash)
-(require 'anaphora)
+;; (require 'anaphora)
 
 (defvar-local nagy-mode-line--jsvar nil)
 (defvar-local nagy-mode-line--jsvar-point nil)

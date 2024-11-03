@@ -2,7 +2,7 @@
 ;; Package-Requires: ((emacs "29.1") elfeed general nagy-use-package)
 
 (require 'general)
-(require 'nagy-use-package)
+;; (require 'nagy-use-package)
 
 (use-package elfeed
   :preface

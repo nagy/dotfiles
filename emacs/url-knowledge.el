@@ -5,11 +5,11 @@
 
 ;;; Code:
 
-(require 'cl-lib)
-(require 'anaphora)
+;; (require 'cl-lib)
+;; (require 'anaphora)
 
-(require 'nagy-use-package)
-(require 'pcase-url)
+;; (require 'nagy-use-package)
+;; (require 'pcase-url)
 
 (defvar-local url-knowledge-url nil)
 (put 'url-knowledge-url 'permanent-local t)

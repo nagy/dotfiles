@@ -2,7 +2,8 @@
 ;; Package-Requires: ((emacs "29.1") hy-mode general nagy-use-package)
 
 (require 'general)
-(require 'nagy-use-package)
+;; (require 'nagy-use-package)
+(declare-function nagy-replace-switch-to-buffer-other-window "nagy-use-package")
 
 (use-package hy-shell
   :defer t

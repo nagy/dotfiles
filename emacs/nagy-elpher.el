@@ -20,7 +20,8 @@
 ;;; Code:
 
 (require 'general)
-(require 'bookmark)
+;; (require 'bookmark)
+(declare-function bookmark-prop-get "bookmark")
 
 (use-package elpher
   :preface

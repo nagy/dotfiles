@@ -1,7 +1,7 @@
 ;;; nagy-devops.el --- devops config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Package-Requires: ((emacs "29.1") groovy-mode terraform-mode hcl-mode gitlab-ci-mode dockerfile-mode jenkinsfile-mode reformatter cmake-mode nagy-use-package)
 
-(require 'nagy-use-package)
+;; (require 'nagy-use-package)
 
 (use-package groovy-mode
   :defer t

@@ -20,7 +20,7 @@
 ;;; Code:
 
 (require 'modus-themes)
-(require 'ef-themes)
+;; (require 'ef-themes)
 (require 'paren-face)
 
 (eval-when-compile

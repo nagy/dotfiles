@@ -5,9 +5,11 @@
 
 (require 'general)
 
-(require 'consult)
-(require 'embark)
-(require 'embark-consult)
+(eval-when-compile
+  (require 'consult))
+(declare-function consult--customize-put "consult")
+;; (require 'embark)
+;; (require 'embark-consult)
 
 (use-package vertico
   :commands (vertico-mode)
@@ -54,6 +56,7 @@
            "°" #'vertico-buffer-mode))
 
 (use-package consult
+  :defer t
   :custom
   (consult-async-min-input 2)
   (consult-async-refresh-delay 0.15)

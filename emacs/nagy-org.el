@@ -3,7 +3,7 @@
 
 (require 'general)
 
-(require 'nagy-use-package)
+;; (require 'nagy-use-package)
 
 (use-package org
   :commands (find-file-org)

@@ -16,11 +16,14 @@
 ;;; Code:
 
 (require 'general)
-(require 'nagy-use-package)
+;; (require 'nagy-use-package)
 
-(use-package emms)
+;; (use-package emms
+;;   :defer t
+;;   )
 
 (use-package emms-player-mpv
+  :defer t
   :config
   (setq emms-player-list '(emms-player-mpv)
         emms-player-mpv-environment '("PULSE_PROP_media.role=music")

@@ -14,9 +14,9 @@
 ;;
 ;;; Code:
 
-(require 'reformatter)
+;; (require 'reformatter)
 (require 'general)
-(require 'nagy-use-package)
+;; (require 'nagy-use-package)
 
 (use-package python
   :preface

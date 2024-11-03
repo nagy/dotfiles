@@ -20,7 +20,11 @@
 ;;; Code:
 
 (require 'dash)
-(require 'use-package)
+
+(eval-when-compile
+  (require 'use-package))
+(declare-function use-package-process-keywords "use-package-core")
+(declare-function use-package-only-one "use-package-core")
 
 ;;;###autoload
 (defun use-package-normalize/:same (_name-symbol keyword args)

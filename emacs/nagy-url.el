@@ -1,10 +1,9 @@
 ;;; nagy-url.el --- url info mode -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Package-Requires: ((emacs "29.1") url-knowledge general nagy-use-package)
 
-(require 'url-parse)
+;; (require 'url-parse)
 (require 'general)
-
-(require 'nagy-use-package)
+;; (require 'nagy-use-package)
 
 (defface nagy-url-face
   '((t :inherit (ffap bold dired-header)))
