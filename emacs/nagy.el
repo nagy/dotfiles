@@ -11,7 +11,6 @@
 (require 'nagy-evil nil t)
 (require 'nagy-exwm nil t)
 (require 'nagy-formats nil t)
-(require 'nagy-forth nil t)
 (require 'nagy-gc nil t)
 (require 'nagy-haskell nil t)
 (require 'nagy-hy nil t)
