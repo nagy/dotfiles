@@ -85,9 +85,9 @@
       "nur=${lib.cleanSource <nur>}"
     ];
 
-    # from @atemu
-    # daemonCPUSchedPolicy = "idle";
-    # daemonIOSchedClass = "idle";
+    # from @atemu , should only be used for desktops, but is good enough here.
+    daemonCPUSchedPolicy = "idle";
+    daemonIOSchedClass = "idle";
 
     registry = {
       nixpkgs.flake = lib.cleanSource pkgs.path;

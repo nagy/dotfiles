@@ -41,8 +41,10 @@ let
     (
       [
         epkgs.treesit-grammars.with-all-grammars
+        epkgs.age
         epkgs.gptel
         epkgs.emacspy
+        epkgs.passage
       ]
       ++ (lib.attrValues (import ../emacs { inherit pkgs lib epkgs; }))
     )

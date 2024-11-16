@@ -1,7 +1,6 @@
 ;;; nagy-dired.el --- Dired config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Package-Requires: ((emacs "29.1") ov general dired-collapse dired-narrow dired-subtree nagy-evil)
 
-(require 'dired)
 (eval-when-compile
   (require 'dired))
 (declare-function dired-do-copy "dired-aux")
@@ -25,17 +24,39 @@
     (string-replace "/tmp/t" "⧖")
     ))
 
+(define-minor-mode drfl-mode
+  "drfl-mode."
+  :lighter " drfl"
+  (if drfl-mode
+      (font-lock-add-keywords nil nagy-dired-font-lock-keywords 'append)
+    (font-lock-remove-keywords nil nagy-dired-font-lock-keywords))
+  (font-lock-flush))
+
+(defun nagy-dired-find-file-literally ()
+  (interactive)
+  (set-buffer-modified-p nil)
+  (find-file-literally (dired-get-file-for-visit)))
+
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "M-f" #'nagy-dired-find-file-literally)
+  (add-hook 'dired-mode-hook #'drfl-mode))
+
 (use-package dired
   :demand t
   :preface
-  (defun nagy-dired-mark-if-git ()
+  (defun +revert-when-dired (&rest _rest)
+    "Revert when major-mode is dired.
+
+Can be used as an advice."
+    (when (derived-mode-p 'dired-mode)
+      (call-interactively #'revert-buffer)))
+  (defun nagy-dired-toggle-executable-flag ()
     (interactive)
-    (when-let ((git-repo (file-exists-p (format "%s/.git" (car (dired-get-marked-files t)))))
-               (ov (make-overlay (1- (point)) (point))))
-      (ov-set ov 'face 'modus-themes-subtle-magenta)
-      (if (file-exists-p (format "%s/flake.nix" (car (dired-get-marked-files t))))
-          (ov-set ov 'display "⨏")))
-    (dired-next-line 1))
+    (dolist (file (dired-get-marked-files t))
+      (cl-assert (zerop (call-process "chmod" nil nil nil
+                                      (if (file-executable-p file) "-x" "+x")
+                                      file))))
+    (revert-buffer-quick))
   :custom
   (dired-dwim-target t)
   (dired-recursive-copies  'always)
@@ -69,6 +90,8 @@
            "f" #'dired-find-file
            "r" #'revert-buffer
            "q" #'bury-buffer
+           "~" #'nagy-dired-toggle-executable-flag
+           ;; "." #'terminal
            "gg" #'evil-goto-first-line
            "G" #'evil-goto-line
            "a" #'magit-status

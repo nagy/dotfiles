@@ -4,7 +4,6 @@
 }:
 
 nixosEval {
-  system = "x86_64-linux";
   specialArgs = {
     # dot = import ./. { };
     nur = import <nur> {
@@ -21,7 +20,6 @@ nixosEval {
         pkgs,
         ...
       }:
-
       {
         imports = [
           "${modulesPath}/installer/netboot/netboot-base.nix"

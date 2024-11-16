@@ -183,7 +183,6 @@
       tor-browser
       pulsemixer
       poppler_utils # pdf utils
-      (gnupg.override { guiSupport = false; })
 
       # for container
       binutils
@@ -195,8 +194,8 @@
       yt-dlp
 
       (pass.withExtensions (exts: [ exts.pass-otp ]))
-      pinentry
-      (gnupg.override { guiSupport = false; })
+      age
+      passage
 
       (zbar.override {
         withXorg = false;
@@ -214,4 +213,27 @@
       pandoc
     ]
   );
+
+  programs.gnupg = {
+    # socket activation does not seem to be used. gnupg is starting an agent itself.
+    # more info: https://discourse.nixos.org/t/how-to-make-gpg-use-the-agent-from-programs-gnupg-agent/11834/2
+
+    # but also seems to be used. idk.
+    # package = gnupg.override { guiSupport = false; };
+    agent.enable = true;
+    agent.settings = {
+      default-cache-ttl = 34560000;
+      max-cache-ttl = 34560000;
+    };
+  };
+
+  hardware.pulseaudio = {
+    enable = true;
+  };
+  services.pipewire.enable = false;
+
+  programs.wireshark = {
+    enable = true;
+  };
+
 }

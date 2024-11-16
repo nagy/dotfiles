@@ -86,6 +86,26 @@
 ;;                                     (buffer-file-name))))
 ;;     (find-file it)))
 
+(defvar-local nagy-misc2-browse-at-remote--fixed-url nil)
+(use-package browse-at-remote
+  :commands (browse-at-remote-get-url)
+  :preface
+  (defun nagy-misc2-browse-at-remote-kill-print ()
+    (interactive)
+    (awhen (or nagy-misc2-browse-at-remote--fixed-url
+               (ignore-errors (browse-at-remote-get-url)))
+      (message "Copied: %S" it)
+      (kill-new it)
+      it))
+  :custom
+  (browse-at-remote-add-line-number-if-no-region-selected nil)
+  :config
+  ;; from doom:
+  (add-to-list 'browse-at-remote-remote-type-regexps
+               '(:host "^gitlab\\." :type "gitlab") 'append)
+  :bind
+  ("C-H-s-y" . browse-at-remote)
+  ("H-s-y" . nagy-misc2-browse-at-remote-kill-print))
 
 (use-package inspector
   :custom
@@ -111,9 +131,12 @@
       (user-error "redshift not installed"))))
 (keymap-global-set "H-<f3>" #'redshift)
 
+(declare-function brightness-down "nagy-exwm")
 (defun system-suspend ()
   (interactive)
   ;; (real-garbage-collect)
+  (dolist (_ '(1 1 1 1 1 1 1 1 1))
+    (brightness-down))
   (start-process "sleeping" nil "sh" "-c" "sleep 2 && systemctl suspend"))
 (keymap-global-set "s-💤" #'system-suspend)
 
@@ -134,6 +157,36 @@
   :general
   (:states 'normal
            "🔑" #'pass))
+
+(use-package password-store
+  :preface
+  (defun nagy-replace-sleep-for-with-sit-for (orig-fun &rest args)
+    "Advice that replaces calls to `sleep-for'
+with `sit-for'.
+
+This can be sometimes useful if a function is hanging because it
+waits for input."
+    (cl-letf (((symbol-function 'sleep-for) #'sit-for))
+      (apply orig-fun args)))
+  :custom
+  (password-store-time-before-clipboard-restore 10)
+  (password-store-url-field "Url")
+  :config
+  ;; TODO PR this upstream into the mailing list
+  ;; https://github.com/zx2c4/password-store
+  ;; https://lists.zx2c4.com/mailman/listinfo/password-store
+  (advice-add 'password-store--run :around #'nagy-replace-sleep-for-with-sit-for)
+  :bind
+  ("M-s-p" . password-store-copy)
+  :general
+  (:states 'normal :keymaps 'pass-mode-map
+           "j" #'pass-next-entry
+           "k" #'pass-prev-entry
+           "o" #'pass-otp-options
+           "w" #'pass-copy
+           "b" #'pass-copy-username
+           "f" #'pass-view)
+  :same "^\\*Password-Store\\*$")
 
 (use-package password-store-otp
   :defer t
@@ -161,6 +214,116 @@
   (push 'silent-tab-previous super-save-triggers)
   (super-save-mode 1))
 
+;; TODO carry over doom autoload
+(use-package highlight-defined
+  :preface
+  ;; copied from doom
+  (defun ad-get-orig-definition (function) ;FIXME: Rename to "-unadvised-".
+    (if (symbolp function)
+        (setq function (if (fboundp function)
+                           (advice--strip-macro (symbol-function function)))))
+    (advice--cd*r function))
+  (defvar +emacs-lisp--face nil)
+  (defun +emacs-lisp-highlight-vars-and-faces (end)
+    (catch 'matcher
+      (while (re-search-forward "\\(?:\\sw\\|\\s_\\)+" end t)
+        (let ((ppss (save-excursion (syntax-ppss))))
+          (cond ((nth 3 ppss)           ; strings
+                 (search-forward "\"" end t))
+                ((nth 4 ppss)           ; comments
+                 (forward-line +1))
+                ((let ((symbol (intern-soft (match-string-no-properties 0))))
+                   (and (cond ((null symbol) nil)
+                              ((eq symbol t) nil)
+                              ((keywordp symbol) nil)
+                              ((special-variable-p symbol)
+                               (setq +emacs-lisp--face 'font-lock-variable-name-face))
+                              ((and (fboundp symbol)
+                                    (eq (char-before (match-beginning 0)) ?\()
+                                    (not (memq (char-before (1- (match-beginning 0)))
+                                               (list ?\' ?\`))))
+                               (let ((unaliased (indirect-function symbol)))
+                                 (unless (or (macrop unaliased)
+                                             (special-form-p unaliased))
+                                   (let (unadvised)
+                                     (while (not (eq (setq unadvised (ad-get-orig-definition unaliased))
+                                                     (setq unaliased (indirect-function unadvised)))))
+                                     unaliased)
+                                   (setq +emacs-lisp--face
+                                         (if (subrp unaliased)
+                                             'font-lock-constant-face
+                                           'font-lock-function-name-face))))))
+                        (throw 'matcher t)))))))
+      nil))
+  (defun nagy-misc2-activate-el-fl ()
+    (font-lock-add-keywords
+     'emacs-lisp-mode
+     (append ;; highlight defined, special variables & functions
+      `((+emacs-lisp-highlight-vars-and-faces . +emacs-lisp--face))))
+    )
+  :config
+  (list)
+  :hook
+  (emacs-lisp-mode . nagy-misc2-activate-el-fl)
+  ;; (emacs-lisp-mode . highlight-defined-mode)
+  )
+
+(use-package helpful
+  :commands (helpful--navigate)
+  :preface
+  (defun helpful--all-the-buttons ()
+    (car (save-excursion
+           (goto-char (point-min))
+           (cl-loop for i from 1 to 1000
+                    for btn = (forward-button 1 nil nil t)
+                    when btn
+                    when (string= "Navigate to definition" (button-get btn 'help-echo))
+                    collect btn))))
+  (defun helpful-jump-to-definition ()
+    (interactive)
+    (when-let ((btn (helpful--all-the-buttons)))
+      (helpful--navigate btn)))
+  :config
+  (put 'helpful--bookmark-jump 'bookmark-handler-type "Helpful")
+  :bind
+  ([remap describe-function] . helpful-callable)
+  ([remap describe-command]  . helpful-command)
+  ([remap describe-variable] . helpful-variable)
+  ([remap describe-key]      . helpful-key)
+  ([remap describe-symbol]   . helpful-symbol)
+  (:map helpful-mode-map
+        ([remap dired-jump] . helpful-jump-to-definition)))
+
+(use-package cyphejor
+  :preface
+  :commands (cyphejor-mode)
+  :demand t
+  :custom
+  (cyphejor-rules '(;; :upcase
+                    ("dired" "δ")
+                    ("emacs lisp" "λ")
+                    ;; ("nagy-list" "Ł")
+                    ))
+  :config
+  (defun cyphejor--cypher (_old-name _rules)
+    (awhen (format-mode-line mode-name)
+      (pcase it
+        ((prefix "Dired") (string-replace "Dired" "δ" it))
+        ((prefix "ELisp") (string-replace "ELisp" "𝛌" it))
+        ("IELM" (string-replace "IELM" "𝛌" it))
+        ((prefix "Magit") (string-replace "Magit" "" it))
+        ((prefix "EMMS") (string-replace "EMMS" "󰎈" it))
+        ((prefix "Nix") (string-replace "Nix" "○" it))
+        ((prefix "Shell") (string-replace "Shell" "$" it))
+        ((prefix "Inferior Python") (string-replace "Inferior Python" "↓🐍" it))
+        ((prefix "Inferior Hy") (string-replace "Inferior Hy" "↓Hy" it))
+        ((prefix "nagy-list") (string-replace "nagy-list" "Ł" it))
+        (_ mode-name))))
+  ;; in emacs 30, this can only be activated later ( maybe after
+  ;; emacs-lisp-mode has been loaded).
+  ;; (cyphejor-mode 1)
+  )
+
 (use-package tokei
   :disabled
   :config
@@ -170,6 +333,43 @@
                          :toplevel "Languages"
                          :types ((?l "Languages"  magit-section-heading)
                                  (?f "Files"))))))
+
+(declare-function image-mode-window-get "image-mode")
+(defun print-dwim ()
+  (interactive)
+  (pcase major-mode
+    ('pdf-view-mode
+     (if (buffer-file-name)
+         (call-process "lpr" nil nil nil "-o"
+                       (format "page-ranges=%d"
+                               (progn
+                                 ;; this is just #'pdf-view-current-page inlined
+                                 (image-mode-window-get 'page)))
+                       (buffer-file-name))
+       (user-error "No buffer file name for printing")))
+    (_ (let ((file (make-temp-file "print-dwim" nil ".ps")))
+         (if (region-active-p)
+             (ps-print-region (region-beginning) (region-end) file)
+           (ps-print-buffer file))
+         ;; nix-build "<nixpkgs>" -A ghostscript
+         (call-process "/nix/store/i8mvcnvy54izmkqlghb50a6pfa5z8qc4-ghostscript-with-X-10.04.0/bin/ps2pdf" nil nil nil "-sPAPERSIZE=a4" file "/tmp/printed.pdf")
+         (find-file "/tmp/printed.pdf")))))
+(keymap-global-set "<print>" #'print-dwim)
+
+(defun nagy/pdf-to-text (&optional arg)
+  (interactive "P")
+  (let ((buf (generate-new-buffer "*pdftext*")))
+    (if arg
+        (call-process "pdftotext" nil buf nil (buffer-file-name) "-")
+      (call-process "pdftotext" nil buf nil "-layout" "-nopgbrk"
+                    ;; "-f" (number-to-string (pdf-view-current-page))
+                    ;; "-l" (number-to-string (pdf-view-current-page))
+                    (buffer-file-name)
+                    "-"))
+    (switch-to-buffer buf)
+    (text-mode)
+    (goto-char (point-min))))
+
 (use-package pdf-tools
   :custom
   (pdf-view-use-scaling nil)

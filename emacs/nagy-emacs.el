@@ -703,6 +703,52 @@
     (marker (marker-buffer object))
     (overlay (overlay-buffer object))))
 
+(defun nagy-length-buffer (orig-fun &rest args)
+  (declare (side-effect-free t))        ; no more pure
+  (cl-typecase (car args)
+    (buffer (buffer-size (car args)))
+    (window (buffer-size (window-buffer (car args))))
+    (process (buffer-size (process-buffer (car args))))
+    (overlay (- (overlay-end (car args)) (overlay-start (car args))))
+    (frame (apply orig-fun (list (window-list (car args)))))
+    (hash-table (hash-table-size (car args)))
+    (t (apply orig-fun args))))
+;; (advice-add 'length :around #'nagy-length-buffer)
+;; (advice-remove 'length #'nagy-length-buffer)
+
+(defun nagy-buffer-size (orig-fun &rest args)
+  (declare (side-effect-free t))        ; no more pure
+  (cl-typecase (car args)
+    ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=66890
+    (string (setcar args (get-buffer (car args)))
+            (apply orig-fun args))
+    (window (setcar args (window-buffer (car args)))
+            (apply orig-fun args))
+    (process (setcar args (process-buffer (car args)))
+             (apply orig-fun args))
+    (overlay (setcar args (overlay-buffer (car args)))
+             (apply orig-fun args))
+    (marker (setcar args (marker-buffer (car args)))
+            (apply orig-fun args))
+    (t (apply orig-fun args))))
+;; (advice-add 'buffer-size :around #'nagy-buffer-size)
+
+(defun insert-multi (&rest args)
+  (atomic-change-group
+    (dolist (it args)
+      (cl-typecase it
+        (buffer (insert (with-current-buffer it
+                          (buffer-string))))
+        (window (insert (with-current-buffer (window-buffer it)
+                          (buffer-string))))
+        (process (insert (with-current-buffer (process-buffer it)
+                           (buffer-string))))
+        (t (insert it))))))
+
+(defmacro toggle (arg)
+  (declare (debug setq))
+  `(setopt ,arg (not ,arg)))
+
 ;;;###autoload
 (defmacro andf (place &rest x)
   (declare (debug (place form)))
@@ -716,6 +762,17 @@
   (if (symbolp place)
       `(setq ,place (or ,place ,@x))
     `(cl-callf or ,place ,@x)))
+
+;; (defvaralias 'mm 'major-mode)
+;; (defvaralias 'dd 'default-directory)
+
+(put 'thread-first 'lisp-indent-function 1)
+(put 'thread-last 'lisp-indent-function 1)
+
+(put 'vconcat 'pure t)
+
+(put 'number-to-string 'pure t)
+(put 'propertize 'pure t)
 
 ;; (use-package bindat
 ;;   ;; :commands (bindat-pack bindat-type)

@@ -20,7 +20,9 @@
     ./ncdu.nix
     ./nix.nix
     # ./printer.nix
+    # ./go.nix
     # ./rust.nix
+    # ./zig.nix
     # ./scanner.nix
     ./simpleaddress.nix
     ./shortcommands.nix

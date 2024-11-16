@@ -189,6 +189,10 @@
 ;;   (evil-set-initial-state 'calc-mode 'emacs))
 
 (use-package eat
+  :functions (eat-ncdu eat-dool)
+  :preface
+  (defun nagy--eat-char-mode (_proc)
+    (eat-char-mode))
   :custom
   (eat-kill-buffer-on-exit t)
   (eat-enable-directory-tracking nil)
@@ -197,10 +201,52 @@
   :config
   ;; (setq process-adaptive-read-buffering nil)
   (evil-set-initial-state 'eat-mode 'emacs)
+  (add-hook 'eat-exec-hook #'nagy--eat-char-mode)
+  (defun eat-ncdu ()
+    "Doctext."
+    (interactive)
+    (let ((eat-buffer-name "*eat-ncdu*")
+          (eat-kill-buffer-on-exit t))
+      (when (get-buffer eat-buffer-name)
+        (kill-buffer (get-buffer eat-buffer-name)))
+      (eat "ncdu")))
+  (defun eat-dool ()
+    "Doctext."
+    (interactive)
+    (let ((eat-buffer-name "*eat-dool*")
+          (eat-kill-buffer-on-exit t))
+      (eat "dool -N eth0 --bytes --bw")))
   :bind
-  ("<key-chord> ü x" . eat))
+  (:map evil-normal-state-map
+        ("<key-chord> - x" . eat)
+        ("<key-chord> ß w" . eat-ncdu))
+  (:map eat-mode-map
+        ("H-h" . eat-emacs-mode)
+        ("H-l" . eat-char-mode)
+        ("H-r" . eat-reset)
+        ))
 
+(require 'vertico)
 (use-package key-chord
+  :preface
+  (defun nagy-evil-minibuffer-set-home ()
+    (interactive)
+    (delete-minibuffer-contents)
+    (goto-char (point-max))
+    (insert "~/"))
+  (defun nagy-evil-minibuffer-set-tmp ()
+    (interactive)
+    (delete-minibuffer-contents)
+    (goto-char (point-max))
+    (insert temporary-file-directory))
+  (defun nagy-evil-minibuffer-set-nix ()
+    (interactive)
+    (delete-minibuffer-contents)
+    (goto-char (point-max))
+    (insert
+     ;; (concat nix-store-dir "/")
+     "/nix/store/"
+     ))
   :after evil
   :demand t
   :commands (key-chord-define key-chord-mode)
@@ -209,6 +255,42 @@
   (key-chord-two-keys-delay 0.2)
   (key-chord-safety-interval-backward 0.0)
   (key-chord-safety-interval-forward 0.0)
+  :bind
+  (:map evil-normal-state-map
+        ("<key-chord> - <" . vertico-flat-mode)
+        ("<key-chord> - c" . eshell)
+        ("<key-chord> - h" . consult-imenu)
+        ("<key-chord> - w" . global-prettify-symbols-mode))
+  (:map vertico-map
+        ("<key-chord> f j" . vertico-exit)
+        ("<key-chord> j f" . minibuffer-keyboard-quit))
+  (:map minibuffer-local-map
+        ("<normal-state> <key-chord> - h" . nagy-evil-minibuffer-set-home)
+        ("<normal-state> <key-chord> - t" . nagy-evil-minibuffer-set-tmp)
+        ("<normal-state> <key-chord> - n" . nagy-evil-minibuffer-set-nix)
+        ("<key-chord> f j" . exit-minibuffer)
+        ("<key-chord> j f" . minibuffer-keyboard-quit))
+  ("s-SPC" . exit-minibuffer)
+  ("H-SPC" . minibuffer-keyboard-quit)
+  (:map evil-ex-search-keymap
+        ("<key-chord> f j" . exit-minibuffer)
+        ("<key-chord> j f" . minibuffer-keyboard-quit))
+  ;; (:map emacs-lisp-mode-map
+  ;;       ("<insert-state> <key-chord> f l" . indent-for-tab-command))
+  :config
+  (key-chord-mode 1)
+  ;; (global-set-key (kbd "<key-chord> - <") #'vertico-flat-mode)  ; this causes "-" to be slow while in insert mode
+  (key-chord-define evil-insert-state-map  "jk" #'evil-normal-state)
+  ;; (key-chord-define evil-insert-state-map  "kj" #'evil-normal-state) ; may be a bit overkill
+  ;; (key-chord-define evil-emacs-state-map "jk" #'evil-normal-state) ; makes eat terminal slow
+
+  :general
+  (:states 'normal
+           ;; Was evil-repeat-pop and evil-repeat-pop-next. I dont understand these commands yet, so lets
+           ;; keep the binding available.
+           "C-." nil
+           "M-." nil ;; This opens up M-. back to xref-find-definitions
+           )
   )
 
 (use-package tar-mode
