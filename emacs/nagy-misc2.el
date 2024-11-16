@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-misc2
-;; Package-Requires: ((emacs "29.1") aggressive-indent reformatter general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") aggressive-indent reformatter browse-at-remote super-save bufler pdf-tools org-pdftools avy helpful iedit go-mode anaphora general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -31,7 +31,8 @@
   ("H-M-T" . conf-toml-mode)
   (:map conf-mode-map
         ("H-j" . forward-paragraph)
-        ("H-k" . backward-paragraph))
+        ("H-k" . backward-paragraph)
+        )
   :general
   (:states 'normal :keymaps 'conf-toml-mode
            "ö" #'save-buffer)
@@ -74,13 +75,57 @@
   :hook
   (emacs-lisp-mode . highlight-quoted-mode))
 
+(defun redshift ()
+  (interactive)
+  (aif (get-process "redshift")
+      (interrupt-process it)
+    (if (executable-find "redshift")
+        (start-process "redshift" nil "redshift"
+                       )
+      (user-error "redshift not installed"))))
+(keymap-global-set "H-<f3>" #'redshift)
+
+
+(use-package tokei
+  :disabled
+  :config
+  (after! consult-imenu
+          (add-to-list 'consult-imenu-config
+                       '(tokei-mode
+                         :toplevel "Languages"
+                         :types ((?l "Languages"  magit-section-heading)
+                                 (?f "Files"))))))
+(defun take-screenshot ()
+  (interactive)
+  (let* ((default-directory temporary-file-directory)
+         (filename (string-trim-right
+                    (shell-command-to-string "scrot --select --exec 'echo $f'"))))
+    (if (called-interactively-p 'interactive)
+        (find-file filename)
+      (expand-file-name filename))))
+
+;; (use-package jit-lock
+;;   ;; https://old.reddit.com/r/emacs/comments/14c4l8j/way_to_make_emacs_feel_smoother/joku4bh/
+;;   :custom
+;;   (jit-lock-stealth-time 1.25)
+;;   (jit-lock-stealth-nice 0.5)
+;;   (jit-lock-chunk-size 4096))
+
 (use-package avy
+  :defer t
   :custom
   (avy-all-windows nil)
   (avy-background nil)
   (avy-single-candidate-jump t)
   (avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l
                  ?q ?w ?e ?r       ?i ?o ?p)))
+(use-package pdf-tools
+  :commands (pdf-tools-install)
+  :hook
+  (pdf-view-mode . pdf-view-fit-page-to-window)
+  :config
+  (pdf-tools-install))
+
 (use-package iedit
   :bind
   ("C-;" . iedit-mode))
@@ -89,6 +134,17 @@
   :bind
   ("M-→" . er/expand-region)
   ("M-←" . er/contract-region))
+
+(use-package go-mode
+  :preface
+  (reformatter-define go-fmt
+    :group 'go
+    :program "gofmt"
+    :lighter " GF")
+  :hook
+  (go-mode . go-fmt-on-save-mode)
+  :bind
+  ("H-M-g" . go-mode))
 
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here

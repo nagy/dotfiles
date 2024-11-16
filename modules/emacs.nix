@@ -30,6 +30,10 @@ let
       elisp-reader = nur.repos.nagy.emacsPackages.elisp-reader;
       obvious = nur.repos.nagy.emacsPackages.obvious;
       emacspy = nur.repos.nagy.emacsPackages.emacspy;
+      evil = super.evil.overrideAttrs {
+        # to fix https://github.com/emacs-evil/evil/issues/1903
+        src = builtins.fetchTarball "https://github.com/emacs-evil/evil/archive/b7ab3840dbfc1da5f9ad56542fc94e3dab4be5f1.tar.gz";
+      };
     }
   );
   emacsAndPackages = customEmacsPackages.withPackages (

@@ -13,8 +13,8 @@
   };
   users.users.user.extraGroups = [ "lp" ];
 
-  # hardware.printers = lib.mkIf config.services.printing.enable {
-  #   ensureDefaultPrinter = "SamsungPrinter";
+  hardware.printers = lib.mkIf config.services.printing.enable {
+    ensureDefaultPrinter = "SamsungPrinter";
   #   ensurePrinters = [
   #     {
   #       name = "SamsungPrinter";
@@ -26,7 +26,7 @@
   #       deviceUri = "usb://Samsung/CLP-360%20Series?serial=XXXXXXXXXXXXXXX";
   #     }
   #   ];
-  # };
+  };
 
   # nixpkgs.config.allowUnfree = true; # for samsung driver
   nixpkgs.config.allowUnfreePredicate =

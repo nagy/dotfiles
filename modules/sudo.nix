@@ -10,4 +10,8 @@
     Defaults:user !tty_tickets, timestamp_timeout=60
   '';
 
+  security.sudo = {
+    execWheelOnly = true;
+  };
+
 }

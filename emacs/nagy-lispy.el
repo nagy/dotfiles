@@ -45,7 +45,7 @@
         ))
 
 (use-package lispyville
-  :diminish 'lispyville-mode
+  :diminish lispyville-mode
   :bind
   (:map lispyville-mode-map
         ("C-M-S-o" . lispy-oneline)

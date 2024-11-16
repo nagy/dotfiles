@@ -65,6 +65,10 @@
                                (when (functionp f)
                                  (funcall f (point-min) (point-max) (point-max))))))))
               nil t)
+    ;; (add-hook 'evil-insert-state-exit-hook
+    ;;           (lambda (&rest _rest)
+    ;;             (nagy-formats--change newbuf oldbuf into-mode))
+    ;;           nil t)
     (with-current-buffer newbuf
       (nagy-formats--call-converter (buffer-local-value 'major-mode oldbuf) into-mode)
       (set-window-buffer nil (current-buffer))
@@ -102,6 +106,12 @@
   (unless (eq major-mode 'yaml-mode)
     (yaml-mode)))
 
+(cl-defmethod nagy-formats-convert ((_from (derived-mode hy-mode)) (_to (eql python-mode)))
+  (shell-command-on-region (point-min) (point-max) "hy2py" t 'no-mark (get-buffer-create "*Format Errors*"))
+  (shell-command-on-region (point-min) (point-max) "ruff check --fix -" t 'no-mark (get-buffer-create "*Format Errors*"))
+  (unless (eq major-mode 'python-mode)
+    (python-mode)))
+
 (cl-defmethod nagy-formats-convert (_from (_to (eql b64)))
   "base64")
 
@@ -113,11 +123,6 @@
 
 (cl-defmethod nagy-formats-convert (_from (_to (eql hex)))
   "hexdump -vC")
-
-(cl-defmethod nagy-formats-convert (_from (_to (eql civet)))
-  (shell-command-on-region (point-min) (point-max)"civet --compile" t 'no-mark (generate-new-buffer "*Format Errors*"))
-  (unless (eq major-mode 'js-mode)
-    (js-mode)))
 
 (cl-defmethod nagy-formats-convert ((_from (eql yaml-mode)) (_to (eql js-json-mode)))
   (shell-command-on-region (point-min) (point-max) "yj -yj -i" t 'no-mark (generate-new-buffer "*Format Errors*"))

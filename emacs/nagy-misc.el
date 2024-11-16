@@ -33,6 +33,9 @@
 
 (use-package nameless
   :diminish nameless-mode
+  ;; :bind
+  ;; TODO make this emacs mode only
+  ;; ("<key-chord> - e" . nameless-mode)
   :general
   (:states 'insert :keymaps 'nameless-mode-map
            "s--" #'nameless-insert-name)
@@ -91,11 +94,25 @@
       (copy-region-as-kill (region-beginning) (region-end))
     (save-mark-and-excursion
       (mark-paragraph)
-      (copy-region-as-kill (region-beginning) (region-end)))))
+      (copy-region-as-kill (region-beginning) (region-end))
+      ;; use `lispyville-yank' here to trigger evil-goggles.
+      ;; (lispyville-yank (region-beginning) (region-end) 'line )
+      )))
 
 (use-package prog-mode
+  :bind
+  (:map prog-mode-map
+        ("H-j" . end-of-defun)
+        ("H-k" . beginning-of-defun)
+        ("H-ö" . save-buffer)
+        ("H-d" . nagy/delete-paragraph)
+        ;; ("H-l" . magit-log-buffer-file)
+        )
   :hook
-  (prog-mode . visual-line-mode))
+  (prog-mode . visual-line-mode)
+  :general
+  (:states 'normal :keymaps 'prog-mode-map
+           "ö" #'save-buffer))
 
 (use-package tokei
   :bind
@@ -158,6 +175,8 @@
            "ö" #'wdired-finish-edit))
 
 (use-package image
+  :custom
+  (image-auto-resize 'fit-window)
   :general
   (:states 'normal :keymaps 'image-mode-map
            "P" #'image-transform-fit-to-window))
@@ -216,6 +235,7 @@
   ;; can freeze emacs on something like sleep 10 if non-nil
   ;; https://old.reddit.com/r/emacs/comments/14377k9/weekly_tips_tricks_c_thread/jn8igpu/
   (comint-process-echoes nil)
+  ;; (comint-move-point-for-output t)
   :bind
   (:map comint-mode-map
         ([remap revert-buffer-quick] . comint-clear-buffer)
@@ -223,11 +243,17 @@
         ("H-Ö" . comint-previous-input)
         ("M-Ö" . comint-previous-input)
         ("H-d" . comint-send-eof)
+        ("H-_" . comint-send-eof)
         ("H-j" . comint-next-prompt)
         ("H-k" . comint-previous-prompt)))
 
 (use-package sotlisp
-  :diminish 'sotlisp-mode)
+  ;; :diminish 'sotlisp-mode
+  :commands (speed-of-thought-mode)
+  :config
+  (speed-of-thought-mode -1)
+  (speed-of-thought-mode 1)
+  )
 
 (use-package gitattributes-mode
   ;; also catch files in nix store
@@ -237,22 +263,15 @@
   ;; also catch files in nix store
   :mode "-gitconfig\\'")
 
-(require 'hideshow)
-(use-package hideshow
-  :preface
-  (defun nagy-hs-toggle-hiding ()
-    (interactive)
-    (save-excursion
-      (end-of-line)
-      (hs-toggle-hiding)))
-  :general
-  (:states 'normal
-           "r" #'nagy-hs-toggle-hiding))
-
 (use-package ielm
+  ;; :config
+  ;; (advice-add 'ielm-return :after #'evil-normal-state)
   :general
   (:states 'normal :keymaps 'inferior-emacs-lisp-mode-map
-           "ö" #'ielm-return))
+           "ö" #'ielm-return)
+  ;; :config
+  ;; (keymap-set evil-normal-state-map "<key-chord> ü e" #'ielm-on-buffer)
+  )
 
 (use-package osm
   :custom
@@ -264,6 +283,10 @@
         ("<end>" . osm-right-right)
         ("<next>" . osm-down-down)
         ("<prior>" . osm-up-up))
+  ;; :config
+  ;; (require 'osm-ol)
+  ;; (put 'osm-bookmark-jump 'bookmark-handler-type "Osm")
+  ;; (evil-set-initial-state 'osm-mode 'emacs)
   :same "^\\*osm")
 
 (use-package literate-calc-mode
@@ -281,18 +304,49 @@
            "¿" #'breadcrumb-mode))
 
 (use-package tabulated-list
+  :bind
+  (:map tabulated-list-mode-map
+        ("M-h" . tabulated-list-previous-column)
+        ("M-l" . tabulated-list-next-column))
   :general
   (:states 'normal :keymaps 'tabulated-list-mode-map
-           "ö" #'tabulated-list-widen-current-column
-           "a" #'tabulated-list-narrow-current-column
-           "s" #'tabulated-list-sort
-           "h" #'tabulated-list-previous-column
-           "l" #'tabulated-list-next-column))
+           "{" #'tabulated-list-narrow-current-column
+           "}" #'tabulated-list-widen-current-column
+           "t" #'tabulated-list-sort
+           ;; "i" #'tabulated-list-previous-column
+           ;; "o" #'tabulated-list-next-column
+           ))
 
 (use-package nhexl-mode
+  :bind
+  ("H-M-H" . nhexl-mode)
+  ;; todo: upstream this into evil-collection
   :general
-  (:states 'normal
-           "⬡" #'nhexl-mode))
+  (:states 'normal :keymaps 'nhexl-mode-map
+           [remap evil-next-line] #'nhexl-next-line
+           [remap evil-previous-line] #'nhexl-previous-line
+           "0" #'nhexl-move-beginning-of-line
+           "$" #'nhexl-move-end-of-line
+           "w" #'nhexl-nibble-forward
+           "b" #'nhexl-nibble-backward
+           "gg" #'beginning-of-buffer
+           "G" #'end-of-buffer)
+  ;; (:states 'normal
+  ;;          "⬡" #'nhexl-mode)
+  )
+
+;; similar to doom defaults
+;; (use-package drag-stuff
+;;   :defer t
+;;   :init
+;;   (map! "<H-up>"    #'drag-stuff-up
+;;         "<H-down>"  #'drag-stuff-down
+;;         "<H-left>"  #'drag-stuff-left
+;;         "<H-right>" #'drag-stuff-right))
+
+;; (use-package macrostep
+;;   :config
+;;   (map! :n "µ" #'macrostep-expand))
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

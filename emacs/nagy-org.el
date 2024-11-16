@@ -106,6 +106,7 @@
   (:map org-src-mode-map
         ([remap save-kill-buffer] . org-edit-src-exit)
         ([remap kill-this-buffer] . org-edit-src-abort)
+        ([remap nagy-kill-this-buffer] . org-edit-src-abort)
         ("H-s-e" . org-babel-tangle)))
 
 (use-package ox-latex

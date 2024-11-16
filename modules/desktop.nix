@@ -190,7 +190,6 @@
       util-linux
 
       wmctrl
-      xorg.xwininfo
       xdotool
       pyright
       yt-dlp
@@ -210,6 +209,9 @@
           night = import ../hmmodule-alacritty-night.nix true;
         };
       })
+      c3c
+      ffmpeg_7-full
+      pandoc
     ]
   );
 }
