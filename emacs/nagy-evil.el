@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-evil
-;; Package-Requires: ((emacs "29.1") evil eat evil-numbers evil-surround evil-goggles key-chord vertico general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") evil evil-collection evil-escape eat evil-numbers evil-surround evil-goggles key-chord vertico general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -19,21 +19,82 @@
 ;;
 ;;; Code:
 
+(require 'diminish)
+
+(defvar evil-want-keybinding nil)
+(defvar evil-want-C-u-scroll t)
+;; This likely needs to be set early
+(setq evil-want-keybinding nil)
+(setq evil-want-C-u-scroll t)
 (require 'evil)
+(require 'evil-escape)
 (require 'general)
 
 (use-package evil
+  :init
+  ;; This is for evil-collection to work properly
+  ;; This likely needs to be in :init
+  (setq evil-want-keybinding nil)
+  :demand t
   :custom
   (evil-normal-state-cursor '(hbar . 5))
   (evil-insert-state-cursor '(bar . 5))
   (evil-echo-state nil)
   (evil-mode-line-format nil)
   (evil-want-minibuffer t)
+  (evil-undo-system 'undo-redo)
+  ;; This is for evil-collection to work properly
+  ;; (evil-want-keybinding nil)
   ;; Does not work because deletion commands also are affected
   ;; (evil-respect-visual-line-mode t)
   :bind
   ("H-z" . evil-scroll-line-to-center)
-  ("H-u" . evil-undo))
+  ;; ("H-u" . evil-undo)
+  )
+
+(use-package evil-collection
+  :demand t
+  :commands (evil-collection-init)
+  :config
+  ;; This is for evil-collection to work properly
+  ;; (setq evil-want-keybinding nil)
+  (setq evil-collection-want-unimpaired-p nil)
+  (evil-collection-init
+   '(magit
+     ibuffer
+     dired
+     mu4e
+     debug
+     help
+     edebug
+     emms
+     elfeed
+     pass
+     ediff
+     macrostep
+     man
+     woman
+     process-menu
+     package-menu
+     timer-list
+     compile
+     info
+     arc-mode
+     tar-mode
+     custom
+     pdf
+     org
+     profiler
+     xref
+     apropos
+     calendar
+     markdown-mode
+     image-dired
+     replace                            ; for occur
+     ;; gnus
+     bookmark
+     ))
+  )
 
 (use-package evil-numbers
   :preface
@@ -53,7 +114,8 @@
            "→" #'nagy-evil-numbers-inc-10
            "←" #'nagy-evil-numbers-dec-10
            "g +" #'evil-numbers/inc-at-pt-incremental
-           "g -" #'evil-numbers/dec-at-pt-incremental))
+           "g -" #'evil-numbers/dec-at-pt-incremental)
+  )
 
 (use-package eshell
   :preface
@@ -86,6 +148,7 @@
   ("H-)" . evil-surround-delete))
 
 (use-package shell
+  :defer t
   :config
   (evil-set-initial-state 'shell-mode 'normal))
 
@@ -139,6 +202,47 @@
         evil-goggles-enable-delete nil
         evil-goggles-enable-change nil)
   :config
+  (cl-loop for it in '((evil-magit-yank-whole-line :face evil-goggles-yank-face
+                                                   :switch evil-goggles-enable-yank
+                                                   :advice evil-goggles--generic-async-advice)
+                       (+evil:yank-unindented :face evil-goggles-yank-face
+                                              :switch evil-goggles-enable-yank
+                                              :advice evil-goggles--generic-async-advice)
+                       (+eval:region :face evil-goggles-yank-face
+                                     :switch evil-goggles-enable-yank
+                                     :advice evil-goggles--generic-async-advice)
+                       (lispyville-delete :face evil-goggles-delete-face
+                                          :switch evil-goggles-enable-delete
+                                          :advice evil-goggles--generic-blocking-advice)
+                       (lispyville-delete-line :face evil-goggles-delete-face
+                                               :switch evil-goggles-enable-delete
+                                               :advice evil-goggles--delete-line-advice)
+                       (lispyville-yank :face evil-goggles-yank-face
+                                        :switch evil-goggles-enable-yank
+                                        :advice evil-goggles--generic-async-advice)
+                       ;; (nagy/yank-paragraph :face evil-goggles-yank-face
+                       ;;                      :switch evil-goggles-enable-yank
+                       ;;                      :advice evil-goggles--generic-async-advice)
+                       (lispyville-yank-line :face evil-goggles-yank-face
+                                             :switch evil-goggles-enable-yank
+                                             :advice evil-goggles--generic-async-advice)
+                       (lispyville-change :face evil-goggles-change-face
+                                          :switch evil-goggles-enable-change
+                                          :advice evil-goggles--generic-blocking-advice)
+                       (lispyville-change-line :face evil-goggles-change-face
+                                               :switch evil-goggles-enable-change
+                                               :advice evil-goggles--generic-blocking-advice)
+                       (lispyville-change-whole-line :face evil-goggles-change-face
+                                                     :switch evil-goggles-enable-change
+                                                     :advice evil-goggles--generic-blocking-advice)
+                       (lispyville-indent :face evil-goggles-indent-face
+                                          :switch evil-goggles-enable-indent
+                                          :advice evil-goggles--generic-async-advice)
+                       (lispyville-join :face evil-goggles-join-face
+                                        :switch evil-goggles-enable-join
+                                        :advice evil-goggles--join-advice))
+           do
+           (add-to-list 'evil-goggles--commands it))
   (evil-goggles-mode 1))
 
 (defun show-date()
@@ -149,6 +253,11 @@
     (message (string-trim-right (shell-command-to-string "date")))))
 (keymap-global-set "s-⌚" #'show-date)
 (keymap-global-set "s-⧖" #'show-date)
+
+(use-package wdired
+  :defer t
+  :config
+  (evil-set-initial-state 'wdired-mode 'normal))
 
 (provide 'nagy-evil)
 ;;; nagy-evil.el ends here

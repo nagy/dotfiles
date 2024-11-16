@@ -2,10 +2,8 @@
 ;; Package-Requires: ((emacs "29.1") evil exwm)
 
 (require 'evil)
-(require 'exwm)
-(require 'exwm-randr)
 
-(require 'ibuffer)
+(declare-function ibuffer-filter-by-used-mode "ibuffer")
 
 (declare-function GC-DISABLE "nagy-gc")
 (declare-function evil-escape-mode "evil-escape")
@@ -23,7 +21,8 @@
 
 (defun update-current-frame-fontset ()
   (interactive)
-)
+  ;; (set-fontset-font t 'unicode (font-spec :family "Noto Sans Symbols") nil 'append)
+  )
 
 (defun brightness-up ()
   (interactive)

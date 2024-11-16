@@ -511,10 +511,17 @@
   (setq bookmark-default-file (expand-file-name "~/.dotfiles/emacs-bookmarks")))
 
 (use-package recentf
+  :commands (recentf-keep-default-predicate)
+  :preface
+  (defun nagy-emacs-recentf--predicate (file)
+    (pcase file
+      ;; ((prefix "/nix/store") nil)
+      (_ (recentf-keep-default-predicate file))))
   :defer t
-  :config
-  ;; does not work in init because of doom
-  (setq recentf-max-saved-items nil))
+  :custom
+  (recentf-max-saved-items nil)
+  (recentf-keep '(nagy-emacs-recentf--predicate))
+  )
 
 (use-package woman
   :defer t
@@ -528,7 +535,10 @@
         ([remap kill-this-buffer] . occur-cease-edit))
   (:map occur-mode-map
         ("H-j" . occur-next)
-        ("H-k" . occur-prev)))
+        ("H-k" . occur-prev))
+  :general
+  (:states 'normal :keymaps 'occur-edit-mode-map
+           "ö" #'occur-cease-edit))
 
 ;; (require 'rx)
 (rx-define md5 (repeat 32 hex))
@@ -536,14 +546,22 @@
 (rx-define sha256 (repeat 64 hex))
 (rx-define sha512 (repeat 128 hex))
 
-(require 'xwidget)
-(use-package xwidget
-  :preface
-  (defun nagy-emacs-xwidget-remove-header-line-h ()
-    (setq-local header-line-format nil))
-  (add-hook 'xwidget-webkit-mode-hook #'nagy-emacs-xwidget-remove-header-line-h)
-  :config
-  (remove-hook 'kill-buffer-query-functions #'xwidget-kill-buffer-query-function))
+(rx-define url
+  (seq (or "http" "https") "://"
+       (one-or-more (or word punctuation))
+       (optional (seq ":" (one-or-more digit)))
+       (optional (seq "/" (zero-or-more (or (syntax word) (syntax punctuation)))))
+       (optional (seq "?" (one-or-more (or (syntax word) (syntax punctuation)))))
+       (optional (seq "#" (one-or-more (or (syntax word) (syntax punctuation)))))))
+
+;; (use-package xwidget
+;;   :defer t
+;;   :preface
+;;   (defun nagy-emacs-xwidget-remove-header-line-h ()
+;;     (setq-local header-line-format nil))
+;;   (add-hook 'xwidget-webkit-mode-hook #'nagy-emacs-xwidget-remove-header-line-h)
+;;   :config
+;;   (remove-hook 'kill-buffer-query-functions #'xwidget-kill-buffer-query-function))
 
 (use-package eww
   ;; could also bind this to `special-mode'
@@ -572,7 +590,10 @@
                 " " filename-and-process)
           (mark " "
                 (name 16 -1)
-                " " filename))))
+                " " filename)))
+  :bind
+  (:map ibuffer-mode-map
+        ("H-d" . ibuffer-do-delete)))
 
 (use-package elisp-mode
   :functions (ov-set)
@@ -608,6 +629,8 @@
   ("s-U" . winner-redo))
 
 (use-package project
+  :config
+  (keymap-global-set "s-," #'project-dired)
   :bind
   ("C-s-<return>" . project-eshell)
   ("C-H-s--" . project-dired))
@@ -652,6 +675,14 @@
     (window (window-buffer object))
     (marker (marker-buffer object))
     (overlay (overlay-buffer object))))
+
+(use-package font-lock
+  :bind
+  ("M-⨏" . font-lock-update))
+
+(use-package hl-line
+  :bind
+  ("M-ħ" . hl-line-mode))
 
 (use-package timer-list
   :bind
