@@ -185,6 +185,34 @@
   :custom
   (embark-confirm-act-all nil)
   (embark-mixed-indicator-delay most-positive-fixnum)
+  ;; :preface
+  ;; (defun nagy-vertico-embark-target-find-file-magit-section ()
+  ;;   (when-let ((ret (magit-section-value-if 'file))
+  ;;              (start (marker-position (oref (magit-current-section) start)))
+  ;;              (end (marker-position (oref (magit-current-section) end))))
+  ;;     `(file ,ret ,start . ,end)))
+  ;; :config
+  ;; (push #'nagy-vertico-embark-target-find-file-magit-section embark-target-finders)
+  :config
+  ;; (setq embark-indicators (delq 'embark-mixed-indicator embark-indicators))
+  (keymap-set embark-url-map "<key-chord> f j" #'browse-url)
+  (keymap-set embark-file-map "<key-chord> f j" #'find-file)
+  ;; (require 'embark-org)
+  ;; (keymap-set embark-org-link-map "<key-chord> f j" #'org-open-at-point)
+  ;; (keymap-set emacs-lisp-mode-map "<normal-state> <key-chord> f h" #'embark-dwim)
+  ;; (keymap-set emacs-lisp-mode-map "<normal-state> <key-chord> f j" #'embark-act)
+  (keymap-set text-mode-map "<normal-state> <key-chord> f j" #'embark-act)
+  (keymap-set text-mode-map "<normal-state> <key-chord> f h" #'embark-dwim)
+  (keymap-set prog-mode-map "<normal-state> <key-chord> f j" #'embark-act)
+  (keymap-set prog-mode-map "<normal-state> <key-chord> f h" #'embark-dwim)
+  (keymap-set tabulated-list-mode-map "<normal-state> <key-chord> f j" #'embark-act)
+  (keymap-set tabulated-list-mode-map "<normal-state> <key-chord> f h" #'embark-dwim)
+  ;; (keymap-set conf-mode-map "<normal-state> <key-chord> f j" #'embark-act)
+  ;; (keymap-set conf-mode-map "<normal-state> <key-chord> f h" #'embark-dwim)
+  ;; (keymap-set helpful-mode-map "<normal-state> <key-chord> f j" #'embark-act)
+  ;; (keymap-set helpful-mode-map "<normal-state> <key-chord> f h" #'embark-dwim)
+  ;; (push '("^\\*Embark " display-buffer-same-window) display-buffer-alist)
+  ;; :same "^\\*Embark "  ; this breaks the s-. key binding down below. I dont know why.
   :bind
   ("<XF86Paste>" . embark-act)
   ("C-<XF86Paste>" . embark-dwim)

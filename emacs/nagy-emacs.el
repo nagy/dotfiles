@@ -507,8 +507,14 @@
   )
 
 (use-package bookmark
-  :init
-  (setq bookmark-default-file (expand-file-name "~/.dotfiles/emacs-bookmarks")))
+  :defer t
+  :custom
+  (bookmark-default-file (expand-file-name "~/.dotfiles/emacs-bookmarks"))
+  ;; no general here
+  ;; :general
+  ;; (:states 'normal :keymaps 'bookmark-bmenu-mode-map
+  ;;          "f" #'bookmark-bmenu-this-window)
+  )
 
 (use-package recentf
   :commands (recentf-keep-default-predicate)
@@ -596,14 +602,8 @@
         ("H-d" . ibuffer-do-delete)))
 
 (use-package elisp-mode
-  :functions (ov-set)
-  :preface
-  (defun nagy-emacs-highlight-doom! ()
-    "Highlight doom usage"
-    (ov-set (rx (or "add-hook!" "remove-hook!" "map!"))
-            'face 'flymake-error))
-  :hook
-  (emacs-lisp-mode . nagy-emacs-highlight-doom!)
+  :config
+  (define-abbrev emacs-lisp-mode-abbrev-table "n" "nil" nil :system t :case-fixed t)
   :bind
   ("H-M-e" . emacs-lisp-mode))
 
@@ -684,10 +684,51 @@
   :bind
   ("M-ħ" . hl-line-mode))
 
+(use-package ediff
+  :defer t
+  :custom
+  (ediff-window-setup-function #'ediff-setup-windows-plain)
+  (ediff-split-window-function #'split-window-horizontally))
+
+(use-package word-wrap-mode
+  :config
+  (global-word-wrap-whitespace-mode 1))
+
+;; (fset 'yes-or-no-p #'y-or-n-p)
+
+(use-package string-edit
+  :bind
+  (:map string-edit-mode-map
+        ([remap save-kill-buffer] . string-edit-done)
+        ([remap kill-this-buffer] . string-edit-abort)
+        ([remap nagy-kill-this-buffer] . string-edit-abort)))
+
+(use-package nxml-mode
+  :preface
+  (reformatter-define xml-format
+    :group 'nxml
+    :program "xml"
+    :args '("format")
+    :lighter " XmlFo")
+  :bind
+  ("H-M-x" . nxml-mode)
+  (:map nxml-mode-map
+        ("C-⊢" . xml-format-buffer))
+  ;; :hook
+  ;; (nxml-mode . xml-format-on-save-mode)
+  )
+
 (use-package timer-list
   :bind
   (:map timer-list-mode-map
         ("H-d" . timer-list-cancel)))
+
+(use-package thingatpt
+  :config
+  ;; Re-evaluate to include equal-sign `=' into the list.
+  ;; (defvar thing-at-point-file-name-chars "-@~/[:alnum:]_.${}#%,:=" "Characters allowable in filenames.")
+  ;; (define-thing-chars filename thing-at-point-file-name-chars)
+  )
 
 (defun json-parse-file (file &rest args)
   (declare (side-effect-free t))

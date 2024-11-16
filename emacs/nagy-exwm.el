@@ -1,6 +1,7 @@
 ;;; nagy-exwm.el --- config emacs packages -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Package-Requires: ((emacs "29.1") evil exwm)
+;; Package-Requires: ((emacs "29.1") dash evil exwm anaphora)
 
+(require 'dash)
 (require 'evil)
 
 (declare-function ibuffer-filter-by-used-mode "ibuffer")
@@ -57,15 +58,15 @@
     "Frames directly started in exwm have some missing keys like s-💤.
 aka xcompose is not properly initialized in the first frame."
     (interactive)
-    (let  ((it (car (frame-list))))
+    (let ((it (car (frame-list))))
       (make-frame)
       (delete-frame it)
       (make-frame)
       (global-hl-line-mode -1)
       (modus-themes-toggle)
       (modus-themes-toggle)
-      (when (fboundp 'gcmh-mode)
-        (gcmh-mode -1))
+      ;; (when (fboundp 'gcmh-mode)
+      ;;   (gcmh-mode -1))
       (global-hl-line-mode -1)
       (when (fboundp 'evil-escape-mode)
         (evil-escape-mode -1))
@@ -77,7 +78,14 @@ aka xcompose is not properly initialized in the first frame."
       (update-current-frame-fontset)))
   (defun nagy-exwm-rename-buffer ()
     (exwm-workspace-rename-buffer
-     (concat exwm-class-name ":" exwm-title)))
+     (--> (concat (pcase exwm-class-name
+                    ("Alacritty" "")
+                    ("firefox" "")
+                    (_ ))
+                  (or exwm-title "*EXWM*"))
+          (string-remove-suffix " — Mozilla Firefox" it)
+          (string-remove-suffix " — Mozilla Firefox Private Browsing" it)
+          (string-remove-suffix " - YouTube" it))))
   :demand t
   :custom
   (exwm-manage-force-tiling t)
@@ -117,10 +125,10 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-q") . bury-buffer)
             (,(kbd "s-Q") . unbury-buffer)
             (,(kbd "H-<f2>") . modus-themes-toggle)
+            (,(kbd "H-i") . xwininfo-from-buffer)
             (,(kbd "s-t") . find-tmp)
             (,(kbd "s-=") . balance-windows)
             (,(kbd "s-n") . universal-argument)
-            ;; (,(kbd "s-r") . nagy-url-kill)
             (,(kbd "<XF86AudioMute>") . mute)
             (,(kbd "<XF86AudioLowerVolume>") . volume-decrease)
             (,(kbd "<XF86AudioRaiseVolume>") . volume-increase)
@@ -142,9 +150,11 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "<XF86Search>") . other-frame)
             ;; (,(kbd "A-C-s-}") . tab-duplicate)
             (,(kbd "<f9>") . emms-pause)
+            (,(kbd "s-t") . foo-link)
             (,(kbd "s-<f11>") . global-hide-mode-line-mode)
             (,(kbd "s-<f12>") . +toggle-tab-bar-mode-from-frame)
-            (,(kbd "H-M") . view-echo-area-messages)))
+            (,(kbd "H-M") . view-echo-area-messages)
+            ))
   :config
   ;; Add these hooks in a suitable place (e.g., as done in exwm-config-default)
   (add-hook 'exwm-update-class-hook #'nagy-exwm-rename-buffer)
@@ -154,7 +164,8 @@ aka xcompose is not properly initialized in the first frame."
   (require 'exwm-randr)
   (exwm-randr-mode 1)
   (exwm-enable)
-  (evil-define-key 'normal dired-mode-map "." #'terminal)
+  ;; (evil-define-key 'normal dired-mode-map "," #'terminal)
+  ;; (keymap-set exwm-mode-map "s-j" #'nagy-url-kill)
   :bind
   ("s-I" . ibuffer-exwm))
 
@@ -178,9 +189,12 @@ aka xcompose is not properly initialized in the first frame."
 
 (defmacro start-terminal (&rest body)
   (declare (debug (form body)))
-  `(start-process "terminal" nil "alacritty"
-                  "--option" (format "font.size=%d" (/  (face-attribute 'default :height) 9))
-                  ,@body))
+  `(progn
+     (unless (display-graphic-p)
+       (user-error "No display for terminal."))
+     (start-process "terminal" nil "alacritty"
+                    "--option" (format "font.size=%d" (/  (face-attribute 'default :height) 9))
+                    ,@body)))
 
 (defun htop ()
   (interactive)
@@ -190,8 +204,8 @@ aka xcompose is not properly initialized in the first frame."
 (defun dool ()
   (interactive)
   (if (dayp)
-      (start-terminal "--title" "dool" "-e" "dool" "-N" "wlp4s0" "--bw")
-    (start-terminal "--title" "dool" "-e" "dool" "-N" "wlp4s0")))
+      (start-terminal "--title" "dool" "-e" "dool" "--bytes" "-N" "wlp4s0" "--bw")
+    (start-terminal "--title" "dool" "-e" "dool" "--bytes" "-N" "wlp4s0")))
 
 (defvar terminal-number 1)
 
@@ -209,7 +223,8 @@ aka xcompose is not properly initialized in the first frame."
 (keymap-global-set "s-+" #'terminal)
 ;; (evil-global-set-key 'normal "." #'terminal)
 (evil-global-set-key 'normal "," #'terminal)
-(evil-define-key 'normal dired-mode-map "." #'terminal)
+(with-eval-after-load 'dired
+  (evil-define-key 'normal dired-mode-map "." #'terminal))
 
 (defun nsxiv ()
   (interactive)
@@ -217,6 +232,13 @@ aka xcompose is not properly initialized in the first frame."
       (("XDG_CACHE_HOME" (concat temporary-file-directory "/xdg-cache")))
     (start-process "nsxiv" nil "nsxiv" "-sf" "-t" ".")))
 (keymap-global-set "<pause>" #'nsxiv)
+
+(defun contained-app ()
+  (interactive)
+  (start-process-shell-command "contained-app" nil
+                               (format "contained-app . %s --no-remote" browse-url-firefox-program)))
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "H-." #'contained-app))
 
 (defun firefox (&optional arg)
   (interactive "P")

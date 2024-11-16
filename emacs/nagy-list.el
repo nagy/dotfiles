@@ -9,10 +9,8 @@
 
 (require 'subr-x)
 
-(require 'anaphora)
 (require 'dash)
 (require 'f)
-(require 'general)
 (require 's)
 
 (defvar nagy-list-table-default-column-width 30)
@@ -71,7 +69,7 @@
     (--> filename
          (string-remove-suffix ".zst" it)
          (string-remove-suffix ".json" it)
-         (s-split "\\." it)
+         (save-match-data (split-string it "\\."))
          last
          car
          intern)))

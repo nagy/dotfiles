@@ -32,6 +32,7 @@
     ./espressif.nix
     ./powerdns.nix
     ./restic.nix
+    ./lua.nix
     # ./automount-ext4.nix
     # ./automount-btrfs.nix
 

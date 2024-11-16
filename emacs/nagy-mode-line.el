@@ -81,7 +81,7 @@
                   ;; mode-line-frame-identification
                   ;; cannot use this because of dired
                   ;; mode-line-buffer-identification
-                  (:propertize "%b " face mode-line-buffer-id)
+                  (:propertize "%b " face (:height 1.2 :inherit mode-line-buffer-id))
                   ;; mode-line-position ""
                   ;; (vc-mode vc-mode)
                   (:eval (unless (derived-mode-p 'exwm-mode)
@@ -94,6 +94,9 @@
                                                          '(:inherit (bold dired-directory))
                                                        '(:inherit dired-directory))))))
                   mode-line-misc-info
+                  ;; (:eval (format " BFF:%S" buffer-file-format))
+                  ;; container-list-mode-line-format
+                  ;; (:eval (get-container-line-format))
                   ;; mode-line-end-spaces
                   (:eval (nagy-mode-line-fill (if (mode-line-window-selected-p)
                                                   'mode-line

@@ -63,7 +63,10 @@
         ("H-a" . magit-section-cycle)
         ("C-ö" . magit-section-cycle-global)
         ("H-j" . magit-section-forward)
-        ("H-k" . magit-section-backward)))
+        ("H-k" . magit-section-backward)
+        ("<normal-state> <key-chord> f h" . embark-dwim)
+        ("<normal-state> <key-chord> f j" . embark-act)
+        ))
 
 (use-package forge
   :bind
@@ -71,9 +74,11 @@
   (:map forge-post-mode-map
         ([remap save-kill-buffer] . forge-post-submit)
         ([remap kill-this-buffer] . forge-post-cancel)
+        ([remap nagy-kill-this-buffer] . forge-post-cancel))
+  (:map forge-topic-mode-map
+        ;; ("M-↓" . forge-pull)
+        ("M-w" . forge-copy-url-at-point-as-kill)
         )
-  ;; (:map forge-topic-mode-map
-  ;;       ("M-↓" . forge-pull))
   (:map magit-mode-map
         ("M-ß" . forge-pull))
   (:map dired-mode-map

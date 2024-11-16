@@ -28,9 +28,9 @@ nixosEval {
           ./modules/all.nix
         ];
 
-        netboot.squashfsCompression = "zstd -Xcompression-level 6";
         nixpkgs.config.packageOverrides = pkgs: { inherit nur; };
         networking.hostName = "l"; # for live
+        netboot.squashfsCompression = "zstd -Xcompression-level 1";
 
         fileSystems."/mnt" = {
           device = "/dev/disk/by-label/NIXOS";

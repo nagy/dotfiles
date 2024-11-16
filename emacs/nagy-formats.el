@@ -20,7 +20,6 @@
 
 (require 'evil)
 (require 'dash)
-(require 'yaml-mode)
 (eval-when-compile
   (require 'cl-lib))
 
@@ -32,38 +31,26 @@
        )))
   (goto-char (point-min)))
 
+(defun nagy-formats--change (newbuf oldbuf into-mode)
+  (when (and (buffer-live-p newbuf)
+             (not (buffer-local-value 'buffer-read-only newbuf))
+             (not (eq evil-state 'insert)))
+    (with-current-buffer newbuf (erase-buffer))
+    (copy-to-buffer newbuf (point-min) (point-max))
+    (with-current-buffer newbuf
+      (nagy-formats--call-converter (buffer-local-value 'major-mode oldbuf) into-mode)
+      (--map-when #'functionp
+                  (funcall it (point-min) (point-max) (point-max))
+                  after-change-functions))))
+
 (defun nagy-formats-do-convert (into-mode)
   (interactive "SDo Convert: ")
   (let ((oldbuf (current-buffer))
         (newbuf (generate-new-buffer (format "Into-%s" into-mode))))
     (copy-to-buffer newbuf (point-min) (point-max))
     (add-hook 'after-change-functions
-              (lambda (&rest _args)
-                (when (and (buffer-live-p newbuf)
-                           (not (buffer-local-value 'buffer-read-only newbuf))
-                           (not (eq evil-state 'insert)))
-                  (with-current-buffer newbuf (erase-buffer))
-                  (copy-to-buffer newbuf (point-min) (point-max))
-                  (with-current-buffer newbuf
-                    (nagy-formats--call-converter (buffer-local-value 'major-mode oldbuf) into-mode)
-                    (cl-loop for f in after-change-functions
-                             do
-                             (when (functionp f)
-                               (funcall f (point-min) (point-max) (point-max)))))))
-              nil t)
-    (add-hook 'evil-insert-state-exit-hook
-              (lambda (&rest _args)
-                (when (and (buffer-live-p newbuf)
-                           (not (buffer-local-value 'buffer-read-only newbuf)))
-                  (let ((inhibit-modification-hooks t))
-                    (with-current-buffer newbuf (erase-buffer))
-                    (copy-to-buffer newbuf (point-min) (point-max))
-                    (with-current-buffer newbuf
-                      (nagy-formats--call-converter (buffer-local-value 'major-mode oldbuf) into-mode)
-                      (cl-loop for f in after-change-functions
-                               do
-                               (when (functionp f)
-                                 (funcall f (point-min) (point-max) (point-max))))))))
+              (lambda (&rest _rest)
+                (nagy-formats--change newbuf oldbuf into-mode))
               nil t)
     ;; (add-hook 'evil-insert-state-exit-hook
     ;;           (lambda (&rest _rest)

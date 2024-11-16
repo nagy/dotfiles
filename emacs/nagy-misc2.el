@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-misc2
-;; Package-Requires: ((emacs "29.1") aggressive-indent reformatter browse-at-remote super-save bufler pdf-tools org-pdftools avy helpful iedit go-mode anaphora general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") aggressive-indent reformatter browse-at-remote pass password-store-otp super-save bufler pdf-tools org-pdftools avy helpful page-break-lines iedit go-mode anaphora general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -34,8 +34,9 @@
         ("H-k" . backward-paragraph)
         )
   :general
-  (:states 'normal :keymaps 'conf-toml-mode
-           "ö" #'save-buffer)
+  (:states 'normal :keymaps 'conf-toml-mode-map
+           "ö" #'save-buffer
+           )
   :hook
   (conf-toml-mode . taplofmt-on-save-mode)
   :pretty 'conf-toml-mode
@@ -85,6 +86,47 @@
       (user-error "redshift not installed"))))
 (keymap-global-set "H-<f3>" #'redshift)
 
+(defun system-suspend ()
+  (interactive)
+  ;; (real-garbage-collect)
+  (start-process "sleeping" nil "sh" "-c" "sleep 2 && systemctl suspend"))
+(keymap-global-set "s-💤" #'system-suspend)
+
+(use-package pass
+  :custom
+  (pass-username-field "Username")
+  (pass-show-keybindings nil)
+  :config
+  ;; override. TODO turn this into advice :replace
+  (defun pass-quit ()
+    "Kill the buffer quitting the window."
+    (interactive)
+    (dolist (buf (buffer-list))
+      (with-current-buffer buf
+        (when (eq major-mode 'pass-view-mode)
+          (kill-buffer buf))))
+    (quit-window t))
+  :general
+  (:states 'normal
+           "🔑" #'pass))
+
+(use-package super-save
+  :preface
+  (defun nagy-super-save-predicate ()
+    (string-prefix-p temporary-file-directory default-directory))
+  :demand t
+  :diminish super-save-mode
+  :commands (super-save-mode)
+  ;; :custom
+  ;; (super-save-auto-save-when-idle t)
+  :config
+  (add-to-list 'super-save-predicates #'nagy-super-save-predicate 'append)
+  (push 'previous-window-any-frame super-save-triggers)
+  (push 'next-window-any-frame super-save-triggers)
+  (push 'delete-window-or-tab super-save-triggers)
+  (push 'silent-tab-next super-save-triggers)
+  (push 'silent-tab-previous super-save-triggers)
+  (super-save-mode 1))
 
 (use-package tokei
   :disabled
@@ -134,6 +176,23 @@
   :bind
   ("M-→" . er/expand-region)
   ("M-←" . er/contract-region))
+
+(use-package page-break-lines
+  :diminish page-break-lines-mode
+  :commands (global-page-break-lines-mode)
+  :custom-face
+  (page-break-lines ((t (:inherit parenthesis :foreground unspecified))))
+  :custom
+  (page-break-lines-modes '(emacs-lisp-mode lisp-mode scheme-mode compilation-mode
+                                            outline-mode help-mode text-mode conf-mode
+                                            forth-mode))
+  :config
+  (global-page-break-lines-mode 1))
+
+;; (use-package smartparens
+;;   :hook
+;;   (emacs-lisp-mode . smartparens-mode)
+;;   (ielm-mode . smartparens-mode))
 
 (use-package go-mode
   :preface

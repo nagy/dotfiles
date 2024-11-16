@@ -7,6 +7,16 @@
 (eval-when-compile
   (require 'subr-x))
 
+(defun nagy-dired-directory-substitute (directory)
+  (declare (pure t) (side-effect-free t))
+  ;; we declare it as pure, even though the #'expand-file-name function uses the HOME folder name,
+  ;; which is not known at compile time
+  (thread-last directory
+    (string-replace (expand-file-name "~") "~")
+    (string-replace "/nix/store" "○")
+    (string-replace "/tmp/t" "⧖")
+    ))
+
 (use-package dired
   :preface
   (defun nagy-dired-mark-if-git ()
@@ -60,6 +70,7 @@
            "ö" #'browse-url-of-dired-file))
 
 (use-package dired-subtree
+  ;; :after dired
   :demand t
   :general
   (:states 'normal :keymaps 'dired-mode-map
@@ -80,31 +91,36 @@
   (interactive)
   (setq-local dired-actual-switches (concat dired-listing-switches " -S"))
   (revert-buffer))
-(keymap-set dired-mode-map "M-↓" #'dired-add-actual-S-switch)
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "M-↓" #'dired-add-actual-S-switch))
 
 (defun dired-add-actual-S-switch-inverted ()
   (interactive)
   (setq-local dired-actual-switches (concat dired-listing-switches " -S -r"))
   (revert-buffer))
-(keymap-set dired-mode-map "M-↑" #'dired-add-actual-S-switch-inverted)
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "M-↑" #'dired-add-actual-S-switch-inverted))
 
 (defun dired-add-actual-x-switch ()
   (interactive)
   (setq-local dired-actual-switches (concat dired-listing-switches " --sort=extension"))
   (revert-buffer))
-(keymap-set dired-mode-map "M-←" #'dired-add-actual-x-switch)
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "M-←" #'dired-add-actual-x-switch))
 
 (defun dired-add-actual-x-switch-inverted ()
   (interactive)
   (setq-local dired-actual-switches (concat dired-listing-switches " --sort=extension -r"))
   (revert-buffer))
-(keymap-set dired-mode-map "M-→" #'dired-add-actual-x-switch-inverted)
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "M-→" #'dired-add-actual-x-switch-inverted))
 
 (defun dired-add-actual-t-switch ()
   (interactive)
   (setq-local dired-actual-switches (concat dired-listing-switches " -t"))
   (revert-buffer))
-(keymap-set dired-mode-map "M-ŧ" #'dired-add-actual-t-switch-inverted)
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "M-ŧ" #'dired-add-actual-t-switch-inverted))
 
 (defun dired-add-actual-t-switch-inverted ()
   (interactive)
@@ -120,8 +136,8 @@
         (dired-recursive-deletes 'always)
         (dired-clean-confirm-killing-deleted-buffers nil))
     (dired-do-delete)))
-(keymap-set dired-mode-map
-            "H-d" #'dired-do-delete-force)
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "H-d" #'dired-do-delete-force))
 
 (defun nagy-dired-do-copy ()
   (interactive)
@@ -130,7 +146,8 @@
                dir
                )))
     (dired-do-copy)))
-(keymap-set dired-mode-map "H-c" #'nagy-dired-do-copy)
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "H-c" #'nagy-dired-do-copy))
 
 ;; (defmacro defun-dired ()
 ;;   "a macro to create functions, that apply to dired files.

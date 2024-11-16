@@ -19,6 +19,8 @@
 ;;
 ;;; Code:
 
+(require 'diminish)
+
 (require 'general)
 
 (use-package lispy
@@ -38,6 +40,9 @@
   ("s-)" . lispyville-mode)
   (:map lispy-mode-map
         ("H-x" . lispy-kill-at-point))
+  (:map lispy-mode-map-special
+        ("f" . nil)    ; disable lispy flow, interferes with key-chord
+        )
   (:map lispy-mode-map-lispy
         ("]" . nil)
         ("[" . nil)
@@ -58,9 +63,8 @@
            "g C-j" #'lispy-down
            "g C-k" #'lispy-up
            ";" #'lispy-comment
-           "ł" #'lispyville-backward-atom-end
-           "€" #'lispyville-backward-atom-end
-           "¶" #'lispyville-forward-atom-end))
+           )
+  )
 
 (provide 'nagy-lispy)
 ;;; nagy-lispy.el ends here
