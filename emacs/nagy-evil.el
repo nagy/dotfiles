@@ -36,6 +36,7 @@
   ;; This likely needs to be in :init
   (setq evil-want-keybinding nil)
   :demand t
+  :commands (+evil-indent-whole-buffer)
   :custom
   (evil-normal-state-cursor '(hbar . 5))
   (evil-insert-state-cursor '(bar . 5))
@@ -47,6 +48,22 @@
   ;; (evil-want-keybinding nil)
   ;; Does not work because deletion commands also are affected
   ;; (evil-respect-visual-line-mode t)
+  :config
+  (defun +evil-indent-whole-buffer ()
+    "Evil indent the whole buffer"
+    (interactive)
+    (save-excursion
+      (evil-indent (point-min) (point-max))))
+  (keymap-global-set "H-9" #'+evil-indent-whole-buffer)
+  (evil-mode 1)
+  (evil-global-set-key 'motion (kbd "TAB") nil) ; allows magit-section-toggle to be accessible
+  (evil-global-set-key 'insert "\C-k" nil) ; was evil-insert-digraph
+  ;; (evil-define-key* '(insert replace visual operator) 'global "\C-g" #'evil-escape)
+  (evil-define-key* '(insert replace visual operator) 'global "\C-g" #'evil-escape)
+  (evil-define-key 'normal minibuffer-mode-map (kbd "RET") #'exit-minibuffer)
+  (evil-define-key 'insert minibuffer-mode-map (kbd "C-g") #'minibuffer-keyboard-quit)
+  (evil-global-set-key 'insert (kbd "C-a") #'beginning-of-line)
+  (evil-global-set-key 'insert (kbd "C-e") #'end-of-line)
   :bind
   ("H-z" . evil-scroll-line-to-center)
   ;; ("H-u" . evil-undo)
@@ -98,17 +115,19 @@
 
 (use-package evil-numbers
   :preface
-  (defun nagy-evil-numbers-inc-10 ()
-    (interactive)
-    (evil-numbers/inc-at-pt-incremental 10 nil))
-  (defun nagy-evil-numbers-dec-10 ()
-    (interactive)
-    (evil-numbers/dec-at-pt-incremental 10 nil))
-  :bind
-  ("H-<up>" . evil-numbers/inc-at-pt-incremental)
-  ("H-<down>" . evil-numbers/dec-at-pt-incremental)
+  (defun nagy-evil-numbers-inc-10 (arg)
+    (interactive "p")
+    (setq arg (or arg 1))
+    (evil-numbers/inc-at-pt-incremental (* arg 10) nil))
+  (defun nagy-evil-numbers-dec-10 (arg)
+    (interactive "p")
+    (setq arg (or arg 1))
+    (evil-numbers/dec-at-pt-incremental (* arg 10) nil))
+  ;; :bind
+  ;; ("H-<up>" . evil-numbers/inc-at-pt-incremental)
+  ;; ("H-<down>" . evil-numbers/dec-at-pt-incremental)
   :general
-  (:states 'normal
+  (:states 'normal :keymaps '(prog-mode-map text-mode-map)
            "↑" #'evil-numbers/inc-at-pt-incremental
            "↓" #'evil-numbers/dec-at-pt-incremental
            "→" #'nagy-evil-numbers-inc-10
@@ -118,29 +137,17 @@
   )
 
 (use-package eshell
-  :preface
-  (require 'esh-mode)
-  (defun nagy-eshell-clear-scrollback ()
-    (interactive)
-    (eshell/clear-scrollback)
-    (eshell-send-input))
-  :bind
-  ("<s-return>" . eshell)
-  (:map eshell-mode-map
-        ("H-h" . delete-backward-char)
-        ("H-ö" . eshell-previous-input)
-        ([remap revert-buffer-quick] . nagy-eshell-clear-scrollback)
-        ("s-ö" . eshell-send-input)
-        ("M-ö" . eshell-send-input))
+  :defer t
   :custom
   (eshell-banner-message "")
-  (eshell-scroll-to-bottom-on-output nil)
-  :general
-  (:states 'normal :keymaps 'eshell-mode-map
-           "k" #'evil-previous-visual-line
-           "j" #'evil-next-visual-line
-           "ö" #'eshell-send-input
-           "Ö" #'eshell-previous-input))
+  ;; (eshell-scroll-to-bottom-on-output nil)
+  ;; :general
+  ;; (:states 'normal :keymaps 'eshell-mode-map
+  ;;          "k" #'evil-previous-visual-line
+  ;;          "j" #'evil-next-visual-line
+  ;;          "ö" #'eshell-send-input
+  ;;          "Ö" #'eshell-previous-input)
+  )
 
 (use-package evil-surround
   :bind
@@ -159,7 +166,9 @@
            "H-r" #'sqlite-mode-list-tables
            "f" #'sqlite-mode-list-data
            "RET" #'sqlite-mode-list-data)
-  :same "^*SQLite ")
+  ;; :config
+  ;; (add-to-list 'magic-mode-alist '("SQLite format 3\x00" . nagy-sqlite-view-file-magically))
+  :same "^\\*SQLite ")
 
 (use-package sql
   :abbrev 'sql-mode
@@ -183,6 +192,8 @@
   :custom
   (eat-kill-buffer-on-exit t)
   (eat-enable-directory-tracking nil)
+  (eat-enable-shell-prompt-annotation nil)
+  (eat-term-scrollback-size nil)
   :config
   (evil-set-initial-state 'eat-mode 'emacs)
   :bind

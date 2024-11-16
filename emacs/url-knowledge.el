@@ -93,7 +93,32 @@
      ((derived 'magit-revision-mode)
       (browse-at-remote-get-url))
      ((derived 'magit-mode)
-      (magit-get "--local" (format "remote.%s.url" (magit-get-current-remote)))))))
+      (alet (magit-get "--local" (format "remote.%s.url" (magit-get-current-remote)))
+        (when (string-prefix-p "https://" it)
+          it))))))
+
+(declare-function jq-format-buffer "nagy-web")
+(declare-function -shell "dash-shell")
+(defun pypi-browse-url (url &rest _args)
+  (switch-to-buffer (generate-new-buffer (concat "*pypi*" url)))
+  (pcase url
+    ((url host filename)
+     (-shell
+      `("curl"
+        "-sf" "--compressed"
+        ,(format "https://%s/pypi/%s/json"
+                 host
+                 (--> filename
+                      (string-replace "/project/" "" it)
+                      (string-remove-suffix "/" it))))
+      )
+     (js-json-mode)
+     (jq-format-buffer)
+     (setq url-knowledge-url url)
+     )))
+
+(defvar browse-url-handlers)
+(add-to-list 'browse-url-handlers '("^https://pypi\\.org/project/" . pypi-browse-url))
 
 (provide 'url-knowledge)
 ;;; url-knowledge.el ends here

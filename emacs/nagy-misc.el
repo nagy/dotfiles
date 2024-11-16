@@ -264,8 +264,22 @@
   :mode "-gitconfig\\'")
 
 (use-package ielm
+  :preface
+  (defun ielm-on-buffer ()
+    (interactive)
+    (let* ((buf (current-buffer))
+           (ielm-buf-name (concat "*ielm-" (buffer-name buf) "*")))
+      (aif (get-buffer ielm-buf-name)
+          (switch-to-buffer it)
+        (ielm ielm-buf-name)
+        (with-current-buffer ielm-buf-name
+          (setq-local ielm-working-buffer buf)))))
+  (defun nagy-misc-ielm-hook ()
+    (setq mode-line-process '(":" (:eval (buffer-name ielm-working-buffer)))))
   ;; :config
   ;; (advice-add 'ielm-return :after #'evil-normal-state)
+  :hook
+  (inferior-emacs-lisp-mode . nagy-misc-ielm-hook)
   :general
   (:states 'normal :keymaps 'inferior-emacs-lisp-mode-map
            "ö" #'ielm-return)

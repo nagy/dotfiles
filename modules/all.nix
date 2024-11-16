@@ -3,6 +3,7 @@
 {
   imports = [
     nur.repos.nagy.modules.ssh
+    nur.repos.nagy.modules.dns
 
     ./common.nix
     ./converter.nix

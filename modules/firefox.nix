@@ -169,6 +169,9 @@
 
       # from here https://git.sr.ht/~toastal/nixcfg/tree/trunk/item/program/browser/firefox/settings.nix
       "browser.uidensity" = 1;
+
+      # disable open264 plugin
+      "media.gmp-gmpopenh264.enabled" = false;
     };
   };
 

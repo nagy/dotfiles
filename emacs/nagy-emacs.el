@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-emacs
-;; Package-Requires: ((emacs "29.1") anaphora memoize ov visual-fill-column reformatter general)
+;; Package-Requires: ((emacs "29.1") anaphora memoize ov reformatter general)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -605,7 +605,20 @@
   :config
   (define-abbrev emacs-lisp-mode-abbrev-table "n" "nil" nil :system t :case-fixed t)
   :bind
-  ("H-M-e" . emacs-lisp-mode))
+  ("H-M-e" . emacs-lisp-mode)
+  (:map emacs-lisp-mode-map
+        ("s-." . eval-last-sexp)
+        ("s--" . eval-defun)
+        ;; ("s-:" . eval-defun)
+        ("C-ö" . compile-defun))
+  :general
+  (:states 'normal :keymaps 'emacs-lisp-mode-map
+           "zd" #'narrow-to-defun
+           "ö" #'eval-defun
+           "Ö" #'eval-buffer
+           ;; "µ" #'macrostep-expand
+           )
+  )
 
 (use-package mule-util
   ;; :defer t
@@ -676,6 +689,10 @@
     (marker (marker-buffer object))
     (overlay (overlay-buffer object))))
 
+(put 'line-number-at-pos 'side-effect-free t)
+(put 'json-parse-string 'side-effect-free t)
+(put 'json-parse-buffer 'side-effect-free t)
+
 (use-package font-lock
   :bind
   ("M-⨏" . font-lock-update))
@@ -683,6 +700,30 @@
 (use-package hl-line
   :bind
   ("M-ħ" . hl-line-mode))
+
+(use-package outline
+  :custom
+  (outline-minor-mode-use-buttons t)
+  ;; (outline-blank-line t)
+  :bind
+  ("H-s-a" . outline-cycle)
+  ("H-s-i" . outline-show-all)
+  ("H-s-o" . outline-hide-body)
+  (:map outline-mode-prefix-map
+        ("H-a" . outline-show-all)
+        ("H-t" . outline-hide-body))
+  (:map outline-overlay-button-map
+        ("f" . outline-cycle))
+  (:map outline-minor-mode-map
+        ("H-a" . outline-cycle))
+  :general
+  (:states 'normal :keymaps 'outline-minor-mode-map
+           "r" #'outline-cycle)
+  ;; :hook
+  ;; (conf-space-mode . outline-minor-mode)
+  ;; :config
+  ;; (map! "H-a" outline-mode-prefix-map)
+  )
 
 (use-package ediff
   :defer t

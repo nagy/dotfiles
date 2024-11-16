@@ -88,6 +88,12 @@
            "ß" #'forge-dispatch)
   ;; (:states 'normal :keymaps 'forge-post-mode-map
   ;;          "ö" #'forge-post-submit)
+  :config
+  (setq forge-post-mode-hook (delq 'turn-on-flyspell forge-post-mode-hook))
+  (setq forge-post-mode-hook (delq 'visual-line-mode forge-post-mode-hook))
+  ;; (set-face-attribute 'forge-pullreq-open nil :inherit 'modus-themes-heading-1)
+  ;; remove flyspell and visual-line-mode
+  ;; (setq forge-post-mode-hook nil)
   )
 
 (use-package with-editor

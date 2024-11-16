@@ -9,6 +9,8 @@
 
 (require 'subr-x)
 
+(eval-when-compile
+  (require 'dired))
 (require 'dash)
 (require 'f)
 (require 's)

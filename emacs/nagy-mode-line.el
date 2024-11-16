@@ -89,10 +89,14 @@
                   (:eval (unless (derived-mode-p 'exwm-mode)
                            '(:eval (propertize (abbreviate-file-name
                                                 (--> default-directory
-                                                     (string-replace "%" "%%" it)))
-                                               'face (if (buffer-file-name)
-                                                         '(:inherit (bold dired-directory))
-                                                       '(:inherit dired-directory))))))
+                                                     (string-replace "%" "%%" it)
+                                                     (string-replace "/tmp/t" "⧖" it)
+                                                     (string-replace "/nix/store" "○" it)
+                                                     ))
+                                               'face '(:inherit (dired-directory)
+                                                                :weight bold
+                                                                :height 1.2)
+                                               ))))
                   mode-line-misc-info
                   ;; (:eval (format " BFF:%S" buffer-file-format))
                   ;; container-list-mode-line-format

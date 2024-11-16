@@ -18,6 +18,7 @@
     ))
 
 (use-package dired
+  :demand t
   :preface
   (defun nagy-dired-mark-if-git ()
     (interactive)

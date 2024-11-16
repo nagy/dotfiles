@@ -37,7 +37,15 @@ let
     }
   );
   emacsAndPackages = customEmacsPackages.withPackages (
-    epkgs: (lib.attrValues (import ../emacs { inherit pkgs lib epkgs; }))
+    epkgs:
+    (
+      [
+        epkgs.treesit-grammars.with-all-grammars
+        epkgs.gptel
+        epkgs.emacspy
+      ]
+      ++ (lib.attrValues (import ../emacs { inherit pkgs lib epkgs; }))
+    )
   );
 in
 {

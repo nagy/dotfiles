@@ -50,9 +50,13 @@
         ))
 
 (use-package lispyville
+  :commands (lispyville-set-key-theme)
   :diminish lispyville-mode
   :bind
   (:map lispyville-mode-map
+        ("<normal-state> <key-chord> y SPC" . lispy-clone)
+        ;; ("<normal-state> <key-chord> y ," . lispy-comment)
+        ("<normal-state> <key-chord> f SPC" . lispy-raise-sexp)
         ("C-M-S-o" . lispy-oneline)
         ("M-S-RET" . lispy-multiline))
   :hook

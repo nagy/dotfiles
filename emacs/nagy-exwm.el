@@ -1,8 +1,11 @@
 ;;; nagy-exwm.el --- config emacs packages -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Package-Requires: ((emacs "29.1") dash evil exwm anaphora)
+;; Package-Requires: ((emacs "29.1") dash evil exwm anaphora nagy-dired nagy-emacs nagy-url)
 
 (require 'dash)
 (require 'evil)
+(eval-when-compile
+  (require 'dired))
+(require 'nagy-dired)
 
 (declare-function ibuffer-filter-by-used-mode "ibuffer")
 
@@ -23,6 +26,25 @@
 (defun update-current-frame-fontset ()
   (interactive)
   ;; (set-fontset-font t 'unicode (font-spec :family "Noto Sans Symbols") nil 'append)
+  (set-fontset-font t 'unicode (font-spec :family "Noto Sans Symbols2") nil 'append)
+  (set-fontset-font t 'unicode (font-spec :family "Noto Sans Math") nil 'append)
+  (set-fontset-font t 'unicode (font-spec :family "Noto Sans Gothic") nil 'append)
+  (set-fontset-font t 'unicode (font-spec :family "NotoMusic") nil 'append)
+  (set-fontset-font t 'unicode (font-spec :family "Iosevka Comfy") nil 'prepend)
+  (set-fontset-font t ?⨎ (font-spec :family "DejaVu Sans") nil 'prepend)
+  (set-fontset-font t ?⨏ (font-spec :family "DejaVu Sans") nil 'prepend)
+  (set-fontset-font t ?⌯ (font-spec :family "Unifont"))
+  (set-fontset-font t 'emoji (font-spec :family "Noto Emoji"))
+  (set-fontset-font t ?⚶ (font-spec :family "DejaVu Sans"))
+  (set-fontset-font t ?☂ (font-spec :family "Noto Emoji"))
+  (set-fontset-font t ?⌬ (font-spec :family "DejaVu Sans"))
+  (set-fontset-font t ?⦵ (font-spec :family "FreeSerif"))
+  (set-fontset-font t ?☇ (font-spec :family "DejaVu Sans"))
+  (set-fontset-font t ?⌥ (font-spec :family "DejaVu Sans"))
+  (set-fontset-font t ?🗑 (font-spec :family "Noto Emoji"))
+  ;; (set-fontset-font t ?⎇ (font-spec :family "Noto Emoji"))
+  ;; (set-fontset-font t ?🔰 (font-spec :family "Noto Emoji"))
+  ;; (set-fontset-font t ?❖ (font-spec :family "Noto Emoji"))
   )
 
 (defun brightness-up ()
@@ -39,6 +61,7 @@
 
 (use-package exwm
   :if (display-graphic-p)
+  :functions (exwm-workspace-rename-buffer)
   :preface
   (defun tab-last ()
     (interactive)
@@ -154,6 +177,10 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-<f11>") . global-hide-mode-line-mode)
             (,(kbd "s-<f12>") . +toggle-tab-bar-mode-from-frame)
             (,(kbd "H-M") . view-echo-area-messages)
+            ;; bookmarks
+            (,(kbd "s-ð") . ,(lambda () (interactive) (find-file "~/Downloads")))
+            (,(kbd "s-j") . dired-jump)
+            (,(kbd "C-s-j") . browse-url-from-kill)
             ))
   :config
   ;; Add these hooks in a suitable place (e.g., as done in exwm-config-default)
@@ -240,16 +267,14 @@ aka xcompose is not properly initialized in the first frame."
 (with-eval-after-load 'dired
   (keymap-set dired-mode-map "H-." #'contained-app))
 
-(defun firefox (&optional arg)
-  (interactive "P")
-  (pcase (prefix-numeric-value arg)
-    (4  (call-interactively #'ff-app))
-    (_ (with-environment-variables
-           (("XDG_CACHE_HOME" "/tmp/xdg-cache")
-            ("https_proxy" "http://127.0.0.1:40404")
-            ("http_proxy" "http://127.0.0.1:40404")
-            ("no_proxy" ".ygg"))
-         (start-process "firefox" nil browse-url-firefox-program "--new-window")))))
+(defun firefox ()
+  (interactive)
+  (with-environment-variables
+      (("XDG_CACHE_HOME" "/tmp/xdg-cache")
+       ("https_proxy" "http://127.0.0.1:40404")
+       ("http_proxy" "http://127.0.0.1:40404")
+       ("no_proxy" ".ygg"))
+    (start-process "firefox" nil browse-url-firefox-program "--new-window")))
 (keymap-global-set "<XF86Explorer>" #'firefox)
 
 (defun font-size-toggle ()

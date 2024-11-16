@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-misc2
-;; Package-Requires: ((emacs "29.1") aggressive-indent reformatter browse-at-remote pass password-store-otp super-save bufler pdf-tools org-pdftools avy helpful page-break-lines iedit go-mode anaphora general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") dash smartparens aggressive-indent reformatter browse-at-remote pass password-store-otp super-save bufler pdf-tools org-pdftools avy helpful page-break-lines iedit go-mode anaphora general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -19,7 +19,9 @@
 ;;
 ;;; Code:
 
+(require 'dash)
 (require 'general)
+(require 'smartparens)
 
 (use-package conf-mode
   :preface
@@ -32,10 +34,12 @@
   (:map conf-mode-map
         ("H-j" . forward-paragraph)
         ("H-k" . backward-paragraph)
+        ("C-⊢" . taplofmt-buffer)
         )
   :general
   (:states 'normal :keymaps 'conf-toml-mode-map
            "ö" #'save-buffer
+           "⊢" #'taplofmt-buffer
            )
   :hook
   (conf-toml-mode . taplofmt-on-save-mode)
@@ -110,6 +114,14 @@
   (:states 'normal
            "🔑" #'pass))
 
+(use-package password-store-otp
+  :defer t
+  ;; to add autoloads
+  :commands (password-store-otp-token)
+  :config
+  ;; TODO pr this upstream
+  (advice-add 'password-store-otp-token :filter-return #'string-trim-right))
+
 (use-package super-save
   :preface
   (defun nagy-super-save-predicate ()
@@ -161,6 +173,28 @@
   (avy-single-candidate-jump t)
   (avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l
                  ?q ?w ?e ?r       ?i ?o ?p)))
+;; (defun +nagy/colorize ()
+;;   (interactive)
+;;   (let ((inhibit-read-only t)
+;;         (inhibit-message t))
+;;     (let ((evil-ex-current-buffer (current-buffer)))
+;;       (save-excursion
+;;         (evil-ex-execute "%s,,,g")))
+;;     (ansi-color-apply-on-region (point-min) (point-max))
+;;     (set-buffer-modified-p nil)))
+
+;; (use-package which-key
+;;   :bind
+;;   ("A-C-s-ĸ" . which-key-mode)
+;;   :init
+;;   (add-hook! which-key-mode
+;;     (unless which-key-mode
+;;       ;; Somehow it does not get set back
+;;       ;; Still not good; embark as well
+;;       (setq echo-keystrokes 0.02)))
+;;   :custom
+;;   (which-key-idle-delay 0))
+
 (use-package pdf-tools
   :commands (pdf-tools-install)
   :hook
