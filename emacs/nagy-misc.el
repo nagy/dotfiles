@@ -22,8 +22,6 @@
 (require 'ov)
 (require 'general)
 
-(require 'nagy-use-package)
-
 (eval-when-compile
   ;; To catch errors during batch compilation
   (require 'nameless))

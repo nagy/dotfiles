@@ -57,6 +57,9 @@
   :commands (wat-mode)
   ;; until the package is in melpa
   :mode ("\\.wat\\'" . wat-mode)
+  :config
+  ;; This makes "wasm2wat" in `shell-command' buffers work.
+  (push '("(module" . wat-mode) magic-fallback-mode-alist)
   :pretty 'wat-mode
   ("export" . export)
   ("func" . def)

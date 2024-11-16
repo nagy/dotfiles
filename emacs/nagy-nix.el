@@ -3,9 +3,29 @@
 
 (require 'general)
 
-(require 'nagy-use-package)
+;;;###autoload (autoload 'nixfmt-buffer "nagy-nix")
+;;;###autoload (autoload 'nixfmt-region "nagy-nix")
+;;;###autoload (autoload 'nixfmt-on-save-mode "nagy-nix")
+(reformatter-define nixfmt
+  :program "nixfmt"
+  :args (list input-file)
+  :stdin nil
+  :stdout nil
+  :input-file (reformatter-temp-file-in-current-directory)
+  :group 'nix)
 
 (use-package nix-mode
+  :custom
+  (nix-repl-executable-args
+   '("repl" "--expr" "with import <nixpkgs> {}; builtins // lib // pkgs"))
+  :defer t
+  ;; :hook
+  ;; (nix-mode . eglot-ensure)
+  :hook
+  (nix-mode . nixfmt-on-save-mode)
+  :general
+  (:states 'normal :keymaps 'nix-mode-map
+           "⊢" #'nixfmt-buffer)
   :pretty 'nix-mode
   ("true" . true) ("false" . false)
   ("if" . if) ("else" . else) ("then" . then)
@@ -115,15 +135,23 @@
   ("prePatch" "postPatch")
   ;; Flakes
   ("inputs" "outputs")
+  ;; :bind
+  ;; (:map nix-mode-map
+  ;;       ("C-⊢" . nixfmt-buffer))
+  ;; :general
+  ;; (:states 'normal :keymaps 'nix-mode-map
+  ;;          "⊢" #'nixfmt-buffer)
+  :bind
+  ("H-M-n" . nix-mode)
   )
 
-(use-package nix-prettify-mode
-  :diminish 'nix-prettify-mode
-  :custom
-  (nix-prettify-char ?┃)
-  :hook
-  (dired-mode . nix-prettify-mode)
-  (nix-repl-mode . nix-prettify-mode))
+;; (use-package nix-prettify-mode
+;;   :diminish 'nix-prettify-mode
+;;   :custom
+;;   (nix-prettify-char ?┃)
+;;   :hook
+;;   (dired-mode . nix-prettify-mode)
+;;   (nix-repl-mode . nix-prettify-mode))
 
 ;; TODO has an lsp nls
 (use-package nickel-mode

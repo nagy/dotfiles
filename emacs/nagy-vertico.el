@@ -181,7 +181,7 @@
 ;; nice examples
 ;; https://karthinks.com/software/fifteen-ways-to-use-embark/
 (use-package embark
-  :demand t
+  :defer t
   :custom
   (embark-confirm-act-all nil)
   (embark-mixed-indicator-delay most-positive-fixnum)

@@ -19,10 +19,7 @@
 ;;
 ;;; Code:
 
-(require 'reformatter)
 (require 'general)
-
-(require 'nagy-use-package)
 
 (use-package conf-mode
   :preface
@@ -57,11 +54,21 @@
 (use-package aggressive-indent
   :diminish 'aggressive-indent-mode
   :custom
-  (aggressive-indent-sit-for-time 0.3)
+  (aggressive-indent-sit-for-time 0.1)
   :general
   (:states 'normal :keymaps 'prog-mode-map
            "«" #'aggressive-indent-mode))
 
+
+(use-package inspector
+  :custom
+  (inspector-truncation-limit 10000)
+  (inspector-slice-size 10000)
+  :general
+  (:states 'normal :keymaps 'inspector-mode-map
+           "C-o" #'inspector-pop)
+  :same
+  "^\\*inspector\\*")
 
 (use-package highlight-quoted
   :hook

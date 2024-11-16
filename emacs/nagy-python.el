@@ -27,7 +27,7 @@
     :args `("format" "--stdin-filename" ,input-file "-"))
   :hook
   (python-mode . ruff-format-on-save-mode)
-  (python-ts-mode . ruff-format-on-save-mode)
+  ;; (python-ts-mode . ruff-format-on-save-mode)
   :custom
   (python-indent-offset 4)
   (python-indent-guess-indent-offset nil)

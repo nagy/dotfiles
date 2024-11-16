@@ -19,8 +19,6 @@
 ;;
 ;;; Code:
 
-(require 'nagy-use-package)
-
 (require 'evil)
 (require 'general)
 

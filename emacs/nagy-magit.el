@@ -24,10 +24,20 @@
 (require 'embark)
 
 (use-package magit
+  ;; :preface
+  ;; (defun nagy-magit-branch-checkout-at-point ()
+  ;;   (interactive)
+  ;;   (magit-branch-checkout (magit-branch-at-point)))
+  :custom
+  (magit-pull-or-fetch t)
+  :config
+  (push '("^magit-revision" display-buffer-same-window) display-buffer-alist)
+  (push '("^magit-stash" display-buffer-same-window) display-buffer-alist)
+  (push '("^magit:" display-buffer-same-window) display-buffer-alist)
+  (push '("^magit-diff:"  display-buffer-same-window) display-buffer-alist)
   :bind
   ("H-g" . magit-status)
-  :custom
-  (magit-pull-or-fetch t))
+  )
 
 (use-package magit-section
   :general
@@ -50,8 +60,9 @@
   :bind
   ("H-ß" . forge-dispatch)
   (:map forge-post-mode-map
+        ([remap save-kill-buffer] . forge-post-submit)
         ([remap kill-this-buffer] . forge-post-cancel)
-        ([remap save-kill-buffer] . forge-post-submit))
+        )
   ;; (:map forge-topic-mode-map
   ;;       ("M-↓" . forge-pull))
   (:map magit-mode-map

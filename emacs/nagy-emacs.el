@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-emacs
-;; Package-Requires: ((emacs "29.1") anaphora memoize ov visual-fill-column general)
+;; Package-Requires: ((emacs "29.1") anaphora memoize ov visual-fill-column reformatter general)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -247,10 +247,13 @@
   :diminish 'visual-line-mode)
 
 (use-package compile
+  ;; :custom
+  ;; (compilation-scroll-output t)
   :bind
   ("C-M-¢" . compile)
   ("H-s-j" . next-error)
   ("H-s-k" . previous-error)
+  ("H-s-c" . compile)
   (:map compilation-minor-mode-map
         ([remap revert-buffer-quick] . recompile)
         ("H-j" . compilation-next-error)
@@ -435,6 +438,23 @@
     (define-abbrev inferior-emacs-lisp-mode-abbrev-table "KV" "kill-value" nil :system t)))
 
 (use-package hi-lock
+  :preface
+  ;; this is starting to need tests
+  (defun nagy-emacs-hilock-highlight ()
+    ;; we fake, that font-lock-mode is enabled.
+    ;; this makes these rules dynamic while editing.
+    (let ((font-lock-mode 1)
+          (font-lock-defaults '((nil))))
+      (when (derived-mode-p 'emacs-lisp-mode)
+        (hi-lock-face-buffer ".*\\(map!\\).*" 'modus-themes-intense-red 1))
+      (hi-lock-face-buffer ".* \\([@][@]\\) .*" 'modus-themes-subtle-green 0)
+      (hi-lock-face-buffer ".* \\([!][!]\\) .*" 'modus-themes-subtle-red 0)
+      (hi-lock-face-buffer ".* \\([?][?]\\) .*" 'modus-themes-subtle-yellow 0)))
+  ;; :config
+  ;; (add-hook 'font-lock-mode-hook 'nagy-emacs-hilock-highlight 'append)
+  ;; :hook
+  ;; (font-lock-mode . nagy-emacs-hilock-highlight)
+  :diminish 'hi-lock-mode
   :bind
   ("A-s-H-." . highlight-symbol-at-point))
 
@@ -457,6 +477,26 @@
   (epg-pinentry-mode 'loopback))
 
 (use-package eldoc
+  :preface
+  ;; from Doom emacs
+  (defun doom-emacs-lisp-append-value-to-eldoc-a (fn sym)
+    "Display variable value next to documentation in eldoc."
+    (when-let (ret (funcall fn sym))
+      (if (boundp sym)
+          (concat ret " "
+                  (let* ((truncated " [...]")
+                         (print-escape-newlines t)
+                         (str (symbol-value sym))
+                         (str (prin1-to-string str))
+                         (limit (- (frame-width) (length ret) (length truncated) 1)))
+                    (format (format "%%0.%ds%%s" (max limit 0))
+                            (propertize str 'face 'warning)
+                            (if (< (length str) limit) "" truncated))))
+        ret)))
+  ;; :demand t
+  ;; :after 'elisp-mode
+  :config
+  (advice-add 'elisp-get-var-docstring :around #'doom-emacs-lisp-append-value-to-eldoc-a)
   :diminish 'eldoc-mode
   :custom
   (eldoc-echo-area-use-multiline-p nil)
@@ -547,7 +587,7 @@
   ("H-M-e" . emacs-lisp-mode))
 
 (use-package mule-util
-  :defer t
+  ;; :defer t
   :config
   ;; Does not work in custom and needs :defer t
   (setq truncate-string-ellipsis "┄")        ; use smaller char than default
@@ -624,6 +664,10 @@
     (insert-file-contents file)
     (goto-char (point-min))
     (apply #'json-parse-buffer args)))
+
+(use-package jsonrpc
+  :cycle 'emacs-lisp-mode
+  ("jsonrpc-request" "jsonrpc-async-request"))
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

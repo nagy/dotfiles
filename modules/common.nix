@@ -23,6 +23,9 @@
 
   users.extraUsers.root.openssh.authorizedKeys.keys =
     config.users.users.user.openssh.authorizedKeys.keys;
+  programs.ssh = {
+    enableAskPassword = lib.mkForce false;
+  };
 
   services.openssh = {
     enable = true;
@@ -44,7 +47,7 @@
   programs.fuse.userAllowOther = true;
   documentation.dev.enable = true;
   documentation.info.enable = true;
-  networking.useDHCP = false;
+  # networking.useDHCP = false;
   # networking.dhcpcd.enable = false;
 
   environment.localBinInPath = true;
@@ -193,12 +196,12 @@
             ];
           }
         ))
-        april
+        # april
         serapeum
       ]
     ))
 
-    xurls
+    # xurls
     (python3.withPackages (ps: [
       ps.hy
       ps.hyrule
@@ -218,13 +221,19 @@
     universal-ctags
     # for man pages only
     (lib.getMan isync)
+    doggo
   ];
 
-  environment.variables.LESSHISTFILE = "-";
+  environment.sessionVariables.LESSHISTFILE = "-";
 
   # environment.variables.PYTHONDONTWRITEBYTECODE = "1";
 
-  environment.variables.WATCH_INTERVAL = "1";
+  environment.sessionVariables.WATCH_INTERVAL = "1";
+
+  # zstd auto detect parallel
+  environment.sessionVariables.ZSTD_NBTHREADS = "0";
+
+  # environment.sessionVariables.SYSTEMD_PAGER = "";
 
   environment.etc."rfc" = lib.mkIf config.documentation.nixos.enable {
     source = "${nur.repos.nagy.rfcs}/share/rfc";
@@ -241,4 +250,6 @@
       startup_message off
     '';
   };
+
+  environment.variables.IPFS_GATEWAY = lib.mkDefault "https://ipfs.io";
 }

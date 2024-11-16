@@ -1,5 +1,5 @@
 ;;; nagy-org.el --- My org config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Package-Requires: ((emacs "29.1") org ascii-art-to-unicode org-superstar org-appear org-ref mermaid-mode pikchr-mode markdown-mode orgit general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") org ascii-art-to-unicode org-superstar org-appear org-ref mermaid-mode pikchr-mode markdown-mode orgit howm general nagy-use-package)
 
 (require 'general)
 
@@ -168,5 +168,32 @@
   (setq org-element-use-cache nil)
   (setq org-element-cache-persistent nil))
 
+(use-package ol
+  :commands (org-link-expand-abbrev browse-url-interactive-arg)
+  :preface
+  (defun browse-url--org-link (url &optional _new-window)
+    (interactive (browse-url-interactive-arg "URL: "))
+    (browse-url (org-link-expand-abbrev url)))
+  :custom
+  (org-link-frame-setup
+   '((file . find-file)))
+  (org-link-abbrev-alist
+   '(("gh" . "https://github.com/")
+     ("gl" . "https://gitlab.com/")
+     ("crate" . "https://crates.io/crates/")
+     ("pypi" . "https://pypi.org/project/")
+     ("npm" . "https://www.npmjs.com/package/"))))
+
+(with-eval-after-load 'thingatpt
+  (push "gh:" thing-at-point-uri-schemes)
+  (push "gl:" thing-at-point-uri-schemes)
+  (push "npm:" thing-at-point-uri-schemes)
+  (push "pypi:" thing-at-point-uri-schemes))
+
+(with-eval-after-load 'browse-url
+  (push '("\\`gh:" . browse-url--org-link) browse-url-default-handlers)
+  (push '("\\`gl:" . browse-url--org-link) browse-url-default-handlers)
+  (push '("\\`npm:" . browse-url--org-link) browse-url-default-handlers)
+  (push '("\\`pypi:" . browse-url--org-link) browse-url-default-handlers))
 (provide 'nagy-org)
 ;;; nagy-org.el ends here
