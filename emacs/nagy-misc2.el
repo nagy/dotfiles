@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-misc2
-;; Package-Requires: ((emacs "29.1") dash smartparens aggressive-indent reformatter browse-at-remote pass password-store-otp super-save bufler pdf-tools org-pdftools avy helpful page-break-lines iedit go-mode anaphora general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") dash smartparens aggressive-indent ace-window reformatter browse-at-remote inspector highlight-quoted pass password-store password-store-otp expand-region emms super-save bufler pdf-tools org-pdftools highlight-defined cyphejor avy helpful page-break-lines which-key iedit go-mode anaphora general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -18,6 +18,8 @@
 ;;  Description
 ;;
 ;;; Code:
+
+(require 'diminish)
 
 (require 'dash)
 (require 'general)
@@ -29,6 +31,11 @@
     :group 'conf
     :program "taplo"
     :args `("fmt" "-"))
+  (defun nagy-misc2-conf-space-mode-hook ()
+    (setq-local outline-regexp "#\\{2,3\\} ")
+    (setq-local outline-heading-alist '(("## " . 1) ("### " . 2)))
+    (outline-minor-mode 1)              ; to recalculate the buttons
+    )
   :bind
   ("H-M-T" . conf-toml-mode)
   (:map conf-mode-map
@@ -43,6 +50,7 @@
            )
   :hook
   (conf-toml-mode . taplofmt-on-save-mode)
+  (conf-space-mode . nagy-misc2-conf-space-mode-hook)
   :pretty 'conf-toml-mode
   ("true" . true) ("false" . false)
   :cycle 'conf-toml-mode
@@ -64,6 +72,19 @@
   :general
   (:states 'normal :keymaps 'prog-mode-map
            "«" #'aggressive-indent-mode))
+
+;; (defun pdf-crop-file ()
+;;   (interactive)
+;;   (alet (concat (make-temp-file "PDFCROPPED" t)
+;;                 "/"
+;;                 (file-name-nondirectory (buffer-file-name)))
+;;     (cl-assert (zerop (call-process "pdf-crop-margins" nil nil nil
+;;                                     "--verbose"
+;;                                     "--outfile" it
+;;                                     "--percentRetain" "0"
+;;                                     "--absoluteOffset" "-6"
+;;                                     (buffer-file-name))))
+;;     (find-file it)))
 
 
 (use-package inspector
@@ -149,6 +170,17 @@
                          :toplevel "Languages"
                          :types ((?l "Languages"  magit-section-heading)
                                  (?f "Files"))))))
+(use-package pdf-tools
+  :custom
+  (pdf-view-use-scaling nil)
+  (pdf-view-midnight-colors '("white" . "black"))
+  :bind
+  (:map pdf-view-mode-map
+        ("H-j" . pdf-view-next-page-command)
+        ("H-k" . pdf-view-previous-page-command)
+        ("H-m" . pdf-view-midnight-minor-mode))
+  )
+
 (defun take-screenshot ()
   (interactive)
   (let* ((default-directory temporary-file-directory)
@@ -173,6 +205,25 @@
   (avy-single-candidate-jump t)
   (avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l
                  ?q ?w ?e ?r       ?i ?o ?p)))
+
+;; TODO make H-< in normal mode: eval sexp and replace
+;; TODO make H-< in vertico consult select to eval and replace the entry ( if buffer )
+(defun nagy-eval-sexp-replace ()
+  (interactive)
+  (-let* ((forward-sexp-function #'sp-forward-sexp) ; fixes problems e.g. in yaml-mode
+          ((beg . end) (or (bounds-of-thing-at-point 'sexp)
+                           (save-mark-and-excursion
+                             (mark-word)
+                             (cons (region-beginning) (region-end)))))
+          (str (buffer-substring-no-properties beg end))
+          (expr (car (read-from-string str))))
+    (atomic-change-group
+      (save-excursion
+        (let ((e (eval expr)))
+          (delete-region beg end)
+          (insert (format "%S" e)))))))
+(keymap-global-set "H-<" #'nagy-eval-sexp-replace)
+
 ;; (defun +nagy/colorize ()
 ;;   (interactive)
 ;;   (let ((inhibit-read-only t)
@@ -194,6 +245,20 @@
 ;;       (setq echo-keystrokes 0.02)))
 ;;   :custom
 ;;   (which-key-idle-delay 0))
+
+(require 'magit-section)
+(use-package bufler
+  :defer t
+  :commands (bufler-define-buffer-command bufler--map-sections)
+  :custom
+  ;; Remove buffer mode annotation
+  (bufler-buffer-mode-annotate-preds nil)
+  :config
+  ;; Remove bufler column "VC". might be expensive
+  (setq bufler-columns (remove "VC" bufler-columns))
+  (bufler-define-buffer-command simple-switch "Simple switcher"
+    #'switch-to-buffer :refresh-p nil)
+  )
 
 (use-package pdf-tools
   :commands (pdf-tools-install)

@@ -642,7 +642,21 @@
   ("s-U" . winner-redo))
 
 (use-package project
+  :preface
+  (defun nagy-emacs-project-find-file-flake-nix ()
+    (interactive)
+    (when (project-root (project-current))
+      (find-file (concat (project-root (project-current)) "/flake.nix"))))
+  (defun nagy-emacs-project-find-file-dot-git-config ()
+    (interactive)
+    (when (project-root (project-current))
+      (find-file (concat (project-root (project-current)) "/.git/config"))))
   :config
+  (keymap-global-set "H-p" project-prefix-map)
+  (keymap-set project-prefix-map "s-k" #'project-kill-buffers)
+  (keymap-set project-prefix-map "s-j" #'project-dired)
+  (keymap-set project-prefix-map "1" #'nagy-emacs-project-find-file-flake-nix)
+  (keymap-set project-prefix-map "2" #'nagy-emacs-project-find-file-dot-git-config)
   (keymap-global-set "s-," #'project-dired)
   :bind
   ("C-s-<return>" . project-eshell)
@@ -688,6 +702,27 @@
     (window (window-buffer object))
     (marker (marker-buffer object))
     (overlay (overlay-buffer object))))
+
+;;;###autoload
+(defmacro andf (place &rest x)
+  (declare (debug (place form)))
+  (if (symbolp place)
+      `(setq ,place (and ,place ,@x))
+    `(cl-callf and ,place ,@x)))
+
+;;;###autoload
+(defmacro orf (place &rest x)
+  (declare (debug (place form)))
+  (if (symbolp place)
+      `(setq ,place (or ,place ,@x))
+    `(cl-callf or ,place ,@x)))
+
+;; (use-package bindat
+;;   ;; :commands (bindat-pack bindat-type)
+;;   :demand t
+;;   )
+;; (put 'bindat-pack 'pure t)
+;; (put 'bindat-pack 'side-effect-free t)
 
 (put 'line-number-at-pos 'side-effect-free t)
 (put 'json-parse-string 'side-effect-free t)

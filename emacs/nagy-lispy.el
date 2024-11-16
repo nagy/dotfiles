@@ -68,6 +68,18 @@
            "g C-k" #'lispy-up
            ";" #'lispy-comment
            )
+  ;; Imported from Doom.
+  :init
+  (setq lispyville-key-theme
+        '((operators normal)
+          c-w
+          (prettify insert)
+          (atom-movement t)
+          slurp/barf-lispy
+          additional
+          additional-insert))
+  :config
+  (lispyville-set-key-theme)
   )
 
 (provide 'nagy-lispy)

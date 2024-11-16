@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-misc
-;; Package-Requires: ((emacs "29.1") nameless golden-ratio macrostep ts ov paren-face systemd tokei wgrep focus eros git-modes osm literate-calc-mode nhexl-mode breadcrumb sotlisp general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") nameless golden-ratio macrostep ts ov paren-face systemd tokei wgrep focus eros git-modes osm literate-calc-mode nhexl-mode breadcrumb sotlisp anaphora general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -98,6 +98,22 @@
       ;; use `lispyville-yank' here to trigger evil-goggles.
       ;; (lispyville-yank (region-beginning) (region-end) 'line )
       )))
+
+(use-package text-mode
+  :bind
+  (:map text-mode-map
+        ("H-ö" . save-buffer)
+        ("H-j" . forward-paragraph)
+        ("H-k" . backward-paragraph)
+        ("H-d" . nagy/delete-paragraph)
+        ("H-y" . nagy/yank-paragraph))
+  ;; :config
+  ;; (with-eval-after-load 'magit
+  ;;   (keymap-set text-mode-map
+  ;;               "H-l" #'magit-log-buffer-file))
+  :general
+  (:states 'normal :keymaps 'text-mode-map
+           "ö" #'save-buffer))
 
 (use-package prog-mode
   :bind
@@ -239,13 +255,22 @@
   :bind
   (:map comint-mode-map
         ([remap revert-buffer-quick] . comint-clear-buffer)
-        ("<key-chord> f j" . comint-send-input)
+        ("C-ö" . comint-next-input)
         ("H-Ö" . comint-previous-input)
         ("M-Ö" . comint-previous-input)
         ("H-d" . comint-send-eof)
         ("H-_" . comint-send-eof)
         ("H-j" . comint-next-prompt)
-        ("H-k" . comint-previous-prompt)))
+        ("H-k" . comint-previous-prompt)
+        ;; ("<insert-state> <key-chord> f j" . comint-send-input)
+        ("<normal-state> <key-chord> f h" . embark-dwim)
+        ("<normal-state> <key-chord> f j" . embark-act)
+        )
+  :general
+  (:states 'normal :keymaps 'comint-mode-map
+           "Ö" #'comint-previous-input
+           "ö" #'comint-send-input
+           "_" #'comint-send-eof))
 
 (use-package sotlisp
   ;; :diminish 'sotlisp-mode

@@ -2,6 +2,14 @@
 ;; Package-Requires: ((emacs "29.1") ov general dired-collapse dired-narrow dired-subtree nagy-evil)
 
 (require 'dired)
+(eval-when-compile
+  (require 'dired))
+(declare-function dired-do-copy "dired-aux")
+(declare-function dired-do-delete "dired")
+(declare-function dired-do-flagged-delete "dired")
+(declare-function dired-create-directory "dired-aux")
+(declare-function dired-get-marked-files "dired")
+(declare-function dired-get-file-for-visit "dired")
 (require 'ov)
 (require 'general)
 (eval-when-compile

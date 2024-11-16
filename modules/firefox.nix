@@ -136,11 +136,22 @@
       "network.trr.mode" = 5;
       # "geo.enabled" = false;
       # "beacon.enabled" = false;
+      # "network.stricttransportsecurity.preloadlist" = false;
 
       "browser.urlbar.suggest.calculator" = true;
 
+      # no need to check for blocked extensions
+      # "extensions.blocklist.enabled" = false;
+
       "browser.tabs.crashReporting.sendReport" = false;
       "browser.tabs.firefox-view" = false;
+      # "browser.fixup.dns_first_for_single_words" = true;
+      "browser.fixup.domainsuffixwhitelist.meship" = true;
+      "browser.fixup.domainsuffixwhitelist.ygg" = true;
+      "browser.fixup.domainsuffixwhitelist.anon" = true;
+      # OpenNIC
+      "browser.fixup.domainsuffixwhitelist.glue" = true;
+      "browser.fixup.fallback-to-https" = false;
 
       "widget.gtk.overlay-scrollbars.enabled" = false;
       "widget.non-native-theme.scrollbar.size.override" = 20;
@@ -172,6 +183,9 @@
 
       # disable open264 plugin
       "media.gmp-gmpopenh264.enabled" = false;
+
+      "media.navigator.enabled" = false; # Disable mic and camera
+      "media.peerconnection.enabled" = false; # Disable WebRTC
     };
   };
 

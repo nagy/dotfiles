@@ -222,6 +222,9 @@
     # for man pages only
     (lib.getMan isync)
     doggo
+    (import (builtins.fetchTarball "https://github.com/nagy/jsonrpcrun/archive/master.tar.gz") {
+      inherit pkgs;
+    })
   ];
 
   environment.sessionVariables.LESSHISTFILE = "-";

@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-evil
-;; Package-Requires: ((emacs "29.1") evil evil-collection evil-escape eat evil-numbers evil-surround evil-goggles key-chord vertico general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") evil evil-collection evil-escape eat evil-numbers evil-surround evil-goggles evil-nerd-commenter olivetti ws-butler key-chord vertico general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -195,9 +195,21 @@
   (eat-enable-shell-prompt-annotation nil)
   (eat-term-scrollback-size nil)
   :config
+  ;; (setq process-adaptive-read-buffering nil)
   (evil-set-initial-state 'eat-mode 'emacs)
   :bind
   ("<key-chord> ü x" . eat))
+
+(use-package key-chord
+  :after evil
+  :demand t
+  :commands (key-chord-define key-chord-mode)
+  :custom
+  (key-chord-one-key-delay 0.4)
+  (key-chord-two-keys-delay 0.2)
+  (key-chord-safety-interval-backward 0.0)
+  (key-chord-safety-interval-forward 0.0)
+  )
 
 (use-package tar-mode
   :general
@@ -264,6 +276,32 @@
     (message (string-trim-right (shell-command-to-string "date")))))
 (keymap-global-set "s-⌚" #'show-date)
 (keymap-global-set "s-⧖" #'show-date)
+
+(keymap-set evil-normal-state-map "<key-chord> y SPC" #'duplicate-dwim)
+(keymap-set evil-normal-state-map "ü" #'execute-extended-command)
+(keymap-set evil-normal-state-map "Ü" #'execute-extended-command-for-buffer)
+(keymap-set evil-normal-state-map "⋮" #'sort-lines)
+;; (keymap-set evil-motion-state-map "TAB" nil)
+;; (keymap-set evil-motion-state-map "RET" nil)
+
+(keymap-set evil-normal-state-map "ë" #'global-prettify-symbols-mode)
+;; (keymap-global-set "C-ë" #'nameless-mode)
+
+(use-package olivetti
+  :custom
+  (olivetti-body-width 150)
+  :general
+  (:states 'normal
+           "“" #'olivetti-expand
+           "”" #'olivetti-shrink))
+
+(use-package ws-butler
+  :diminish ws-butler-mode
+  :custom
+  (ws-butler-keep-whitespace-before-point nil)
+  :hook
+  (prog-mode . ws-butler-mode)
+  (text-mode . ws-butler-mode))
 
 (use-package wdired
   :defer t

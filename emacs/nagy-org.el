@@ -196,5 +196,6 @@
   (push '("\\`gl:" . browse-url--org-link) browse-url-default-handlers)
   (push '("\\`npm:" . browse-url--org-link) browse-url-default-handlers)
   (push '("\\`pypi:" . browse-url--org-link) browse-url-default-handlers))
+
 (provide 'nagy-org)
 ;;; nagy-org.el ends here

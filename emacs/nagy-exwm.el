@@ -45,6 +45,25 @@
   ;; (set-fontset-font t ?⎇ (font-spec :family "Noto Emoji"))
   ;; (set-fontset-font t ?🔰 (font-spec :family "Noto Emoji"))
   ;; (set-fontset-font t ?❖ (font-spec :family "Noto Emoji"))
+  ;; 🔷
+  (set-fontset-font t ?⩎ (font-spec :family "Unifont"))
+  (set-fontset-font t ?⩏ (font-spec :family "Unifont"))
+  ;; These are "symbols"
+  (set-fontset-font t ?🎛 (font-spec :family "Noto Emoji"))
+  (set-fontset-font t ?❄ (font-spec :family "Noto Emoji"))
+  (set-fontset-font t ?⛓ (font-spec :family "Noto Emoji"))
+  ;; (set-fontset-font t ?〜 (font-spec :family "Noto Emoji"))
+  ;; force iosevka comfy
+  (dolist (it '(?※ ?┋ ?○ ?⟻ ?✦ ?∨ ?≢ ?↡ ?⇣ ?⊢ ?⍳ ?⋮ ?⁝ ?♁ ?∴ ?⌿ ?◉
+                   ?∅ ?∧ ?↻ ?⒈ ?⒉ ?⇘ ?⟼ ?☐ ?⋯ ?◇ ?□ ?∃ ?⍺ ?⬖ ?⬗
+                   ?♪ ?⚇ ?∀ ?⌀ ?∄ ?✄ ?☉ ?∡ ?☿ ?ⓐ ?● ?♄ ?↞ ?↠ ?☆ ?◫
+                   ?┄ ?♯ ?↧ ?⅞ ?⊻ ?⊽ ?⅜ ?⅛ ?∿ ?π ?〉 ?〈
+                   ?┃ ?⍜ ?⋋ ?⋌ ?⏚ ?⎎ ?▱ ?◺ ?◸ ?▰ ?◿ ?◹
+                   ?☈ ?↯ ?⇊ ?⇉ ?⇇ ?⇈ ?‼ ?↜ ?↝ ?⋱ ?⚆ ?∵ ?⏢ ?▫ ?⍼
+                   ?⚀ ?⚁ ?⚂ ?⚃ ?⚄ ?⚅ ?⎵ ?⋔ ?⎍ ?⌂ ?δ))
+    (set-fontset-font t it (font-spec :family "Iosevka Comfy")))
+  (dolist (it '(?▮ ?⧻))
+    (set-fontset-font t it (font-spec :family "IosevkaTerm Nerd Font")))
   )
 
 (defun brightness-up ()

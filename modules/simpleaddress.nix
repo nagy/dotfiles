@@ -20,22 +20,21 @@ in
     networking.interfaces.br0 = {
       ipv4.addresses = [
         {
-          address = "10.0.0.${numToStringAttr.${config.networking.hostName}}";
+          address = "192.168.0.${numToStringAttr.${config.networking.hostName}}";
           prefixLength = 24;
         }
       ];
     };
     networking.hosts = lib.pipe 26 [
-      (x: (lib.genList (x: x + 1) x))
-      (
-        x:
-        map (it: {
-          int = it;
-          str = (lib.elemAt (lib.splitString "" "abcdefghijklmnopqrstuvwxyz") it);
-        }) x
-      )
-      (x: map (x: { "10.0.0.${toString x.int}" = [ x.str ]; }) x)
-      (x: lib.foldl lib.mergeAttrs { } x)
+      (lib.genList (x: x + 1))
+      (map (it: {
+        int = it;
+        str = (lib.elemAt (lib.splitString "" "abcdefghijklmnopqrstuvwxyz") it);
+      }))
+      (map (x: {
+        "192.168.0.${toString x.int}" = [ x.str ];
+      }))
+      (lib.foldl lib.mergeAttrs { })
     ];
   };
 

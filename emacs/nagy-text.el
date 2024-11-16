@@ -1,5 +1,5 @@
 ;;; nagy-text.el --- My text config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Package-Requires: ((emacs "29.1") evil general jinx lorem-ipsum wordnut nagy-use-package)
+;; Package-Requires: ((emacs "29.1") evil general pandoc jinx lorem-ipsum wordnut nagy-use-package)
 
 (require 'nagy-use-package)
 (require 'general)
@@ -21,6 +21,27 @@
   (:states 'normal
            "C-🫧" #'lorem-ipsum-insert-sentences
            "🫧" #'lorem-ipsum-insert-paragraphs))
+
+(use-package pandoc
+  :preface
+  (defun nagy-text-to-plain ()
+    (interactive)
+    (pcase-exhaustive major-mode
+      ('mhtml-mode
+       (let ((buffer (generate-new-buffer (concat "Pandoc Plain: " (buffer-name)))))
+         (call-process-region nil nil "pandoc" nil buffer nil
+                              "--to=plain"
+                              "--wrap=none"
+                              "--from=html")
+         (switch-to-buffer  buffer)
+         (goto-char (point-min))
+         (text-mode)
+         ;; (olivetti-mode)
+         ;; (let ((inhibit-message t))
+         ;;   (olivetti-set-width 80))
+         ))))
+  ;; (evil-global-set-key 'motion (kbd "g H-M-t") #'nagy-text-to-plain)
+  )
 
 ;; TODO markdown disable toggle markup when pretty key is pressed
 
