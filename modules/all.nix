@@ -30,6 +30,7 @@
     ./xcompose.nix
     ./simpleaddress.nix
     ./espressif.nix
+    ./powerdns.nix
     ./restic.nix
     # ./automount-ext4.nix
     # ./automount-btrfs.nix
