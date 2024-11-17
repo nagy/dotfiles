@@ -44,7 +44,7 @@ let
         epkgs.age
         epkgs.gptel
         epkgs.emacspy
-        epkgs.passage
+        # epkgs.passage
       ]
       ++ (lib.attrValues (import ../emacs { inherit pkgs lib epkgs; }))
     )

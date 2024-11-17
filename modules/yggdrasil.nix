@@ -47,10 +47,14 @@ in
       };
     };
 
-    environment.variables.IPFS_GATEWAY = lib.mkIf config.services.yggdrasil.enable "http://ipfs.ygg";
+    environment.variables.IPFS_GATEWAY = "http://ipfs.ygg";
 
-    networking.hosts = lib.mkIf config.services.yggdrasil.enable {
+    networking.hosts = {
       "222:3bd:cc26:9545:caaa:9fd6:ec56:cc1" = [ "y.www.nncpgo.org" ];
+      "188.225.9.167" = [ "yggno.de" ];
+      "128.140.56.86" = [ "ygg.mkg20001.io" ];
+      "78.47.140.241" = [ "yggdrasil.neilalexander.dev" ];
+      "5.75.213.206" = [ "ygg-uplink.thingylabs.io" ];
     };
   };
 }

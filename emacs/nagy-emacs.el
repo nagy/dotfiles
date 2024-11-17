@@ -749,6 +749,68 @@
   (declare (debug setq))
   `(setopt ,arg (not ,arg)))
 
+(defalias 'wcb (symbol-function 'with-current-buffer))
+(put 'wcb 'lisp-indent-function (get 'with-current-buffer 'lisp-indent-function))
+(put 'wcb 'edebug-form-spec (get 'with-current-buffer 'edebug-form-spec))
+(defalias 'wtb (symbol-function 'with-temp-buffer))
+(put 'wtb 'lisp-indent-function (get 'with-temp-buffer 'lisp-indent-function))
+(put 'wtb 'edebug-form-spec (get 'with-temp-buffer 'edebug-form-spec))
+(defalias 'wsm (symbol-function 'with-silent-modifications))
+(put 'wsm 'lisp-indent-function (get 'with-silent-modifications 'lisp-indent-function))
+(defalias 'eb (symbol-function 'erase-buffer))
+(defalias 'se (symbol-function 'save-excursion))
+(put 'se 'lisp-indent-function (get 'save-excursion 'lisp-indent-function))
+(defalias 'bs (symbol-function 'buffer-string))
+(defalias 'bz (symbol-function 'buffer-size))
+(defalias 'bn (symbol-function 'buffer-name))
+(defalias 'gb (symbol-function 'get-buffer))
+(defalias 'b (symbol-function 'get-buffer-create-or-current))
+;; (defalias 'l (symbol-function 'length))
+(defalias 'i (symbol-function 'insert-multi))
+(defalias 'sw (symbol-function 'selected-window))
+(defalias 'sf (symbol-function 'selected-frame))
+(defalias 'wb (symbol-function 'window-buffer))
+(defalias 'wl (symbol-function 'window-list))
+(defalias 'bu (symbol-function 'browse-url))
+
+(defalias 'plambda (symbol-function 'pcase-lambda))
+(defalias 'plet (symbol-function 'pcase-let))
+(defalias 'plet* (symbol-function 'pcase-let*))
+(defalias 'pdolist (symbol-function 'pcase-dolist))
+
+;; experiment with three letter shortcuts
+(defalias 'win (symbol-function 'selected-window))
+(defalias 'fra (symbol-function 'selected-frame))
+(defalias 'buf (symbol-function 'get-buffer-create-or-current))
+(defalias 'len (symbol-function 'length))
+(defalias 'ins (symbol-function 'insert-multi))
+(defalias 'bfs (symbol-function 'buffer-size))
+(defalias 'bfn (symbol-function 'buffer-name))
+(defalias 'callf (symbol-function 'cl-callf))
+(defalias 'incf (symbol-function 'cl-incf))
+(defalias 'decf (symbol-function 'cl-decf))
+(defalias '+= (symbol-function 'cl-incf))
+(defalias '-= (symbol-function 'cl-decf))
+(defalias '++ (symbol-function 'cl-incf))
+(defalias '-- (symbol-function 'cl-decf))
+(defalias 'for (symbol-function 'cl-loop))
+(defalias 'loop (symbol-function 'cl-loop))
+(defalias 'assert (symbol-function 'cl-assert))
+(defalias 'the (symbol-function 'cl-the))
+(defalias 'progv (symbol-function 'cl-progv))
+(defalias 'defstruct (symbol-function 'cl-defstruct))
+(defalias 'defgeneric (symbol-function 'cl-defgeneric))
+(defalias 'defmethod (symbol-function 'cl-defmethod))
+(defalias 'typecase (symbol-function 'cl-typecase))
+(defalias 'etypecase (symbol-function 'cl-etypecase))
+(defalias 'oddp (symbol-function 'cl-oddp))
+(defalias 'evenp (symbol-function 'cl-evenp))
+
+(defalias 'tg (symbol-function 'toggle))
+(put 'tg 'edebug-form-spec (get 'toggle 'edebug-form-spec))
+
+(defalias 'time< (symbol-function 'time-less-p))
+
 ;;;###autoload
 (defmacro andf (place &rest x)
   (declare (debug (place form)))
@@ -773,6 +835,34 @@
 
 (put 'number-to-string 'pure t)
 (put 'propertize 'pure t)
+
+;; these may be derived by the compiler
+;; (put 'string-trim-right 'pure t)
+;; (put 'string-trim-right 'side-effect-free t)
+;; (put 'substring-no-properties 'pure t)
+;; (put 'substring-no-properties 'side-effect-free t)
+
+(keymap-global-set "M-¢" #'cd)
+
+(defmacro with-temp-file-contents (file &rest body)
+  (declare (indent 1) (debug (sexp body)))
+  (let ((sym (gensym)))
+    `(let ((,sym ,file))
+       (with-temp-buffer
+         (insert-file-contents ,sym)
+         (goto-char (point-min))
+         ,@body))))
+
+(use-package memoize
+  ;; :demand t
+  :config
+  (setq memoize-default-timeout "5 minutes")
+  )
+
+(defmemoize-by-buffer-contents buffer-line-count-string ()
+  ;; (count-lines (point-min) (point-max))
+  (number-to-string
+   (line-number-at-pos (point-max))))
 
 ;; (use-package bindat
 ;;   ;; :commands (bindat-pack bindat-type)
@@ -816,6 +906,43 @@
   ;; :config
   ;; (map! "H-a" outline-mode-prefix-map)
   )
+
+(defun buffer-new-of-region ()
+  (interactive)
+  (let ((reg-str (when (region-active-p)
+                   (buffer-substring (region-beginning)
+                                     (region-end)))))
+    ;; from evil-buffer-new
+
+    (let ((buffer (generate-new-buffer "*new*")))
+      (with-current-buffer buffer
+	(text-mode))
+      ;; (set-buffer-major-mode buffer)
+      (set-window-buffer nil buffer))
+    (when reg-str
+      (with-current-buffer (window-buffer (selected-window))
+        (insert reg-str)
+        (goto-char (point))))))
+(keymap-global-set "M-”" #'buffer-new-of-region)
+
+(require 'browse-url)
+(defun my-browser-url-mpv (url &optional _new-window)
+  (interactive (browse-url-interactive-arg "URL: "))
+  (setq url (browse-url-encode-url url))
+  (start-process (concat "mpv " url) nil "mpv" url)
+  t)
+
+(require 'url-parse)
+(defun my-browser-url-nsxiv (url &optional _new-window)
+  (interactive (browse-url-interactive-arg "URL: "))
+  (setq url (url-unhex-string url))
+  (let ((path (url-path-and-query (url-generic-parse-url url))))
+    (with-environment-variables
+        (("XDG_CACHE_HOME" "/run/user/1000/nsxiv-cache"))
+      (awhen (cdr path)
+        (setcar path (concat (car path) "?" it)))
+      (start-process (concat "nsxiv " (car path)) nil "nsxiv" "-sf" (car path))))
+  t)
 
 (use-package ediff
   :defer t
