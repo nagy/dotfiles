@@ -23,7 +23,7 @@
       pkgs.etBook # EtBembo https://edwardtufte.github.io/et-book/
       pkgs.noto-fonts
       pkgs.noto-fonts-monochrome-emoji
-      (pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      pkgs.nerd-fonts.symbols-only
     ];
   };
 }

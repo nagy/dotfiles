@@ -318,6 +318,7 @@ waits for input."
         ((prefix "Inferior Python") (string-replace "Inferior Python" "↓🐍" it))
         ((prefix "Inferior Hy") (string-replace "Inferior Hy" "↓Hy" it))
         ((prefix "nagy-list") (string-replace "nagy-list" "Ł" it))
+        ((prefix "Fundamental") (string-replace "Fundamental" "_" it))
         (_ mode-name))))
   ;; in emacs 30, this can only be activated later ( maybe after
   ;; emacs-lisp-mode has been loaded).
@@ -379,6 +380,8 @@ waits for input."
         ("H-j" . pdf-view-next-page-command)
         ("H-k" . pdf-view-previous-page-command)
         ("H-m" . pdf-view-midnight-minor-mode))
+  ;; :same
+  ;; (rx bos "*Outline ")
   )
 
 (defun take-screenshot ()

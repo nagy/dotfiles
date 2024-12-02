@@ -279,12 +279,12 @@ aka xcompose is not properly initialized in the first frame."
     (start-process "nsxiv" nil "nsxiv" "-sf" "-t" ".")))
 (keymap-global-set "<pause>" #'nsxiv)
 
-(defun contained-app ()
-  (interactive)
-  (start-process-shell-command "contained-app" nil
-                               (format "contained-app . %s --no-remote" browse-url-firefox-program)))
-(with-eval-after-load 'dired
-  (keymap-set dired-mode-map "H-." #'contained-app))
+;; (defun contained-app ()
+;;   (interactive)
+;;   (start-process-shell-command "contained-app" nil
+;;                                (format "contained-app . %s --new-instance" browse-url-firefox-program)))
+;; (with-eval-after-load 'dired
+;;   (keymap-set dired-mode-map "H-." #'contained-app))
 
 (defun firefox ()
   (interactive)
@@ -292,7 +292,7 @@ aka xcompose is not properly initialized in the first frame."
       (("XDG_CACHE_HOME" "/tmp/xdg-cache")
        ("https_proxy" "http://127.0.0.1:40404")
        ("http_proxy" "http://127.0.0.1:40404")
-       ("no_proxy" ".ygg"))
+       ("no_proxy" ".ygg,.meship"))
     (start-process "firefox" nil browse-url-firefox-program "--new-window")))
 (keymap-global-set "<XF86Explorer>" #'firefox)
 

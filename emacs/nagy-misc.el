@@ -273,7 +273,7 @@
            "_" #'comint-send-eof))
 
 (use-package sotlisp
-  ;; :diminish 'sotlisp-mode
+  ;; :diminish sotlisp-mode
   :commands (speed-of-thought-mode)
   :config
   (speed-of-thought-mode -1)

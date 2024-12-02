@@ -211,6 +211,7 @@
       c3c
       ffmpeg_7-full
       pandoc
+      crane
     ]
   );
 
