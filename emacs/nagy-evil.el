@@ -164,6 +164,7 @@
   :general
   (:states 'normal :keymaps 'sqlite-mode-map
            "H-r" #'sqlite-mode-list-tables
+           "c" #'sqlite-mode-list-columns
            "f" #'sqlite-mode-list-data
            "RET" #'sqlite-mode-list-data)
   ;; :config

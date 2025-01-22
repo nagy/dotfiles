@@ -23,7 +23,7 @@
   :config
   (defun find-file-org ()
     (interactive)
-    (find-file org-directory))
+    (find-file (format "%s/TODOs.org" org-directory)))
   :bind
   ("H-M-o" . org-mode)
   ("s-ø" . find-file-org)

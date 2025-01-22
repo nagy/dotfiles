@@ -49,7 +49,7 @@
   (mu4e-get-mail-command "sh -c \"cd /home/user/Maildir/posteo.de && nix run -f ./. && cd ../gmail.com && nix run -f ./.\"")
   (mu4e-view-auto-mark-as-read nil)
   (mu4e-change-filenames-when-moving t)
-  (mu4e-cache-maildir-list t)
+  ;; (mu4e-cache-maildir-list t)
   ;; https://tushartyagi.com/blog/configure-mu4e-and-msmtp/
   (message-send-mail-function 'message-send-mail-with-sendmail)
   (mu4e-headers-fields '(;;(:account . 10)

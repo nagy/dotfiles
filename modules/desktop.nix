@@ -56,7 +56,7 @@
                key <MENU> { [ Menu, Menu, U2194, U2195  ] };
                key <RWIN> { [ Hyper_R, Hyper_R ] };
                key <INS>  { [ Multi_key, Multi_key, U232F, U223F ] };
-               key <HNGL> { [ U269B, U2607, U237E, U238D] };
+               key <HNGL> { [ U271D, U2607, U237E, U238D] };
                key <KATA> { [ U29FB, U29e7, includes, intersection] };
                key <HJCV> { [ U2A5A, U2A5B, U2A51, U2A52] };
                key <HENK> { [ U29D6, U27C1, U2220, U29A2] };

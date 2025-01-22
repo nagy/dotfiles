@@ -45,13 +45,20 @@
                      thereis (ignore-errors
                                (funcall (url-knowledge-config-buffer cdr)))))))
 
+(defun url-knowledge--get-url-force ()
+  (setq url-knowledge-url
+        (cl-loop for config in url-knowledge--known-configs
+                 for cdr = (cdr config)
+                 thereis (ignore-errors
+                           (funcall (url-knowledge-config-buffer cdr))))))
+
 (defun url-knowledge-browse-url ()
   (interactive)
   (browse-url (url-knowledge--get-url)))
 
 (defun url-knowledge-kill-url ()
   (interactive)
-  (let ((url (url-knowledge--get-url)))
+  (let ((url (url-knowledge--get-url-force)))
     (kill-new url)
     (message "Killed: %s" url)))
 

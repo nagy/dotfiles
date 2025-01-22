@@ -169,17 +169,17 @@ with `switch-to-buffer'."
 ;;;###autoload
 (pcase-defmacro suffix (suffix)
   "Pattern (suffix SUFFIX) matches if the string ends with SUFFIX."
-  `(pred (string-suffix-p ,suffix)))
+  `(and (pred stringp) (pred (string-suffix-p ,suffix))))
 
 ;;;###autoload
 (pcase-defmacro prefix (prefix)
   "Pattern (prefix PREFIX) matches if the string starts with PREFIX."
-  `(pred (string-prefix-p ,prefix)))
+  `(and (pred stringp) (pred (string-prefix-p ,prefix))))
 
 ;;;###autoload
 (pcase-defmacro infix (infix)
   "Pattern (infix INFIX) matches if the string contains INFIX."
-  `(pred (s-contains-p ,infix)))
+  `(and (pred stringp) (pred (s-contains-p ,infix))))
 
 ;;;###autoload
 (pcase-defmacro derived (&rest modes)

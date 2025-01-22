@@ -122,36 +122,6 @@
       "run"
     ];
 
-    A = [ "argocd" ];
-    Aa = [
-      "argocd"
-      "app"
-    ];
-    Aal = [
-      "argocd"
-      "app"
-      "list"
-    ];
-    Ac = [
-      "argocd"
-      "cluster"
-    ];
-    Acl = [
-      "argocd"
-      "cluster"
-      "list"
-    ];
-
-    Ar = [
-      "argocd"
-      "repo"
-    ];
-    Arl = [
-      "argocd"
-      "repo"
-      "list"
-    ];
-
   };
 
 }

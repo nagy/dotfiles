@@ -1,7 +1,9 @@
 ;;; nagy-devops.el --- devops config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Package-Requires: ((emacs "29.1") groovy-mode terraform-mode hcl-mode gitlab-ci-mode dockerfile-mode jenkinsfile-mode reformatter cmake-mode nagy-use-package)
+;; Package-Requires: ((emacs "29.1") groovy-mode terraform-mode hcl-mode gitlab-ci-mode dockerfile-mode jenkinsfile-mode reformatter cmake-mode general nagy-use-package)
 
 ;; (require 'nagy-use-package)
+
+(require 'general)
 
 (use-package groovy-mode
   :defer t
@@ -51,7 +53,7 @@
 (use-package terraform-mode
   :preface
   (reformatter-define terraform-fmt
-    :program "terraform"
+    :program "tofu"
     :args '("fmt" "-")
     ;; :lighter " TFmt"
     :group 'terraform-mode)
@@ -61,10 +63,13 @@
   ("provider" . [?𝒑 (Br . Bl) ?𝒓])
   ("resource" . [?𝒓 (Br . Bl) ?𝒆])
   ("output" . [?𝒐 (Br . Bl) ?𝒑])
-  :config
+  :general
+  (:states 'normal :keymaps 'terraform-mode-map
+           "⊢" #'terraform-fmt-buffer)
+  :hook
+  (terraform-mode . terraform-fmt-on-save-mode)
+  ;; :config
   ;; (push '(terraform-mode "terraform-ls" "serve") eglot-server-programs)
-  ;; :hook
-  ;; (terraform-mode . terraform-fmt-on-save-mode)
   )
 
 (provide 'nagy-devops)

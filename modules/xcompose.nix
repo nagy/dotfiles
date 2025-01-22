@@ -1,21 +1,20 @@
 { config, lib, pkgs, nur, ... }:
 
 let
-  inherit (lib) escapeShellArg;
   cfg = config.nagy.xcompose;
   mkXComposeLine = key: lst: ''
     (
     set -e
-    ucode=$(echo -n ${escapeShellArg key} \
+    ucode=$(echo -n ${lib.escapeShellArg key} \
                | ${pkgs.glibc.bin}/bin/iconv -f utf8 -t utf32be \
                | ${pkgs.xxd}/bin/xxd -p \
                | sed -r 's/^0+/U/' \
                | ${pkgs.perl}/bin/perl -ne 'print uc')
     unumber=$(sed -r 's/^U/0x/' <<< $ucode)
-    list=${escapeShellArg lst}
+    list=${lib.escapeShellArg lst}
     name=$(${nur.repos.nagy.unum}/bin/unum $unumber|sed 1d|awk '{$1="";$2="";$3="";$4="";$5=""}1'|xargs)
     printf "%-50s : \"%s\" %9s # %s\n" "$list" ${
-      escapeShellArg key
+      lib.escapeShellArg key
     } $ucode "$name"
     )
   '';
@@ -193,6 +192,17 @@ let
     "☂" = [ "Shift" "<Multi_key>" "<u>" ];
     "" = [ "Alt" "<Multi_key>" "<oslash>" ];
     "" = [ "Alt" "<Multi_key>" "<lstroke>" ];
+
+    # press altgr only and then release
+    # "ᛞ" = ["Ctrl" "<ISO_Level3_Shift>" "<d>"];
+    "" = ["Alt" "<ISO_Level3_Shift>" "<d>"];
+    "🪶" = ["Alt" "<ISO_Level3_Shift>" "<f>"];
+    "🔱" = ["Alt" "<ISO_Level3_Shift>" "<ae>"];
+
+    "ℵ" = ["<Multi_key>" "<plus>" "<a>"];
+    "ℶ" = ["<Multi_key>" "<plus>" "<b>"];
+    "ℷ" = ["<Multi_key>" "<plus>" "<c>"];
+    "ℸ" = ["<Multi_key>" "<plus>" "<d>"];
   };
 in
 {

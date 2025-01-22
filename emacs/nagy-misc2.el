@@ -156,7 +156,9 @@
     (quit-window t))
   :general
   (:states 'normal
-           "🔑" #'pass))
+           "🔑" #'pass)
+  (:states 'normal :keymaps 'pass-mode-map
+           "u" #'pass-copy-url))
 
 (use-package password-store
   :preface

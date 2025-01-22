@@ -71,4 +71,6 @@
     ];
   };
 
+  environment.sessionVariables.CARGO_TARGET_WASM32_WASIP1_RUNNER = "${pkgs.wasmtime}/bin/wasmtime run";
+
 }

@@ -43,6 +43,9 @@
       "extension.gif" = {
         loop-file = "inf";
       };
+      # "extension.mp4" = {
+      #   loop-file = "inf";
+      # };
       "extension.png" = {
         # apng files
         loop-file = "inf";

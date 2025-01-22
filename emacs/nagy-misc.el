@@ -76,7 +76,11 @@
   :bind
   ("s-€" . eww)
   :hook
-  (eww-mode . variable-pitch-mode))
+  (eww-mode . variable-pitch-mode)
+  :general
+  (:states 'normal :keymaps 'eww-mode-map
+           "r" #'eww-reload)
+  )
 
 (defun nagy/delete-paragraph ()
   (interactive)
@@ -273,7 +277,7 @@
            "_" #'comint-send-eof))
 
 (use-package sotlisp
-  ;; :diminish sotlisp-mode
+  :diminish sotlisp-mode
   :commands (speed-of-thought-mode)
   :config
   (speed-of-thought-mode -1)

@@ -7,7 +7,7 @@
     pkgs.wasmtime
     pkgs.wamr
     # pkgs.wasmer  # https://github.com/NixOS/nixpkgs/pull/337692
-    pkgs.wasmedge
+    # pkgs.wasmedge # broken
   ];
 
   boot.binfmt.emulatedSystems = [ "wasm32-wasi" ];

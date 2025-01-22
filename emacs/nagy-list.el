@@ -98,14 +98,17 @@ That means, KEY can also be a cons."
     (:path (propertize (abbreviate-file-name prevalue) 'font-lock-face dired-directory-face))
     (:bytes (propertize (file-size-human-readable prevalue)
                         'font-lock-face
-                        (cond
-                         ((> prevalue (* 1024 1024 1024)) ; > 1GB
-                          'modus-themes-fg-red-intense)
-                         ((> prevalue (* 1024 1024)) ; > 1MB
-                          'modus-themes-fg-yellow-intense)
-                         ;; ((> prevalue (* 1024))  ; > 1KB
-                         ;;  'modus-themes-fg-green-intense)
-                         (t 'modus-themes-fg-green-intense)) ))
+                        (cond ((> prevalue (* 512 1024 1024 1024)) ; > 512GB
+                               'modus-themes-fg-red-intense)
+                              ((> prevalue (* 1024 1024 1024)) ; > 1GB
+                               'modus-themes-fg-red-faint)
+                              ((> prevalue (* 512 1024 1024)) ; > 512MB
+                               'modus-themes-fg-yellow-intense)
+                              ((> prevalue (* 1024 1024)) ; > 1MB
+                               'modus-themes-fg-yellow-faint)
+                              ((> prevalue (* 512 1024))  ; > 512KB
+                               'modus-themes-fg-green-intense)
+                              (t 'modus-themes-fg-green-faint)) ))
     (:identifier (propertize (format "%s" prevalue) 'font-lock-face 'magit-hash))
     ((pred null) nil)
     ((pred listp) (propertize (mapconcat (lambda (x)

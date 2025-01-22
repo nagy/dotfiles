@@ -13,6 +13,7 @@
 (declare-function evil-escape-mode "evil-escape")
 (declare-function gcmh-mode "gcmh")
 (declare-function modus-themes-toggle "modus-themes")
+;; (declare-function find-file-home "nagy-gc")
 
 
 ;; For emacs 30. the upstream one now requires an event.
@@ -52,6 +53,7 @@
   (set-fontset-font t ?🎛 (font-spec :family "Noto Emoji"))
   (set-fontset-font t ?❄ (font-spec :family "Noto Emoji"))
   (set-fontset-font t ?⛓ (font-spec :family "Noto Emoji"))
+  (set-fontset-font t ?〒 (font-spec :family "Noto Emoji"))
   ;; (set-fontset-font t ?〜 (font-spec :family "Noto Emoji"))
   ;; force iosevka comfy
   (dolist (it '(?※ ?┋ ?○ ?⟻ ?✦ ?∨ ?≢ ?↡ ?⇣ ?⊢ ?⍳ ?⋮ ?⁝ ?♁ ?∴ ?⌿ ?◉
@@ -68,13 +70,13 @@
 
 (defun brightness-up ()
   (interactive)
-  (let ((default-directory "~/"))
+  (let ((default-directory temporary-file-directory))
     (call-process "brightnessctl" nil nil nil "--device=ddcci4" "set" "+5%")
     (call-process "brightnessctl" nil nil nil "--device=ddcci12" "set" "+5%")))
 
 (defun brightness-down ()
   (interactive)
-  (let ((default-directory "~/"))
+  (let ((default-directory temporary-file-directory))
     (call-process "brightnessctl" nil nil nil "--device=ddcci4" "set" "5%-")
     (call-process "brightnessctl" nil nil nil "--device=ddcci12" "set" "5%-")))
 
@@ -186,7 +188,7 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-<next>") . tab-next)
             (,(kbd "s-<home>") . tab-first)
             (,(kbd "s-<end>") . tab-last)
-            ;; (,(kbd "s-SPC") . find-file-home)
+            (,(kbd "s-SPC") . find-file-home)
             (,(kbd "<XF86Back>") . tab-previous)
             (,(kbd "<XF86Forward>") . tab-next)
             (,(kbd "<XF86Search>") . other-frame)
@@ -292,6 +294,7 @@ aka xcompose is not properly initialized in the first frame."
       (("XDG_CACHE_HOME" "/tmp/xdg-cache")
        ("https_proxy" "http://127.0.0.1:40404")
        ("http_proxy" "http://127.0.0.1:40404")
+       ;; ("no_proxy" ".ygg,.meship,[200::]/7")
        ("no_proxy" ".ygg,.meship"))
     (start-process "firefox" nil browse-url-firefox-program "--new-window")))
 (keymap-global-set "<XF86Explorer>" #'firefox)

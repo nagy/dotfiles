@@ -158,7 +158,7 @@
 
     # documentation
     man-pages
-    glibcInfo # info files for gnu glibc
+    # broken currently glibcInfo # info files for gnu glibc
 
     # custom tooling
     topiary
