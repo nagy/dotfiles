@@ -24,6 +24,7 @@
   collapse
   )
 
+;;;###autoload
 (cl-defun url-knowledge-make (name &key
                                    buffer
                                    clean

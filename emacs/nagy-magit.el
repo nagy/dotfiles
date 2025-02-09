@@ -31,8 +31,9 @@
   :config
   (push '("^magit-revision" display-buffer-same-window) display-buffer-alist)
   (push '("^magit-stash" display-buffer-same-window) display-buffer-alist)
-  (push '("^magit:" display-buffer-same-window) display-buffer-alist)
+  (push '("^magit-process:" display-buffer-same-window) display-buffer-alist)
   (push '("^magit-diff:"  display-buffer-same-window) display-buffer-alist)
+  (push '("^magit:" display-buffer-same-window) display-buffer-alist)
   :bind
   ("H-g" . magit-status)
   (:map magit-log-select-mode-map

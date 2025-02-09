@@ -107,7 +107,7 @@
   (add-to-list 'display-buffer-alist '("^\\*Async Shell Command"  display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^\\*Org-Babel"  display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^\\*Process"  display-buffer-same-window))
-  (add-to-list 'display-buffer-alist '("^\\*Embark Export"  display-buffer-same-window))
+  ;; (add-to-list 'display-buffer-alist '("^\\*Embark Export"  display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^\\€"  display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^\\*Shell Command"  display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^\\*compilation"  display-buffer-same-window))
@@ -497,11 +497,11 @@
   ;; :after 'elisp-mode
   :config
   (advice-add 'elisp-get-var-docstring :around #'doom-emacs-lisp-append-value-to-eldoc-a)
-  :diminish 'eldoc-mode
+  :diminish eldoc-mode
   :custom
   (eldoc-echo-area-use-multiline-p nil)
   (eldoc-idle-delay 0.01)
-  ;; TODO increase eldoc delay for sly buffers because the comm with the lisp is
+  ;; TODO increase eldoc delay for sly buffers because the communication with the lisp is
   ;; taking huge cpu.
   ;; :same "^\\*eldoc\\*"
   )
@@ -774,6 +774,7 @@
 (defalias 'bu (symbol-function 'browse-url))
 (defalias 'pc (symbol-function 'pcase))
 (defalias 'pce (symbol-function 'pcase-exhaustive))
+(defalias 'P (symbol-function 'pcase))
 
 (defalias 'plambda (symbol-function 'pcase-lambda))
 (defalias 'plet (symbol-function 'pcase-let))
@@ -807,11 +808,21 @@
 (defalias 'etypecase (symbol-function 'cl-etypecase))
 (defalias 'oddp (symbol-function 'cl-oddp))
 (defalias 'evenp (symbol-function 'cl-evenp))
+(defalias 'first (symbol-function 'cl-first))
+(defalias 'second (symbol-function 'cl-second))
+(defalias 'copy-list (symbol-function 'cl-copy-list))
 
 (defalias 'tg (symbol-function 'toggle))
 (put 'tg 'edebug-form-spec (get 'toggle 'edebug-form-spec))
 
 (defalias 'time< (symbol-function 'time-less-p))
+
+(defalias 'ml (symbol-function 'map-length))
+(defalias 'mk (symbol-function 'map-keys))
+(defalias 'mv (symbol-function 'map-values))
+(defalias 'mi (symbol-function 'map-insert))
+(defalias 'me (symbol-function 'map-elt))
+(put 'me 'gv-expander (get 'map-elt 'gv-expander))
 
 ;;;###autoload
 (defmacro andf (place &rest x)
@@ -837,6 +848,9 @@
 
 (put 'number-to-string 'pure t)
 (put 'propertize 'pure t)
+
+(put 'url-generic-parse-url 'pure t)
+(put 'url-generic-parse-url 'side-effect-free t)
 
 ;; these may be derived by the compiler
 ;; (put 'string-trim-right 'pure t)

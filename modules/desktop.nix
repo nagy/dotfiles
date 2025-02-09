@@ -208,10 +208,12 @@
           night = import ../hmmodule-alacritty-night.nix true;
         };
       })
-      c3c
+      # c3c
       ffmpeg_7-full
       pandoc
       crane
+      jpegoptim
+      libjxl
     ]
   );
 

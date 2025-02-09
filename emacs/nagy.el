@@ -17,7 +17,6 @@
 (require 'nagy-lispy nil t)
 (require 'nagy-list nil t)
 (require 'nagy-lsp nil t)
-(require 'nagy-lua nil t)
 (require 'nagy-magit nil t)
 (require 'nagy-mail nil t)
 (require 'nagy-media nil t)

@@ -42,6 +42,7 @@
   (defun real-garbage-collect ()
     (interactive)
     (setq values nil)                   ; cleanup references
+    (clear-image-cache t)
     (prog1 (funcall real-garbage-collect)
       (malloc-trim 0)))
   :config

@@ -24,7 +24,6 @@
     # ./rust.nix
     # ./zig.nix
     # ./scanner.nix
-    ./simpleaddress.nix
     ./shortcommands.nix
     ./starship.nix
     ./sudo.nix

@@ -68,7 +68,7 @@
 (use-package aggressive-indent
   :diminish 'aggressive-indent-mode
   :custom
-  (aggressive-indent-sit-for-time 0.1)
+  (aggressive-indent-sit-for-time 0.5)
   :general
   (:states 'normal :keymaps 'prog-mode-map
            "«" #'aggressive-indent-mode))

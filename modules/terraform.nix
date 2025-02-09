@@ -15,12 +15,8 @@
     # pkgs.terraform-ls
   ];
 
-  # https://developer.hashicorp.com/terraform/cli/commands
-  # may not be needed with opentofu anymore
-  environment.variables.CHECKPOINT_DISABLE = "1";
-
   nagy.shortcommands = {
-    # tf = [ "terraform" ];
+    # tf = [ "tofu" ];
     tfp = [
       "tofu"
       "plan"
