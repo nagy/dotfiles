@@ -110,6 +110,8 @@
      replace                            ; for occur
      ;; gnus
      bookmark
+     vc-dir
+     vc-git
      ))
   )
 
