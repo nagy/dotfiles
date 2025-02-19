@@ -23,16 +23,23 @@ let
         src = pkgs.fetchFromGitHub {
           owner = "nagy";
           repo = "emacs-memoize";
-          rev = "33fcd1ec5a93f3768c43904fecc68399a84b8924";
-          hash = "sha256-00C8WLR7CVCnp/VPgAP564XpMmXkaaddmi1tXdEevZI=";
+          rev = "985e95846b3442d0a9e87eeff2d8259ccaf0598f";
+          hash = "sha256-EYq/3EPHvQSzdZ79eXONsyTcapr2CAQ6c14kHr5ug90=";
+        };
+      };
+      hy-mode = super.hy-mode.overrideAttrs {
+        src = pkgs.fetchFromGitHub {
+          owner = "nagy";
+          repo = "hy-mode";
+          rev = "202b05423fe6b520c8c5d5cc1b87134bfd2c89b6";
+          hash = "sha256-buDciWz8nbf0a8M2IPUZpbyQPHSugZCYDZqwSKIQqFY=";
         };
       };
       elisp-reader = nur.repos.nagy.emacsPackages.elisp-reader;
       obvious = nur.repos.nagy.emacsPackages.obvious;
       emacspy = nur.repos.nagy.emacsPackages.emacspy;
-      evil = super.evil.overrideAttrs {
-        # to fix https://github.com/emacs-evil/evil/issues/1903
-        src = builtins.fetchTarball "https://github.com/emacs-evil/evil/archive/b7ab3840dbfc1da5f9ad56542fc94e3dab4be5f1.tar.gz";
+      lua = super.lua.override {
+        lua = pkgs.lua5_4;
       };
     }
   );
@@ -44,9 +51,20 @@ let
         epkgs.age
         epkgs.gptel
         epkgs.emacspy
+        epkgs.lua
+
+        epkgs.llama
+        epkgs.loopy
+        epkgs.loopy-dash
+
         # epkgs.passage
       ]
-      ++ (lib.attrValues (import ../emacs { inherit pkgs lib epkgs; }))
+      ++ (lib.attrValues (
+        nur.repos.nagy.lib.emacsMakeDirectoryScope {
+          path = ../emacs;
+          inherit epkgs;
+        }
+      ))
     )
   );
 in

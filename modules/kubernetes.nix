@@ -1,10 +1,6 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
-
   imports = [ ./shortcommands.nix ];
 
   environment.systemPackages = [
@@ -123,5 +119,4 @@
     ];
 
   };
-
 }

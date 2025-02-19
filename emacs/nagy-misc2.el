@@ -304,7 +304,7 @@ waits for input."
   (cyphejor-rules '(;; :upcase
                     ("dired" "δ")
                     ("emacs lisp" "λ")
-                    ;; ("nagy-list" "Ł")
+                    ;; ("nagy-list" "ł")
                     ))
   :config
   (defun cyphejor--cypher (_old-name _rules)
@@ -319,7 +319,8 @@ waits for input."
         ((prefix "Shell") (string-replace "Shell" "$" it))
         ((prefix "Inferior Python") (string-replace "Inferior Python" "↓🐍" it))
         ((prefix "Inferior Hy") (string-replace "Inferior Hy" "↓Hy" it))
-        ((prefix "nagy-list") (string-replace "nagy-list" "Ł" it))
+        ((prefix "nagy-list") (string-replace "nagy-list" "ł" it))
+        ((prefix "Text") (string-replace "Text" "T" it))
         ((prefix "Fundamental") (string-replace "Fundamental" "_" it))
         (_ mode-name))))
   ;; in emacs 30, this can only be activated later ( maybe after
@@ -381,7 +382,8 @@ waits for input."
   (:map pdf-view-mode-map
         ("H-j" . pdf-view-next-page-command)
         ("H-k" . pdf-view-previous-page-command)
-        ("H-m" . pdf-view-midnight-minor-mode))
+        ("M-m" . pdf-view-midnight-minor-mode)
+        )
   ;; :same
   ;; (rx bos "*Outline ")
   )
@@ -462,7 +464,7 @@ waits for input."
   ;; Remove bufler column "VC". might be expensive
   (setq bufler-columns (remove "VC" bufler-columns))
   (bufler-define-buffer-command simple-switch "Simple switcher"
-    #'switch-to-buffer :refresh-p nil)
+                                #'switch-to-buffer :refresh-p nil)
   )
 
 (use-package pdf-tools

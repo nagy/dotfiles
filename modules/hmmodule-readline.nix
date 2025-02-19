@@ -1,7 +1,7 @@
 { nur, ... }:
 
 {
-  imports = [ nur.repos.nagy.modules.hmconvert ];
+  # imports = [ nur.repos.nagy.modules.hmconvert ];
 
   homeconfig.programs.readline = {
     enable = true;

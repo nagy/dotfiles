@@ -74,8 +74,8 @@
                                `(expand-file-name ,dir))))
      ,@body))
 
-(defvar-keymap nagy-leader
-  :doc "leader key")
+;; (defvar-keymap nagy-leader
+;;   :doc "leader key")
 
 (use-package emacs
   :preface
@@ -119,13 +119,13 @@
   (add-hook 'window-selection-change-functions #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-increase :after #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-decrease :after #'nagy-emacs-window-scroll-bars)
-  (push 'inhibit-message set-message-functions)
+  (add-to-list 'set-message-functions 'inhibit-message)
   (setq inhibit-message-regexps
         (list
          (rx "[mu4e] ")
          (rx bol "Note: file is write protected" eol)
          ))
-
+  (put #'erase-buffer 'disabled nil)
   ;; (setq-default show-trailing-whitespace t)
   ;; :custom
   ;; (help-at-pt-display-when-idle t)
@@ -327,7 +327,9 @@
   (tab-bar-auto-width t)
   ;; (tab-bar-auto-width-max '(330 30))
   ;; (tab-bar-auto-width-max '(440 40))
-  (tab-bar-auto-width-max '(10000 1000))
+  ;; using this instead of 10000 below means no flickering in the tab bar
+  (tab-bar-auto-width-max `(,(* 8 880) ,(* 8 80)))
+  ;; (tab-bar-auto-width-max '(10000 1000))
   (tab-bar-new-button-show nil)
   (tab-bar-close-button-show nil)
   (tab-bar-new-tab-choice t))
@@ -398,6 +400,7 @@
     (define-abbrev text-mode-abbrev-table "dn" "down" nil :system t)
     (define-abbrev text-mode-abbrev-table "ai" "making" nil :system t)
     (define-abbrev text-mode-abbrev-table "xl" "human" nil :system t)
+    (define-abbrev text-mode-abbrev-table "sh" "should" nil :system t)
     ;; More https://jonaquino.blogspot.com/2007/06/yublin-shorthand-for-speed-writing.html?m=1
     ;; Idea: put yublin on QMK?
     (define-abbrev text-mode-abbrev-table "t" "the" nil :system t :case-fixed t)
@@ -608,7 +611,7 @@
   ("H-M-e" . emacs-lisp-mode)
   (:map emacs-lisp-mode-map
         ("s-." . eval-last-sexp)
-        ("s--" . eval-defun)
+        ;; ("s--" . eval-defun)
         ;; ("s-:" . eval-defun)
         ("C-ö" . compile-defun))
   :general

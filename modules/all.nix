@@ -5,18 +5,12 @@
     nur.repos.nagy.modules.all
 
     ./common.nix
-    ./converter.nix
     # ./desktop.nix
     ./display.nix
     ./emacs.nix
     ./firefox.nix
     ./fonts.nix
-    ./fzf.nix
     ./git.nix
-    ./gtk.nix
-    ./htop.nix
-    # ./journal-git-store.nix
-    ./ncdu.nix
     ./nix.nix
     # ./printer.nix
     ./scanner.nix

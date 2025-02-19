@@ -6,7 +6,7 @@
 }:
 
 {
-  imports = [ nur.repos.nagy.modules.hmconvert ];
+  # imports = [ nur.repos.nagy.modules.hmconvert ];
 
   homeconfig.programs.zathura = {
     enable = config.services.xserver.enable;

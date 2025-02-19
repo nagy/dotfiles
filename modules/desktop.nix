@@ -233,7 +233,9 @@
   hardware.pulseaudio = {
     enable = true;
   };
-  services.pipewire.enable = false;
+  services.pipewire = {
+    enable = false;
+  };
 
   programs.wireshark = {
     enable = true;
