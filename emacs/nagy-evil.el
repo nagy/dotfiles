@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-evil
-;; Package-Requires: ((emacs "29.1") evil evil-collection evil-escape eat evil-numbers evil-surround evil-goggles evil-nerd-commenter olivetti ws-butler key-chord vertico general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") evil evil-collection evil-escape eat evil-numbers evil-surround evil-matchit evil-goggles evil-nerd-commenter olivetti ws-butler key-chord vertico general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -159,7 +159,9 @@
 (use-package shell
   :defer t
   :config
-  (evil-set-initial-state 'shell-mode 'normal))
+  (evil-set-initial-state 'shell-command-mode 'normal)
+  ;; (evil-set-initial-state 'shell-command-mode 'emacs)
+  )
 
 (use-package sqlite-mode
   ;; Tracking issue https://github.com/emacs-evil/evil-collection/issues/749

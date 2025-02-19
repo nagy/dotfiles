@@ -187,7 +187,13 @@ with `switch-to-buffer'."
 ;;;###autoload
 (pcase-defmacro derived (&rest modes)
   "Pattern (derived MODES...)."
-  `(pred (lambda (mode) (provided-mode-derived-p mode ,@modes))))
+  `(pred (lambda (mode-or-buffer)
+           (cl-etypecase mode-or-buffer
+             (buffer (provided-mode-derived-p
+                      (buffer-local-value 'major-mode mode-or-buffer) ,@modes))
+             (string (provided-mode-derived-p
+                      (buffer-local-value 'major-mode (get-buffer mode-or-buffer)) ,@modes))
+             (symbol (provided-mode-derived-p mode-or-buffer ,@modes))))))
 
 (provide 'nagy-use-package)
 ;;; nagy-use-package.el ends here

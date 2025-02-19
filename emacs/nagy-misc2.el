@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-misc2
-;; Package-Requires: ((emacs "29.1") dash smartparens aggressive-indent ace-window reformatter browse-at-remote inspector highlight-quoted pass password-store password-store-otp expand-region emms super-save bufler pdf-tools org-pdftools highlight-defined cyphejor avy helpful page-break-lines which-key iedit go-mode anaphora general nagy-use-package)
+;; Package-Requires: ((emacs "29.1") dash smartparens aggressive-indent ace-window reformatter browse-at-remote inspector highlight-quoted pass password-store password-store-otp expand-region emms super-save bufler pdf-tools org-pdftools highlight-defined cyphejor avy helpful page-break-lines which-key iedit go-mode hledger-mode anaphora general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -415,20 +415,35 @@ waits for input."
 
 ;; TODO make H-< in normal mode: eval sexp and replace
 ;; TODO make H-< in vertico consult select to eval and replace the entry ( if buffer )
-(defun nagy-eval-sexp-replace ()
-  (interactive)
+(defun nagy-eval-sexp-replace (arg)
+  (interactive "P")
+  (ignore arg)
   (-let* ((forward-sexp-function #'sp-forward-sexp) ; fixes problems e.g. in yaml-mode
           ((beg . end) (or (bounds-of-thing-at-point 'sexp)
                            (save-mark-and-excursion
                              (mark-word)
                              (cons (region-beginning) (region-end)))))
-          (str (buffer-substring-no-properties beg end))
+          (str (buffer-substring beg end))
           (expr (car (read-from-string str))))
-    (atomic-change-group
-      (save-excursion
-        (let ((e (eval expr)))
-          (delete-region beg end)
-          (insert (format "%S" e)))))))
+    (aif (and ;; (eq -1 (prefix-numeric-value arg))
+          (get-text-property (point) 'orig-eval))
+        ;; Restore old eval
+        (progn
+          (let ((start (field-beginning (1+ (point))))
+                (end (field-end (1+ (point)))))
+            (delete-region start end)
+            (insert (format "%s" it))
+            (goto-char start))
+          )
+      ;; eval
+      (atomic-change-group
+        (save-excursion
+          (let ((e (eval expr))
+                (field-random (random)))
+            (delete-region beg end)
+            (insert (propertize (format "%S" e)
+                                'orig-eval str
+                                'field field-random))))))))
 (keymap-global-set "H-<" #'nagy-eval-sexp-replace)
 
 ;; (defun +nagy/colorize ()
@@ -472,7 +487,11 @@ waits for input."
   :hook
   (pdf-view-mode . pdf-view-fit-page-to-window)
   :config
-  (pdf-tools-install))
+  (pdf-tools-install)
+  ;; (evil-collection-init 'pdf)
+  ;; (evil-collection-pdf-setup)
+  ;; (evil-set-initial-state 'pdf-view-mode 'normal)
+  )
 
 (use-package iedit
   :bind

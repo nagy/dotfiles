@@ -41,6 +41,20 @@
          ;;   (olivetti-set-width 80))
          ))))
   ;; (evil-global-set-key 'motion (kbd "g H-M-t") #'nagy-text-to-plain)
+  (defun nagy-text-to-org ()
+    (interactive)
+    (pcase-exhaustive major-mode
+      ('mhtml-mode
+       (let ((buffer (generate-new-buffer (concat "Pandoc Org: " (buffer-name)))))
+         (call-process-region nil nil "pandoc" nil buffer nil
+                              "--to=org"
+                              "--wrap=none"
+                              "--from=html")
+         (switch-to-buffer  buffer)
+         (goto-char (point-min))
+         (org-mode)
+         ))))
+  ;; (evil-global-set-key 'motion (kbd "g H-M-o") #'nagy-text-to-org)
   )
 
 ;; TODO markdown disable toggle markup when pretty key is pressed

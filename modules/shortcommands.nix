@@ -1,18 +1,17 @@
 { nur, ... }:
 
 {
-  imports = [ nur.repos.nagy.modules.shortcommands ];
+  # imports = [ nur.repos.nagy.modules.shortcommands ];
 
   config.nagy.shortcommands = {
     # nix
     b = [ "nix-build" ];
     i = [ "nix-instantiate" ];
-    "b," = [ "nix-build" "<nixpkgs>" ];
-    "i," = [ "nix-instantiate" "<nixpkgs>" ];
-    "b,," = [ "nix-build" "<nixpkgs/nixos>" ];
-    "i,," = [ "nix-instantiate" "<nixpkgs/nixos>" ];
-    "b." = [ "nix-build" "<dot>" ];
-    "i." = [ "nix-instantiate" "<dot>" ];
+    "b." = [ "nix-build" "<nixpkgs>" ];
+    "i." = [ "nix-instantiate" "<nixpkgs>" ];
+    "i.j" = [ "nix-instantiate" "<nixpkgs>" "--json" "--strict" "--eval" ];
+    "b.." = [ "nix-build" "<nixpkgs/nixos>" ];
+    "i.." = [ "nix-instantiate" "<nixpkgs/nixos>" ];
     "b+" = [ "nix-build-package" ];
     "i+" = [ "nix-instantiate-package" ];
     s = [ "nix-shell" ];

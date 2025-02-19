@@ -143,13 +143,14 @@
   ("H-M-n" . nix-mode)
   )
 
-;; (use-package nix-prettify-mode
-;;   :diminish 'nix-prettify-mode
-;;   :custom
-;;   (nix-prettify-char ?┃)
-;;   :hook
-;;   (dired-mode . nix-prettify-mode)
-;;   (nix-repl-mode . nix-prettify-mode))
+(use-package nix-prettify-mode
+  :diminish nix-prettify-mode
+  :custom
+  (nix-prettify-char "┃▒")
+  ;; :hook
+  ;; (dired-mode . nix-prettify-mode)
+  ;; (nix-repl-mode . nix-prettify-mode)
+  )
 
 ;; TODO has an lsp nls
 (use-package nickel-mode

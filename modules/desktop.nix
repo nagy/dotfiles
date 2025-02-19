@@ -212,6 +212,8 @@
       ffmpeg_7-full
       pandoc
       crane
+      containerd
+      nerdctl
       jpegoptim
       libjxl
     ]

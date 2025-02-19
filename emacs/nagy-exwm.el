@@ -82,7 +82,7 @@
 
 (use-package exwm
   :if (display-graphic-p)
-  :functions (exwm-workspace-rename-buffer)
+  :commands (exwm-randr-refresh exwm-workspace-rename-buffer)
   :preface
   (defun tab-last ()
     (interactive)

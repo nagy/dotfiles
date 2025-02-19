@@ -218,16 +218,16 @@
   ("C-<XF86Paste>" . embark-dwim)
   ("S-<XF86Paste>" . embark-act-all)
   ("A-<XF86Paste>" . embark-collect)
-  (:map minibuffer-local-map
-        ("H-m" . (lambda ()
-                   (interactive)
-                   (embark-select)
-                   (vertico-next))))
-  (:map embark-collect-mode-map
-        ("H-m" . (lambda ()
-                   (interactive)
-                   (embark-select)
-                   (forward-line))))
+  ;; (:map minibuffer-local-map
+  ;;       ("H-m" . (lambda ()
+  ;;                  (interactive)
+  ;;                  (embark-select)
+  ;;                  (vertico-next))))
+  ;; (:map embark-collect-mode-map
+  ;;       ("H-m" . (lambda ()
+  ;;                  (interactive)
+  ;;                  (embark-select)
+  ;;                  (forward-line))))
   (:map embark-collect-mode-map
         ("s-." . embark-export))
   (:map emacs-lisp-mode-map

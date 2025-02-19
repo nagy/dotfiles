@@ -7,6 +7,8 @@
 }:
 
 {
+  # This prevents all ipv6 comm on all interfaces
+  # boot.kernel.sysctl."net.ipv6.conf.lo.disable_ipv6" = true;
 
   users.users.user = {
     isNormalUser = true;
@@ -44,79 +46,19 @@
   # all hosts should have this timezone
   time.timeZone = "Europe/Berlin";
 
-  programs.fuse.userAllowOther = true;
   documentation.dev.enable = true;
   documentation.info.enable = true;
   # networking.useDHCP = false;
   # networking.dhcpcd.enable = false;
-
-  environment.localBinInPath = true;
-  environment.homeBinInPath = true;
-
-  environment.shellAliases = {
-    mv = "mv --no-clobber";
-    smv = "mv --no-clobber";
-    # If the last character of the alias value is a blank, then the next command
-    # word following the alias is also checked for alias expansion.
-    # https://www.gnu.org/software/bash/manual/bash.html#Aliases
-    # https://news.ycombinator.com/item?id=25243730
-    sudo = "sudo ";
-
-    to32 = "nix-hash --to-base32 --type sha256";
-    lt = "ls --human-readable --size -1 -S --classify";
-    ll = "ls --human-readable -l";
-    la = "ls --human-readable --all -l";
-    llH = "ls --human-readable -l --dereference-command-line";
-    laH = "ls --human-readable --all -l --dereference-command-line";
-    ltH = "ls --human-readable --size -1 -S --classify --dereference-command-line";
-    path = "echo -e \${PATH//:/\\\\n}";
-    nixpath = "echo -e \${NIX_PATH//:/\\\\n}";
-    fastping = "ping -c 20 -i.2";
-    reset = "tput reset";
-    ".." = "cd ..";
-    "..." = "cd ../..";
-    "...." = "cd ../../..";
-    "....." = "cd ../../../..";
-    "......" = "cd ../../../../..";
-    "......." = "cd ../../../../../..";
-  };
-
-  zramSwap = {
-    enable = true;
-    # memoryMax = 16 * 1024 * 1024 * 1024;
-    memoryPercent = 100;
-  };
 
   programs.ssh.extraConfig = ''
     Host *
       StrictHostKeyChecking accept-new
       ServerAliveInterval 300
       ServerAliveCountMax 2
-    # Git remote hosts
-    Host github.com ssh.github.com gitlab.com git.sr.ht aur.archlinux.org codeberg.org gitlab.*
-      User git
-      RequestTTY no
-    Host ssh.github.com
-      Port 443
   '';
 
-  # tmpfs on all machines
-  boot.tmp.useTmpfs = true;
-  boot.tmp.tmpfsSize = "100%";
-
-  # cleaner git repos without the hooks
-  environment.variables.GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
-
   console.keyMap = lib.mkDefault "de";
-
-  # https://github.com/denoland/deno/blob/21065797f6dce285e55705007f54abe2bafb611c/cli/tools/upgrade.rs#L184-L187
-  environment.variables.DENO_NO_UPDATE_CHECK = "1";
-
-  programs.neovim = {
-    enable = true;
-    vimAlias = true;
-    defaultEditor = true;
-  };
 
   environment.systemPackages = with pkgs; [
     jq
@@ -147,8 +89,11 @@
     unzip
     usbutils
     sqlite-interactive
-    # oil
     optipng
+    pngquant
+    jpegoptim
+    brotli
+    vultr-cli
 
     black
     isort
@@ -210,7 +155,6 @@
     k9s
     nur.repos.nagy.hyperspec
     nur.repos.nagy.cxxmatrix
-    # opentofu
     # version control
     gh
     # hut
@@ -222,21 +166,14 @@
     # for man pages only
     (lib.getMan isync)
     doggo
-    (import (builtins.fetchTarball "https://github.com/nagy/jsonrpcrun/archive/master.tar.gz") {
+    # (import (builtins.fetchTarball "https://github.com/nagy/jsonrpcrun/archive/master.tar.gz") {
+    #   inherit pkgs;
+    # })
+    (import <jsonrpcrun> {
       inherit pkgs;
     })
+    mtr
   ];
-
-  environment.sessionVariables.LESSHISTFILE = "-";
-
-  # environment.variables.PYTHONDONTWRITEBYTECODE = "1";
-
-  environment.sessionVariables.WATCH_INTERVAL = "1";
-
-  # zstd auto detect parallel
-  environment.sessionVariables.ZSTD_NBTHREADS = "0";
-
-  # environment.sessionVariables.SYSTEMD_PAGER = "";
 
   environment.etc."rfc" = lib.mkIf config.documentation.nixos.enable {
     source = "${nur.repos.nagy.rfcs}/share/rfc";
@@ -244,15 +181,4 @@
 
   # not used anywhere, might save some space.
   boot.supportedFilesystems.zfs = lib.mkForce false;
-
-  programs.screen = {
-    enable = true;
-    # [[man:screen]]
-    screenrc = ''
-      defscrollback 100000
-      startup_message off
-    '';
-  };
-
-  environment.variables.IPFS_GATEWAY = lib.mkDefault "https://ipfs.io";
 }

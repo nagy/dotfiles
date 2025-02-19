@@ -11,6 +11,11 @@
     # exportHosts = true;
     dns.address = "127.0.0.1";
     dnssecValidation = "off";
+    forwardZonesRecurse =
+      {
+        "" = "1.1.1.1";
+        # "" = "8.8.8.8:853";
+      };
     settings = {
       trace = "fail";
       # max-negative-ttl = "5";

@@ -58,6 +58,11 @@
   (defun nagy-modus-theme-overrides ()
     (interactive)
     (setenv "GTK_THEME" (if (dayp) "" "Adwaita:dark"))
+    ;; (set-face-attribute 'tab-bar-tab nil :inherit 'unspecified) ;; remove 'bold
+    (with-eval-after-load 'org
+      (set-face-attribute 'org-block nil :background 'unspecified)
+      (set-face-attribute 'org-block-begin-line nil :background 'unspecified))
+    (set-face-attribute 'tab-bar-tab nil :box 'unspecified) ;; remove 'bold
     (set-face-attribute 'tab-bar-tab-inactive nil :box nil :background (face-attribute 'tab-bar :background nil t))
     (set-face-attribute 'window-divider nil :foreground (if (dayp) "black" "gray20"))
     (with-eval-after-load 'dired

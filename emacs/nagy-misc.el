@@ -73,13 +73,23 @@
         ("s-k" . macrostep-collapse-all)))
 
 (use-package eww
+  :preface
+  (defun nagy-misc-eww-revert-buffer ()
+    (interactive)
+    (setq-local revert-buffer-function #'nagy-misc-eww-revert-buffer2)
+    )
+  (defun nagy-misc-eww-revert-buffer2 (&rest _args)
+    (interactive)
+    (eww-reload))
   :bind
   ("s-€" . eww)
-  :hook
-  (eww-mode . variable-pitch-mode)
+  ;; :hook
+  ;; (eww-mode . variable-pitch-mode)
   :general
   (:states 'normal :keymaps 'eww-mode-map
            "r" #'eww-reload)
+  :config
+  (add-hook 'eww-mode-hook #'nagy-misc-eww-revert-buffer)
   )
 
 (defun nagy/delete-paragraph ()
@@ -249,6 +259,11 @@
   ;;   (interactive)
   ;;   (comint-delete-input)
   ;;   (comint-clear-buffer))
+  ;; (defun nagy-comint-kill-buffer-h ()
+  ;;   (when (and (process-live-p (get-buffer-process (current-buffer)))
+  ;;              (derived-mode-p 'comint-mode))
+  ;;     (comint-interrupt-subjob)))
+  ;; (add-hook 'kill-buffer-hook #'nagy-comint-kill-buffer-h)
   :hook
   (comint-mode . visual-line-mode)
   :custom

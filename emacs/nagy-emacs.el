@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-emacs
-;; Package-Requires: ((emacs "29.1") anaphora memoize ov reformatter general)
+;; Package-Requires: ((emacs "29.1") anaphora memoize ov reformatter zoom dash general)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -1019,6 +1019,22 @@
 (use-package jsonrpc
   :cycle 'emacs-lisp-mode
   ("jsonrpc-request" "jsonrpc-async-request"))
+
+(use-package package
+  :custom
+  (package-menu-async nil)
+  :defer t
+  ;; :config
+  ;; (evil-set-initial-state 'package-menu-mode 'normal)
+  )
+
+;; This should be placed in (use-package emacs)
+(use-package minibuffer
+  :custom
+  (enable-recursive-minibuffers t)
+  :config
+  (minibuffer-depth-indicate-mode t)
+  )
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

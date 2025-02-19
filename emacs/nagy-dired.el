@@ -70,6 +70,7 @@ Can be used as an advice."
   (dired-switches-in-mode-line 3)
   (dired-hide-details-hide-symlink-targets nil)
   (dired-listing-switches "-I systemd-private-* -I .ICE-unix -I .font-unix -I .XIM-unix -I .X11-unix -I nix-build-* -h --almost-all -l  -g --no-group --group-directories-first")
+  ;; (dired-listing-switches ". -l")
   :config
   (advice-add #'dired-create-directory :after #'+revert-when-dired)
   (advice-add #'dired-do-flagged-delete :after #'+revert-when-dired)
@@ -80,8 +81,8 @@ Can be used as an advice."
         ("M-l" . dired-do-load)
         ("M-m" . dired-do-chmod)
         ("H-i" . dired-do-info)
-        ("H-m" . dired-do-man)
-        ("H-e" . dired-do-eww)
+        ;; ("H-m" . dired-do-man)
+        ;; ("H-e" . dired-do-eww)
         ("<home>" . evil-goto-first-line)
         ("<end>" . evil-goto-line)
         )
@@ -99,7 +100,9 @@ Can be used as an advice."
            "M" #'evil-window-middle
            "L" #'evil-window-bottom
            "o" #'dired-find-file-other-window
-           "ö" #'browse-url-of-dired-file))
+           "ö" #'browse-url-of-dired-file
+           "y" #'dired-copy-filename-as-kill
+           ))
 
 (use-package dired-subtree
   ;; :after dired
