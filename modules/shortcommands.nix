@@ -4,7 +4,7 @@
   imports = [ nur.repos.nagy.modules.shortcommands ];
 
   config.nagy.shortcommands = {
-    # nix flakes
+    # nix
     b = [ "nix-build" ];
     i = [ "nix-instantiate" ];
     "b," = [ "nix-build" "<nixpkgs>" ];
@@ -22,7 +22,6 @@
     SE = [ "nix" "search" ];
     B = [ "nix" "build" ];
     E = [ "nix" "eval" ];
-    F = [ "nix" "flake" ];
     P = [ "nix" "profile" ];
     S = [ "nix" "shell" ];
     BL = [ "nix" "build" "--print-build-logs" ];
@@ -41,19 +40,6 @@
     IJ = [ "nix" "path-info" "--closure-size" "--json" ];
     Ia = [ "nix" "path-info" "-rsSh" ];
     SEj = [ "nix" "search" "--json" ];
-    Fm = [ "nix" "flake" "metadata" ];
-    Fn = [ "nix" "flake" "new" ];
-    Fu = [ "nix" "flake" "update" ];
-    Fl = [ "nix" "flake" "lock" ];
-    Fs = [ "nix" "flake" "show" ];
-    Fcl = [ "nix" "flake" "clone" ];
-    Fc = [ "nix" "flake" "check" ];
-    Fa = [ "nix" "flake" "archive" ];
-    Faj = [ "nix" "flake" "archive" "--json" ];
-    Fp = [ "nix" "flake" "prefetch" ];
-    Fpj = [ "nix" "flake" "prefetch" "--json" ];
-    Fsj = [ "nix" "flake" "show" "--json" ];
-    Fmj = [ "nix" "flake" "metadata" "--json" ];
 
     "B." = [ "nix" "build" "--file" "." ];
     "B.j" = [ "nix" "build" "--file" "." "--json" "--no-link" ];
@@ -70,8 +56,6 @@
     "S:" = ["nix" "shell" "--file" "<nixpkgs>"];
     "E:" = ["nix" "eval" "--file" "<nixpkgs>"];
     "E:j" = ["nix" "eval" "--file" "<nixpkgs>" "--json"];
-
-    Bp = [ "nix" "build" "--no-link" "--print-out-paths" "-L" "--quiet" ];
 
     # sqlite
     q = [ "sqlite3" ];

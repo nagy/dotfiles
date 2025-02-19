@@ -12,7 +12,7 @@
       p.kubernetes
       # p.backblaze
     ]))
-    # pkgs.terraform-ls
+    # pkgs.opentofu-ls
   ];
 
   nagy.shortcommands = {

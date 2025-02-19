@@ -94,7 +94,8 @@
       "K" = "seek -60";
 
       # https://old.reddit.com/r/mpv/comments/bqz37b/hotkey_to_reset_zoom_brightness_at_once/
-      "X" = "set contrast 0; set brightness 0; set gamma 0; set saturation 0; set hue 0; set video-zoom 0.0; set video-pan-x 0.0 ; set video-pan-y 0.0 ; ";
+      "X" =
+        "set contrast 0; set brightness 0; set gamma 0; set saturation 0; set hue 0; set video-zoom 0.0; set video-pan-x 0.0 ; set video-pan-y 0.0 ; ";
 
       # "æ" = "af set rubberband"; # altgr + a
       # "ſ" = "af remove rubberband"; # altgr + s

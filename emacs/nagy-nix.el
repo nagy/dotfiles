@@ -62,8 +62,6 @@
   ("fetchFromGitLab" . [?🧲 (Br . Bl) ?″])
   ("fetchFromSourcehut" . [?🧲 (Br . Bl) ?‴])
   ("fetchgit" . [?🧲 (Br . Bl) ?⁗])
-  ;; Haumea
-  ("root" . "√")
   ("python3" . "🐍")
   ("chicken" . "🐔")
   ;; Nixos modules

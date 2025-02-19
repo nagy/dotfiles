@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   # TODO use doas
   # security.doas.enable = true;

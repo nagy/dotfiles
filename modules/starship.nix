@@ -7,12 +7,12 @@
   environment.sessionVariables.STARSHIP_CONFIG =
     let
       mkDollarPrompt = lib.replaceStrings [ ">](bold green)" ] [ "\\\\$](bold green)" ];
-      mkDirectoryConfig = lib.replaceStrings [ "[directory]\n" ] [
-        "[directory]\ntruncation_length = 20\ntruncate_to_repo = false\n"
-      ];
-      mkGitBranch = lib.replaceStrings [ "[git_branch]\n" ] [
-        "[git_branch]\nignore_branches = ['master', 'main']\n"
-      ];
+      mkGitBranch =
+        lib.replaceStrings
+          [ "[git_branch]\n" ]
+          [
+            "[git_branch]\nignore_branches = ['master', 'main']\n"
+          ];
       basePreset = builtins.readFile "${pkgs.starship}/share/starship/presets/plain-text-symbols.toml";
       basePresetModified =
         ''
@@ -20,21 +20,7 @@
           [line_break]
           disabled = true
         ''
-        # somehow add this:
-        # [directory]
-        # truncation_length = 20
-        # truncate_to_repo = false
-        + (mkGitBranch (mkDollarPrompt basePreset))
-        +
-          # TODO pr this
-          ''
-            [container]
-            symbol = "container "
-            [helm]
-            symbol = "helm "
-            [haskell]
-            symbol = "haskell "
-          '';
+        + (mkGitBranch (mkDollarPrompt basePreset));
     in
     toString (pkgs.writeText "starship-config.toml" basePresetModified);
   programs.bash.interactiveShellInit = ''

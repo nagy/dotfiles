@@ -2,8 +2,7 @@
 
 {
   imports = [
-    nur.repos.nagy.modules.ssh
-    nur.repos.nagy.modules.dns
+    nur.repos.nagy.modules.all
 
     ./common.nix
     ./converter.nix
@@ -20,21 +19,16 @@
     ./ncdu.nix
     ./nix.nix
     # ./printer.nix
-    # ./go.nix
-    # ./rust.nix
-    # ./zig.nix
-    # ./scanner.nix
+    ./scanner.nix
     ./shortcommands.nix
     ./starship.nix
     ./sudo.nix
     ./yggdrasil.nix
-    # ./systemd-resolved.nix
     ./xcompose.nix
     ./simpleaddress.nix
     ./espressif.nix
     ./powerdns.nix
     ./restic.nix
-    ./lua.nix
     # ./automount-ext4.nix
     # ./automount-btrfs.nix
 
