@@ -7,27 +7,12 @@
 }:
 
 {
-
-  hardware.keyboard.qmk.enable = true;
-
-  # https://docs.mesa3d.org/envvars.html
-  environment.sessionVariables.MESA_SHADER_CACHE_DISABLE = "true";
-
-  boot.kernel.sysctl = {
-    # This allows a special scape key: alt+print+<key>
-    # https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html
-    "kernel.sysrq" = 1;
-  };
-
-  console.useXkbConfig = true;
-
   # Configure keymap in X11
   services.xserver = {
     enable = true;
     dpi = 192;
     # Configure X11 window manager
     displayManager.startx.enable = true;
-    enableTearFree = true;
     # keyboard
     xkb = {
       layout = "mine";
@@ -121,13 +106,7 @@
         };
       };
     };
-    # logFile = "/dev/null"; # the default
-    # windowManager.exwm.enable = true;
-    # videoDrivers = [ "amdgpu" ];
-    excludePackages = [ pkgs.xterm ];
   };
-  # for wayland compositors
-  environment.variables.XKB_DEFAULT_LAYOUT = config.services.xserver.xkb.layout;
 
   # https://doc.qt.io/qt-6/highdpi.html#platform-details
   environment.variables.QT_USE_PHYSICAL_DPI = "1"; # for qt6
@@ -188,8 +167,6 @@
       binutils
       util-linux
 
-      wmctrl
-      xdotool
       pyright
       yt-dlp
 
@@ -208,14 +185,8 @@
           night = import ../hmmodule-alacritty-night.nix true;
         };
       })
-      # c3c
       ffmpeg_7-full
       pandoc
-      crane
-      containerd
-      nerdctl
-      jpegoptim
-      libjxl
     ]
   );
 
@@ -242,5 +213,4 @@
   programs.wireshark = {
     enable = true;
   };
-
 }

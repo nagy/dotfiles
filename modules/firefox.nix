@@ -26,17 +26,17 @@
       DisableSetDesktopBackground = true;
       DontCheckDefaultBrowser = true;
       NoDefaultBookmarks = true;
-      ManagedBookmarks = [
-        { toplevel_name = "Bookmarks"; }
-        {
-          url = "https://news.ycombinator.com";
-          name = "Hacker News";
-        }
-        {
-          url = "https://github.com/NixOS/nixpkgs/pulse/daily";
-          name = "Nixpkgs pulse daily";
-        }
-      ];
+      # ManagedBookmarks = [
+      #   { toplevel_name = "Bookmarks"; }
+      #   {
+      #     url = "https://news.ycombinator.com";
+      #     name = "Hacker News";
+      #   }
+      #   {
+      #     url = "https://github.com/NixOS/nixpkgs/pulse/daily";
+      #     name = "Nixpkgs pulse daily";
+      #   }
+      # ];
       Homepage = {
         URL = "about:home";
         Locked = false;

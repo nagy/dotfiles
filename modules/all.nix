@@ -11,6 +11,7 @@
     ./firefox.nix
     ./fonts.nix
     ./git.nix
+    ./hledger.nix
     ./nix.nix
     # ./printer.nix
     ./scanner.nix

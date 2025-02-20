@@ -7,9 +7,6 @@
 }:
 
 {
-  # This prevents all ipv6 comm on all interfaces
-  # boot.kernel.sysctl."net.ipv6.conf.lo.disable_ipv6" = true;
-
   users.users.user = {
     isNormalUser = true;
     uid = 1000;
@@ -37,19 +34,12 @@
     };
   };
 
-  boot.kernel.sysctl = {
-    # disable coredumps
-    # https://wiki.archlinux.org/index.php/Core_dump#Disabling_automatic_core_dumps
-    "kernel.core_pattern" = "|/bin/false";
-  };
-
   # all hosts should have this timezone
   time.timeZone = "Europe/Berlin";
+  console.keyMap = lib.mkDefault "de";
 
   documentation.dev.enable = true;
   documentation.info.enable = true;
-  # networking.useDHCP = false;
-  # networking.dhcpcd.enable = false;
 
   programs.ssh.extraConfig = ''
     Host *
@@ -58,60 +48,26 @@
       ServerAliveCountMax 2
   '';
 
-  console.keyMap = lib.mkDefault "de";
-
   environment.systemPackages = with pkgs; [
-    jq
-    fx
-    yq-go
-    hcl2json
-    socat
-    jo
-    jc
-    taplo
-    htmlq
-    yj
-
-    ## Network
-    nftables
-
-    ## Processes
-    killall
-    bubblewrap
-
-    # files
-    tree
-    file
-    fd
-    ripgrep
-    lsof
-    tokei
-    unzip
-    usbutils
-    sqlite-interactive
-    optipng
-    pngquant
-    jpegoptim
-    brotli
-    vultr-cli
-
+    # Python
+    (python3.withPackages (ps: [
+      ps.hy
+      ps.hyrule
+      ps.addict
+    ]))
     black
     isort
+    ruff
     cryptsetup
-    pv
-    # unrar-free
 
     # documentation
     man-pages
     # broken currently glibcInfo # info files for gnu glibc
 
     # custom tooling
-    topiary
+    mtr
     dnsutils
-    qrencode
     rclone
-    typos
-    shellcheck
     (aspellWithDicts (ps: [
       ps.en
       ps.de
@@ -145,24 +101,9 @@
         serapeum
       ]
     ))
-
-    # xurls
-    (python3.withPackages (ps: [
-      ps.hy
-      ps.hyrule
-      ps.addict
-    ]))
-    k9s
     nur.repos.nagy.hyperspec
     nur.repos.nagy.cxxmatrix
-    # version control
-    gh
-    # hut
-    # tea
-    gron
-    ruff
     dool
-    universal-ctags
     # for man pages only
     (lib.getMan isync)
     doggo
@@ -172,13 +113,9 @@
     (import <jsonrpcrun> {
       inherit pkgs;
     })
-    mtr
   ];
 
   environment.etc."rfc" = lib.mkIf config.documentation.nixos.enable {
     source = "${nur.repos.nagy.rfcs}/share/rfc";
   };
-
-  # not used anywhere, might save some space.
-  boot.supportedFilesystems.zfs = lib.mkForce false;
 }
