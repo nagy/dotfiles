@@ -1,5 +1,10 @@
 { config, lib, pkgs, nur, ... }:
 
+# TODO maybe integrate:
+# https://github.com/kragen/xcompose/blob/master/dotXCompose
+# https://gist.githubusercontent.com/carlobaldassi/8951743/raw/2b587c8147603d395bf2ec221eee348f27dabaa8/XCompose_greek
+# https://github.com/rrthomas/pointless-xcompose/blob/master/xcompose
+
 let
   cfg = config.nagy.xcompose;
   mkXComposeLine = key: lst: ''
@@ -216,9 +221,12 @@ in
   };
 
   config = lib.mkIf config.services.xserver.enable {
-
-    environment.etc."XCompose".source = generatedFile;
-
+    # environment.etc."XCompose".source = generatedFile;
+    # https://linux.die.net/man/3/xcompose
+    environment.sessionVariables.XCOMPOSEFILE = pkgs.writeText "starship-config.toml" ''
+      include "%L"
+      include "${generatedFile}"
+    '';
   };
 
 }

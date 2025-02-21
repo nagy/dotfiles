@@ -33,8 +33,8 @@
   nix = {
     nixPath = [
       "nixpkgs=${lib.cleanSource pkgs.path}"
-      "dot=${lib.cleanSource ../.}"
-      "haumea=${lib.cleanSource <haumea>}"
+      # "dot=${lib.cleanSource ../.}"
+      "jsonrpcrun=${lib.cleanSource <jsonrpcrun>}"
       "nur=${lib.cleanSource <nur>}"
     ];
 

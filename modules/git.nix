@@ -1,8 +1,4 @@
 {
-  imports = [ ./shortcommands.nix ];
-
-  # environment.systemPackages = [ pkgs.tig ];
-
   programs.git = {
     enable = true;
     config = {
@@ -34,58 +30,5 @@
       # "https://code.tvl.fyi/depot.git".insteadOf = "tvl:";
       # };
     };
-  };
-
-  nagy.shortcommands = {
-    g = [ "git" ];
-    gcl = [
-      "git"
-      "clone"
-    ];
-    gcl1 = [
-      "git"
-      "clone"
-      "--depth=1"
-    ];
-    gf = [
-      "git"
-      "fetch"
-    ];
-    gfa = [
-      "git"
-      "fetch"
-      "--all"
-    ];
-    gfp = [
-      "git"
-      "fetch"
-      "--prune"
-    ];
-    gt = [
-      "git"
-      "tag"
-    ];
-    gtl = [
-      "git"
-      "tag"
-      "--list"
-    ];
-    gts = [
-      "git"
-      "tags"
-    ];
-    gp = [
-      "git"
-      "push"
-    ];
-    gpf = [
-      "git"
-      "push"
-      "--force"
-    ];
-    gpl = [
-      "git"
-      "pull"
-    ];
   };
 }

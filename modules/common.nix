@@ -22,9 +22,6 @@
 
   users.extraUsers.root.openssh.authorizedKeys.keys =
     config.users.users.user.openssh.authorizedKeys.keys;
-  programs.ssh = {
-    enableAskPassword = lib.mkForce false;
-  };
 
   services.openssh = {
     enable = true;
@@ -79,29 +76,6 @@
     # hunspellDicts.en-us
     # hunspellDicts.de-de
     # ])
-    (sbcl.withPackages (
-      ps: with ps; [
-        (slynk.overrideLispAttrs (
-          { systems, ... }:
-          {
-            systems = systems ++ [
-              "slynk/mrepl"
-              "slynk/indentation"
-              "slynk/stickers"
-              "slynk/trace-dialog"
-              "slynk/package-fu"
-              "slynk/fancy-inspector"
-              "slynk/arglists"
-              "slynk/profiler"
-              "slynk/retro"
-            ];
-          }
-        ))
-        # april
-        serapeum
-      ]
-    ))
-    nur.repos.nagy.hyperspec
     nur.repos.nagy.cxxmatrix
     dool
     # for man pages only
