@@ -63,10 +63,10 @@
                    ?┃ ?⍜ ?⋋ ?⋌ ?⏚ ?⎎ ?▱ ?◺ ?◸ ?▰ ?◿ ?◹
                    ?☈ ?↯ ?⇊ ?⇉ ?⇇ ?⇈ ?‼ ?↜ ?↝ ?⋱ ?⚆ ?∵ ?⏢ ?▫ ?⍼
                    ?⚀ ?⚁ ?⚂ ?⚃ ?⚄ ?⚅ ?⎵ ?⋔ ?⎍ ?⌂ ?δ))
-    (set-fontset-font t it (font-spec :family "Iosevka Comfy")))
-  (dolist (it '(?▮ ?⧻))
-    (set-fontset-font t it (font-spec :family "IosevkaTerm Nerd Font")))
-  )
+  (set-fontset-font t it (font-spec :family "Iosevka Comfy")))
+(dolist (it '(?▮ ?⧻))
+  (set-fontset-font t it (font-spec :family "IosevkaTerm Nerd Font")))
+)
 
 (defun brightness-up ()
   (interactive)
@@ -142,7 +142,6 @@ aka xcompose is not properly initialized in the first frame."
   :init
   ;; https://github.com/ch11ng/exwm/issues/889
   ;; Frame focus bug
-  (setq x-no-window-manager t)    ; did not work, but made frame focusing better
   (setq mouse-autoselect-window t
         focus-follows-mouse t)
   (setopt exwm-input-global-keys

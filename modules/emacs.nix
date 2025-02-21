@@ -41,6 +41,9 @@ let
       lua = super.lua.override {
         lua = pkgs.lua5_4;
       };
+      hledger-mode = super.hledger-mode.overrideAttrs {
+        src = builtins.fetchTarball "https://github.com/nagy/hledger-mode/archive/master.tar.gz";
+      };
     }
   );
   emacsAndPackages = customEmacsPackages.withPackages (
