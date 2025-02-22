@@ -227,6 +227,7 @@ That means, KEY can also be a cons."
     ))
 (add-hook 'write-file-functions #'nagy-list--write-file-function)
 
+;;;###autoload
 (define-derived-mode nagy-list-mode tabulated-list-mode "nagy-list"
   (setq nagy-list--beforebody (buffer-substring-no-properties (point-min) (point-max)))
   (add-hook 'change-major-mode-hook #'nagy-list--change-major-mode-hook nil t)
