@@ -6,7 +6,6 @@
 }:
 
 {
-
   services.pdns-recursor = {
     # exportHosts = true;
     dns.address = "127.0.0.1";
@@ -37,5 +36,4 @@
 
   # TODO PR this upstream
   environment.systemPackages = lib.mkIf config.services.pdns-recursor.enable [ pkgs.pdns-recursor ];
-
 }

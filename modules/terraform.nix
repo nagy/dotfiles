@@ -1,8 +1,6 @@
 { pkgs, ... }:
 
 {
-  imports = [ ./shortcommands.nix ];
-
   environment.systemPackages = [
     (pkgs.opentofu.withPlugins (p: [
       p.aws

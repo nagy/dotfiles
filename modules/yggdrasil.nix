@@ -1,14 +1,4 @@
 {
-  config,
-  lib,
-  ...
-}:
-
-let
-  cfg = config.services.yggdrasil;
-  port = 9001;
-in
-{
   services.yggdrasil = {
     group = "wheel";
     openMulticastPort = true;
@@ -20,13 +10,11 @@ in
           Regex = ".*";
           Beacon = true;
           Listen = true;
-          Port = port;
+          Port = 9001;
           Priority = 0;
           Password = "";
         }
       ];
     };
   };
-  # environment.variables.IPFS_GATEWAY = lib.mkIf cfg.enable "http://ipfs.ygg";
-
 }

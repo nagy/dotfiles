@@ -17,5 +17,4 @@
     , ENV{ID_FS_TYPE}=="ext4" \
     , RUN{program}+="${pkgs.systemd}/bin/systemd-mount --umount /run/media/system/$env{ID_FS_UUID}"
   '';
-
 }

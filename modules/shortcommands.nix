@@ -1,9 +1,5 @@
-{ nur, ... }:
-
 {
-  # imports = [ nur.repos.nagy.modules.shortcommands ];
-
-  config.nagy.shortcommands = {
+  nagy.shortcommands = {
     # nix
     b = [ "nix-build" ];
     i = [ "nix-instantiate" ];
@@ -170,6 +166,5 @@
     dig6s = [ "dig" "AAAA" "+short" ];
     digt = [ "dig" "TXT" ];
     digts = [ "dig" "TXT" "+short" ];
-
   };
 }

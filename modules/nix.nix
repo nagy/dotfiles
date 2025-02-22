@@ -40,31 +40,6 @@
 
     registry = {
       nixpkgs.flake = lib.cleanSource pkgs.path;
-      nagy.to = {
-        owner = "nagy";
-        repo = "nur-packages";
-        type = "github";
-      };
-      N.to = {
-        id = "nagy";
-        type = "indirect";
-      };
-      dot.to = {
-        owner = "nagy";
-        repo = "dotfiles";
-        type = "github";
-      };
-
-      lib.to = {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        type = "github";
-        dir = "lib";
-      };
-      pkgs.to = {
-        id = "nixpkgs";
-        type = "indirect";
-      };
       u.to = {
         owner = "NixOS";
         repo = "nixpkgs";

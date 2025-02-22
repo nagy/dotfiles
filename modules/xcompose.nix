@@ -228,5 +228,4 @@ in
       include "${generatedFile}"
     '';
   };
-
 }
