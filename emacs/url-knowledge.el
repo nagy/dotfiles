@@ -35,8 +35,7 @@
                  :clean clean
                  :smudge smudge
                  :collapse collapse)))
-    (prog1 config
-      (setf (alist-get name url-knowledge--known-configs nil nil #'equal) config))))
+    (setf (alist-get name url-knowledge--known-configs nil nil #'equal) config)))
 
 (defun url-knowledge--get-url ()
   (or url-knowledge-url

@@ -12,12 +12,12 @@
 }:
 
 let
-  alacrittyLiveConfigPath = "/run/user/$UID/alacritty-conf.json";
+  alacrittyLiveConfigPath = "/run/user/$UID/alacritty-conf.toml";
   getAlaText =
     hmmodule:
     let
       tomlFormat = pkgs.formats.toml { };
-      cfg = (hmmodule { }).programs.alacritty;
+      cfg = hmmodule.programs.alacritty;
       tomlFile = tomlFormat.generate "alacritty.toml" cfg.settings;
     in
     pkgs.writeText "ala-config" (lib.replaceStrings [ "\\\\" ] [ "\\" ] (builtins.readFile tomlFile));
@@ -30,9 +30,11 @@ in
 pkgs.symlinkJoin {
   name = "ala-switchers";
   paths = [
-    # TODO replace with makeWrapper
+    alacritty
     (pkgs.writeShellScriptBin "alacritty" ''
-      exec ${alacritty}/bin/alacritty --option live_config_reload=true --config-file ${alacrittyLiveConfigPath} "$@"
+      exec ${alacritty}/bin/alacritty \
+        --option live_config_reload=true \
+        --config-file ${alacrittyLiveConfigPath} "$@"
     '')
-  ] ++ (lib.mapAttrsToList mkAlacrittySwitcher hmmodules) ++ [ alacritty ];
+  ] ++ (lib.mapAttrsToList mkAlacrittySwitcher hmmodules);
 }
