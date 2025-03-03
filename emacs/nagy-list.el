@@ -38,7 +38,9 @@
                  :format-cell format-cell
                  :column-width column-width
                  :prepare prepare)))
-    (add-to-list 'auto-mode-alist `(,(format "%s\\.json\\'" suffix) . nagy-list-mode))
+    (add-to-list 'auto-mode-alist `(,(format "%s\\.json\\'"
+                                             (string-replace "." "\\." suffix))
+                                    . nagy-list-mode))
     (prog1 config
       (setf (alist-get name nagy-list--known-configs nil nil #'equal) config))))
 
@@ -168,6 +170,12 @@ That means, KEY can also be a cons."
     ;; (_ (format "%s" value))
     ))
 
+(defun nagy-list--revert-hook ()
+  (setq nagy-list--data nil)
+  (setq nagy-list--beforebody (let ((bn buffer-file-name))
+                                (with-temp-buffer
+                                  (insert-file-contents-literally bn)
+                                  (buffer-string)))))
 
 (defun nagy-list-table-entries ()
   (cl-loop for obj in (nagy-list--data)
@@ -231,6 +239,7 @@ That means, KEY can also be a cons."
 (define-derived-mode nagy-list-mode tabulated-list-mode "nagy-list"
   (setq nagy-list--beforebody (buffer-substring-no-properties (point-min) (point-max)))
   (add-hook 'change-major-mode-hook #'nagy-list--change-major-mode-hook nil t)
+  (add-hook 'tabulated-list-revert-hook #'nagy-list--revert-hook nil t)
   (setq tabulated-list-format
         `[,@(--map `(,(propertize (capitalize (symbol-name
                                                (cl-etypecase it

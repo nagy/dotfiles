@@ -1,5 +1,5 @@
 ;;; nagy-haskell.el --- haskell config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Package-Requires: ((emacs "29.1") haskell-mode ormolu general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") haskell-mode ormolu general nagy-use-package)
 
 (require 'general)
 ;; (require 'nagy-use-package)

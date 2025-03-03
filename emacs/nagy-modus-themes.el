@@ -69,7 +69,7 @@
       (set-face-attribute 'dired-header nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)))
   (defun ala-fix-theme ()
     (interactive)
-    (call-process (if (dayp) "ala-day" "ala-night")))
+    (cl-assert (zerop (call-process (if (dayp) "ala-day" "ala-night")))))
   :config
   (add-hook 'modus-themes-after-load-theme-hook #'nagy-modus-theme-overrides)
   (add-hook 'modus-themes-after-load-theme-hook #'ala-fix-theme)

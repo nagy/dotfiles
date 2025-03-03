@@ -7,11 +7,11 @@
         ("M-r" . tablist-pop-filter)
         ("M-/" . tablist-push-regexp-filter)))
 
-(use-package stillness-mode
-  ;; :ensure t
-  :config
-  (stillness-mode 1)
-  )
+;; (use-package stillness-mode
+;;   ;; :ensure t
+;;   :config
+;;   (stillness-mode 1)
+;;   )
 
 (provide 'nagy-tablist)
 ;;; nagy-tablist.el ends here

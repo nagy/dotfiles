@@ -65,6 +65,28 @@
     (select-window it)
     (balance-windows)))
 
+(defun nagy-emacs-split-window-below (arg)
+  "Split the window vertically and focus the new window."
+  (interactive "P")
+  (if arg
+      (split-root-window-below)
+    (split-window-below))
+  (if (and (eq major-mode 'exwm-mode) (called-interactively-p 'any))
+      ;; for exwm compatibility
+      (redisplay))
+  (balance-windows))
+
+(defun nagy-emacs-split-window-right (arg)
+  "Split the window horizontally and focus the new window."
+  (interactive "P")
+  (if arg
+      (split-root-window-right)
+    (split-window-right))
+  (if (and (eq major-mode 'exwm-mode) (called-interactively-p 'any))
+      ;; for exwm compatibility
+      (redisplay))
+  (balance-windows))
+
 ;;;###autoload
 (defmacro with-directory (dir &rest body)
   "Set `default-directory' to DIR and execute BODY."
@@ -116,6 +138,7 @@
   (add-to-list 'display-buffer-alist '("^\\*Disassemble"  display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^\\*Network Connection"  display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^Shell Command:"  display-buffer-same-window))
+  (add-to-list 'display-buffer-alist '("^\\*Pp Eval Output"  display-buffer-same-window))
   (add-hook 'window-selection-change-functions #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-increase :after #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-decrease :after #'nagy-emacs-window-scroll-bars)
@@ -154,7 +177,7 @@
   (read-minibuffer-restore-windows nil)
   ;; this disables the blinking cursor in the terminal; blink-mode is not enough.
   (visible-cursor nil)
-  (echo-keystrokes 0.02)                ; this has problems with `which-key'
+  (echo-keystrokes 0.02)          ; this has problems with `which-key'
   ;; (uniquify-buffer-name-style nil)
   (cursor-in-non-selected-windows nil)
   (create-lockfiles nil)

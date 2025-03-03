@@ -37,8 +37,8 @@
 ;;;###autoload
 (defun use-package-handler/:same (name-symbol _keyword rgx rest state)
   (use-package-concat (use-package-process-keywords name-symbol rest state)
-                      `((push '(,rgx display-buffer-same-window)
-                              display-buffer-alist))))
+                      `((add-to-list 'display-buffer-alist
+                                     '(,rgx display-buffer-same-window)))))
 
 ;;;###autoload
 (with-eval-after-load 'use-package-core
