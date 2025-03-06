@@ -1,5 +1,5 @@
 ;;; nagy-text.el --- My text config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
-;; Package-Requires: ((emacs "29.1") evil general pandoc jinx lorem-ipsum wordnut nagy-use-package)
+;; Package-Requires: ((emacs "30.1") evil general pandoc jinx lorem-ipsum wordnut nagy-use-package)
 
 (require 'nagy-use-package)
 (require 'general)

@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-magit
-;; Package-Requires: ((emacs "29.1") magit-section forge general with-editor)
+;; Package-Requires: ((emacs "30.1") magit-section forge general with-editor)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -37,16 +37,8 @@
   (add-to-list 'Info-url-alist '(("Magit" "Forge") . "https://magit.vc/manual/%m.html#%n"))
   :bind
   ("H-g" . magit-status)
-  (:map magit-log-select-mode-map
-        ([remap save-kill-buffer] . magit-log-select-pick)
-        )
-  (:map magit-mode-map
-        ;; ("H-." . nagy-magit-branch-checkout-at-point)
-        ;; ("H-_" . magit-rebase-onto-upstream)
-        )
   (:map magit-diff-mode-map
         ("SPC" . nil)          ;; was `scroll-up'
-        ;; ("H-_" . magit-rebase-onto-upstream)
         )
   )
 

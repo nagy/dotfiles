@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-misc2
-;; Package-Requires: ((emacs "29.1") dash smartparens aggressive-indent ace-window reformatter browse-at-remote inspector highlight-quoted pass password-store password-store-otp expand-region emms super-save bufler pdf-tools org-pdftools highlight-defined cyphejor avy helpful page-break-lines which-key iedit go-mode hledger-mode anaphora general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") dash smartparens aggressive-indent ace-window reformatter browse-at-remote inspector highlight-quoted pass password-store password-store-otp expand-region emms super-save bufler pdf-tools org-pdftools highlight-defined cyphejor avy helpful page-break-lines which-key iedit go-mode hledger-mode anaphora general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;

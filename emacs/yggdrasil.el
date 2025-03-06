@@ -1,4 +1,4 @@
-;;; yggdrasil.el --- My local config -*- lexical-binding: t -*-
+;;; yggdrasil.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
 ;; Package-Requires: ((emacs "30.1") dash-shell nagy-emacs nagy-list)
 
 (require 'dash-shell)

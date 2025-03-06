@@ -4,7 +4,7 @@
 ;;
 ;; Author: Daniel Nagy <danielnagy@posteo.de>
 ;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Package-Requires: ((emacs "29.1") sly link-hint general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") sly link-hint general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -35,8 +35,8 @@
     (eww url)
     ;; (evil-scroll-line-down 7)
     )
-  (push '("^file:///nix/store/.*hyperspec.*/Body/" . my-browser-url-eww-hyperspec)
-        browse-url-handlers)
+  (add-to-list 'browse-url-handlers
+               '("^file:///nix/store/.*hyperspec.*/Body/" . my-browser-url-eww-hyperspec))
   :same
   "^\\*hyperspec\\*"
   :config

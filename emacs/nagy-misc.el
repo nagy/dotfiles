@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-misc
-;; Package-Requires: ((emacs "29.1") nameless golden-ratio macrostep ts ov paren-face systemd tokei wgrep focus eros git-modes osm literate-calc-mode nhexl-mode breadcrumb sotlisp anaphora general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") nameless golden-ratio macrostep ts ov paren-face systemd tokei wgrep focus eros git-modes osm literate-calc-mode nhexl-mode breadcrumb sotlisp anaphora general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
