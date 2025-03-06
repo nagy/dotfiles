@@ -4,7 +4,7 @@
     openMulticastPort = true;
     settings = {
       IfName = "ygg0";
-      # fix port
+      # Fix port
       MulticastInterfaces = [
         {
           Regex = ".*";

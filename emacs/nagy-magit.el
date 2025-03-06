@@ -29,11 +29,12 @@
   :custom
   (magit-pull-or-fetch t)
   :config
-  (push '("^magit-revision" display-buffer-same-window) display-buffer-alist)
-  (push '("^magit-stash" display-buffer-same-window) display-buffer-alist)
-  (push '("^magit-process:" display-buffer-same-window) display-buffer-alist)
-  (push '("^magit-diff:"  display-buffer-same-window) display-buffer-alist)
-  (push '("^magit:" display-buffer-same-window) display-buffer-alist)
+  (add-to-list 'display-buffer-alist '("^magit-revision" display-buffer-same-window))
+  (add-to-list 'display-buffer-alist '("^magit-stash" display-buffer-same-window))
+  (add-to-list 'display-buffer-alist '("^magit-process:" display-buffer-same-window))
+  (add-to-list 'display-buffer-alist '("^magit-diff:"  display-buffer-same-window))
+  (add-to-list 'display-buffer-alist '("^magit:" display-buffer-same-window))
+  (add-to-list 'Info-url-alist '(("Magit" "Forge") . "https://magit.vc/manual/%m.html#%n"))
   :bind
   ("H-g" . magit-status)
   (:map magit-log-select-mode-map

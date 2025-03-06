@@ -112,6 +112,7 @@
      bookmark
      vc-dir
      vc-git
+     doc-view
      ))
   )
 

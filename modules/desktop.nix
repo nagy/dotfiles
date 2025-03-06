@@ -2,21 +2,19 @@
   config,
   pkgs,
   lib,
-  nur,
   ...
 }:
 
 {
   services.xserver = {
-    enable = true;
     dpi = 192;
     # Configure X11 window manager
     displayManager.startx.enable = true;
   };
 
   # https://doc.qt.io/qt-6/highdpi.html#platform-details
-  environment.variables.QT_USE_PHYSICAL_DPI = "1"; # for qt6
-  # environment.variables.QT_SCALE_FACTOR = "2"; # for qutebrowser
+  environment.sessionVariables.QT_USE_PHYSICAL_DPI = "1"; # for qt6
+  # environment.sessionVariables.QT_SCALE_FACTOR = "2"; # for qutebrowser
 
   environment.extraOutputsToInstall = [
     "dev"
@@ -46,47 +44,14 @@
     exec emacs
   '';
 
-  environment.systemPackages = lib.mkIf (config.services.xserver.enable) (
-    with pkgs;
-    [
-      xorg.xcursorthemes
-      xorg.xwininfo
-      scrot
-      nur.repos.nagy.nsxivBigThumbs
-      xclip
-      (redshift.override { withGeolocation = false; })
-
-      brave
-      tor-browser
-      pulsemixer
-      poppler_utils # pdf utils
-
-      # for container
-      binutils
-      util-linux
-
-      pyright
-      yt-dlp
-
-      (pass.withExtensions (exts: [ exts.pass-otp ]))
-      age
-      passage
-
-      (zbar.override {
-        withXorg = false;
-        enableVideo = false;
-      })
-
-      (callPackage ../pkg-ala-switchers.nix {
-        hmmodules = {
-          day = import ../hmmodule-alacritty-night.nix false;
-          night = import ../hmmodule-alacritty-night.nix true;
-        };
-      })
-      ffmpeg_7-full
-      pandoc
-    ]
-  );
+  environment.systemPackages = lib.mkIf config.services.xserver.enable [
+    (pkgs.callPackage ../pkg-ala-switchers.nix {
+      hmmodules = {
+        day = import ../hmmodule-alacritty-night.nix false;
+        night = import ../hmmodule-alacritty-night.nix true;
+      };
+    })
+  ];
 
   programs.gnupg = {
     # socket activation does not seem to be used. gnupg is starting an agent itself.
@@ -99,17 +64,5 @@
       default-cache-ttl = 34560000;
       max-cache-ttl = 34560000;
     };
-  };
-
-  services.pulseaudio = {
-    enable = true;
-  };
-
-  services.pipewire = {
-    enable = false;
-  };
-
-  programs.wireshark = {
-    enable = true;
   };
 }

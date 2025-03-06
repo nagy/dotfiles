@@ -20,29 +20,16 @@
 
 (defvar nagy-list--known-configs nil)
 (cl-defstruct (nagy-list-config (:constructor nagy-list--make-config))
-  suffix
-  column-names
-  format-cell
-  column-width
-  prepare
-  )
-(cl-defun nagy-list-make (name &key
-                               suffix
-                               column-names
-                               format-cell
-                               column-width
-                               prepare)
-  (let ((config (nagy-list--make-config
-                 :suffix suffix
-                 :column-names column-names
-                 :format-cell format-cell
-                 :column-width column-width
-                 :prepare prepare)))
-    (add-to-list 'auto-mode-alist `(,(format "%s\\.json\\'"
-                                             (string-replace "." "\\." suffix))
-                                    . nagy-list-mode))
-    (prog1 config
-      (setf (alist-get name nagy-list--known-configs nil nil #'equal) config))))
+  suffix column-names format-cell column-width prepare)
+(cl-defun nagy-list-make (name &key suffix column-names format-cell column-width prepare)
+  (add-to-list 'auto-mode-alist `(,(format "%s\\.json\\'" (string-replace "." "\\." suffix))
+                                  . nagy-list-mode))
+  (setf (alist-get name nagy-list--known-configs nil nil #'equal)
+        (nagy-list--make-config :suffix suffix
+                                :column-names column-names
+                                :format-cell format-cell
+                                :column-width column-width
+                                :prepare prepare)))
 
 (defvar nagy-list-table-default-column-width 30)
 (defvar-local nagy-list-buffer-file-name nil)
@@ -129,6 +116,9 @@ That means, KEY can also be a cons."
                                'modus-themes-fg-green-intense)
                               (t 'modus-themes-fg-green-faint)) ))
     (:identifier (propertize (format "%s" prevalue) 'font-lock-face 'magit-hash))
+    (:null (propertize "-" 'font-lock-face 'parenthesis))
+    (:false (propertize "false" 'font-lock-face 'modus-themes-fg-red-intense))
+    ((pred (eq t _)) (propertize "true" 'font-lock-face 'modus-themes-fg-green-intense))
     ((pred null) nil)
     ((pred proper-list-p)
      (mapconcat (lambda (x)
@@ -240,6 +230,16 @@ That means, KEY can also be a cons."
   (setq nagy-list--beforebody (buffer-substring-no-properties (point-min) (point-max)))
   (add-hook 'change-major-mode-hook #'nagy-list--change-major-mode-hook nil t)
   (add-hook 'tabulated-list-revert-hook #'nagy-list--revert-hook nil t)
+  ;; Used by auto-revert
+  ;; (setq-local buffer-stale-function (lambda (&optional _noconfirm)
+  ;;                                     (and
+  ;;                                      ;; If the buffer is handled magically
+  ;;                                      (not (unhandled-file-name-directory buffer-file-name))
+  ;;                                      ;; and visible, then mark it stale
+  ;;                                      (get-buffer-window nil t))
+  ;;                                     ;; t
+  ;;                                     ))
+  ;; (setq-local auto-revert-interval 5)
   (setq tabulated-list-format
         `[,@(--map `(,(propertize (capitalize (symbol-name
                                                (cl-etypecase it
