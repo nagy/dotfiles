@@ -5,7 +5,7 @@
 ;; Author: Daniel Nagy <danielnagy@posteo.de>
 ;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
 ;; Homepage: https://github.com/nagy/nagy-media
-;; Package-Requires: ((emacs "29.1") emms general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") emms general nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;

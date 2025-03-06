@@ -293,8 +293,8 @@ aka xcompose is not properly initialized in the first frame."
   (interactive)
   (with-environment-variables
       (("XDG_CACHE_HOME" "/tmp/xdg-cache")
-       ("https_proxy" "http://127.0.0.1:40404")
-       ("http_proxy" "http://127.0.0.1:40404")
+       ("https_proxy" "http://127.0.0.1:3128")
+       ("http_proxy" "http://127.0.0.1:3128")
        ;; ("no_proxy" ".ygg,.meship,[200::]/7")
        ("no_proxy" ".ygg,.meship,192.168.0.0/24"))
     (start-process "firefox" nil browse-url-firefox-program "--new-window")))
