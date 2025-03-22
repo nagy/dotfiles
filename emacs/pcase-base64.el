@@ -1,4 +1,4 @@
-;;; pcase-base64.el --- My local config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; pcase-base64.el --- My local config -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "29.1") dash)
 
 (require 'dash)

@@ -1,4 +1,4 @@
-;;; nagy-company.el --- Autocompletion -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-company.el --- Autocompletion -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") company)
 
 (use-package company

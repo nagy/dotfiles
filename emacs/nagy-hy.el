@@ -1,4 +1,4 @@
-;;; nagy-hy.el --- Hy config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-hy.el --- Hy config -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "29.1") hy-mode general nagy-use-package)
 
 (require 'general)

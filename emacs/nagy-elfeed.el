@@ -1,4 +1,4 @@
-;;; nagy-elfeed.el --- nagy-elfeed config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-elfeed.el --- nagy-elfeed config -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") elfeed general nagy-use-package)
 
 (require 'general)

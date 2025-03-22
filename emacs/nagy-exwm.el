@@ -1,4 +1,4 @@
-;;; nagy-exwm.el --- config emacs packages -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-exwm.el --- config emacs packages -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "29.1") dash evil exwm anaphora nagy-dired nagy-emacs nagy-url)
 
 (require 'dash)

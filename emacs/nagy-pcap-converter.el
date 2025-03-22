@@ -1,4 +1,4 @@
-;;; nagy-pcap-converter.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-pcap-converter.el --- Description -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2023 Daniel Nagy
 ;;

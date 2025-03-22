@@ -1,4 +1,4 @@
-;;; dash-shell.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; dash-shell.el --- Description -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") jq-mode nagy-list nagy-use-package)
 
 (require 'dash)

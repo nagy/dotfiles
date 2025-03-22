@@ -1,4 +1,4 @@
-;;; pcase-process.el --- My local config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; pcase-process.el --- My local config -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") f)
 
 (require 'f)

@@ -1,4 +1,4 @@
-;;; pcase-buffer.el --- My local config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; pcase-buffer.el --- My local config -*- lexical-binding: t; -*-
 
 ;;;###autoload
 (pcase-defmacro buffer (&rest fields)

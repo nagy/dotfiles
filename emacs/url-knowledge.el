@@ -1,4 +1,4 @@
-;;; url-knowledge.el --- url info mode -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; url-knowledge.el --- url info mode -*- lexical-binding: t; -*-
 
 ;; Package-Requires: ((emacs "30.1") anaphora pcase-url nagy-use-package)
 ;;; Commentary:

@@ -1,4 +1,4 @@
-;;; nagy-lsp.el --- Language server config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-lsp.el --- Language server config -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "29.1") evil eglot consult-eglot general)
 
 (require 'general)

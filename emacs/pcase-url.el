@@ -1,4 +1,4 @@
-;;; pcase-url.el --- My local config -*- lexical-binding: t; byte-compile-error-on-warn: t;  -*-
+;;; pcase-url.el --- My local config -*- lexical-binding: t;  -*-
 
 ;; todo set autoload here
 

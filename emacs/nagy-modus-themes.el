@@ -1,4 +1,4 @@
-;;; nagy-modus-themes.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-modus-themes.el --- Description -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2022 Daniel Nagy
 ;;

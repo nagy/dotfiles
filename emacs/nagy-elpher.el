@@ -1,4 +1,4 @@
-;;; nagy-elpher.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-elpher.el --- Description -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2023 Daniel Nagy
 ;;

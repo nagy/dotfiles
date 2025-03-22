@@ -1,4 +1,4 @@
-;;; nagy-use-emacs.el --- My emacs config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-use-emacs.el --- My emacs config -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "29.1") benchmark-init general nagy-use-package)
 
 (require 'nagy-use-package)

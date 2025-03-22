@@ -1,4 +1,4 @@
-;;; nagy-mail.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-mail.el --- Description -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2022 Daniel Nagy
 ;;

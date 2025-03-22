@@ -1,4 +1,4 @@
-;;; nagy-corfu.el --- Autocompletion -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-corfu.el --- Autocompletion -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") corfu)
 
 (use-package corfu

@@ -1,4 +1,4 @@
-;;; restic.el --- Description -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; restic.el --- Description -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") dash-shell nagy-emacs nagy-list)
 
 (require 'dash-shell)

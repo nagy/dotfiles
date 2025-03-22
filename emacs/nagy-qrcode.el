@@ -1,4 +1,4 @@
-;;; nagy-qrcode.el --- Qrcode config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-qrcode.el --- Qrcode config -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "29.1") anaphora)
 
 ;; (eval-when-compile

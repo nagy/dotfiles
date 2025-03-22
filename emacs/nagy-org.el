@@ -1,4 +1,4 @@
-;;; nagy-org.el --- My org config -*- lexical-binding: t; byte-compile-error-on-warn: t; -*-
+;;; nagy-org.el --- My org config -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") org ascii-art-to-unicode org-superstar org-appear org-ref mermaid-mode pikchr-mode markdown-mode orgit howm general nagy-use-package)
 
 (require 'general)
