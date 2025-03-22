@@ -1,5 +1,5 @@
 ;;; nagy-hy.el --- Hy config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "29.1") hy-mode general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") hy-mode nagy-use-package)
 
 (require 'general)
 ;; (require 'nagy-use-package)

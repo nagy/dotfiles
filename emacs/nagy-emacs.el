@@ -114,6 +114,10 @@
         window-divider-default-right-width 1)
   (add-hook 'after-init-hook #'window-divider-mode)
   :config
+  ;; Try to patch bug
+  ;; More discussion about this: https://lists.gnu.org/archive/html/emacs-devel/2021-08/msg00363.html
+  ;; More discussion about this: https://github.com/magit/magit/issues/4432
+  ;; (make-variable-buffer-local 'revert-buffer-function)
   (setq-default indent-tabs-mode nil)
   (add-to-list 'default-frame-alist '(scroll-bar-width . 20))
   (tooltip-mode 0)
@@ -677,6 +681,8 @@
     (interactive)
     (when (project-root (project-current))
       (find-file (concat (project-root (project-current)) "/.git/config"))))
+  ;; :custom
+  ;; (project-mode-line t)
   :config
   (keymap-global-set "H-p" project-prefix-map)
   (keymap-set project-prefix-map "s-k" #'project-kill-buffers)
@@ -949,23 +955,43 @@
   ;; (map! "H-a" outline-mode-prefix-map)
   )
 
+(defvar new-buffer--count 0)
 (defun buffer-new-of-region ()
   (interactive)
   (let ((reg-str (when (region-active-p)
                    (buffer-substring (region-beginning)
                                      (region-end)))))
-    ;; from evil-buffer-new
-
-    (let ((buffer (generate-new-buffer "*new*")))
+    (let ((buffer (generate-new-buffer (format "new%d" (cl-incf new-buffer--count)))))
       (with-current-buffer buffer
+        (cd temporary-file-directory)
 	(text-mode))
-      ;; (set-buffer-major-mode buffer)
       (set-window-buffer nil buffer))
     (when reg-str
       (with-current-buffer (window-buffer (selected-window))
         (insert reg-str)
         (goto-char (point))))))
-(keymap-global-set "M-”" #'buffer-new-of-region)
+(keymap-global-set "C-s-SPC" #'buffer-new-of-region)
+
+(defun buffer-new-of-kill ()
+  (interactive)
+  (let* ((buffer (generate-new-buffer (format "new%d" (cl-incf new-buffer--count))))
+         (kill (current-kill 0))
+         (is-json (ignore-errors
+                    (ignore (json-parse-string kill))
+                    t)))
+    ;; (with-current-buffer buffer
+    ;;   (text-mode))
+    (set-window-buffer nil buffer)
+    (awhen kill
+      (with-current-buffer buffer
+        (cd temporary-file-directory)
+        (insert kill)
+        (goto-char (point-min))
+        (cond
+         (is-json (js-json-mode) ;; (jq-format-buffer)
+                  )
+         (t (text-mode)))))))
+(keymap-global-set "C-M-s-SPC" #'buffer-new-of-kill)
 
 (require 'browse-url)
 (defun my-browser-url-mpv (url &optional _new-window)
@@ -1033,6 +1059,7 @@
   )
 
 (defun json-parse-file (file &rest args)
+  "Read the first JSON object contained in FILE and return it."
   (declare (side-effect-free t))
   (with-temp-buffer
     (insert-file-contents file)

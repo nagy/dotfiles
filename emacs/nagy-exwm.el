@@ -191,6 +191,8 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-<home>") . tab-first)
             (,(kbd "s-<end>") . tab-last)
             (,(kbd "s-SPC") . find-file-home)
+            (,(kbd "C-s-SPC") . buffer-new-of-region)
+            (,(kbd "C-M-s-SPC") . buffer-new-of-kill)
             (,(kbd "<XF86Back>") . tab-previous)
             (,(kbd "<XF86Forward>") . tab-next)
             (,(kbd "<XF86Search>") . other-frame)
@@ -282,13 +284,6 @@ aka xcompose is not properly initialized in the first frame."
       (("XDG_CACHE_HOME" (concat temporary-file-directory "/xdg-cache")))
     (start-process "nsxiv" nil "nsxiv" "-sf" "-t" ".")))
 (keymap-global-set "<pause>" #'nsxiv)
-
-;; (defun contained-app ()
-;;   (interactive)
-;;   (start-process-shell-command "contained-app" nil
-;;                                (format "contained-app . %s --new-instance" browse-url-firefox-program)))
-;; (with-eval-after-load 'dired
-;;   (keymap-set dired-mode-map "H-." #'contained-app))
 
 (defun firefox ()
   (interactive)

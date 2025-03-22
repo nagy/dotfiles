@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (C) 2022 Daniel Nagy
 ;;
-;; Package-Requires: ((emacs "29.1") dash anaphora general nagy-emacs)
+;; Package-Requires: ((emacs "30.1") dash anaphora nagy-emacs)
 ;;
 ;;; Commentary:
 ;;; Code:

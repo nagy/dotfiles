@@ -538,5 +538,39 @@ waits for input."
   :bind
   ("H-M-g" . go-mode))
 
+;; NIX-EMACS-PACKAGE: request
+(use-package request
+  :custom
+  ;; (request-backend 'curl)
+  (request-backend 'url-retrieve)
+  )
+
+;; NIX-EMACS-PACKAGE: beginend
+(use-package beginend
+  ;; :diminish beginend-global-mode
+  :config
+  (dolist (mode (cons 'beginend-global-mode (mapcar #'cdr beginend-modes)))
+    (diminish mode))
+  (beginend-global-mode)
+  :bind
+  ("H-<up>" . beginning-of-buffer)
+  ("H-<down>" . end-of-buffer)
+  )
+
+;; NIX-EMACS-PACKAGE: kubernetes
+(use-package kubernetes
+  :custom
+  (kubernetes-poll-frequency 3600)
+  (kubernetes-redraw-frequency 3600)
+  :same
+  "^\\*kubernetes"
+  )
+
+;; NIX-EMACS-PACKAGE: gptel
+;; (use-package gptel)
+
+;; NIX-EMACS-PACKAGE: emacspy
+;; (use-package emacspy)
+
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here

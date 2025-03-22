@@ -4,6 +4,15 @@
 (require 'dash)
 ;; (require 'anaphora)
 
+
+;; emacs news :
+;; Modeline elements can now be right-aligned.
+;; Anything following the symbol 'mode-line-format-right-align' in
+;; 'mode-line-format' will be right-aligned.  Exactly where it is
+;; right-aligned to is controlled by the new user option
+;; 'mode-line-right-align-edge'.
+
+
 (defvar-local nagy-mode-line--jsvar nil)
 (defvar-local nagy-mode-line--jsvar-point nil)
 

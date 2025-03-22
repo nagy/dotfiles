@@ -15,6 +15,7 @@
   :commands (vertico-mode)
   :config
   (vertico-mode)
+  (run-with-idle-timer 30 t #'vertico-flat-mode 1)
   :custom
   (vertico-cycle nil)
   (vertico-scroll-margin most-positive-fixnum)
@@ -152,22 +153,22 @@
      ((string-prefix-p "~" pattern) `(orderless-flex . ,(substring pattern 1)))
      ((string-suffix-p "~" pattern) `(orderless-flex . ,(substring pattern 0 -1)))))
   :demand t
+  :custom
+  (completion-styles '(orderless basic))
+  ;; note that despite override in the name orderless can still be used in
+  ;; find-file etc.
+  (completion-category-overrides '((file (styles orderless partial-completion))))
+  (orderless-style-dispatchers '(+vertico-orderless-dispatch))
+  (orderless-component-separator "[ &]")
   :config
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        ;; note that despite override in the name orderless can still be used in
-        ;; find-file etc.
-        completion-category-overrides '((file (styles orderless partial-completion)))
-        orderless-style-dispatchers '(+vertico-orderless-dispatch)
-        orderless-component-separator "[ &]")
-  ;; (orderless-define-completion-style orderless+initialism
-
-  ;;   (orderless-matching-styles '(orderless-initialism
-  ;;                                orderless-literal
-  ;;                                orderless-regexp)))
-  ;; (add-to-list 'completion-category-overrides '(command (styles orderless+initialism)))
-  ;; (add-to-list 'completion-category-overrides '(variable (styles orderless+initialism)))
-  ;; (add-to-list 'completion-category-overrides '(symbol (styles orderless+initialism)))
+  (setq completion-category-defaults nil)
+  (orderless-define-completion-style orderless+initialism
+    (orderless-matching-styles '(orderless-initialism
+                                 orderless-literal
+                                 orderless-regexp)))
+  (add-to-list 'completion-category-overrides '(command (styles orderless+initialism)))
+  (add-to-list 'completion-category-overrides '(variable (styles orderless+initialism)))
+  (add-to-list 'completion-category-overrides '(symbol (styles orderless+initialism)))
   )
 
 (use-package marginalia

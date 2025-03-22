@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-magit
-;; Package-Requires: ((emacs "29.1") lispy lispyville general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") lispy lispyville nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;

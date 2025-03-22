@@ -40,6 +40,10 @@
   (:map magit-diff-mode-map
         ("SPC" . nil)          ;; was `scroll-up'
         )
+  (:map magit-log-select-mode-map
+        ([remap save-kill-buffer] . magit-log-select-pick)
+        ([remap nagy-kill-this-buffer] . magit-log-select-quit)
+        )
   )
 
 (use-package magit-section

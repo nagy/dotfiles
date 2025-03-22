@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (C) 2022 Daniel Nagy
 ;;
-;; Package-Requires: ((emacs "29.1") mu4e general with-editor)
+;; Package-Requires: ((emacs "30.1") mu4e with-editor)
 ;;
 ;;; Commentary:
 ;;; Code:

@@ -198,7 +198,8 @@
   :functions (eat-ncdu eat-dool)
   :preface
   (defun nagy--eat-char-mode (_proc)
-    (eat-char-mode))
+    (eat-char-mode)
+    (setq-local truncate-lines t))
   :custom
   (eat-kill-buffer-on-exit t)
   (eat-enable-directory-tracking nil)

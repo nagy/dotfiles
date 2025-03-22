@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-magit
-;; Package-Requires: ((emacs "29.1") general with-editor)
+;; Package-Requires: ((emacs "30.1") with-editor)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;

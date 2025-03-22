@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-use-package
-;; Package-Requires: ((emacs "29.1") dash diminish)
+;; Package-Requires: ((emacs "30.1") dash diminish)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
