@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "29.1") paren-face nerd-icons modus-themes ef-themes lin)
+;; Package-Requires: ((emacs "30.1") paren-face nerd-icons modus-themes ef-themes lin)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;

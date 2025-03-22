@@ -1,5 +1,5 @@
 ;;; nagy-nix.el --- My nix config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "29.1") nix-mode nickel-mode reformatter general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") nix-mode nickel-mode reformatter general nagy-use-package)
 
 (require 'general)
 

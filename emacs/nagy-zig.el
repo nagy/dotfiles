@@ -1,5 +1,5 @@
 ;;; nagy-zig.el --- Zig config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "29.1") zig-mode general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") zig-mode general nagy-use-package)
 
 (require 'general)
 ;; (require 'nagy-use-package)

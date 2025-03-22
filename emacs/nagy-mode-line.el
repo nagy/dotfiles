@@ -1,5 +1,5 @@
 ;;; nagy-mode-line.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "29.1") dash anaphora)
+;; Package-Requires: ((emacs "30.1") dash anaphora)
 
 (require 'dash)
 ;; (require 'anaphora)

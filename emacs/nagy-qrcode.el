@@ -1,5 +1,5 @@
 ;;; nagy-qrcode.el --- Qrcode config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "29.1") anaphora)
+;; Package-Requires: ((emacs "30.1") anaphora)
 
 ;; (eval-when-compile
 ;;   (require 'anaphora)
