@@ -1,6 +1,7 @@
 ;;; nagy-exwm.el --- config emacs packages -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "29.1") dash evil exwm anaphora nagy-dired nagy-emacs nagy-url)
+;; Package-Requires: ((emacs "30.1") evil exwm anaphora nagy-dired nagy-emacs nagy-url)
 
+;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
 (require 'evil)
 (eval-when-compile

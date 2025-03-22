@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-evil
-;; Package-Requires: ((emacs "30.1") evil evil-collection evil-escape eat evil-numbers evil-surround evil-matchit evil-goggles evil-nerd-commenter olivetti ws-butler key-chord vertico general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") evil evil-collection evil-escape eat evil-numbers evil-surround evil-matchit evil-goggles evil-nerd-commenter olivetti ws-butler key-chord vertico nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;

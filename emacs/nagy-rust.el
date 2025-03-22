@@ -1,10 +1,11 @@
 ;;; nagy-rust.el --- rust config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "29.1") rustic reformatter general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") reformatter nagy-use-package)
 
 (require 'general)
 
 (require 'nagy-use-package)
 
+;; NIX-EMACS-PACKAGE: rustic
 (use-package rustic
   :commands (rustic-setup-lsp)
   :preface

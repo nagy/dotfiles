@@ -1,6 +1,7 @@
 ;;; pcase-base64.el --- My local config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "29.1") dash)
+;; Package-Requires: ((emacs "30.1"))
 
+;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
 
 (defun pcase-base64--matcher (name field)

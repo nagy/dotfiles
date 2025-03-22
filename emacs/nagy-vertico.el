@@ -1,5 +1,5 @@
 ;;; nagy-vertico.el --- vertico config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") vertico embark consult consult-dir embark-consult marginalia orderless general nagy-evil nagy-use-package)
+;; Package-Requires: ((emacs "30.1") vertico embark consult consult-dir embark-consult marginalia orderless nagy-evil nagy-use-package)
 
 (require 'nagy-evil)
 
@@ -165,9 +165,9 @@
   ;;   (orderless-matching-styles '(orderless-initialism
   ;;                                orderless-literal
   ;;                                orderless-regexp)))
-  ;; (push '(command (styles orderless+initialism)) completion-category-overrides)
-  ;; (push '(variable (styles orderless+initialism)) completion-category-overrides)
-  ;; (push '(symbol (styles orderless+initialism)) completion-category-overrides)
+  ;; (add-to-list 'completion-category-overrides '(command (styles orderless+initialism)))
+  ;; (add-to-list 'completion-category-overrides '(variable (styles orderless+initialism)))
+  ;; (add-to-list 'completion-category-overrides '(symbol (styles orderless+initialism)))
   )
 
 (use-package marginalia

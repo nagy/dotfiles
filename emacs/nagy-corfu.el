@@ -1,6 +1,7 @@
 ;;; nagy-corfu.el --- Autocompletion -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") corfu)
+;; Package-Requires: ((emacs "30.1"))
 
+;; NIX-EMACS-PACKAGE: corfu
 (use-package corfu
   :defer t
   :custom

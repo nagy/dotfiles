@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-emacs
-;; Package-Requires: ((emacs "29.1") anaphora memoize ov reformatter zoom dash general)
+;; Package-Requires: ((emacs "30.1") anaphora memoize ov reformatter zoom)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;

@@ -7,7 +7,7 @@
 ;; Created: February 19, 2023
 ;; Modified: February 19, 2023
 ;; Keywords:
-;; Package-Requires: ((emacs "29.1"))
+;; Package-Requires: ((emacs "30.1"))
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;

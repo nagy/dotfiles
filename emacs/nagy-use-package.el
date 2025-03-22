@@ -141,7 +141,11 @@
                                collect (car cell)))
       (delete-region beg end)
       (insert (alist-get sym nagy-cycle-alist "" nil 'equal)))))
+
+;;;###autoload
 (defalias 'use-package-normalize/:cycle 'use-package-normalize-forms)
+
+;;;###autoload
 (defun use-package-handler/:cycle (name-symbol _keyword rgx rest state)
   (use-package-concat
    (use-package-process-keywords name-symbol rest state)
@@ -150,7 +154,7 @@
             append
             (cl-loop for zip in (-zip-pair x rotated)
                      collect
-                     `(push ',zip nagy-cycle-alist)))))
+                     `(add-to-list 'nagy-cycle-alist ',zip)))))
 (keymap-global-set "H-s-f" #'nagy-cycle-dwim)
 
 ;;;###autoload

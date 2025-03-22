@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-misc2
-;; Package-Requires: ((emacs "30.1") dash smartparens aggressive-indent ace-window reformatter browse-at-remote inspector highlight-quoted pass password-store password-store-otp expand-region emms super-save bufler pdf-tools org-pdftools highlight-defined cyphejor avy helpful page-break-lines which-key iedit go-mode hledger-mode anaphora general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") smartparens aggressive-indent reformatter browse-at-remote highlight-quoted pass password-store password-store-otp expand-region emms pdf-tools org-pdftools highlight-defined avy helpful page-break-lines hledger-mode anaphora nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -21,6 +21,7 @@
 
 (require 'diminish)
 
+;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
 (require 'general)
 (require 'smartparens)
@@ -56,6 +57,7 @@
   :cycle 'conf-toml-mode
   ("true" "false"))
 
+;; NIX-EMACS-PACKAGE: ace-window
 (use-package ace-window
   :init
   (setq aw-keys (list ?a ?s ?d ?f ?h ?j ?k ?l ))
@@ -107,6 +109,7 @@
   ("C-H-s-y" . browse-at-remote)
   ("H-s-y" . nagy-misc2-browse-at-remote-kill-print))
 
+;; NIX-EMACS-PACKAGE: inspector
 (use-package inspector
   :custom
   (inspector-truncation-limit 10000)
@@ -198,6 +201,7 @@ waits for input."
   ;; TODO pr this upstream
   (advice-add 'password-store-otp-token :filter-return #'string-trim-right))
 
+;; NIX-EMACS-PACKAGE: super-save
 (use-package super-save
   :preface
   (defun nagy-super-save-predicate ()
@@ -296,6 +300,7 @@ waits for input."
   (:map helpful-mode-map
         ([remap dired-jump] . helpful-jump-to-definition)))
 
+;; NIX-EMACS-PACKAGE: cyphejor
 (use-package cyphejor
   :preface
   :commands (cyphejor-mode)
@@ -469,6 +474,7 @@ waits for input."
 ;;   (which-key-idle-delay 0))
 
 (require 'magit-section)
+;; NIX-EMACS-PACKAGE: bufler
 (use-package bufler
   :defer t
   :commands (bufler-define-buffer-command bufler--map-sections)
@@ -493,6 +499,7 @@ waits for input."
   ;; (evil-set-initial-state 'pdf-view-mode 'normal)
   )
 
+;; NIX-EMACS-PACKAGE: iedit
 (use-package iedit
   :bind
   ("C-;" . iedit-mode))
@@ -519,6 +526,7 @@ waits for input."
 ;;   (emacs-lisp-mode . smartparens-mode)
 ;;   (ielm-mode . smartparens-mode))
 
+;; NIX-EMACS-PACKAGE: go-mode
 (use-package go-mode
   :preface
   (reformatter-define go-fmt

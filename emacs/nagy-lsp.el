@@ -1,9 +1,11 @@
 ;;; nagy-lsp.el --- Language server config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "29.1") evil eglot consult-eglot general)
+;; Package-Requires: ((emacs "30.1") evil)
 
 (require 'general)
+
 (require 'evil)
 
+;; NIX-EMACS-PACKAGE: eglot
 (use-package eglot
   :defer t
   :custom
@@ -37,6 +39,7 @@
            "ſ" #'eglot-code-actions
            "M-æ" #'eglot-code-actions))
 
+;; NIX-EMACS-PACKAGE: consult-eglot
 ;; (use-package consult-eglot)
 
 (use-package flymake
