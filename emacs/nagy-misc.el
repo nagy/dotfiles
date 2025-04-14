@@ -327,8 +327,6 @@
   :general
   (:states 'normal :keymaps 'inferior-emacs-lisp-mode-map
            "ö" #'ielm-return)
-  ;; :config
-  ;; (keymap-set evil-normal-state-map "<key-chord> ü e" #'ielm-on-buffer)
   )
 
 (use-package osm

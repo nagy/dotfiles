@@ -126,6 +126,7 @@ correctly."
   (global-paren-face-mode 1)
   (nagy/fix-parenface)
   (add-to-list 'paren-face-modes 'js-mode)
+  (add-to-list 'paren-face-modes 'typescript-mode)
   (add-to-list 'paren-face-modes 'js-json-mode)
   (add-to-list 'paren-face-modes 'c-mode)
   (add-to-list 'paren-face-modes 'c++-mode)

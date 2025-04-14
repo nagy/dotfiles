@@ -127,8 +127,8 @@
   (:map scheme-mode-map
         ("s-." . scheme-send-last-sexp)
         ("s--" . scheme-send-definition))
-  :hook
-  (scheme-mode . lispy-mode)
+  ;; :hook
+  ;; (scheme-mode . lispy-mode)
   :pretty 'scheme-mode
   ("define" . setq)
   ("if" . if)

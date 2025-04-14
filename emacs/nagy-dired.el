@@ -166,7 +166,8 @@ Can be used as an advice."
   (interactive)
   (let ((delete-by-moving-to-trash
          (not (or (string-prefix-p temporary-file-directory default-directory)
-                  (string-prefix-p (expand-file-name "~/.local/share/Trash/") default-directory))))
+                  (string-prefix-p (expand-file-name "~/.local/share/Trash/") default-directory)
+                  )))
         (dired-deletion-confirmer #'always)
         (dired-recursive-deletes 'always)
         (dired-clean-confirm-killing-deleted-buffers nil))

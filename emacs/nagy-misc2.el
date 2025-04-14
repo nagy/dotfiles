@@ -382,13 +382,15 @@ waits for input."
 (use-package pdf-tools
   :custom
   (pdf-view-use-scaling nil)
-  (pdf-view-midnight-colors '("white" . "black"))
+  ;; (pdf-view-midnight-colors '("white" . "black"))
   :bind
   (:map pdf-view-mode-map
         ("H-j" . pdf-view-next-page-command)
         ("H-k" . pdf-view-previous-page-command)
         ("M-m" . pdf-view-midnight-minor-mode)
         )
+  :hook
+  (pdf-view-mode . pdf-view-themed-minor-mode)
   ;; :same
   ;; (rx bos "*Outline ")
   )
@@ -571,6 +573,12 @@ waits for input."
 
 ;; NIX-EMACS-PACKAGE: emacspy
 ;; (use-package emacspy)
+
+;; NIX-EMACS-PACKAGE: llama
+(use-package llama
+  ;; :config
+  ;; (llama-fontify-mode)
+  )
 
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here

@@ -161,11 +161,13 @@ That means, KEY can also be a cons."
     ))
 
 (defun nagy-list--revert-hook ()
+  ;; (when (eq major-mode 'nagy-list-mode))
   (setq nagy-list--data nil)
   (setq nagy-list--beforebody (let ((bn buffer-file-name))
                                 (with-temp-buffer
                                   (insert-file-contents-literally bn)
-                                  (buffer-string)))))
+                                  (buffer-string))))
+  (revert-buffer--default nil t))
 
 (defun nagy-list-table-entries ()
   (cl-loop for obj in (nagy-list--data)

@@ -1,7 +1,8 @@
 ;;; nagy-web.el --- Web config -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") coffee-mode typescript-mode wat-mode csv-mode yaml-mode jq-mode reformatter general nagy-use-package)
 
-;; (require 'reformatter)
+;; NIX-EMACS-PACKAGE: reformatter
+(require 'reformatter)
 
 (require 'general)
 ;; (require 'nagy-use-package)
@@ -13,6 +14,11 @@
   ("if" . if) ("else" . else))
 
 (use-package typescript-mode
+  :preface
+  (reformatter-define deno-fmt
+    :group 'emacs
+    :program "deno"
+    :args `("fmt" ,input-file))
   :defer t
   :pretty 'typescript-mode
   ("this" . self)
@@ -20,7 +26,11 @@
   ("return" . return)
   ("new" . new)
   ("function" . def)
-  ("const" . const))
+  ("const" . const)
+  ("export" . export)
+  ("string" . tostring)
+  ("try" . try) ("catch" . except)
+  )
 
 (use-package js
   :preface

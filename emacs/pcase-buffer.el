@@ -2,7 +2,7 @@
 
 ;;;###autoload
 (pcase-defmacro buffer (&rest fields)
-  (let* ((pcase-buffer--expval (gensym "pcase-buffer--expval"))
+  (let* ((pcase-buffer--expval (make-symbol "pcase-buffer--expval"))
          (pcase-buffer--val `(cl-typecase ,pcase-buffer--expval
                                (buffer ,pcase-buffer--expval)
                                (string (get-buffer ,pcase-buffer--expval))

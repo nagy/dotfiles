@@ -4,8 +4,8 @@
 
 {
   pkgs,
-  alacritty,
-  lib,
+  lib ? pkgs.lib,
+  alacritty ? pkgs.alacritty,
   # A attrset of home-manager modules that define alacritty configs. You can switch to these with the
   # `ala-${name}` script.
   hmmodules ? { },

@@ -218,6 +218,7 @@
   ("H-s-," . describe-char)
   ("H-s-." . display-local-help)
   ("H-s-:" . duplicate-dwim)
+  ;; ("H-¢" . cd)
   ("M-s-ł" . find-library)
   ("H-s-m" . widen)
   ("H-0" . text-scale-adjust)
@@ -229,6 +230,7 @@
   ("A-C-s-}" . tab-duplicate)
   ("C-H-r" . rename-buffer)
   ("H-M-a" . normal-mode)
+  ("H-s-c" . cd)
   (:map minibuffer-local-map
         ("H-j" . next-history-element)
         ("H-k" . previous-history-element)
@@ -280,7 +282,7 @@
   ("C-M-¢" . compile)
   ("H-s-j" . next-error)
   ("H-s-k" . previous-error)
-  ("H-s-c" . compile)
+  ;; ("H-s-c" . compile)
   (:map compilation-minor-mode-map
         ([remap revert-buffer-quick] . recompile)
         ("H-j" . compilation-next-error)
@@ -299,10 +301,19 @@
   :defer t
   :custom
   (shr-inhibit-images t)
+  (shr-image-animate nil)
   (shr-use-colors nil)
-  (shr-use-fonts nil))
+  (shr-use-fonts nil)
+  (shr-hr-line ?⎯)
+  :config
+  (set-face-attribute 'shr-h1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
+  (set-face-attribute 'shr-h2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
+  (set-face-attribute 'shr-h3 nil :font "Et Bembo" :height 1.2 :inherit 'modus-themes-heading-3)
+  )
 
 (use-package files
+  ;; :custom
+  ;; (revert-without-query '("\\.json"))
   :bind
   ("s-f" . find-file))
 
@@ -582,6 +593,15 @@
 (rx-define sha256 (repeat 64 hex))
 (rx-define sha512 (repeat 128 hex))
 
+(defun sha256 (object &optional start end binary)
+  "Return the SHA-256 (Secure Hash Algorithm) of an OBJECT.
+OBJECT is either a string or a buffer.  Optional arguments START and
+END are character positions specifying which portion of OBJECT for
+computing the hash.  If BINARY is non-nil, return a 32-byte unibyte
+string; otherwise return a 64-character string."
+  (declare (side-effect-free t))
+  (secure-hash 'sha256 object start end binary))
+
 (rx-define url
   (seq (or "http" "https") "://"
        (one-or-more (or word punctuation))
@@ -790,7 +810,7 @@
 (defalias 'wsm (symbol-function 'with-silent-modifications))
 (put 'wsm 'lisp-indent-function (get 'with-silent-modifications 'lisp-indent-function))
 (defalias 'eb (symbol-function 'erase-buffer))
-(defalias 'se (symbol-function 'save-excursion))
+;; (defalias 'se (symbol-function 'save-excursion))
 (put 'se 'lisp-indent-function (get 'save-excursion 'lisp-indent-function))
 (defalias 'bs (symbol-function 'buffer-string))
 (defalias 'bz (symbol-function 'buffer-size))
@@ -799,8 +819,8 @@
 (defalias 'b (symbol-function 'get-buffer-create-or-current))
 ;; (defalias 'l (symbol-function 'length))
 (defalias 'i (symbol-function 'insert-multi))
-(defalias 'sw (symbol-function 'selected-window))
-(defalias 'sf (symbol-function 'selected-frame))
+;; (defalias 'sw (symbol-function 'selected-window))
+;; (defalias 'sf (symbol-function 'selected-frame))
 (defalias 'wb (symbol-function 'window-buffer))
 (defalias 'wl (symbol-function 'window-list))
 (defalias 'bu (symbol-function 'browse-url))
@@ -856,6 +876,12 @@
 (defalias 'me (symbol-function 'map-elt))
 (put 'me 'gv-expander (get 'map-elt 'gv-expander))
 
+(defalias 'sl (symbol-function 'seq-length))
+(defalias 'se (symbol-function 'seq-elt))
+(put 'se 'gv-expander (get 'seq-elt 'gv-expander))
+(defalias 'sf (symbol-function 'seq-find))
+;; (defalias 's? (symbol-function 'seq-contains-p))
+
 ;;;###autoload
 (defmacro andf (place &rest x)
   (declare (debug (place form)))
@@ -883,6 +909,8 @@
 
 (put 'url-generic-parse-url 'pure t)
 (put 'url-generic-parse-url 'side-effect-free t)
+
+(put 'hash-table-weakness 'pure t)
 
 ;; these may be derived by the compiler
 ;; (put 'string-trim-right 'pure t)
@@ -964,7 +992,7 @@
     (let ((buffer (generate-new-buffer (format "new%d" (cl-incf new-buffer--count)))))
       (with-current-buffer buffer
         (cd temporary-file-directory)
-	(text-mode))
+        (text-mode))
       (set-window-buffer nil buffer))
     (when reg-str
       (with-current-buffer (window-buffer (selected-window))
@@ -1085,6 +1113,18 @@
   :config
   (minibuffer-depth-indicate-mode t)
   )
+
+
+(defun jump-to-proc (arg)
+  (interactive "P")
+  (let ((pid (pcase major-mode
+               ('process-menu-mode (string-to-number (elt (tabulated-list-get-entry (point)) 1)))
+               (_ (process-id (get-buffer-process (current-buffer)))))))
+    (if arg
+        (find-file (format "/sudo::/proc/%d" pid))
+      (find-file (format "/proc/%d" pid)))))
+
+(keymap-global-set "H-s-P" #'jump-to-proc)
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

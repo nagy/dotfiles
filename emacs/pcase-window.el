@@ -2,7 +2,7 @@
 
 ;;;###autoload
 (pcase-defmacro window (&rest fields)
-  (let ((pcase-window--expval (gensym "pcase-window--expval")))
+  (let ((pcase-window--expval (make-symbol "pcase-window--expval")))
     `(and ,pcase-window--expval
           (guard ,pcase-window--expval)
           ,@(mapcar (lambda (field)

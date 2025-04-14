@@ -37,6 +37,11 @@
   (add-to-list 'Info-url-alist '(("Magit" "Forge") . "https://magit.vc/manual/%m.html#%n"))
   :bind
   ("H-g" . magit-status)
+  ("H-L" . magit-log-buffer-file)
+  (:map magit-mode-map
+        ("H-<" . magit-process-buffer))
+  (:map dired-mode-map
+        ("H-<" . magit-process-buffer))
   (:map magit-diff-mode-map
         ("SPC" . nil)          ;; was `scroll-up'
         )

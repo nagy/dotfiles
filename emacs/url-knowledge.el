@@ -38,12 +38,13 @@
     (setf (alist-get name url-knowledge--known-configs nil nil #'equal) config)))
 
 (defun url-knowledge--get-url ()
-  (or url-knowledge-url
-      (setq url-knowledge-url
-            (cl-loop for config in url-knowledge--known-configs
-                     for cdr = (cdr config)
-                     thereis (ignore-errors
-                               (funcall (url-knowledge-config-buffer cdr)))))))
+  (unless (file-remote-p default-directory)
+    (or url-knowledge-url
+        (setq url-knowledge-url
+              (cl-loop for config in url-knowledge--known-configs
+                       for cdr = (cdr config)
+                       thereis (ignore-errors
+                                 (funcall (url-knowledge-config-buffer cdr))))))))
 
 (defun url-knowledge--get-url-force ()
   (setq url-knowledge-url

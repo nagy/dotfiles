@@ -11,7 +11,7 @@
 
 ;;;###autoload
 (pcase-defmacro process (&rest fields)
-  (let* ((pcase-process--expval (gensym "pcase-process--expval"))
+  (let* ((pcase-process--expval (make-symbol "pcase-process--expval"))
          (pcase-process--val `(cl-typecase ,pcase-process--expval
                                 (process ,pcase-process--expval)
                                 (string (get-process ,pcase-process--expval))

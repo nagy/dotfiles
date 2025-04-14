@@ -11,7 +11,7 @@
 
 ;;;###autoload
 (pcase-defmacro base64 (&rest fields)
-  (let* ((pcase-base64--expval (gensym "pcase-base64--expval")))
+  (let* ((pcase-base64--expval (make-symbol "pcase-base64--expval")))
     `(and ,pcase-base64--expval
           (guard ,pcase-base64--expval)
           ,@(--map (pcase-exhaustive it

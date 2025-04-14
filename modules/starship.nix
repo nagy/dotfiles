@@ -25,7 +25,7 @@ in
       ]}
     '')).outPath;
   programs.bash.interactiveShellInit = ''
-    if [[ $TERM != "dumb" && (-z $INSIDE_EMACS || $INSIDE_EMACS == "29.1,eat") ]]; then
+    if [[ $TERM != "dumb" && (-z $INSIDE_EMACS || $INSIDE_EMACS =~ ,eat) ]]; then
       if [[ -w /run/user/$UID ]] ; then
         export STARSHIP_CACHE=/run/user/$UID/starship-cache
       fi

@@ -9,8 +9,8 @@
   "Parses EXPVAL according to `url-generic-parse-url'.
 
 Accepts either a string or an already parsed url object as EXPVAL."
-  (let ((pcase-url--expval (gensym "pcase-url--expval"))
-        (pcase-url-- (gensym "pcase-url--")))
+  (let ((pcase-url--expval (make-symbol "pcase-url--expval"))
+        (pcase-url-- (make-symbol "pcase-url--")))
     `(and ,pcase-url--expval
           (let ,pcase-url--
             (cl-typecase ,pcase-url--expval
