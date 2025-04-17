@@ -45,12 +45,7 @@
   '';
 
   environment.systemPackages = lib.mkIf config.services.xserver.enable [
-    (pkgs.callPackage ../pkg-ala-switchers.nix {
-      hmmodules = {
-        day = import ../hmmodule-alacritty-night.nix false;
-        night = import ../hmmodule-alacritty-night.nix true;
-      };
-    })
+    (import ../pkg-ala-switchers.nix { inherit pkgs; })
   ];
 
   programs.gnupg = {
