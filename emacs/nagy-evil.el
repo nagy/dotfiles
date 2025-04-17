@@ -223,6 +223,7 @@
     (let ((eat-buffer-name "*eat-dool*")
           (eat-kill-buffer-on-exit t))
       (eat "dool -N eth0 --bytes --bw")))
+  (key-chord-register-keys ?ß ?w)
   :bind
   (:map evil-normal-state-map
         ("<key-chord> - x" . eat)
@@ -286,6 +287,12 @@
   ;;       ("<insert-state> <key-chord> f l" . indent-for-tab-command))
   :config
   (key-chord-mode 1)
+  (key-chord-register-keys ?j ?f)
+  (key-chord-register-keys ?- ?h)
+  (key-chord-register-keys ?- ?n)
+  (key-chord-register-keys ?- ?c)
+  (key-chord-register-keys ?- ?w)
+  (key-chord-register-keys ?- ?h)
   ;; (global-set-key (kbd "<key-chord> - <") #'vertico-flat-mode)  ; this causes "-" to be slow while in insert mode
   (key-chord-define evil-insert-state-map  "jk" #'evil-normal-state)
   ;; (key-chord-define evil-insert-state-map  "kj" #'evil-normal-state) ; may be a bit overkill
@@ -367,6 +374,7 @@
 (keymap-global-set "s-⧖" #'show-date)
 
 (keymap-set evil-normal-state-map "<key-chord> y SPC" #'duplicate-dwim)
+(key-chord-register-keys ?y ?\ )
 (keymap-set evil-normal-state-map "ü" #'execute-extended-command)
 (keymap-set evil-normal-state-map "Ü" #'execute-extended-command-for-buffer)
 (keymap-set evil-normal-state-map "⋮" #'sort-lines)

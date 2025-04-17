@@ -24,6 +24,9 @@
 ;; (require 'anaphora)
 (require 'memoize)
 
+;; NIX-EMACS-PACKAGE: key-chord
+(require 'key-chord)
+
 ;; (require 'reformatter)
 
 (defun save-kill-buffer ()

@@ -7,6 +7,7 @@
 (eval-when-compile
   (require 'dired))
 (require 'nagy-dired)
+(require 'key-chord)
 
 (declare-function ibuffer-filter-by-used-mode "ibuffer")
 
@@ -305,6 +306,7 @@ aka xcompose is not properly initialized in the first frame."
 
 (keymap-global-set "H-<f1>" #'font-size-toggle)
 (keymap-set evil-normal-state-map "<key-chord> - r" #'font-size-toggle)
+(key-chord-register-keys ?- ?r)
 
 (defun font-size-smol ()
   (interactive)
