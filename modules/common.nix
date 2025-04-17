@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  nur,
-  ...
-}:
+{ lib, ... }:
 
 {
   users.users.user = {
@@ -14,53 +8,23 @@
       "wheel"
       "dialout"
     ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZNW8uX6gKASOT+0XXKF2QmeXqMZfoEMIYFogbUF4jo"
-    ];
   };
   # users.mutableUsers = false; # this can break the manually set password !!!!
 
-  users.extraUsers.root.openssh.authorizedKeys.keys =
-    config.users.users.user.openssh.authorizedKeys.keys;
+  # services.getty.autologinUser = "user";
+  # use the force variant until the netboot has been cleaned up
+  services.getty.autologinUser = lib.mkForce "user";
 
   services.openssh = {
     enable = true;
-    settings = {
-      PermitRootLogin = "yes";
-      ClientAliveInterval = 60;
-    };
   };
 
-  # all hosts should have this timezone
-  time.timeZone = "Europe/Berlin";
-  console.keyMap = lib.mkDefault "de";
-
-  documentation.dev.enable = true;
-  documentation.info.enable = true;
-
-  programs.ssh.extraConfig = ''
-    Host *
-      StrictHostKeyChecking accept-new
-      ServerAliveInterval 300
-      ServerAliveCountMax 2
+  # https://askubuntu.com/questions/493002/global-sudo-session-in-ubuntu
+  security.sudo.extraConfig = ''
+    Defaults:user !tty_tickets, timestamp_timeout=60
   '';
 
-  environment.systemPackages = with pkgs; [
-    # documentation
-    man-pages
-    # broken currently glibcInfo # info files for gnu glibc
-
-    # custom tooling
-    mtr
-    dnsutils
-    rclone
-    nur.repos.nagy.cxxmatrix
-    dool
-    # for man pages only
-    (lib.getMan isync)
-    doggo
-    (import <jsonrpcrun> {
-      inherit pkgs;
-    })
-  ];
+  security.sudo = {
+    execWheelOnly = true;
+  };
 }

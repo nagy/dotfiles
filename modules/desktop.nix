@@ -6,12 +6,6 @@
 }:
 
 {
-  services.xserver = {
-    dpi = 192;
-    # Configure X11 window manager
-    displayManager.startx.enable = true;
-  };
-
   # https://doc.qt.io/qt-6/highdpi.html#platform-details
   environment.sessionVariables.QT_USE_PHYSICAL_DPI = "1"; # for qt6
   # environment.sessionVariables.QT_SCALE_FACTOR = "2"; # for qutebrowser
@@ -35,10 +29,7 @@
 
   environment.etc."X11/xinit/xinitrc".text = ''
     set -e
-    xset s 300 300
     xset r rate 260 40
-    ${pkgs.xorg.xhost}/bin/xhost +
-    xsetroot -cursor_name left_ptr # make default cursor not cross
     [[ -f /etc/X11/Xresources ]] && xrdb /etc/X11/Xresources
     ${pkgs.unclutter-xfixes}/bin/unclutter &
     exec emacs
