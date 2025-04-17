@@ -59,7 +59,9 @@
     (nagy-mode-line--jsvar (:eval (concat (format "%s" nagy-mode-line--jsvar) " ")))
     (nagy-mode-line--jsvar-point (:eval (concat (format "%s" nagy-mode-line--jsvar-point) " ")))
     (:eval
-     (unless (derived-mode-p 'exwm-mode)
+     (unless (or (derived-mode-p 'exwm-mode)
+                 (derived-mode-p 'magit-mode)
+                 (derived-mode-p 'nagy-list-mode))
        (propertize
         (concat (file-size-human-readable (buffer-size)) "B ")
         ;; 'face (if (mode-line-window-selected-p)
@@ -118,7 +120,7 @@
                   nagy-mode-line-right))
   (setq mode-line-modified '((buffer-file-name "%+ ")))
   (setq-default mode-line-modified mode-line-modified)
-  (setq mode-line-position '("L%l/" (:eval (buffer-line-count-string)) ""))
+  (setq mode-line-position '("%l/" (:eval (buffer-line-count-string)) ""))
   ;; (setq mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
   ;; (setq-default mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
   ;; (setq mode-line-position '(" L%l/" (:eval (number-to-string (buffer-chars-modified-tick)))))

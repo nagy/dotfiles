@@ -70,6 +70,8 @@
   (set-fontset-font t it (font-spec :family "IosevkaTerm Nerd Font")))
 )
 
+;; make (setf)-able
+;; maybe: https://github.com/mschuldt/backlight.el ?
 (defun brightness-up ()
   (interactive)
   (let ((default-directory temporary-file-directory))

@@ -63,8 +63,4 @@
       inherit pkgs;
     })
   ];
-
-  environment.etc."rfc" = lib.mkIf config.documentation.nixos.enable {
-    source = "${nur.repos.nagy.rfcs}/share/rfc";
-  };
 }

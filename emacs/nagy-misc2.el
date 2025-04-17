@@ -124,13 +124,13 @@
   :hook
   (emacs-lisp-mode . highlight-quoted-mode))
 
+(defvar redshift-location "12.34:56.78")
 (defun redshift ()
   (interactive)
   (aif (get-process "redshift")
       (interrupt-process it)
     (if (executable-find "redshift")
-        (start-process "redshift" nil "redshift"
-                       )
+        (start-process "redshift" nil "redshift" "-l" redshift-location)
       (user-error "redshift not installed"))))
 (keymap-global-set "H-<f3>" #'redshift)
 
@@ -559,6 +559,16 @@ waits for input."
   ("H-<down>" . end-of-buffer)
   )
 
+(use-package tramp
+  :custom
+  ;; (tramp-change-syntax ')
+  (tramp-use-connection-share nil)
+  (remote-file-name-inhibit-delete-by-moving-to-trash t)
+  (remote-file-name-inhibit-auto-save t)
+  (pcomplete-remote-file-ignore t)
+  ;; (remote-file-name-access-timeout 0)
+  )
+
 ;; NIX-EMACS-PACKAGE: kubernetes
 (use-package kubernetes
   :custom
@@ -573,6 +583,9 @@ waits for input."
 
 ;; NIX-EMACS-PACKAGE: emacspy
 ;; (use-package emacspy)
+
+;; NIX-EMACS-PACKAGE: map-extras
+;; (use-package map-extras)
 
 ;; NIX-EMACS-PACKAGE: llama
 (use-package llama

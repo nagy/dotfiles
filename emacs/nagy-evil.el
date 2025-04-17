@@ -198,17 +198,25 @@
   :functions (eat-ncdu eat-dool)
   :preface
   (defun nagy--eat-char-mode (_proc)
+    (evil-emacs-state 1)
     (eat-char-mode)
-    (setq-local truncate-lines t))
+    (display-line-numbers-mode -1)
+    (setq-local truncate-lines t)
+    (text-scale-adjust 0))
+  (defun nagy--eat--evil-normal-mode (_proc)
+    (display-line-numbers-mode 1)
+    (evil-normal-state 1))
   :custom
-  (eat-kill-buffer-on-exit t)
+  (eat-kill-buffer-on-exit nil)
   (eat-enable-directory-tracking nil)
   (eat-enable-shell-prompt-annotation nil)
   (eat-term-scrollback-size nil)
   :config
-  ;; (setq process-adaptive-read-buffering nil)
+  ;; Starting with emacs 31, nil is now the default
+  (setq process-adaptive-read-buffering nil)
   (evil-set-initial-state 'eat-mode 'emacs)
   (add-hook 'eat-exec-hook #'nagy--eat-char-mode)
+  (add-hook 'eat-exit-hook #'nagy--eat--evil-normal-mode)
   (defun eat-ncdu ()
     "Doctext."
     (interactive)

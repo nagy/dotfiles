@@ -69,7 +69,7 @@ Can be used as an advice."
   (dired-compress-directory-default-suffix ".tar.zst")
   (dired-switches-in-mode-line 3)
   (dired-hide-details-hide-symlink-targets nil)
-  (dired-listing-switches "-I systemd-private-* -I .ICE-unix -I .font-unix -I .XIM-unix -I .X11-unix -I nix-build-* -h --almost-all -l  -g --no-group --group-directories-first")
+  (dired-listing-switches "-alh -g --no-group --group-directories-first")
   ;; (dired-listing-switches ". -l")
   :config
   (advice-add #'dired-create-directory :after #'+revert-when-dired)
@@ -166,7 +166,8 @@ Can be used as an advice."
   (interactive)
   (let ((delete-by-moving-to-trash
          (not (or (string-prefix-p temporary-file-directory default-directory)
-                  (string-prefix-p (expand-file-name "~/.local/share/Trash/") default-directory)
+                  (string-prefix-p (expand-file-name "~/.local/share/Trash/") (expand-file-name default-directory))
+                  (string-prefix-p (expand-file-name "~/.cache/") (expand-file-name default-directory))
                   )))
         (dired-deletion-confirmer #'always)
         (dired-recursive-deletes 'always)

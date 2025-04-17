@@ -950,7 +950,10 @@ string; otherwise return a 64-character string."
 (use-package memoize
   ;; :demand t
   :config
-  (setq memoize-default-timeout "5 minutes")
+  ;; Setting this to nil will likely cause a memory leak, but should
+  ;; be acceptable because the usage of `memoize' should be rare
+  ;; anyway.
+  (setq memoize-default-timeout nil)
   )
 
 (defmemoize-by-buffer-contents buffer-line-count-string ()
@@ -1109,12 +1112,8 @@ string; otherwise return a 64-character string."
   (declare (side-effect-free t))
   (with-temp-buffer
     (insert-file-contents file)
-    (goto-char (point-min))
-    (apply #'json-parse-buffer args)))
-
-(use-package jsonrpc
-  :cycle 'emacs-lisp-mode
-  ("jsonrpc-request" "jsonrpc-async-request"))
+    (apply #'json-parse-buffer args)
+    ))
 
 (use-package package
   :custom
