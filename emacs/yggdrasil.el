@@ -1,12 +1,8 @@
 ;;; yggdrasil.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1"))
+;; Package-Requires: ((emacs "30.1") dash-shell nagy-emacs)
 
-;; NIX-EMACS-PACKAGE: dash-shell
-;; (require 'dash-shell)
 ;; NIX-EMACS-PACKAGE: nagy-list
 (require 'nagy-list)
-;; NIX-EMACS-PACKAGE: nagy-emacs
-(require 'nagy-emacs)
 ;; NIX-EMACS-PACKAGE: map-extras
 (require 'map-extras)
 
@@ -28,6 +24,8 @@
                                 :command command
                                 )))
 
+(yggdrasil-make "default"
+  :endpoint "unix:///var/run/yggdrasil/yggdrasil.sock")
 
 (provide 'yggdrasil)
 ;;; yggdrasil.el ends here

@@ -42,7 +42,7 @@
   (force-mode-line-update)
   )
 
-(run-with-idle-timer 0.1 t #'nagy-mode-line--jsvar-update)
+(run-with-idle-timer 1.0 t #'nagy-mode-line--jsvar-update)
 
 (defun nagy-mode-line-fill (face reserve)
   "Return empty space using FACE and leaving RESERVE space on the right."
@@ -56,6 +56,8 @@
 (defvar nagy-mode-line-right
   ;; FIXME these string creations could cause garbage
   '(
+    (t ((:eval (aif (url-knowledge--get-url) (propertize (string-remove-prefix "https://" it) 'face '(:inherit (ffap bold)))))
+        " "))
     (nagy-mode-line--jsvar (:eval (concat (format "%s" nagy-mode-line--jsvar) " ")))
     (nagy-mode-line--jsvar-point (:eval (concat (format "%s" nagy-mode-line--jsvar-point) " ")))
     (:eval
@@ -80,6 +82,20 @@
          mode-line-position)))))
 (put 'nagy-mode-line-right 'risky-local-variable t)
 
+(defvar nagy-mode-line-default-directory-format
+  '(:eval (unless (derived-mode-p 'exwm-mode)
+            (propertize (abbreviate-file-name
+                         (--> default-directory
+                              (string-replace "%" "%%" it)
+                              (string-replace "/tmp/t" "⧖" it)
+                              ;; (string-replace "/tmp/" "/⧖" it)
+                              (string-replace "/nix/store" "○" it)
+                              ))
+                        'face '(:inherit (dired-directory)
+                                         :weight bold
+                                         :height 1.2)
+                        ))))
+
 (defun nagy-mode-line-init ()
   (interactive)
   (setq-default mode-line-format
@@ -96,18 +112,8 @@
                   ;; mode-line-position ""
                   ;; (vc-mode vc-mode)
                   (:eval (unless (derived-mode-p 'exwm-mode)
-                           mode-line-modes))       ; already includes a space at the end
-                  (:eval (unless (derived-mode-p 'exwm-mode)
-                           '(:eval (propertize (abbreviate-file-name
-                                                (--> default-directory
-                                                     (string-replace "%" "%%" it)
-                                                     (string-replace "/tmp/t" "⧖" it)
-                                                     (string-replace "/nix/store" "○" it)
-                                                     ))
-                                               'face '(:inherit (dired-directory)
-                                                                :weight bold
-                                                                :height 1.2)
-                                               ))))
+                           mode-line-modes)) ; already includes a space at the end
+                  (:eval nagy-mode-line-default-directory-format)
                   mode-line-misc-info
                   ;; (:eval (format " BFF:%S" buffer-file-format))
                   ;; container-list-mode-line-format

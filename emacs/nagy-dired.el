@@ -1,6 +1,7 @@
 ;;; nagy-dired.el --- Dired config -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") ov general dired-collapse dired-narrow dired-subtree nagy-evil)
 
+(require 'nagy-evil)                    ; to preload dired bindings
 (eval-when-compile
   (require 'dired))
 (declare-function dired-do-copy "dired-aux")
@@ -22,6 +23,15 @@
     (string-replace (expand-file-name "~") "~")
     (string-replace "/nix/store" "○")
     (string-replace "/tmp/t" "⧖")
+    ))
+
+(defvar nagy-dired-font-lock-keywords
+  `((,(rx (or ".nix") eol)
+     (0 `(face modus-themes-intense-green)))
+    (,(rx (group (or ".json" ".yaml" ".yml" ".toml" ".xml" ".csv"))
+          (* ".zst" ".br")
+          eol)
+     (1 `(face modus-themes-intense-red)))
     ))
 
 (define-minor-mode drfl-mode

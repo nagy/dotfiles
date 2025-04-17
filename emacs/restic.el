@@ -1,9 +1,6 @@
 ;;; restic.el --- Description -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") dash-shell)
 
-;; NIX-EMACS-PACKAGE: dash-shell
-;; (require 'dash-shell)
-
 ;; NIX-EMACS-PACKAGE: nagy-emacs
 (require 'nagy-emacs)
 
