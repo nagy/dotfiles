@@ -3,17 +3,20 @@
   mkQmkFirmware ? pkgs.nur.repos.nagy.lib.mkQmkFirmware,
 }:
 
+let
+  keyboard = "handwired/dactyl_manuform/6x6";
+  keymap = "default";
+in
 mkQmkFirmware {
   name = "nagy-keyboard-firmware";
-  keyboard = "handwired/dactyl_manuform/6x6";
-  # keymap = "default";
+  inherit keyboard keymap;
 
   patchPhase = ''
     runHook prePatch
 
-    cp ${./config.h} keyboards/$keyboard/keymaps/$keymap/config.h
-    cp ${./keymap.c} keyboards/$keyboard/keymaps/$keymap/keymap.c
-    cp ${./rules.mk} keyboards/$keyboard/rules.mk
+    cp ${./config.h} keyboards/${keyboard}/keymaps/${keymap}/config.h
+    cp ${./keymap.c} keyboards/${keyboard}/keymaps/${keymap}/keymap.c
+    cp ${./rules.mk} keyboards/${keyboard}/rules.mk
 
     runHook postPatch
   '';
