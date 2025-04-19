@@ -52,6 +52,7 @@
 (defun dollar (spec)
   (-shell--case spec))
 
+;;;###autoload
 (defalias '$ (symbol-function 'dollar))
 
 ;;;###autoload
@@ -60,6 +61,7 @@
     (dollar spec)
     (buffer-string)))
 
+;;;###autoload
 (defalias '$s (symbol-function 'dollar-string))
 
 ;;;###autoload
@@ -69,6 +71,7 @@
     (goto-char (point-min))
     (buffer-substring (point) (line-end-position))))
 
+;;;###autoload
 (defalias '$l (symbol-function 'dollar-line))
 
 ;;;###autoload
@@ -78,7 +81,34 @@
     (goto-char (point-min))
     (json-parse-buffer)))
 
+;;;###autoload
 (defalias '$j (symbol-function 'dollar-json))
+
+;;;###autoload
+(defun dollar2 (&rest spec)
+  (-shell--case spec))
+
+;;;###autoload
+(defalias '$2 (symbol-function 'dollar2))
+
+;;;###autoload
+(defun dollar-string2 (&rest spec)
+  (with-temp-buffer
+    (apply #'dollar2 spec)
+    (buffer-string)))
+
+;;;###autoload
+(defalias '$s2 (symbol-function 'dollar-string2))
+
+;;;###autoload
+(defun dollar-json2 (&rest spec)
+  (with-temp-buffer
+    (apply #'dollar2 spec)
+    (goto-char (point-min))
+    (json-parse-buffer)))
+
+;;;###autoload
+(defalias '$j2 (symbol-function 'dollar-json2))
 
 (provide 'dash-shell)
 ;;; dash-shell.el ends here
