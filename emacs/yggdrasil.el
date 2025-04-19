@@ -6,23 +6,23 @@
 ;; NIX-EMACS-PACKAGE: map-extras
 (require 'map-extras)
 
-(defvar yggdrasil--known-configs nil)
+(defvar yggdrasil--known nil)
 
 (defvar yggdrasil-program "yggdrasil")
 (defvar yggdrasil-ctl-program "yggdrasilctl")
 
-(cl-defstruct (yggdrasil-config (:constructor yggdrasil--make-config))
+(cl-defstruct (yggdrasil (:constructor yggdrasil--make))
   name config endpoint command)
 
 ;;;###autoload
 (cl-defun yggdrasil-make (name &key config endpoint command)
   (declare (indent 1))
-  (setf (map-elt yggdrasil--known-configs name)
-        (yggdrasil--make-config :name name
-                                :config config
-                                :endpoint endpoint
-                                :command command
-                                )))
+  (setf (map-elt yggdrasil--known name)
+        (yggdrasil--make :name name
+                         :config config
+                         :endpoint endpoint
+                         :command command
+                         )))
 
 (yggdrasil-make "default"
   :endpoint "unix:///var/run/yggdrasil/yggdrasil.sock")
