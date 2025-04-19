@@ -35,10 +35,6 @@
     exec emacs
   '';
 
-  environment.systemPackages = lib.mkIf config.services.xserver.enable [
-    (import ../pkg-ala-switchers.nix { inherit pkgs; })
-  ];
-
   programs.gnupg = {
     # socket activation does not seem to be used. gnupg is starting an agent itself.
     # more info: https://discourse.nixos.org/t/how-to-make-gpg-use-the-agent-from-programs-gnupg-agent/11834/2
