@@ -1,3 +1,0 @@
-#define MASTER_RIGHT
-#define MOUSEKEY_MOVE_DELTA 4
-#define DEBOUNCE 60
