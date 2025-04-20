@@ -1,6 +1,7 @@
 ;;; nagy-company.el --- Autocompletion -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") company)
+;; Package-Requires: ((emacs "30.1"))
 
+;; NIX-EMACS-PACKAGE: company
 (use-package company
   :demand t
   :diminish 'company-mode

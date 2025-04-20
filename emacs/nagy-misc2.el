@@ -1,23 +1,5 @@
 ;;; nagy-misc2.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2023 Daniel Nagy
-;;
-;; Author: Daniel Nagy <danielnagy@posteo.de>
-;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Created: March 03, 2023
-;; Modified: March 03, 2023
-;; Version: 0.0.1
-;; Keywords:
-;; Homepage: https://github.com/nagy/nagy-misc2
-;; Package-Requires: ((emacs "30.1") smartparens aggressive-indent reformatter browse-at-remote highlight-quoted pass password-store password-store-otp expand-region emms pdf-tools org-pdftools highlight-defined avy helpful page-break-lines hledger-mode anaphora nagy-use-package)
-;;
-;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Description
-;;
-;;; Code:
+;; Package-Requires: ((emacs "30.1") smartparens reformatter password-store password-store-otp emms pdf-tools org-pdftools highlight-defined anaphora nagy-use-package)
 
 (require 'diminish)
 
@@ -67,6 +49,7 @@
   :bind
   ("s-'" . ace-window))
 
+;; NIX-EMACS-PACKAGE: aggressive-indent
 (use-package aggressive-indent
   :diminish 'aggressive-indent-mode
   :custom
@@ -88,6 +71,7 @@
 ;;                                     (buffer-file-name))))
 ;;     (find-file it)))
 
+;; NIX-EMACS-PACKAGE: browse-at-remote
 (defvar-local nagy-misc2-browse-at-remote--fixed-url nil)
 (use-package browse-at-remote
   :commands (browse-at-remote-get-url)
@@ -120,6 +104,7 @@
   :same
   "^\\*inspector\\*")
 
+;; NIX-EMACS-PACKAGE: highlight-quoted
 (use-package highlight-quoted
   :hook
   (emacs-lisp-mode . highlight-quoted-mode))
@@ -143,6 +128,7 @@
   (start-process "sleeping" nil "sh" "-c" "sleep 2 && systemctl suspend"))
 (keymap-global-set "s-💤" #'system-suspend)
 
+;; NIX-EMACS-PACKAGE: pass
 (use-package pass
   :custom
   (pass-username-field "Username")
@@ -274,6 +260,7 @@ waits for input."
   ;; (emacs-lisp-mode . highlight-defined-mode)
   )
 
+;; NIX-EMACS-PACKAGE: helpful
 (use-package helpful
   :commands (helpful--navigate)
   :preface
@@ -333,15 +320,16 @@ waits for input."
   ;; (cyphejor-mode 1)
   )
 
-(use-package tokei
-  :disabled
-  :config
-  (after! consult-imenu
-          (add-to-list 'consult-imenu-config
-                       '(tokei-mode
-                         :toplevel "Languages"
-                         :types ((?l "Languages"  magit-section-heading)
-                                 (?f "Files"))))))
+;; (use-package tokei
+;;   :disabled
+;;   ;; :config
+;;   ;; (after! consult-imenu
+;;   ;;         (add-to-list 'consult-imenu-config
+;;   ;;                      '(tokei-mode
+;;   ;;                        :toplevel "Languages"
+;;   ;;                        :types ((?l "Languages"  magit-section-heading)
+;;   ;;                                (?f "Files")))))
+;;   )
 
 (declare-function image-mode-window-get "image-mode")
 (defun print-dwim ()
@@ -411,6 +399,7 @@ waits for input."
 ;;   (jit-lock-stealth-nice 0.5)
 ;;   (jit-lock-chunk-size 4096))
 
+;; NIX-EMACS-PACKAGE: avy
 (use-package avy
   :defer t
   :custom
@@ -506,11 +495,13 @@ waits for input."
   :bind
   ("C-;" . iedit-mode))
 
+;; NIX-EMACS-PACKAGE: expand-region
 (use-package expand-region
   :bind
   ("M-→" . er/expand-region)
   ("M-←" . er/contract-region))
 
+;; NIX-EMACS-PACKAGE: page-break-lines
 (use-package page-break-lines
   :diminish page-break-lines-mode
   :commands (global-page-break-lines-mode)

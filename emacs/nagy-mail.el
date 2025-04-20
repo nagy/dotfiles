@@ -1,11 +1,5 @@
 ;;; nagy-mail.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2022 Daniel Nagy
-;;
 ;; Package-Requires: ((emacs "30.1") mu4e with-editor)
-;;
-;;; Commentary:
-;;; Code:
 
 (require 'general)
 

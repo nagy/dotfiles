@@ -1,28 +1,11 @@
 ;;; nagy-lispy.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2022 Daniel Nagy
-;;
-;; Author: Daniel Nagy <danielnagy@posteo.de>
-;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Created: December 01, 2022
-;; Modified: December 01, 2022
-;; Version: 0.0.1
-;; Keywords: extensions
-;; Homepage: https://github.com/nagy/nagy-magit
-;; Package-Requires: ((emacs "30.1") lispy lispyville nagy-use-package)
-;;
-;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Description
-;;
-;;; Code:
+;; Package-Requires: ((emacs "30.1") nagy-use-package)
 
 (require 'diminish)
 
 (require 'general)
 
+;; NIX-EMACS-PACKAGE: lispy
 (use-package lispy
   :diminish lispy-mode
   :commands (lispy-mode)
@@ -49,6 +32,7 @@
         ("C-," . nil)  ; was lispy-kill-at-point
         ))
 
+;; NIX-EMACS-PACKAGE: lispyville
 (use-package lispyville
   :commands (lispyville-set-key-theme)
   :diminish lispyville-mode

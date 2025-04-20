@@ -1,19 +1,5 @@
 ;;; nagy-media.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2023 Daniel Nagy
-;;
-;; Author: Daniel Nagy <danielnagy@posteo.de>
-;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Homepage: https://github.com/nagy/nagy-media
 ;; Package-Requires: ((emacs "30.1") emms general nagy-use-package)
-;;
-;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Description
-;;
-;;; Code:
 
 (require 'general)
 ;; (require 'nagy-use-package)
@@ -67,7 +53,7 @@
 (defun volume-decrease ()
   "Silenter."
   (interactive)
-  (let ((default-directory "~/"))
+  (let ((default-directory temporary-file-directory))
     (cl-assert (zerop (call-process "pactl" nil nil nil "set-sink-volume" "alsa_output.pci-0000_c5_00.6.analog-stereo" "-1000")))))
 
 (provide 'nagy-media)

@@ -1,23 +1,5 @@
 ;;; nagy-emacs.el --- config emacs packages -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2023 Daniel Nagy
-;;
-;; Author: Daniel Nagy <danielnagy@posteo.de>
-;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Created: March 03, 2023
-;; Modified: March 03, 2023
-;; Version: 0.0.1
-;; Keywords:
-;; Homepage: https://github.com/nagy/nagy-emacs
 ;; Package-Requires: ((emacs "30.1") anaphora memoize ov reformatter zoom)
-;;
-;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Configuration of Emacs internal packages
-;;
-;;; Code:
 
 (require 'general)
 ;; (require 'comint)

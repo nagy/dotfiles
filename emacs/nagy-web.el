@@ -1,18 +1,12 @@
 ;;; nagy-web.el --- Web config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") coffee-mode typescript-mode wat-mode csv-mode yaml-mode jq-mode reformatter general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") csv-mode reformatter general nagy-use-package)
 
 ;; NIX-EMACS-PACKAGE: reformatter
 (require 'reformatter)
 
 (require 'general)
-;; (require 'nagy-use-package)
 
-(use-package coffee-mode
-  :defer t
-  :pretty 'coffee-mode
-  ("true" . true) ("false" . false)
-  ("if" . if) ("else" . else))
-
+;; NIX-EMACS-PACKAGE: typescript-mode
 (use-package typescript-mode
   :preface
   (reformatter-define deno-fmt
@@ -57,6 +51,7 @@
   (:states 'normal :keymaps 'js-json-mode-map
            "⊢" #'jq-format-buffer))
 
+;; NIX-EMACS-PACKAGE: wat-mode
 (use-package wat-mode
   ;; :preface
   ;; (reformatter-define wat-format
@@ -82,6 +77,7 @@
   :bind
   ("H-M-w" . wat-mode))
 
+;; NIX-EMACS-PACKAGE: yaml-mode
 (use-package yaml-mode
   :preface
   (reformatter-define yq-format
@@ -100,6 +96,7 @@
   (:states 'normal :keymaps 'yaml-mode-map
            "⊢" #'yq-format-buffer))
 
+;; NIX-EMACS-PACKAGE: jq-mode
 (use-package jq-mode
   :defer t
   ;; :mode "\\.jq\\'"
@@ -113,6 +110,13 @@
   ("c" . "catch")
   ("sel" . "select")
   ("con" . "contains"))
+
+;; NIX-EMACS-PACKAGE: coffee-mode
+(use-package coffee-mode
+  :defer t
+  :pretty 'coffee-mode
+  ("true" . true) ("false" . false)
+  ("if" . if) ("else" . else))
 
 (provide 'nagy-web)
 ;;; nagy-web.el ends here

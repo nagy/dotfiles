@@ -1,9 +1,9 @@
 ;;; nagy-elfeed.el --- nagy-elfeed config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") elfeed general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") general nagy-use-package)
 
 (require 'general)
-;; (require 'nagy-use-package)
 
+;; NIX-EMACS-PACKAGE: elfeed
 (use-package elfeed
   :preface
   (defvar elfeed-show-mode-hook nil)

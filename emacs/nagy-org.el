@@ -1,10 +1,9 @@
 ;;; nagy-org.el --- My org config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") org ascii-art-to-unicode org-superstar org-appear org-ref mermaid-mode pikchr-mode markdown-mode orgit howm general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") ascii-art-to-unicode org-ref orgit howm general nagy-use-package)
 
 (require 'general)
 
-;; (require 'nagy-use-package)
-
+;; NIX-EMACS-PACKAGE: org
 (use-package org
   :commands (find-file-org)
   :custom
@@ -85,12 +84,14 @@
            "RET" #'org-return
            "r" #'org-cycle))
 
+;; NIX-EMACS-PACKAGE: org-superstar
 (use-package org-superstar
   :hook
   (org-mode . org-superstar-mode)
   :custom
   (org-superstar-leading-bullet ""))
 
+;; NIX-EMACS-PACKAGE: org-appear
 (use-package org-appear
   :disabled
   :after org
@@ -121,6 +122,7 @@
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
+;; NIX-EMACS-PACKAGE: mermaid-mode
 (use-package mermaid-mode
   :pretty 'mermaid-mode
   ("graph" . "⌥")
@@ -132,6 +134,7 @@
   (:states 'normal :keymaps 'mermaid-mode-map
            "ö" #'mermaid-compile-buffer))
 
+;; NIX-EMACS-PACKAGE: markdown-mode
 (use-package markdown-mode
   :commands (markdown-mark-subtree nagy-markdown-delete-subtree)
   :config

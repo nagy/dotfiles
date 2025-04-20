@@ -1,5 +1,5 @@
 ;;; nagy-vertico.el --- vertico config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") vertico embark consult consult-dir embark-consult marginalia orderless nagy-evil nagy-use-package)
+;; Package-Requires: ((emacs "30.1") embark embark-consult nagy-evil nagy-use-package)
 
 (require 'nagy-evil)
 
@@ -11,6 +11,7 @@
 ;; (require 'embark)
 ;; (require 'embark-consult)
 
+;; NIX-EMACS-PACKAGE: vertico
 (use-package vertico
   :commands (vertico-mode)
   :config
@@ -56,6 +57,7 @@
   (:states 'normal
            "°" #'vertico-buffer-mode))
 
+;; NIX-EMACS-PACKAGE: consult
 (use-package consult
   :defer t
   :custom
@@ -127,6 +129,7 @@
            :types ((?b "Branches"  modus-themes-diff-added)
                    (?t "Tags"     font-lock-function-name-face))))))
 
+;; NIX-EMACS-PACKAGE: orderless
 (use-package orderless
   :commands (orderless-define-completion-style)
   :preface
@@ -171,6 +174,7 @@
   (add-to-list 'completion-category-overrides '(symbol (styles orderless+initialism)))
   )
 
+;; NIX-EMACS-PACKAGE: marginalia
 (use-package marginalia
   :commands (marginalia-mode)
   :init
@@ -241,6 +245,7 @@
         ("s-:" . embark-collect)
         ("s-<XF86Back>" . embark-live)))
 
+;; NIX-EMACS-PACKAGE: consult-dir
 (use-package consult-dir
   :bind
   ([remap list-directory] . consult-dir)

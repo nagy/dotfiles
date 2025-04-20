@@ -1,14 +1,16 @@
 ;;; nagy-text.el --- My text config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") evil general pandoc jinx lorem-ipsum wordnut nagy-use-package)
+;; Package-Requires: ((emacs "30.1") evil general nagy-use-package)
 
 (require 'nagy-use-package)
 (require 'general)
 
+;; NIX-EMACS-PACKAGE: jinx
 (use-package jinx
   :general
   (:states 'normal
            "×" #'jinx-mode))
 
+;; NIX-EMACS-PACKAGE: wordnut
 (use-package wordnut
   :defer t
   :same "^\\*WordNut\\*"
@@ -16,12 +18,14 @@
   ;; Disable header line
   (defun wordnut--headerline ()))
 
+;; NIX-EMACS-PACKAGE: lorem-ipsum
 (use-package lorem-ipsum
   :general
   (:states 'normal
            "C-🫧" #'lorem-ipsum-insert-sentences
            "🫧" #'lorem-ipsum-insert-paragraphs))
 
+;; NIX-EMACS-PACKAGE: pandoc
 (use-package pandoc
   :preface
   (defun nagy-text-to-plain ()

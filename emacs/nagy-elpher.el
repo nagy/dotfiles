@@ -1,28 +1,11 @@
 ;;; nagy-elpher.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2023 Daniel Nagy
-;;
-;; Author: Daniel Nagy <danielnagy@posteo.de>
-;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Created: January 02, 2023
-;; Modified: January 02, 2023
-;; Version: 0.0.1
-;; Keywords:
-;; Homepage: https://github.com/nagy/nagy-elpher
-;; Package-Requires: ((emacs "30.1") elpher)
-;;
-;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Description
-;;
-;;; Code:
+;; Package-Requires: ((emacs "30.1"))
 
 (require 'general)
 ;; (require 'bookmark)
 (declare-function bookmark-prop-get "bookmark")
 
+;; NIX-EMACS-PACKAGE: elpher
 (use-package elpher
   :preface
   (defun elpher-bookmark-handler (record)

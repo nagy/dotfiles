@@ -1,22 +1,7 @@
 ;;; nagy-python.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2023 Daniel Nagy
-;;
-;; Author: Daniel Nagy <danielnagy@posteo.de>
-;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
 ;; Package-Requires: ((emacs "30.1") python-black reformatter hy-mode general nagy-use-package)
-;;
-;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Description
-;;
-;;; Code:
 
-;; (require 'reformatter)
 (require 'general)
-;; (require 'nagy-use-package)
 
 (use-package python
   :preface

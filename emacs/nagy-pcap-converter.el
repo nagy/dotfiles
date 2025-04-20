@@ -1,23 +1,5 @@
 ;;; nagy-pcap-converter.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2023 Daniel Nagy
-;;
-;; Author: Daniel Nagy <danielnagy@posteo.de>
-;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Created: February 19, 2023
-;; Modified: February 19, 2023
-;; Version: 0.0.1
-;; Keywords:
-;; Homepage: https://github.com/nagy/nagy-pcap-converter
 ;; Package-Requires: ((emacs "30.1"))
-;;
-;; This file is not part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Description
-;;
-;;; Code:
 
 (require 'format)
 (eval-when-compile

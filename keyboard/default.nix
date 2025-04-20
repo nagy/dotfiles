@@ -12,11 +12,16 @@ let
     #define DEBOUNCE 60
   '';
   rules_mk = pkgs.writeText "rules.mk" ''
+    BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
+    MOUSEKEY_ENABLE = yes       # Mouse keys
+    EXTRAKEY_ENABLE = yes       # Audio control and System control
     CONSOLE_ENABLE = no         # Console for debug
+    COMMAND_ENABLE = yes        # Commands for debug and configuration
     NKRO_ENABLE = no            # Enable N-Key Rollover
     BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
     RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
     AUDIO_ENABLE = no           # Audio output
+    SPLIT_KEYBOARD = yes
     DEBOUNCE_TYPE=sym_eager_pr  # maybe try out _pk if per row is not enough
 
     DEFAULT_FOLDER = handwired/dactyl_manuform/6x6/promicro
@@ -29,7 +34,7 @@ mkQmkFirmware {
   patchPhase = ''
     runHook prePatch
 
-    mkdir keyboards/${keyboard}/keymaps/${keymap}/
+    mkdir -p keyboards/${keyboard}/keymaps/${keymap}/
     cp ${config_h} keyboards/${keyboard}/keymaps/${keymap}/config.h
     cp ${./keymap.c} keyboards/${keyboard}/keymaps/${keymap}/keymap.c
     cp ${rules_mk} keyboards/${keyboard}/rules.mk

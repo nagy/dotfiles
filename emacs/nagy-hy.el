@@ -1,8 +1,8 @@
 ;;; nagy-hy.el --- Hy config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") hy-mode nagy-use-package)
+;; Package-Requires: ((emacs "30.1") nagy-use-package)
 
 (require 'general)
-;; (require 'nagy-use-package)
+
 (declare-function nagy-replace-switch-to-buffer-other-window "nagy-use-package")
 
 (use-package hy-shell
@@ -10,6 +10,7 @@
   :config
   (advice-add 'run-hy :around #'nagy-replace-switch-to-buffer-other-window))
 
+;; NIX-EMACS-PACKAGE: hy-mode
 (use-package hy-mode
   :config
   (setq hy-jedhy--enable? nil)

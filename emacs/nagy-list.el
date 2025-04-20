@@ -31,9 +31,14 @@
                                 :column-width column-width
                                 :prepare prepare)))
 
+(defvar-local nagy-list--data nil)
+(put 'nagy-list--data 'permanent-local t)
+(defvar-local nagy-list--beforebody nil)
+(put 'nagy-list--beforebody 'permanent-local t)
+
 (defvar-local nagy-list--sym nil)
 (put 'nagy-list--sym 'permanent-local t)
-(cl-defgeneric nagy-list-sym2 (obj)
+(cl-defgeneric nagy-list-sym2 (_obj)
   nil)
 (defun nagy-list-sym ()
   (or nagy-list--sym
@@ -44,10 +49,6 @@
 (defvar-local nagy-list-buffer-file-name nil)
 (put 'nagy-list-buffer-file-name 'permanent-local t)
 
-(defvar-local nagy-list--data nil)
-(put 'nagy-list--data 'permanent-local t)
-(defvar-local nagy-list--beforebody nil)
-(put 'nagy-list--beforebody 'permanent-local t)
 (defun nagy-list--data ()
   (or (gather nagy-list--data)
       (setq nagy-list--data

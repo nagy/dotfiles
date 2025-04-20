@@ -82,8 +82,7 @@
                                   ('time 16))))
 
 ;; * seq.el Integration
-
-(cl-defmethod seqp ((object restic))
+(cl-defmethod seqp ((_object restic))
   t)
 
 (cl-defmethod seq-do (function (sequence restic))
@@ -98,7 +97,7 @@
 ;; NIX-EMACS-PACKAGE: llama
 (require 'llama)
 
-(cl-defgeneric seq-contains-p ((sequence restic) (elt string) &optional testfn)
+(cl-defmethod seq-contains-p ((sequence restic) (elt string) &optional _testfn)
   ;;;  in case of a string search both snapshot id and tree id
   (seq-find (##or (string-prefix-p elt (map-elt %1 "id"))
                   (string-prefix-p elt (map-elt %1 "tree")))

@@ -1,21 +1,7 @@
 ;;; nagy-common-lisp.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2023 Daniel Nagy
-;;
-;; Author: Daniel Nagy <danielnagy@posteo.de>
-;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Package-Requires: ((emacs "30.1") sly link-hint general nagy-use-package)
-;;
-;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Description
-;;
-;;; Code:
+;; Package-Requires: ((emacs "30.1") link-hint general nagy-use-package)
 
 (require 'general)
-;; (require 'nagy-use-package)
 
 (eval-when-compile
   ;; To catch errors during batch compilation
@@ -43,6 +29,7 @@
   ;; nix-build "<nixos>" -A nur.repos.nagy.hyperspec --no-out-link
   (setq common-lisp-hyperspec-root "file:///nix/store/2hli5955grxkbyqp2vzzdnl556rn0bkz-hyperspec-7.0/share/HyperSpec/"))
 
+;; NIX-EMACS-PACKAGE: sly
 (use-package sly
   :custom
   (sly-db-focus-debugger t)

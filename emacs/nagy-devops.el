@@ -1,10 +1,9 @@
 ;;; nagy-devops.el --- devops config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") groovy-mode terraform-mode hcl-mode gitlab-ci-mode dockerfile-mode jenkinsfile-mode reformatter cmake-mode general nagy-use-package)
-
-;; (require 'nagy-use-package)
+;; Package-Requires: ((emacs "30.1") dockerfile-mode reformatter general nagy-use-package)
 
 (require 'general)
 
+;; NIX-EMACS-PACKAGE: groovy-mode
 (use-package groovy-mode
   :defer t
   :custom
@@ -34,6 +33,7 @@
   ;; ("df" . "def")
   ("pr" . "println"))
 
+;; NIX-EMACS-PACKAGE: jenkinsfile-mode
 (use-package jenkinsfile-mode
   :defer t
   :custom
@@ -41,6 +41,7 @@
   :pretty 'jenkinsfile-mode
   ("echo" . print))
 
+;; NIX-EMACS-PACKAGE: gitlab-ci-mode
 (use-package gitlab-ci-mode
   :defer t
   :pretty 'gitlab-ci-mode
@@ -50,6 +51,7 @@
   ("script" . [?𝒔 (Br . Bl) ?𝒄])
   ("dependencies" . [?𝒅 (Br . Bl) ?𝒆]))
 
+;; NIX-EMACS-PACKAGE: terraform-mode
 (use-package terraform-mode
   :preface
   (reformatter-define terraform-fmt
