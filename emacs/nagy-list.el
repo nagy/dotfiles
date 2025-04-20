@@ -31,48 +31,47 @@
                                 :column-width column-width
                                 :prepare prepare)))
 
-(defvar nagy-list-table-default-column-width 30)
-(defvar-local nagy-list-buffer-file-name nil)
-(put 'nagy-list-buffer-file-name 'permanent-local t)
-
 (defvar-local nagy-list--sym nil)
 (put 'nagy-list--sym 'permanent-local t)
+(cl-defgeneric nagy-list-sym2 (obj)
+  nil)
 (defun nagy-list-sym ()
   (or nagy-list--sym
       (setq nagy-list--sym
-            (nagy-list-buffer-file-name-sym))))
+            (or (nagy-list-sym2 nagy-list--data)
+                (nagy-list-buffer-file-name-sym)))))
+(defvar nagy-list-table-default-column-width 30)
+(defvar-local nagy-list-buffer-file-name nil)
+(put 'nagy-list-buffer-file-name 'permanent-local t)
 
 (defvar-local nagy-list--data nil)
 (put 'nagy-list--data 'permanent-local t)
 (defvar-local nagy-list--beforebody nil)
 (put 'nagy-list--beforebody 'permanent-local t)
 (defun nagy-list--data ()
-  (or nagy-list--data
+  (or (gather nagy-list--data)
       (setq nagy-list--data
-            (pcase (current-buffer)
-              ;; ((buffer ('name "*car-values*"))
-              ;;  (map-apply (lambda (key value)
-              ;;               `((key . ,key)
-              ;;                 (type . ,(type-of value))
-              ;;                 (value . ,value) ))
-              ;;             (car values)) )
-              (_ (json-parse-string nagy-list--beforebody
-                                    :object-type 'alist
-                                    :array-type 'list))))))
+            (json-parse-string nagy-list--beforebody
+                               ;; :object-type 'alist
+                               ;; :array-type 'list
+                               ))))
 
-(defvar-local nagy-list--id-sym 'id)
+(defvar-local nagy-list--id-sym "id")
 (put 'nagy-list--id-sym 'permanent-local t)
 
 (defun nagy-list-column-names ()
-  (awhen (nagy-list-config-column-names (alist-get (nagy-list-sym) nagy-list--known-configs))
+  (awhen (nagy-list-config-column-names (or (map-elt nagy-list--known-configs (nagy-list-sym))
+                                            (map-elt nagy-list--known-configs (symbol-name (nagy-list-sym)))))
     (funcall it)))
 
 (defun nagy-list-prepare ()
-  (awhen (nagy-list-config-prepare (alist-get (nagy-list-sym) nagy-list--known-configs))
+  (awhen (nagy-list-config-prepare (or (map-elt nagy-list--known-configs (nagy-list-sym))
+                                       (map-elt nagy-list--known-configs (symbol-name (nagy-list-sym)))))
     (funcall it)))
 
 (defun nagy-list-format-cell (column value)
-  (aif (nagy-list-config-format-cell (alist-get (nagy-list-sym) nagy-list--known-configs))
+  (aif (nagy-list-config-format-cell (or (map-elt nagy-list--known-configs (nagy-list-sym))
+                                         (map-elt nagy-list--known-configs (symbol-name (nagy-list-sym)))))
       (funcall it column value)
     value))
 
@@ -85,22 +84,25 @@
   "deepable version of alist-get.
 That means, KEY can also be a cons."
   (cl-typecase keys
-    (symbol (alist-get keys alist))
+    (symbol (or (map-elt alist keys)
+                (map-elt alist (symbol-name keys))))
     (cons (while keys
-            (setq alist (alist-get (pop keys) alist)))
+            (setq alist (or (map-elt alist (pop keys)))))
           alist)))
 
 (defun nagy-list--format-1 (value &optional prevalue)
   (pcase value
     ;; Some predefined formats
-    (:date (propertize
-            (or (ignore-errors (format-time-string "%F/%R"
-                                                   (if (stringp prevalue)
-                                                       (encode-time (iso8601-parse prevalue))
-                                                     (when (numberp prevalue)
-                                                       (seconds-to-time prevalue)))))
-                "")
-            'font-lock-face 'org-date))
+    (:date (if prevalue
+               (propertize
+                (or (ignore-errors (format-time-string "%F/%R"
+                                                       (if (stringp prevalue)
+                                                           (encode-time (iso8601-parse prevalue))
+                                                         (when (numberp prevalue)
+                                                           (seconds-to-time prevalue)))))
+                    "")
+                'font-lock-face 'org-date)
+             (nagy-list--format-1 :null)))
     (:path (propertize (abbreviate-file-name prevalue) 'font-lock-face dired-directory-face))
     (:bytes (propertize (file-size-human-readable prevalue)
                         'font-lock-face
@@ -129,6 +131,8 @@ That means, KEY can also be a cons."
                     ))
                 value
                 ", "))
+    ((pred vectorp)
+     (nagy-list--format-1 (seq-into value 'list)))
     ((pred stringp)
      ;; (propertize (string-replace "\n" "" value) 'font-lock-face 'font-lock-string-face)
      (string-replace "\n" "" value)
@@ -162,28 +166,41 @@ That means, KEY can also be a cons."
 
 (defun nagy-list--revert-hook ()
   ;; (when (eq major-mode 'nagy-list-mode))
-  (setq nagy-list--data nil)
-  (setq nagy-list--beforebody (let ((bn buffer-file-name))
-                                (with-temp-buffer
-                                  (insert-file-contents-literally bn)
-                                  (buffer-string))))
-  (revert-buffer--default nil t))
+  (when buffer-file-name
+    (ungather nagy-list--data)
+    (setq nagy-list--data nil)
+    (setq nagy-list--beforebody (let ((bn buffer-file-name))
+                                  (with-temp-buffer
+                                    (insert-file-contents-literally bn)
+                                    (buffer-string))))
+    (revert-buffer--default nil t)))
 
 (defun nagy-list-table-entries ()
-  (cl-loop for obj in (nagy-list--data)
-           collect
-           `(,(alist-get nagy-list--id-sym obj)
-             [,@(--map
-                 (propertize (let* ((prevalue (nagy-list-alist-get-deep obj it))
-                                    (value (nagy-list-format-cell it prevalue)))
-                               (or (nagy-list--format-1 value prevalue)
-                                   (nagy-list--format-1 prevalue)
-                                   ""))
-                             'nagy-list--data obj)
-                 (nagy-list-column-names))])))
+  (seq-map (lambda (obj)
+             (list
+              (or (map-elt obj nagy-list--id-sym) (map-elt obj 'id) (map-elt obj "id"))
+              `[,@(mapcar (lambda (it)
+                            (propertize (let* ((prevalue (nagy-list-alist-get-deep obj it))
+                                               (value (nagy-list-format-cell it prevalue)))
+                                          (or (nagy-list--format-1 value prevalue)
+                                              (nagy-list--format-1 prevalue)
+                                              ""))
+                                        'nagy-list--data obj))
+                          (nagy-list-column-names))])
+             )
+           (nagy-list--data)
+           ))
 
 (defun nagy-list--data-at-point ()
   (get-text-property (point) 'nagy-list--data))
+
+(defun nagy-list-from-eval (expr)
+  (interactive "XEval: ")
+  (switch-to-buffer (generate-new-buffer (format "Nagy-list-eval: %s" (type-of expr))))
+  (setq nagy-list--data expr)
+  (nagy-list-mode)
+  (current-buffer))
+(keymap-global-set "H-s-L" #'nagy-list-from-eval)
 
 (defun tabulated-list-column-number-at-point ()
   "Return the column number in the tabulated list at POS."
@@ -243,10 +260,10 @@ That means, KEY can also be a cons."
   ;;                                     ))
   ;; (setq-local auto-revert-interval 5)
   (setq tabulated-list-format
-        `[,@(--map `(,(propertize (capitalize (symbol-name
-                                               (cl-etypecase it
-                                                 (symbol it)
-                                                 (cons (car (last it))))))
+        `[,@(--map `(,(propertize (capitalize (cl-etypecase it
+                                                (symbol (symbol-name it))
+                                                (string it)
+                                                (cons (symbol-name (car (last it))))))
                                   'face 'bold)
                      ,(or (nagy-list-column-width it) nagy-list-table-default-column-width)
                      t)
