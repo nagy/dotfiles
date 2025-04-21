@@ -50,7 +50,8 @@
 (put 'nagy-list-buffer-file-name 'permanent-local t)
 
 (defun nagy-list--data ()
-  (or (gather nagy-list--data)
+  (or (alet (gather nagy-list--data)
+        (if (and (stringp it) (string-empty-p it)) nil (if it it)))
       (setq nagy-list--data
             (json-parse-string nagy-list--beforebody
                                ;; :object-type 'alist
@@ -167,8 +168,8 @@ That means, KEY can also be a cons."
 
 (defun nagy-list--revert-hook ()
   ;; (when (eq major-mode 'nagy-list-mode))
+  (ungather nagy-list--data)
   (when buffer-file-name
-    (ungather nagy-list--data)
     (setq nagy-list--data nil)
     (setq nagy-list--beforebody (let ((bn buffer-file-name))
                                   (with-temp-buffer
@@ -189,8 +190,9 @@ That means, KEY can also be a cons."
                                         'nagy-list--data obj))
                           (nagy-list-column-names))])
              )
-           (nagy-list--data)
-           ))
+           (progn (nagy-list--data)
+                  nagy-list--data
+                  )))
 
 (defun nagy-list--data-at-point ()
   (get-text-property (point) 'nagy-list--data))

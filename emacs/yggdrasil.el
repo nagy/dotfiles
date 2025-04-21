@@ -12,20 +12,22 @@
 (defvar yggdrasil-ctl-program "yggdrasilctl")
 
 (cl-defstruct (yggdrasil (:constructor yggdrasil--make))
-  name config endpoint command)
+  name config endpoint command -gathered)
 
 ;;;###autoload
 (cl-defun yggdrasil-make (name &key config endpoint command)
   (declare (indent 1))
-  (setf (map-elt yggdrasil--known name)
+  (setf (alist-get name yggdrasil--known nil nil #'equal)
         (yggdrasil--make :name name
                          :config config
                          :endpoint endpoint
                          :command command
+                         :-gathered nil
                          )))
 
-(yggdrasil-make "default"
-  :endpoint "unix:///var/run/yggdrasil/yggdrasil.sock")
+(defvar *ygg*
+  (yggdrasil-make "default"
+    :endpoint "unix:///var/run/yggdrasil/yggdrasil.sock"))
 
 (provide 'yggdrasil)
 ;;; yggdrasil.el ends here

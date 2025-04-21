@@ -77,12 +77,23 @@
 ;;;###autoload
 (defun dollar-json (spec)
   (with-temp-buffer
-    (dollar spec)
+    (let ((coding-system-for-read 'utf-8))
+      (dollar spec))
     (goto-char (point-min))
     (json-parse-buffer)))
 
 ;;;###autoload
 (defalias '$j (symbol-function 'dollar-json))
+
+;;;###autoload
+(defun dollar-line2 (&rest spec)
+  (with-temp-buffer
+    (apply #'dollar2 spec)
+    (goto-char (point-min))
+    (buffer-substring (point) (line-end-position))))
+
+;;;###autoload
+(defalias '$l2 (symbol-function 'dollar-line2))
 
 ;;;###autoload
 (defun dollar2 (&rest spec)
@@ -103,7 +114,8 @@
 ;;;###autoload
 (defun dollar-json2 (&rest spec)
   (with-temp-buffer
-    (apply #'dollar2 spec)
+    (let ((coding-system-for-read 'utf-8))
+      (apply #'dollar2 spec))
     (goto-char (point-min))
     (json-parse-buffer)))
 

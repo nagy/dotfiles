@@ -231,7 +231,6 @@
 
 (use-package help
   :bind
-  ("C-H-h" . describe-key-briefly)
   (:map help-map
         ("C-l" . find-library)))
 
@@ -635,6 +634,7 @@ string; otherwise return a 64-character string."
 (use-package ibuffer
   :custom
   (ibuffer-expert t)
+  (ibuffer-display-summary nil)
   :config
   (setq ibuffer-formats
         '((mark modified read-only locked " "
