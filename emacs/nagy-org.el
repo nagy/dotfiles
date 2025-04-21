@@ -1,5 +1,5 @@
 ;;; nagy-org.el --- My org config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") ascii-art-to-unicode org-ref orgit howm general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") ascii-art-to-unicode org-ref orgit howm nagy-use-package)
 
 (require 'general)
 
@@ -189,16 +189,16 @@
      ("npm" . "https://www.npmjs.com/package/"))))
 
 (with-eval-after-load 'thingatpt
-  (push "gh:" thing-at-point-uri-schemes)
-  (push "gl:" thing-at-point-uri-schemes)
-  (push "npm:" thing-at-point-uri-schemes)
-  (push "pypi:" thing-at-point-uri-schemes))
+  (add-to-list 'thing-at-point-uri-schemes "gh:")
+  (add-to-list 'thing-at-point-uri-schemes "gl:")
+  (add-to-list 'thing-at-point-uri-schemes "npm:")
+  (add-to-list 'thing-at-point-uri-schemes "pypi:"))
 
 (with-eval-after-load 'browse-url
-  (push '("\\`gh:" . browse-url--org-link) browse-url-default-handlers)
-  (push '("\\`gl:" . browse-url--org-link) browse-url-default-handlers)
-  (push '("\\`npm:" . browse-url--org-link) browse-url-default-handlers)
-  (push '("\\`pypi:" . browse-url--org-link) browse-url-default-handlers))
+  (add-to-list 'browse-url-default-handlers '("\\`gh:" . browse-url--org-link))
+  (add-to-list 'browse-url-default-handlers '("\\`gl:" . browse-url--org-link))
+  (add-to-list 'browse-url-default-handlers '("\\`npm:" . browse-url--org-link))
+  (add-to-list 'browse-url-default-handlers '("\\`pypi:" . browse-url--org-link)))
 
 (provide 'nagy-org)
 ;;; nagy-org.el ends here

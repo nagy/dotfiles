@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/nagy/nagy-misc
-;; Package-Requires: ((emacs "30.1") nameless golden-ratio macrostep ts ov paren-face systemd tokei wgrep focus eros git-modes osm literate-calc-mode nhexl-mode breadcrumb sotlisp anaphora general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") macrostep ts ov paren-face systemd tokei wgrep git-modes nhexl-mode sotlisp anaphora nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -31,6 +31,7 @@
   (:states 'normal
            "²" #'duplicate-dwim))
 
+;; NIX-EMACS-PACKAGE: nameless
 (use-package nameless
   :diminish nameless-mode
   ;; :bind
@@ -60,6 +61,7 @@
      ("e4" . "elforth"))))
 
 ;; TODO replace with golden mode
+;; NIX-EMACS-PACKAGE: golden-ratio
 (use-package golden-ratio
   :bind
   ("H-s-=" . golden-ratio-mode))
@@ -157,6 +159,7 @@
   (:states 'normal :keymaps 'wgrep-mode-map
            "ö" #'wgrep-finish-edit))
 
+;; NIX-EMACS-PACKAGE: focus
 (use-package focus
   :preface
   (defun nagy/fix-focus-face ()
@@ -174,6 +177,7 @@
   :config
   (add-hook 'modus-themes-after-load-theme-hook #'nagy/fix-focus-face))
 
+;; NIX-EMACS-PACKAGE: eros
 (use-package eros
   :commands (eros-mode)
   :custom
@@ -329,6 +333,7 @@
            "ö" #'ielm-return)
   )
 
+;; NIX-EMACS-PACKAGE: osm
 (use-package osm
   :custom
   (osm-copyright nil)
@@ -345,6 +350,7 @@
   ;; (evil-set-initial-state 'osm-mode 'emacs)
   :same "^\\*osm")
 
+;; NIX-EMACS-PACKAGE: literate-calc-mode
 (use-package literate-calc-mode
   :defer t
   :custom
@@ -352,6 +358,7 @@
   ;; (literate-calc-mode-idle-time nil)
   )
 
+;; NIX-EMACS-PACKAGE: breadcrumb
 (use-package breadcrumb
   :bind
   ("C-H-j" . breadcrumb-jump)

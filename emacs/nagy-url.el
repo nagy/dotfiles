@@ -1,5 +1,5 @@
 ;;; nagy-url.el --- url info mode -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") url-knowledge general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") url-knowledge nagy-use-package)
 
 (require 'general)
 

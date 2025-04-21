@@ -1,5 +1,5 @@
 ;;; nagy-devops.el --- devops config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") dockerfile-mode reformatter general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") dockerfile-mode reformatter nagy-use-package)
 
 (require 'general)
 

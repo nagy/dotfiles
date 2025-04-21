@@ -1,5 +1,5 @@
 ;;; nagy-dired.el --- Dired config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") ov general dired-collapse dired-narrow dired-subtree nagy-evil)
+;; Package-Requires: ((emacs "30.1") ov dired-collapse dired-narrow dired-subtree nagy-evil)
 
 (require 'nagy-evil)                    ; to preload dired bindings
 (eval-when-compile

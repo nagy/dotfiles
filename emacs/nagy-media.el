@@ -1,8 +1,7 @@
 ;;; nagy-media.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") emms general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") emms nagy-use-package)
 
 (require 'general)
-;; (require 'nagy-use-package)
 
 ;; (use-package emms
 ;;   :defer t

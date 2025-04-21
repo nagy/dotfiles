@@ -1,5 +1,5 @@
 ;;; nagy-web.el --- Web config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") csv-mode reformatter general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") csv-mode nagy-use-package)
 
 ;; NIX-EMACS-PACKAGE: reformatter
 (require 'reformatter)
@@ -64,7 +64,7 @@
   :mode ("\\.wat\\'" . wat-mode)
   :config
   ;; This makes "wasm2wat" in `shell-command' buffers work.
-  (push '("(module" . wat-mode) magic-fallback-mode-alist)
+  (add-to-list 'magic-fallback-mode-alist '("(module" . wat-mode))
   :pretty 'wat-mode
   ("export" . export)
   ("func" . def)

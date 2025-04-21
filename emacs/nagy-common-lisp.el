@@ -1,5 +1,5 @@
 ;;; nagy-common-lisp.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") link-hint general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") link-hint nagy-use-package)
 
 (require 'general)
 

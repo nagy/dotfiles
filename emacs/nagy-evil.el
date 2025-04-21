@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-evil
-;; Package-Requires: ((emacs "30.1") evil evil-collection evil-escape eat evil-numbers evil-surround evil-matchit evil-goggles evil-nerd-commenter olivetti ws-butler key-chord vertico nagy-use-package)
+;; Package-Requires: ((emacs "30.1") evil evil-escape evil-matchit evil-nerd-commenter key-chord vertico nagy-use-package)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -69,6 +69,7 @@
   ;; ("H-u" . evil-undo)
   )
 
+;; NIX-EMACS-PACKAGE: evil-collection
 (use-package evil-collection
   :demand t
   :commands (evil-collection-init)
@@ -116,6 +117,7 @@
      ))
   )
 
+;; NIX-EMACS-PACKAGE: evil-numbers
 (use-package evil-numbers
   :preface
   (defun nagy-evil-numbers-inc-10 (arg)
@@ -152,6 +154,7 @@
   ;;          "Ö" #'eshell-previous-input)
   )
 
+;; NIX-EMACS-PACKAGE: evil-surround
 (use-package evil-surround
   :bind
   ("H-(" . evil-surround-region)
@@ -194,6 +197,7 @@
 ;;   :config
 ;;   (evil-set-initial-state 'calc-mode 'emacs))
 
+;; NIX-EMACS-PACKAGE: eat
 (use-package eat
   :functions (eat-ncdu eat-dool)
   :preface
@@ -202,7 +206,8 @@
     (eat-char-mode)
     (display-line-numbers-mode -1)
     (setq-local truncate-lines t)
-    (text-scale-adjust 0))
+    (text-scale-adjust 0)
+    )
   (defun nagy--eat--evil-normal-mode (_proc)
     (display-line-numbers-mode 1)
     (evil-normal-state 1))
@@ -269,8 +274,8 @@
   :custom
   (key-chord-one-key-delay 0.4)
   (key-chord-two-keys-delay 0.2)
-  (key-chord-safety-interval-backward 0.0)
-  (key-chord-safety-interval-forward 0.0)
+  ;; (key-chord-safety-interval-backward 0.0)
+  ;; (key-chord-safety-interval-forward 0.0)
   :bind
   (:map evil-normal-state-map
         ("<key-chord> - <" . vertico-flat-mode)
@@ -320,6 +325,7 @@
   (:states 'normal :keymaps 'tar-mode-map
            "f" #'tar-extract))
 
+;; NIX-EMACS-PACKAGE: evil-goggles
 (require 'evil-goggles)
 (use-package evil-goggles
   :diminish 'evil-goggles-mode
@@ -392,6 +398,7 @@
 (keymap-set evil-normal-state-map "ë" #'global-prettify-symbols-mode)
 ;; (keymap-global-set "C-ë" #'nameless-mode)
 
+;; NIX-EMACS-PACKAGE: olivetti
 (use-package olivetti
   :custom
   (olivetti-body-width 150)
@@ -400,6 +407,7 @@
            "“" #'olivetti-expand
            "”" #'olivetti-shrink))
 
+;; NIX-EMACS-PACKAGE: ws-butler
 (use-package ws-butler
   :diminish ws-butler-mode
   :custom

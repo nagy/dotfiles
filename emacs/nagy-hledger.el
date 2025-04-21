@@ -1,5 +1,5 @@
 ;;; nagy-hledger.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") embark anaphora s dash general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") embark anaphora s dash nagy-use-package)
 
 (require 'dash)
 (require 'anaphora)

@@ -1,5 +1,5 @@
 ;;; nagy-python.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") python-black reformatter hy-mode general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") reformatter nagy-use-package)
 
 (require 'general)
 
@@ -54,6 +54,7 @@
   ("True" "False")
   :same "^\\*Python")
 
+;; ;; NIX-EMACS-PACKAGE: python-black
 ;; (use-package python-black
 ;;   :custom
 ;;   (python-black-extra-args '("--line-length" "100"))

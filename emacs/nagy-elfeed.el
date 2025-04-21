@@ -1,5 +1,5 @@
 ;;; nagy-elfeed.el --- nagy-elfeed config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") nagy-use-package)
 
 (require 'general)
 

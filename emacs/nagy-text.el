@@ -1,7 +1,6 @@
 ;;; nagy-text.el --- My text config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") evil general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") evil nagy-use-package)
 
-(require 'nagy-use-package)
 (require 'general)
 
 ;; NIX-EMACS-PACKAGE: jinx

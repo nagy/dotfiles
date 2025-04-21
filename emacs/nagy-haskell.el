@@ -1,5 +1,5 @@
 ;;; nagy-haskell.el --- haskell config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") general nagy-use-package)
+;; Package-Requires: ((emacs "30.1") nagy-use-package)
 
 (require 'general)
 

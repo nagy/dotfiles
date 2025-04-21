@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: extensions
 ;; Homepage: https://github.com/nagy/nagy-magit
-;; Package-Requires: ((emacs "30.1") magit-section forge with-editor)
+;; Package-Requires: ((emacs "30.1") magit-section with-editor)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -71,7 +71,9 @@
         ("<normal-state> <key-chord> f j" . embark-act)
         ))
 
+;; NIX-EMACS-PACKAGE: forge
 (use-package forge
+  :disabled
   :bind
   ("H-ß" . forge-dispatch)
   (:map forge-post-mode-map

@@ -1,5 +1,5 @@
 ;;; nagy-misc2.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") smartparens reformatter password-store password-store-otp emms pdf-tools org-pdftools highlight-defined anaphora nagy-use-package)
+;; Package-Requires: ((emacs "30.1") smartparens reformatter emms pdf-tools org-pdftools highlight-defined anaphora nagy-use-package)
 
 (require 'diminish)
 
@@ -149,6 +149,7 @@
   (:states 'normal :keymaps 'pass-mode-map
            "u" #'pass-copy-url))
 
+;; NIX-EMACS-PACKAGE: password-store
 (use-package password-store
   :preface
   (defun nagy-replace-sleep-for-with-sit-for (orig-fun &rest args)
@@ -179,6 +180,7 @@ waits for input."
            "f" #'pass-view)
   :same "^\\*Password-Store\\*$")
 
+;; NIX-EMACS-PACKAGE: password-store-otp
 (use-package password-store-otp
   :defer t
   ;; to add autoloads
@@ -199,11 +201,11 @@ waits for input."
   ;; (super-save-auto-save-when-idle t)
   :config
   (add-to-list 'super-save-predicates #'nagy-super-save-predicate 'append)
-  (push 'previous-window-any-frame super-save-triggers)
-  (push 'next-window-any-frame super-save-triggers)
-  (push 'delete-window-or-tab super-save-triggers)
-  (push 'silent-tab-next super-save-triggers)
-  (push 'silent-tab-previous super-save-triggers)
+  (add-to-list 'super-save-triggers 'previous-window-any-frame)
+  (add-to-list 'super-save-triggers 'next-window-any-frame)
+  (add-to-list 'super-save-triggers 'delete-window-or-tab)
+  (add-to-list 'super-save-triggers 'silent-tab-next)
+  (add-to-list 'super-save-triggers 'silent-tab-previous)
   (super-save-mode 1))
 
 ;; TODO carry over doom autoload
