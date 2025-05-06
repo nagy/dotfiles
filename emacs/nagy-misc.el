@@ -378,6 +378,8 @@
            "t" #'tabulated-list-sort
            ;; "i" #'tabulated-list-previous-column
            ;; "o" #'tabulated-list-next-column
+           "i" #'previous-window-any-frame
+           "o" #'next-window-any-frame
            ))
 
 (use-package nhexl-mode

@@ -1,11 +1,12 @@
 ;;; nagy-misc2.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") smartparens reformatter emms pdf-tools org-pdftools highlight-defined anaphora nagy-use-package)
+;; Package-Requires: ((emacs "30.1") reformatter emms pdf-tools org-pdftools anaphora nagy-use-package)
 
 (require 'diminish)
 
 ;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
 (require 'general)
+;; NIX-EMACS-PACKAGE: smartparens
 (require 'smartparens)
 
 (use-package conf-mode
@@ -209,6 +210,7 @@ waits for input."
   (super-save-mode 1))
 
 ;; TODO carry over doom autoload
+;; NIX-EMACS-PACKAGE: highlight-defined
 (use-package highlight-defined
   :preface
   ;; copied from doom
