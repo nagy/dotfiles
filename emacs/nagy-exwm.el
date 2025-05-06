@@ -238,9 +238,8 @@ aka xcompose is not properly initialized in the first frame."
 (keymap-global-set "s-J" #'evil-window-move-very-bottom)
 (keymap-global-set "s-K" #'evil-window-move-very-top)
 
-(defvar nagy-exwm-hosts '("p" "q" "z"))
 (defun completing-read-host ()
-  (completing-read "host> " nagy-exwm-hosts))
+  (completing-read "host> " nil))
 
 (defmacro start-terminal (&rest body)
   (declare (debug (form body)))

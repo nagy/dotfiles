@@ -12,7 +12,7 @@
   (reformatter-define deno-fmt
     :group 'emacs
     :program "deno"
-    :args `("fmt" ,input-file))
+    :args `("fmt" "-"))
   :defer t
   :pretty 'typescript-mode
   ("this" . self)
@@ -24,6 +24,13 @@
   ("export" . export)
   ("string" . tostring)
   ("try" . try) ("catch" . except)
+  :cycle 'typescript-mode
+  ("let" "const")
+  :general
+  (:states 'normal :keymaps 'typescript-mode-map
+           "⊢" #'deno-fmt-buffer)
+  ;; :hook
+  ;; (typescript-mode . deno-fmt-on-save-mode) ;; this breaks svelte mode down because that inherits typescript-mode
   )
 
 (use-package js
@@ -110,6 +117,24 @@
   ("c" . "catch")
   ("sel" . "select")
   ("con" . "contains"))
+
+;; NIX-EMACS-PACKAGE: svelte-mode
+(use-package svelte-mode
+  :preface
+  (reformatter-define deno-fmt-component
+    :group 'emacs
+    :program "deno"
+    :stdin nil
+    :stdout nil
+    :input-file (reformatter-temp-file)
+    :args `("fmt" "--unstable-component" ,input-file))
+  :defer t
+  :general
+  (:states 'normal :keymaps 'svelte-mode-map
+           "⊢" #'deno-fmt-component-buffer)
+  :hook
+  (svelte-mode . deno-fmt-component-on-save-mode)
+  )
 
 ;; NIX-EMACS-PACKAGE: coffee-mode
 (use-package coffee-mode

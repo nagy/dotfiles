@@ -20,7 +20,7 @@
     (let ((eat-buffer-name "*eat-vite-dev*"))
       (if (get-buffer eat-buffer-name)
           (switch-to-buffer eat-buffer-name)
-        (eat "deno run -A --node-modules-dir npm:vite dev")))))
+        (eat "deno run -A --node-modules-dir npm:vite dev --clearScreen=false")))))
 
 (provide 'vite)
 ;;; vite.el ends here
