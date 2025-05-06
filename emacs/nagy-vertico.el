@@ -1,5 +1,5 @@
 ;;; nagy-vertico.el --- vertico config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") embark embark-consult nagy-evil nagy-use-package)
+;; Package-Requires: ((emacs "30.1") embark-consult nagy-evil nagy-use-package)
 
 (require 'nagy-evil)
 
@@ -8,8 +8,6 @@
 (eval-when-compile
   (require 'consult))
 (declare-function consult--customize-put "consult")
-;; (require 'embark)
-;; (require 'embark-consult)
 
 ;; NIX-EMACS-PACKAGE: vertico
 (use-package vertico
@@ -185,6 +183,7 @@
 
 ;; nice examples
 ;; https://karthinks.com/software/fifteen-ways-to-use-embark/
+;; NIX-EMACS-PACKAGE: embark
 (use-package embark
   :defer t
   :custom

@@ -1,5 +1,5 @@
 ;;; nagy-magit.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") magit-section)
+;; Package-Requires: ((emacs "30.1"))
 
 (require 'general)
 
@@ -33,6 +33,7 @@
         )
   )
 
+;; NIX-EMACS-PACKAGE: magit-section
 (use-package magit-section
   :general
   (:states 'normal :keymaps 'magit-section-mode-map

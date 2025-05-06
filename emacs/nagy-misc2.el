@@ -564,15 +564,6 @@ waits for input."
   ;; (remote-file-name-access-timeout 0)
   )
 
-;; NIX-EMACS-PACKAGE: kubernetes
-(use-package kubernetes
-  :custom
-  (kubernetes-poll-frequency 3600)
-  (kubernetes-redraw-frequency 3600)
-  :same
-  "^\\*kubernetes"
-  )
-
 ;; NIX-EMACS-PACKAGE: gptel
 ;; (use-package gptel)
 

@@ -1,5 +1,5 @@
 ;;; nagy-mail.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") mu4e with-editor)
+;; Package-Requires: ((emacs "30.1") mu4e)
 
 (require 'general)
 
@@ -26,12 +26,17 @@
         ([remap nagy-kill-this-buffer] . mu4e-quit))
   (:map mu4e-view-mode-map
         ("H-j" . mu4e-view-headers-next)
-        ("H-k" . mu4e-view-headers-prev))
+        ("H-k" . mu4e-view-headers-prev)
+        ("SPC" . nil)                   ; was #'mu4e-view-scroll-up-or-next
+        )
   (:map mu4e-compose-mode-map
         ("s-z" . message-send-and-exit))
   :general
   (:states 'normal :keymaps 'mu4e-headers-mode-map
            "q" #'mu4e-quit
+           "f" #'mu4e-headers-view-message)
+  (:states 'normal :keymaps 'mu4e-view-mode-map
+           "SPC" nil        ; was #'mu4e-view-scroll-up-or-next
            "f" #'mu4e-headers-view-message)
   :custom
   (mail-user-agent 'mu4e-user-agent)
@@ -40,7 +45,7 @@
   (mu4e-completing-read-function #'completing-read)
   (mu4e-headers-leave-behavior 'apply)
   (mu4e-update-interval nil)
-  (mu4e-get-mail-command "true")
+  ;; (mu4e-get-mail-command "true")
   (mu4e-view-auto-mark-as-read nil)
   (mu4e-change-filenames-when-moving t)
   ;; (mu4e-cache-maildir-list t)

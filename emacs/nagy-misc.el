@@ -1,23 +1,5 @@
 ;;; nagy-misc.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2023 Daniel Nagy
-;;
-;; Author: Daniel Nagy <danielnagy@posteo.de>
-;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Created: March 03, 2023
-;; Modified: March 03, 2023
-;; Version: 0.0.1
-;; Keywords:
-;; Homepage: https://github.com/nagy/nagy-misc
-;; Package-Requires: ((emacs "30.1") macrostep ts ov paren-face systemd tokei wgrep git-modes nhexl-mode sotlisp anaphora nagy-use-package)
-;;
-;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Description
-;;
-;;; Code:
+;; Package-Requires: ((emacs "30.1") ts ov paren-face systemd git-modes anaphora nagy-use-package)
 
 (require 'ov)
 (require 'general)
@@ -66,6 +48,7 @@
   :bind
   ("H-s-=" . golden-ratio-mode))
 
+;; NIX-EMACS-PACKAGE: macrostep
 (use-package macrostep
   :bind
   (:map emacs-lisp-mode-map
@@ -146,10 +129,12 @@
   (:states 'normal :keymaps 'prog-mode-map
            "ö" #'save-buffer))
 
+;; NIX-EMACS-PACKAGE: tokei
 (use-package tokei
   :bind
   ("M-⧖" . tokei))
 
+;; NIX-EMACS-PACKAGE: wgrep
 (use-package wgrep
   :bind
   (:map wgrep-mode-map
@@ -234,10 +219,13 @@
   :bind
   (:map Info-mode-map
         ("H-j" . Info-next)
-        ("H-k" . Info-prev))
+        ("H-k" . Info-prev)
+        )
   :general
   (:states 'normal :keymaps 'Info-mode-map
-           "f" #'Info-follow-nearest-node))
+           "f" #'Info-follow-nearest-node
+           "SPC" nil   ; was #'Info-scroll-up
+           ))
 
 (use-package cus-edit
   :bind
@@ -295,6 +283,7 @@
            "ö" #'comint-send-input
            "_" #'comint-send-eof))
 
+;; NIX-EMACS-PACKAGE: sotlisp
 (use-package sotlisp
   :diminish sotlisp-mode
   :commands (speed-of-thought-mode)
@@ -382,6 +371,7 @@
            "o" #'next-window-any-frame
            ))
 
+;; NIX-EMACS-PACKAGE: nhexl-mode
 (use-package nhexl-mode
   :bind
   ("H-M-H" . nhexl-mode)

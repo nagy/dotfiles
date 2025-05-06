@@ -1,11 +1,5 @@
 ;;; nagy-list.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2022 Daniel Nagy
-;;
 ;; Package-Requires: ((emacs "30.1") dash anaphora nagy-emacs)
-;;
-;;; Commentary:
-;;; Code:
 
 (require 'subr-x)
 (require 'nagy-emacs)

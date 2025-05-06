@@ -1,5 +1,5 @@
 ;;; nagy-dired.el --- Dired config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") ov dired-collapse dired-narrow dired-subtree nagy-evil)
+;; Package-Requires: ((emacs "30.1") dired-collapse dired-narrow dired-subtree nagy-evil)
 
 (require 'nagy-evil)                    ; to preload dired bindings
 (eval-when-compile
@@ -10,7 +10,10 @@
 (declare-function dired-create-directory "dired-aux")
 (declare-function dired-get-marked-files "dired")
 (declare-function dired-get-file-for-visit "dired")
+
+;; NIX-EMACS-PACKAGE: ov
 (require 'ov)
+
 (require 'general)
 (eval-when-compile
   (require 'subr-x))

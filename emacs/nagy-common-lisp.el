@@ -1,5 +1,5 @@
 ;;; nagy-common-lisp.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") link-hint nagy-use-package)
+;; Package-Requires: ((emacs "30.1") nagy-use-package)
 
 (require 'general)
 
@@ -121,6 +121,7 @@
   ("if" . if)
   ("import" . import))
 
+;; NIX-EMACS-PACKAGE: link-hint
 (use-package link-hint
   :bind
   ("H-a" . link-hint-open-link))

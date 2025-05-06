@@ -1,5 +1,5 @@
 ;;; nagy-nix.el --- My nix config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") nix-mode nickel-mode reformatter nagy-use-package)
+;; Package-Requires: ((emacs "30.1") reformatter nagy-use-package)
 
 (require 'general)
 
@@ -14,6 +14,7 @@
   :input-file (reformatter-temp-file-in-current-directory)
   :group 'nix)
 
+;; NIX-EMACS-PACKAGE: nix-mode
 (use-package nix-mode
   :custom
   (nix-repl-executable-args
@@ -154,6 +155,7 @@
   )
 
 ;; TODO has an lsp nls
+;; NIX-EMACS-PACKAGE: nickel-mode
 (use-package nickel-mode
   :preface
   (reformatter-define nickel-format
