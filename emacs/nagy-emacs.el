@@ -1125,5 +1125,13 @@ string; otherwise return a 64-character string."
 
 (keymap-global-set "H-s-P" #'jump-to-proc)
 
+(use-package display-line-numbers
+  :custom
+  (display-line-numbers-type t)
+  (display-line-numbers-width 2)
+  :bind
+  ("M-ĸ" . display-line-numbers-mode)
+  ("s-M-ĸ" . global-display-line-numbers-mode))
+
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here
