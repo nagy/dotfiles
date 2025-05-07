@@ -22,17 +22,6 @@
   ;; or
   ;; (setq jsonrpc-event-hook (delete 'jsonrpc--log-event jsonrpc-event-hook))
   ;; or just (fset #'jsonrpc--log-event #'ignore)
-
-  ;; This works well for kubernetes
-  ;; (setq-default eglot-workspace-configuration
-  ;;               '(:yaml ( :format (:enable t)
-  ;;                         :validate t
-  ;;                         :hover t
-  ;;                         :completion t
-  ;;                         :schemas (Kubernetes ["deployment.yaml"])
-  ;;                         :schemaStore (:enable t))
-  ;;                       ;; here other language server configurations
-  ;;                       ))
   :bind
   ("H-s-e" . eglot-rename)
   ("H-s-r" . eglot-inlay-hints-mode)

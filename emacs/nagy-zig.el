@@ -2,7 +2,6 @@
 ;; Package-Requires: ((emacs "30.1") nagy-use-package)
 
 (require 'general)
-;; (require 'nagy-use-package)
 
 ;; NIX-EMACS-PACKAGE: zig-mode
 (use-package zig-mode

@@ -489,6 +489,8 @@ waits for input."
   (pdf-view-mode . pdf-view-fit-page-to-window)
   :config
   (pdf-tools-install)
+  (setq pdf-view-incompatible-modes
+        (delq 'display-line-numbers-mode pdf-view-incompatible-modes))
   ;; (evil-collection-init 'pdf)
   ;; (evil-collection-pdf-setup)
   ;; (evil-set-initial-state 'pdf-view-mode 'normal)

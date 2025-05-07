@@ -1,9 +1,9 @@
 ;;; nagy-emacs.el --- config emacs packages -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") anaphora memoize ov reformatter zoom)
+;; Package-Requires: ((emacs "30.1") anaphora ov reformatter zoom)
 
 (require 'general)
-;; (require 'comint)
-;; (require 'anaphora)
+
+;; NIX-EMACS-PACKAGE: memoize
 (require 'memoize)
 
 ;; NIX-EMACS-PACKAGE: key-chord

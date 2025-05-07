@@ -3,7 +3,7 @@
 
 (require 'general)
 
-(require 'nagy-use-package)
+;; (require 'nagy-use-package)
 
 ;; NIX-EMACS-PACKAGE: rustic
 (use-package rustic

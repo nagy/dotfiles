@@ -1,23 +1,5 @@
 ;;; nagy-evil.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2022 Daniel Nagy
-;;
-;; Author: Daniel Nagy <danielnagy@posteo.de>
-;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Created: December 01, 2022
-;; Modified: December 01, 2022
-;; Version: 0.0.1
-;; Keywords: extensions
-;; Homepage: https://github.com/nagy/nagy-evil
 ;; Package-Requires: ((emacs "30.1") evil evil-escape evil-matchit evil-nerd-commenter key-chord vertico nagy-use-package)
-;;
-;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Description
-;;
-;;; Code:
 
 (require 'diminish)
 
