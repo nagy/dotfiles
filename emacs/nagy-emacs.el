@@ -1133,5 +1133,19 @@ string; otherwise return a 64-character string."
   ("M-ĸ" . display-line-numbers-mode)
   ("s-M-ĸ" . global-display-line-numbers-mode))
 
+;; NIX-EMACS-PACKAGE: tablist
+(use-package tablist
+  :bind
+  (:map tablist-mode-map
+        ("M-r" . tablist-pop-filter)
+        ("M-/" . tablist-push-regexp-filter)))
+
+;; ;; NIX-EMACS-PACKAGE: stillness-mode
+;; (use-package stillness-mode
+;;   ;; :ensure t
+;;   :config
+;;   (stillness-mode 1)
+;;   )
+
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here
