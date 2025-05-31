@@ -15,8 +15,10 @@ enum custom_layers {
 #define LOWER LT(_LOWER, KC_PASTE)
 #define SPC_C LCTL_T(KC_SPC)
 // #define SPC_S LSFT_T(KC_SPC)
-#define SPC_L LGUI_T(KC_SPC)
-#define SPC_R RGUI_T(KC_SPC)
+/* #define SPC_L LGUI_T(KC_SPC) */
+/* #define SPC_R RGUI_T(KC_SPC) */
+#define SPC_L KC_LGUI
+#define SPC_R KC_RGUI
 #define MYCM_C LCTL_T(KC_MYCM)
 
 // not working:

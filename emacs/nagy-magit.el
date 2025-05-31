@@ -4,10 +4,6 @@
 (require 'general)
 
 (use-package magit
-  ;; :preface
-  ;; (defun nagy-magit-branch-checkout-at-point ()
-  ;;   (interactive)
-  ;;   (magit-branch-checkout (magit-branch-at-point)))
   :custom
   (magit-pull-or-fetch t)
   :config

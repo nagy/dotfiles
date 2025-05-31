@@ -581,5 +581,11 @@ waits for input."
   ;; (llama-fontify-mode)
   )
 
+;; NIX-EMACS-PACKAGE: units-mode
+(use-package units-mode
+  ;; :config
+  ;; (llama-fontify-mode)
+  )
+
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here
