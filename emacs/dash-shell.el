@@ -122,5 +122,15 @@
 ;;;###autoload
 (defalias '$j2 (symbol-function 'dollar-json2))
 
+;;;###autoload
+(defun dollar-bytes2 (&rest spec)
+  (with-temp-buffer
+    (set-buffer-multibyte nil)
+    (apply #'dollar2 spec)
+    (buffer-string)))
+
+;;;###autoload
+(defalias '$b2 (symbol-function 'dollar-bytes2))
+
 (provide 'dash-shell)
 ;;; dash-shell.el ends here
