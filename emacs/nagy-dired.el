@@ -35,6 +35,27 @@
           (* ".zst" ".br")
           eol)
      (1 `(face modus-themes-intense-red)))
+    ;; media, Photos
+    (,(rx (group
+           (or ".png" ".jpg" ".jpeg" ".webp" ".jxl" ".svg" ".avif"))
+          eol)
+     (1 `(face modus-themes-intense-cyan)))
+    ;; media, Videos, audio
+    (,(rx (group
+           (or ".thumbs"))
+          (or ".mp4" ".webm" ".gif" ".opus" ".ogg" ".mp3" ".wav" ".avi" ".m4a" ".flac")
+          eol)
+     (1 `(face modus-themes-nuanced-cyan)))
+    (,(rx (group
+           (or ".mp4" ".webm" ".gif" ".opus" ".ogg" ".mp3" ".wav" ".avi" ".m4a" ".flac"))
+          eol)
+     (1 `(face modus-themes-subtle-cyan)))
+    (,(rx " " (group (or "default" "flake") ".nix") eol)
+     (1 (progn (ov-set (make-overlay (match-beginning 1)
+                                     (match-end 1))
+                       'evaporate t
+                       'face '(:underline t))
+               nil)))
     ))
 
 (define-minor-mode drfl-mode
