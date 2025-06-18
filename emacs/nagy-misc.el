@@ -403,5 +403,15 @@
 ;;   :config
 ;;   (map! :n "µ" #'macrostep-expand))
 
+;; NIX-EMACS-PACKAGE: devdocs
+(use-package devdocs
+  :custom
+  (devdocs-use-mathjax nil)
+  :same "^\\*devdocs\\*"
+  :general
+  (:states 'motion :keymaps 'devdocs-mode-map
+        [remap evil-jump-backward] #'devdocs-go-back
+        [remap evil-jump-forward] #'devdocs-go-forward))
+
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
