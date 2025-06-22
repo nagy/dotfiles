@@ -190,6 +190,10 @@ waits for input."
   ;; TODO pr this upstream
   (advice-add 'password-store-otp-token :filter-return #'string-trim-right))
 
+;; NIX-EMACS-PACKAGE: passage
+(use-package passage
+  :defer t)
+
 ;; NIX-EMACS-PACKAGE: super-save
 (use-package super-save
   :preface
@@ -536,6 +540,18 @@ waits for input."
   (go-mode . go-fmt-on-save-mode)
   :bind
   ("H-M-g" . go-mode))
+;; (setq auto-insert-alist nil)
+;; (define-auto-insert
+;;   `(,(rx ".go" eos) . "Go skeleton")
+;;   '("Short description: "
+;;     "package main;" \n
+;;     \n
+;;     "import \"fmt\"" \n
+;;     \n
+;;     "func main() {" \n
+;;     "fmt.Println(\"hello world\")" \n
+;;     > _ \n
+;;     "}" > \n))
 
 ;; NIX-EMACS-PACKAGE: request
 (use-package request

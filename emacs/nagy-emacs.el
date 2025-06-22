@@ -618,12 +618,6 @@ string; otherwise return a 64-character string."
 ;;   :config
 ;;   (remove-hook 'kill-buffer-query-functions #'xwidget-kill-buffer-query-function))
 
-(use-package eww
-  ;; could also bind this to `special-mode'
-  :bind
-  ("H-j" . scroll-up-command)
-  ("H-k" . scroll-down-command))
-
 (use-package epg
   :defer t
   :config

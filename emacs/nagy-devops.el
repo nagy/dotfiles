@@ -1,7 +1,11 @@
 ;;; nagy-devops.el --- devops config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") dockerfile-mode reformatter nagy-use-package)
+;; Package-Requires: ((emacs "30.1") reformatter nagy-use-package)
 
 (require 'general)
+
+;; NIX-EMACS-PACKAGE: dockerfile-mode
+(use-package dockerfile-mode
+  :defer t)
 
 ;; NIX-EMACS-PACKAGE: terraform-mode
 (use-package terraform-mode
