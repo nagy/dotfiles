@@ -403,6 +403,16 @@
 ;;   :config
 ;;   (map! :n "µ" #'macrostep-expand))
 
+;;;###autoload
+(defmacro measure-time (&rest body)
+  "Measure and return the running time of the code block in seconds.
+Returns the total execution time as a floating-point number."
+  (declare (indent defun))
+  (let ((start (make-symbol "start")))
+    `(let ((,start (float-time)))
+       ,@body
+       (- (float-time) ,start))))
+
 ;; NIX-EMACS-PACKAGE: devdocs
 (use-package devdocs
   :custom
@@ -412,6 +422,9 @@
   (:states 'motion :keymaps 'devdocs-mode-map
         [remap evil-jump-backward] #'devdocs-go-back
         [remap evil-jump-forward] #'devdocs-go-forward))
+
+;; (add-hook 'python-mode-hook
+;;           (lambda () (setq-local devdocs-current-docs '("python~3.13"))))
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

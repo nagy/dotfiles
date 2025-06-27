@@ -72,7 +72,6 @@
   ("s-b" . consult-buffer)
   ("s-/" . consult-focus-lines)
   ("H-/" . consult-keep-lines)
-  ("H-s" . consult-line)
   ("C-s-s" . consult-ripgrep)
   ([remap bookmark-jump] . consult-bookmar)
   ([remap goto-line] . consult-goto-line)

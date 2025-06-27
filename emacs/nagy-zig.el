@@ -33,5 +33,15 @@
   (:states 'normal :keymaps 'zig-mode-map
            "⊢" #'zig-format-buffer))
 
+;; (define-auto-insert
+;;   `(,(rx ".zig" eos) . "Zig skeleton")
+;;    '("Short description: "
+;;      "const std = @import(\"std\");" \n
+;;      \n
+;;      "pub fn main() !void {" \n
+;;      "std.debug.print(\"Hello, World!\\n\", .{});" \n
+;;      > _ \n
+;;      "}" > \n))
+
 (provide 'nagy-zig)
 ;;; nagy-zig.el ends here
