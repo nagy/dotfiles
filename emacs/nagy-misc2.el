@@ -603,5 +603,10 @@ waits for input."
   ;; (llama-fontify-mode)
   )
 
+;; NIX-EMACS-PACKAGE: llvm-mode
+(use-package llvm-mode
+  :defer t
+  )
+
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here

@@ -233,7 +233,7 @@ aka xcompose is not properly initialized in the first frame."
     (balance-windows)))
 
 (keymap-global-set "s-d" #'delete-window-or-tab)
-(keymap-global-set "s-o" #'next-window-any-frame)
+;; (keymap-global-set "s-o" #'next-window-any-frame)
 (keymap-global-set "s-H" #'evil-window-move-far-left)
 (keymap-global-set "s-L" #'evil-window-move-far-right)
 (keymap-global-set "s-J" #'evil-window-move-very-bottom)

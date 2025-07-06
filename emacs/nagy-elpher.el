@@ -39,7 +39,9 @@
   (:states 'motion :keymaps 'elpher-mode-map
            ;; (define-key elpher-mode-map "f" nil) ; this might be needed
            "f" #'push-button
-           "s" #'elpher-back))
+           "s" #'elpher-back
+           "C-o" #'elpher-back
+           ))
 
 (provide 'nagy-elpher)
 ;;; nagy-elpher.el ends here

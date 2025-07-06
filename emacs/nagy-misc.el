@@ -68,11 +68,18 @@
     (eww-reload))
   :bind
   ("s-€" . eww)
+  ("H-j" . scroll-up-command)
+  ("H-k" . scroll-down-command)
   ;; :hook
   ;; (eww-mode . variable-pitch-mode)
   :general
   (:states 'normal :keymaps 'eww-mode-map
-           "r" #'eww-reload)
+           "r" #'eww-reload
+           "R" #'eww-readable
+           "." #'eww-browse-with-external-browser)
+  (:states 'motion :keymaps 'eww-mode-map
+        [remap evil-jump-backward] #'eww-back-url
+        [remap evil-jump-forward] #'eww-forward-url)
   :config
   (add-hook 'eww-mode-hook #'nagy-misc-eww-revert-buffer)
   )
@@ -132,7 +139,11 @@
 ;; NIX-EMACS-PACKAGE: tokei
 (use-package tokei
   :bind
-  ("M-⧖" . tokei))
+  ("M-⧖" . tokei)
+  :general
+  (:states 'normal :keymaps 'dired-mode-map
+           "⧖" #'tokei)
+  )
 
 ;; NIX-EMACS-PACKAGE: wgrep
 (use-package wgrep
