@@ -134,6 +134,7 @@
   :custom
   (pass-username-field "Username")
   (pass-show-keybindings nil)
+  (pass-suppress-confirmations t)
   :config
   ;; override. TODO turn this into advice :replace
   (defun pass-quit ()

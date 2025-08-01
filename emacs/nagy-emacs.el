@@ -733,7 +733,11 @@ string; otherwise return a 64-character string."
 (keymap-global-set "<mouse-8>" #'bury-buffer)
 (keymap-global-set "<mouse-9>" #'unbury-buffer)
 
-(defun find-file-home () "To ~/" (interactive) (find-file "~/"))
+;;;###autoload
+(defun find-file-home ()
+  "To ~/"
+  (interactive)
+  (find-file "~/"))
 (keymap-global-set "<XF86HomePage>" #'find-file-home)
 (keymap-global-set "H-#" #'other-window-prefix)
 (keymap-global-set "H-s-#" #'other-tab-prefix)

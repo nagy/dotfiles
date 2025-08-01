@@ -7,6 +7,7 @@
 ;; https://news.ycombinator.com/item?id=15802409
 ;; https://akrl.sdf.org/#org1ce771c
 
+;;;###autoload
 (defun GC-DISABLE ()
   (interactive)
   (setq gc-cons-threshold most-positive-fixnum)

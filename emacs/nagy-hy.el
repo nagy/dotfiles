@@ -15,7 +15,7 @@
   :config
   (setq hy-jedhy--enable? nil)
   :bind
-  ("H-M-P" . hy-mode)
+  ("H-M-H" . hy-mode)
   :general
   (:states 'normal
            "Þ" #'run-hy)

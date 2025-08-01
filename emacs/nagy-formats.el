@@ -8,7 +8,7 @@
 ;; Modified: January 27, 2023
 ;; Version: 0.0.1
 ;; Keywords: convenience, files
-;; Package-Requires: ((emacs "30.1") evil dash yaml-mode)
+;; Package-Requires: ((emacs "30.1") evil yaml-mode)
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -19,6 +19,7 @@
 ;;; Code:
 
 (require 'evil)
+;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
 (eval-when-compile
   (require 'cl-lib))

@@ -1,8 +1,10 @@
 ;;; jsonrpc-noenvelope.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") jsonrpc anaphora ht)
+;; Package-Requires: ((emacs "30.1") jsonrpc)
 
 (require 'jsonrpc)
+;; NIX-EMACS-PACKAGE: anaphora
 (require 'anaphora)
+;; NIX-EMACS-PACKAGE: ht
 (require 'ht)
 
 (defclass jsonrpc-noenvelope (jsonrpc-process-connection)

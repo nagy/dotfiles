@@ -37,7 +37,10 @@
         ("<key-chord> f j" . org-ctrl-c-ctrl-c)
         ("M-ŋ" . org-update-all-dblocks)
         ("C-H-#" . org-edit-special)
-        ("A-s-j" . org-edit-special))
+        ("A-s-j" . org-edit-special)
+        ("M-j" . org-move-subtree-down)
+        ("M-k" . org-move-subtree-up)
+        )
   :pretty 'org-mode
   ("#+begin_example" . "↝")
   ("#+end_example" . "↜")

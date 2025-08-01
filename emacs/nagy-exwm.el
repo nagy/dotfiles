@@ -1,8 +1,12 @@
 ;;; nagy-exwm.el --- config emacs packages -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") evil exwm anaphora nagy-dired nagy-emacs nagy-url)
+;; Package-Requires: ((emacs "30.1") anaphora evil-escape nagy-dired nagy-emacs nagy-url nagy-gc)
+
+;; NIX-EMACS-PACKAGE: modus-themes
+(require 'modus-themes)
 
 ;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
+;; NIX-EMACS-PACKAGE: evil
 (require 'evil)
 (eval-when-compile
   (require 'dired))
@@ -10,13 +14,6 @@
 (require 'key-chord)
 
 (declare-function ibuffer-filter-by-used-mode "ibuffer")
-
-(declare-function GC-DISABLE "nagy-gc")
-(declare-function evil-escape-mode "evil-escape")
-(declare-function gcmh-mode "gcmh")
-(declare-function modus-themes-toggle "modus-themes")
-;; (declare-function find-file-home "nagy-gc")
-
 
 ;; For emacs 30. the upstream one now requires an event.
 (defun nagy-kill-this-buffer ()
@@ -84,6 +81,7 @@
     (call-process "brightnessctl" nil nil nil "--device=ddcci4" "set" "5%-")
     (call-process "brightnessctl" nil nil nil "--device=ddcci12" "set" "5%-")))
 
+;; NIX-EMACS-PACKAGE: exwm
 (use-package exwm
   :if (display-graphic-p)
   :commands (exwm-randr-refresh exwm-workspace-rename-buffer)
@@ -111,10 +109,8 @@ aka xcompose is not properly initialized in the first frame."
       (delete-frame it)
       (make-frame)
       (global-hl-line-mode -1)
-      (modus-themes-toggle)
-      (modus-themes-toggle)
-      ;; (when (fboundp 'gcmh-mode)
-      ;;   (gcmh-mode -1))
+      (call-interactively #'modus-themes-toggle)
+      (call-interactively #'modus-themes-toggle)
       (global-hl-line-mode -1)
       (when (fboundp 'evil-escape-mode)
         (evil-escape-mode -1))
@@ -167,6 +163,7 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-I") . ibuffer-exwm)
             (,(kbd "s-<f1>") . calendar)
             (,(kbd "<XF86Explorer>") . firefox)
+            (,(kbd "C-<XF86Explorer>") . firefox-private-window)
             (,(kbd "s-+") . terminal)
             (,(kbd "s-H") . evil-window-move-far-left)
             (,(kbd "s-J") . evil-window-move-very-bottom)
@@ -219,7 +216,8 @@ aka xcompose is not properly initialized in the first frame."
   (evil-set-initial-state 'exwm-mode 'emacs)
   (require 'exwm-randr)
   (exwm-randr-mode 1)
-  (exwm-enable)
+  ;; (exwm-enable)
+  (exwm-wm-mode)
   ;; (evil-define-key 'normal dired-mode-map "," #'terminal)
   ;; (keymap-set exwm-mode-map "s-j" #'nagy-url-kill)
   :bind
@@ -243,7 +241,8 @@ aka xcompose is not properly initialized in the first frame."
   (completing-read "host> " nil))
 
 (defmacro start-terminal (&rest body)
-  (declare (debug (form body)))
+  (declare (debug (form body))
+           (indent 0))
   `(progn
      (unless (display-graphic-p)
        (user-error "No display for terminal."))
@@ -298,6 +297,16 @@ aka xcompose is not properly initialized in the first frame."
        ("no_proxy" "y.www.nncpgo.org,.ygg,.meship,192.168.0.0/24"))
     (start-process "firefox" nil browse-url-firefox-program "--new-window")))
 (keymap-global-set "<XF86Explorer>" #'firefox)
+
+(defun firefox-private-window ()
+  (interactive)
+  (with-environment-variables
+      (("XDG_CACHE_HOME" "/tmp/xdg-cache")
+       ("https_proxy" "http://127.0.0.1:3128")
+       ("http_proxy" "http://127.0.0.1:3128")
+       ("no_proxy" ""))
+    (start-process "firefox" nil browse-url-firefox-program "--private-window")))
+(keymap-global-set "C-<XF86Explorer>" #'firefox-private-window)
 
 (defun font-size-toggle ()
   (interactive)

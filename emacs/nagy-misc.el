@@ -434,6 +434,11 @@ Returns the total execution time as a floating-point number."
         [remap evil-jump-backward] #'devdocs-go-back
         [remap evil-jump-forward] #'devdocs-go-forward))
 
+;; NIX-EMACS-PACKAGE: poke-mode
+(use-package poke-mode
+  :defer t
+  )
+
 ;; (add-hook 'python-mode-hook
 ;;           (lambda () (setq-local devdocs-current-docs '("python~3.13"))))
 
