@@ -78,8 +78,8 @@
            "R" #'eww-readable
            "." #'eww-browse-with-external-browser)
   (:states 'motion :keymaps 'eww-mode-map
-        [remap evil-jump-backward] #'eww-back-url
-        [remap evil-jump-forward] #'eww-forward-url)
+           [remap evil-jump-backward] #'eww-back-url
+           [remap evil-jump-forward] #'eww-forward-url)
   :config
   (add-hook 'eww-mode-hook #'nagy-misc-eww-revert-buffer)
   )
@@ -431,8 +431,8 @@ Returns the total execution time as a floating-point number."
   :same "^\\*devdocs\\*"
   :general
   (:states 'motion :keymaps 'devdocs-mode-map
-        [remap evil-jump-backward] #'devdocs-go-back
-        [remap evil-jump-forward] #'devdocs-go-forward))
+           [remap evil-jump-backward] #'devdocs-go-back
+           [remap evil-jump-forward] #'devdocs-go-forward))
 
 ;; NIX-EMACS-PACKAGE: poke-mode
 (use-package poke-mode

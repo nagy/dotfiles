@@ -25,6 +25,8 @@
     (find-file (format "%s/TODOs.org" org-directory)))
   :bind
   ("H-M-o" . org-mode)
+  ("C-ø" . org-store-link)
+  ("M-ø" . org-insert-last-stored-link)
   ("s-ø" . find-file-org)
   ("<XF86Copy>" . org-open-at-point-global)
   (:map org-mode-map

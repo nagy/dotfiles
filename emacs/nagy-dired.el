@@ -4,6 +4,7 @@
 (require 'nagy-evil)                    ; to preload dired bindings
 (eval-when-compile
   (require 'dired))
+
 (declare-function dired-do-copy "dired-aux")
 (declare-function dired-do-delete "dired")
 (declare-function dired-do-flagged-delete "dired")

@@ -12,10 +12,8 @@
 ;; right-aligned to is controlled by the new user option
 ;; 'mode-line-right-align-edge'.
 
-
 (defvar-local nagy-mode-line--jsvar nil)
 (defvar-local nagy-mode-line--jsvar-point nil)
-
 
 (defun nagy-mode-line--jsvar-calc ()
   (when (and (derived-mode-p 'js-json-mode)

@@ -586,6 +586,9 @@ waits for input."
 ;; NIX-EMACS-PACKAGE: gptel
 ;; (use-package gptel)
 
+;; NIX-EMACS-PACKAGE: mcp
+;; (use-package mcp)
+
 ;; NIX-EMACS-PACKAGE: emacspy
 ;; (use-package emacspy)
 

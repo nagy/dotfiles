@@ -11,7 +11,8 @@
   :preface
   (reformatter-define rustfmt
     :group 'rustic
-    :program "rustfmt")
+    :program "rustfmt"
+    :args `("--edition" "2024"))
   :hook
   (rustic-mode . rustfmt-on-save-mode)
   :mode
