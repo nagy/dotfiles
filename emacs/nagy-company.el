@@ -21,11 +21,11 @@
   :config
   (global-company-mode)
   :custom
-  (company-idle-delay 0.3)
+  (company-idle-delay 0.1)
   (company-minimum-prefix-length 2)
   ;; (company-tooltip-align-annotations t)
-  (company-tooltip-idle-delay 0.3)
-  (company-async-redisplay-delay 0.3)
+  (company-tooltip-idle-delay 0.1)
+  (company-async-redisplay-delay 0.1)
   (company-dabbrev-downcase nil)
   ;; Only search the current buffer for `company-dabbrev' (a backend that
   ;; suggests text your open buffers). This prevents Company from causing

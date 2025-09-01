@@ -9,6 +9,14 @@
      (let ((coding-system-for-read 'utf-8)
            (default-directory temporary-file-directory))
        (-shell--case `("jq" "--sort-keys" ,@rest))))
+    (`(,(and (or (prefix "https://")
+                 (prefix "http://")
+                 (prefix "ipfs://"))
+             url))
+     (-shell--case (list "curl" "--fail" "--compressed" url))
+     )
+    ((prefix "rsync://")
+     (-shell--case (list "rsync" spec)))
     (`(,first . ,rest)
      (save-excursion
        (--> (apply #'call-process-region
@@ -26,16 +34,8 @@
                     rest))
             zerop
             (cl-assert it t "Shell command with non-nil exitcode: %s %S %S" first rest (buffer-string)))))
-    ((or (prefix "http://")
-         (prefix "https://")
-         (prefix "ipfs://")
-         )
-     (-shell--case (list "curl" "--fail" "--compressed" spec))
-     )
     ;; ((prefix "/ipfs/")
     ;;  (-shell--case (format "ipfs://%s" (string-remove-prefix "/ipfs/" spec))))
-    ((prefix "rsync://")
-     (-shell--case (list "rsync" spec)))
     ((pred stringp)
      (-shell--case (list "sh" "-c" spec)))
     ))
@@ -48,28 +48,28 @@
 (defun -shell1 (&rest specs)
   (-shell--case specs))
 
-;;;###autoload
-(defun dollar (spec)
-  (-shell--case spec))
+;; ;;;###autoload
+;; (defun dollar (spec)
+;;   (-shell--case spec))
 
-;;;###autoload
-(defalias '$ (symbol-function 'dollar))
+;; ;;;###autoload
+;; (defalias '$ (symbol-function 'dollar))
 
-;;;###autoload
-(defun dollar-string (spec)
-  (with-temp-buffer
-    (dollar spec)
-    (buffer-string)))
+;; ;;;###autoload
+;; (defun dollar-string (spec)
+;;   (with-temp-buffer
+;;     (dollar spec)
+;;     (buffer-string)))
 
-;;;###autoload
-(defalias '$s (symbol-function 'dollar-string))
+;; ;;;###autoload
+;; (defalias '$s (symbol-function 'dollar-string))
 
-;;;###autoload
-(defun dollar-line (spec)
-  (with-temp-buffer
-    (dollar spec)
-    (goto-char (point-min))
-    (buffer-substring (point) (line-end-position))))
+;; ;;;###autoload
+;; (defun dollar-line (spec)
+;;   (with-temp-buffer
+;;     (dollar spec)
+;;     (goto-char (point-min))
+;;     (buffer-substring (point) (line-end-position))))
 
 ;;;###autoload
 (defalias '$l (symbol-function 'dollar-line))

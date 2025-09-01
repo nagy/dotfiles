@@ -45,7 +45,10 @@
 
 (defun nagy-list--data ()
   (or (alet (gather nagy-list--data)
-        (if (and (stringp it) (string-empty-p it)) nil (if it it)))
+        (if (and (stringp it)
+                 (string-empty-p it))
+            nil
+          (if it it)))
       (setq nagy-list--data
             (json-parse-string nagy-list--beforebody
                                ;; :object-type 'alist

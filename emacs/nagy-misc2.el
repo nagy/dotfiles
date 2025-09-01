@@ -612,5 +612,19 @@ waits for input."
   :defer t
   )
 
+;; NIX-EMACS-PACKAGE: lua-mode
+(use-package lua-mode
+  :defer t
+  :bind
+  ("H-M-u" . lua-mode)
+  )
+
+;; NIX-EMACS-PACKAGE: fennel-mode
+(use-package fennel-mode
+  :defer t
+  :bind
+  ("H-M-U" . fennel-mode)
+  )
+
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here
