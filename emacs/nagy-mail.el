@@ -1,5 +1,5 @@
 ;;; nagy-mail.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") mu4e)
+;; Package-Requires: ((emacs "30.1"))
 
 (require 'general)
 
@@ -14,6 +14,7 @@
     "Quote all \"%\"'s in STRING."
     (string-replace "%" "%%" (or string ""))))
 
+;; NIX-EMACS-PACKAGE: mu4e
 (use-package mu4e
   :bind
   ("<XF86Mail>" . mu4e)

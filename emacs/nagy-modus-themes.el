@@ -1,27 +1,15 @@
 ;;; nagy-modus-themes.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2022 Daniel Nagy
-;;
-;; Author: Daniel Nagy <danielnagy@posteo.de>
-;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Created: October 06, 2022
-;; Modified: October 06, 2022
-;; Version: 0.0.1
-;; Keywords:
-;; Homepage: https://github.com/nagy/nagy
-;; Package-Requires: ((emacs "30.1") paren-face nerd-icons modus-themes ef-themes lin)
-;;
-;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Description
-;;
-;;; Code:
+;; Package-Requires: ((emacs "30.1"))
 
+;; NIX-EMACS-PACKAGE: modus-themes
 (require 'modus-themes)
-;; (require 'ef-themes)
+;; NIX-EMACS-PACKAGE: paren-face
 (require 'paren-face)
+
+;; NIX-EMACS-PACKAGE: ef-themes
+;; (require 'ef-themes)
+;; NIX-EMACS-PACKAGE: doric-themes
+;; (require 'doric-themes)
 
 (eval-when-compile
   ;; To catch errors during batch compilation
@@ -148,8 +136,11 @@ correctly."
   (add-to-list 'paren-face-modes 'hcl-mode)
   (add-to-list 'paren-face-modes 'go-mode)
   (add-to-list 'paren-face-modes 'go-dot-mod-mode)
+  (add-to-list 'paren-face-modes 'lua-mode)
+  (add-to-list 'paren-face-modes 'fennel-mode)
   (add-hook 'modus-themes-after-load-theme-hook #'nagy/fix-parenface))
 
+;; NIX-EMACS-PACKAGE: lin
 (use-package lin
   :functions lin-global-mode
   ;; :custom
@@ -169,6 +160,7 @@ correctly."
   (lin-global-mode 1)
   (set-face-attribute 'hl-line nil :inherit 'lin-blue :background 'unspecified))
 
+;; NIX-EMACS-PACKAGE: nerd-icons
 (use-package nerd-icons
   :demand t
   :bind

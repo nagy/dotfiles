@@ -32,7 +32,7 @@
 (defvar nagy-dired-font-lock-keywords
   `((,(rx (or ".nix") eol)
      (0 `(face modus-themes-intense-green)))
-    (,(rx (group (or ".json" ".yaml" ".yml" ".toml" ".xml" ".csv"))
+    (,(rx (group (or ".json" ".yaml" ".yml" ".toml" ".xml" ".csv" ".feather"))
           (* ".zst" ".br")
           eol)
      (1 `(face modus-themes-intense-red)))
@@ -44,11 +44,11 @@
     ;; media, Videos, audio
     (,(rx (group
            (or ".thumbs"))
-          (or ".mp4" ".webm" ".gif" ".opus" ".ogg" ".mp3" ".wav" ".avi" ".m4a" ".flac")
+          (or ".mp4" ".webm" ".gif" ".opus" ".ogg" ".mp3" ".wav" ".avi" ".mkv" ".m4a" ".flac")
           eol)
      (1 `(face modus-themes-nuanced-cyan)))
     (,(rx (group
-           (or ".mp4" ".webm" ".gif" ".opus" ".ogg" ".mp3" ".wav" ".avi" ".m4a" ".flac"))
+           (or ".mp4" ".webm" ".gif" ".opus" ".ogg" ".mp3" ".wav" ".avi" ".mkv" ".m4a" ".flac"))
           eol)
      (1 `(face modus-themes-subtle-cyan)))
     (,(rx " " (group (or "default" "flake") ".nix") eol)

@@ -1,9 +1,13 @@
 ;;; nagy-hledger.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") embark anaphora s dash nagy-use-package)
+;; Package-Requires: ((emacs "30.1") nagy-use-package)
 
+;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
+;; NIX-EMACS-PACKAGE: anaphora
 (require 'anaphora)
+;; NIX-EMACS-PACKAGE: embark
 (require 'embark)
+;; NIX-EMACS-PACKAGE: s
 (require 's)
 
 ;; NIX-EMACS-PACKAGE: hledger-mode
