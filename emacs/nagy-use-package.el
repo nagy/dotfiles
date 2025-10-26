@@ -192,7 +192,7 @@ with `switch-to-buffer'."
 (pcase-defmacro derived (&rest modes)
   "Pattern (derived MODES...)."
   `(pred (lambda (mode-or-buffer)
-           (cl-etypecase mode-or-buffer
+           (cl-typecase mode-or-buffer
              (buffer (provided-mode-derived-p
                       (buffer-local-value 'major-mode mode-or-buffer) ,@modes))
              (string (provided-mode-derived-p

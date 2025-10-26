@@ -13,7 +13,7 @@
                  (prefix "http://")
                  (prefix "ipfs://"))
              url))
-     (-shell--case (list "curl" "--fail" "--compressed" url))
+     (-shell--case (list "curl" "--ipv4" "--fail" "--compressed" url))
      )
     ((prefix "rsync://")
      (-shell--case (list "rsync" spec)))

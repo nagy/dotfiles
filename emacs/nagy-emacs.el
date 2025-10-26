@@ -910,6 +910,8 @@ string; otherwise return a 64-character string."
 
 (put 'hash-table-weakness 'pure t)
 
+(put 'sqlite-available-p 'pure t)
+
 ;; these may be derived by the compiler
 ;; (put 'string-trim-right 'pure t)
 ;; (put 'string-trim-right 'side-effect-free t)

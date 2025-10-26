@@ -273,7 +273,8 @@ That means, KEY can also be a cons."
   (tabulated-list-init-header)
   (tabulated-list-print)
   (set-buffer-modified-p nil)
-  (read-only-mode 1))
+  (read-only-mode 1)
+  )
 (keymap-global-set "H-M-L" #'nagy-list-mode)
 
 (defun nagy-list-table-dired-find-file (filename)

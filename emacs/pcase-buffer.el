@@ -26,6 +26,8 @@
                                    ('narrowed (with-current-buffer (or ,pcase-buffer--val (current-buffer)) (buffer-narrowed-p)))
                                    ('directory (with-current-buffer (or ,pcase-buffer--val (current-buffer)) default-directory))
                                    ('major-mode (buffer-local-value 'major-mode ,pcase-buffer--val))
+                                   ;; overlays:
+                                   ;; (cl-loop for ov being the overlays of (current-buffer) collect ov)
                                    ))
                                ,pat))
                         ((pred symbolp)
@@ -42,7 +44,8 @@
                                    ('narrowed (with-current-buffer (or ,pcase-buffer--val (current-buffer)) (buffer-narrowed-p)))
                                    ('directory (with-current-buffer (or ,pcase-buffer--val (current-buffer)) default-directory))
                                    ('major-mode (buffer-local-value 'major-mode ,pcase-buffer--val))
-
+                                   ;; overlays:
+                                   ;; (cl-loop for ov being the overlays of (current-buffer) collect ov)
                                    ))
                                ,field))))
                     fields))))
