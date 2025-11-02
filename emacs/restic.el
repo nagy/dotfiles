@@ -71,8 +71,8 @@
                                   ))
                 :format-cell (lambda (column value)
                                (pcase column
-                                 ('id (propertize (truncate-string-to-width value 8) 'font-lock-face 'magit-hash))
-                                 ('tree (propertize (truncate-string-to-width value 8) 'font-lock-face 'magit-hash))
+                                 ('id (propertize (truncate-string-to-width (or value "") 8) 'font-lock-face 'magit-hash))
+                                 ('tree (propertize (truncate-string-to-width (or value "") 8) 'font-lock-face 'magit-hash))
                                  ('time :date)))
                 :column-width (lambda (column)
                                 (pcase column

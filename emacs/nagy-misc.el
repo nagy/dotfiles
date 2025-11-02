@@ -140,6 +140,8 @@
 (use-package tokei
   :bind
   ("M-⧖" . tokei)
+  (:map tokei-mode-map
+        ("H-l" . magit-log-all-branches))
   :general
   (:states 'normal :keymaps 'dired-mode-map
            "⧖" #'tokei)

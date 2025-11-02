@@ -514,7 +514,8 @@
 (use-package epg
   :defer t
   :custom
-  (epg-pinentry-mode 'loopback))
+  (epg-pinentry-mode 'loopback)
+  )
 
 (use-package eldoc
   :preface

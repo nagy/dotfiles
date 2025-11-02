@@ -37,7 +37,12 @@
         ("H-k"   . vertico-previous))
   (:map minibuffer-local-map
         ("s--" . vertico-flat-mode)
-        ("H-h" . delete-backward-char)))
+        ("H-h" . delete-backward-char))
+  :general
+  (:states 'insert :keymaps 'vertico-map
+           "C-n" #'vertico-next
+           "C-p" #'vertico-previous)
+  )
 
 (use-package vertico-quick
   :custom

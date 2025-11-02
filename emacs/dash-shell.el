@@ -15,8 +15,9 @@
              url))
      (-shell--case (list "curl" "--ipv4" "--fail" "--compressed" url))
      )
-    ((prefix "rsync://")
-     (-shell--case (list "rsync" spec)))
+    (`(,(and (cl-type url)
+             url))
+     (-shell--case (list (url-recreate-url url))))
     (`(,first . ,rest)
      (save-excursion
        (--> (apply #'call-process-region
@@ -48,42 +49,12 @@
 (defun -shell1 (&rest specs)
   (-shell--case specs))
 
-;; ;;;###autoload
-;; (defun dollar (spec)
-;;   (-shell--case spec))
-
-;; ;;;###autoload
-;; (defalias '$ (symbol-function 'dollar))
-
-;; ;;;###autoload
-;; (defun dollar-string (spec)
-;;   (with-temp-buffer
-;;     (dollar spec)
-;;     (buffer-string)))
-
-;; ;;;###autoload
-;; (defalias '$s (symbol-function 'dollar-string))
-
-;; ;;;###autoload
-;; (defun dollar-line (spec)
-;;   (with-temp-buffer
-;;     (dollar spec)
-;;     (goto-char (point-min))
-;;     (buffer-substring (point) (line-end-position))))
+;;;###autoload
+(defun dollar2 (&rest spec)
+  (-shell--case spec))
 
 ;;;###autoload
-(defalias '$l (symbol-function 'dollar-line))
-
-;;;###autoload
-(defun dollar-json (spec)
-  (with-temp-buffer
-    (let ((coding-system-for-read 'utf-8))
-      (dollar spec))
-    (goto-char (point-min))
-    (json-parse-buffer)))
-
-;;;###autoload
-(defalias '$j (symbol-function 'dollar-json))
+(defalias '$2 (symbol-function 'dollar2))
 
 ;;;###autoload
 (defun dollar-line2 (&rest spec)
@@ -94,13 +65,6 @@
 
 ;;;###autoload
 (defalias '$l2 (symbol-function 'dollar-line2))
-
-;;;###autoload
-(defun dollar2 (&rest spec)
-  (-shell--case spec))
-
-;;;###autoload
-(defalias '$2 (symbol-function 'dollar2))
 
 ;;;###autoload
 (defun dollar-string2 (&rest spec)

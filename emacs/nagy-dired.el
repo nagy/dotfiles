@@ -41,6 +41,55 @@
            (or ".png" ".jpg" ".jpeg" ".webp" ".jxl" ".svg" ".avif"))
           eol)
      (1 `(face modus-themes-intense-cyan)))
+    ;; Code
+    (,(rx (group
+           (or ".rs" ".js" ".fs" ".c" ".cc" ".cpp" ".h"
+               ".zig" ".go" ".ts"
+               ".py"
+               ".jq"
+               ".lisp" ".asd" ".scm" ".hy"
+               ".lua" ".fnl"
+               ".wat"
+               ".c3"
+               ".css" ".svelte"
+               ".typ"
+               ".pk"                    ; GNU Poke
+               ))
+          eol)
+     (1 `(face modus-themes-intense-blue)))
+    (,(rx (group
+           (or ".jsonrpc"))
+          (or ".py" ) eol)
+     (1 `(face modus-themes-subtle-blue)))
+    (,(rx (group
+           (or ".svelte"))
+          (or ".js" ".ts" ) eol)
+     (1 `(face modus-themes-subtle-blue)))
+    (,(rx (group (or "go.mod" "go.sum"))
+          eol)
+     (1 `(face modus-themes-subtle-blue)))
+    (,(rx (group "CMakeLists")
+          ".txt"
+          eol)
+     (1 `(face modus-themes-nuanced-yellow)))
+    ;; Code, emacs
+    (,(rx (group ".el")
+          eol)
+     (1 `(face modus-themes-intense-magenta)))
+    ;; Code, Executable
+    (,(rx (group (or ".wasm"
+                     ;; compiled wasm from wasmtime
+                     ".cwasm"))
+          eol)
+     (1 `(face ansi-color-inverse)))
+    ;; Documentation
+    (,(rx (group
+           (or ".md" ".rst" ".org" ".txt" ".pdf" ".gmi"
+               ".mmd"     ;; mermaid uml
+               ".journal" ;; hledger and ledger
+               ))
+          eol)
+     (1 `(face modus-themes-intense-yellow)))
     ;; media, Videos, audio
     (,(rx (group
            (or ".thumbs"))
@@ -57,6 +106,33 @@
                        'evaporate t
                        'face '(:underline t))
                nil)))
+    ;; Archives
+    (,(rx (group
+           (or ".tar" ".zip" ".gitbundle"))
+          eol)
+     (1 `(face eshell-ls-archive)))
+    (,(rx (group
+           (or ".zst" ".gz" ".bz2" ".br" ".xz"))
+          eol)
+     (1 `(face (:background "grey" :foreground "black"))))
+    ;; Irrelevant
+    (,(rx (group
+           (or ".gitignore" ".gitattributes"
+               ".elpaignore" ".dockerignore"
+               "LICENSE"
+               "flake.lock" "poetry.lock" "Cargo.lock"
+               ))
+          eol)
+     (1 `(face parenthesis)))
+    ;; repair marking of files, taken from diredfl
+    (,(concat "^\\([^\n " (char-to-string (eval-when-compile dired-del-marker)) "].*$\\)")
+     (1 dired-marked-face prepend))
+    (,(concat "^\\([^\n " (char-to-string (eval-when-compile dired-del-marker)) "]\\)")
+     (1 dired-mark-face prepend))
+    (,(concat "^\\([" (char-to-string (eval-when-compile dired-del-marker)) "].*$\\)")
+     (1 dired-flagged-face prepend))
+    ;; (,(concat "^\\([" (char-to-string dired-del-marker) "]\\)")
+    ;;  (1 dired-flagged-face prepend))
     ))
 
 (define-minor-mode drfl-mode
@@ -102,9 +178,9 @@ Can be used as an advice."
   (dired-do-revert-buffer t)
   (dired-free-space nil)
   (dired-compress-directory-default-suffix ".tar.zst")
-  (dired-switches-in-mode-line 3)
   (dired-hide-details-hide-symlink-targets nil)
-  (dired-listing-switches "-alh -g --no-group --group-directories-first")
+  (dired-listing-switches "--almost-all -lh -g --no-group --group-directories-first")
+  (dired-switches-in-mode-line 0)
   ;; (dired-listing-switches ". -l")
   :config
   (advice-add #'dired-create-directory :after #'+revert-when-dired)

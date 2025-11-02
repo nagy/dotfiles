@@ -170,14 +170,19 @@ That means, KEY can also be a cons."
     (setq nagy-list--data nil)
     (setq nagy-list--beforebody (let ((bn buffer-file-name))
                                   (with-temp-buffer
-                                    (insert-file-contents-literally bn)
+                                    (let ((coding-system-for-read 'utf-8)
+                                          (inhibit-file-name-operation 'insert-file-contents))
+                                      (insert-file-contents bn))
                                     (buffer-string))))
     (revert-buffer--default nil t)))
 
 (defun nagy-list-table-entries ()
   (seq-map (lambda (obj)
              (list
-              (or (map-elt obj nagy-list--id-sym) (map-elt obj 'id) (map-elt obj "id"))
+              (ignore-errors
+                (or (map-elt obj nagy-list--id-sym)
+                    (map-elt obj 'id)
+                    (map-elt obj "id")))
               `[,@(mapcar (lambda (it)
                             (propertize (let* ((prevalue (nagy-list-alist-get-deep obj it))
                                                (value (nagy-list-format-cell it prevalue)))

@@ -67,19 +67,31 @@
   (set-fontset-font t it (font-spec :family "IosevkaTerm Nerd Font")))
 )
 
+(defvar brightness--value 0)
+
 ;; make (setf)-able
 ;; maybe: https://github.com/mschuldt/backlight.el ?
 (defun brightness-up ()
   (interactive)
   (let ((default-directory temporary-file-directory))
-    (call-process "brightnessctl" nil nil nil "--device=ddcci4" "set" "+5%")
-    (call-process "brightnessctl" nil nil nil "--device=ddcci12" "set" "+5%")))
+    (cl-incf brightness--value 5)
+    (setq brightness--value (min 100 brightness--value))
+    (call-process "brightnessctl" nil nil nil
+                  "--device=ddcci4" "set" (concat (number-to-string brightness--value) "%"))
+    (call-process "brightnessctl" nil nil nil
+                  "--device=ddcci12" "set" (concat (number-to-string brightness--value) "%"))
+    (message "Brightness set to %d" brightness--value)))
 
 (defun brightness-down ()
   (interactive)
   (let ((default-directory temporary-file-directory))
-    (call-process "brightnessctl" nil nil nil "--device=ddcci4" "set" "5%-")
-    (call-process "brightnessctl" nil nil nil "--device=ddcci12" "set" "5%-")))
+    (cl-decf brightness--value 5)
+    (setq brightness--value (max 0 brightness--value))
+    (call-process "brightnessctl" nil nil nil
+                  "--device=ddcci4" "set" (concat (number-to-string brightness--value) "%"))
+    (call-process "brightnessctl" nil nil nil
+                  "--device=ddcci12" "set" (concat (number-to-string brightness--value) "%"))
+    (message "Brightness set to %d" brightness--value)))
 
 ;; NIX-EMACS-PACKAGE: exwm
 (use-package exwm
@@ -240,15 +252,14 @@ aka xcompose is not properly initialized in the first frame."
 (defun completing-read-host ()
   (completing-read "host> " nil))
 
-(defmacro start-terminal (&rest body)
-  (declare (debug (form body))
-           (indent 0))
-  `(progn
-     (unless (display-graphic-p)
-       (user-error "No display for terminal."))
-     (start-process "terminal" nil "alacritty"
-                    "--option" (format "font.size=%d" (/  (face-attribute 'default :height) 9))
-                    ,@body)))
+(defun start-terminal (&rest args)
+  (declare (indent 0))
+  (unless (display-graphic-p)
+    (user-error "No display for terminal."))
+  (apply #'start-process
+         "terminal" nil "alacritty"
+         "--option" (format "font.size=%d" (/  (face-attribute 'default :height) 9))
+         (mapcar #'shell-quote-argument args)))
 
 (defun htop ()
   (interactive)
@@ -263,17 +274,10 @@ aka xcompose is not properly initialized in the first frame."
 
 (defvar terminal-number 1)
 
-(defun terminal (&optional arg)
-  (interactive "P")
-  (pcase arg
-    ('(4)
-     (let ((host (completing-read-host)))
-       (start-terminal "--title" host "--option" "env.TERM=xterm-256color" "-e" "ssh" host)))
-    ('(16)
-     (let ((host (completing-read-host)))
-       (start-terminal "--title" host "--option" "env.TERM=xterm-256color" "-e" "ssh" "-l" "root" host)))
-    (_
-     (start-terminal "--title" (number-to-string (cl-incf terminal-number))))))
+(defun terminal ()
+  (interactive)
+  (start-terminal "--title" (number-to-string (cl-incf terminal-number))))
+
 (keymap-global-set "s-+" #'terminal)
 ;; (evil-global-set-key 'normal "." #'terminal)
 (evil-global-set-key 'normal "," #'terminal)

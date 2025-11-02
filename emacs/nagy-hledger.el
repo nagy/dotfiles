@@ -12,7 +12,9 @@
 
 ;; NIX-EMACS-PACKAGE: hledger-mode
 (use-package hledger-mode
-  :mode ("\\.journal\\'" "\\.hledger\\'")
+  :mode
+  ("\\.journal\\'" . hledger-mode)
+  ("\\.hledger\\'" . hledger-mode)
   :commands (hledger-backward-entry
              hledger-pulse-momentary-current-entry
              hledger-next-or-new-entry)
