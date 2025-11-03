@@ -500,5 +500,14 @@ Returns the total execution time as a floating-point number."
   :bind
   ("s-'" . ace-window))
 
+;; NIX-EMACS-PACKAGE: aggressive-indent
+(use-package aggressive-indent
+  :diminish 'aggressive-indent-mode
+  :custom
+  (aggressive-indent-sit-for-time 0.5)
+  :general
+  (:states 'normal :keymaps 'prog-mode-map
+           "«" #'aggressive-indent-mode))
+
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

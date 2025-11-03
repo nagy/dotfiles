@@ -10,15 +10,6 @@
 ;; NIX-EMACS-PACKAGE: anaphora
 (require 'anaphora)
 
-;; NIX-EMACS-PACKAGE: aggressive-indent
-(use-package aggressive-indent
-  :diminish 'aggressive-indent-mode
-  :custom
-  (aggressive-indent-sit-for-time 0.5)
-  :general
-  (:states 'normal :keymaps 'prog-mode-map
-           "«" #'aggressive-indent-mode))
-
 ;; (defun pdf-crop-file ()
 ;;   (interactive)
 ;;   (alet (concat (make-temp-file "PDFCROPPED" t)
