@@ -10,37 +10,6 @@
 ;; NIX-EMACS-PACKAGE: anaphora
 (require 'anaphora)
 
-(use-package conf-mode
-  :preface
-  (reformatter-define taplofmt
-    :group 'conf
-    :program "taplo"
-    :args `("fmt" "-"))
-  (defun nagy-misc2-conf-space-mode-hook ()
-    (setq-local outline-regexp "#\\{2,3\\} ")
-    (setq-local outline-heading-alist '(("## " . 1) ("### " . 2)))
-    (outline-minor-mode 1)              ; to recalculate the buttons
-    )
-  :bind
-  ("H-M-T" . conf-toml-mode)
-  (:map conf-mode-map
-        ("H-j" . forward-paragraph)
-        ("H-k" . backward-paragraph)
-        ("C-⊢" . taplofmt-buffer)
-        )
-  :general
-  (:states 'normal :keymaps 'conf-toml-mode-map
-           "ö" #'save-buffer
-           "⊢" #'taplofmt-buffer
-           )
-  :hook
-  (conf-toml-mode . taplofmt-on-save-mode)
-  (conf-space-mode . nagy-misc2-conf-space-mode-hook)
-  :pretty 'conf-toml-mode
-  ("true" . true) ("false" . false)
-  :cycle 'conf-toml-mode
-  ("true" "false"))
-
 ;; NIX-EMACS-PACKAGE: ace-window
 (use-package ace-window
   :init
