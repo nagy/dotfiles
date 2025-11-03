@@ -56,6 +56,16 @@
   '(
     (t ((:eval (aif (url-knowledge--get-url) (propertize (string-remove-prefix "https://" it) 'face '(:inherit (ffap bold)))))
         " "))
+    (:eval (when (derived-mode-p 'nagy-list-mode)
+             (concat (propertize "Ŧ" 'face (if (mode-line-window-selected-p) 'modus-themes-intense-cyan 'modus-themes-subtle-cyan))
+                     (propertize (symbol-name (type-of nagy-list--data)) 'face (if (mode-line-window-selected-p) 'modus-themes-subtle-cyan 'modus-themes-nuanced-cyan))
+                     " "
+                     )))
+    (:eval (when (derived-mode-p 'nagy-list-mode)
+             (concat (propertize "ŧ" 'face (if (mode-line-window-selected-p) 'modus-themes-intense-cyan 'modus-themes-subtle-cyan))
+                     (propertize (symbol-name (type-of (nagy-list--data-at-point))) 'face (if (mode-line-window-selected-p) 'modus-themes-subtle-cyan 'modus-themes-nuanced-cyan))
+                     " "
+                     )))
     (nagy-mode-line--jsvar (:eval (concat (format "%s" nagy-mode-line--jsvar) " ")))
     (nagy-mode-line--jsvar-point (:eval (concat (format "%s" nagy-mode-line--jsvar-point) " ")))
     (:eval

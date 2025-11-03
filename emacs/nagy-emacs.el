@@ -1101,6 +1101,15 @@ string; otherwise return a 64-character string."
     (apply #'json-parse-buffer args)
     ))
 
+(defmacro anaphoric-dolist (expr &rest body)
+  (let ((anaphoric-pcase--result (make-symbol "anaphoric-pcase--result")))
+    `(let (,anaphoric-pcase--result)
+       (dolist (it ,expr ,anaphoric-pcase--result)
+         (push (progn ,@body)
+               ,anaphoric-pcase--result))
+       (nreverse ,anaphoric-pcase--result))))
+(defalias 'adolist (symbol-function 'anaphoric-dolist))
+
 (use-package package
   :custom
   (package-menu-async nil)
@@ -1116,6 +1125,9 @@ string; otherwise return a 64-character string."
   :config
   (minibuffer-depth-indicate-mode t)
   )
+
+;; (use-package url-cookie
+;;   :same "*url cookies*")
 
 
 (defun jump-to-proc (arg)
@@ -1150,6 +1162,17 @@ string; otherwise return a 64-character string."
 ;;   :config
 ;;   (stillness-mode 1)
 ;;   )
+
+(use-package calendar
+  ;; :config
+  ;; (let ((display-buffer-alist '(("^\\*Calendar\\*$" display-buffer-same-window))))
+  ;;   (calendar)
+  ;;   (calendar-goto-date (list 1 15 2025)))
+  :defer t
+  :same
+  ;; calendar-buffer
+  "^\\*Calendar\\*$"
+  )
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here
