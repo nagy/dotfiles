@@ -10,16 +10,6 @@
 ;; NIX-EMACS-PACKAGE: anaphora
 (require 'anaphora)
 
-;; NIX-EMACS-PACKAGE: ace-window
-(use-package ace-window
-  :init
-  (setq aw-keys (list ?a ?s ?d ?f ?h ?j ?k ?l ))
-  (setq aw-background nil)
-  (setq aw-scope 'visible)
-  (setq aw-leading-char-style 'path)
-  :bind
-  ("s-'" . ace-window))
-
 ;; NIX-EMACS-PACKAGE: aggressive-indent
 (use-package aggressive-indent
   :diminish 'aggressive-indent-mode
