@@ -682,6 +682,9 @@ string; otherwise return a 64-character string."
   (set-face-attribute 'show-paren-match nil :inherit 'modus-themes-subtle-blue :background 'unspecified))
 
 (use-package winner
+  :custom
+  ;; without this, in eat the C-C keys are incorrectly bound.
+  (winner-dont-bind-my-keys t)          ; but does not seem to work
   :bind
   ("s-u" . winner-undo)
   ("s-U" . winner-redo))

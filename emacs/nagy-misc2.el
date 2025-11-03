@@ -1,13 +1,14 @@
 ;;; nagy-misc2.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") reformatter emms pdf-tools org-pdftools anaphora nagy-use-package)
+;; Package-Requires: ((emacs "30.1") reformatter org-pdftools nagy-use-package)
 
 (require 'diminish)
 
 ;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
 (require 'general)
-;; NIX-EMACS-PACKAGE: smartparens
-(require 'smartparens)
+
+;; NIX-EMACS-PACKAGE: anaphora
+(require 'anaphora)
 
 (use-package conf-mode
   :preface
@@ -124,7 +125,7 @@
 (defun system-suspend ()
   (interactive)
   ;; (real-garbage-collect)
-  (dolist (_ '(1 1 1 1 1 1 1 1 1))
+  (dotimes (_ 20)
     (brightness-down))
   (start-process "sleeping" nil "sh" "-c" "sleep 2 && systemctl suspend"))
 (keymap-global-set "s-💤" #'system-suspend)
@@ -376,6 +377,7 @@ waits for input."
     (text-mode)
     (goto-char (point-min))))
 
+;; NIX-EMACS-PACKAGE: pdf-tools
 (use-package pdf-tools
   :custom
   (pdf-view-use-scaling nil)
@@ -525,10 +527,15 @@ waits for input."
   :config
   (global-page-break-lines-mode 1))
 
-;; (use-package smartparens
-;;   :hook
-;;   (emacs-lisp-mode . smartparens-mode)
-;;   (ielm-mode . smartparens-mode))
+;; NIX-EMACS-PACKAGE: smartparens
+(require 'smartparens)
+(use-package smartparens
+  :config
+  (progn)
+  ;; :hook
+  ;; (emacs-lisp-mode . smartparens-mode)
+  ;; (ielm-mode . smartparens-mode)
+  )
 
 ;; NIX-EMACS-PACKAGE: go-mode
 (use-package go-mode

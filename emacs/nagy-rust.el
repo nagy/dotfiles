@@ -3,8 +3,6 @@
 
 (require 'general)
 
-;; (require 'nagy-use-package)
-
 ;; NIX-EMACS-PACKAGE: rustic
 (use-package rustic
   :commands (rustic-setup-lsp)
@@ -63,6 +61,16 @@
   ("m" . "mut")
   :cycle 'rustic-mode
   ("Result" "Option"))
+
+;; (define-auto-insert
+;;   `(,(rx ".rs" eos) . "Rust skeleton")
+;;    '("Short description: "
+;;      "use std::io;" \n
+;;      \n
+;;      "pub fn main() {" \n
+;;      "println!(\"Hello, World!\\n\");" \n
+;;      > _ \n
+;;      "}" > \n))
 
 (provide 'nagy-rust)
 ;;; nagy-rust.el ends here

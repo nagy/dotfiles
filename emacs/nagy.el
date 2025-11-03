@@ -24,7 +24,6 @@
 (require 'nagy-mode-line nil t)
 (require 'nagy-modus-themes nil t)
 (require 'nagy-nix nil t)
-(require 'nagy-nlinum nil t)
 (require 'nagy-org nil t)
 (require 'nagy-pcap-converter nil t)
 (require 'nagy-python nil t)

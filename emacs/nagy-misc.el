@@ -8,6 +8,8 @@
   ;; To catch errors during batch compilation
   (require 'nameless))
 
+(declare-function preload-url "local")
+
 (use-package emacs
   :general
   (:states 'normal
@@ -428,21 +430,32 @@ Returns the total execution time as a floating-point number."
 
 ;; NIX-EMACS-PACKAGE: devdocs
 (use-package devdocs
+  :defer t
+  :commands (nagy-devdocs-install)
   :custom
   (devdocs-use-mathjax nil)
+  :config
+  ;; replace
+  (defun devdocs--available-docs ()
+    (json-read-file (preload-url (format "%s/docs.json" devdocs-site-url))))
+  (defun nagy-devdocs-install (orig-fun &rest args)
+    (cl-letf (((symbol-function 'url-insert-file-contents) (lambda (url) (insert-file-contents (preload-url url)))))
+      (apply orig-fun args)))
+  (advice-add 'devdocs-install :around #'nagy-devdocs-install)
+  ;; (advice-remove 'password-store--run #'nagy-devdocs-install)
   :same "^\\*devdocs\\*"
   :general
   (:states 'motion :keymaps 'devdocs-mode-map
            [remap evil-jump-backward] #'devdocs-go-back
            [remap evil-jump-forward] #'devdocs-go-forward))
+;; (add-hook 'python-mode-hook
+;;           (lambda () (setq-local devdocs-current-docs '("python~3.13"))))
 
 ;; NIX-EMACS-PACKAGE: poke-mode
 (use-package poke-mode
   :defer t
   )
 
-;; (add-hook 'python-mode-hook
-;;           (lambda () (setq-local devdocs-current-docs '("python~3.13"))))
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
