@@ -509,6 +509,8 @@ Returns the total execution time as a floating-point number."
   (:states 'normal :keymaps 'prog-mode-map
            "«" #'aggressive-indent-mode))
 
+;; * Zig
+
 ;; NIX-EMACS-PACKAGE: zig-mode
 (use-package zig-mode
   :custom
@@ -547,6 +549,8 @@ Returns the total execution time as a floating-point number."
 ;;      "std.debug.print(\"Hello, World!\\n\", .{});" \n
 ;;      > _ \n
 ;;      "}" > \n))
+
+;; * Rust
 
 ;; NIX-EMACS-PACKAGE: rustic
 (use-package rustic
@@ -616,6 +620,8 @@ Returns the total execution time as a floating-point number."
 ;;      > _ \n
 ;;      "}" > \n))
 
+;; * Python
+
 (use-package python
   :preface
   ;; or use https://github.com/scop/emacs-ruff-format
@@ -667,6 +673,8 @@ Returns the total execution time as a floating-point number."
   ("True" "False")
   :same "^\\*Python")
 
+;; * Devops
+
 ;; NIX-EMACS-PACKAGE: dockerfile-mode
 (use-package dockerfile-mode
   :defer t)
@@ -693,6 +701,8 @@ Returns the total execution time as a floating-point number."
   ;; :config
   ;; (push '(terraform-mode "terraform-ls" "serve") eglot-server-programs)
   )
+
+;; * Elfeed
 
 ;; NIX-EMACS-PACKAGE: elfeed
 (use-package elfeed
@@ -723,6 +733,8 @@ Returns the total execution time as a floating-point number."
             )
   ;; :same "^\\*elfeed-entry"
   )
+
+;; * Haskell
 
 ;; NIX-EMACS-PACKAGE: haskell-mode
 (use-package haskell-mode
