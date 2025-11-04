@@ -694,5 +694,35 @@ Returns the total execution time as a floating-point number."
   ;; (push '(terraform-mode "terraform-ls" "serve") eglot-server-programs)
   )
 
+;; NIX-EMACS-PACKAGE: elfeed
+(use-package elfeed
+  :preface
+  (defvar elfeed-show-mode-hook nil)
+  :defer t
+  :custom
+  (elfeed-show-truncate-long-urls nil)
+  (elfeed-search-filter "+unread")
+  (elfeed-search-title-max-width 100)
+  (elfeed-curl-max-connections 1)
+  :config
+  (put 'elfeed-search-bookmark-handler 'bookmark-handler-type "Elfeed Search")
+  ;; :bind
+  ;; (:map elfeed-show-mode-map
+  ;;       ("SPC" . nil))
+  :general
+  (:states 'normal :keymaps 'elfeed-search-mode-map
+           "SPC" nil
+           "r" #'elfeed-search-untag-all-unread
+           "↓" #'elfeed-search-fetch)
+  ;; (:states 'normal :keymaps 'elfeed-show-mode-map
+  ;;          "SPC" nil)
+  (:keymaps 'elfeed-search-mode-map
+            [remap kill-this-buffer] #'elfeed-db-unload
+            [remap save-kill-buffer] #'elfeed-db-unload
+            [remap nagy-kill-this-buffer] #'elfeed-db-unload
+            )
+  ;; :same "^\\*elfeed-entry"
+  )
+
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

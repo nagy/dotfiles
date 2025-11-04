@@ -3,7 +3,6 @@
 (require 'nagy-common-lisp nil t)
 (require 'nagy-corfu nil t)
 (require 'nagy-dired nil t)
-(require 'nagy-elfeed nil t)
 (require 'nagy-elpher nil t)
 (require 'nagy-emacs nil t)
 (require 'nagy-evil nil t)
