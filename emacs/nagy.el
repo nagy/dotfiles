@@ -23,7 +23,6 @@
 (require 'nagy-pcap-converter nil t)
 ;; (require 'nagy-qrcode nil t)
 (require 'nagy-tablist nil t)
-(require 'nagy-text nil t)
 (require 'nagy-url nil t)
 (require 'nagy-use-emacs nil t)
 (require 'nagy-use-package nil t)
