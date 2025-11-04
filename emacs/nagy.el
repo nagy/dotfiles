@@ -2,7 +2,6 @@
 
 (require 'nagy-common-lisp nil t)
 (require 'nagy-dired nil t)
-(require 'nagy-elpher nil t)
 (require 'nagy-emacs nil t)
 (require 'nagy-evil nil t)
 (require 'nagy-exwm nil t)
