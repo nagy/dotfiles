@@ -1,28 +1,10 @@
 ;;; nagy-formats.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2023 Daniel Nagy
-;;
-;; Author: Daniel Nagy <danielnagy@posteo.de>
-;; Maintainer: Daniel Nagy <danielnagy@posteo.de>
-;; Created: January 27, 2023
-;; Modified: January 27, 2023
-;; Version: 0.0.1
-;; Keywords: convenience, files
-;; Package-Requires: ((emacs "30.1") evil yaml-mode)
-;;
-;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Description
-;;
-;;; Code:
+;; Package-Requires: ((emacs "30.1") yaml-mode)
 
+;; NIX-EMACS-PACKAGE: evil
 (require 'evil)
 ;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
-(eval-when-compile
-  (require 'cl-lib))
 
 (defun nagy-formats--call-converter (from to)
   (let ((result (nagy-formats-convert from to)))
