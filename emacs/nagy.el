@@ -7,7 +7,6 @@
 (require 'nagy-exwm nil t)
 (require 'nagy-formats nil t)
 (require 'nagy-gc nil t)
-(require 'nagy-hy nil t)
 (require 'nagy-lispy nil t)
 (require 'nagy-list nil t)
 (require 'nagy-lsp nil t)

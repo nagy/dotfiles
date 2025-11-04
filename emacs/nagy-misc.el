@@ -875,5 +875,56 @@ Returns the total execution time as a floating-point number."
 
 ;; TODO markdown disable toggle markup when pretty key is pressed
 
+;; * Hy
+
+;; NIX-EMACS-PACKAGE: hy-mode
+(use-package hy-mode
+  :config
+  (setq hy-jedhy--enable? nil)
+  :bind
+  ("H-M-H" . hy-mode)
+  :general
+  (:states 'normal
+           "Þ" #'run-hy)
+  :pretty 'hy-mode
+  ("True" . true) ("False" . false)
+  ("import" . import)
+  ("let" . let)
+  ("setv" . setq)
+  ("when" . when) ("unless" . unless)
+  ("raise" . throw)
+  ("len" . "≢")
+  ("self" . "▒")
+  ("defn" . def)
+  ("defclass" . defclass)
+  ("defmain" . "𝔐")
+  ("with" . [?↗ (Bl . Bl) ?↘])
+  ("it" . "✦")                          ; anaphoric
+  ("ap-with" . [?↗ (Bl . Bl) ?↘])
+  ("Path" . "𝕻")
+  :abbrev 'hy-mode
+  ("df" . "defn")
+  ("dc" . "dict")
+  ("sv" . "setv")
+  ("wh" . "when")
+  ("unl" . "unless")
+  ("req" . "require")
+  ("imp" . "import")
+  :same
+  "^\\*Hy\\*$"
+  :hook
+  (hy-mode . lispy-mode)
+  )
+
+(use-package hy-shell
+  :defer t
+  :preface
+  (declare-function nagy-replace-switch-to-buffer-other-window "nagy-use-package")
+  :config
+  (advice-add 'run-hy :around #'nagy-replace-switch-to-buffer-other-window)
+  ;; this does not work in :custom because it is a variable
+  (setq hy-shell--interpreter-args nil)      ; remove --spy
+  )
+
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
