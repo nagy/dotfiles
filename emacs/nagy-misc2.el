@@ -96,6 +96,9 @@
         (when (eq major-mode 'pass-view-mode)
           (kill-buffer buf))))
     (quit-window t))
+  ;; silence the header
+  (defun pass-display-header ()
+    (progn))
   :general
   (:states 'normal
            "🔑" #'pass)
@@ -441,11 +444,12 @@ waits for input."
   )
 
 (use-package pdf-tools
-  :commands (pdf-tools-install)
+  :commands (pdf-tools-install-noverify)
   :hook
   (pdf-view-mode . pdf-view-fit-page-to-window)
   :config
-  (pdf-tools-install)
+  (pdf-tools-install-noverify)
+  ;; do not issue warning
   (setq pdf-view-incompatible-modes
         (delq 'display-line-numbers-mode pdf-view-incompatible-modes))
   ;; (evil-collection-init 'pdf)

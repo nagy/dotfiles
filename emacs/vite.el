@@ -4,8 +4,7 @@
 (require 'project)
 (require 'eat)
 
-(require 'nagy-emacs)
-
+;;;###autoload
 (defun vite-build ()
   (interactive)
   (with-directory (project-root (project-current))
@@ -14,6 +13,7 @@
         (kill-buffer (get-buffer eat-buffer-name)))
       (eat "deno run -A --node-modules-dir npm:vite build"))))
 
+;;;###autoload
 (defun vite-dev ()
   (interactive)
   (with-directory (project-root (project-current))

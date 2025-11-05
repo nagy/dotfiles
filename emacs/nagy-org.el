@@ -42,6 +42,8 @@
         ("A-s-j" . org-edit-special)
         ("M-j" . org-move-subtree-down)
         ("M-k" . org-move-subtree-up)
+        ("H-." . org-timestamp)
+        ("H-," . org-todo)
         )
   :pretty 'org-mode
   ("#+begin_example" . "↝")
@@ -54,12 +56,20 @@
   ("#+end_quote" . "”")
   ("#+BEGIN_QUOTE" . "“")
   ("#+END_QUOTE" . "”")
+  ("#+begin_export" . "𝚇")
+  ("#+end_export" . "𝚇")
+  ("#+BEGIN_EXPORT" . "𝚇")
+  ("#+END_EXPORT" . "𝚇")
   ("#+title:" . "⨠")
   ("#+TITLE:" . "⨠")
   ("#+name:" . "⁝")
   ("#+NAME:" . "⁝")
   ("#+date:" . "")
   ("#+DATE:" . "")
+  ("#+options:" . "⮾")
+  ("#+OPTIONS:" . "⮾")
+  ("#+language:" . "🌍")
+  ("#+LANGUAGE:" . "🌍")
   ("#+begin_comment" . "󰿟")
   ("#+end_comment" . "󰿟")
   ("#+BEGIN_COMMENT" . "󰿟")
@@ -114,6 +124,14 @@
         ([remap kill-this-buffer] . org-edit-src-abort)
         ([remap nagy-kill-this-buffer] . org-edit-src-abort)
         ("H-s-e" . org-babel-tangle)))
+
+;; (use-package ox
+;;   :defer t
+;;   :preface
+;;   (declare-function nagy-replace-switch-to-buffer-other-window "nagy-use-package")
+;;   :config
+;;   ;; (advice-add 'org-export-to-buffer :around #'nagy-replace-switch-to-buffer-other-window)
+;;   )
 
 (use-package ox-latex
   :defer t

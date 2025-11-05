@@ -471,7 +471,7 @@ Returns the total execution time as a floating-point number."
     (outline-minor-mode 1)              ; to recalculate the buttons
     )
   :bind
-  ("H-M-T" . conf-toml-mode)
+  ("H-M-O" . conf-toml-mode)
   (:map conf-mode-map
         ("H-j" . forward-paragraph)
         ("H-k" . backward-paragraph)
@@ -671,6 +671,8 @@ Returns the total execution time as a floating-point number."
   ("class" "def")
   ("str" "bytes")
   ("True" "False")
+  :abbrev 'python-mode
+  ("imp" . "import")
   :same "^\\*Python")
 
 ;; * Devops
