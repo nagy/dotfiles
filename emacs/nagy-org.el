@@ -17,12 +17,15 @@
   (org-edit-src-content-indentation 0)
   (org-modules nil)
   (org-return-follows-link t)
+  ;; (org-cycle-hide-drawer-startup nil)
   :hook
   (org-mode . visual-line-mode)
   :config
   (defun find-file-org ()
     (interactive)
     (find-file (format "%s/TODOs.org" org-directory)))
+  ;; (with-eval-after-load 'info
+  ;;   (add-to-list 'Info-url-alist '("org" . "https://orgmode.org/manual/%e.html")))
   :bind
   ("H-M-o" . org-mode)
   ("C-ø" . org-store-link)
@@ -44,6 +47,8 @@
         ("M-k" . org-move-subtree-up)
         ("H-." . org-timestamp)
         ("H-," . org-todo)
+        ("H-q" . org-set-tags-command)
+        ("H-E" . org-export-dispatch)
         )
   :pretty 'org-mode
   ("#+begin_example" . "↝")

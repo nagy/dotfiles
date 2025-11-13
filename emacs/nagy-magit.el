@@ -12,7 +12,8 @@
   (add-to-list 'display-buffer-alist '("^magit-process:" display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^magit-diff:"  display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^magit:" display-buffer-same-window))
-  (add-to-list 'Info-url-alist '(("Magit" "Forge") . "https://magit.vc/manual/%m.html#%n"))
+  ;; (with-eval-after-load 'info
+  ;;   (add-to-list 'Info-url-alist '(("Magit" "Forge") . "https://magit.vc/manual/%m.html#%n")))
   :bind
   ("H-g" . magit-status)
   ("H-L" . magit-log-buffer-file)

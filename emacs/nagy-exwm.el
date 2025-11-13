@@ -23,6 +23,14 @@
 ;; this does not work yet
 ;; (defalias 'nagy-kill-this-buffer (symbol-function 'kill-this-buffer))
 
+(defun nagy-move-tab-right (arg)
+  (interactive "P")
+  (tab-bar-move-tab (or arg 1)))
+
+(defun nagy-move-tab-left (arg)
+  (interactive "P")
+  (tab-bar-move-tab (* -1 (or arg 1))))
+
 (defun update-current-frame-fontset ()
   (interactive)
   ;; (set-fontset-font t 'unicode (font-spec :family "Noto Sans Symbols") nil 'append)
@@ -219,6 +227,8 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-ð") . ,(lambda () (interactive) (find-file "~/Downloads")))
             (,(kbd "s-j") . dired-jump)
             (,(kbd "C-s-j") . browse-url-from-kill)
+            (,(kbd "s-<backspace>") . nagy-move-tab-left)
+            (,(kbd "S-s-<delete>") . nagy-move-tab-right)
             ))
   :config
   ;; Add these hooks in a suitable place (e.g., as done in exwm-config-default)
