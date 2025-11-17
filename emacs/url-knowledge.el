@@ -105,7 +105,7 @@
         (when (string-prefix-p "https://" it)
           it))))))
 
-(declare-function jq-format-buffer "nagy-web")
+;; (declare-function jq-format-buffer "nagy-web")
 (declare-function -shell "dash-shell")
 (defun pypi-browse-url (url &rest _args)
   (switch-to-buffer (generate-new-buffer (concat "*pypi*" url)))
@@ -121,7 +121,7 @@
                       (string-remove-suffix "/" it))))
       )
      (js-json-mode)
-     (jq-format-buffer)
+     ;; (jq-format-buffer)
      (setq url-knowledge-url url)
      )))
 

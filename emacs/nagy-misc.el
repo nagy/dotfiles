@@ -18,6 +18,12 @@
   (:states 'normal
            "²" #'duplicate-dwim))
 
+(use-package autoinsert
+  :defer t
+  :custom
+  (auto-insert-query nil)
+  )
+
 ;; NIX-EMACS-PACKAGE: nameless
 (use-package nameless
   :diminish nameless-mode
@@ -541,7 +547,7 @@ Returns the total execution time as a floating-point number."
   (:states 'normal :keymaps 'zig-mode-map
            "⊢" #'zig-format-buffer))
 ;; (define-auto-insert
-;;   `(,(rx ".zig" eos) . "Zig skeleton")
+;;   `("\\.zig\\'" . "Zig skeleton")
 ;;    '("Short description: "
 ;;      "const std = @import(\"std\");" \n
 ;;      \n
@@ -611,7 +617,7 @@ Returns the total execution time as a floating-point number."
   :cycle 'rustic-mode
   ("Result" "Option"))
 ;; (define-auto-insert
-;;   `(,(rx ".rs" eos) . "Rust skeleton")
+;;   `("\\.rs\\'" . "Rust skeleton")
 ;;    '("Short description: "
 ;;      "use std::io;" \n
 ;;      \n
@@ -1025,7 +1031,8 @@ Returns the total execution time as a floating-point number."
   ("true" . true) ("false" . false)
   :general
   (:states 'normal :keymaps 'yaml-mode-map
-           "⊢" #'yq-format-buffer))
+           "⊢" #'yq-format-buffer)
+)
 
 ;; NIX-EMACS-PACKAGE: jq-mode
 (use-package jq-mode

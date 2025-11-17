@@ -49,6 +49,7 @@
         ("H-," . org-todo)
         ("H-q" . org-set-tags-command)
         ("H-E" . org-export-dispatch)
+        ("C-M-l" . org-toggle-link-display)
         )
   :pretty 'org-mode
   ("#+begin_example" . "↝")
@@ -71,6 +72,10 @@
   ("#+NAME:" . "⁝")
   ("#+date:" . "")
   ("#+DATE:" . "")
+  ("#+author:" . "🧍")
+  ("#+AUTHOR:" . "🧍")
+  ("#+email:" . "📧")
+  ("#+EMAIL:" . "📧")
   ("#+options:" . "⮾")
   ("#+OPTIONS:" . "⮾")
   ("#+language:" . "🌍")
