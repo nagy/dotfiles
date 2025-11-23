@@ -50,7 +50,6 @@
     (with-eval-after-load 'org
       (set-face-attribute 'org-block nil :background 'unspecified)
       (set-face-attribute 'org-block-begin-line nil :background 'unspecified))
-    (set-face-attribute 'tab-bar-tab nil :box 'unspecified) ;; remove 'bold
     (set-face-attribute 'tab-bar-tab-inactive nil :box nil :background (face-attribute 'tab-bar :background nil t))
     (set-face-attribute 'window-divider nil :foreground (if (dayp) "black" "gray20"))
     (with-eval-after-load 'dired
@@ -89,7 +88,14 @@
        `(forge-pullreq-open ((,c :inherit modus-themes-fg-green)))
        `(forge-pullreq-merged ((,c :inherit modus-themes-fg-magenta)))
        `(eglot-highlight-symbol-face ((,c :underline t :bold t)))
-       `(scroll-bar ((,c :box unspecified :background ,bg-main :foreground ,(if (dayp) "#ccc" "#333")))))))
+       `(scroll-bar ((,c :box unspecified :background ,bg-main :foreground ,(if (dayp) "#ccc" "#333"))))
+       ;; High contrast
+       `(mode-line ((,c :box (:line-width 2))))
+       `(mode-line-inactive ((,c :foreground ,fg-main :box (:line-width 2 :color ,bg-main) :background ,bg-main)))
+       `(tab-bar-tab          ((,c :box (:line-width 2 :color ,fg-main))))
+       `(tab-bar-tab-inactive ((,c :box (:line-width 2 :color ,bg-main) :background ,bg-main))) ;; use same-color box to fix "jumping"
+       `(tab-bar ((,c :box nil :background ,bg-main)))
+       )))
   (defun my-modus-themes-custom-faces-twice ()
     "Call `my-modus-themes-custom-faces' twice because with only one
 call, the scrollbar on the second display is not updated
