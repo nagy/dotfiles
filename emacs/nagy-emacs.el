@@ -1041,6 +1041,13 @@ string; otherwise return a 64-character string."
   (setq url (browse-url-encode-url url))
   (start-process (concat "mpv " url) nil "mpv" url)
   t)
+(add-to-list 'browse-url-handlers '("^file:///.*\\.mp4$" . my-browser-url-mpv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.m4a$" . my-browser-url-mpv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.opus$" . my-browser-url-mpv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.mkv$" . my-browser-url-mpv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.avi$" . my-browser-url-mpv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.webm$" . my-browser-url-mpv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.gif$" . my-browser-url-mpv))
 
 (require 'url-parse)
 (defun my-browser-url-nsxiv (url &optional _new-window)
@@ -1053,6 +1060,14 @@ string; otherwise return a 64-character string."
         (setcar path (concat (car path) "?" it)))
       (start-process (concat "nsxiv " (car path)) nil "nsxiv" "-sf" (car path))))
   t)
+(add-to-list 'browse-url-handlers '("^file:///.*\\.png$" . my-browser-url-nsxiv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.jpg$" . my-browser-url-nsxiv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.jpeg$" . my-browser-url-nsxiv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.webp$" . my-browser-url-nsxiv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.jxl$" . my-browser-url-nsxiv))
+
+(add-to-list 'browse-url-handlers '("^ftp://scp/" . my-browser-url-nsxiv) 'append) ;; disable tramp
+
 
 ;;; Textual stuff
 ;; https://stackoverflow.com/a/2478549

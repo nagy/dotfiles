@@ -272,46 +272,6 @@ Can be used as an advice."
         ("<key-chord> f j" . exit-minibuffer)
         ("<key-chord> j f" . minibuffer-keyboard-quit)))
 
-(defun dired-add-actual-S-switch ()
-  (interactive)
-  (setq-local dired-actual-switches (concat dired-listing-switches " -S"))
-  (revert-buffer))
-(with-eval-after-load 'dired
-  (keymap-set dired-mode-map "M-↓" #'dired-add-actual-S-switch))
-
-(defun dired-add-actual-S-switch-inverted ()
-  (interactive)
-  (setq-local dired-actual-switches (concat dired-listing-switches " -S -r"))
-  (revert-buffer))
-(with-eval-after-load 'dired
-  (keymap-set dired-mode-map "M-↑" #'dired-add-actual-S-switch-inverted))
-
-(defun dired-add-actual-x-switch ()
-  (interactive)
-  (setq-local dired-actual-switches (concat dired-listing-switches " --sort=extension"))
-  (revert-buffer))
-(with-eval-after-load 'dired
-  (keymap-set dired-mode-map "M-←" #'dired-add-actual-x-switch))
-
-(defun dired-add-actual-x-switch-inverted ()
-  (interactive)
-  (setq-local dired-actual-switches (concat dired-listing-switches " --sort=extension -r"))
-  (revert-buffer))
-(with-eval-after-load 'dired
-  (keymap-set dired-mode-map "M-→" #'dired-add-actual-x-switch-inverted))
-
-(defun dired-add-actual-t-switch ()
-  (interactive)
-  (setq-local dired-actual-switches (concat dired-listing-switches " -t"))
-  (revert-buffer))
-(with-eval-after-load 'dired
-  (keymap-set dired-mode-map "M-ŧ" #'dired-add-actual-t-switch-inverted))
-
-(defun dired-add-actual-t-switch-inverted ()
-  (interactive)
-  (setq-local dired-actual-switches (concat dired-listing-switches " -t -r"))
-  (revert-buffer))
-
 (defun dired-do-delete-force ()
   (interactive)
   (let ((delete-by-moving-to-trash

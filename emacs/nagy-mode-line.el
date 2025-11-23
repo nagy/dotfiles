@@ -90,19 +90,32 @@
          mode-line-position)))))
 (put 'nagy-mode-line-right 'risky-local-variable t)
 
+(defvar-local nagy-mode-line--show-default-directory t)
+(put 'nagy-mode-line--show-default-directory 'risky-local-variable t)
+
 (defvar nagy-mode-line-default-directory-format
   '(:eval (unless (derived-mode-p 'exwm-mode)
-            (propertize (abbreviate-file-name
-                         (--> default-directory
-                              (string-replace "%" "%%" it)
-                              (string-replace "/tmp/t" "⧖" it)
-                              ;; (string-replace "/tmp/" "/⧖" it)
-                              (string-replace "/nix/store" "○" it)
-                              ))
-                        'face '(:inherit (dired-directory)
-                                         :weight bold
-                                         :height 1.2)
-                        ))))
+            (if nagy-mode-line--show-default-directory
+                (propertize (abbreviate-file-name
+                             (--> default-directory
+                                  (string-replace "%" "%%" it)
+                                  (string-replace "/tmp/t" "⧖" it)
+                                  (string-replace "/tmp/" "⧖" it)
+                                  ;; (string-replace "/tmp/" "/⧖" it)
+                                  ;; (string-replace "/nix/store" "○" it)
+                                  (if (string-prefix-p "/nix/store/" it )
+                                      (concat "○/…"
+                                              (replace-regexp-in-string
+                                               (rx (group (= 32 (any "0-9" "a-d" "f-n" "p-s" "v-z"))))
+                                               ""
+                                               (string-remove-prefix (concat nix-store-dir "/")
+                                                                     it)))
+                                    it)
+                                  ))
+                            'face `(:inherit ,(if (mode-line-window-selected-p) '(dired-directory) nil)
+                                             :weight bold
+                                             :height 1.2)
+                            )))))
 
 (defun nagy-mode-line-init ()
   (interactive)

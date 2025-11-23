@@ -264,5 +264,26 @@
   (add-to-list 'browse-url-default-handlers '("\\`npm:" . browse-url--org-link))
   (add-to-list 'browse-url-default-handlers '("\\`pypi:" . browse-url--org-link)))
 
+
+;; NIX-EMACS-PACKAGE: outorg
+(use-package outorg
+  :defer t
+  :custom
+  (outorg-edit-buffer-persistent-message nil)
+  :preface
+  (declare-function nagy-replace-switch-to-buffer-other-window "nagy-use-package")
+  (declare-function nagy-replace-split-window-sensibly "nagy-use-package")
+  :config
+  (advice-add 'outorg-edit-as-org :around #'nagy-replace-switch-to-buffer-other-window)
+  (advice-add 'outorg-edit-as-org :around #'nagy-replace-split-window-sensibly)
+  :same
+  "^\\*outorg-edit-buffer\\*"
+  )
+
+;; NIX-EMACS-PACKAGE: outshine
+(use-package outshine
+  :defer t
+  )
+
 (provide 'nagy-org)
 ;;; nagy-org.el ends here

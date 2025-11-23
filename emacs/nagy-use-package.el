@@ -170,6 +170,12 @@ with `switch-to-buffer'."
   (cl-letf (((symbol-function 'switch-to-buffer-other-window) #'switch-to-buffer))
     (apply orig-fun args)))
 
+(defun nagy-replace-split-window-sensibly (orig-fun &rest args)
+  "Advice that replaces calls to `split-window-sensibly'
+with `ignore'."
+  (cl-letf (((symbol-function 'split-window-sensibly) #'ignore))
+    (apply orig-fun args)))
+
 ;;;###autoload
 (pcase-defmacro suffix (suffix)
   "Pattern (suffix SUFFIX) matches if the string ends with SUFFIX."

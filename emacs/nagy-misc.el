@@ -1087,5 +1087,43 @@ Returns the total execution time as a floating-point number."
   ("true" . true) ("false" . false)
   ("if" . if) ("else" . else))
 
+;; * Typst
+
+;; NIX-EMACS-PACKAGE: typst-ts-mode
+(use-package typst-ts-mode
+  :preface
+  (reformatter-define typstyle
+    :group 'emacs
+    :program "typstyle"
+    )
+  :defer t
+  :bind
+  ("H-M-T" . typst-ts-mode)
+  (:map typst-ts-mode-map
+        ("C-⊢" . typstyle-buffer))
+  :hook
+  (typst-ts-mode . typstyle-on-save-mode)
+  :general
+  (:states 'normal :keymaps 'typst-ts-mode-map
+           "⊢" #'typstyle-buffer)
+  )
+
+;; NIX-EMACS-PACKAGE: ox-typst
+(use-package ox-typst
+  :commands (org-typst-export-to-typst) ;; for autoload
+  :after org
+  :custom
+  (org-typst-export-buffer-major-mode 'typst-ts-mode)
+  ;; :config
+  ;; (add-to-list 'org-export-options-alist
+  ;;              '(:with-phone nil "phone" nil t))
+  :bind
+  (:map org-mode-map
+        ("H-M-T" . org-typst-export-as-typst)
+        ("H-M-P" . org-typst-export-to-pdf))
+  )
+
+;;  TODO integrate tinymist language server lsp https://github.com/Myriad-Dreamin/tinymist
+
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
