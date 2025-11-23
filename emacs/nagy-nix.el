@@ -145,6 +145,59 @@
   ("H-M-n" . nix-mode)
   )
 
+(define-auto-insert
+  '("\\.nix\\'" . "Nix skeleton")
+  '("Short description: "
+    "{" \n
+    "pkgs ? import <nixpkgs> { }," \n
+    "# pkgs ? import (builtins.fetchTarball \"https://github.com/NixOS/nixpkgs/archive/pull/123456/head.tar.gz\") { }," \n
+    "lib ? pkgs.lib," \n
+    "stdenv ? pkgs.stdenv," \n
+    "# fetchFromGitHub ? pkgs.fetchFromGitHub," \n
+    "# writableTmpDirAsHomeHook ? pkgs.writableTmpDirAsHomeHook," \n
+    "}:" \n
+    \n
+    "stdenv.mkDerivation (finalAttrs: {" \n
+    "pname = \"\";" \n
+    "version = \"\";" \n
+    \n
+    "src = fetchFromGitHub {" \n
+    "owner = \"nagy\";" \n
+    "repo = \"\";" \n
+    "tag = \"\";" \n
+    "# rev = \"\";" \n
+    "# fetchSubmodules = true;" \n
+    "hash = \"\";" \n
+    "};" \n
+    \n
+    "# nativeBuildInputs = [ ];" \n
+    "# buildInputs = [ ];" \n
+    \n
+    "# buildPhase = ''" \n
+    "# runHook preBuild" \n
+    "# runHook postBuild" \n
+    "# '';" \n
+    "# installPhase = ''" \n
+    "# runHook preInstall" \n
+    "# runHook postInstall" \n
+    "# '';" \n
+
+    "# preferLocalBuild = true;" \n
+    "# allowSubstitutes = true;" \n
+
+    "# meta = {" \n
+    "# };" \n
+    "})" \n
+    \n
+    ))
+
+(defun find-file-directory-nix ()
+  (interactive)
+  (find-file "default.nix")
+  )
+(require 'dired)
+(keymap-set dired-mode-map "H-M-n" #'find-file-directory-nix)
+
 (use-package nix-prettify-mode
   :diminish nix-prettify-mode
   :custom

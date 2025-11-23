@@ -332,9 +332,11 @@ waits for input."
 
 ;; NIX-EMACS-PACKAGE: pdf-tools
 (use-package pdf-tools
+  :defer t
+  :commands (pdf-tools-install-noverify)
   :custom
   (pdf-view-use-scaling nil)
-  ;; (pdf-view-midnight-colors '("white" . "black"))
+  (pdf-view-midnight-colors '("white" . "black"))
   :bind
   (:map pdf-view-mode-map
         ("H-j" . pdf-view-next-page-command)
@@ -343,8 +345,17 @@ waits for input."
         )
   :hook
   (pdf-view-mode . pdf-view-themed-minor-mode)
+  (pdf-view-mode . pdf-view-fit-page-to-window)
   ;; :same
   ;; (rx bos "*Outline ")
+  :config
+  (pdf-tools-install-noverify)
+  ;; do not issue warning
+  (setq pdf-view-incompatible-modes
+        (delq 'display-line-numbers-mode pdf-view-incompatible-modes))
+  ;; (evil-collection-init 'pdf)
+  ;; (evil-collection-pdf-setup)
+  ;; (evil-set-initial-state 'pdf-view-mode 'normal)
   )
 
 (defun take-screenshot ()
@@ -443,20 +454,6 @@ waits for input."
                                 #'switch-to-buffer :refresh-p nil)
   )
 
-(use-package pdf-tools
-  :commands (pdf-tools-install-noverify)
-  :hook
-  (pdf-view-mode . pdf-view-fit-page-to-window)
-  :config
-  (pdf-tools-install-noverify)
-  ;; do not issue warning
-  (setq pdf-view-incompatible-modes
-        (delq 'display-line-numbers-mode pdf-view-incompatible-modes))
-  ;; (evil-collection-init 'pdf)
-  ;; (evil-collection-pdf-setup)
-  ;; (evil-set-initial-state 'pdf-view-mode 'normal)
-  )
-
 ;; NIX-EMACS-PACKAGE: iedit
 (use-package iedit
   :bind
@@ -504,7 +501,7 @@ waits for input."
   ("H-M-g" . go-mode))
 ;; (setq auto-insert-alist nil)
 ;; (define-auto-insert
-;;   `(,(rx ".go" eos) . "Go skeleton")
+;;   `("\\.go\\'" . "Go skeleton")
 ;;   '("Short description: "
 ;;     "package main;" \n
 ;;     \n
@@ -514,6 +511,11 @@ waits for input."
 ;;     "fmt.Println(\"hello world\")" \n
 ;;     > _ \n
 ;;     "}" > \n))
+;; (defun find-file-directory-go ()
+;;   (interactive)
+;;   (find-file "main.go")
+;;   )
+;; (keymap-set dired-mode-map "H-M-g" #'find-file-directory-go)
 
 ;; NIX-EMACS-PACKAGE: request
 (use-package request
@@ -618,6 +620,12 @@ waits for input."
   ;; lag once you have a lot of buffers open.
   (company-dabbrev-other-buffers nil)
   )
+
+;; ;; NIX-EMACS-PACKAGE: sparql-mode
+;; (use-package sparql-mode
+;;   :defer t
+;;   :mode "\\.sparql\\'"
+;;   )
 
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here

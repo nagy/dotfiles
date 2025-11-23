@@ -90,6 +90,26 @@
                ))
           eol)
      (1 `(face modus-themes-intense-yellow)))
+    (,(rx " " (group "book.journal") eol)
+     (1 (progn (ov-set (make-overlay (match-beginning 1)
+                                     (match-end 1))
+                       'evaporate t
+                       'face '(:underline t))
+               nil)))
+    ;; Documentation, minor
+    (,(rx (group
+           (or ".machine" ".rsync"
+               ".lsremote"
+               ".cv"))
+          (or ".txt" ".org" ".md") eol)
+     (1 `(face modus-themes-subtle-yellow)))
+    ;; Documentation, main
+    (,(rx " " (group (or "README") (or ".org" ".md")) eol)
+     (1 (progn (ov-set (make-overlay (match-beginning 1)
+                                     (match-end 1))
+                       'evaporate t
+                       'face '(:underline t))
+               nil)))
     ;; media, Videos, audio
     (,(rx (group
            (or ".thumbs"))
@@ -133,6 +153,25 @@
      (1 dired-flagged-face prepend))
     ;; (,(concat "^\\([" (char-to-string dired-del-marker) "]\\)")
     ;;  (1 dired-flagged-face prepend))
+    ;; make smaller
+    (,(eval-when-compile dired-re-maybe-mark)
+     (0 (progn ;; (ov-set (make-overlay (match-beginning 0)
+          ;;                       (match-end 0))
+          ;;         'evaporate t
+          ;;         'display "")
+          (put-text-property (match-beginning 0)
+                             (match-end 0)
+                             'display "")
+          nil)))
+    ("^  /.*:"
+     (0 (progn ;; (ov-set (make-overlay (match-beginning 0)
+          ;;                       (+ 1 (match-end 0)))
+          ;;         'evaporate t
+          ;;         'display "")
+          (put-text-property (match-beginning 0)
+                             (1+ (match-end 0))
+                             'display "")
+          nil)))
     ))
 
 (define-minor-mode drfl-mode

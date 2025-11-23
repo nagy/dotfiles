@@ -1036,9 +1036,22 @@ Returns the total execution time as a floating-point number."
 
 ;; NIX-EMACS-PACKAGE: jq-mode
 (use-package jq-mode
+  :preface
+  (reformatter-define jqfmt
+    :group 'emacs
+    :program "jqfmt"
+    :args '("-ob" "-ar" "-op" "pipe" ))
   :defer t
   ;; :mode "\\.jq\\'"
   ;; :interpreter "jq"
+  ;; :hook
+  ;; (jq-mode . jqfmt-on-save-mode)
+  :bind
+  (:map jq-mode-map
+        ("C-⊢" . jqfmt-buffer))
+  :general
+  (:states 'normal :keymaps 'jq-mode-map
+           "⊢" #'jqfmt-buffer)
   :pretty 'jq-mode
   ("def" . def)
   ("try" . try) ("catch" . except)

@@ -18,6 +18,8 @@
   (org-modules nil)
   (org-return-follows-link t)
   ;; (org-cycle-hide-drawer-startup nil)
+  (org-export-with-smart-quotes t)
+  (org-link-descriptive nil)
   :hook
   (org-mode . visual-line-mode)
   :config
@@ -108,6 +110,26 @@
            "ŋ" #'org-update-all-dblocks
            "RET" #'org-return
            "r" #'org-cycle))
+
+(define-auto-insert
+  '("\\.org\\'" . "Org skeleton")
+  '("Short description: "
+    "#+title: Document Title" \n
+    "#+author: " user-full-name \n
+    "#+email: " user-mail-address \n
+    "#+options: toc:nil email:t date:t f:nil" \n
+    "#+language: de" \n
+    \n
+    "* First Headline" \n
+    \n
+    ))
+
+(defun find-file-directory-org ()
+  (interactive)
+  (find-file "README.org")
+  )
+(require 'dired)
+(keymap-set dired-mode-map "H-M-o" #'find-file-directory-org)
 
 ;; NIX-EMACS-PACKAGE: org-superstar
 (use-package org-superstar
@@ -219,7 +241,16 @@
      ("gl" . "https://gitlab.com/")
      ("crate" . "https://crates.io/crates/")
      ("pypi" . "https://pypi.org/project/")
-     ("npm" . "https://www.npmjs.com/package/"))))
+     ("npm" . "https://www.npmjs.com/package/")
+     ("w" . "https://en.wikipedia.org/wiki/")
+     ("wiki" . "https://en.wikipedia.org/wiki/")
+     )))
+
+;; NIX-EMACS-PACKAGE: orglink
+;; https://github.com/tarsius/orglink
+(use-package orglink
+  :defer t
+  )
 
 (with-eval-after-load 'thingatpt
   (add-to-list 'thing-at-point-uri-schemes "gh:")

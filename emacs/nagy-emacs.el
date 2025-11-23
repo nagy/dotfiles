@@ -869,7 +869,16 @@ string; otherwise return a 64-character string."
 (defalias 'tg (symbol-function 'toggle))
 (put 'tg 'edebug-form-spec (get 'toggle 'edebug-form-spec))
 
+(put 'time-less-p 'pure t)
+;; (put 'time-less-p 'side-effect-free t)
 (defalias 'time< (symbol-function 'time-less-p))
+(put 'time< 'pure t)
+(put 'time< 'side-effect-free t)
+(put 'time-equal-p 'pure t)
+;; (put 'time-equal-p 'side-effect-free t)
+(defalias 'time= (symbol-function 'time-equal-p))
+(put 'time= 'pure t)
+(put 'time= 'side-effect-free t)
 
 (defalias 'ml (symbol-function 'map-length))
 (defalias 'mk (symbol-function 'map-keys))
