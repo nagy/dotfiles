@@ -76,9 +76,7 @@
 (defmacro with-directory (dir &rest body)
   "Set `default-directory' to DIR and execute BODY."
   (declare (indent 1) (debug (sexp body)))
-  `(let ((default-directory ,(if (stringp dir)
-                                 (expand-file-name dir)
-                               `(expand-file-name ,dir))))
+  `(let ((default-directory (expand-file-name ,dir)))
      ,@body))
 
 ;; (defvar-keymap nagy-leader
@@ -1056,6 +1054,16 @@ string; otherwise return a 64-character string."
       (start-process (concat "nsxiv " (car path)) nil "nsxiv" "-sf" (car path))))
   t)
 
+;;; Textual stuff
+;; https://stackoverflow.com/a/2478549
+;; https://github.com/purcell/unfill
+;; https://www.emacswiki.org/emacs/UnfillParagraph
+(defun my-unfill-paragraph (&optional region)
+  (interactive (progn (barf-if-buffer-read-only) '(t)))
+  (let ((fill-column most-positive-fixnum))
+    (fill-paragraph nil region)))
+(keymap-global-set "M-Q" #'my-unfill-paragraph)
+
 (use-package ediff
   :defer t
   :custom
@@ -1171,6 +1179,14 @@ string; otherwise return a 64-character string."
 ;;   :config
 ;;   (stillness-mode 1)
 ;;   )
+
+;;;###autoload
+(defmacro dowindows (&rest body)
+  "Like `dolist' for all windows on all frames."
+  (declare (indent 0))
+  `(dolist (fra (frame-list))
+     (dolist (win (window-list fra))
+       ,@body)))
 
 (use-package calendar
   ;; :config
