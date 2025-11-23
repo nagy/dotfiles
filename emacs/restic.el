@@ -4,6 +4,9 @@
 ;; NIX-EMACS-PACKAGE: nagy-emacs
 (require 'nagy-emacs)
 
+;; NIX-EMACS-PACKAGE: map-extras
+(require 'map-extras)
+
 (defvar restic--known nil)
 
 (defvar restic-program "restic")
@@ -21,44 +24,53 @@
                       :-gathered nil
                       )))
 
-(defun get-restic (name)
-  (map-elt restic--known name))
+(cl-defstruct restic-snapshot id tree time paths)
+(map-extras-define-for-struct restic-snapshot (id tree time paths))
 
-(cl-defstruct restic-snapshot
-  restic id treeid -data)
-
-(defun restic-call-process-from (name from infile &rest args)
-  (let* ((config (get-restic name))
-         (from-config (get-restic from))
-         (coding-system-for-read (if (member "--json" args) 'utf-8 coding-system-for-read))
-         )
+(defun restic-call-process (restic &rest args)
+  (cl-assert (restic-p restic))
+  (let* ((coding-system-for-read
+          (if (member "--json" args) 'utf-8 coding-system-for-read)))
     (with-environment-variables
-        (("RESTIC_REPOSITORY" (restic-repo config))
-         ("RESTIC_FROM_REPOSITORY" (if from (restic-repo from-config) ""))
-         ("RESTIC_CACHE_DIR" (concat temporary-file-directory "/restic-cache"))
-         ("RESTIC_READ_CONCURRENCY" "1")
-         ;; ("RESTIC_CACHE_DIR" (format "%s/restic-from-cache" temporary-file-directory))
-         )
-      (pcase-dolist (`(,name ,value)
-                     (append (restic-runtime-env config)
-                             (and from-config (restic-runtime-env from-config))))
+        (("RESTIC_REPOSITORY" (restic-repo restic)))
+      (pcase-dolist (`(,name ,value) (restic-runtime-env restic))
         (setenv name value))
-      ;; To prevent non-existing directories from breaking this.
-      (with-directory temporary-file-directory
-        (cl-assert (zerop (apply #'call-process
-                                 restic-program
-                                 infile ;; infile
-                                 t      ;; buffer output
-                                 nil    ;; display
-                                 args)))))))
+      (cl-assert (zerop (apply #'call-process
+                               restic-program
+                               nil ;; infile
+                               '(t nil) ;; buffer output
+                               nil      ;; display
+                               args))))))
 
-(defun restic-call-process (name infile &rest args)
-  (apply #'restic-call-process-from name nil infile args))
+(cl-defmethod gather ((obj restic))
+  (with-memoization (oref obj -gathered)
+    (with-temp-buffer
+      (restic-call-process obj "snapshots" "--json" "--no-lock")
+      (goto-char (point-min))
+      (--> (json-parse-buffer)
+           (--sort (if (string= (gethash "time" it) (gethash "time" other))
+                       (string< (gethash "id" it) (gethash "id" other))
+                     (string< (gethash "time" it) (gethash "time" other)) )
+                   it)
+           (nreverse it)))))
+
+(cl-defmethod ungather ((obj restic))
+  (setf (oref obj -gathered) nil))
+
+;; * map.el Integration
+
+(add-to-list 'file-name-handler-alist '("\\`/restic/?" . map-file-name-handler))
+(add-to-list 'map--fileprefix-alist
+             `("/restic/" . ,(make-map-transformer-via-extension 'restic--known ".restic.json"))
+             )
 
 ;; * GUI
 
 ;; NIX-EMACS-PACKAGE: nagy-list
 (require 'nagy-list)
+
+(cl-defmethod nagy-list-sym2 ((_restic restic))
+  'restic)
 
 (nagy-list-make 'restic
                 :suffix ".restic"
@@ -84,15 +96,18 @@
 ;; * seq.el Integration
 (cl-defmethod seqp ((_object restic))
   t)
-
-(cl-defmethod seq-do (function (sequence restic))
-  (mapcar function (restic--gathered sequence)))
-
 (cl-defmethod seq-length ((sequence restic))
   (length (restic--gathered sequence)))
-
 (cl-defmethod seq-elt ((sequence restic) n)
-  (elt (restic--gathered sequence) n))
+  (alet (elt (restic--gathered sequence) n)
+    (make-restic-snapshot :id (or (map-elt it 'id) (map-elt it "id"))
+                          :tree (or (map-elt it 'tree) (map-elt it "tree"))
+                          :time (or  (map-elt it 'time) (map-elt it "time"))
+                          :paths (or (map-elt it 'paths) (map-elt it "paths"))
+                          )))
+(cl-defmethod seq-do (function (sequence restic))
+  (dotimes (i (seq-length sequence))
+    (funcall function (seq-elt sequence i))))
 
 ;; NIX-EMACS-PACKAGE: llama
 (require 'llama)
@@ -108,10 +123,14 @@
 (defun restic-snapshot-at-point ()
   (when (and (derived-mode-p 'nagy-list-mode)
              (eq 'restic nagy-list--sym))
-    (pcase-let (((map id tree) (nagy-list--data-at-point)))
-      (make-restic-snapshot
-       :id id
-       :treeid tree))))
+    (atypecase (nagy-list--data-at-point)
+      (restic-snapshot it)
+      (t (make-restic-snapshot :id (or (map-elt it 'id) (map-elt it "id"))
+                               :tree (or (map-elt it 'tree) (map-elt it "tree"))
+                               :time (or  (map-elt it 'time) (map-elt it "time"))
+                               :paths (or (map-elt it 'paths) (map-elt it "paths"))
+                               )))
+    ))
 
 (require 'thingatpt)
 
