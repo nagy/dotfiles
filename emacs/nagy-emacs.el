@@ -265,6 +265,8 @@
   ("H-s-j" . next-error)
   ("H-s-k" . previous-error)
   ;; ("H-s-c" . compile)
+  (:map compilation-mode-map
+        ([remap revert-buffer-quick] . recompile))
   (:map compilation-minor-mode-map
         ([remap revert-buffer-quick] . recompile)
         ("H-j" . compilation-next-error)

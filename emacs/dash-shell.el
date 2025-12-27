@@ -2,6 +2,7 @@
 ;; Package-Requires: ((emacs "30.1") dash nagy-use-package)
 
 (require 'dash)
+(require 'sh-script)
 
 (defun -shell--case (spec)
   (pcase-exhaustive spec
@@ -38,7 +39,8 @@
     ;; ((prefix "/ipfs/")
     ;;  (-shell--case (format "ipfs://%s" (string-remove-prefix "/ipfs/" spec))))
     ((pred stringp)
-     (-shell--case (list "sh" "-c" spec)))
+     (-shell--case
+      (list sh-shell-file shell-command-switch spec)))
     ))
 
 ;;;###autoload

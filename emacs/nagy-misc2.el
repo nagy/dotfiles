@@ -380,7 +380,7 @@ waits for input."
   :custom
   (avy-all-windows nil)
   (avy-background nil)
-  (avy-single-candidate-jump t)
+  ;; (avy-single-candidate-jump t)
   (avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l
                  ?q ?w ?e ?r       ?i ?o ?p)))
 

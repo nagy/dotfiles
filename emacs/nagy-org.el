@@ -114,11 +114,15 @@
 (define-auto-insert
   '("\\.org\\'" . "Org skeleton")
   '("Short description: "
-    "#+title: Document Title" \n
-    "#+author: " user-full-name \n
-    "#+email: " user-mail-address \n
-    "#+options: toc:nil email:t date:t f:nil" \n
-    "#+language: de" \n
+    "#+title:      Document Title" \n
+    "#+date:       " (format-time-string (org-time-stamp-format 'with-time 'inactive)
+                                         (current-time))
+    \n
+    "#+author:     " user-full-name \n
+    "#+email:      " user-mail-address \n
+    "#+options:    toc:nil email:t date:t f:nil" \n
+    "#+language:   de" \n
+    "#+identifier: " \n
     \n
     "* First Headline" \n
     \n
@@ -214,6 +218,13 @@
         ("H-s-n" . markdown-narrow-to-subtree))
   :custom
   (markdown-list-indent-width 2))
+
+(defun find-file-directory-markdown ()
+  (interactive)
+  (find-file "README.md")
+  )
+(require 'dired)
+(keymap-set dired-mode-map "H-M-m" #'find-file-directory-markdown)
 
 (use-package org-agenda
   :defer t

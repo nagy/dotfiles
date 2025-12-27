@@ -1032,7 +1032,7 @@ Returns the total execution time as a floating-point number."
   :general
   (:states 'normal :keymaps 'yaml-mode-map
            "⊢" #'yq-format-buffer)
-)
+  )
 
 ;; NIX-EMACS-PACKAGE: jq-mode
 (use-package jq-mode
