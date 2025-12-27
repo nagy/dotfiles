@@ -15,6 +15,8 @@
   :config
   (vertico-mode)
   (run-with-idle-timer 30 t #'vertico-flat-mode 1)
+  (run-with-idle-timer 30 t #'vertico-buffer-mode -1)
+  (run-with-idle-timer 30 t #'tab-bar-mode 1)
   :custom
   (vertico-cycle nil)
   (vertico-scroll-margin most-positive-fixnum)

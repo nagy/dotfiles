@@ -33,7 +33,7 @@
   `((,(rx (or ".nix") eol)
      (0 `(face modus-themes-intense-green)))
     (,(rx (group (or ".json" ".yaml" ".yml" ".toml" ".xml" ".csv" ".feather"))
-          (* ".zst" ".br")
+          (or "" ".zst" ".br")
           eol)
      (1 `(face modus-themes-intense-red)))
     ;; media, Photos
@@ -181,6 +181,7 @@
       (font-lock-add-keywords nil nagy-dired-font-lock-keywords 'append)
     (font-lock-remove-keywords nil nagy-dired-font-lock-keywords))
   (font-lock-flush))
+(diminish 'drfl-mode)
 
 (defun nagy-dired-find-file-literally ()
   (interactive)

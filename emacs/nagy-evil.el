@@ -181,7 +181,7 @@
 
 ;; NIX-EMACS-PACKAGE: eat
 (use-package eat
-  :functions (eat-ncdu eat-dool)
+  :commands (eat-ncdu eat-dool eat-yank)
   :preface
   (defun nagy--eat-char-mode (_proc)
     (evil-emacs-state 1)
@@ -219,6 +219,7 @@
           (eat-kill-buffer-on-exit t))
       (eat "dool -N eth0 --bytes --bw")))
   (key-chord-register-keys ?ß ?w)
+  (keymap-set eat-char-mode-map "H-y" #'eat-yank)
   :bind
   (:map evil-normal-state-map
         ("<key-chord> - x" . eat)

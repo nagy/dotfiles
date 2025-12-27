@@ -16,6 +16,7 @@
   (eglot-sync-connect nil)
   (eglot-send-changes-idle-time 0.1)
   (eglot-autoshutdown t)
+  (eglot-code-action-indications '(eldoc-hint))
   :config
   ;; massive perf boost --- don't log every event
   ;; (advice-add 'jsonrpc--log-event :override #'ignore)

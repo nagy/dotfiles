@@ -23,10 +23,10 @@
 ;; this does not work yet
 ;; (defalias 'nagy-kill-this-buffer (symbol-function 'kill-this-buffer))
 
+;; TODO prevent rollover
 (defun nagy-move-tab-right (arg)
   (interactive "P")
   (tab-bar-move-tab (or arg 1)))
-
 (defun nagy-move-tab-left (arg)
   (interactive "P")
   (tab-bar-move-tab (* -1 (or arg 1))))

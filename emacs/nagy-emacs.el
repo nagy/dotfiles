@@ -187,7 +187,7 @@
   ("s-w" . save-buffer)
   ("s-z" . save-kill-buffer)
   ("s-g" . keyboard-quit)
-  ("s-e" . browse-url)
+  ;; ("s-e" . browse-url)
   ("s-=" . balance-windows)
   ("H-M-_" . fundamental-mode)
   ("H-M-t" . text-mode)
@@ -1060,7 +1060,13 @@ string; otherwise return a 64-character string."
         (("XDG_CACHE_HOME" "/run/user/1000/nsxiv-cache"))
       (awhen (cdr path)
         (setcar path (concat (car path) "?" it)))
-      (start-process (concat "nsxiv " (car path)) nil "nsxiv" "-sf" (car path))))
+      (start-process (concat "nsxiv " (car path))
+                     nil
+                     "nsxiv"
+                     "--scale-mode" "f"
+                     "--no-bar"
+                     ;; "--private"
+                     (car path))))
   t)
 (add-to-list 'browse-url-handlers '("^file:///.*\\.png$" . my-browser-url-nsxiv))
 (add-to-list 'browse-url-handlers '("^file:///.*\\.jpg$" . my-browser-url-nsxiv))

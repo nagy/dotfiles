@@ -293,8 +293,7 @@
         ("C-ö" . comint-next-input)
         ("H-Ö" . comint-previous-input)
         ("M-Ö" . comint-previous-input)
-        ("H-d" . comint-send-eof)
-        ("H-_" . comint-send-eof)
+        ("H-x" . comint-send-eof)
         ("H-j" . comint-next-prompt)
         ("H-k" . comint-previous-prompt)
         ;; ("<insert-state> <key-chord> f j" . comint-send-input)
@@ -616,15 +615,18 @@ Returns the total execution time as a floating-point number."
   ("m" . "mut")
   :cycle 'rustic-mode
   ("Result" "Option"))
-;; (define-auto-insert
-;;   `("\\.rs\\'" . "Rust skeleton")
-;;    '("Short description: "
-;;      "use std::io;" \n
-;;      \n
-;;      "pub fn main() {" \n
-;;      "println!(\"Hello, World!\\n\");" \n
-;;      > _ \n
-;;      "}" > \n))
+
+(define-auto-insert
+  '("\\.rs\\'" . "Rust skeleton")
+  '("Short description: "
+    "use std::error::Error;" \n
+    "use std::io;" \n
+    \n
+    "pub fn main() -> Result<(), Box<dyn Error>> {" \n
+    "println!(\"Hello, World!\\n\");" \n
+    > _ \n
+    "Ok(())" \n
+    "}" > \n))
 
 ;; * Python
 
@@ -1123,7 +1125,43 @@ Returns the total execution time as a floating-point number."
         ("H-M-P" . org-typst-export-to-pdf))
   )
 
+;; ;; NIX-EMACS-PACKAGE: vlf
+;; ;; https://elpa.gnu.org/packages/vlf.html
+;; ;; https://github.com/m00natic/vlfi
+;; (use-package vlf
+;;   :defer t
+;;   :custom
+;;   ;; (vlf-application 'always)
+;;   (vlf-batch-size (* 8 1024 1024))
+;;   (vlf-tune-enabled nil)
+;;   ;; :bind
+;;   ;; (:map vlf-mode-map)
+;;   )
+
+
 ;;  TODO integrate tinymist language server lsp https://github.com/Myriad-Dreamin/tinymist
+
+;; NIX-EMACS-PACKAGE: csv-mode
+(use-package csv-mode
+  :defer t
+  ;; :custom
+  ;; (csv-align-style 'centre)
+  ;; :config
+  ;; (csv-align-mode)
+  )
+
+(use-package xref
+  :defer t
+  :custom
+  (xref-search-program 'ripgrep))
+
+
+;; ;; NIX-EMACS-PACKAGE: multiple-cursors
+;; (use-package multiple-cursors
+;;   :defer t
+;;   :bind
+;;   ("C-S-c C-S-c" . mc/edit-lines)
+;;   )
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

@@ -33,7 +33,8 @@
                                    (format "-%s" (string-remove-prefix ":" (symbol-name it)))
                                  (format "--%s" (string-remove-prefix ":" (symbol-name it)))))
                       (otherwise (format "%s" it)))
-                    rest))
+                    (flatten-list
+                     (remq nil rest))))
             zerop
             (cl-assert it t "Shell command with non-nil exitcode: %s %S %S" first rest (buffer-string)))))
     ;; ((prefix "/ipfs/")

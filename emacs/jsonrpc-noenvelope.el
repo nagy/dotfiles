@@ -10,31 +10,47 @@
 (defclass jsonrpc-noenvelope (jsonrpc-process-connection)
   ())
 
+(defun jsonrpc-noenvelope--iter ()
+  (let ((p (point))
+        ret)
+    (save-excursion
+      (when-let ((res (ignore-errors (json-parse-buffer))))
+        (setq p (point))
+        (setq ret res)))
+    (goto-char p)
+    ret
+    ))
+
 (defun jsonrpc-noenvelope--filter (proc msg)
   (with-current-buffer (process-buffer proc)
-    (internal-default-process-filter proc msg)
-    ;; TODO FIXME only parsing one json in each filter invocation can
-    ;; result in bugs if multiple json objects are printed very
-    ;; quickly by the process.
-    (let* ((parsed (json-parse-string msg))
-           (conn (process-get proc 'jsonrpc-connection)))
-      ;; Now, time to notify user code of one or more messages in
-      ;; order.  Very often `jsonrpc-connection-receive' will exit
-      ;; non-locally (typically the reply to a request), so do
-      ;; this all this processing in top-level loops timer.
-      (let ((time (current-time))
-            (timer (timer-create)))
-        (timer-set-time timer time)
-        (timer-set-function timer
-                            (lambda (conn _msg parsed)
-                              (let ((sending (list :jsonrpc "2.0" :id (gethash "id" parsed))))
-                                (awhen (gethash "error" parsed)
-                                  (setq sending (plist-put sending :error (list :code (gethash "code" it) :message (gethash "message" it)))))
-                                (awhen (gethash "result" parsed)
-                                  (setq sending (plist-put sending :result it)))
-                                (jsonrpc-connection-receive conn sending)))
-                            (list conn msg parsed))
-        (timer-activate timer)))))
+    (let ((point-before (point)))
+      (save-excursion
+        (goto-char (point-max))
+        (internal-default-process-filter proc msg))
+      (goto-char point-before)) ;; for whatever reason, save-excursion does not work here
+    (while-let ((parsed (jsonrpc-noenvelope--iter)))
+      (let ((conn (process-get proc 'jsonrpc-connection)))
+        ;; Now, time to notify user code of one or more messages in
+        ;; order.  Very often `jsonrpc-connection-receive' will exit
+        ;; non-locally (typically the reply to a request), so do
+        ;; this all this processing in top-level loops timer.
+        (let ((time (current-time))
+              (timer (timer-create)))
+          (timer-set-time timer time)
+          (timer-set-function timer
+                              (lambda (conn parsed)
+                                (jsonrpc-connection-receive
+                                 conn
+                                 (append (list :jsonrpc "2.0")
+                                         (list :id (gethash "id" parsed))
+                                         (awhen (gethash "error" parsed)
+                                           (list :error (list :code (gethash "code" it) :message (gethash "message" it))))
+                                         (awhen (gethash "result" parsed) (list :result it))
+                                         (awhen (gethash "method" parsed) (list :method it))
+                                         (awhen (gethash "params" parsed) (list :params it))
+                                         )))
+                              (list conn parsed))
+          (timer-activate timer))))))
 
 (cl-defmethod jsonrpc-connection-send ((connection jsonrpc-noenvelope)
                                        &rest args
@@ -45,12 +61,16 @@
                                        (_result nil result-supplied-p)
                                        _error
                                        _partial)
-  (process-send-string (jsonrpc--process connection)
-                       (concat (json-serialize (ht ("jsonrpc" "2.0")
-                                                   ("id" id)
-                                                   ("method" (string-remove-prefix ":" (symbol-name method)))
-                                                   ("params" params)))
-                               "\n")))
+  (let ((table (make-hash-table :test #'equal)))
+    (puthash "jsonrpc" "2.0" table)
+    (when id
+      (puthash "id" id table))
+    (when method
+      (puthash "method" (string-remove-prefix ":" (symbol-name method)) table))
+    (when params
+      (puthash "params" params table))
+    (process-send-string (jsonrpc--process connection)
+                         (concat (json-serialize table ) "\n"))))
 
 (cl-defmethod initialize-instance :after ((conn jsonrpc-noenvelope) slots)
   (cl-destructuring-bind (&key ((:process proc)) name &allow-other-keys) slots
