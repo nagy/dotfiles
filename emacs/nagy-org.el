@@ -196,6 +196,9 @@
 ;; NIX-EMACS-PACKAGE: markdown-mode
 (use-package markdown-mode
   :commands (markdown-mark-subtree nagy-markdown-delete-subtree)
+  :custom
+  (markdown-list-indent-width 2)
+  ;; (markdown-hide-markup nil)
   :config
   (defun nagy-markdown-delete-subtree ()
     (interactive)
@@ -215,9 +218,7 @@
         ("H-d" . nagy-markdown-delete-subtree)
         ("H-j" . markdown-next-visible-heading)
         ("H-k" . markdown-previous-visible-heading)
-        ("H-s-n" . markdown-narrow-to-subtree))
-  :custom
-  (markdown-list-indent-width 2))
+        ("H-s-n" . markdown-narrow-to-subtree)))
 
 (defun find-file-directory-markdown ()
   (interactive)

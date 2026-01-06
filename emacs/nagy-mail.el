@@ -8,6 +8,7 @@
   :custom
   (gnus-inhibit-images t)
   ;; (gnus-treat-hide-signature t)
+  (gnus-article-date-headers '(combined-local-lapsed))
   :config
   ;; fix a bug when attempting to reply. maybe caused by doom?
   (defun gnus-mode-string-quote (&optional string)

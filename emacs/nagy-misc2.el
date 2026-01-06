@@ -481,8 +481,9 @@ waits for input."
 ;; NIX-EMACS-PACKAGE: smartparens
 (require 'smartparens)
 (use-package smartparens
+  :diminish 'smartparens-mode
   :config
-  (progn)
+  (smartparens-global-mode 1)
   ;; :hook
   ;; (emacs-lisp-mode . smartparens-mode)
   ;; (ielm-mode . smartparens-mode)

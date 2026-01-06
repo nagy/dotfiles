@@ -186,12 +186,14 @@
   (defun nagy--eat-char-mode (_proc)
     (evil-emacs-state 1)
     (eat-char-mode)
-    (display-line-numbers-mode -1)
+    (when global-display-line-numbers-mode
+      (display-line-numbers-mode 1))
     (setq-local truncate-lines t)
     (text-scale-adjust 0)
     )
   (defun nagy--eat--evil-normal-mode (_proc)
-    (display-line-numbers-mode 1)
+    (when global-display-line-numbers-mode
+      (display-line-numbers-mode 1))
     (evil-normal-state 1))
   :custom
   (eat-kill-buffer-on-exit nil)

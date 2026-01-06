@@ -31,6 +31,22 @@
   (interactive "P")
   (tab-bar-move-tab (* -1 (or arg 1))))
 
+(defun nagy-next-window-any-frame ()
+  "Do not want to move the mouse when switching windows, but switch
+windows when moving the mouse."
+  (interactive)
+  (let ((mouse-autoselect-window nil)
+        (focus-follows-mouse nil))
+    (next-window-any-frame)))
+
+(defun nagy-previous-window-any-frame ()
+  "Do not want to move the mouse when switching windows, but switch
+windows when moving the mouse."
+  (interactive)
+  (let ((mouse-autoselect-window nil)
+        (focus-follows-mouse nil))
+    (previous-window-any-frame)))
+
 (defun update-current-frame-fontset ()
   (interactive)
   ;; (set-fontset-font t 'unicode (font-spec :family "Noto Sans Symbols") nil 'append)
@@ -168,8 +184,8 @@ aka xcompose is not properly initialized in the first frame."
   (setopt exwm-input-global-keys
           `((,(kbd "s-<escape>")  . exwm-reset)
             (,(kbd "s-m") . ,(key-binding (kbd "s-m")))
-            (,(kbd "s-i") . previous-window-any-frame)
-            (,(kbd "s-o") . next-window-any-frame)
+            (,(kbd "s-i") . nagy-previous-window-any-frame)
+            (,(kbd "s-o") . nagy-next-window-any-frame)
             (,(kbd "s-<return>") . eshell)
             (,(kbd "s-p") . consult-bookmark)
             (,(kbd "<XF86Favorites>") . consult-bookmark)

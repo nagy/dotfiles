@@ -308,11 +308,13 @@
 
 ;; NIX-EMACS-PACKAGE: sotlisp
 (use-package sotlisp
+  :demand t
   :diminish sotlisp-mode
   :commands (speed-of-thought-mode)
   :config
-  (speed-of-thought-mode -1)
-  (speed-of-thought-mode 1)
+  (with-eval-after-load 'evil
+    (speed-of-thought-mode -1)
+    (speed-of-thought-mode 1))
   )
 
 (use-package gitattributes-mode
@@ -608,9 +610,9 @@ Returns the total execution time as a floating-point number."
   ("unwrap" . "𝕌")
   :abbrev 'rustic-mode
   ("uw" . "unwrap")
-  ("rs" . "Result")
-  ("st" . "String")
-  ("v" . "Vec")
+  ;; ("rst" . "Result")
+  ;; ("stg" . "String")
+  ;; ("vc" . "Vec")
   ("l" . "let")
   ("m" . "mut")
   :cycle 'rustic-mode

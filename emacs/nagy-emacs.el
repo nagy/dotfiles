@@ -176,6 +176,7 @@
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (blink-cursor-mode -1)
+  (setq read-process-output-max (* 1024 1024 1024))
   ;; (keymap-global-set "H-m" nagy-leader)
   ;; (setq-default lexical-binding t) ;; has no effect yet
   :bind
