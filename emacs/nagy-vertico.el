@@ -94,9 +94,14 @@
   (consult-customize
    consult-buffer
    :preview-key nil
-   consult-ripgrep consult-git-grep consult-grep
-   consult-bookmark consult-recent-file
-   consult--source-recent-file consult--source-project-recent-file consult--source-bookmark
+   consult-ripgrep
+   consult-git-grep
+   consult-grep
+   consult-bookmark
+   consult-recent-file
+   consult-source-recent-file
+   consult-source-project-recent-file
+   consult-source-bookmark
    :preview-key "C-SPC"
    ;; Disable preview for `consult-theme' completely.
    consult-theme :preview-key nil))

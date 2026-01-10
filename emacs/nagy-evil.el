@@ -46,6 +46,7 @@
   (evil-define-key 'insert minibuffer-mode-map (kbd "C-g") #'minibuffer-keyboard-quit)
   (evil-global-set-key 'insert (kbd "C-a") #'beginning-of-line)
   (evil-global-set-key 'insert (kbd "C-e") #'end-of-line)
+  (advice-add #'evil-jump-backward :after #'evil-scroll-line-to-center)
   :bind
   ("H-z" . evil-scroll-line-to-center)
   ;; ("H-u" . evil-undo)

@@ -145,7 +145,9 @@
   (prog-mode . visual-line-mode)
   :general
   (:states 'normal :keymaps 'prog-mode-map
-           "ö" #'save-buffer))
+           "ö" #'save-buffer
+           "ð" #'evil-delete-whole-line
+           ))
 
 ;; NIX-EMACS-PACKAGE: tokei
 (use-package tokei

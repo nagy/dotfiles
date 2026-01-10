@@ -315,13 +315,17 @@ aka xcompose is not properly initialized in the first frame."
   (interactive)
   (with-environment-variables
       (("XDG_CACHE_HOME" (concat temporary-file-directory "/xdg-cache")))
-    (start-process "nsxiv" nil "nsxiv"
-                   "--scale-mode" "f"
-                   "--thumbnail"
-                   "--no-bar"
-                   ;; "--private"
-                   "."))
-  )
+    (make-process :name "nsxiv"
+                  :buffer nil
+                  :connection-type 'pipe
+                  :noquery t
+                  :command '("nsxiv"
+                             "--scale-mode" "f"
+                             "--thumbnail"
+                             "--no-bar"
+                             ;; "--private"
+                             "."
+                             ))))
 (keymap-global-set "<pause>" #'nsxiv)
 
 (defun firefox ()

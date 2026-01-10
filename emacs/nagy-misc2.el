@@ -567,8 +567,7 @@ waits for input."
 
 ;; NIX-EMACS-PACKAGE: units-mode
 (use-package units-mode
-  ;; :config
-  ;; (llama-fontify-mode)
+  :defer t
   )
 
 ;; NIX-EMACS-PACKAGE: llvm-mode
