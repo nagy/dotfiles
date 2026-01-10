@@ -38,6 +38,7 @@
            "⊢" #'eglot-format-buffer)
   (:states 'normal :keymaps 'eglot-mode-map
            "ſ" #'eglot-code-actions
+           "ẞ" #'eglot-code-action-quickfix
            "M-æ" #'eglot-code-actions))
 
 ;; NIX-EMACS-PACKAGE: consult-eglot

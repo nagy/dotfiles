@@ -1157,6 +1157,24 @@ Returns the total execution time as a floating-point number."
   :custom
   (xref-search-program 'ripgrep))
 
+;; NIX-EMACS-PACKAGE: obvious
+(use-package obvious
+  :commands (nagy-obvious-mode)
+  :defer t
+  :custom
+  (obvious-headers nil)
+  ;; (obvious-preserve-blank-lines nil)
+  :preface
+  (defun nagy-obvious-mode (&optional arg)
+    (interactive
+     (list (if current-prefix-arg (prefix-numeric-value current-prefix-arg)
+             'toggle)))
+    (read-only-mode arg)
+    (obvious-mode arg))
+  :bind
+  ("<f12>" . nagy-obvious-mode)
+  ("H-s-w" . nagy-obvious-mode)
+  )
 
 ;; ;; NIX-EMACS-PACKAGE: multiple-cursors
 ;; (use-package multiple-cursors

@@ -14,6 +14,10 @@
   (add-to-list 'display-buffer-alist '("^magit:" display-buffer-same-window))
   ;; (with-eval-after-load 'info
   ;;   (add-to-list 'Info-url-alist '(("Magit" "Forge") . "https://magit.vc/manual/%m.html#%n")))
+  ;; Temporarily unset these two key because they interfere with ediff mode.
+  ;; Maybe `evil-collection' just needs to catch up with these new bindings.
+  (define-key magit-blob-mode-map "p" nil)
+  (define-key magit-blob-mode-map "n" nil)
   :bind
   ("H-g" . magit-status)
   ("H-L" . magit-log-buffer-file)
@@ -22,7 +26,7 @@
   (:map dired-mode-map
         ("H-<" . magit-process-buffer))
   (:map magit-diff-mode-map
-        ("SPC" . nil)          ;; was `scroll-up'
+        ("SPC" . nil) ;; was `scroll-up'
         )
   (:map magit-log-select-mode-map
         ([remap save-kill-buffer] . magit-log-select-pick)

@@ -976,30 +976,6 @@ string; otherwise return a 64-character string."
   :bind
   ("M-ħ" . hl-line-mode))
 
-(use-package outline
-  :custom
-  (outline-minor-mode-use-buttons t)
-  ;; (outline-blank-line t)
-  :bind
-  ("H-s-a" . outline-cycle)
-  ("H-s-i" . outline-show-all)
-  ("H-s-o" . outline-hide-body)
-  (:map outline-mode-prefix-map
-        ("H-a" . outline-show-all)
-        ("H-t" . outline-hide-body))
-  (:map outline-overlay-button-map
-        ("f" . outline-cycle))
-  (:map outline-minor-mode-map
-        ("H-a" . outline-cycle))
-  :general
-  (:states 'normal :keymaps 'outline-minor-mode-map
-           "r" #'outline-cycle)
-  ;; :hook
-  ;; (conf-space-mode . outline-minor-mode)
-  ;; :config
-  ;; (map! "H-a" outline-mode-prefix-map)
-  )
-
 (defvar new-buffer--count 0)
 (defun buffer-new-of-region ()
   (interactive)

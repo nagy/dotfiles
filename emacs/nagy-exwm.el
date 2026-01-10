@@ -243,6 +243,7 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-ð") . ,(lambda () (interactive) (find-file "~/Downloads")))
             (,(kbd "s-j") . dired-jump)
             (,(kbd "C-s-j") . browse-url-from-kill)
+            (,(kbd "H-f") . browse-url-at-point)
             (,(kbd "s-<backspace>") . nagy-move-tab-left)
             (,(kbd "S-s-<delete>") . nagy-move-tab-right)
             ))
@@ -314,7 +315,13 @@ aka xcompose is not properly initialized in the first frame."
   (interactive)
   (with-environment-variables
       (("XDG_CACHE_HOME" (concat temporary-file-directory "/xdg-cache")))
-    (start-process "nsxiv" nil "nsxiv" "-sf" "-t" ".")))
+    (start-process "nsxiv" nil "nsxiv"
+                   "--scale-mode" "f"
+                   "--thumbnail"
+                   "--no-bar"
+                   ;; "--private"
+                   "."))
+  )
 (keymap-global-set "<pause>" #'nsxiv)
 
 (defun firefox ()
