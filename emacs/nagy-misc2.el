@@ -627,5 +627,43 @@ waits for input."
 ;;   :mode "\\.sparql\\'"
 ;;   )
 
+(use-package browse-url
+  :commands (nagy-browse-url-at-point)
+  :config
+  (defun nagy-browse-url-at-point ()
+    "No properites in string"
+    (thing-at-point 'url t))
+  ;; To only find actual URLs and not treat any word as a hostname
+  (advice-add 'browse-url-url-at-point :override #'nagy-browse-url-at-point)
+  )
+
+;; NIX-EMACS-PACKAGE: evil-mc
+(use-package evil-mc
+  :defer t
+  :config
+  (global-evil-mc-mode 1)
+  )
+
+;; NIX-EMACS-PACKAGE: treesit-fold
+(use-package treesit-fold
+  ;; :defer t
+  :custom
+  (treesit-fold-line-count-show t)
+  ;; (treesit-fold-summary-show t)
+  :config
+  (add-hook 'rustic-mode-hook #'treesit-fold-mode)
+  (add-hook 'rustic-mode-hook (lambda () (treesit-parser-create 'rust)))
+  (add-hook 'emacs-lisp-mode-hook #'treesit-fold-mode)
+  (add-hook 'emacs-lisp-mode-hook (lambda () (treesit-parser-create 'elisp)))
+  (add-hook 'typescript-mode-hook #'treesit-fold-mode)
+  (add-hook 'typescript-mode-hook (lambda () (treesit-parser-create 'typescript)))
+  :bind
+  ("H-i" . treesit-fold-close)
+  ("H-I" . treesit-fold-close-all)
+  ("H-o" . treesit-fold-open)
+  ("H-O" . treesit-fold-open-all)
+  ("C-H-o" . treesit-fold-open-recursively)
+  )
+
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here

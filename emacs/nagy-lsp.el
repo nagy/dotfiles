@@ -8,6 +8,9 @@
 ;; NIX-EMACS-PACKAGE: eglot
 (use-package eglot
   :defer t
+  :preface
+  (defun nagy-eglot-disable-semantic-tokens-mode ()
+    (eglot-semantic-tokens-mode -1))
   :custom
   ;; more tips
   ;; https://old.reddit.com/r/emacs/comments/16vixg6/how_to_make_lsp_and_eglot_way_faster_like_neovim/
@@ -17,6 +20,8 @@
   (eglot-send-changes-idle-time 0.1)
   (eglot-autoshutdown t)
   (eglot-code-action-indications '(eldoc-hint))
+  :hook
+  (eglot-managed-mode . nagy-eglot-disable-semantic-tokens-mode)
   :config
   ;; massive perf boost --- don't log every event
   ;; (advice-add 'jsonrpc--log-event :override #'ignore)
