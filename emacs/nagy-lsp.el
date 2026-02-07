@@ -5,6 +5,8 @@
 
 (require 'evil)
 
+(declare-function eglot-semantic-tokens-mode "eglot") ;; TODO remove later
+
 ;; NIX-EMACS-PACKAGE: eglot
 (use-package eglot
   :defer t

@@ -142,8 +142,10 @@ waits for input."
   ;; to add autoloads
   :commands (password-store-otp-token)
   :config
+  ;; To remove the "^J" from the line ending
   ;; TODO pr this upstream
-  (advice-add 'password-store-otp-token :filter-return #'string-trim-right))
+  (advice-add 'password-store-otp-token :filter-return #'string-trim-right)
+  )
 
 ;; NIX-EMACS-PACKAGE: passage
 (use-package passage
