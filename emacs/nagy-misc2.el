@@ -100,8 +100,6 @@
   (defun pass-display-header ()
     (progn))
   :general
-  (:states 'normal
-           "🔑" #'pass)
   (:states 'normal :keymaps 'pass-mode-map
            "u" #'pass-copy-url))
 
@@ -147,9 +145,58 @@ waits for input."
   (advice-add 'password-store-otp-token :filter-return #'string-trim-right)
   )
 
+;; NIX-EMACS-PACKAGE: age
+(use-package age
+  :config
+  (age-file-enable)
+  )
+
 ;; NIX-EMACS-PACKAGE: passage
 (use-package passage
-  :defer t)
+  :defer t
+  :after age
+  :preface
+  (declare-function evil-set-initial-state "evil")
+  :custom
+  (passage-show-keybindings nil)
+  (passage-username-field "Username")
+  :config
+  ;; silence the header
+  (defun passage-display-header ()
+    (progn))
+  ;; temporary until evil-collection mode is created
+  (with-eval-after-load 'evil
+    (evil-set-initial-state 'passage-mode 'emacs))
+  :same "^\\*Passage-Store\\*$"
+  :general
+  (:states 'normal
+           "🔑" #'passage)
+  )
+
+(use-package passage-store
+  :after age
+  :preface
+  (defun nagy-passage-store-respect-age-variables (orig-fun &rest args)
+    "Advice that sets `age.el' variables as environment variables.
+This currently requires that `age-default-identity' and
+`age-default-recipient' are strings only."
+    (cl-letf (((symbol-function 'switch-to-buffer-other-window) #'switch-to-buffer))
+      (with-environment-variables
+          (("PASSAGE_IDENTITIES_FILE" age-default-identity)
+           ("PASSAGE_RECIPIENTS_FILE" age-default-recipient))
+        (apply orig-fun args)))
+    )
+  :config
+  (advice-add 'passage-store--run-1 :around #'nagy-passage-store-respect-age-variables)
+  )
+
+(use-package passage-store-otp
+  :defer t
+  :config
+  ;; To remove the "^J" from the line ending
+  ;; TODO pr this upstream
+  (advice-add 'passage-store-otp-token :filter-return #'string-trim-right)
+  )
 
 ;; NIX-EMACS-PACKAGE: super-save
 (use-package super-save
