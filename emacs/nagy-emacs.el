@@ -487,10 +487,10 @@
     (let ((font-lock-mode 1)
           (font-lock-defaults '((nil))))
       (when (derived-mode-p 'emacs-lisp-mode)
-        (hi-lock-face-buffer ".*\\(map!\\).*" 'modus-themes-intense-red 1))
-      (hi-lock-face-buffer ".* \\([@][@]\\) .*" 'modus-themes-subtle-green 0)
-      (hi-lock-face-buffer ".* \\([!][!]\\) .*" 'modus-themes-subtle-red 0)
-      (hi-lock-face-buffer ".* \\([?][?]\\) .*" 'modus-themes-subtle-yellow 0)))
+        (hi-lock-face-buffer ".*\\(map!\\).*" 'nagy-intense-red 1))
+      (hi-lock-face-buffer ".* \\([@][@]\\) .*" 'nagy-subtle-green 0)
+      (hi-lock-face-buffer ".* \\([!][!]\\) .*" 'nagy-subtle-red 0)
+      (hi-lock-face-buffer ".* \\([?][?]\\) .*" 'nagy-subtle-yellow 0)))
   ;; :config
   ;; (add-hook 'font-lock-mode-hook 'nagy-emacs-hilock-highlight 'append)
   ;; :hook
@@ -680,7 +680,7 @@ string; otherwise return a 64-character string."
   (show-paren-when-point-inside-paren t)
   (show-paren-when-point-in-periphery t)
   :config
-  (set-face-attribute 'show-paren-match nil :inherit 'modus-themes-subtle-blue :background 'unspecified))
+  (set-face-attribute 'show-paren-match nil :inherit 'nagy-subtle-blue :background 'unspecified))
 
 (use-package winner
   :custom

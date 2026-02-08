@@ -106,20 +106,20 @@ That means, KEY can also be a cons."
     (:bytes (propertize (file-size-human-readable prevalue)
                         'font-lock-face
                         (cond ((> prevalue (* 512 1024 1024 1024)) ; > 512GB
-                               'modus-themes-fg-red-intense)
+                               'nagy-fg-red-intense)
                               ((> prevalue (* 1024 1024 1024)) ; > 1GB
-                               'modus-themes-fg-red-faint)
+                               'nagy-fg-red-faint)
                               ((> prevalue (* 512 1024 1024)) ; > 512MB
-                               'modus-themes-fg-yellow-intense)
+                               'nagy-fg-yellow-intense)
                               ((> prevalue (* 1024 1024)) ; > 1MB
-                               'modus-themes-fg-yellow-faint)
+                               'nagy-fg-yellow-faint)
                               ((> prevalue (* 512 1024))  ; > 512KB
-                               'modus-themes-fg-green-intense)
-                              (t 'modus-themes-fg-green-faint)) ))
+                               'nagy-fg-green-intense)
+                              (t 'nagy-fg-green-faint)) ))
     (:identifier (propertize (format "%s" prevalue) 'font-lock-face 'magit-hash))
     (:null (propertize "-" 'font-lock-face 'parenthesis))
-    (:false (propertize "false" 'font-lock-face 'modus-themes-fg-red-intense))
-    ((pred (eq t _)) (propertize "true" 'font-lock-face 'modus-themes-fg-green-intense))
+    (:false (propertize "false" 'font-lock-face 'nagy-fg-red-intense))
+    ((pred (eq t _)) (propertize "true" 'font-lock-face 'nagy-fg-green-intense))
     ((pred null) nil)
     ((pred proper-list-p)
      (mapconcat (lambda (x)

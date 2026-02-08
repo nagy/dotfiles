@@ -61,7 +61,7 @@
                   ('uptime
                    (propertize
                     (format-time-string "%-Hh%-Mm%-Ss" (seconds-to-time value) 0)
-                    'font-lock-face '(:inherit modus-themes-fg-cyan-intense)))
+                    'font-lock-face '(:inherit nagy-fg-cyan-intense)))
                   ))
  :column-width (lambda (column)
                  (pcase column

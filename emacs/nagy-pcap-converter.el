@@ -52,23 +52,23 @@
 (add-to-list 'format-alist '(pcap2xml "pcap2xml" nil ",pcap,xml" nil nil nil))
 
 (defface pcap-blue
-  '((t :inherit modus-themes-subtle-blue :extend t))
+  '((t :inherit nagy-subtle-blue :extend t))
   "some")
 
 (defface pcap-rst
-  '((t :inherit modus-themes-subtle-red :extend t))
+  '((t :inherit nagy-subtle-red :extend t))
   "some")
 
 (defface pcap-magenta
-  '((t :inherit modus-themes-subtle-magenta :extend t))
+  '((t :inherit nagy-subtle-magenta :extend t))
   "some")
 
 (defface pcap-udp
-  '((t :inherit modus-themes-subtle-cyan :extend t))
+  '((t :inherit nagy-subtle-cyan :extend t))
   "some")
 
 (defface pcap-arp
-  '((t :inherit modus-themes-nuanced-yellow :extend t))
+  '((t :inherit nagy-nuanced-yellow :extend t))
   "some")
 
 (define-derived-mode pcap-mode fundamental-mode "PCAP"
@@ -78,7 +78,7 @@
         (format-decode-buffer '(pcap2txt))
         (highlight-lines-matching-regexp "ICMP" 'pcap-magenta)
         (highlight-lines-matching-regexp "TCP" 'pcap-blue)
-        (highlight-lines-matching-regexp "HTTP" 'modus-themes-subtle-green)
+        (highlight-lines-matching-regexp "HTTP" 'nagy-subtle-green)
         (highlight-lines-matching-regexp (rx (or "UDP" "NTP" "DNS" "QUIC")) 'pcap-udp)
         (highlight-lines-matching-regexp (rx (or "ARP")) 'pcap-arp)
         (highlight-lines-matching-regexp "RST" 'pcap-rst))))

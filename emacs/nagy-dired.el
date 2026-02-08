@@ -31,16 +31,16 @@
 
 (defvar nagy-dired-font-lock-keywords
   `((,(rx (or ".nix") eol)
-     (0 `(face modus-themes-intense-green)))
+     (0 `(face nagy-intense-green)))
     (,(rx (group (or ".json" ".yaml" ".yml" ".toml" ".xml" ".csv" ".feather"))
           (or "" ".zst" ".br")
           eol)
-     (1 `(face modus-themes-intense-red)))
+     (1 `(face nagy-intense-red)))
     ;; media, Photos
     (,(rx (group
            (or ".png" ".jpg" ".jpeg" ".webp" ".jxl" ".svg" ".avif"))
           eol)
-     (1 `(face modus-themes-intense-cyan)))
+     (1 `(face nagy-intense-cyan)))
     ;; Code
     (,(rx (group
            (or ".rs" ".js" ".fs" ".c" ".cc" ".cpp" ".h"
@@ -56,26 +56,22 @@
                ".pk"                    ; GNU Poke
                ))
           eol)
-     (1 `(face modus-themes-intense-blue)))
+     (1 `(face nagy-intense-blue)))
     (,(rx (group
            (or ".jsonrpc"))
           (or ".py" ) eol)
-     (1 `(face modus-themes-subtle-blue)))
+     (1 `(face nagy-subtle-blue)))
     (,(rx (group
            (or ".svelte"))
           (or ".js" ".ts" ) eol)
-     (1 `(face modus-themes-subtle-blue)))
+     (1 `(face nagy-subtle-blue)))
     (,(rx (group (or "go.mod" "go.sum"))
           eol)
-     (1 `(face modus-themes-subtle-blue)))
-    (,(rx (group "CMakeLists")
-          ".txt"
-          eol)
-     (1 `(face modus-themes-nuanced-yellow)))
+     (1 `(face nagy-subtle-blue)))
     ;; Code, emacs
     (,(rx (group ".el")
           eol)
-     (1 `(face modus-themes-intense-magenta)))
+     (1 `(face nagy-intense-magenta)))
     ;; Code, Executable
     (,(rx (group (or ".wasm"
                      ;; compiled wasm from wasmtime
@@ -89,7 +85,7 @@
                ".journal" ;; hledger and ledger
                ))
           eol)
-     (1 `(face modus-themes-intense-yellow)))
+     (1 `(face nagy-intense-yellow)))
     (,(rx " " (group "book.journal") eol)
      (1 (progn (ov-set (make-overlay (match-beginning 1)
                                      (match-end 1))
@@ -102,7 +98,7 @@
                ".lsremote"
                ".cv"))
           (or ".txt" ".org" ".md") eol)
-     (1 `(face modus-themes-subtle-yellow)))
+     (1 `(face nagy-subtle-yellow)))
     ;; Documentation, main
     (,(rx " " (group (or "README") (or ".org" ".md")) eol)
      (1 (progn (ov-set (make-overlay (match-beginning 1)
@@ -115,11 +111,11 @@
            (or ".thumbs"))
           (or ".mp4" ".webm" ".gif" ".opus" ".ogg" ".mp3" ".wav" ".avi" ".mkv" ".m4a" ".flac")
           eol)
-     (1 `(face modus-themes-nuanced-cyan)))
+     (1 `(face nagy-nuanced-cyan)))
     (,(rx (group
            (or ".mp4" ".webm" ".gif" ".opus" ".ogg" ".mp3" ".wav" ".avi" ".mkv" ".m4a" ".flac"))
           eol)
-     (1 `(face modus-themes-subtle-cyan)))
+     (1 `(face nagy-subtle-cyan)))
     (,(rx " " (group (or "default" "flake") ".nix") eol)
      (1 (progn (ov-set (make-overlay (match-beginning 1)
                                      (match-end 1))

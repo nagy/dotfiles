@@ -815,7 +815,7 @@ Returns the total execution time as a floating-point number."
   (set-face-attribute 'elpher-gemini-heading1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
   (set-face-attribute 'elpher-gemini-heading2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
   (set-face-attribute 'elpher-gemini-heading3 nil :font "Et Bembo" :height 1.2 :inherit 'modus-themes-heading-3)
-  (set-face-attribute 'elpher-gemini-preformatted nil :extend t :inherit 'modus-themes-nuanced-green)
+  (set-face-attribute 'elpher-gemini-preformatted nil :extend t :inherit 'nagy-nuanced-green)
   :general
   (:states 'normal :keymaps 'elpher-mode-map
            "q" #'quit-window
