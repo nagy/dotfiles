@@ -18,7 +18,7 @@
 (use-package nix-mode
   :custom
   (nix-repl-executable-args
-   '("repl" "--expr" "with import <nixpkgs> {}; builtins // lib // pkgs"))
+   '("repl" "--expr" "with import <nixpkgs> {}; builtins // lib // pkgs // pkgs.nur.repos.nagy.lib"))
   :defer t
   ;; :hook
   ;; (nix-mode . eglot-ensure)

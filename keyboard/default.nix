@@ -5,7 +5,7 @@
 
 let
   keyboard = "handwired/dactyl_manuform/6x6";
-  keymap = "nagymap";
+  keymap = "default";
   config_h = pkgs.writeText "config.h" ''
     #define MASTER_RIGHT
     #define MOUSEKEY_MOVE_DELTA 4

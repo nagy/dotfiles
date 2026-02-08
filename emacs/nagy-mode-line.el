@@ -80,11 +80,11 @@
         )))
     (:eval
      (if (get-buffer-process (current-buffer))
-         (if (get-buffer-process (current-buffer))
-             (format "%s%d" (propertize "⚋" 'face 'font-lock-comment-face)
-                     (or
-                      (process-id (get-buffer-process (current-buffer)))
-                      0)))
+         (concat (propertize "⚋"
+                             'face 'font-lock-comment-face)
+                 (propertize (number-to-string (or (process-id (get-buffer-process (current-buffer)))
+                                                   0))
+                             'face 'nagy-nuanced-green))
        (if (derived-mode-p 'exwm-mode)
            `(:propertize ,(format "#x%X" exwm--id) face mode-line-buffer-id)
          mode-line-position)))))

@@ -628,6 +628,11 @@ string; otherwise return a 64-character string."
   (fset 'epg-wait-for-status 'ignore))
 
 (use-package ibuffer
+  :after evil-collection                          ;; to make the bindings below work
+  :commands (nagy-ibuffer-set-home-directory)
+  :preface
+  (defun nagy-ibuffer-set-home-directory ()
+    (cd (expand-file-name "~")))
   :custom
   (ibuffer-expert t)
   (ibuffer-display-summary nil)

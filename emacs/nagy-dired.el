@@ -36,6 +36,24 @@
           (or "" ".zst" ".br")
           eol)
      (1 `(face nagy-intense-red)))
+    ;; Data
+    (,(rx (group
+           (or ".tokei" ".ctags"
+               ".restic" ".rclone"
+               ".ncdu" ".jc"
+               ".journal" ".info"
+               ".docker"
+               ".ytdlp"
+               ".yggdrasil"
+               ".busctl"
+               ".gh" ".glab"
+               ;; network
+               ".ss"
+               ))
+          (or ".json" ".yaml" ".yml" ".toml" ".xml" ".csv" ".feather")
+          (or "" ".zst" ".br")
+          eol)
+     (1 `(face nagy-subtle-red)))
     ;; media, Photos
     (,(rx (group
            (or ".png" ".jpg" ".jpeg" ".webp" ".jxl" ".svg" ".avif"))

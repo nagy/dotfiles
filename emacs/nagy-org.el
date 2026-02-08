@@ -297,5 +297,29 @@
   :defer t
   )
 
+;; NIX-EMACS-PACKAGE: denote
+(use-package denote
+  :commands (nagy-disable-auto-insert-mode)
+  :defer t
+  ;; :custom
+  ;; (denote-rename-confirmations nil)
+  ;; :config
+  ;; (denote-rename-buffer-mode)
+  :bind
+  ("H-M-d" . denote)
+  ;; :hook
+  ;; (dired-mode . denote-dired-mode)
+  :config
+  (defun nagy-disable-auto-insert-mode (orig-fun &rest args)
+    (if auto-insert-mode
+        (progn (auto-insert-mode -1)
+               (apply orig-fun args)
+               (auto-insert-mode 1))
+        (apply orig-fun args)))
+  (advice-add 'denote :around #'nagy-disable-auto-insert-mode)
+  (with-eval-after-load 'nagy-dired     ; to wait for drfl-mode
+    (add-hook 'dired-mode-hook #'denote-dired-mode))
+  )
+
 (provide 'nagy-org)
 ;;; nagy-org.el ends here
