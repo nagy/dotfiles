@@ -1106,6 +1106,21 @@ string; otherwise return a 64-character string."
   (toggle-tab-bar-mode-from-frame))
 (keymap-global-set "s-<f12>" #'+toggle-tab-bar-mode-from-frame)
 
+(defun nagy-url-actions (url)
+  (interactive (list (substring-no-properties (current-kill 0))))
+  (alet (completing-read "action> "
+                         (list (format "curl --compressed -L -O %s" url)
+                               (format "git clone %s" url)
+                               ;; https://stackoverflow.com/questions/66431436/pushing-to-github-after-a-shallow-clone-is-horribly-slow
+                               (format "git clone --depth 2 --single-branch %s" url)))
+    (call-process-shell-command it)
+    ;; (if (eq major-mode 'dired-mode)
+    ;;     (dired-revert))
+    )
+  )
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "M-þ" #'nagy-url-actions))
+
 ;;;###autoload
 (defun the-shell-here ()
   (interactive)
@@ -1231,6 +1246,55 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
        (nreverse ,anaphoric-pcase--result))))
 (defalias 'adolist (symbol-function 'anaphoric-dolist))
 
+(declare-function url-knowledge--get-url-force "url-knowledge")
+(declare-function thing-at-point-url-at-point "thingatpt")
+
+;;;###autoload
+(cl-defun read-url-from-minibuffer (&optional (prompt "URL: ")
+                                              (initial-contents (or (thing-at-point-url-at-point)
+                                                                    (url-knowledge--get-url-force))))
+  "Read a URL from the minibuffer with URL-specific completion."
+  (interactive)
+  (let* ((url (read-from-minibuffer prompt initial-contents))
+         (parsed-url (url-generic-parse-url url)))
+    (pcase (url-type parsed-url)
+      ("http" url)
+      ("https" url)
+      (_ (error "Invalid URL format")))))
+
+;; NIX-EMACS-PACKAGE: dash-shell
+(require 'dash)
+(declare-function markdown-narrow-to-subtree "markdown-mode")
+(defun +narrow-to-dwim ()
+  (interactive)
+  (if (buffer-narrowed-p)
+      (widen)
+    (pcase major-mode
+      ('emacs-lisp-mode
+       (narrow-to-defun))
+      ((or 'nix-mode)
+       (-let (( (beg . end) (save-mark-and-excursion
+                              (mark-paragraph)
+                              (cons (point) (mark)))))
+         (narrow-to-region beg end)
+         ;; (narrow-to-paragraph)
+         ))
+      ;;('org-mode
+      ;; (org-narrow-to-subtree))
+      ('markdown-mode
+       (markdown-narrow-to-subtree))
+      (_ (user-error "Narrowing for `%s' not implemented yet." major-mode)))
+    ;; (goto-char (point-min))
+    (let (scroll-preserve-screen-position)
+      (dotimes (_i 10)
+        (scroll-down)))
+    ))
+(keymap-set text-mode-map "<normal-state> <key-chord> F N" #'+narrow-to-dwim)
+(keymap-set prog-mode-map "<normal-state> <key-chord> F N" #'+narrow-to-dwim)
+(keymap-set tabulated-list-mode-map "<normal-state> <key-chord> F N" #'+narrow-to-dwim)
+(key-chord-register-keys ?F ?N)
+;; (keymap-set magit-mode-map "<normal-state> <key-chord> F N" #'+narrow-to-dwim)
+;; (keymap-set dired-mode-map "<normal-state> <key-chord> F N" #'+narrow-to-dwim)
 (use-package package
   :custom
   (package-menu-async nil)
@@ -1250,6 +1314,48 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
 ;; (use-package url-cookie
 ;;   :same "*url cookies*")
 
+(use-package url-vars
+  :custom
+  (url-privacy-level '(email))
+  )
+
+(use-package register
+  :custom
+  (register-use-preview 'never)
+  :bind-keymap
+  ("s-r" . ctl-x-r-map)
+  :bind
+  ("s-R" . consult-register)
+  (:map ctl-x-r-map
+        ("s-r" . jump-to-register))
+  )
+
+(cl-defgeneric gather (config)
+  config)
+
+(cl-defmethod gather ((str string))
+  (json-parse-string str
+                     ;; :object-type 'alist
+                     ;; :array-type 'list
+                     )
+  )
+
+(with-eval-after-load 'ts
+  (cl-defmethod gather ((obj ts))
+    (with-temp-buffer
+      (format "%s" obj))))
+
+(cl-defmethod gather ((obj number))
+  (number-to-string obj))
+
+(cl-defmethod gather ((obj string))
+  obj)
+
+(cl-defmethod gather ((obj buffer))
+  (buffer-hash obj))
+
+(cl-defgeneric ungather (_config)
+  nil)
 
 (defun jump-to-proc (arg)
   (interactive "P")
