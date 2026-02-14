@@ -14,7 +14,11 @@
                  (prefix "http://")
                  (prefix "ipfs://"))
              url))
-     (-shell--case (list "curl" "--ipv4" "--fail" "--compressed" url))
+     (-shell--case (list "curl"
+                         "--ipv4"
+                         "--fail"
+                         "--compressed"
+                         url))
      )
     (`(,(and (cl-type url)
              url))
@@ -37,11 +41,6 @@
                      (remq nil rest))))
             zerop
             (cl-assert it t "Shell command with non-nil exitcode: %s %S %S" first rest (buffer-string)))))
-    ;; ((prefix "/ipfs/")
-    ;;  (-shell--case (format "ipfs://%s" (string-remove-prefix "/ipfs/" spec))))
-    ((pred stringp)
-     (-shell--case
-      (list sh-shell-file shell-command-switch spec)))
     ))
 
 ;;;###autoload

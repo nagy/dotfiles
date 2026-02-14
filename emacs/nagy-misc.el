@@ -81,6 +81,7 @@
   ("s-€" . eww)
   ("H-j" . scroll-up-command)
   ("H-k" . scroll-down-command)
+  ("H-y" . eww-copy-page-url)
   ;; :hook
   ;; (eww-mode . variable-pitch-mode)
   :general

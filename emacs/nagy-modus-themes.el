@@ -65,8 +65,8 @@
                (green-faint . green-faint))))
     (pcase-dolist (`(,name . ,other) lst)
       (set-face-attribute (intern (concat "nagy-fg-" (symbol-name name))) nil
-                          :foreground (modus-themes-get-color-value 'bg-main)
-                          :background (modus-themes-get-color-value (intern (symbol-name other))))))
+                          :foreground (modus-themes-get-color-value (intern (symbol-name other)))
+                          :background (modus-themes-get-color-value 'bg-main))))
   )
 (add-hook 'modus-themes-after-load-theme-hook #'my-modus-themes-custom-faces2)
 
@@ -151,6 +151,7 @@
          `(nameless-face ((,c :inherit font-lock-comment-delimiter-face)))
          ;; `(forge-pullreq-open ((,c :inherit nagy-fg-green)))
          ;; `(forge-pullreq-merged ((,c :inherit nagy-fg-magenta)))
+         `(jinx-misspelled ((,c :inherit nagy-subtle-yellow)))
          `(eglot-highlight-symbol-face ((,c :underline t :bold t)))
          `(eglot-diagnostic-tag-unnecessary-face ((,c :underline unspecified :inherit nagy-intense-green)))
          `(scroll-bar ((,c :box unspecified :background ,bg-main :foreground ,(if (dayp) "#ccc" "#333"))))

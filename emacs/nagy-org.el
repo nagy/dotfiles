@@ -297,6 +297,13 @@
   :defer t
   )
 
+;; NIX-EMACS-PACKAGE: org-pretty-table
+(use-package org-pretty-table
+  :defer t
+  :hook
+  (org-mode . org-pretty-table-mode)
+  )
+
 ;; NIX-EMACS-PACKAGE: denote
 (use-package denote
   :commands (nagy-disable-auto-insert-mode)

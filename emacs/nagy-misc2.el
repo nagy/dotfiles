@@ -680,7 +680,7 @@ This currently requires that `age-default-identity' and
   :commands (nagy-browse-url-at-point)
   :config
   (defun nagy-browse-url-at-point ()
-    "No properites in string"
+    "No properties in string"
     (thing-at-point 'url t))
   ;; To only find actual URLs and not treat any word as a hostname
   (advice-add 'browse-url-url-at-point :override #'nagy-browse-url-at-point)
