@@ -518,47 +518,6 @@ Returns the total execution time as a floating-point number."
   (:states 'normal :keymaps 'prog-mode-map
            "«" #'aggressive-indent-mode))
 
-;; * Zig
-
-;; NIX-EMACS-PACKAGE: zig-mode
-(use-package zig-mode
-  :custom
-  (zig-format-on-save nil)
-  :pretty 'zig-mode
-  ("true" . true) ("false" . false)
-  ("if" . if) ("else" . else) ("then" . then)
-  ("fn" . def)
-  ("const" . const)
-  ("while" . loop)
-  ("void" . null)
-  ;; ("try" . try) ("catch" . except)
-  ("pub" . "🌐")
-  ("var" . "𝕧")
-  ("bool" . "𝒃")
-  ("struct" . "𝕤")
-  ("return" . return)
-  ("export" . export)
-  :bind
-  ("H-M-z" . zig-mode)
-  (:map zig-mode-map
-        ("C-⊢" . zig-format-buffer))
-  :cycle 'zig-mode
-  ("const" "var")
-  :hook
-  (zig-mode . zig-format-on-save-mode)
-  :general
-  (:states 'normal :keymaps 'zig-mode-map
-           "⊢" #'zig-format-buffer))
-;; (define-auto-insert
-;;   `("\\.zig\\'" . "Zig skeleton")
-;;    '("Short description: "
-;;      "const std = @import(\"std\");" \n
-;;      \n
-;;      "pub fn main() !void {" \n
-;;      "std.debug.print(\"Hello, World!\\n\", .{});" \n
-;;      > _ \n
-;;      "}" > \n))
-
 ;; * Rust
 
 ;; NIX-EMACS-PACKAGE: rustic
