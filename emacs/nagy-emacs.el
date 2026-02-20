@@ -707,6 +707,7 @@ string; otherwise return a 64-character string."
       (find-file (concat (project-root (project-current)) "/.git/config"))))
   ;; :custom
   ;; (project-mode-line t)
+  ;; (project-list-exclude nil)
   :config
   (keymap-global-set "H-p" project-prefix-map)
   (keymap-set project-prefix-map "s-k" #'project-kill-buffers)

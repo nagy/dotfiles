@@ -208,7 +208,7 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-q") . bury-buffer)
             (,(kbd "s-Q") . unbury-buffer)
             (,(kbd "H-<f2>") . modus-themes-toggle)
-            (,(kbd "H-i") . xwininfo-from-buffer)
+            ;; (,(kbd "H-i") . xwininfo-from-buffer)
             (,(kbd "s-t") . find-tmp)
             (,(kbd "s-=") . balance-windows)
             (,(kbd "s-n") . universal-argument)
