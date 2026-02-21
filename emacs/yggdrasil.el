@@ -33,7 +33,7 @@
     :endpoint "unix:///var/run/yggdrasil/yggdrasil.sock"))
 
 (cl-defmethod yggdrasil-ctl-call-process ((yggdrasil yggdrasil) &rest args)
-  (apply #'dollar-json2
+  (apply #'dollar-json
          yggdrasil-ctl-program
          :endpoint (yggdrasil-endpoint yggdrasil)
          :json

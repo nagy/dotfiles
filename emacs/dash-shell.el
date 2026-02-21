@@ -44,59 +44,42 @@
     ))
 
 ;;;###autoload
-(defun -shell (&rest specs)
-  (mapcar #'-shell--case specs))
-
-;;;###autoload
-(defun -shell1 (&rest specs)
-  (-shell--case specs))
-
-;;;###autoload
-(defun dollar2 (&rest spec)
+(defun dollar (&rest spec)
   (-shell--case spec))
 
 ;;;###autoload
-(defalias '$2 (symbol-function 'dollar2))
-
-;;;###autoload
-(defun dollar-line2 (&rest spec)
+(defun dollar-line (&rest spec)
   (with-temp-buffer
-    (apply #'dollar2 spec)
+    (apply #'dollar spec)
     (goto-char (point-min))
     (buffer-substring (point) (line-end-position))))
 
 ;;;###autoload
-(defalias '$l2 (symbol-function 'dollar-line2))
-
-;;;###autoload
-(defun dollar-string2 (&rest spec)
+(defun dollar-string (&rest spec)
   (with-temp-buffer
-    (apply #'dollar2 spec)
+    (apply #'dollar spec)
     (buffer-string)))
 
 ;;;###autoload
-(defalias '$s2 (symbol-function 'dollar-string2))
-
-;;;###autoload
-(defun dollar-json2 (&rest spec)
+(defun dollar-json (&rest spec)
   (with-temp-buffer
     (let ((coding-system-for-read 'utf-8))
-      (apply #'dollar2 spec))
+      (apply #'dollar spec))
     (goto-char (point-min))
     (json-parse-buffer)))
 
 ;;;###autoload
-(defalias '$j2 (symbol-function 'dollar-json2))
-
-;;;###autoload
-(defun dollar-bytes2 (&rest spec)
+(defun dollar-bytes (&rest spec)
   (with-temp-buffer
     (set-buffer-multibyte nil)
-    (apply #'dollar2 spec)
+    (apply #'dollar spec)
     (buffer-string)))
 
-;;;###autoload
-(defalias '$b2 (symbol-function 'dollar-bytes2))
+(define-obsolete-function-alias 'dollar2 'dollar "now")
+(define-obsolete-function-alias 'dollar-line2 'dollar-line "now")
+(define-obsolete-function-alias 'dollar-string2 'dollar-string "now")
+(define-obsolete-function-alias 'dollar-json2 'dollar-json "now")
+(define-obsolete-function-alias 'dollar-bytes2 'dollar-bytes "now")
 
 (provide 'dash-shell)
 ;;; dash-shell.el ends here
