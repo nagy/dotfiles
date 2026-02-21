@@ -575,8 +575,8 @@ Returns the total execution time as a floating-point number."
   ;; ("rst" . "Result")
   ;; ("stg" . "String")
   ;; ("vc" . "Vec")
-  ("l" . "let")
-  ("m" . "mut")
+  ;; ("l" . "let")
+  ;; ("m" . "mut")
   :cycle 'rustic-mode
   ("Result" "Option"))
 

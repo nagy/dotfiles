@@ -66,8 +66,8 @@
                      (propertize (symbol-name (type-of (nagy-list--data-at-point))) 'face (if (mode-line-window-selected-p) 'nagy-subtle-cyan 'nagy-nuanced-cyan))
                      " "
                      )))
-    (nagy-mode-line--jsvar (:eval (concat (format "%s" nagy-mode-line--jsvar) " ")))
-    (nagy-mode-line--jsvar-point (:eval (concat (format "%s" nagy-mode-line--jsvar-point) " ")))
+    (nagy-mode-line--jsvar (:eval (format "%s " nagy-mode-line--jsvar)))
+    (nagy-mode-line--jsvar-point (:eval (format "%s " nagy-mode-line--jsvar-point)))
     (:eval
      (unless (or (derived-mode-p 'exwm-mode)
                  (derived-mode-p 'magit-mode)

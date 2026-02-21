@@ -162,6 +162,7 @@ aka xcompose is not properly initialized in the first frame."
                     ("Alacritty" "")
                     ("firefox" "")
                     ("Zathura" "📓")
+                    ("Nsxiv" "⌧")
                     (_ ))
                   (or exwm-title "*EXWM*"))
           (string-remove-suffix " — Mozilla Firefox" it)

@@ -500,7 +500,7 @@ This currently requires that `age-default-identity' and
   ;; Remove bufler column "VC". might be expensive
   (setq bufler-columns (remove "VC" bufler-columns))
   (bufler-define-buffer-command simple-switch "Simple switcher"
-                                #'switch-to-buffer :refresh-p nil)
+    #'switch-to-buffer :refresh-p nil)
   )
 
 ;; NIX-EMACS-PACKAGE: iedit

@@ -574,7 +574,9 @@
 (use-package woman
   :defer t
   :custom
-  (woman-fill-frame t))
+  ;; (woman-fill-frame t)
+  (woman-default-indent 7)              ;; to emulate GNU man formatting
+  )
 
 (use-package replace                    ; occur
   :bind
@@ -727,6 +729,9 @@ string; otherwise return a 64-character string."
         ("H-w" . edebug-where)))
 
 (use-package message
+  :custom
+  (message-signature user-full-name)
+  ;; (message-cite-reply-position 'below)
   :bind
   (:map message-mode-map
         ([remap save-kill-buffer] . message-send-and-exit)
