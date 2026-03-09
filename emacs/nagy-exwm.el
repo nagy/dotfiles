@@ -100,10 +100,9 @@ windows when moving the mouse."
   (let ((default-directory temporary-file-directory))
     (cl-incf brightness--value 5)
     (setq brightness--value (min 100 brightness--value))
-    (call-process "brightnessctl" nil nil nil
-                  "--device=ddcci4" "set" (concat (number-to-string brightness--value) "%"))
-    (call-process "brightnessctl" nil nil nil
-                  "--device=ddcci12" "set" (concat (number-to-string brightness--value) "%"))
+    (dolist (backlight-driver-name (directory-files "/sys/class/backlight/" nil (rx (any "a-z"))))
+      (call-process "brightnessctl" nil nil nil
+                    (format "--device=%s" backlight-driver-name) "set" (format "%d%%" brightness--value)))
     (message "Brightness set to %d" brightness--value)))
 
 (defun brightness-down ()
@@ -111,10 +110,9 @@ windows when moving the mouse."
   (let ((default-directory temporary-file-directory))
     (cl-decf brightness--value 5)
     (setq brightness--value (max 0 brightness--value))
-    (call-process "brightnessctl" nil nil nil
-                  "--device=ddcci4" "set" (concat (number-to-string brightness--value) "%"))
-    (call-process "brightnessctl" nil nil nil
-                  "--device=ddcci12" "set" (concat (number-to-string brightness--value) "%"))
+    (dolist (backlight-driver-name (directory-files "/sys/class/backlight/" nil (rx (any "a-z"))))
+      (call-process "brightnessctl" nil nil nil
+                    (format "--device=%s" backlight-driver-name) "set" (format "%d%%" brightness--value)))
     (message "Brightness set to %d" brightness--value)))
 
 ;; NIX-EMACS-PACKAGE: exwm
