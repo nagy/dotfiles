@@ -173,8 +173,14 @@ aka xcompose is not properly initialized in the first frame."
   (exwm-workspace-show-all-buffers t)
   (exwm-layout-show-all-buffers t)
   (exwm-manage-configurations '((t char-mode t)))
-  ;; TODO use (display-monitor-attributes-list)
-  (exwm-randr-workspace-monitor-plist '(0 "DP-1" 1 "HDMI-1"))
+  (exwm-randr-workspace-monitor-plist (let ((i 0))
+                                        (flatten-list (mapcar (lambda (el)
+                                                                (prog1 (list i (alist-get 'name el))
+                                                                  (cl-incf i)))
+                                                              (display-monitor-attributes-list)))))
+  ;; (exwm-randr-workspace-monitor-plist (map-into (apply #'vector (mapcar (lambda (el) (alist-get 'name el))
+  ;;                                                                       (display-monitor-attributes-list)))
+  ;;                                               'plist))
   :init
   ;; https://github.com/ch11ng/exwm/issues/889
   ;; Frame focus bug
