@@ -192,6 +192,7 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-i") . nagy-previous-window-any-frame)
             (,(kbd "s-o") . nagy-next-window-any-frame)
             (,(kbd "s-<return>") . eshell)
+            (,(kbd "s-b") . consult-buffer)
             (,(kbd "s-p") . consult-bookmark)
             (,(kbd "<XF86Favorites>") . consult-bookmark)
             (,(kbd "s-U") . winner-redo)

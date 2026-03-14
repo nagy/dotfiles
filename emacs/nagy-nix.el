@@ -118,7 +118,7 @@
   ("libcs" . "lib.cleanSource")
   ("en" . "enable = true")
   ("inx" . "import <nixpkgs> { }")
-  ("winx" . "with import <nixpkgs> { }")
+  ;; ("winx" . "with import <nixpkgs> { }")
   ("nvp" . "nameValuePair")
   :cycle 'nix-mode
   ("override" "overrideAttrs")

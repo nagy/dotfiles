@@ -714,5 +714,20 @@ This currently requires that `age-default-identity' and
   ("C-H-o" . treesit-fold-open-recursively)
   )
 
+(use-package sh-script
+  :preface
+  (reformatter-define shfmt
+    :group 'emacs
+    ;; :lighter " shfmt"
+    :program "shfmt"
+    :args '("-i" "2" "--case-indent" "--space-redirects")
+    )
+  :hook
+  (sh-mode . shfmt-on-save-mode)
+  :general
+  (:states 'normal :keymaps 'sh-mode-map
+           "⊢" #'shfmt-buffer)
+  )
+
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here
