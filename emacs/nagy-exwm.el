@@ -292,7 +292,8 @@ aka xcompose is not properly initialized in the first frame."
   (apply #'start-process
          "terminal" nil "alacritty"
          "--option" (format "font.size=%d" (/  (face-attribute 'default :height) 9))
-         (mapcar #'shell-quote-argument args)))
+         args
+         ))
 
 (defun htop ()
   (interactive)

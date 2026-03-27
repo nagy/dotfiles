@@ -80,6 +80,7 @@
   ("s-/" . consult-focus-lines)
   ("H-/" . consult-keep-lines)
   ("C-s-s" . consult-ripgrep)
+  ("s-r" . consult-recent-file)
   ([remap bookmark-jump] . consult-bookmark)
   ([remap goto-line] . consult-goto-line)
   ([remap imenu] . consult-imenu)

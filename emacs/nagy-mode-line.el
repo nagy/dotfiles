@@ -132,7 +132,8 @@
                   (:propertize "%b " face (:height 1.2 :inherit mode-line-buffer-id))
                   ;; mode-line-position ""
                   ;; (vc-mode vc-mode)
-                  (:eval (unless (derived-mode-p 'exwm-mode)
+                  (:eval (unless (or (derived-mode-p 'exwm-mode)
+                                     (derived-mode-p 'dired-mode))
                            mode-line-modes)) ; already includes a space at the end
                   (:eval nagy-mode-line-default-directory-format)
                   mode-line-misc-info

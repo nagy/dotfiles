@@ -387,7 +387,10 @@
   :bind
   (:map tabulated-list-mode-map
         ("M-h" . tabulated-list-previous-column)
-        ("M-l" . tabulated-list-next-column))
+        ("M-l" . tabulated-list-next-column)
+        ("M-j" . next-line)
+        ("M-k" . previous-line)
+        )
   :general
   (:states 'normal :keymaps 'tabulated-list-mode-map
            "{" #'tabulated-list-narrow-current-column

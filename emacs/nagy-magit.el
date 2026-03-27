@@ -24,6 +24,7 @@
   (:map magit-mode-map
         ("H-<" . magit-process-buffer))
   (:map dired-mode-map
+        ("H-L" . magit-log-all-branches)
         ("H-<" . magit-process-buffer))
   (:map magit-diff-mode-map
         ("SPC" . nil) ;; was `scroll-up'

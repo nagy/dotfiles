@@ -72,6 +72,7 @@
                ".css" ".svelte"
                ".typ"
                ".pk"                    ; GNU Poke
+               ".tf"                    ; Terraform / OpenTofu
                ))
           eol)
      (1 `(face nagy-intense-blue)))

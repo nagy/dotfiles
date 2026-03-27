@@ -241,6 +241,7 @@
   :custom
   (Man-notify-method 'pushy)
   :bind
+  ("C-h M" . man)
   (:map Man-mode-map
         ("H-j" . Man-next-section)
         ("H-k" . Man-previous-section)))
@@ -1268,7 +1269,7 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
       ("https" url)
       (_ (error "Invalid URL format")))))
 
-;; NIX-EMACS-PACKAGE: dash-shell
+;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
 (declare-function markdown-narrow-to-subtree "markdown-mode")
 (defun +narrow-to-dwim ()
