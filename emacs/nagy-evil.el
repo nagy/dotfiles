@@ -49,7 +49,10 @@
   (advice-add #'evil-jump-backward :after #'evil-scroll-line-to-center)
   :bind
   ("H-z" . evil-scroll-line-to-center)
-  ;; ("H-u" . evil-undo)
+  ("s-H" . evil-window-move-far-left)
+  ("s-J" . evil-window-move-very-bottom)
+  ("s-K" . evil-window-move-very-top)
+  ("s-L" . evil-window-move-far-right)
   )
 
 ;; NIX-EMACS-PACKAGE: evil-collection
@@ -135,6 +138,8 @@
   ;;          "j" #'evil-next-visual-line
   ;;          "ö" #'eshell-send-input
   ;;          "Ö" #'eshell-previous-input)
+  :bind
+  ("s-<return>" . eshell)
   )
 
 ;; NIX-EMACS-PACKAGE: evil-surround

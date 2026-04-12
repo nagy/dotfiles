@@ -250,6 +250,7 @@ windows when moving the mouse."
   ("C-H-r" . rename-buffer)
   ("H-M-a" . normal-mode)
   ("H-s-c" . cd)
+  ("s-SPC" . find-file-home)
   (:map minibuffer-local-map
         ("H-j" . next-history-element)
         ("H-k" . previous-history-element)
@@ -265,6 +266,7 @@ windows when moving the mouse."
 
 (use-package help
   :bind
+  ("H-M" . view-echo-area-messages)
   (:map help-map
         ("C-l" . find-library)))
 
@@ -1450,6 +1452,8 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   ;;   (calendar)
   ;;   (calendar-goto-date (list 1 15 2025)))
   :defer t
+  :bind
+  ("s-<f1>" . calendar)
   :same
   ;; calendar-buffer
   "^\\*Calendar\\*$"

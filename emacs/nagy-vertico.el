@@ -76,7 +76,9 @@
            "s" #'consult-line
            "Ø" #'consult-outline)
   :bind
-  ;; ("s-b" . consult-buffer)  ;; already done in exwm, but should move here
+  ("s-b" . consult-buffer)
+  ("s-p" . consult-bookmark)
+  ;; ("<XF86Favorites>" . consult-bookmark)
   ("s-/" . consult-focus-lines)
   ("H-/" . consult-keep-lines)
   ("C-s-s" . consult-ripgrep)

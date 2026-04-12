@@ -70,6 +70,8 @@
   (defun dayp ()
     "Return non-nil if it is day (aka light theme)."
     (eq (frame-parameter nil 'background-mode) 'light))
+  :bind
+  ("H-<f2>" . modus-themes-toggle)
   :custom
   (modus-themes-bold-constructs t)
   (modus-themes-slanted-constructs t)   ; kursiv

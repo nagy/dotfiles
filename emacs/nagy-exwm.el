@@ -24,6 +24,7 @@
    (get-buffer-create " *screenshot*")
    "scrot --select - | xclip -verbose -selection clipboard -t image/png")
   )
+(keymap-global-set "s-<f5>" #'my-screenshot)
 
 ;; TODO prevent rollover
 (defun nagy-move-tab-right (arg)
@@ -90,6 +91,7 @@
       (call-process "brightnessctl" nil nil nil
                     (format "--device=%s" backlight-driver-name) "set" (format "%d%%" brightness--value)))
     (message "Brightness set to %d" brightness--value)))
+(keymap-global-set "<XF86MonBrightnessUp>" #'brightness-up)
 
 (defun brightness-down ()
   (interactive)
@@ -100,6 +102,7 @@
       (call-process "brightnessctl" nil nil nil
                     (format "--device=%s" backlight-driver-name) "set" (format "%d%%" brightness--value)))
     (message "Brightness set to %d" brightness--value)))
+(keymap-global-set "<XF86MonBrightnessDown>" #'brightness-down)
 
 ;; NIX-EMACS-PACKAGE: exwm
 (use-package exwm
@@ -161,21 +164,38 @@ aka xcompose is not properly initialized in the first frame."
     (setq exwm-input--global-keys nil)
     (map-keymap
      (lambda (key _binding)
-       (let ((key-desc (single-key-description key)))
+       (let* ((key-desc (single-key-description key))
+              (case-fold-search nil)
+              )
          ;; (when (string-prefix-p "s-" key-desc))
-         (when (string-match-p (rx bos "s-"
-                                   (or (any "a-z")
-                                       "<XF86Paste>"
-                                       "<prior>"
-                                       "<next>"
-                                       "<home>"
-                                       "<end>"
-                                       )
-                                   eos)
-                               key-desc)
+         (when (string-match-p
+                (rx bos
+                    (or (seq "s-" (any "a-z"))
+                        (seq "s-" (any "A-Z"))
+                        "s-<XF86Paste>"
+                        "s-<prior>"
+                        "s-<next>"
+                        "s-<home>"
+                        "s-<end>"
+                        "s-SPC"      ;; find-file-home
+                        "s-<return>" ;; eshell
+                        "s-<escape>" ;; exwm-reset
+                        "s-<f1>"
+                        "s-<f5>" ;; screenshot
+                        "s-="
+                        "<XF86Explorer>"
+                        "C-<XF86Explorer>"
+                        "<XF86AudioLowerVolume>"
+                        "<XF86AudioRaiseVolume>"
+                        "<XF86MonBrightnessDown>"
+                        "<XF86MonBrightnessUp>"
+                        )
+                    eos)
+                key-desc)
            (let* ((key-vector (kbd key-desc))
                   (key-command (key-binding key-vector)))
              (when key-command
+               (message "exwm: %s:%s" key-vector key-desc)
                (cl-pushnew key-vector exwm-input--global-keys))
              ))))
      (current-global-map))
@@ -187,6 +207,7 @@ aka xcompose is not properly initialized in the first frame."
   (exwm-workspace-show-all-buffers t)
   (exwm-layout-show-all-buffers t)
   (exwm-manage-configurations '((t char-mode t)))
+  ;; (exwm-input-prefix-keys '())
   (exwm-randr-workspace-monitor-plist (let ((i 0))
                                         (flatten-list (mapcar (lambda (el)
                                                                 (prog1 (list i (alist-get 'name el))
@@ -201,47 +222,13 @@ aka xcompose is not properly initialized in the first frame."
   (setq mouse-autoselect-window t
         focus-follows-mouse t)
   (setopt exwm-input-global-keys
-          `((,(kbd "s-<escape>")  . exwm-reset)
-            (,(kbd "s-<return>") . eshell)
-            (,(kbd "s-b") . consult-buffer)
-            (,(kbd "s-p") . consult-bookmark)
-            (,(kbd "<XF86Favorites>") . consult-bookmark)
-            (,(kbd "s-U") . winner-redo)
-            (,(kbd "s-u") . winner-undo)
-            (,(kbd "s-d") . delete-window-or-tab)
-            (,(kbd "s-v") . nagy-emacs-split-window-right-and-focus)
+          `((,(kbd "s-v") . nagy-emacs-split-window-right-and-focus)
             (,(kbd "s-s") . nagy-emacs-split-window-below-and-focus)
             (,(kbd "s-V") . nagy-emacs-split-window-right)
             (,(kbd "s-S") . nagy-emacs-split-window-below)
-            (,(kbd "s-I") . ibuffer-exwm)
-            (,(kbd "s-<f1>") . calendar)
-            (,(kbd "<XF86Explorer>") . firefox)
-            (,(kbd "C-<XF86Explorer>") . firefox-private-window)
-            (,(kbd "s-+") . terminal)
-            (,(kbd "s-H") . evil-window-move-far-left)
-            (,(kbd "s-J") . evil-window-move-very-bottom)
-            (,(kbd "s-K") . evil-window-move-very-top)
-            (,(kbd "s-L") . evil-window-move-far-right)
-            (,(kbd "H-<f2>") . modus-themes-toggle)
-            (,(kbd "s-t") . find-tmp)
-            (,(kbd "s-=") . balance-windows)
-            (,(kbd "s-n") . universal-argument)
-            (,(kbd "<XF86AudioMute>") . mute)
-            (,(kbd "<XF86AudioLowerVolume>") . volume-decrease)
-            (,(kbd "<XF86AudioRaiseVolume>") . volume-increase)
-            (,(kbd "<XF86MonBrightnessUp>") . brightness-up)
-            (,(kbd "<XF86MonBrightnessDown>") . brightness-down)
-            ;; (,(kbd "s-f") . find-file)
-            (,(kbd "s-SPC") . find-file-home)
             (,(kbd "C-s-SPC") . buffer-new-of-region)
             (,(kbd "C-M-s-SPC") . buffer-new-of-kill)
-            (,(kbd "<XF86Back>") . tab-previous)
-            (,(kbd "<XF86Forward>") . tab-next)
-            (,(kbd "<XF86Search>") . other-frame)
-            (,(kbd "<f9>") . emms-pause)
-            (,(kbd "s-<f11>") . global-hide-mode-line-mode)
             (,(kbd "s-<f12>") . +toggle-tab-bar-mode-from-frame)
-            (,(kbd "H-M") . view-echo-area-messages)
             ;; bookmarks
             (,(kbd "s-ð") . ,(lambda () (interactive) (find-file "~/Downloads")))
             (,(kbd "C-s-j") . browse-url-from-kill)
@@ -262,7 +249,9 @@ aka xcompose is not properly initialized in the first frame."
   ;; (evil-define-key 'normal dired-mode-map "," #'terminal)
   ;; (keymap-set exwm-mode-map "s-j" #'nagy-url-kill)
   :bind
-  ("s-I" . ibuffer-exwm))
+  ("s-I" . ibuffer-exwm)
+  ("s-<escape>" . exwm-reset)
+  )
 
 (defun delete-window-or-tab (&optional WINDOW)
   (interactive)
@@ -270,16 +259,13 @@ aka xcompose is not properly initialized in the first frame."
       (tab-close)
     (delete-window WINDOW)
     (balance-windows)))
-
 (keymap-global-set "s-d" #'delete-window-or-tab)
-;; (keymap-global-set "s-o" #'next-window-any-frame)
-(keymap-global-set "s-H" #'evil-window-move-far-left)
-(keymap-global-set "s-L" #'evil-window-move-far-right)
-(keymap-global-set "s-J" #'evil-window-move-very-bottom)
-(keymap-global-set "s-K" #'evil-window-move-very-top)
 
-(defun completing-read-host ()
-  (completing-read "host> " nil))
+;; (keymap-global-set "s-o" #'next-window-any-frame)
+;; (keymap-global-set "s-H" #'evil-window-move-far-left)
+;; (keymap-global-set "s-L" #'evil-window-move-far-right)
+;; (keymap-global-set "s-J" #'evil-window-move-very-bottom)
+;; (keymap-global-set "s-K" #'evil-window-move-very-top)
 
 (defun start-terminal (&rest args)
   (declare (indent 0))
