@@ -40,7 +40,7 @@
 (declare-function hledger-get-accounts "hledger-reports")
 (defun embark-target-hledger-account-at-point ()
   (awhen (member (thing-at-point 'filename t)
-                    (hledger-get-accounts))
+                 (hledger-get-accounts))
     (-let* (((beg . end) (cons (car (bounds-of-thing-at-point 'filename))
                                (cdr (bounds-of-thing-at-point 'filename))))
             )
@@ -57,7 +57,7 @@
 (defun hledger-message-account-bal (account)
   (interactive "MAccount:")
   (message "%S"
-   (shell-command-to-string (s-lex-format "hledger bal ${account}")))
+           (shell-command-to-string (s-lex-format "hledger bal ${account}")))
   )
 
 (provide 'nagy-hledger)

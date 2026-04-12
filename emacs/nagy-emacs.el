@@ -428,7 +428,8 @@ windows when moving the mouse."
   :bind
   (:map wdired-mode-map
         ([remap save-kill-buffer] . wdired-finish-edit)
-        ([remap kill-this-buffer] . wdired-abort-changes))
+        ([remap kill-this-buffer] . wdired-abort-changes)
+        ([remap nagy-kill-this-buffer] . wdired-abort-changes))
   :custom
   (wdired-allow-to-change-permissions t)
   (dired-vc-rename-file nil)) ; without this, some problems occurred

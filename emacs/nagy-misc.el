@@ -165,8 +165,10 @@
 (use-package wgrep
   :bind
   (:map wgrep-mode-map
+        ([remap save-kill-buffer] . wgrep-finish-edit)
         ([remap kill-this-buffer] . wgrep-abort-changes)
-        ([remap save-kill-buffer] . wgrep-finish-edit))
+        ([remap nagy-kill-this-buffer] . wgrep-abort-changes)
+        )
   :general
   (:states 'normal :keymaps 'wgrep-mode-map
            "ö" #'wgrep-finish-edit))

@@ -221,6 +221,7 @@ aka xcompose is not properly initialized in the first frame."
                         "<XF86AudioRaiseVolume>"
                         "<XF86MonBrightnessDown>"
                         "<XF86MonBrightnessUp>"
+                        "s-<XF86Tools>"
                         )
                     eos)
                 key-desc)

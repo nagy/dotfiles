@@ -36,7 +36,8 @@
         ;; ("s-j"   . vertico-next)
         ;; ("s-k"   . vertico-previous)
         ("H-j"   . vertico-next)
-        ("H-k"   . vertico-previous))
+        ("H-k"   . vertico-previous)
+        )
   (:map minibuffer-local-map
         ("s--" . vertico-flat-mode)
         ("H-h" . delete-backward-char))

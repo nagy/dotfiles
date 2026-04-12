@@ -321,7 +321,7 @@
         (progn (auto-insert-mode -1)
                (apply orig-fun args)
                (auto-insert-mode 1))
-        (apply orig-fun args)))
+      (apply orig-fun args)))
   (advice-add 'denote :around #'nagy-disable-auto-insert-mode)
   (with-eval-after-load 'nagy-dired     ; to wait for drfl-mode
     (add-hook 'dired-mode-hook #'denote-dired-mode))

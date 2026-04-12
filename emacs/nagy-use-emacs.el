@@ -154,9 +154,17 @@
 ;;   ;;(add-hook 'doom-first-input-hook #'benchmark-init/deactivate)
 ;;   )
 
-;; (use-package make-mode
-;;   :pretty 'makefile-gmake-mode
-;;   ("ifeq" . if) ("else" . else) ("endif" . else))
+(use-package make-mode
+  :defer t
+  :bind
+  ("H-M-M" . make-mode)
+  )
+(defun find-file-make-file ()
+  (interactive)
+  (find-file "Makefile")
+  )
+(require 'dired)
+(keymap-set dired-mode-map "H-M-M" #'find-file-make-file)
 
 (provide 'nagy-use-emacs)
 ;;; nagy-use-emacs.el ends here

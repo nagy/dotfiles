@@ -6,6 +6,10 @@
 (use-package magit
   :custom
   (magit-pull-or-fetch t)
+  (magit-no-confirm '(resurrect
+                      discard
+                      ;; set-and-push
+                      ))
   :config
   (add-to-list 'display-buffer-alist '("^magit-revision" display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^magit-stash" display-buffer-same-window))
@@ -21,10 +25,12 @@
   :bind
   ("H-g" . magit-status)
   ("H-L" . magit-log-buffer-file)
+  ("H-R" . magit-show-refs)
   (:map magit-mode-map
         ("H-b" . nagy-browse-url-of-buffer)
         ("H-L" . magit-log-all-branches)
-        ("H-<" . magit-process-buffer))
+        ("H-<" . magit-process-buffer)
+        )
   (:map dired-mode-map
         ("H-L" . magit-log-all-branches)
         ("H-<" . magit-process-buffer))
@@ -33,6 +39,7 @@
         )
   (:map magit-log-select-mode-map
         ([remap save-kill-buffer] . magit-log-select-pick)
+        ([remap kill-this-buffer] . magit-log-select-quit)
         ([remap nagy-kill-this-buffer] . magit-log-select-quit)
         )
   )
@@ -93,10 +100,12 @@
   :bind
   (:map with-editor-mode-map
         ([remap save-kill-buffer] . with-editor-finish)
-        ([remap kill-this-buffer] . with-editor-cancel))
+        ([remap kill-this-buffer] . with-editor-cancel)
+        ([remap nagy-kill-this-buffer] . with-editor-cancel))
   :general
   (:states 'normal :keymaps 'with-editor-mode-map
-           "ö" #'with-editor-finish))
+           "ö" #'with-editor-finish
+           ))
 
 (provide 'nagy-magit)
 ;;; nagy-magit.el ends here
