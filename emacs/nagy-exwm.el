@@ -13,6 +13,10 @@
 
 ;; NIX-EMACS-PACKAGE: nagy-dired
 (require 'nagy-dired)
+
+;; NIX-EMACS-PACKAGE: dash-shell
+(require 'dash-shell)
+
 (require 'key-chord)
 
 (declare-function ibuffer-filter-by-used-mode "ibuffer")
@@ -26,13 +30,26 @@
   )
 (keymap-global-set "s-<f5>" #'my-screenshot)
 
+(defun mute-microphone ()
+  (interactive)
+  (shell-command-to-string
+   "pactl set-source-mute @DEFAULT_SOURCE@ toggle")
+  )
+
+(defun nagy-playerctl-play-pause ()
+  (interactive)
+  (dollar-string "playerctl" "play-pause"))
+(keymap-global-set "s-ß" #'nagy-playerctl-play-pause)
+
 ;; TODO prevent rollover
 (defun nagy-move-tab-right (arg)
   (interactive "P")
   (tab-bar-move-tab (or arg 1)))
+(keymap-global-set "S-s-<delete>" #'nagy-move-tab-right)
 (defun nagy-move-tab-left (arg)
   (interactive "P")
   (tab-bar-move-tab (* -1 (or arg 1))))
+(keymap-global-set "s-<backspace>" #'nagy-move-tab-left)
 
 (defun update-current-frame-fontset ()
   (interactive)
@@ -104,6 +121,18 @@
     (message "Brightness set to %d" brightness--value)))
 (keymap-global-set "<XF86MonBrightnessDown>" #'brightness-down)
 
+(defvar exwm-class-name)
+(declare-function exwm-input-set-local-simulation-keys "exwm-input")
+(defun my-firefox-sender ()
+  (when (and exwm-class-name
+             (string-prefix-p "firefox" exwm-class-name))
+    (exwm-input-set-local-simulation-keys '(([?\s-f] . [f11]))))
+  (when (and exwm-class-name
+             (string-prefix-p "Tor Browser" exwm-class-name))
+    (exwm-input-set-local-simulation-keys '(([?\s-f] . [f11]))))
+  )
+
+(declare-function exwm-input--update-global-prefix-keys "exwm-input")
 ;; NIX-EMACS-PACKAGE: exwm
 (use-package exwm
   :if (display-graphic-p)
@@ -172,6 +201,8 @@ aka xcompose is not properly initialized in the first frame."
                 (rx bos
                     (or (seq "s-" (any "a-z"))
                         (seq "s-" (any "A-Z"))
+                        (seq "s-" (any "0-9"))
+                        "s-ß"
                         "s-<XF86Paste>"
                         "s-<prior>"
                         "s-<next>"
@@ -185,6 +216,7 @@ aka xcompose is not properly initialized in the first frame."
                         "s-="
                         "<XF86Explorer>"
                         "C-<XF86Explorer>"
+                        "<XF86AudioMute>"
                         "<XF86AudioLowerVolume>"
                         "<XF86AudioRaiseVolume>"
                         "<XF86MonBrightnessDown>"
@@ -221,33 +253,22 @@ aka xcompose is not properly initialized in the first frame."
   ;; Frame focus bug
   (setq mouse-autoselect-window t
         focus-follows-mouse t)
-  (setopt exwm-input-global-keys
-          `((,(kbd "s-v") . nagy-emacs-split-window-right-and-focus)
-            (,(kbd "s-s") . nagy-emacs-split-window-below-and-focus)
-            (,(kbd "s-V") . nagy-emacs-split-window-right)
-            (,(kbd "s-S") . nagy-emacs-split-window-below)
-            (,(kbd "C-s-SPC") . buffer-new-of-region)
-            (,(kbd "C-M-s-SPC") . buffer-new-of-kill)
-            (,(kbd "s-<f12>") . +toggle-tab-bar-mode-from-frame)
-            ;; bookmarks
-            (,(kbd "s-ð") . ,(lambda () (interactive) (find-file "~/Downloads")))
-            (,(kbd "C-s-j") . browse-url-from-kill)
-            (,(kbd "H-f") . browse-url-at-point)
-            (,(kbd "s-<backspace>") . nagy-move-tab-left)
-            (,(kbd "S-s-<delete>") . nagy-move-tab-right)
-            ))
+  ;; (setopt exwm-input-global-keys
+  ;;         `((,(kbd "s-<f12>") . +toggle-tab-bar-mode-from-frame)
+  ;;           ;; bookmarks
+  ;;           (,(kbd "s-ð") . ,(lambda () (interactive) (find-file "~/Downloads")))
+  ;;           ))
   :config
   ;; Add these hooks in a suitable place (e.g., as done in exwm-config-default)
   (add-hook 'exwm-update-class-hook #'nagy-exwm-rename-buffer)
   (add-hook 'exwm-update-title-hook #'nagy-exwm-rename-buffer)
   (add-hook 'exwm-init-hook #'nagy-fix-frame)
+  (add-hook 'exwm-manage-finish-hook #'my-firefox-sender)
   (evil-set-initial-state 'exwm-mode 'emacs)
   (require 'exwm-randr)
   (exwm-randr-mode 1)
   ;; (exwm-enable)
   (exwm-wm-mode)
-  ;; (evil-define-key 'normal dired-mode-map "," #'terminal)
-  ;; (keymap-set exwm-mode-map "s-j" #'nagy-url-kill)
   :bind
   ("s-I" . ibuffer-exwm)
   ("s-<escape>" . exwm-reset)
@@ -298,7 +319,7 @@ aka xcompose is not properly initialized in the first frame."
 ;; (evil-global-set-key 'normal "." #'terminal)
 (evil-global-set-key 'normal "," #'terminal)
 (with-eval-after-load 'dired
-  (evil-define-key 'normal dired-mode-map "." #'terminal))
+  (evil-define-key 'normal dired-mode-map "." #'eat))
 
 (defun nsxiv ()
   (interactive)
@@ -344,6 +365,26 @@ aka xcompose is not properly initialized in the first frame."
     (set-face-attribute 'default nil
                         :height (if (>= it 100) 90 100))))
 (keymap-global-set "H-<f12>" #'font-size-smol)
+
+(defun buffer-from-clipboard ()
+  (interactive)
+  (switch-to-buffer (generate-new-buffer "*clipboard*"))
+  (text-mode)                           ;; To get rid of `fundamental-mode'
+  (insert (or (gui-selection-value)
+              (car kill-ring)))
+  (goto-char (point-min))
+  ;; extras
+  (save-excursion
+    (cond
+     ((string-prefix-p "https://" (buffer-string))
+      (goto-char (point-max))
+      (insert "\nThis is a URL\n"))
+     ((string-prefix-p "(defun" (buffer-string))
+      (emacs-lisp-mode))
+     ((ignore-errors (json-parse-buffer))
+      (js-json-mode)))
+    ))
+(keymap-global-set "s-7" #'buffer-from-clipboard)
 
 (provide 'nagy-exwm)
 ;;; nagy-exwm.el ends here

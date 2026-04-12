@@ -175,10 +175,8 @@ That means, KEY can also be a cons."
 (defun nagy-list-table-entries ()
   (seq-map (lambda (obj)
              (list
-              (ignore-errors
-                (or (map-elt obj nagy-list--id-sym)
-                    (map-elt obj 'id)
-                    (map-elt obj "id")))
+              (ignore-errors (or (map-elt obj 'id)
+                                 (map-elt obj "id")))
               `[,@(mapcar (lambda (it)
                             (propertize (let* ((prevalue (nagy-list-alist-get-deep obj it))
                                                (value (nagy-list-format-cell it prevalue)))

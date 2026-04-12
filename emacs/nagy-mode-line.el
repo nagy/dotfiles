@@ -105,6 +105,7 @@
                 (propertize (abbreviate-file-name
                              (--> default-directory
                                   (string-replace "%" "%%" it)
+                                  (string-replace "/run/user/1000/" "𝒓/" it)
                                   (string-replace "/tmp/t" "⧖" it)
                                   (string-replace "/tmp/" "⧖" it)
                                   ;; (string-replace "/tmp/" "/⧖" it)

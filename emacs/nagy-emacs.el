@@ -39,6 +39,7 @@
         (redisplay))
     (select-window it)
     (balance-windows)))
+(keymap-global-set "s-s" #'nagy-emacs-split-window-below-and-focus)
 
 (defun nagy-emacs-split-window-right-and-focus (arg)
   "Split the window horizontally and focus the new window."
@@ -49,6 +50,7 @@
         (redisplay))
     (select-window it)
     (balance-windows)))
+(keymap-global-set "s-v" #'nagy-emacs-split-window-right-and-focus)
 
 (defun nagy-emacs-split-window-below (arg)
   "Split the window vertically and focus the new window."
@@ -60,6 +62,7 @@
       ;; for exwm compatibility
       (redisplay))
   (balance-windows))
+(keymap-global-set "s-S" #'nagy-emacs-split-window-below)
 
 (defun nagy-emacs-split-window-right (arg)
   "Split the window horizontally and focus the new window."
@@ -71,6 +74,7 @@
       ;; for exwm compatibility
       (redisplay))
   (balance-windows))
+(keymap-global-set "s-V" #'nagy-emacs-split-window-right)
 
 ;;;###autoload
 (defmacro with-directory (dir &rest body)
@@ -105,6 +109,13 @@ windows when moving the mouse."
   (let ((mouse-autoselect-window nil)
         (focus-follows-mouse nil))
     (previous-window-any-frame)))
+
+;;;###autoload
+(defun find-file-home ()
+  "To ~/"
+  (interactive)
+  (find-file "~/"))
+(keymap-global-set "<XF86HomePage>" #'find-file-home)
 
 (use-package emacs
   :preface
@@ -670,10 +681,6 @@ string; otherwise return a 64-character string."
 
 (use-package ibuffer
   :after evil-collection                          ;; to make the bindings below work
-  :commands (nagy-ibuffer-set-home-directory)
-  :preface
-  (defun nagy-ibuffer-set-home-directory ()
-    (cd (expand-file-name "~")))
   :custom
   (ibuffer-expert t)
   (ibuffer-display-summary nil)
@@ -688,11 +695,7 @@ string; otherwise return a 64-character string."
                 " " filename-and-process)
           (mark " "
                 (name 16 -1)
-                " " filename)))
-  ;; :bind
-  ;; (:map ibuffer-mode-map
-  ;;       ("H-d" . ibuffer-do-delete))
-  )
+                " " filename))))
 
 (use-package elisp-mode
   :config
@@ -789,12 +792,6 @@ string; otherwise return a 64-character string."
 (keymap-global-set "<mouse-8>" #'bury-buffer)
 (keymap-global-set "<mouse-9>" #'unbury-buffer)
 
-;;;###autoload
-(defun find-file-home ()
-  "To ~/"
-  (interactive)
-  (find-file "~/"))
-(keymap-global-set "<XF86HomePage>" #'find-file-home)
 (keymap-global-set "H-#" #'other-window-prefix)
 (keymap-global-set "H-s-#" #'other-tab-prefix)
 

@@ -343,26 +343,41 @@ This currently requires that `age-default-identity' and
 ;;   ;;                                (?f "Files")))))
 ;;   )
 
+(use-package ps-print
+  :defer t
+  :custom
+  (ps-print-header-frame nil))
+
+;; TODO check why locale timestamp is not printed like this
+(defun nagy-ps-time-stamp-dd.mm.yyyy ()
+  "Return date as \"2001-06-18\" (ISO date)."
+  (format-time-string "%d.%m.%Y"))
+
 (declare-function image-mode-window-get "image-mode")
+(declare-function ps-print-with-faces "ps-print")
 (defun print-dwim ()
   (interactive)
-  (pcase major-mode
-    ('pdf-view-mode
-     (if (buffer-file-name)
-         (call-process "lpr" nil nil nil "-o"
-                       (format "page-ranges=%d"
-                               (progn
-                                 ;; this is just #'pdf-view-current-page inlined
-                                 (image-mode-window-get 'page)))
-                       (buffer-file-name))
-       (user-error "No buffer file name for printing")))
-    (_ (let ((file (make-temp-file "print-dwim" nil ".ps")))
-         (if (region-active-p)
-             (ps-print-region (region-beginning) (region-end) file)
-           (ps-print-buffer file))
-         ;; nix-build "<nixpkgs>" -A ghostscript
-         (call-process "/nix/store/i8mvcnvy54izmkqlghb50a6pfa5z8qc4-ghostscript-with-X-10.04.0/bin/ps2pdf" nil nil nil "-sPAPERSIZE=a4" file "/tmp/printed.pdf")
-         (find-file "/tmp/printed.pdf")))))
+  (require 'lpr)
+  (let ((tmpfilename (make-temp-file "printed" nil ".pdf")))
+    (pcase major-mode
+      ('pdf-view-mode
+       (if (buffer-file-name)
+           (call-process lpr-command nil nil nil "-o"
+                         (format "page-ranges=%d"
+                                 (progn
+                                   ;; this is just #'pdf-view-current-page inlined
+                                   (image-mode-window-get 'page)))
+                         (buffer-file-name))
+         (user-error "No buffer file name for printing")))
+      (_ (let ((file (make-temp-file "print-dwim" nil ".ps")))
+           (if (region-active-p)
+               (ps-print-region (region-beginning) (region-end) file)
+             ;; (ps-print-buffer file)
+             (ps-print-with-faces (point-min) (point-max) file)
+             )
+           ;; nix-build "<nixpkgs>" -A ghostscript
+           (call-process "/nix/store/fy54dwdr2wxf1phq3sgvrdyqdimzb48p-ghostscript-with-X-10.06.0/bin/ps2pdf" nil nil nil "-sPAPERSIZE=a4" file tmpfilename)
+           (find-file tmpfilename))))))
 (keymap-global-set "<print>" #'print-dwim)
 
 (defun nagy/pdf-to-text (&optional arg)
@@ -604,9 +619,6 @@ This currently requires that `age-default-identity' and
 
 ;; NIX-EMACS-PACKAGE: emacspy
 ;; (use-package emacspy)
-
-;; NIX-EMACS-PACKAGE: map-extras
-;; (use-package map-extras)
 
 ;; NIX-EMACS-PACKAGE: llama
 (use-package llama
