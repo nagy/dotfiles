@@ -19,21 +19,21 @@
 (cl-defstruct (url-knowledge-config
                (:constructor url-knowledge--make-config))
   buffer
-  clean
-  smudge
+  ;; clean
+  ;; smudge
   collapse
   )
 
 ;;;###autoload
 (cl-defun url-knowledge-make (name &key
                                    buffer
-                                   clean
-                                   smudge
+                                   ;; clean
+                                   ;; smudge
                                    collapse)
   (let ((config (url-knowledge--make-config
                  :buffer buffer
-                 :clean clean
-                 :smudge smudge
+                 ;; :clean clean
+                 ;; :smudge smudge
                  :collapse collapse)))
     (setf (alist-get name url-knowledge--known-configs nil nil #'equal) config)))
 

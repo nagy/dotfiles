@@ -6,11 +6,6 @@
 ;; NIX-EMACS-PACKAGE: paren-face
 (require 'paren-face)
 
-;; NIX-EMACS-PACKAGE: ef-themes
-;; (require 'ef-themes)
-;; NIX-EMACS-PACKAGE: doric-themes
-;; (require 'doric-themes)
-
 (eval-when-compile
   ;; To catch errors during batch compilation
   (require 'lin))

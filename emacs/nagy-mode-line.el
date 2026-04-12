@@ -54,7 +54,13 @@
 (defvar nagy-mode-line-right
   ;; FIXME these string creations could cause garbage
   '(
-    (t ((:eval (aif (url-knowledge--get-url) (propertize (string-remove-prefix "https://" it) 'face '(:inherit (ffap bold)))))
+    (t ((:eval (aif (url-knowledge--get-url)
+                   (propertize (--> (string-remove-prefix "https://" it)
+                                    (string-replace "github.com" "𝑮𝑯" it)
+                                    (string-replace "gitlab.com" "𝑮𝑳" it)
+                                    )
+                               'face '(:inherit (show-paren-match bold)))
+                 ))
         " "))
     (:eval (when (derived-mode-p 'nagy-list-mode)
              (concat (propertize "Ŧ" 'face (if (mode-line-window-selected-p) 'nagy-intense-cyan 'nagy-subtle-cyan))

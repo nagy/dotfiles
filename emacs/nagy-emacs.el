@@ -1097,6 +1097,7 @@ string; otherwise return a 64-character string."
           (current-buffer))))))
 
 ;;; Textual stuff
+;; soon in emacs 31
 ;; https://stackoverflow.com/a/2478549
 ;; https://github.com/purcell/unfill
 ;; https://www.emacswiki.org/emacs/UnfillParagraph
@@ -1329,12 +1330,13 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
 (use-package register
   :custom
   (register-use-preview 'never)
-  :bind-keymap
-  ("s-r" . ctl-x-r-map)
+  ;; :bind-keymap
+  ;; ("s-r" . ctl-x-r-map)
   :bind
   ("s-R" . consult-register)
-  (:map ctl-x-r-map
-        ("s-r" . jump-to-register))
+  ;; (:map ctl-x-r-map
+  ;;       ("s-r" . jump-to-register)
+  ;;       )
   )
 
 (cl-defgeneric gather (config)

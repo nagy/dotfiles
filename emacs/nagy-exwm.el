@@ -1,5 +1,5 @@
 ;;; nagy-exwm.el --- config emacs packages -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") anaphora evil-escape nagy-dired nagy-emacs nagy-url nagy-gc)
+;; Package-Requires: ((emacs "30.1") anaphora evil-escape nagy-emacs nagy-url nagy-gc)
 
 ;; NIX-EMACS-PACKAGE: modus-themes
 (require 'modus-themes)
@@ -10,10 +10,20 @@
 (require 'evil)
 (eval-when-compile
   (require 'dired))
+
+;; NIX-EMACS-PACKAGE: nagy-dired
 (require 'nagy-dired)
 (require 'key-chord)
 
 (declare-function ibuffer-filter-by-used-mode "ibuffer")
+
+(defun my-screenshot ()
+  (interactive)
+  (start-process-shell-command
+   "screenshot"
+   (get-buffer-create " *screenshot*")
+   "scrot --select - | xclip -verbose -selection clipboard -t image/png")
+  )
 
 ;; For emacs 30. the upstream one now requires an event.
 (defun nagy-kill-this-buffer ()

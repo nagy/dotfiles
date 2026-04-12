@@ -937,7 +937,6 @@ Returns the total execution time as a floating-point number."
   (reformatter-define jq-format
     :group 'js
     :program "jq"
-    :args '("--sort-keys")
     )
   :pretty 'js-mode
   ("true" . true) ("false" . false)

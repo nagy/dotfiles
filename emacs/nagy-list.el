@@ -49,11 +49,7 @@
                  (string-empty-p it))
             nil
           (if it it)))
-      (setq nagy-list--data
-            (json-parse-string nagy-list--beforebody
-                               ;; :object-type 'alist
-                               ;; :array-type 'list
-                               ))))
+      (setq nagy-list--data (json-parse-string nagy-list--beforebody))))
 
 (defvar-local nagy-list--id-sym "id")
 (put 'nagy-list--id-sym 'permanent-local t)
@@ -282,15 +278,6 @@ That means, KEY can also be a cons."
   )
 (keymap-global-set "H-M-L" #'nagy-list-mode)
 
-(defun nagy-list-table-dired-find-file (filename)
-  (interactive (list (car (dired-get-marked-files t))))
-  (switch-to-buffer (create-file-buffer filename))
-  (setq nagy-list-buffer-file-name filename)
-  (nagy-list-mode))
-
-(with-eval-after-load 'dired
-  (keymap-set dired-mode-map "H-," #'nagy-list-table-dired-find-file))
-
 (defun nagy-list--change-major-mode-hook ()
   (when nagy-list--beforebody
     (with-silent-modifications
@@ -298,14 +285,6 @@ That means, KEY can also be a cons."
         (erase-buffer)
         (insert nagy-list--beforebody)))
     (setq nagy-list--beforebody nil)))
-
-(defun nagy-list-sort-by-time ()
-  (interactive)
-  (aif (-elem-index 'time (nagy-list-column-names))
-      (progn (tabulated-list-sort it)
-             (tabulated-list-sort it)
-             (goto-char (point-min)))
-    (user-error "No 'time column found")))
 
 (provide 'nagy-list)
 ;;; nagy-list.el ends here

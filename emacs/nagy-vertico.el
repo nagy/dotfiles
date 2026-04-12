@@ -33,8 +33,8 @@
         ;; ("C-p"   . vertico-previous)
         ("<next>" . vertico-scroll-up)
         ("<prior>" . vertico-scroll-down)
-        ("s-j"   . vertico-next)
-        ("s-k"   . vertico-previous)
+        ;; ("s-j"   . vertico-next)
+        ;; ("s-k"   . vertico-previous)
         ("H-j"   . vertico-next)
         ("H-k"   . vertico-previous))
   (:map minibuffer-local-map

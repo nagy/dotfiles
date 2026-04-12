@@ -14,7 +14,7 @@
   :preface
   (defun nagy-url-browse-firefox ()
     (interactive)
-    (browse-url-firefox (url-knowledge--get-url-force)))
+    (browse-url-firefox (url-knowledge--get-url)))
   :general
   (:states 'normal
            "⨏" #'url-knowledge-browse-url

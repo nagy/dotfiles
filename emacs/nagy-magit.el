@@ -22,6 +22,8 @@
   ("H-g" . magit-status)
   ("H-L" . magit-log-buffer-file)
   (:map magit-mode-map
+        ("H-b" . nagy-browse-url-of-buffer)
+        ("H-L" . magit-log-all-branches)
         ("H-<" . magit-process-buffer))
   (:map dired-mode-map
         ("H-L" . magit-log-all-branches)
