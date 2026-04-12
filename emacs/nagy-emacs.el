@@ -1,5 +1,5 @@
 ;;; nagy-emacs.el --- config emacs packages -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") anaphora ov reformatter zoom)
+;; Package-Requires: ((emacs "30.1") anaphora ov reformatter zoom nagy-use-package)
 
 (require 'general)
 
@@ -226,6 +226,13 @@ windows when moving the mouse."
   ("<XF86Reload>" . revert-buffer-quick)
   ("<XF86Back>" . tab-previous)
   ("<XF86Forward>" . tab-next)
+  ("s-h" . tab-previous)
+  ("s-l" . tab-next)
+  ("s-<prior>" . tab-previous)
+  ("s-<next>" . tab-next)
+  ("s-<home>" . tab-first)
+  ("s-<end>" . tab-last)
+  ("s-<XF86Paste>" . tab-new)
   ("M-ð" . disassemble)
   ("H-s-," . describe-char)
   ("H-s-." . display-local-help)
@@ -329,7 +336,8 @@ windows when moving the mouse."
   ;; :custom
   ;; (revert-without-query '("\\.json"))
   :bind
-  ("s-f" . find-file))
+  ("s-f" . find-file)
+  )
 
 (require 'calc)
 (require 'calc-units)
