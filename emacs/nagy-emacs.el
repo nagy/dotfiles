@@ -541,7 +541,7 @@ windows when moving the mouse."
   ("M-s-→" . ielm)
   (:map inferior-emacs-lisp-mode-map
         ("H-ö" . ielm-send-input)
-        ("H-b" . ielm-change-working-buffer)
+        ;; ("H-b" . ielm-change-working-buffer)
         ("M-ö" . ielm-send-input)
         ("<key-chord> f j" . ielm-send-input)
         ("s-." . eval-last-sexp))
@@ -687,9 +687,10 @@ string; otherwise return a 64-character string."
           (mark " "
                 (name 16 -1)
                 " " filename)))
-  :bind
-  (:map ibuffer-mode-map
-        ("H-d" . ibuffer-do-delete)))
+  ;; :bind
+  ;; (:map ibuffer-mode-map
+  ;;       ("H-d" . ibuffer-do-delete))
+  )
 
 (use-package elisp-mode
   :config
@@ -758,12 +759,12 @@ string; otherwise return a 64-character string."
   ("C-s-<return>" . project-eshell)
   ("C-H-s--" . project-dired))
 
-(use-package debug
-  :hook
-  (debugger-mode . visual-line-mode)
-  :bind
-  (:map debugger-mode-map
-        ("H-w" . edebug-where)))
+;; (use-package debug
+;;   :hook
+;;   (debugger-mode . visual-line-mode)
+;;   :bind
+;;   (:map debugger-mode-map
+;;         ("H-w" . edebug-where)))
 
 (use-package message
   :custom

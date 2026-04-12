@@ -7,7 +7,7 @@
 (defvar evil-want-C-u-scroll t)
 ;; This likely needs to be set early
 (setq evil-want-keybinding nil)
-(setq evil-want-C-u-scroll t)
+;; (setq evil-want-C-u-scroll t)
 (require 'evil)
 (require 'evil-escape)
 (require 'general)
@@ -406,6 +406,14 @@
   :defer t
   :config
   (evil-set-initial-state 'wdired-mode 'normal))
+
+;; NIX-EMACS-PACKAGE: just-ts-mode
+(use-package just-ts-mode
+  :defer t)
+
+;; NIX-EMACS-PACKAGE: evil-surround
+(use-package evil-surround
+  :defer t)
 
 (provide 'nagy-evil)
 ;;; nagy-evil.el ends here
