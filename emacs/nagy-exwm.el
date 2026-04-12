@@ -25,14 +25,6 @@
    "scrot --select - | xclip -verbose -selection clipboard -t image/png")
   )
 
-;; For emacs 30. the upstream one now requires an event.
-(defun nagy-kill-this-buffer ()
-  "Kill the current buffer."
-  (interactive)
-  (kill-this-buffer))
-;; this does not work yet
-;; (defalias 'nagy-kill-this-buffer (symbol-function 'kill-this-buffer))
-
 ;; TODO prevent rollover
 (defun nagy-move-tab-right (arg)
   (interactive "P")
@@ -40,22 +32,6 @@
 (defun nagy-move-tab-left (arg)
   (interactive "P")
   (tab-bar-move-tab (* -1 (or arg 1))))
-
-(defun nagy-next-window-any-frame ()
-  "Do not want to move the mouse when switching windows, but switch
-windows when moving the mouse."
-  (interactive)
-  (let ((mouse-autoselect-window nil)
-        (focus-follows-mouse nil))
-    (next-window-any-frame)))
-
-(defun nagy-previous-window-any-frame ()
-  "Do not want to move the mouse when switching windows, but switch
-windows when moving the mouse."
-  (interactive)
-  (let ((mouse-autoselect-window nil)
-        (focus-follows-mouse nil))
-    (previous-window-any-frame)))
 
 (defun update-current-frame-fontset ()
   (interactive)
@@ -176,6 +152,26 @@ aka xcompose is not properly initialized in the first frame."
           (string-remove-suffix " — Mozilla Firefox" it)
           (string-remove-suffix " — Mozilla Firefox Private Browsing" it)
           (string-remove-suffix " - YouTube" it))))
+  (defun nagy-update-exwm-input-global-keys ()
+    (interactive)
+    ;; we have to use the internal variable instead of
+    ;; `exwm-input-global-keys' do that we do not have to set the
+    ;; command that it bounds to again ( even though we use it to
+    ;; condition the insertion of the key into the list itself).
+    (setq exwm-input--global-keys nil)
+    (map-keymap
+     (lambda (key _binding)
+       (let ((key-desc (single-key-description key)))
+         ;; (when (string-prefix-p "s-" key-desc))
+         (when (string-match-p (rx bos "s-" (any "a-z") eos) key-desc)
+           (let* ((key-vector (kbd key-desc))
+                  (key-command (key-binding key-vector)))
+             (when key-command
+               (cl-pushnew key-vector exwm-input--global-keys)
+               (message "EXWM: Super-Key registriert: %s %s" key-desc (key-binding key-vector)))
+             ))))
+     (current-global-map))
+    (exwm-input--update-global-prefix-keys))
   :demand t
   :custom
   (exwm-manage-force-tiling t)
@@ -221,8 +217,8 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "s-J") . evil-window-move-very-bottom)
             (,(kbd "s-K") . evil-window-move-very-top)
             (,(kbd "s-L") . evil-window-move-far-right)
-            (,(kbd "s-q") . bury-buffer)
-            (,(kbd "s-Q") . unbury-buffer)
+            ;; (,(kbd "s-q") . bury-buffer)
+            ;; (,(kbd "s-Q") . unbury-buffer)
             (,(kbd "H-<f2>") . modus-themes-toggle)
             ;; (,(kbd "H-i") . xwininfo-from-buffer)
             (,(kbd "s-t") . find-tmp)
@@ -257,7 +253,7 @@ aka xcompose is not properly initialized in the first frame."
             (,(kbd "H-M") . view-echo-area-messages)
             ;; bookmarks
             (,(kbd "s-ð") . ,(lambda () (interactive) (find-file "~/Downloads")))
-            (,(kbd "s-j") . dired-jump)
+            ;; (,(kbd "s-j") . dired-jump)
             (,(kbd "C-s-j") . browse-url-from-kill)
             (,(kbd "H-f") . browse-url-at-point)
             (,(kbd "s-<backspace>") . nagy-move-tab-left)

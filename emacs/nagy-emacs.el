@@ -17,8 +17,8 @@
   (save-buffer)
   (kill-buffer))
 
-;; from https://gist.github.com/3402786
-(defun spacemacs/toggle-maximize-buffer ()
+(defun toggle-maximize-buffer ()
+  ;; from https://gist.github.com/3402786
   "Maximize buffer."
   (interactive)
   (save-excursion
@@ -28,7 +28,7 @@
       (progn                                ; implicit
         (window-configuration-to-register ?_)
         (delete-other-windows)))))
-(keymap-global-set "s-m" #'spacemacs/toggle-maximize-buffer)
+(keymap-global-set "s-m" #'toggle-maximize-buffer)
 
 (defun nagy-emacs-split-window-below-and-focus (arg)
   "Split the window vertically and focus the new window."
@@ -81,6 +81,30 @@
 
 ;; (defvar-keymap nagy-leader
 ;;   :doc "leader key")
+
+;; For emacs 30. the upstream one now requires an event.
+(defun nagy-kill-this-buffer ()
+  "Kill the current buffer."
+  (interactive)
+  (kill-this-buffer))
+;; this does not work yet
+;; (defalias 'nagy-kill-this-buffer (symbol-function 'kill-this-buffer))
+
+(defun nagy-next-window-any-frame ()
+  "Do not want to move the mouse when switching windows, but switch
+windows when moving the mouse."
+  (interactive)
+  (let ((mouse-autoselect-window nil)
+        (focus-follows-mouse nil))
+    (next-window-any-frame)))
+
+(defun nagy-previous-window-any-frame ()
+  "Do not want to move the mouse when switching windows, but switch
+windows when moving the mouse."
+  (interactive)
+  (let ((mouse-autoselect-window nil)
+        (focus-follows-mouse nil))
+    (previous-window-any-frame)))
 
 (use-package emacs
   :preface
@@ -183,12 +207,16 @@
   ("s-s" . nagy-emacs-split-window-below-and-focus)
   ("s-v" . nagy-emacs-split-window-right-and-focus)
   ("s-q" . bury-buffer)
-  ("s-k" . kill-this-buffer)
+  ("s-Q" . unbury-buffer)
+  ;; ("s-k" . kill-this-buffer)
+  ("s-k" . nagy-kill-this-buffer)
   ("M-H" . mark-whole-buffer)
   ("s-w" . save-buffer)
   ("s-z" . save-kill-buffer)
   ("s-g" . keyboard-quit)
   ;; ("s-e" . browse-url)
+  ("s-i" . nagy-previous-window-any-frame)
+  ("s-o" . nagy-next-window-any-frame)
   ("s-=" . balance-windows)
   ("H-M-_" . fundamental-mode)
   ("H-M-t" . text-mode)
