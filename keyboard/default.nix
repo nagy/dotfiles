@@ -10,6 +10,17 @@ let
     #define MASTER_RIGHT
     #define MOUSEKEY_MOVE_DELTA 4
     #define DEBOUNCE 60
+    // This could be the solution to the key tapping problem.
+    // Beginning with this firmware version or earlier, it seems that
+    // a key, when pressed with a combination, is only registered once
+    // the second key is released.
+    // For example super-q is only registered when q is released and not when pressed.
+    // maybe this could be the solution https://docs.qmk.fm/tap_hold#hold-on-other-key-press
+    // this could be the changelog entry: https://docs.qmk.fm/ChangeLog/20230528#i-m-t-i
+    // define HOLD_ON_OTHER_KEY_PRESS
+    // It is still not okay...
+    // then you hold key 1 and then press key 2 on another layer, then release key 1 then key two is registered with the new firmware, whereas key 1 would be have been registered with the 0.20.x version of the firmware
+    // define PERMISSIVE_HOLD
   '';
   rules_mk = pkgs.writeText "rules.mk" ''
     BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
