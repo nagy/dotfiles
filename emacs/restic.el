@@ -69,29 +69,18 @@
 ;; NIX-EMACS-PACKAGE: nagy-list
 (require 'nagy-list)
 
-(defconst +nagy-list-restic+
-  `((column-names . ,(lambda ()
-                       '(id
-                         tree
-                         time
-                         ;; hostname
-                         paths
-                         )))
-    (format-cell . ,(lambda (column value)
-                      (pcase column
-                        ('id (propertize (truncate-string-to-width (or value "") 8) 'font-lock-face 'magit-hash))
-                        ('tree (propertize (truncate-string-to-width (or value "") 8) 'font-lock-face 'magit-hash))
-                        ('time :date))))
-    (column-width . ,(lambda (column)
-                       (pcase column
-                         ('id 8)
-                         ('tree 8)
-                         ('hostname 10)
-                         ('time 16)))))
-  )
-
 (defun nagy-restic-list-view ()
-  (setq-local nagy-list--alround +nagy-list-restic+)
+  (setq-local nagy-list--columns
+              `((id 8 ,(lambda (value)
+                         (propertize
+                          (truncate-string-to-width (or value "") 8)
+                          'font-lock-face 'magit-hash)))
+                (tree 8 ,(lambda (value)
+                           (propertize
+                            (truncate-string-to-width (or value "") 8)
+                            'font-lock-face 'magit-hash)))
+                (time 16 :date)
+                (paths nil)))
   (nagy-list-mode))
 (add-to-list 'auto-mode-alist '("\\.restic\\.json\\'" . nagy-restic-list-view))
 
@@ -124,7 +113,8 @@
 
 (defun restic-snapshot-at-point ()
   (when (and (derived-mode-p 'nagy-list-mode)
-             (equal +nagy-list-restic+ nagy-list--alround))
+             (equal (map-keys nagy-list--columns) '(id tree time paths))
+             )
     (atypecase (nagy-list--data-at-point)
       (restic-snapshot it)
       (t (make-restic-snapshot :id (or (map-elt it 'id) (map-elt it "id"))

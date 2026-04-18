@@ -8,8 +8,8 @@
   (require 'dired))
 (declare-function dired-get-marked-files "dired")
 ;; (defvar dired-directory-face)
-(require 'dash)
-(require 'general)
+;; (require 'dash)
+;; (require 'general)
 (declare-function iso8601-parse "iso8601")
 
 (defvar-local nagy-list--data nil)
@@ -27,22 +27,22 @@
           (if it it)))
       (setq nagy-list--data (json-parse-string nagy-list--beforebody))))
 
-(defvar-local nagy-list--alround nil)
-(put 'nagy-list--alround 'permanent-local t)
-
-(defun nagy-list-column-names ()
-  (awhen (alist-get 'column-names nagy-list--alround)
-    (funcall it)))
+(defvar-local nagy-list--columns nil)
+(put 'nagy-list--columns 'permanent-local t)
 
 (defun nagy-list-format-cell (column value)
-  (aif (alist-get 'format-cell nagy-list--alround)
-      (funcall it column value)
+  (aif (--> (map-elt nagy-list--columns column)
+            (seq-elt it 1))
+      (cl-typecase it
+        (function (funcall it value))
+        ;; (symbol (funcall (symbol-function it) value))
+        (t it))
     value))
 
 (defun nagy-list-column-width (column)
-  (aif (alist-get 'column-width nagy-list--alround)
-      (funcall it column)
-    nagy-list-table-default-column-width))
+  (--> (map-elt nagy-list--columns column)
+       (seq-elt it 0)
+       (or it nagy-list-table-default-column-width)))
 
 (defun nagy-list-alist-get-deep (alist keys)
   "deepable version of alist-get.
@@ -147,7 +147,7 @@ That means, KEY can also be a cons."
                                               (nagy-list--format-1 prevalue)
                                               ""))
                                         'nagy-list--data obj))
-                          (nagy-list-column-names))])
+                          (map-keys nagy-list--columns))])
              )
            (progn (nagy-list--data)
                   nagy-list--data
@@ -189,7 +189,7 @@ That means, KEY can also be a cons."
                                   'face 'bold)
                      ,(or (nagy-list-column-width it) nagy-list-table-default-column-width)
                      t)
-                   (nagy-list-column-names)) ])
+                   (map-keys nagy-list--columns)) ])
   (setq tabulated-list-entries #'nagy-list-table-entries)
   (tabulated-list-init-header)
   (tabulated-list-print)
