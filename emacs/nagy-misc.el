@@ -156,6 +156,10 @@
   ("M-⧖" . tokei)
   (:map tokei-mode-map
         ("H-l" . magit-log-all-branches))
+  :config
+  (with-eval-after-load 'consult
+    (defvar consult-bookmark-narrow)
+    (push '(?t "Tokei" tokei-bookmark-jump) consult-bookmark-narrow))
   :general
   (:states 'normal :keymaps 'dired-mode-map
            "⧖" #'tokei)
@@ -357,6 +361,10 @@
   :custom
   (osm-copyright nil)
   (osm-max-age nil)
+  :config
+  (with-eval-after-load 'consult
+    (defvar consult-bookmark-narrow)
+    (push '(?o "OSM" osm-bookmark-jump) consult-bookmark-narrow))
   :bind
   (:map osm-mode-map
         ("<home>" . osm-left-left)
@@ -656,7 +664,15 @@ Returns the total execution time as a floating-point number."
 
 ;; NIX-EMACS-PACKAGE: dockerfile-mode
 (use-package dockerfile-mode
-  :defer t)
+  :defer t
+  :bind
+  ("H-M-D" . dockerfile-mode))
+(defun find-file-directory-dockerfile ()
+  (interactive)
+  (find-file "Dockerfile")
+  )
+(require 'dired)
+(keymap-set dired-mode-map "H-M-D" #'find-file-directory-dockerfile)
 
 ;; NIX-EMACS-PACKAGE: terraform-mode
 (use-package terraform-mode
@@ -1149,5 +1165,18 @@ Returns the total execution time as a floating-point number."
 ;;   ("C-S-c C-S-c" . mc/edit-lines)
 ;;   )
 
+
+;; NIX-EMACS-PACKAGE: gitlab-ci-mode
+(use-package gitlab-ci-mode
+  :defer t
+  :bind
+  ("H-M-Y" . gitlab-ci-mode)
+  )
+(defun find-file-directory-gitlab-ci-yaml ()
+  (interactive)
+  (find-file ".gitlab-ci.yml")
+  )
+(require 'dired)
+(keymap-set dired-mode-map "H-M-Y" #'find-file-directory-gitlab-ci-yaml)
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

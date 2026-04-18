@@ -112,7 +112,7 @@ windows when moving the mouse."
 
 ;;;###autoload
 (defun find-file-home ()
-  "To ~/"
+  "To ~/."
   (interactive)
   (find-file "~/"))
 (keymap-global-set "<XF86HomePage>" #'find-file-home)
@@ -1328,7 +1328,7 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
       ;; (org-narrow-to-subtree))
       ('markdown-mode
        (markdown-narrow-to-subtree))
-      (_ (user-error "Narrowing for `%s' not implemented yet." major-mode)))
+      (_ (user-error "Narrowing for `%s' not implemented yet" major-mode)))
     ;; (goto-char (point-min))
     (let (scroll-preserve-screen-position)
       (dotimes (_i 10)

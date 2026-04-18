@@ -228,7 +228,7 @@ aka xcompose is not properly initialized in the first frame."
            (let* ((key-vector (kbd key-desc))
                   (key-command (key-binding key-vector)))
              (when key-command
-               (message "exwm: %s:%s" key-vector key-desc)
+               ;; (message "exwm: %s:%s" key-vector key-desc)
                (cl-pushnew key-vector exwm-input--global-keys))
              ))))
      (current-global-map))

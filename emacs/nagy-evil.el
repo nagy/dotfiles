@@ -144,9 +144,13 @@
 
 ;; NIX-EMACS-PACKAGE: evil-surround
 (use-package evil-surround
-  :bind
-  ("H-(" . evil-surround-region)
-  ("H-)" . evil-surround-delete))
+  ;; :defer t
+  :config
+  (global-evil-surround-mode)
+  ;; :bind
+  ;; ("H-(" . evil-surround-region)
+  ;; ("H-)" . evil-surround-delete)
+  )
 
 (use-package shell
   :defer t

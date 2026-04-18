@@ -30,6 +30,7 @@
         ("H-b" . nagy-browse-url-of-buffer)
         ("H-L" . magit-log-all-branches)
         ("H-<" . magit-process-buffer)
+        ("H-c" . magit-commit-create)
         )
   (:map dired-mode-map
         ("H-L" . magit-log-all-branches)
@@ -43,6 +44,18 @@
         ([remap nagy-kill-this-buffer] . magit-log-select-quit)
         )
   )
+
+;; for gitlab usage
+;; (with-eval-after-load 'magit
+;;   (transient-append-suffix 'magit-push "-u"
+;;     '(1 "-c" "Create MR" "--push-option=merge_request.create"))
+;;   (transient-append-suffix 'magit-push "-c"
+;;     '(1 "-a" "Auto-Merge MR" "--push-option=merge_request.auto_merge"))
+;;   (transient-append-suffix 'magit-push "-a"
+;;     '(1 "-d" "Draft MR" "--push-option=merge_request.draft"))
+;;   ;; (transient-append-suffix 'magit-push "-d"
+;;   ;;   '(1 "-t" "Target Branch" "--push-option=merge_request.target="))
+;;   )
 
 ;; NIX-EMACS-PACKAGE: magit-section
 (use-package magit-section
@@ -59,8 +72,8 @@
         ("s-<kp-4>" . magit-section-show-level-4)
         ("H-a" . magit-section-cycle)
         ("C-ö" . magit-section-cycle-global)
-        ("H-j" . magit-section-forward)
-        ("H-k" . magit-section-backward)
+        ;; ("H-j" . magit-section-forward)
+        ;; ("H-k" . magit-section-backward)
         ("<normal-state> <key-chord> f h" . embark-dwim)
         ("<normal-state> <key-chord> f j" . embark-act)
         ))

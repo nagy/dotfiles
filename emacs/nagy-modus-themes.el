@@ -140,9 +140,9 @@
        ;; `(tab-bar-tab-inactive ((,c :box nil :background ,bg-inactive)))
        `(nix-search-version ((,c :inherit marginalia-version)))
        `(nix-search-description ((,c :inherit marginalia-documentation)))
-       `(mode-line ((,c :box unspecified)))
-       `(mode-line-active ((,c :box (:line-width 2))))
-       `(mode-line-inactive ((,c :box unspecified)))
+       ;; `(mode-line ((,c :box unspecified)))
+       ;; `(mode-line-active ((,c :box (:line-width 2))))
+       ;; `(mode-line-inactive ((,c :box unspecified)))
        `(nameless-face ((,c :inherit font-lock-comment-delimiter-face)))
        ;; `(forge-pullreq-open ((,c :inherit nagy-fg-green)))
        ;; `(forge-pullreq-merged ((,c :inherit nagy-fg-magenta)))
@@ -152,8 +152,9 @@
        `(scroll-bar ((,c :box unspecified :background ,bg-main :foreground ,(if (dayp) "#ccc" "#333"))))
        ;; High contrast
        `(mode-line ((,c :box (:line-width 2))))
-       `(mode-line-inactive ((,c :box (:line-width 2 ))))
+       ;; `(mode-line-inactive ((,c :box (:line-width 2 ))))
        `(mode-line-inactive ((,c :foreground ,fg-main :box (:line-width 2 :color ,bg-main) :background ,bg-main)))
+       ;; `(mode-line-inactive ((,c :foreground ,fg-main :box (:line-width 2 :color ,bg-main) :background ,bg-main))) ;; attempt to remove line-width
        `(tab-bar-tab          ((,c :box (:line-width 2 :color ,fg-main))))
        `(tab-bar-tab-inactive ((,c :box (:line-width 2 :color ,bg-main) :background ,bg-main))) ;; use same-color box to fix "jumping"
        `(tab-bar ((,c :box nil :background ,bg-main)))
