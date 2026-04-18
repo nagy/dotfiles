@@ -47,29 +47,29 @@
 (cl-defmethod ungather ((obj yggdrasil))
   (setf (oref obj -gathered) nil))
 
-(cl-defmethod nagy-list-sym2 ((_yggdrasil yggdrasil))
-  'yggdrasil)
+(defconst +nagy-list-yggdrasil+
+  `((column-names . ,(lambda ()
+                       '(address remote up inbound uptime key)))
+    (format-cell . ,(lambda (column value)
+                      (pcase column
+                        ('address :identifier)
+                        ('uptime
+                         (propertize
+                          (format-time-string "%-Hh%-Mm%-Ss" (seconds-to-time value) 0)
+                          'font-lock-face '(:inherit nagy-fg-cyan-intense)))
+                        )))
+    (column-width . ,(lambda (column)
+                       (pcase column
+                         ('up 5)
+                         ('inbound 7)
+                         ('remote 30)
+                         ('uptime 9)
+                         ('address 38))))))
 
-(nagy-list-make
- 'yggdrasil
- :suffix ".yggdrasil"
- :column-names (lambda ()
-                 '(address remote up inbound uptime key))
- :format-cell (lambda (column value)
-                (pcase column
-                  ('address :identifier)
-                  ('uptime
-                   (propertize
-                    (format-time-string "%-Hh%-Mm%-Ss" (seconds-to-time value) 0)
-                    'font-lock-face '(:inherit nagy-fg-cyan-intense)))
-                  ))
- :column-width (lambda (column)
-                 (pcase column
-                   ('up 5)
-                   ('inbound 7)
-                   ('remote 30)
-                   ('uptime 9)
-                   ('address 38))))
+(defun nagy-yggdrasil-list-view ()
+  (setq-local nagy-list--alround +nagy-list-yggdrasil+)
+  (nagy-list-mode))
+(add-to-list 'auto-mode-alist '("\\.yggdrasil\\.json\\'" . nagy-yggdrasil-list-view))
 
 ;; * seq.el Integration
 (cl-defmethod seqp ((_object yggdrasil))

@@ -12,36 +12,12 @@
 (require 'general)
 (declare-function iso8601-parse "iso8601")
 
-(defvar nagy-list--known-configs nil)
-(cl-defstruct (nagy-list-config (:constructor nagy-list--make-config))
-  suffix column-names format-cell column-width prepare)
-(cl-defun nagy-list-make (name &key suffix column-names format-cell column-width prepare)
-  (add-to-list 'auto-mode-alist `(,(format "%s\\.json\\'" (string-replace "." "\\." suffix))
-                                  . nagy-list-mode))
-  (setf (alist-get name nagy-list--known-configs nil nil #'equal)
-        (nagy-list--make-config :suffix suffix
-                                :column-names column-names
-                                :format-cell format-cell
-                                :column-width column-width
-                                :prepare prepare)))
-
 (defvar-local nagy-list--data nil)
 (put 'nagy-list--data 'permanent-local t)
 (defvar-local nagy-list--beforebody nil)
 (put 'nagy-list--beforebody 'permanent-local t)
 
-(defvar-local nagy-list--sym nil)
-(put 'nagy-list--sym 'permanent-local t)
-(cl-defgeneric nagy-list-sym2 (_obj)
-  nil)
-(defun nagy-list-sym ()
-  (or nagy-list--sym
-      (setq nagy-list--sym
-            (or (nagy-list-sym2 nagy-list--data)
-                (nagy-list-buffer-file-name-sym)))))
 (defvar nagy-list-table-default-column-width 30)
-(defvar-local nagy-list-buffer-file-name nil)
-(put 'nagy-list-buffer-file-name 'permanent-local t)
 
 (defun nagy-list--data ()
   (or (alet (gather nagy-list--data)
@@ -51,27 +27,20 @@
           (if it it)))
       (setq nagy-list--data (json-parse-string nagy-list--beforebody))))
 
-(defvar-local nagy-list--id-sym "id")
-(put 'nagy-list--id-sym 'permanent-local t)
+(defvar-local nagy-list--alround nil)
+(put 'nagy-list--alround 'permanent-local t)
 
 (defun nagy-list-column-names ()
-  (awhen (nagy-list-config-column-names (or (map-elt nagy-list--known-configs (nagy-list-sym))
-                                            (map-elt nagy-list--known-configs (symbol-name (nagy-list-sym)))))
-    (funcall it)))
-
-(defun nagy-list-prepare ()
-  (awhen (nagy-list-config-prepare (or (map-elt nagy-list--known-configs (nagy-list-sym))
-                                       (map-elt nagy-list--known-configs (symbol-name (nagy-list-sym)))))
+  (awhen (alist-get 'column-names nagy-list--alround)
     (funcall it)))
 
 (defun nagy-list-format-cell (column value)
-  (aif (nagy-list-config-format-cell (or (map-elt nagy-list--known-configs (nagy-list-sym))
-                                         (map-elt nagy-list--known-configs (symbol-name (nagy-list-sym)))))
+  (aif (alist-get 'format-cell nagy-list--alround)
       (funcall it column value)
     value))
 
 (defun nagy-list-column-width (column)
-  (aif (nagy-list-config-column-width (alist-get (nagy-list-sym) nagy-list--known-configs))
+  (aif (alist-get 'column-width nagy-list--alround)
       (funcall it column)
     nagy-list-table-default-column-width))
 
@@ -99,19 +68,21 @@ That means, KEY can also be a cons."
                 'font-lock-face 'org-date)
              (nagy-list--format-1 :null)))
     (:path (propertize (abbreviate-file-name prevalue) 'font-lock-face dired-directory-face))
-    (:bytes (propertize (file-size-human-readable prevalue)
-                        'font-lock-face
-                        (cond ((> prevalue (* 512 1024 1024 1024)) ; > 512GB
-                               'nagy-fg-red-intense)
-                              ((> prevalue (* 1024 1024 1024)) ; > 1GB
-                               'nagy-fg-red-faint)
-                              ((> prevalue (* 512 1024 1024)) ; > 512MB
-                               'nagy-fg-yellow-intense)
-                              ((> prevalue (* 1024 1024)) ; > 1MB
-                               'nagy-fg-yellow-faint)
-                              ((> prevalue (* 512 1024))  ; > 512KB
-                               'nagy-fg-green-intense)
-                              (t 'nagy-fg-green-faint)) ))
+    (:bytes
+     (if (stringp prevalue) (setq prevalue (string-to-number prevalue)))
+     (propertize (file-size-human-readable prevalue)
+                 'font-lock-face
+                 (cond ((> prevalue (* 512 1024 1024 1024)) ; > 512GB
+                        'nagy-fg-red-intense)
+                       ((> prevalue (* 1024 1024 1024)) ; > 1GB
+                        'nagy-fg-red-faint)
+                       ((> prevalue (* 512 1024 1024)) ; > 512MB
+                        'nagy-fg-yellow-intense)
+                       ((> prevalue (* 1024 1024)) ; > 1MB
+                        'nagy-fg-yellow-faint)
+                       ((> prevalue (* 512 1024)) ; > 512KB
+                        'nagy-fg-green-intense)
+                       (t 'nagy-fg-green-faint)) ))
     (:identifier (propertize (format "%s" prevalue) 'font-lock-face 'magit-hash))
     (:null (propertize "-" 'font-lock-face 'parenthesis))
     (:false (propertize "false" 'font-lock-face 'nagy-fg-red-intense))
@@ -126,6 +97,11 @@ That means, KEY can also be a cons."
                     ))
                 value
                 ", "))
+    (:milliseconds
+     (if (stringp prevalue) (setq prevalue (string-to-number prevalue)))
+     (setq prevalue
+           (format-time-string "%Y-%m-%dT%T+00:00" (seconds-to-time (/ prevalue 1000.0))))
+     (nagy-list--format-1 :date prevalue))
     ((pred vectorp)
      (nagy-list--format-1 (seq-into value 'list)))
     ((pred stringp)
@@ -159,19 +135,6 @@ That means, KEY can also be a cons."
     ;; (_ (format "%s" value))
     ))
 
-(defun nagy-list--revert-hook ()
-  ;; (when (eq major-mode 'nagy-list-mode))
-  (ungather nagy-list--data)
-  (when buffer-file-name
-    (setq nagy-list--data nil)
-    (setq nagy-list--beforebody (let ((bn buffer-file-name))
-                                  (with-temp-buffer
-                                    (let ((coding-system-for-read 'utf-8)
-                                          (inhibit-file-name-operation 'insert-file-contents))
-                                      (insert-file-contents bn))
-                                    (buffer-string))))
-    (revert-buffer--default nil t)))
-
 (defun nagy-list-table-entries ()
   (seq-map (lambda (obj)
              (list
@@ -193,38 +156,7 @@ That means, KEY can also be a cons."
 (defun nagy-list--data-at-point ()
   (get-text-property (point) 'nagy-list--data))
 
-(defun nagy-list-from-eval (expr)
-  (interactive "XEval: ")
-  (switch-to-buffer (generate-new-buffer (format "Nagy-list-eval: %s" (type-of expr))))
-  (setq nagy-list--data expr)
-  (nagy-list-mode)
-  (current-buffer))
-(keymap-global-set "H-s-L" #'nagy-list-from-eval)
-
-(defun tabulated-list-column-number-at-point ()
-  "Return the column number in the tabulated list at POS."
-  (declare (side-effect-free t))
-  (cl-loop with sum = 0
-           for width in (mapcar 'cadr tabulated-list-format)
-           for i from 0
-           do (cl-incf sum width)
-           when (<= (current-column) sum)
-           return i))
-
-(defun tabulated-list-kill-ring-save ()
-  (interactive)
-  (aprog1 (substring-no-properties (elt (tabulated-list-get-entry)
-                                        (tabulated-list-column-number-at-point)))
-    (kill-new it)
-    (when (called-interactively-p 'interactive)
-      (message "Copied %S" it))))
-
-(use-package tabulated-list
-  :bind
-  (:map tabulated-list-mode-map
-        ("M-w" . tabulated-list-kill-ring-save)))
-
-(cl-defun nagy-list-buffer-file-name-sym (&optional (filename (or nagy-list-buffer-file-name buffer-file-name "")))
+(cl-defun nagy-list-buffer-file-name-sym (&optional (filename (or buffer-file-name "")))
   (when (or (string-suffix-p ".json" filename)
             (string-suffix-p ".json.zst" filename))
     (--> filename
@@ -235,19 +167,10 @@ That means, KEY can also be a cons."
          car
          intern)))
 
-(defun nagy-list--write-file-function ()
-  (when nagy-list--beforebody
-    (write-region nagy-list--beforebody nil buffer-file-name)
-    (set-buffer-modified-p nil)
-    t ;; return non-nil, signalling it has been written
-    ))
-(add-hook 'write-file-functions #'nagy-list--write-file-function)
-
 ;;;###autoload
 (define-derived-mode nagy-list-mode tabulated-list-mode "nagy-list"
   (setq nagy-list--beforebody (buffer-substring-no-properties (point-min) (point-max)))
-  (add-hook 'change-major-mode-hook #'nagy-list--change-major-mode-hook nil t)
-  (add-hook 'tabulated-list-revert-hook #'nagy-list--revert-hook nil t)
+  ;; (add-hook 'tabulated-list-revert-hook #'nagy-list--revert-hook nil t)
   ;; Used by auto-revert
   ;; (setq-local buffer-stale-function (lambda (&optional _noconfirm)
   ;;                                     (and
@@ -268,21 +191,12 @@ That means, KEY can also be a cons."
                      t)
                    (nagy-list-column-names)) ])
   (setq tabulated-list-entries #'nagy-list-table-entries)
-  (nagy-list-prepare)
   (tabulated-list-init-header)
   (tabulated-list-print)
   (set-buffer-modified-p nil)
   (read-only-mode 1)
   )
 (keymap-global-set "H-M-L" #'nagy-list-mode)
-
-(defun nagy-list--change-major-mode-hook ()
-  (when nagy-list--beforebody
-    (with-silent-modifications
-      (save-excursion
-        (erase-buffer)
-        (insert nagy-list--beforebody)))
-    (setq nagy-list--beforebody nil)))
 
 (provide 'nagy-list)
 ;;; nagy-list.el ends here
