@@ -15,8 +15,10 @@
                  (prefix "ipfs://"))
              url))
      (-shell--case (list "curl"
+                         "--location"
                          "--ipv4"
                          "--fail"
+                         "--silent"
                          "--compressed"
                          url))
      )

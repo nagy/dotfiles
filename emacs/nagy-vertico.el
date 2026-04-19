@@ -95,20 +95,19 @@
   ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
   ([remap recentf-open-files] . consult-recent-file)
   :config
-  (consult-customize
-   consult-buffer
-   :preview-key nil
-   consult-ripgrep
-   consult-git-grep
-   consult-grep
-   consult-bookmark
-   consult-recent-file
-   consult-source-recent-file
-   consult-source-project-recent-file
-   consult-source-bookmark
-   :preview-key "C-SPC"
-   ;; Disable preview for `consult-theme' completely.
-   consult-theme :preview-key nil))
+  (consult-customize consult-buffer
+                     :preview-key nil
+                     consult-ripgrep
+                     consult-git-grep
+                     consult-grep
+                     consult-bookmark
+                     consult-recent-file
+                     consult-source-recent-file
+                     consult-source-project-recent-file
+                     consult-source-bookmark
+                     :preview-key "C-SPC"
+                     ;; Disable preview for `consult-theme' completely.
+                     consult-theme :preview-key nil))
 
 (use-package consult-imenu
   :defer t
