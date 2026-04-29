@@ -169,6 +169,7 @@ windows when moving the mouse."
         (list
          (rx "[mu4e] ")
          (rx bol "Note: file is write protected" eol)
+         (rx bol "Updated Kubernetes ")
          ))
   (put #'erase-buffer 'disabled nil)
   ;; (setq-default show-trailing-whitespace t)
@@ -418,8 +419,9 @@ windows when moving the mouse."
 ;; (advice-add 'window-edges :around #'+nagy-window-edges-with-tab-line-mode)
 ;; https://github.com/ch11ng/exwm/issues/788
 ;; (use-package tab-line
-;;   :config
-;;   (global-tab-line-mode 1)
+;;   :defer t
+;;   ;; :config
+;;   ;; (global-tab-line-mode 1)
 ;;   :custom
 ;;   (tab-line-close-button nil)
 ;;   (tab-line-new-button nil))
@@ -730,6 +732,8 @@ string; otherwise return a 64-character string."
   (show-paren-highlight-openparen t)
   (show-paren-when-point-inside-paren t)
   (show-paren-when-point-in-periphery t)
+  (show-paren-context-when-offscreen 'overlay)
+  (blink-matching-paren-distance nil)   ;; to reduce false positives
   :config
   (set-face-attribute 'show-paren-match nil :inherit 'nagy-subtle-blue :background 'unspecified))
 
@@ -1400,8 +1404,10 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
 (cl-defmethod gather ((obj buffer))
   (buffer-hash obj))
 
-(cl-defgeneric ungather (_config)
-  nil)
+(cl-defgeneric ungather (config)
+  nil
+  (user-error "Ungather not implemented for: %s" config)
+  )
 
 (defun jump-to-proc (arg)
   (interactive "P")
@@ -1456,6 +1462,10 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   ;; calendar-buffer
   "^\\*Calendar\\*$"
   )
+
+;; (use-package json-ts-mode
+;;   ;; :defer t
+;;   )
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

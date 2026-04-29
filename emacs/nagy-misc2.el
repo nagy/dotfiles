@@ -308,7 +308,7 @@ This currently requires that `age-default-identity' and
   (cyphejor-rules '(;; :upcase
                     ("dired" "δ")
                     ("emacs lisp" "λ")
-                    ;; ("nagy-list" "ł")
+                    ("nagy-list" "ł")
                     ))
   :config
   (defun cyphejor--cypher (_old-name _rules)

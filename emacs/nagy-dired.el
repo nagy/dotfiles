@@ -54,6 +54,12 @@
           (or "" ".zst" ".br")
           eol)
      (1 `(face nagy-subtle-red)))
+    (,(rx " " (group "kustomization.yaml") eol)
+     (1 (progn (ov-set (make-overlay (match-beginning 1)
+                                     (match-end 1))
+                       'evaporate t
+                       'face '(:underline t))
+               nil)))
     ;; media, Photos
     (,(rx (group
            (or ".png" ".jpg" ".jpeg" ".webp" ".jxl" ".svg" ".avif"))

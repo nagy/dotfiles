@@ -145,6 +145,14 @@
   ("H-M-n" . nix-mode)
   )
 
+;; NIX-EMACS-PACKAGE: nix-ts-mode
+(use-package nix-ts-mode
+  :defer t
+  ;; :config
+  ;; (setq treesit-font-lock-level 4)
+  ;; (add-to-list 'major-mode-remap-alist '(nix-mode . nix-ts-mode))
+  )
+
 (define-auto-insert
   '("\\.nix\\'" . "Nix skeleton")
   '("Short description: "

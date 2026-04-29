@@ -674,6 +674,11 @@ Returns the total execution time as a floating-point number."
 (require 'dired)
 (keymap-set dired-mode-map "H-M-D" #'find-file-directory-dockerfile)
 
+;; NIX-EMACS-PACKAGE: flymake-hadolint
+(use-package flymake-hadolint
+  :defer t
+  )
+
 ;; NIX-EMACS-PACKAGE: terraform-mode
 (use-package terraform-mode
   :preface

@@ -126,7 +126,7 @@
      )))
 
 (defvar browse-url-handlers)
-(add-to-list 'browse-url-handlers '("^https://pypi\\.org/project/" . pypi-browse-url))
+(add-to-list 'browse-url-default-handlers '("^https://pypi\\.org/project/" . pypi-browse-url))
 
 (provide 'url-knowledge)
 ;;; url-knowledge.el ends here

@@ -158,6 +158,7 @@
        `(tab-bar-tab          ((,c :box (:line-width 2 :color ,fg-main))))
        `(tab-bar-tab-inactive ((,c :box (:line-width 2 :color ,bg-main) :background ,bg-main))) ;; use same-color box to fix "jumping"
        `(tab-bar ((,c :box nil :background ,bg-main)))
+       `(tab-line ((,c :box nil :background ,bg-main)))
        )))
   (defun my-modus-themes-custom-faces-twice ()
     "Call `my-modus-themes-custom-faces' twice because with only one
