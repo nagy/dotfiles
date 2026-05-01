@@ -15,15 +15,14 @@
 (defvar restic-program "restic")
 
 (cl-defstruct (restic (:constructor restic--make))
-  name repo runtime-env)
+  name repo)
 
 ;;;###autoload
-(cl-defun restic-make (name &key repo runtime-env)
+(cl-defun restic-make (name &key repo)
   (declare (indent 1))
   (setf (alist-get name restic--known nil nil #'equal)
         (restic--make :name name
                       :repo repo
-                      :runtime-env runtime-env
                       )))
 
 (cl-defstruct restic-snapshot id tree time paths)
@@ -35,8 +34,6 @@
           (if (member "--json" args) 'utf-8 coding-system-for-read)))
     (with-environment-variables
         (("RESTIC_REPOSITORY" (restic-repo restic)))
-      (pcase-dolist (`(,name ,value) (restic-runtime-env restic))
-        (setenv name value))
       (cl-assert (zerop (apply #'call-process
                                restic-program
                                nil ;; infile
