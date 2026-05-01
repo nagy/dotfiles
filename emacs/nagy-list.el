@@ -147,11 +147,8 @@ That means, KEY can also be a cons."
                                               (nagy-list--format-1 prevalue)
                                               ""))
                                         'nagy-list--data obj))
-                          (map-keys nagy-list--columns))])
-             )
-           (progn (nagy-list--data)
-                  nagy-list--data
-                  )))
+                          (map-keys nagy-list--columns))]))
+           nagy-list--data))
 
 (defun nagy-list--data-at-point ()
   (get-text-property (point) 'nagy-list--data))
@@ -169,7 +166,8 @@ That means, KEY can also be a cons."
 
 ;;;###autoload
 (define-derived-mode nagy-list-mode tabulated-list-mode "nagy-list"
-  (setq nagy-list--beforebody (buffer-substring-no-properties (point-min) (point-max)))
+  (setq nagy-list--beforebody (buffer-string))
+  (cl-assert (seqp nagy-list--data))
   ;; (add-hook 'tabulated-list-revert-hook #'nagy-list--revert-hook nil t)
   ;; Used by auto-revert
   ;; (setq-local buffer-stale-function (lambda (&optional _noconfirm)

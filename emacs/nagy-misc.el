@@ -1177,11 +1177,14 @@ Returns the total execution time as a floating-point number."
   :bind
   ("H-M-Y" . gitlab-ci-mode)
   )
-(defun find-file-directory-gitlab-ci-yaml ()
+(defun find-file-directory-yaml ()
   (interactive)
-  (find-file ".gitlab-ci.yml")
+  (cond
+   ((file-exists-p ".gitlab.yml") (find-file ".gitlab-ci.yml"))
+   ((file-exists-p "kustomization.yaml") (find-file "kustomization.yaml"))
+   (t (user-error "No useful YAML file found.")))
   )
 (require 'dired)
-(keymap-set dired-mode-map "H-M-Y" #'find-file-directory-gitlab-ci-yaml)
+(keymap-set dired-mode-map "H-M-Y" #'find-file-directory-yaml)
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

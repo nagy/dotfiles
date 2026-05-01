@@ -59,7 +59,7 @@
 
 (defun url-knowledge-kill-url ()
   (interactive)
-  (let ((url (url-knowledge--get-url-force)))
+  (let ((url (url-knowledge--get-url)))
     (kill-new url)
     (message "Killed: %s" url)))
 

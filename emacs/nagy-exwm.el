@@ -213,6 +213,7 @@ aka xcompose is not properly initialized in the first frame."
                         "s-<escape>" ;; exwm-reset
                         "s-<f1>"
                         "s-<f5>" ;; screenshot
+                        "s-<f12>"
                         "s-="
                         "<XF86Explorer>"
                         "C-<XF86Explorer>"
