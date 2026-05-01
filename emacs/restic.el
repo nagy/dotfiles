@@ -100,14 +100,5 @@
   (dotimes (i (seq-length sequence))
     (funcall function (seq-elt sequence i))))
 
-;; NIX-EMACS-PACKAGE: llama
-(require 'llama)
-
-(cl-defmethod seq-contains-p ((sequence restic) (elt string) &optional _testfn)
-  ;;;  in case of a string search both snapshot id and tree id
-  (seq-find (##or (string-prefix-p elt (map-elt %1 "id"))
-                  (string-prefix-p elt (map-elt %1 "tree")))
-            (restic--gathered sequence)))
-
 (provide 'restic)
 ;;; restic.el ends here
