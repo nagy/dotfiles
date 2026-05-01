@@ -7,12 +7,15 @@
 ;; NIX-EMACS-PACKAGE: map-extras
 (require 'map-extras)
 
+;; NIX-EMACS-PACKAGE: memoize
+(require 'memoize)
+
 (defvar restic--known nil)
 
 (defvar restic-program "restic")
 
 (cl-defstruct (restic (:constructor restic--make))
-  name repo runtime-env -gathered)
+  name repo runtime-env)
 
 ;;;###autoload
 (cl-defun restic-make (name &key repo runtime-env)
@@ -21,7 +24,6 @@
         (restic--make :name name
                       :repo repo
                       :runtime-env runtime-env
-                      :-gathered nil
                       )))
 
 (cl-defstruct restic-snapshot id tree time paths)
@@ -42,27 +44,24 @@
                                nil      ;; display
                                args))))))
 
-(cl-defmethod gather ((obj restic))
-  (with-memoization (oref obj -gathered)
-    (with-temp-buffer
-      (restic-call-process obj "snapshots" "--json" "--no-lock")
-      (goto-char (point-min))
-      (--> (json-parse-buffer)
-           (--sort (if (string= (gethash "time" it) (gethash "time" other))
-                       (string< (gethash "id" it) (gethash "id" other))
-                     (string< (gethash "time" it) (gethash "time" other)) )
-                   it)
-           (nreverse it)))))
-
-(cl-defmethod ungather ((obj restic))
-  (setf (oref obj -gathered) nil))
+(defun restic--as-data (restic)
+  (with-temp-buffer
+    (restic-call-process restic "--no-lock" "snapshots" "--json")
+    (goto-char (point-min))
+    (--> (json-parse-buffer)
+         (--sort (if (string= (gethash "time" it) (gethash "time" other))
+                     (string< (gethash "id" it) (gethash "id" other))
+                   (string< (gethash "time" it) (gethash "time" other)) )
+                 it)
+         (nreverse it))))
+(memoize #'restic--as-data)
 
 ;; * map.el Integration
 
-(add-to-list 'file-name-handler-alist '("\\`/restic/?" . map-file-name-handler))
-(add-to-list 'map--fileprefix-alist
-             `("/restic/" . ,(make-map-transformer-via-extension 'restic--known ".restic.json"))
-             )
+;; (add-to-list 'file-name-handler-alist '("\\`/restic/?" . map-file-name-handler))
+;; (add-to-list 'map--fileprefix-alist
+;;              `("/restic/" . ,(make-map-transformer-via-extension 'restic--known ".restic.json"))
+;;              )
 
 ;; * GUI
 
@@ -88,13 +87,13 @@
 (cl-defmethod seqp ((_object restic))
   t)
 (cl-defmethod seq-length ((sequence restic))
-  (length (restic--gathered sequence)))
+  (length (restic--as-data sequence)))
 (cl-defmethod seq-elt ((sequence restic) n)
-  (alet (elt (restic--gathered sequence) n)
-    (make-restic-snapshot :id (or (map-elt it 'id) (map-elt it "id"))
-                          :tree (or (map-elt it 'tree) (map-elt it "tree"))
-                          :time (or  (map-elt it 'time) (map-elt it "time"))
-                          :paths (or (map-elt it 'paths) (map-elt it "paths"))
+  (alet (elt (restic--as-data sequence) n)
+    (make-restic-snapshot :id (map-elt it "id")
+                          :tree (map-elt it "tree")
+                          :time (map-elt it "time")
+                          :paths (map-elt it "paths")
                           )))
 (cl-defmethod seq-do (function (sequence restic))
   (dotimes (i (seq-length sequence))
