@@ -10,46 +10,22 @@
 ;; NIX-EMACS-PACKAGE: memoize
 (require 'memoize)
 
-(defvar restic--known nil)
-
 (defvar restic-program "restic")
 
-(cl-defstruct (restic (:constructor restic--make))
-  repo)
-
-;;;###autoload
-(cl-defun restic-make (name &key repo)
-  (declare (indent 1))
-  (setf (alist-get name restic--known nil nil #'equal)
-        (restic--make :repo repo
-                      )))
-
+(cl-defstruct restic repo)
 (cl-defstruct restic-snapshot id tree time paths)
 (map-extras-define-for-struct restic-snapshot (id tree time paths))
 
-(defun restic-call-process (restic &rest args)
-  (cl-assert (restic-p restic))
-  (let* ((coding-system-for-read
-          (if (member "--json" args) 'utf-8 coding-system-for-read)))
-    (with-environment-variables
-        (("RESTIC_REPOSITORY" (restic-repo restic)))
-      (cl-assert (zerop (apply #'call-process
-                               restic-program
-                               nil ;; infile
-                               '(t nil) ;; buffer output
-                               nil      ;; display
-                               args))))))
-
 (defun restic--as-data (restic)
-  (with-temp-buffer
-    (restic-call-process restic "--no-lock" "snapshots" "--json")
-    (goto-char (point-min))
-    (--> (json-parse-buffer)
-         (--sort (if (string= (gethash "time" it) (gethash "time" other))
-                     (string< (gethash "id" it) (gethash "id" other))
-                   (string< (gethash "time" it) (gethash "time" other)) )
-                 it)
-         (nreverse it))))
+  (--> (dollar-json restic-program
+                    "--repo" (restic-repo restic)
+                    "--no-lock"
+                    "snapshots"
+                    "--json")
+       (--sort (if (string= (gethash "time" it) (gethash "time" other))
+                   (string> (gethash "id" it) (gethash "id" other))
+                 (string> (gethash "time" it) (gethash "time" other)) )
+               it)))
 (memoize #'restic--as-data)
 
 ;; * map.el Integration
