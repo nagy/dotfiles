@@ -17,8 +17,6 @@
 (defvar-local nagy-list--beforebody nil)
 (put 'nagy-list--beforebody 'permanent-local t)
 
-(defvar nagy-list-table-default-column-width 30)
-
 (defun nagy-list--data ()
   (or (alet (gather nagy-list--data)
         (if (and (stringp it)
@@ -42,7 +40,8 @@
 (defun nagy-list-column-width (column)
   (--> (map-elt nagy-list--columns column)
        (seq-elt it 0)
-       (or it nagy-list-table-default-column-width)))
+       ;; Fallback to default
+       (or it 30)))
 
 (defun nagy-list-alist-get-deep (alist keys)
   "deepable version of alist-get.
@@ -185,7 +184,7 @@ That means, KEY can also be a cons."
                                                 (string it)
                                                 (cons (symbol-name (car (last it))))))
                                   'face 'bold)
-                     ,(or (nagy-list-column-width it) nagy-list-table-default-column-width)
+                     ,(nagy-list-column-width it)
                      t)
                    (map-keys nagy-list--columns)) ])
   (setq tabulated-list-entries #'nagy-list-table-entries)
