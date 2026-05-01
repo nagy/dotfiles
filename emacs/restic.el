@@ -15,14 +15,13 @@
 (defvar restic-program "restic")
 
 (cl-defstruct (restic (:constructor restic--make))
-  name repo)
+  repo)
 
 ;;;###autoload
 (cl-defun restic-make (name &key repo)
   (declare (indent 1))
   (setf (alist-get name restic--known nil nil #'equal)
-        (restic--make :name name
-                      :repo repo
+        (restic--make :repo repo
                       )))
 
 (cl-defstruct restic-snapshot id tree time paths)
