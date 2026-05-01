@@ -109,25 +109,5 @@
                   (string-prefix-p elt (map-elt %1 "tree")))
             (restic--gathered sequence)))
 
-;; * Thingatpt Integration
-
-(defun restic-snapshot-at-point ()
-  (when (and (derived-mode-p 'nagy-list-mode)
-             (equal (map-keys nagy-list--columns) '(id tree time paths))
-             )
-    (atypecase (nagy-list--data-at-point)
-      (restic-snapshot it)
-      (t (make-restic-snapshot :id (or (map-elt it 'id) (map-elt it "id"))
-                               :tree (or (map-elt it 'tree) (map-elt it "tree"))
-                               :time (or  (map-elt it 'time) (map-elt it "time"))
-                               :paths (or (map-elt it 'paths) (map-elt it "paths"))
-                               )))
-    ))
-
-(require 'thingatpt)
-
-(add-to-list 'thing-at-point-provider-alist
-             '(restic-snapshot . restic-snapshot-at-point))
-
 (provide 'restic)
 ;;; restic.el ends here
