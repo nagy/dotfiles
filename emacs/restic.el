@@ -7,12 +7,9 @@
 ;; NIX-EMACS-PACKAGE: map-extras
 (require 'map-extras)
 
-;; NIX-EMACS-PACKAGE: memoize
-(require 'memoize)
-
 (defvar restic-program "restic")
 
-(cl-defstruct restic repo)
+(cl-defstruct restic repo cache)
 (cl-defstruct restic-snapshot id tree time paths)
 (map-extras-define-for-struct restic-snapshot (id tree time paths))
 
@@ -22,11 +19,14 @@
                     "--no-lock"
                     "snapshots"
                     "--json")
-       (--sort (if (string= (gethash "time" it) (gethash "time" other))
-                   (string> (gethash "id" it) (gethash "id" other))
-                 (string> (gethash "time" it) (gethash "time" other)) )
-               it)))
-(memoize #'restic--as-data)
+       (restic--sort-cache it)
+       ))
+
+(defun restic--sort-cache (cache)
+  (--sort (if (string= (gethash "time" it) (gethash "time" other))
+              (string> (gethash "id" it) (gethash "id" other))
+            (string> (gethash "time" it) (gethash "time" other)) )
+          cache))
 
 ;; * map.el Integration
 
@@ -59,9 +59,13 @@
 (cl-defmethod seqp ((_object restic))
   t)
 (cl-defmethod seq-length ((sequence restic))
-  (length (restic--as-data sequence)))
+  (if (not (restic-cache sequence))
+      (setf (restic-cache sequence) (restic--as-data sequence)))
+  (length (restic-cache sequence)))
 (cl-defmethod seq-elt ((sequence restic) n)
-  (alet (elt (restic--as-data sequence) n)
+  (if (not (restic-cache sequence))
+      (setf (restic-cache sequence) (restic--as-data sequence)))
+  (alet (elt (restic-cache sequence) n)
     (make-restic-snapshot :id (map-elt it "id")
                           :tree (map-elt it "tree")
                           :time (map-elt it "time")
