@@ -40,18 +40,20 @@
 ;; NIX-EMACS-PACKAGE: nagy-list
 (require 'nagy-list)
 
+(defconst restic--nagy-list--columns
+  `((id 8 ,(lambda (value)
+             (propertize
+              (truncate-string-to-width (or value "") 8)
+              'font-lock-face 'magit-hash)))
+    (tree 8 ,(lambda (value)
+               (propertize
+                (truncate-string-to-width (or value "") 8)
+                'font-lock-face 'magit-hash)))
+    (time 16 :date)
+    (paths nil)))
+
 (defun nagy-restic-list-view ()
-  (setq-local nagy-list--columns
-              `((id 8 ,(lambda (value)
-                         (propertize
-                          (truncate-string-to-width (or value "") 8)
-                          'font-lock-face 'magit-hash)))
-                (tree 8 ,(lambda (value)
-                           (propertize
-                            (truncate-string-to-width (or value "") 8)
-                            'font-lock-face 'magit-hash)))
-                (time 16 :date)
-                (paths nil)))
+  (setq-local nagy-list--columns restic--nagy-list--columns)
   (nagy-list-mode))
 (add-to-list 'auto-mode-alist '("\\.restic\\.json\\'" . nagy-restic-list-view))
 

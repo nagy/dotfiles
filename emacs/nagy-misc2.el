@@ -403,8 +403,8 @@ This currently requires that `age-default-identity' and
   (pdf-view-midnight-colors '("white" . "black"))
   :bind
   (:map pdf-view-mode-map
-        ("H-j" . pdf-view-next-page-command)
-        ("H-k" . pdf-view-previous-page-command)
+        ;; ("H-j" . pdf-view-next-page-command)
+        ;; ("H-k" . pdf-view-previous-page-command)
         ("M-m" . pdf-view-midnight-minor-mode)
         )
   :hook

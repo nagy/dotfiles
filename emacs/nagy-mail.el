@@ -75,11 +75,11 @@
         mu4e-headers-thread-child-prefix         '("├>" . "├▶")
         mu4e-headers-thread-last-child-prefix    '("└>" . "└▶")))
 
-(use-package rmail
-  :bind
-  (:map rmail-mode-map
-        ("H-j" . rmail-next-message)
-        ("H-k" . rmail-previous-message)))
+;; (use-package rmail
+;;   :bind
+;;   (:map rmail-mode-map
+;;         ("H-j" . rmail-next-message)
+;;         ("H-k" . rmail-previous-message)))
 
 (provide 'nagy-mail)
 ;;; nagy-mail.el ends here

@@ -327,5 +327,10 @@
     (add-hook 'dired-mode-hook #'denote-dired-mode))
   )
 
+;; NIX-EMACS-PACKAGE: org-transclusion
+(use-package org-transclusion
+  :defer t
+  )
+
 (provide 'nagy-org)
 ;;; nagy-org.el ends here

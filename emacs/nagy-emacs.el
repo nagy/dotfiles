@@ -609,6 +609,9 @@ windows when moving the mouse."
   ;; :general
   ;; (:states 'normal :keymaps 'bookmark-bmenu-mode-map
   ;;          "f" #'bookmark-bmenu-this-window)
+  ;; These are preventing folder based bookmarks
+  ;; (bookmark-automatically-show-annotations nil)
+  ;; (bookmark-fringe-mark nil)
   )
 
 (use-package recentf
@@ -1278,6 +1281,7 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   ;; (define-thing-chars filename thing-at-point-file-name-chars)
   )
 
+;;;###autoload
 (defun json-parse-file (file &rest args)
   "Read the first JSON object contained in FILE and return it."
   (declare (side-effect-free t))

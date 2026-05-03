@@ -14,16 +14,6 @@
 
 (defvar-local nagy-list--data nil)
 (put 'nagy-list--data 'permanent-local t)
-(defvar-local nagy-list--beforebody nil)
-(put 'nagy-list--beforebody 'permanent-local t)
-
-(defun nagy-list--data ()
-  (or (alet (gather nagy-list--data)
-        (if (and (stringp it)
-                 (string-empty-p it))
-            nil
-          (if it it)))
-      (setq nagy-list--data (json-parse-string nagy-list--beforebody))))
 
 (defvar-local nagy-list--columns nil)
 (put 'nagy-list--columns 'permanent-local t)
@@ -165,7 +155,6 @@ That means, KEY can also be a cons."
 
 ;;;###autoload
 (define-derived-mode nagy-list-mode tabulated-list-mode "nagy-list"
-  (setq nagy-list--beforebody (buffer-string))
   (cl-assert (seqp nagy-list--data))
   ;; (add-hook 'tabulated-list-revert-hook #'nagy-list--revert-hook nil t)
   ;; Used by auto-revert

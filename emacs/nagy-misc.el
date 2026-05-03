@@ -454,6 +454,7 @@ Returns the total execution time as a floating-point number."
        ,@body
        (- (float-time) ,start))))
 
+(declare-function json-parse-file "nagy-emacs")
 ;; NIX-EMACS-PACKAGE: devdocs
 (use-package devdocs
   :defer t
@@ -463,9 +464,12 @@ Returns the total execution time as a floating-point number."
   :config
   ;; replace
   (defun devdocs--available-docs ()
-    (json-read-file (preload-url (format "%s/docs.json" devdocs-site-url))))
+    (json-parse-file (preload-url "https://devdocs.io/docs.json")
+                     :object-type 'alist))
   (defun nagy-devdocs-install (orig-fun &rest args)
-    (cl-letf (((symbol-function 'url-insert-file-contents) (lambda (url) (insert-file-contents (preload-url url)))))
+    (cl-letf (((symbol-function 'url-insert-file-contents)
+               (lambda (url)
+                 (insert-file-contents (preload-url url)))))
       (apply orig-fun args)))
   (advice-add 'devdocs-install :around #'nagy-devdocs-install)
   ;; (advice-remove 'password-store--run #'nagy-devdocs-install)
@@ -1186,5 +1190,9 @@ Returns the total execution time as a floating-point number."
   )
 (require 'dired)
 (keymap-set dired-mode-map "H-M-Y" #'find-file-directory-yaml)
+;; NIX-EMACS-PACKAGE: tomlparse
+;; (use-package tomlparse
+;;   :defer t)
+
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
