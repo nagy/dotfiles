@@ -1,6 +1,7 @@
 ;;; nagy.el --- -*- lexical-binding: t; -*-
 
 (require 'nagy-common-lisp nil t)
+(require 'nagy-dap nil t)
 (require 'nagy-dired nil t)
 (require 'nagy-emacs nil t)
 (require 'nagy-evil nil t)
