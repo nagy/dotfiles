@@ -9,7 +9,7 @@
 
 (defvar restic-program "restic")
 
-(cl-defstruct restic repo cache)
+(cl-defstruct restic repo mountpoint cache)
 (cl-defstruct restic-snapshot id tree time paths)
 (map-extras-define-for-struct restic-snapshot (id tree time paths))
 
@@ -54,8 +54,43 @@
 
 (defun nagy-restic-list-view ()
   (setq-local nagy-list--columns restic--nagy-list--columns)
+  (setq-local nagy-list--data (make-restic :cache (restic--sort-cache (json-parse-buffer))))
   (nagy-list-mode))
 (add-to-list 'auto-mode-alist '("\\.restic\\.json\\'" . nagy-restic-list-view))
+
+(defun completing-read-restic ()
+  "Selects a restic backend."
+  (interactive)
+  (let* ((collection (lambda (string pred action)
+                       (if (eq action 'metadata)
+                           '(metadata (category . variable))
+                         (complete-with-action action obarray string pred))))
+         (predicate (lambda (sym)
+                      (and (boundp sym)
+                           (restic-p (symbol-value sym))))))
+    (completing-read "Restic: " collection predicate t)))
+
+(defun restic-view-variable (restic)
+  (interactive (list (completing-read-restic)))
+  (switch-to-buffer (generate-new-buffer "*new-restic*"))
+  (setq-local nagy-list--columns restic--nagy-list--columns)
+  (setq-local nagy-list--data (symbol-value (intern restic)))
+  (nagy-list-mode))
+
+(defun make-restic-backend-for-path (path)
+  (aprog1 (make-restic :repo path)
+    (setf (restic-cache it) (restic--as-data it))))
+;; (memoize #'make-restic-backend-for-path)
+
+(declare-function dired-get-marked-files "dired")
+(defun dired-restic-view-backend ()
+  (interactive)
+  (let ((first (car (dired-get-marked-files))))
+    (switch-to-buffer (generate-new-buffer "*new-restic-from-dired*"))
+    (setq-local nagy-list--columns restic--nagy-list--columns)
+    (setq-local nagy-list--data (make-restic-backend-for-path first))
+    (nagy-list-mode))
+  )
 
 ;; * seq.el Integration
 (cl-defmethod seqp ((_object restic))
