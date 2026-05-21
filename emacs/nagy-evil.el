@@ -396,7 +396,7 @@
 ;; NIX-EMACS-PACKAGE: olivetti
 (use-package olivetti
   :custom
-  (olivetti-body-width 150)
+  (olivetti-body-width 120)
   :general
   (:states 'normal
            "“" #'olivetti-expand

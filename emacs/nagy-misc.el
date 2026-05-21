@@ -43,7 +43,6 @@
      ("□" . "blocker")
      ("▱" . "map")                      ; or 𝒎
      ("ℕd" . "nagy-data")
-     ("ℕ" . "nagy")
      ("⧖" . "dired")
      ("ol" . "org-link")
      ("ox" . "org-export")

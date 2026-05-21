@@ -135,7 +135,8 @@ That means, KEY can also be a cons."
                                           (or (nagy-list--format-1 value prevalue)
                                               (nagy-list--format-1 prevalue)
                                               ""))
-                                        'nagy-list--data obj))
+                                        'nagy-list--data obj)
+                            )
                           (map-keys nagy-list--columns))]))
            nagy-list--data))
 

@@ -224,6 +224,8 @@ aka xcompose is not properly initialized in the first frame."
                         "<XF86MonBrightnessUp>"
                         "s-<XF86Tools>"
                         "s-»"           ;; browse-url-from-kill
+                        "H-<f2>"        ;; `modus-themes-toggle'
+                        "s-D"
                         )
                     eos)
                 key-desc)
