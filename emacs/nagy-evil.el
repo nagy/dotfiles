@@ -223,7 +223,7 @@
           (eat-kill-buffer-on-exit t))
       (when (get-buffer eat-buffer-name)
         (kill-buffer (get-buffer eat-buffer-name)))
-      (eat "ncdu")))
+      (eat "ncdu --one-file-system")))
   (defun eat-dool ()
     "Doctext."
     (interactive)
