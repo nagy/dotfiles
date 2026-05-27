@@ -631,11 +631,6 @@ This currently requires that `age-default-identity' and
   :defer t
   )
 
-;; NIX-EMACS-PACKAGE: llvm-mode
-(use-package llvm-mode
-  :defer t
-  )
-
 ;; NIX-EMACS-PACKAGE: lua-mode
 (use-package lua-mode
   :defer t

@@ -152,7 +152,8 @@
                                                   'mode-line
                                                 'mode-line-inactive)
                                               (length (format-mode-line nagy-mode-line-right))))
-                  nagy-mode-line-right))
+                  nagy-mode-line-right
+                  ))
   (setq mode-line-modified '((buffer-file-name "%+ ")))
   (setq-default mode-line-modified mode-line-modified)
   (setq mode-line-position '("%l/" (:eval (buffer-line-count-string)) ""))

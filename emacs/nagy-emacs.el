@@ -686,22 +686,22 @@ string; otherwise return a 64-character string."
   (fset 'epg-wait-for-status 'ignore))
 
 (use-package ibuffer
-  :after evil-collection                          ;; to make the bindings below work
+  :after evil-collection ;; to make the bindings below work
   :custom
   (ibuffer-expert t)
   (ibuffer-display-summary nil)
-  :config
-  (setq ibuffer-formats
-        '((mark modified read-only locked " "
-                (name 42 42 :left :elide)
-                " "
-                (size 9 -1 :right)
-                " "
-                (mode 16 16 :left :elide)
-                " " filename-and-process)
-          (mark " "
-                (name 16 -1)
-                " " filename))))
+  (ibuffer-formats '((mark modified read-only locked " "
+                           (name 42 42 :left :elide)
+                           " "
+                           (size 9 -1 :right)
+                           " "
+                           (mode 16 16 :left :elide)
+                           " " filename-and-process)
+                     (mark " "
+                           (name 16 -1)
+                           " " filename)))
+  ;; :config
+  )
 
 (use-package elisp-mode
   :config

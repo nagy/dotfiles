@@ -52,12 +52,6 @@
      ("√" . "calc")
      ("e4" . "elforth"))))
 
-;; TODO replace with golden mode
-;; NIX-EMACS-PACKAGE: golden-ratio
-(use-package golden-ratio
-  :bind
-  ("H-s-=" . golden-ratio-mode))
-
 ;; NIX-EMACS-PACKAGE: macrostep
 (use-package macrostep
   :bind
@@ -225,11 +219,14 @@
   (:states 'normal :keymaps 'wdired-mode-map
            "ö" #'wdired-finish-edit))
 
-(use-package image
+(use-package image-mode
   :custom
   (image-auto-resize 'fit-window)
   :general
   (:states 'normal :keymaps 'image-mode-map
+           "j" #'image-next-file
+           "k" #'image-previous-file
+           "O" #'image-transform-reset-to-original
            "P" #'image-transform-fit-to-window))
 
 (use-package apropos
@@ -1192,6 +1189,14 @@ Returns the total execution time as a floating-point number."
 ;; NIX-EMACS-PACKAGE: tomlparse
 ;; (use-package tomlparse
 ;;   :defer t)
+
+;; NIX-EMACS-PACKAGE: x509-mode
+;; (use-package x509-mode
+;;   :defer t)
+
+;; NIX-EMACS-PACKAGE: caddyfile-mode
+(use-package caddyfile-mode
+  :defer t)
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

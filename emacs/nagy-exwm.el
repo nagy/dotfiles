@@ -226,6 +226,7 @@ aka xcompose is not properly initialized in the first frame."
                         "s-»"           ;; browse-url-from-kill
                         "H-<f2>"        ;; `modus-themes-toggle'
                         "s-D"
+                        "s-·"           ;; `dired-jump-proc'
                         )
                     eos)
                 key-desc)

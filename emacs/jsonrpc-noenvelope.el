@@ -58,17 +58,19 @@
                                        id
                                        method
                                        params
-                                       (_result nil result-supplied-p)
+                                       (result nil result-supplied-p)
                                        _error
                                        _partial)
   (let ((table (make-hash-table :test #'equal)))
     (puthash "jsonrpc" "2.0" table)
     (when id
       (puthash "id" id table))
-    (when method
-      (puthash "method" (string-remove-prefix ":" (symbol-name method)) table))
+    (when (and (not result) method)
+      (puthash "method" (string-remove-prefix ":" (if (symbolp method) (symbol-name method) method)) table))
     (when params
       (puthash "params" params table))
+    (when result
+      (puthash "result" result table))
     (process-send-string (jsonrpc--process connection)
                          (concat (json-serialize table ) "\n"))))
 

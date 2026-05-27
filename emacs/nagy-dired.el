@@ -149,7 +149,7 @@
                nil)))
     ;; Archives
     (,(rx (group
-           (or ".tar" ".zip" ".gitbundle"))
+           (or ".tar" ".zip" ".gitbundle" ".sqfs"))
           eol)
      (1 `(face eshell-ls-archive)))
     (,(rx (group
