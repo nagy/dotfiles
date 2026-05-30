@@ -213,8 +213,27 @@
   (keymap-set dired-mode-map "M-f" #'nagy-dired-find-file-literally)
   (add-hook 'dired-mode-hook #'drfl-mode))
 
+(declare-function url-knowledge--get-url "url-knowledge")
+(defun nagy-browse-url-of-buffer ()
+  (interactive)
+  (browse-url (url-knowledge--get-url)))
+
 (use-package dired
+  :preface
+  (defun nagy-dired-browse-url ()
+    (interactive)
+    (cl-assert (eq 'dired-mode major-mode) nil "Can only be run in `dired-mode'")
+    (browse-url (url-knowledge--get-url)))
+  (defun nagy-dired-refresh-after-shell (orig-fun &rest args)
+    "Refresh Dired buffer after running a shell command."
+    (apply orig-fun args)
+    (revert-buffer))
+  (advice-add 'dired-do-shell-command :around #'nagy-dired-refresh-after-shell)
   :demand t
+  :bind
+  (:map dired-mode-map
+        ("H-b" . nagy-dired-browse-url)
+        )
   :preface
   (defun +revert-when-dired (&rest _rest)
     "Revert when major-mode is dired.

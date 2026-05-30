@@ -47,21 +47,6 @@
 (cl-defmethod ungather ((obj yggdrasil))
   (setf (oref obj -gathered) nil))
 
-(defun nagy-yggdrasil-list-view ()
-  (setq-local nagy-list--columns
-              `((address 38 :identifier)
-                (remote 30)
-                (up 5)
-                (inbound 7)
-                (uptime 9 ,(lambda (value)
-                             (propertize
-                              (format-time-string "%-Hh%-Mm%-Ss"
-                                                  (seconds-to-time value) 0)
-                              'font-lock-face '(:inherit nagy-fg-cyan-intense))))
-                (key nil)))
-  (nagy-list-mode))
-(add-to-list 'auto-mode-alist '("\\.yggdrasil\\.json\\'" . nagy-yggdrasil-list-view))
-
 ;; * seq.el Integration
 (cl-defmethod seqp ((_object yggdrasil))
   t)
@@ -79,11 +64,6 @@
 (cl-defmethod seq-do (function (sequence yggdrasil))
   (dotimes (i (seq-length sequence))
     (funcall function (seq-elt sequence i))))
-
-(add-to-list 'file-name-handler-alist '("\\`/yggdrasil/?" . map-file-name-handler))
-(add-to-list 'map--fileprefix-alist
-             `("/yggdrasil/" . ,(make-map-transformer-via-extension 'yggdrasil--known ".yggdrasil.json"))
-             )
 
 (provide 'yggdrasil)
 ;;; yggdrasil.el ends here

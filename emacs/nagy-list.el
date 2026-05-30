@@ -43,6 +43,15 @@ That means, KEY can also be a cons."
             (setq alist (or (map-elt alist (pop keys)))))
           alist)))
 
+(defun nagy-list--post-command-hook ()
+  (awhen (thing-at-point 'url)
+    (setq-local url-knowledge-pretty-printed nil)
+    (setq-local nagy-mode-line-url-knowledge
+                `((url-knowledge-url (:eval (propertize (url-knowledge-pretty-print ,it) 'face '(:inherit (show-paren-match bold)))))
+                 ))
+    (force-mode-line-update)
+    ))
+
 (defun nagy-list--format-1 (value &optional prevalue)
   (pcase value
     ;; Some predefined formats
@@ -182,6 +191,7 @@ That means, KEY can also be a cons."
   (tabulated-list-print)
   (set-buffer-modified-p nil)
   (read-only-mode 1)
+  (add-hook 'post-command-hook #'nagy-list--post-command-hook 100 t)
   )
 (keymap-global-set "H-M-L" #'nagy-list-mode)
 

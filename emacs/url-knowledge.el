@@ -5,12 +5,6 @@
 
 ;;; Code:
 
-;; (require 'cl-lib)
-;; (require 'anaphora)
-
-;; (require 'nagy-use-package)
-;; (require 'pcase-url)
-
 (defvar url-knowledge-shorten-alist
   '(("github.com" . "𝑮𝑯")
     ("gitlab.com" . "𝑮𝑳")))
@@ -69,30 +63,6 @@
 
 ;;; Contrib
 
-(declare-function elfeed-entry-link "elfeed-db")
-(declare-function elfeed-search-selected "elfeed-search")
-(defvar elfeed-show-entry)
-
-(url-knowledge-make
- "Elfeed"
- :buffer
- (lambda ()
-   (pcase major-mode
-     ;; ((derived 'elfeed-search-mode)
-     ;;  (elfeed-entry-link (car (elfeed-search-selected))))
-     ((derived 'elfeed-show-mode)
-      (elfeed-entry-link elfeed-show-entry)))))
-
-(declare-function eww-current-url "eww")
-
-(url-knowledge-make
- "Eww"
- :buffer
- (lambda ()
-   (pcase major-mode
-     ((derived 'eww-mode)
-      (eww-current-url)))))
-
 (declare-function magit-get-current-remote "magit")
 (declare-function magit-get "magit")
 (declare-function browse-at-remote-get-url "browse-at-remote")
@@ -109,28 +79,33 @@
         (when (string-prefix-p "https://" it)
           it))))))
 
-;; (declare-function jq-format-buffer "nagy-web")
-(declare-function -shell "dash-shell")
+(declare-function dollar "dash-shell")
 (defun pypi-browse-url (url &rest _args)
-  (switch-to-buffer (generate-new-buffer (concat "*pypi*" url)))
-  (pcase url
+  (pcase-exhaustive url
     ((url host filename)
-     (-shell
-      `("curl"
-        "-sf" "--compressed"
-        ,(format "https://%s/pypi/%s/json"
-                 host
-                 (--> filename
-                      (string-replace "/project/" "" it)
-                      (string-remove-suffix "/" it))))
-      )
-     (js-json-mode)
-     ;; (jq-format-buffer)
-     (setq url-knowledge-url url)
+     (setq filename (string-replace "/project/" "" filename))
+     (switch-to-buffer (generate-new-buffer (concat "*pypi*" filename)))
+     (dollar (format "https://%s/pypi/%s/json"
+                     host
+                     (string-remove-suffix "/" filename)))
+     (setq-local url-knowledge-url url)
      )))
 
 (defvar browse-url-handlers)
 (add-to-list 'browse-url-default-handlers '("^https://pypi\\.org/project/" . pypi-browse-url))
+
+
+(defvar-local url-knowledge-pretty-printed nil)
+(put 'url-knowledge-pretty-printed 'permanent-local t)
+(defun url-knowledge-pretty-print (url)
+  (with-memoization url-knowledge-pretty-printed
+    (setq url (string-remove-prefix "https://" url))
+    (cl-loop for el in url-knowledge-shorten-alist
+             for prefix = (car el)
+             for replacement = (cdr el)
+             do
+             (setq url (string-replace prefix replacement url)))
+    url))
 
 (provide 'url-knowledge)
 ;;; url-knowledge.el ends here
