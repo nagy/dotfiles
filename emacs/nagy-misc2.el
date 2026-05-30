@@ -553,34 +553,6 @@ This currently requires that `age-default-identity' and
   ;; (ielm-mode . smartparens-mode)
   )
 
-;; NIX-EMACS-PACKAGE: go-mode
-(use-package go-mode
-  :preface
-  (reformatter-define go-fmt
-    :group 'go
-    :program "gofmt"
-    :lighter " GF")
-  :hook
-  (go-mode . go-fmt-on-save-mode)
-  :bind
-  ("H-M-g" . go-mode))
-;; (setq auto-insert-alist nil)
-;; (define-auto-insert
-;;   `("\\.go\\'" . "Go skeleton")
-;;   '("Short description: "
-;;     "package main;" \n
-;;     \n
-;;     "import \"fmt\"" \n
-;;     \n
-;;     "func main() {" \n
-;;     "fmt.Println(\"hello world\")" \n
-;;     > _ \n
-;;     "}" > \n))
-;; (defun find-file-directory-go ()
-;;   (interactive)
-;;   (find-file "main.go")
-;;   )
-;; (keymap-set dired-mode-map "H-M-g" #'find-file-directory-go)
 
 ;; NIX-EMACS-PACKAGE: request
 (use-package request
