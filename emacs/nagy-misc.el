@@ -1113,20 +1113,6 @@ Returns the total execution time as a floating-point number."
         ("H-M-P" . org-typst-export-to-pdf))
   )
 
-;; ;; NIX-EMACS-PACKAGE: vlf
-;; ;; https://elpa.gnu.org/packages/vlf.html
-;; ;; https://github.com/m00natic/vlfi
-;; (use-package vlf
-;;   :defer t
-;;   :custom
-;;   ;; (vlf-application 'always)
-;;   (vlf-batch-size (* 8 1024 1024))
-;;   (vlf-tune-enabled nil)
-;;   ;; :bind
-;;   ;; (:map vlf-mode-map)
-;;   )
-
-
 ;;  TODO integrate tinymist language server lsp https://github.com/Myriad-Dreamin/tinymist
 
 ;; NIX-EMACS-PACKAGE: csv-mode
