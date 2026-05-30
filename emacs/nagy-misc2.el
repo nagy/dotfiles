@@ -736,5 +736,10 @@ This currently requires that `age-default-identity' and
            "⊢" #'shfmt-buffer)
   )
 
+;; https://github.com/rejeep/ansi.el
+;; NIX-EMACS-PACKAGE: ansi
+(use-package ansi
+  :defer t
+  )
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here

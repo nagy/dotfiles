@@ -223,6 +223,9 @@ aka xcompose is not properly initialized in the first frame."
                         "<XF86MonBrightnessDown>"
                         "<XF86MonBrightnessUp>"
                         "s-<XF86Tools>"
+                        "s-⨏"           ;; bookmark
+                        "s-ſ"           ;; bookmark
+                        "s-þ"           ;; bookmark
                         "s-»"           ;; browse-url-from-kill
                         "H-<f2>"        ;; `modus-themes-toggle'
                         "s-D"
@@ -325,7 +328,9 @@ aka xcompose is not properly initialized in the first frame."
 ;; (evil-global-set-key 'normal "." #'terminal)
 (evil-global-set-key 'normal "," #'terminal)
 (with-eval-after-load 'dired
-  (evil-define-key 'normal dired-mode-map "." #'eat))
+  (evil-define-key 'normal dired-mode-map "." #'ghostel))
+(with-eval-after-load 'magit
+  (evil-define-key 'normal magit-status-mode-map "." #'ghostel))
 
 (defun nsxiv ()
   (interactive)

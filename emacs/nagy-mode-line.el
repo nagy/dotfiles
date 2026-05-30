@@ -51,17 +51,15 @@
 ;; (memoize 'nagy-mode-line-fill)
 ;; (memoize-restore 'nagy-mode-line-fill)
 
+(defvar-local nagy-mode-line-url-knowledge
+    '((url-knowledge-url (:eval (propertize (url-knowledge-pretty-print url-knowledge-url) 'face '(:inherit (show-paren-match bold)))))
+      ))
+(put 'nagy-mode-line-url-knowledge 'risky-local-variable t)
+
 (defvar nagy-mode-line-right
-  ;; FIXME these string creations could cause garbage
   '(
-    (t ((:eval (aif (url-knowledge--get-url)
-                   (propertize (--> (string-remove-prefix "https://" it)
-                                    (string-replace "github.com" "𝑮𝑯" it)
-                                    (string-replace "gitlab.com" "𝑮𝑳" it)
-                                    )
-                               'face '(:inherit (show-paren-match bold)))
-                 ))
-        " "))
+    (nagy-mode-line-url-knowledge ("" nagy-mode-line-url-knowledge))
+    ;; FIXME these string creations could cause garbage
     (:eval (when (derived-mode-p 'nagy-list-mode)
              (concat (propertize "Ŧ" 'face (if (mode-line-window-selected-p) 'nagy-intense-cyan 'nagy-subtle-cyan))
                      (propertize (symbol-name (type-of nagy-list--data)) 'face (if (mode-line-window-selected-p) 'nagy-subtle-cyan 'nagy-nuanced-cyan))
@@ -136,7 +134,9 @@
                   ;; mode-line-frame-identification
                   ;; cannot use this because of dired
                   ;; mode-line-buffer-identification
-                  (:propertize "%b " face (:height 1.2 :inherit mode-line-buffer-id))
+                  (:eval (unless (derived-mode-p 'dired-mode)
+                           '(:propertize "%b " face (:height 1.2 :inherit mode-line-buffer-id))
+                           ))
                   ;; mode-line-position ""
                   ;; (vc-mode vc-mode)
                   (:eval (unless (or (derived-mode-p 'exwm-mode)
@@ -148,6 +148,7 @@
                   ;; container-list-mode-line-format
                   ;; (:eval (get-container-line-format))
                   ;; mode-line-end-spaces
+                  ;; TODO for images: show the image geometry
                   (:eval (nagy-mode-line-fill (if (mode-line-window-selected-p)
                                                   'mode-line
                                                 'mode-line-inactive)
@@ -156,7 +157,8 @@
                   ))
   (setq mode-line-modified '((buffer-file-name "%+ ")))
   (setq-default mode-line-modified mode-line-modified)
-  (setq mode-line-position '("%l/" (:eval (buffer-line-count-string)) ""))
+  (setq mode-line-position '((:eval (buffer-line-count-string))
+                             ""))
   ;; (setq mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
   ;; (setq-default mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
   ;; (setq mode-line-position '(" L%l/" (:eval (number-to-string (buffer-chars-modified-tick)))))

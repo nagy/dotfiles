@@ -11,6 +11,10 @@
 ;; (require 'nagy-use-package)
 ;; (require 'pcase-url)
 
+(defvar url-knowledge-shorten-alist
+  '(("github.com" . "𝑮𝑯")
+    ("gitlab.com" . "𝑮𝑳")))
+
 (defvar-local url-knowledge-url nil)
 (put 'url-knowledge-url 'permanent-local t)
 

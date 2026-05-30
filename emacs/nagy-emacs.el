@@ -165,12 +165,7 @@ windows when moving the mouse."
   (advice-add 'text-scale-increase :after #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-decrease :after #'nagy-emacs-window-scroll-bars)
   (add-to-list 'set-message-functions 'inhibit-message)
-  (setq inhibit-message-regexps
-        (list
-         (rx "[mu4e] ")
-         (rx bol "Note: file is write protected" eol)
-         (rx bol "Updated Kubernetes ")
-         ))
+  (add-to-list 'inhibit-message-regexps (rx bol "Note: file is write protected" eol))
   (put #'erase-buffer 'disabled nil)
   ;; (setq-default show-trailing-whitespace t)
   ;; :custom
@@ -328,6 +323,7 @@ windows when moving the mouse."
   ;; (text-scale-remap-header-line t)
   :bind
   (:map tabulated-list-mode-map
+        ("H-b" . nagy-browse-url-of-buffer)
         ("M-s M-s" . tabulated-list-sort)
         ("<normal-state> →" . tabulated-list-next-column)
         ("<normal-state> ←" . tabulated-list-previous-column)))
@@ -701,6 +697,8 @@ string; otherwise return a 64-character string."
                            (name 16 -1)
                            " " filename)))
   ;; :config
+  ;; TODO make this work:
+  ;; (evil-define-key 'normal ibuffer-mode-map "," nil)
   )
 
 (use-package elisp-mode

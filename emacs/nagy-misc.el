@@ -7,10 +7,6 @@
 ;; NIX-EMACS-PACKAGE: anaphora
 (require 'anaphora)
 
-(eval-when-compile
-  ;; To catch errors during batch compilation
-  (require 'nameless))
-
 (declare-function preload-url "local")
 
 (use-package emacs
@@ -253,8 +249,11 @@
   :general
   (:states 'normal :keymaps 'Info-mode-map
            "f" #'Info-follow-nearest-node
-           "SPC" nil   ; was #'Info-scroll-up
-           ))
+           "SPC" nil                    ; was #'Info-scroll-up
+           )
+  ;; TODO
+  ;; add public urls via (Info-url-for-node "(elisp)Display Property")
+  )
 
 (use-package cus-edit
   :bind
@@ -1186,6 +1185,45 @@ Returns the total execution time as a floating-point number."
   )
 (require 'dired)
 (keymap-set dired-mode-map "H-M-Y" #'find-file-directory-yaml)
+
+;; ;; NIX-EMACS-PACKAGE: combobulate
+;; (use-package combobulate
+;; :defer t
+;; :config
+;; :bind
+;; (:map prog-mode-map
+;;       ("M-n" . combobulate-navigate-next)
+;;       ("M-p" . combobulate-navigate-previous)
+;;       ("M-k" . combobulate-kill-node-dwim)
+;;       ("H-d" . combobulate-kill-node-dwim)
+;;       )
+;; )
+;; NIX-EMACS-PACKAGE: kubed
+(use-package kubed
+  :defer t
+  :bind
+  ("H-K" . kubed-prefix-map)
+  :config
+  (add-to-list 'inhibit-message-regexps (rx bol "Updated Kubernetes "))
+  :general
+  (:states 'normal :keymaps 'kubed-list-mode-map
+           [remap evil-replace]  #'kubed-list-update
+           [remap revert-buffer-quick]  #'kubed-list-update
+           )
+  )
+
+;; NIX-EMACS-PACKAGE: drag-stuff
+(use-package drag-stuff
+  :defer t
+  :bind
+  ("M-k" . drag-stuff-up)
+  ("M-j" . drag-stuff-down)
+  ;; ("<M-left>"  . drag-stuff-left)
+  ;; ("<M-right>" . drag-stuff-right)
+  ;; :config
+  ;; (define-key esc-map "j" nil)
+  )
+
 ;; NIX-EMACS-PACKAGE: tomlparse
 ;; (use-package tomlparse
 ;;   :defer t)

@@ -29,7 +29,7 @@
   (:map mu4e-view-mode-map
         ("H-j" . mu4e-view-headers-next)
         ("H-k" . mu4e-view-headers-prev)
-        ("SPC" . nil)                   ; was #'mu4e-view-scroll-up-or-next
+        ("SPC" . nil)              ; was #'mu4e-view-scroll-up-or-next
         )
   (:map mu4e-compose-mode-map
         ("s-z" . message-send-and-exit))
@@ -38,7 +38,7 @@
            "q" #'mu4e-quit
            "f" #'mu4e-headers-view-message)
   (:states 'normal :keymaps 'mu4e-view-mode-map
-           "SPC" nil        ; was #'mu4e-view-scroll-up-or-next
+           "SPC" nil               ; was #'mu4e-view-scroll-up-or-next
            "f" #'mu4e-headers-view-message)
   :custom
   (mail-user-agent 'mu4e-user-agent)
@@ -73,7 +73,9 @@
         mu4e-headers-thread-connection-prefix    '("│ " . "│ ")
         mu4e-headers-thread-first-child-prefix   '("├>" . "├▶")
         mu4e-headers-thread-child-prefix         '("├>" . "├▶")
-        mu4e-headers-thread-last-child-prefix    '("└>" . "└▶")))
+        mu4e-headers-thread-last-child-prefix    '("└>" . "└▶"))
+  (add-to-list 'inhibit-message-regexps (rx bol "[mu4e] "))
+  )
 
 ;; (use-package rmail
 ;;   :bind

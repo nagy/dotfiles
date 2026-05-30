@@ -95,8 +95,10 @@
   ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
   ([remap recentf-open-files] . consult-recent-file)
   :config
-  (consult-customize consult-buffer
-                     :preview-key nil
+  (consult-customize consult-buffer :preview-key nil
+                     ;; consult-line :preview-key '(:debounce 0.5 any)
+                     ;; consult-line :preview-key nil
+                     consult-imenu :preview-key nil
                      consult-ripgrep
                      consult-git-grep
                      consult-grep
@@ -172,18 +174,18 @@
   (completion-styles '(orderless basic))
   ;; note that despite override in the name orderless can still be used in
   ;; find-file etc.
-  (completion-category-overrides '((file (styles orderless partial-completion))))
+  (completion-category-overrides '((file (styles orderless partial-completion))
+                                   (command (styles orderless+initialism))
+                                   (variable (styles orderless+initialism))
+                                   (symbol (styles orderless+initialism))
+                                   ))
   (orderless-style-dispatchers '(+vertico-orderless-dispatch))
   (orderless-component-separator "[ &]")
   :config
-  (setq completion-category-defaults nil)
   (orderless-define-completion-style orderless+initialism
     (orderless-matching-styles '(orderless-initialism
                                  orderless-literal
                                  orderless-regexp)))
-  (add-to-list 'completion-category-overrides '(command (styles orderless+initialism)))
-  (add-to-list 'completion-category-overrides '(variable (styles orderless+initialism)))
-  (add-to-list 'completion-category-overrides '(symbol (styles orderless+initialism)))
   )
 
 ;; NIX-EMACS-PACKAGE: marginalia
