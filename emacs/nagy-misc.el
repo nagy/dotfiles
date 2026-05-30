@@ -1185,17 +1185,5 @@ Returns the total execution time as a floating-point number."
   ;; (define-key esc-map "j" nil)
   )
 
-;; NIX-EMACS-PACKAGE: tomlparse
-;; (use-package tomlparse
-;;   :defer t)
-
-;; NIX-EMACS-PACKAGE: x509-mode
-;; (use-package x509-mode
-;;   :defer t)
-
-;; NIX-EMACS-PACKAGE: caddyfile-mode
-(use-package caddyfile-mode
-  :defer t)
-
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
