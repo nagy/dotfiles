@@ -109,7 +109,10 @@
                      consult-source-bookmark
                      :preview-key "C-SPC"
                      ;; Disable preview for `consult-theme' completely.
-                     consult-theme :preview-key nil))
+                     consult-theme :preview-key nil)
+  (setopt consult-ripgrep-args
+          (concat consult-ripgrep-args " --sort=path"))
+  )
 
 (use-package consult-imenu
   :defer t

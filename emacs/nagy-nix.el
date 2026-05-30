@@ -201,8 +201,12 @@
 
 (defun find-file-directory-nix ()
   (interactive)
-  (find-file "default.nix")
-  )
+  (cond
+   ((file-exists-p "default.nix")
+    (find-file "default.nix"))
+   ((file-exists-p "flake.nix")
+    (find-file "flake.nix"))
+   (t (user-error "No Nix suitable file found"))))
 (require 'dired)
 (keymap-set dired-mode-map "H-M-n" #'find-file-directory-nix)
 

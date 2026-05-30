@@ -285,7 +285,8 @@
         ("<normal-state> <key-chord> - t" . nagy-evil-minibuffer-set-tmp)
         ("<normal-state> <key-chord> - n" . nagy-evil-minibuffer-set-nix)
         ("<key-chord> f j" . exit-minibuffer)
-        ("<key-chord> j f" . minibuffer-keyboard-quit))
+        ("<key-chord> j f" . minibuffer-keyboard-quit)
+        ("<normal-state> ö" . exit-minibuffer))
   ("s-SPC" . exit-minibuffer)
   ("H-SPC" . minibuffer-keyboard-quit)
   (:map evil-ex-search-keymap

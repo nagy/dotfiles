@@ -127,6 +127,7 @@
     (modus-themes-with-colors
       (custom-set-faces
        `(default ((,c :height 100)))
+       `(dired-header ((,c :height unspecified :foundry unspecified)))
        `(magit-section-heading ((,c :inherit modus-themes-heading-3)))
        `(fixed-pitch ((,c :height unspecified)))
        `(header-line ((,c :background unspecified)))

@@ -1,5 +1,5 @@
 ;;; nagy-misc.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") reformatter ts ov paren-face systemd git-modes nagy-use-package)
+;; Package-Requires: ((emacs "30.1") reformatter ts ov paren-face systemd nagy-use-package)
 
 (require 'ov)
 (require 'general)
@@ -234,11 +234,6 @@
   (:states 'normal :keymaps 'apropos-mode-map
            "f" #'apropos-follow))
 
-(use-package gitconfig-mode
-  :defer t
-  :pretty 'gitconfig-mode
-  ("true" . true) ("false" . false)
-  ("branch" . "⌥"))
 
 (use-package info
   :bind
@@ -320,14 +315,6 @@
     (speed-of-thought-mode -1)
     (speed-of-thought-mode 1))
   )
-
-(use-package gitattributes-mode
-  ;; also catch files in nix store
-  :mode "-gitattributes\\'")
-
-(use-package gitconfig-mode
-  ;; also catch files in nix store
-  :mode "-gitconfig\\'")
 
 (use-package ielm
   :preface

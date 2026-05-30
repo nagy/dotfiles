@@ -166,6 +166,7 @@ windows when moving the mouse."
   (advice-add 'text-scale-decrease :after #'nagy-emacs-window-scroll-bars)
   (add-to-list 'set-message-functions 'inhibit-message)
   (add-to-list 'inhibit-message-regexps (rx bol "Note: file is write protected" eol))
+  (add-to-list 'inhibit-message-regexps (rx bol "(No changes need to be saved)" eol))
   (put #'erase-buffer 'disabled nil)
   ;; (setq-default show-trailing-whitespace t)
   ;; :custom
@@ -323,7 +324,7 @@ windows when moving the mouse."
   ;; (text-scale-remap-header-line t)
   :bind
   (:map tabulated-list-mode-map
-        ("H-b" . nagy-browse-url-of-buffer)
+        ;; ("H-b" . nagy-browse-url-of-buffer)
         ("M-s M-s" . tabulated-list-sort)
         ("<normal-state> →" . tabulated-list-next-column)
         ("<normal-state> ←" . tabulated-list-previous-column)))
@@ -1360,6 +1361,7 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   (enable-recursive-minibuffers t)
   :config
   (minibuffer-depth-indicate-mode t)
+  (define-key minibuffer-local-map (kbd "ö") (key-binding (kbd "RET")))
   )
 
 ;; (use-package url-cookie

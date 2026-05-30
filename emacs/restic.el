@@ -55,6 +55,7 @@
 (defun nagy-restic-list-view ()
   (setq-local nagy-list--columns restic--nagy-list--columns)
   (setq-local nagy-list--data (make-restic :cache (restic--sort-cache (json-parse-buffer))))
+  (setq-local tabulated-list-sort-key '("Time" . t))
   (nagy-list-mode))
 (add-to-list 'auto-mode-alist '("\\.restic\\.json\\'" . nagy-restic-list-view))
 
@@ -75,6 +76,7 @@
   (switch-to-buffer (generate-new-buffer "*new-restic*"))
   (setq-local nagy-list--columns restic--nagy-list--columns)
   (setq-local nagy-list--data (symbol-value (intern restic)))
+  (setq-local tabulated-list-sort-key '("Time" . t))
   (nagy-list-mode))
 
 (defun make-restic-backend-for-path (path)

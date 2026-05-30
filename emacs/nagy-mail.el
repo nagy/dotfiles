@@ -27,8 +27,8 @@
         ([remap kill-this-buffer] . mu4e-quit)
         ([remap nagy-kill-this-buffer] . mu4e-quit))
   (:map mu4e-view-mode-map
-        ("H-j" . mu4e-view-headers-next)
-        ("H-k" . mu4e-view-headers-prev)
+        ("H-j" . mu4e-headers-next)
+        ("H-k" . mu4e-headers-prev)
         ("SPC" . nil)              ; was #'mu4e-view-scroll-up-or-next
         )
   (:map mu4e-compose-mode-map

@@ -465,12 +465,6 @@
   ;; (remote-file-name-access-timeout 0)
   )
 
-;; NIX-EMACS-PACKAGE: gptel
-;; (use-package gptel)
-
-;; NIX-EMACS-PACKAGE: mcp
-;; (use-package mcp)
-
 ;; NIX-EMACS-PACKAGE: emacspy
 ;; (use-package emacspy)
 
@@ -556,7 +550,7 @@
 
 ;; NIX-EMACS-PACKAGE: treesit-fold
 (use-package treesit-fold
-  ;; :defer t
+  :defer t
   :custom
   (treesit-fold-line-count-show t)
   ;; (treesit-fold-summary-show t)

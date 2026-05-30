@@ -47,7 +47,7 @@ That means, KEY can also be a cons."
   (awhen (thing-at-point 'url)
     (setq-local url-knowledge-pretty-printed nil)
     (setq-local nagy-mode-line-url-knowledge
-                `((url-knowledge-url (:eval (propertize (url-knowledge-pretty-print ,it) 'face '(:inherit (show-paren-match bold)))))
+                `((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print ,it) 'face '(:inherit (show-paren-match bold)))) " "))
                  ))
     (force-mode-line-update)
     ))

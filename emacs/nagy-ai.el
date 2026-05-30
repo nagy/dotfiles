@@ -6,5 +6,11 @@
   :defer t
   )
 
+;; NIX-EMACS-PACKAGE: gptel
+;; (use-package gptel)
+
+;; NIX-EMACS-PACKAGE: mcp
+;; (use-package mcp)
+
 (provide 'nagy-ai)
 ;;; nagy-ai.el ends here

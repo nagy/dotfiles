@@ -1,5 +1,6 @@
 ;;; nagy.el --- -*- lexical-binding: t; -*-
 
+(require 'nagy-ai nil t)
 (require 'nagy-common-lisp nil t)
 (require 'nagy-dap nil t)
 (require 'nagy-data-formats nil t)
@@ -33,7 +34,6 @@
 (require 'nagy-use-package nil t)
 (require 'nagy-vertico nil t)
 (require 'nagy-web nil t)
-(require 'nagy-ai nil t)
 
 (provide 'nagy)
 ;;; nagy.el ends here

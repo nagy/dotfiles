@@ -244,6 +244,7 @@ aka xcompose is not properly initialized in the first frame."
   :demand t
   :custom
   (exwm-manage-force-tiling t)
+  (exwm-replace nil)                    ;; never ask to replace window manager
   (exwm-workspace-number 1)
   (exwm-workspace-show-all-buffers t)
   (exwm-layout-show-all-buffers t)

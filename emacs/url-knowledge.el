@@ -17,39 +17,28 @@
 (cl-defstruct (url-knowledge-config
                (:constructor url-knowledge--make-config))
   buffer
-  ;; clean
-  ;; smudge
-  collapse
   )
 
 ;;;###autoload
 (cl-defun url-knowledge-make (name &key
                                    buffer
-                                   ;; clean
-                                   ;; smudge
-                                   collapse)
+                                   )
   (let ((config (url-knowledge--make-config
                  :buffer buffer
-                 ;; :clean clean
-                 ;; :smudge smudge
-                 :collapse collapse)))
+                 )))
     (setf (alist-get name url-knowledge--known-configs nil nil #'equal) config)))
 
 (defun url-knowledge--get-url ()
   (unless (file-remote-p default-directory)
-    (or url-knowledge-url
-        (setq url-knowledge-url
-              (cl-loop for config in url-knowledge--known-configs
-                       for cdr = (cdr config)
-                       thereis (ignore-errors
-                                 (funcall (url-knowledge-config-buffer cdr))))))))
+    (with-memoization url-knowledge-url
+      (cl-loop for config in url-knowledge--known-configs
+               for cdr = (cdr config)
+               thereis (ignore-errors
+                         (funcall (url-knowledge-config-buffer cdr)))))))
 
 (defun url-knowledge--get-url-force ()
-  (setq url-knowledge-url
-        (cl-loop for config in url-knowledge--known-configs
-                 for cdr = (cdr config)
-                 thereis (ignore-errors
-                           (funcall (url-knowledge-config-buffer cdr))))))
+  ;; (setq-local url-knowledge-url nil)
+  (url-knowledge--get-url))
 
 (defun url-knowledge-browse-url ()
   (interactive)
@@ -74,10 +63,13 @@
    (pcase major-mode
      ((derived 'magit-revision-mode)
       (browse-at-remote-get-url))
-     ((derived 'magit-mode)
-      (alet (magit-get "--local" (format "remote.%s.url" (magit-get-current-remote)))
-        (when (string-prefix-p "https://" it)
-          it))))))
+     ((or (derived 'magit-mode)
+          (derived 'dired-mode))
+      (aand (project-current)
+            (with-directory (project-root it)
+              (alet (magit-get "--local" (format "remote.%s.url" (magit-get-current-remote)))
+                (when (string-prefix-p "https://" it)
+                  it))))))))
 
 (declare-function dollar "dash-shell")
 (defun pypi-browse-url (url &rest _args)

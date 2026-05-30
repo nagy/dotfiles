@@ -8,6 +8,7 @@
   (magit-pull-or-fetch t)
   (magit-no-confirm '(resurrect
                       discard
+                      reverse
                       ;; set-and-push
                       ))
   :config
@@ -27,7 +28,7 @@
   ("H-L" . magit-log-buffer-file)
   ("H-R" . magit-show-refs)
   (:map magit-mode-map
-        ("H-b" . nagy-browse-url-of-buffer)
+        ;; ("H-b" . nagy-browse-url-of-buffer)
         ("H-L" . magit-log-all-branches)
         ("H-<" . magit-process-buffer)
         ("H-c" . magit-commit-create)
@@ -119,6 +120,20 @@
   (:states 'normal :keymaps 'with-editor-mode-map
            "ö" #'with-editor-finish
            ))
+
+;; NIX-EMACS-PACKAGE: git-modes
+(use-package gitattributes-mode
+  ;; also catch files in nix store
+  :mode "-gitattributes\\'")
+
+;; NIX-EMACS-PACKAGE: git-modes
+(use-package gitconfig-mode
+  ;; also catch files in nix store
+  :mode "-gitconfig\\'"
+  :defer t
+  :pretty 'gitconfig-mode
+         ("true" . true) ("false" . false)
+         ("branch" . "⌥"))
 
 (provide 'nagy-magit)
 ;;; nagy-magit.el ends here
