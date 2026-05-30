@@ -234,7 +234,7 @@
   (keymap-set eat-char-mode-map "H-y" #'eat-yank)
   :bind
   (:map evil-normal-state-map
-        ("<key-chord> - x" . eat)
+        ;; ("<key-chord> - x" . eat)
         ("<key-chord> ß w" . eat-ncdu))
   (:map eat-mode-map
         ("H-h" . eat-emacs-mode)
@@ -423,6 +423,66 @@
 ;; NIX-EMACS-PACKAGE: evil-surround
 (use-package evil-surround
   :defer t)
+
+;; NIX-EMACS-PACKAGE: ghostel
+(use-package ghostel
+  :defer t
+  :commands (ghostel-char-mode)
+  :preface
+  (defun nagy--ghostel-char-mode ()
+    (evil-emacs-state 1)
+    (ghostel-char-mode)
+    (when global-display-line-numbers-mode
+      (display-line-numbers-mode 0))
+    (setq-local truncate-lines t)
+    (let ((inhibit-message t))
+      (text-scale-adjust 0))
+    )
+  (defun nagy--ghostel-switch-to-char-mode ()
+    (evil-emacs-state 1)
+    (goto-char (point-max)))
+  (defun nagy--ghostel-switch-to-line-mode ()
+    (evil-normal-state 1))
+  :custom
+  (ghostel-ssh-install-terminfo nil)
+  (ghostel-kill-buffer-on-exit nil)
+  (ghostel-enable-url-detection nil)
+  (ghostel-enable-file-detection nil)
+  (ghostel-max-scrollback (* 1024 1024 1024))
+  :config
+  (add-to-list 'inhibit-message-regexps (rx bol "Char mode ("))
+  (add-to-list 'inhibit-message-regexps (rx bol "Line mode:"))
+  (evil-set-initial-state 'ghostel-mode 'emacs)
+  (add-hook 'ghostel-pre-spawn-hook #'nagy--ghostel-char-mode)
+  (advice-add #'ghostel-char-mode :after #'nagy--ghostel-switch-to-char-mode)
+  (advice-add #'ghostel-line-mode :after #'nagy--ghostel-switch-to-line-mode)
+  (keymap-unset ghostel-mode-map "<XF86Paste>" t) ;; embark
+  ;; does not work yet
+  ;; (keymap-set ghostel-mode-map "<normal-state> <key-chord> f j" #'embark-act)
+  ;; (keymap-set ghostel-mode-map "<normal-state> <key-chord> f h" #'embark-dwim)
+  :bind
+  (:map ghostel-char-mode-map
+        ("H-r" . ghostel-clear-scrollback)
+        ("H-l" . ghostel-line-mode))
+  (:map ghostel-line-mode-map
+        ("H-l" . ghostel-char-mode)
+        ;; ("<normal-state> <key-chord> f h" . embark-dwim)
+        ;; ("<normal-state> <key-chord> f j" . embark-act)
+        )
+  (:map evil-normal-state-map
+        ("<key-chord> - x" . ghostel))
+  )
+;; (defun nagy--ghostel--some-rebalancing ()
+;;   (interactive)
+;;   (walk-windows
+;;    (lambda (win)
+;;      (with-selected-window win
+;;        (let ((proc (get-buffer-process (window-buffer win))))
+;;          (when proc
+;;            (window--adjust-process-windows))))
+;;      ))
+;;   ;; (redisplay t)
+;;   )
 
 (provide 'nagy-evil)
 ;;; nagy-evil.el ends here
