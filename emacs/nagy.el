@@ -7,7 +7,6 @@
 (require 'nagy-emacs nil t)
 (require 'nagy-evil nil t)
 (require 'nagy-exwm nil t)
-(require 'nagy-formats nil t)
 (require 'nagy-gc nil t)
 (require 'nagy-go nil t)
 (require 'nagy-kubernetes nil t)
