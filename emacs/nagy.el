@@ -32,6 +32,7 @@
 (require 'nagy-use-emacs nil t)
 (require 'nagy-use-package nil t)
 (require 'nagy-vertico nil t)
+(require 'nagy-web nil t)
 (require 'nagy-ai nil t)
 
 (provide 'nagy)
