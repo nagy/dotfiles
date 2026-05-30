@@ -1465,9 +1465,5 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   "^\\*Calendar\\*$"
   )
 
-;; (use-package json-ts-mode
-;;   ;; :defer t
-;;   )
-
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

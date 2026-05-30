@@ -856,54 +856,6 @@ Returns the total execution time as a floating-point number."
   :bind
   ("H-M-w" . wat-mode))
 
-;; NIX-EMACS-PACKAGE: yaml-mode
-(use-package yaml-mode
-  :preface
-  (reformatter-define yq-format
-    :group 'js
-    :program "yq"
-    :args `("--prettyPrint" ,(or (buffer-file-name) input-file)))
-  ;; :hook
-  ;; (yaml-mode . yq-format-on-save-mode)
-  :bind
-  ("H-M-y" . yaml-mode)
-  (:map yaml-mode-map
-        ("C-⊢" . yq-format-buffer))
-  :pretty 'yaml-mode
-  ("true" . true) ("false" . false)
-  :general
-  (:states 'normal :keymaps 'yaml-mode-map
-           "⊢" #'yq-format-buffer)
-  )
-
-;; NIX-EMACS-PACKAGE: jq-mode
-(use-package jq-mode
-  :preface
-  (reformatter-define jqfmt
-    :group 'emacs
-    :program "jqfmt"
-    :args '("-ob" "-ar" "-op" "pipe" ))
-  :defer t
-  ;; :mode "\\.jq\\'"
-  ;; :interpreter "jq"
-  ;; :hook
-  ;; (jq-mode . jqfmt-on-save-mode)
-  :bind
-  (:map jq-mode-map
-        ("C-⊢" . jqfmt-buffer))
-  :general
-  (:states 'normal :keymaps 'jq-mode-map
-           "⊢" #'jqfmt-buffer)
-  :pretty 'jq-mode
-  ("def" . def)
-  ("try" . try) ("catch" . except)
-  :abbrev 'jq-mode
-  ("d" . "def")
-  ("t" . "try")
-  ("c" . "catch")
-  ("sel" . "select")
-  ("con" . "contains"))
-
 ;; * Typst
 
 ;; NIX-EMACS-PACKAGE: typst-ts-mode
@@ -926,15 +878,6 @@ Returns the total execution time as a floating-point number."
   )
 
 ;;  TODO integrate tinymist language server lsp https://github.com/Myriad-Dreamin/tinymist
-
-;; NIX-EMACS-PACKAGE: csv-mode
-(use-package csv-mode
-  :defer t
-  ;; :custom
-  ;; (csv-align-style 'centre)
-  ;; :config
-  ;; (csv-align-mode)
-  )
 
 (use-package xref
   :defer t
