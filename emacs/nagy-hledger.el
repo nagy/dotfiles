@@ -7,8 +7,6 @@
 (require 'anaphora)
 ;; NIX-EMACS-PACKAGE: embark
 (require 'embark)
-;; NIX-EMACS-PACKAGE: s
-(require 's)
 
 ;; NIX-EMACS-PACKAGE: hledger-mode
 (use-package hledger-mode
@@ -57,7 +55,7 @@
 (defun hledger-message-account-bal (account)
   (interactive "MAccount:")
   (message "%S"
-           (shell-command-to-string (s-lex-format "hledger bal ${account}")))
+           (shell-command-to-string (format "hledger bal %s" account)))
   )
 
 (provide 'nagy-hledger)
