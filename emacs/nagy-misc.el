@@ -1052,13 +1052,6 @@ Returns the total execution time as a floating-point number."
   ("sel" . "select")
   ("con" . "contains"))
 
-;; NIX-EMACS-PACKAGE: coffee-mode
-(use-package coffee-mode
-  :defer t
-  :pretty 'coffee-mode
-  ("true" . true) ("false" . false)
-  ("if" . if) ("else" . else))
-
 ;; * Typst
 
 ;; NIX-EMACS-PACKAGE: typst-ts-mode
