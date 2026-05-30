@@ -1052,24 +1052,6 @@ Returns the total execution time as a floating-point number."
   ("sel" . "select")
   ("con" . "contains"))
 
-;; NIX-EMACS-PACKAGE: svelte-mode
-(use-package svelte-mode
-  :preface
-  (reformatter-define deno-fmt-component
-    :group 'emacs
-    :program "deno"
-    :stdin nil
-    :stdout nil
-    :input-file (reformatter-temp-file)
-    :args `("fmt" "--unstable-component" ,input-file))
-  :defer t
-  :general
-  (:states 'normal :keymaps 'svelte-mode-map
-           "⊢" #'deno-fmt-component-buffer)
-  :hook
-  (svelte-mode . deno-fmt-component-on-save-mode)
-  )
-
 ;; NIX-EMACS-PACKAGE: coffee-mode
 (use-package coffee-mode
   :defer t
