@@ -210,7 +210,7 @@
   (embark-mixed-indicator-delay most-positive-fixnum)
   ;; :preface
   ;; (defun nagy-vertico-embark-target-find-file-magit-section ()
-  ;;   (when-let ((ret (magit-section-value-if 'file))
+  ;;   (when-let* ((ret (magit-section-value-if 'file))
   ;;              (start (marker-position (oref (magit-current-section) start)))
   ;;              (end (marker-position (oref (magit-current-section) end))))
   ;;     `(file ,ret ,start . ,end)))

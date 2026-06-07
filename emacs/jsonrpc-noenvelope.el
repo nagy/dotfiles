@@ -14,7 +14,7 @@
   (let ((p (point))
         ret)
     (save-excursion
-      (when-let ((res (ignore-errors (json-parse-buffer))))
+      (when-let* ((res (ignore-errors (json-parse-buffer))))
         (setq p (point))
         (setq ret res)))
     (goto-char p)

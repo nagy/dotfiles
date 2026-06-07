@@ -7,7 +7,8 @@
 
 (defface nagy-url-face
   '((t :inherit (ffap bold dired-header)))
-  "my face doc")
+  "my face doc"
+  :group 'emacs)
 
 (use-package url-knowledge
   :commands (url-knowledge--get-url)

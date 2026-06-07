@@ -6,6 +6,7 @@
 ;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
 (require 'general)
+(require 'eieio)
 
 ;; NIX-EMACS-PACKAGE: anaphora
 (require 'anaphora)
@@ -168,7 +169,7 @@
                     collect btn))))
   (defun helpful-jump-to-definition ()
     (interactive)
-    (when-let ((btn (helpful--all-the-buttons)))
+    (when-let* ((btn (helpful--all-the-buttons)))
       (helpful--navigate btn)))
   :config
   (put 'helpful--bookmark-jump 'bookmark-handler-type "Helpful")

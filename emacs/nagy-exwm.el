@@ -350,6 +350,7 @@ aka xcompose is not properly initialized in the first frame."
                              ))))
 (keymap-global-set "<pause>" #'nsxiv)
 
+(require 'browse-url)
 (defun firefox ()
   (interactive)
   (start-process "firefox" nil browse-url-firefox-program "--new-window"))
