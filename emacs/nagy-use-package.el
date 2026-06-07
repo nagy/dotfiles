@@ -78,6 +78,8 @@
     (if . "꜏") (else . "꜊") (then . "∴")
     (when . "〉") (unless . "〈")
     (loop . "↻")))
+
+;;;###autoload
 (defun nagy-pretty-init (symbol)
   "Set pretty symbols for mode SYMBOL."
   (interactive "SSymbol: ")
@@ -132,6 +134,7 @@
   (add-to-list 'use-package-keywords :abbrev t))
 ;;; cycle
 ;; TODO look at https://melpa.org/#/cycle-at-point
+;;;###autoload
 (defvar nagy-cycle-alist nil)
 (defun nagy-cycle-dwim ()
   (interactive)
