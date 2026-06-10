@@ -110,8 +110,9 @@
       )
     (set-face-attribute 'tab-bar-tab-inactive nil :box nil :background (face-attribute 'tab-bar :background nil t))
     (set-face-attribute 'window-divider nil :foreground (if (dayp) "black" "gray20"))
-    (with-eval-after-load 'dired
-      (set-face-attribute 'dired-header nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)))
+    ;; (with-eval-after-load 'dired
+    ;;   (set-face-attribute 'dired-header nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1))
+    )
   (defun ala-fix-theme ()
     (interactive)
     (cl-assert (zerop (call-process (if (dayp) "ala-day" "ala-night")))))
@@ -225,7 +226,7 @@ correctly."
           nix-search-mode-hook
           proced-mode-hook
           tabulated-list-mode-hook))
-  (lin-global-mode 1)
+  ;; (lin-global-mode 1)
   (set-face-attribute 'hl-line nil :inherit 'lin-blue :background 'unspecified))
 
 ;; NIX-EMACS-PACKAGE: nerd-icons

@@ -72,6 +72,7 @@
                      )))
     (nagy-mode-line--jsvar (:eval (format "%s " nagy-mode-line--jsvar)))
     (nagy-mode-line--jsvar-point (:eval (format "%s " nagy-mode-line--jsvar-point)))
+    ;; File Size
     (:eval
      (unless (or (derived-mode-p 'exwm-mode)
                  (derived-mode-p 'magit-mode)
@@ -82,6 +83,7 @@
         ;;           'line-number
         ;;         'mode-line-inactive)
         )))
+    ;; Process
     (:eval
      (if (get-buffer-process (current-buffer))
          (concat (propertize "⚋"
@@ -91,7 +93,8 @@
                              'face 'nagy-nuanced-green))
        (if (derived-mode-p 'exwm-mode)
            `(:propertize ,(format "#x%X" exwm--id) face mode-line-buffer-id)
-         mode-line-position)))))
+         mode-line-position))
+    )))
 (put 'nagy-mode-line-right 'risky-local-variable t)
 
 (defvar-local nagy-mode-line--show-default-directory t)

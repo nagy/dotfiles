@@ -52,8 +52,13 @@
   (add-to-list 'inhibit-message-regexps (rx bol "Updated Kubernetes "))
   :general
   (:states 'normal :keymaps 'kubed-list-mode-map
+           [remap evil-ret]  #'kubed-list-select-resource
+           [remap next-window-any-frame]  #'kubed-list-select-resource-other-window
            [remap evil-replace]  #'kubed-list-update
            [remap revert-buffer-quick]  #'kubed-list-update
+           [remap evil-delete]  #'kubed-list-mark-for-deletion
+           [remap evil-undo]  #'kubed-list-unmark
+           "H-l" #'kubed-list-logs
            )
   )
 

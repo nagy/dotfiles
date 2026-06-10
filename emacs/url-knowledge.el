@@ -1,6 +1,6 @@
 ;;; url-knowledge.el --- url info mode -*- lexical-binding: t; -*-
 
-;; Package-Requires: ((emacs "30.1") anaphora pcase-url nagy-use-package)
+;; Package-Requires: ((emacs "30.1") anaphora pcase-url nagy-emacs nagy-use-package)
 ;;; Commentary:
 
 ;;; Code:
@@ -55,6 +55,8 @@
 (declare-function magit-get-current-remote "magit")
 (declare-function magit-get "magit")
 (declare-function browse-at-remote-get-url "browse-at-remote")
+(declare-function project-root "project")
+;; (declare-function with-directory "nagy-emacs")
 
 (url-knowledge-make
  "Magit"
