@@ -200,6 +200,7 @@
   ;; package.
   (marginalia-mode 1))
 
+(declare-function embark-cycle "embark")
 ;; nice examples
 ;; https://karthinks.com/software/fifteen-ways-to-use-embark/
 ;; NIX-EMACS-PACKAGE: embark
@@ -238,6 +239,7 @@
   ;; (keymap-set helpful-mode-map "<normal-state> <key-chord> f h" #'embark-dwim)
   ;; (push '("^\\*Embark " display-buffer-same-window) display-buffer-alist)
   ;; :same "^\\*Embark "  ; this breaks the s-. key binding down below. I dont know why.
+  (keymap-set embark-general-map "<XF86Paste>" #'embark-cycle)
   :bind
   ("<XF86Paste>" . embark-act)
   ("C-<XF86Paste>" . embark-dwim)

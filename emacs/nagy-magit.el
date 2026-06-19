@@ -11,6 +11,12 @@
                       reverse
                       ;; set-and-push
                       ))
+  (magit-section-initial-visibility-alist '((untracked . show)
+                                            (unstaged . show)
+                                            ;; (unpushed . show) ;; is this the "Recent commits" section?
+                                            (staged . show)
+                                            (stashes . show)
+                                            ))
   :config
   (add-to-list 'display-buffer-alist '("^magit-revision" display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^magit-stash" display-buffer-same-window))

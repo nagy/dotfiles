@@ -292,12 +292,22 @@ windows when moving the mouse."
         ("H-k" . Man-previous-section)))
 
 (use-package simple
+  :defer t
   :preface
   (defun nagy-emacs-process-menu-dired-jump ()
     (interactive)
     (and-let* ((fourth-col (elt (tabulated-list-get-entry (point)) 3))
                (buffer (plist-get (cdr fourth-col) 'process-buffer)))
       (switch-to-buffer buffer)))
+  (defun nagy-emacs-process-menu--font-lock ()
+    (setq-local font-lock-keywords '(nil t))
+    (font-lock-add-keywords nil
+                            '((" \\(\\<open\\>\\) " 1 '(:inherit (success)))
+                              (" \\(\\<run\\>\\) "  1 '(:inherit (nerd-icons-blue bold)))
+                              (" \\(\\<listen\\>\\) "  1 '(:inherit (nerd-icons-yellow bold)))))
+    )
+  :config
+  (add-hook 'process-menu-mode-hook #'nagy-emacs-process-menu--font-lock)
   :bind
   (:map process-menu-mode-map
         ([remap dired-jump] . nagy-emacs-process-menu-dired-jump)

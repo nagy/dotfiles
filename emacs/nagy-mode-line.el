@@ -1,5 +1,5 @@
 ;;; nagy-mode-line.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") dash anaphora)
+;; Package-Requires: ((emacs "30.1") memoize dash anaphora)
 
 (require 'dash)
 ;; (require 'anaphora)
@@ -52,7 +52,7 @@
 ;; (memoize-restore 'nagy-mode-line-fill)
 
 (defvar-local nagy-mode-line-url-knowledge
-    '((url-knowledge-url (:eval (propertize (url-knowledge-pretty-print url-knowledge-url) 'face '(:inherit (show-paren-match bold)))))
+    '((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print url-knowledge-url) 'face '(:inherit (show-paren-match bold)))) " "))
       ))
 (put 'nagy-mode-line-url-knowledge 'risky-local-variable t)
 
@@ -100,30 +100,31 @@
 (defvar-local nagy-mode-line--show-default-directory t)
 (put 'nagy-mode-line--show-default-directory 'risky-local-variable t)
 
+
+(defvar nagy-mode-line--default-directory-shorten-alist
+  '(("/run/user/1000/" . "𝒓/")
+    ("/tmp/t" . "⧖")
+    ("/tmp/" . "⧖")
+    )
+  )
+(defun nagy-mode-line--default-directory-shorten (def-dir)
+  (setq def-dir (expand-file-name default-directory))
+  (cl-loop for el in nagy-mode-line--default-directory-shorten-alist
+           for prefix = (car el)
+           for replacement = (cdr el)
+           do
+           (setq def-dir (string-replace prefix replacement def-dir)))
+  (abbreviate-file-name def-dir))
+(require #'memoize)
+(memoize #'nagy-mode-line--default-directory-shorten)
+
 (defvar nagy-mode-line-default-directory-format
-  '(:eval (unless (derived-mode-p 'exwm-mode)
-            (if nagy-mode-line--show-default-directory
-                (propertize (abbreviate-file-name
-                             (--> default-directory
-                                  (string-replace "%" "%%" it)
-                                  (string-replace "/run/user/1000/" "𝒓/" it)
-                                  (string-replace "/tmp/t" "⧖" it)
-                                  (string-replace "/tmp/" "⧖" it)
-                                  ;; (string-replace "/tmp/" "/⧖" it)
-                                  ;; (string-replace "/nix/store" "○" it)
-                                  (if (string-prefix-p "/nix/store/" it )
-                                      (concat "○/…"
-                                              (replace-regexp-in-string
-                                               (rx (group (= 32 (any "0-9" "a-d" "f-n" "p-s" "v-z"))))
-                                               ""
-                                               (string-remove-prefix (concat nix-store-dir "/")
-                                                                     it)))
-                                    it)
-                                  ))
-                            'face `(:inherit ,(if (mode-line-window-selected-p) '(dired-directory) nil)
-                                             :weight bold
-                                             :height 1.2)
-                            )))))
+  '(:eval (propertize (nagy-mode-line--default-directory-shorten default-directory)
+                      'face `(:inherit ,(if (mode-line-window-selected-p) '(dired-directory) nil)
+                                       :weight bold
+                                       :height 1.2)
+                      )))
+(put 'nagy-mode-line-default-directory-format 'risky-local-variable t)
 
 (defun nagy-mode-line-init ()
   (interactive)
@@ -145,7 +146,7 @@
                   (:eval (unless (or (derived-mode-p 'exwm-mode)
                                      (derived-mode-p 'dired-mode))
                            mode-line-modes)) ; already includes a space at the end
-                  (:eval nagy-mode-line-default-directory-format)
+                  (nagy-mode-line--show-default-directory ("" nagy-mode-line-default-directory-format))
                   mode-line-misc-info
                   ;; (:eval (format " BFF:%S" buffer-file-format))
                   ;; container-list-mode-line-format

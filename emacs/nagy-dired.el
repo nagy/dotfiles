@@ -174,25 +174,18 @@
      (1 dired-flagged-face prepend))
     ;; (,(concat "^\\([" (char-to-string dired-del-marker) "]\\)")
     ;;  (1 dired-flagged-face prepend))
-    ;; make smaller
+
+    ;; Make smaller
     (,(eval-when-compile dired-re-maybe-mark)
-     (0 (progn ;; (ov-set (make-overlay (match-beginning 0)
-          ;;                       (match-end 0))
-          ;;         'evaporate t
-          ;;         'display "")
-          (put-text-property (match-beginning 0)
-                             (match-end 0)
-                             'display "")
-          nil)))
+     (0 (put-text-property (match-beginning 0) (match-end 0) 'invisible t)))
     ("^  /.*:"
-     (0 (progn ;; (ov-set (make-overlay (match-beginning 0)
-          ;;                       (+ 1 (match-end 0)))
-          ;;         'evaporate t
-          ;;         'display "")
-          (put-text-property (match-beginning 0)
-                             (1+ (match-end 0))
-                             'display "")
-          nil)))
+     (0 (put-text-property (match-beginning 0) (1+ (match-end 0)) 'invisible t)))
+
+    ;; For M-x `find-dired'
+    ("^  find finished at .*$"
+     (0 (put-text-property (match-beginning 0) (match-end 0) 'invisible t)))
+    ("^  find \\. .* -ls$"
+     (0 (put-text-property (match-beginning 0) (1+ (match-end 0)) 'invisible t)))
     ))
 
 (define-minor-mode drfl-mode
@@ -217,6 +210,7 @@
 (defun nagy-browse-url-of-buffer ()
   (interactive)
   (browse-url (url-knowledge--get-url)))
+(keymap-global-set "H-b" #'nagy-browse-url-of-buffer)
 
 (use-package dired
   :preface
@@ -294,6 +288,16 @@ Can be used as an advice."
            "ö" #'browse-url-of-dired-file
            "y" #'dired-copy-filename-as-kill
            ))
+
+(use-package dired-x
+  :defer t
+  :hook
+  (dired-mode . dired-omit-mode)
+  :custom
+  ;; Tell Dired to hide exactly "." and ".." (and any other files if desired)
+  (dired-omit-files "^\\.?\\.$\\|^\\.\\.$")
+  (dired-omit-verbose nil)
+  )
 
 (use-package dired-subtree
   ;; :after dired
