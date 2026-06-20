@@ -345,5 +345,56 @@ Can be used as an advice."
 ;;   "a macro to create functions, that apply to dired files.
 ;; marks the created function to be M-X able in dired-mode")
 
+(require 'display-line-numbers)
+;; NIX-EMACS-PACKAGE: dirvish
+(use-package dirvish
+  :defer t
+  :preface
+  (defun nagy-dired--dirvish-no-line-numbers ()
+    (when (and display-line-numbers-mode
+               (eq 'dired-mode major-mode))
+      (display-line-numbers-mode -1)))
+  :custom
+  ;; Define the default columns (adding file sizes, icons, etc.)
+  (dirvish-attributes '(subtree-state line-number dimensions file-size file-time collapse))
+  ;; (dirvish-attributes '(subtree-state line-number file-size file-time collapse))
+  ;; (dirvish-preview-dispatchers '(image video pdf archive text))
+  (dirvish-hide-cursor nil)
+  (dirvish-window-fringe 0)
+  (dirvish-use-mode-line nil)
+  ;; (dirvish-use-header-line nil)
+  ;; (dirvish-header-line-height 0)
+  :config
+  (dirvish-override-dired-mode) ;; Let Dirvish completely take over Dired
+  ;; (dirvish-peek-mode)
+  ;; Do not mess with cursor
+  (advice-add 'dirvish--maybe-toggle-cursor :override #'ignore)
+  (add-hook 'display-line-numbers-mode-hook #'nagy-dired--dirvish-no-line-numbers)
+  :general
+  (:states 'normal :keymaps 'dirvish-mode-map
+           "s" #'dirvish-narrow)
+  :bind
+  (:map dired-mode-map
+        ("TAB" . dirvish-subtree-toggle) ; Flicker-free native subtrees!
+        ("h"   . dirvish-history-jump)   ; Quick navigation history
+        ("f"   . dirvish-file-info-menu) ; Pop up full file metadata
+        ("a"   . dirvish-quick-access)   ; Bookmarks and quick jump
+        ("M-m" . dirvish-side)) ; Toggle a narrow sidebar (like NeoTree
+  )
+
+(use-package dirvish-collapse
+  :defer t
+  ;; :config
+  ;; (set-face-attribute 'dirvish-collapse-dir-face nil :inherit 'parenthesis)
+  )
+
+;; (use-package dirvish-emerge
+;;   :defer t
+;;   :hook
+;;   (dirvish-setup . dirvish-emerge-mode)
+;;   ;; :config
+;;   ;; (set-face-attribute 'dirvish-collapse-dir-face nil :inherit 'parenthesis)
+;;   )
+
 (provide 'nagy-dired)
 ;;; nagy-dired.el ends here
