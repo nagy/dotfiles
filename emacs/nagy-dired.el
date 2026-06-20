@@ -295,7 +295,7 @@ Can be used as an advice."
   (dired-mode . dired-omit-mode)
   :custom
   ;; Tell Dired to hide exactly "." and ".." (and any other files if desired)
-  (dired-omit-files "^\\.?\\.$\\|^\\.\\.$")
+  (dired-omit-files (rx bos (or "." ".." ".git") eos))
   (dired-omit-verbose nil)
   )
 

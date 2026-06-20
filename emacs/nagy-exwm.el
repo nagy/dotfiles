@@ -274,6 +274,7 @@ aka xcompose is not properly initialized in the first frame."
   (add-hook 'exwm-update-title-hook #'nagy-exwm-rename-buffer)
   (add-hook 'exwm-init-hook #'nagy-fix-frame)
   (add-hook 'exwm-manage-finish-hook #'my-firefox-sender)
+  (add-hook 'exwm-manage-finish-hook (lambda () (cd temporary-file-directory)))
   (evil-set-initial-state 'exwm-mode 'emacs)
   (require 'exwm-randr)
   (exwm-randr-mode 1)
@@ -305,7 +306,7 @@ aka xcompose is not properly initialized in the first frame."
   (apply #'start-process
          "terminal" nil "alacritty"
          "--option" (format "font.size=%d" (/  (face-attribute 'default :height) 9))
-         args
+         (cl-remove-if-not #'identity args)
          ))
 
 (defun htop ()

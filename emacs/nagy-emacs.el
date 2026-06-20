@@ -312,7 +312,12 @@ windows when moving the mouse."
   (:map process-menu-mode-map
         ([remap dired-jump] . nagy-emacs-process-menu-dired-jump)
         ("H-d" . process-menu-delete-process))
-  :diminish 'visual-line-mode)
+  :general
+  (:states 'normal :keymaps 'process-menu-mode-map
+           [remap evil-replace] #'revert-buffer-quick
+           )
+  :diminish 'visual-line-mode
+  )
 
 (use-package compile
   ;; :custom
@@ -694,8 +699,12 @@ string; otherwise return a 64-character string."
 
 (use-package ibuffer
   :after evil-collection ;; to make the bindings below work
+  :preface
+  (defun nagy-emacs--ibuffer-cd-tmp ()
+    (cd temporary-file-directory))
   :custom
   (ibuffer-expert t)
+  ;; (ibuffer-human-readable-size t)       ;; emacs 31
   (ibuffer-display-summary nil)
   (ibuffer-formats '((mark modified read-only locked " "
                            (name 42 42 :left :elide)
@@ -710,6 +719,8 @@ string; otherwise return a 64-character string."
   ;; :config
   ;; TODO make this work:
   ;; (evil-define-key 'normal ibuffer-mode-map "," nil)
+  :hook
+  (ibuffer-mode-hook . nagy-emacs--ibuffer-cd-tmp)
   )
 
 (use-package elisp-mode
