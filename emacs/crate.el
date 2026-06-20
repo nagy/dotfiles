@@ -61,52 +61,74 @@
     (setq it (s-truncate fill-column it))
     (if (eq it :null) "" it)))
 
-(defun crate--insert-field (label key &optional face &rest extra-props)
-  "Insert LABEL (bold), then the value of KEY from `crate-data'.
-If the value is nil or :null, nothing is inserted after the label.
-If FACE is non-nil, propertize the value with it.
-EXTRA-PROPS are additional text properties applied to the value."
-  (insert (propertize label 'face 'bold))
+(defun crate--insert-field (label key)
+  "Insert LABEL, then the value of KEY from `crate-data'.
+If the value is nil or :null, nothing is inserted after the label."
+  (insert label)
   (let ((val (gethash key crate-data)))
     (unless (or (null val) (eq val :null))
-      (insert (if face
-                  (apply #'propertize val 'face face extra-props)
-                val))))
+      (insert val)))
   (insert "\n"))
+
+(defvar crate-font-lock-keywords
+  `(;; Field labels: "Name:", "Description:", etc. in bold
+    ("^\\([A-Z][a-z]+:\\)[[:space:]]*"
+     (1 'bold))
+    ;; Crate name value
+    ("^Name:[[:space:]]+\\(.+\\)"
+     (1 'org-document-title))
+    ;; URLs on Homepage/Documentation/Repository lines
+    ("^\\(?:Homepage\\|Documentation\\|Repository\\):[[:space:]]+\\(https?://[^[:space:]\n]+\\)"
+     (1 'shr-link nil t))
+    ;; Updated date
+    ("^Updated:[[:space:]]+\\(.+\\)"
+     (1 'marginalia-date))
+    ;; Crate id number
+    ("^Id:[[:space:]]+\\([0-9]+\\)"
+     (1 'marginalia-number)))
+  "Font-lock keywords for `crate-mode'.")
 
 ;;;###autoload
 (define-derived-mode crate-mode text-mode "Crate"
   ;; (setq-local list-buffers-directory crate-name)
   (cd temporary-file-directory)
+  (setq-local font-lock-defaults '(crate-font-lock-keywords))
   (setq-local bookmark-make-record-function #'crate--bookmark-make-record-function)
   (setq-local revert-buffer-function #'ignore)
-  (insert (propertize "Name:          " 'face 'bold))
-  (insert (propertize crate-name 'face 'org-document-title) "\n")
-  (setq-local url-knowledge-url (format "https://crates.io/crates/%s" crate-name))
+  (setq-local url-knowledge-url (concat "https://crates.io/crates/" crate-name))
   (setq-local list-buffers-directory (gethash "description" crate-data))
-  (insert (propertize "Description:   " 'face 'bold))
+  (insert "Name:          ")
+  (insert crate-name "\n")
+  (insert "Description:   ")
   (insert (crate--description))
   (insert "\n")
   ;; Repository (special: may cd into local checkout)
-  (insert (propertize "Repository:    " 'face 'bold))
+  (insert "Repository:    ")
   (awhen (gethash "repository" crate-data)
     (unless (eq it :null)
-      (insert (propertize it 'face 'shr-link 'mouse-face 'highlight))
+      (insert (propertize it 'mouse-face 'highlight))
       (let ((filename (format "/mnt/archive/%s.git.sqfs/" (--> it
                                                       (string-remove-prefix "https://" it)
                                                       (string-replace "/" "__" it)))))
         (when (file-exists-p filename)
           (cd filename)))))
   (insert "\n")
-  (crate--insert-field "Homepage:      " "homepage" 'shr-link 'mouse-face 'highlight)
-  (crate--insert-field "Documentation: " "documentation" 'shr-link 'mouse-face 'highlight)
-  (crate--insert-field "Updated:       " "updated_at" 'marginalia-date)
-  (insert (propertize "Id:            " 'face 'bold))
+  (crate--insert-field "Homepage:      " "homepage")
+  (crate--insert-field "Documentation: " "documentation")
+  (crate--insert-field "Updated:       " "updated_at")
+  (insert "Id:            ")
   (awhen (gethash "id" crate-data)
     (unless (eq it :null)
-      (insert (propertize (number-to-string (floor it)) 'face 'marginalia-number))))
+      (insert (number-to-string (floor it)))))
   (insert "\n\n")
   ;; (insert-crate-structure)
+  ;; Apply mouse-face to URLs (font-lock only handles the `face' property)
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward "https?://[^[:space:]\n]+" nil t)
+      (add-text-properties (match-beginning 0) (match-end 0)
+                           '(mouse-face highlight))))
+  (font-lock-ensure)
   (set-buffer-modified-p nil)
   (goto-char (point-min))
   (read-only-mode 1)
