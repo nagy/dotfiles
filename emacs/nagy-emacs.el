@@ -319,6 +319,24 @@ windows when moving the mouse."
   :diminish 'visual-line-mode
   )
 
+(defun nagy--refresh-process-list ()
+  (let ((buf (get-buffer "*Process List*")))
+    (when (buffer-live-p buf)
+      (with-current-buffer buf
+        (unless (region-active-p)
+          (let* ((win (get-buffer-window buf 'visible))
+                 (pos (point))
+                 (win-pos (when win (window-point win))))
+            (revert-buffer t t t)
+            (goto-char (min pos (point-max)))
+            (when (and win win-pos)
+              (set-window-point win (min win-pos (point-max))))
+            ;; (when (bound-and-true-p hl-line-mode)
+            ;;   (hl-line-highlight))
+            ))))))
+(run-with-timer 0 2 #'nagy--refresh-process-list)
+(run-with-idle-timer 0.5 t #'nagy--refresh-process-list)
+
 (use-package compile
   ;; :custom
   ;; (compilation-scroll-output t)
