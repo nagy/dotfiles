@@ -102,7 +102,7 @@
 (defun brightness-up ()
   (interactive)
   (let ((default-directory temporary-file-directory))
-    (cl-incf brightness--value 5)
+    (incf brightness--value 5)
     (setq brightness--value (min 100 brightness--value))
     (dolist (backlight-driver-name (directory-files "/sys/class/backlight/" nil (rx (any "a-z"))))
       (call-process "brightnessctl" nil nil nil
@@ -113,7 +113,7 @@
 (defun brightness-down ()
   (interactive)
   (let ((default-directory temporary-file-directory))
-    (cl-decf brightness--value 5)
+    (decf brightness--value 5)
     (setq brightness--value (max 0 brightness--value))
     (dolist (backlight-driver-name (directory-files "/sys/class/backlight/" nil (rx (any "a-z"))))
       (call-process "brightnessctl" nil nil nil
@@ -253,7 +253,7 @@ aka xcompose is not properly initialized in the first frame."
   (exwm-randr-workspace-monitor-plist (let ((i 0))
                                         (flatten-list (mapcar (lambda (el)
                                                                 (prog1 (list i (alist-get 'name el))
-                                                                  (cl-incf i)))
+                                                                  (incf i)))
                                                               (display-monitor-attributes-list)))))
   :hook
   (exwm-init . my-firefox-sender)
@@ -317,7 +317,7 @@ aka xcompose is not properly initialized in the first frame."
 
 (defun terminal ()
   (interactive)
-  (start-terminal "--title" (number-to-string (cl-incf terminal-number))))
+  (start-terminal "--title" (number-to-string (incf terminal-number))))
 
 (keymap-global-set "s-+" #'terminal)
 ;; (evil-global-set-key 'normal "." #'terminal)

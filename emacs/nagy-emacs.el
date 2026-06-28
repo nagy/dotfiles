@@ -1074,7 +1074,7 @@ string; otherwise return a 64-character string."
   (let ((reg-str (when (region-active-p)
                    (buffer-substring (region-beginning)
                                      (region-end)))))
-    (let ((buffer (generate-new-buffer (format "new%d" (cl-incf new-buffer--count)))))
+    (let ((buffer (generate-new-buffer (format "new%d" (incf new-buffer--count)))))
       (with-current-buffer buffer
         (cd temporary-file-directory)
         (text-mode))
@@ -1087,7 +1087,7 @@ string; otherwise return a 64-character string."
 
 (defun buffer-new-of-kill ()
   (interactive)
-  (let* ((buffer (generate-new-buffer (format "new%d" (cl-incf new-buffer--count))))
+  (let* ((buffer (generate-new-buffer (format "new%d" (incf new-buffer--count))))
          (kill (current-kill 0))
          (is-json (ignore-errors
                     (ignore (json-parse-string kill))
@@ -1233,7 +1233,7 @@ string; otherwise return a 64-character string."
   "Switch to a new tmp directory."
   (interactive "P")
   (let ((default-directory "/"))
-    (let* ((num (if (numberp arg) arg (cl-incf tmp-counter)))
+    (let* ((num (if (numberp arg) arg (incf tmp-counter)))
            (dirname (format "%s/t%d/" (temporary-file-directory) num)))
       (make-directory dirname t)
       (find-file dirname))))
