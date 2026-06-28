@@ -771,7 +771,7 @@ string; otherwise return a 64-character string."
   (show-paren-highlight-openparen t)
   (show-paren-when-point-inside-paren t)
   (show-paren-when-point-in-periphery t)
-  (show-paren-context-when-offscreen 'overlay)
+  ;; (show-paren-context-when-offscreen 'overlay)
   (blink-matching-paren-distance nil)   ;; to reduce false positives
   :config
   (set-face-attribute 'show-paren-match nil :inherit 'nagy-subtle-blue :background 'unspecified))

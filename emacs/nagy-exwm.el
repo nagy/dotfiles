@@ -257,6 +257,7 @@ aka xcompose is not properly initialized in the first frame."
                                                               (display-monitor-attributes-list)))))
   :hook
   (exwm-init . my-firefox-sender)
+  (exwm-manage-finish . (lambda () (cd temporary-file-directory)))
   :init
   ;; https://github.com/ch11ng/exwm/issues/889
   ;; Frame focus bug
@@ -267,7 +268,6 @@ aka xcompose is not properly initialized in the first frame."
   (add-hook 'exwm-update-class-hook #'nagy-exwm-rename-buffer)
   (add-hook 'exwm-update-title-hook #'nagy-exwm-rename-buffer)
   (add-hook 'exwm-init-hook #'nagy-fix-frame)
-  (add-hook 'exwm-manage-finish-hook (lambda () (cd temporary-file-directory)))
   (evil-set-initial-state 'exwm-mode 'emacs)
   (exwm-randr-mode 1)
   (exwm-wm-mode)
