@@ -1,4 +1,4 @@
-;;; nagy-modus-themes.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-modus-themes.el --- Modus themes configuration -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1"))
 
 ;; NIX-EMACS-PACKAGE: modus-themes
@@ -9,26 +9,30 @@
   (eq (frame-parameter nil 'background-mode) 'light))
 
 ;; Backwards compatibility for modus-themes 5 to modus-themes 4 code
-(defface nagy-nuanced-green '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-nuanced-red '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-intense-blue '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-intense-cyan '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-intense-green '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-intense-red '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-intense-magenta '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-intense-yellow '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-subtle-blue '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-subtle-cyan '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-subtle-red '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-subtle-yellow '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-subtle-green '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-nuanced-cyan '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-fg-red-intense '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-fg-red-faint '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-fg-yellow-faint '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-fg-yellow-intense '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-fg-green-faint '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
-(defface nagy-fg-green-intense '((t (:foreground "black" :background "white"))) "A custom face." :group 'emacs)
+
+;; Background-tinted faces — for use as :inherit targets
+(defface nagy-nuanced-green  '((t)) "Subtle green background face."  :group 'emacs)
+(defface nagy-nuanced-red    '((t)) "Subtle red background face."    :group 'emacs)
+(defface nagy-nuanced-cyan   '((t)) "Subtle cyan background face."   :group 'emacs)
+(defface nagy-intense-blue   '((t)) "Intense blue background face."  :group 'emacs)
+(defface nagy-intense-cyan   '((t)) "Intense cyan background face."  :group 'emacs)
+(defface nagy-intense-green  '((t)) "Intense green background face." :group 'emacs)
+(defface nagy-intense-red    '((t)) "Intense red background face."   :group 'emacs)
+(defface nagy-intense-magenta '((t)) "Intense magenta background face." :group 'emacs)
+(defface nagy-intense-yellow '((t)) "Intense yellow background face." :group 'emacs)
+(defface nagy-subtle-blue    '((t)) "Subtle blue background face."    :group 'emacs)
+(defface nagy-subtle-cyan    '((t)) "Subtle cyan background face."    :group 'emacs)
+(defface nagy-subtle-red     '((t)) "Subtle red background face."     :group 'emacs)
+(defface nagy-subtle-yellow  '((t)) "Subtle yellow background face."  :group 'emacs)
+(defface nagy-subtle-green   '((t)) "Subtle green background face."   :group 'emacs)
+
+;; Foreground-only faces
+(defface nagy-fg-red-intense    '((t)) "Intense red foreground face."    :group 'emacs)
+(defface nagy-fg-red-faint      '((t)) "Faint red foreground face."      :group 'emacs)
+(defface nagy-fg-yellow-intense '((t)) "Intense yellow foreground face." :group 'emacs)
+(defface nagy-fg-yellow-faint   '((t)) "Faint yellow foreground face."   :group 'emacs)
+(defface nagy-fg-green-intense  '((t)) "Intense green foreground face."  :group 'emacs)
+(defface nagy-fg-green-faint    '((t)) "Faint green foreground face."    :group 'emacs)
 
 (use-package modus-themes
   :demand t
@@ -53,7 +57,7 @@
   (defun ala-fix-theme ()
     (interactive)
     (cl-assert (zerop (call-process (if (dayp) "ala-day" "ala-night")))))
-  (defun my-modus-themes-custom-faces ()
+  (defun nagy-modus-themes--custom-faces ()
     (interactive)
     (modus-themes-with-colors
       (custom-set-faces
@@ -83,38 +87,38 @@
        `(tab-bar ((,c :box nil :background ,bg-main)))
        `(tab-line ((,c :box nil :background ,bg-main)))
        )))
-  (defun my-modus-themes-custom-faces2 ()
-    ;; BG
-    (let ((lst '((nuanced-green . green-nuanced)
-                 (nuanced-red . red-nuanced)
-                 (intense-blue . blue-intense)
-                 (intense-cyan . cyan-intense)
-                 (intense-green . green-intense)
-                 (intense-red . red-intense)
-                 (intense-magenta . magenta-intense)
-                 (intense-yellow . yellow-intense)
-                 (subtle-blue . blue-subtle)
-                 (subtle-cyan . cyan-subtle)
-                 (subtle-red . red-subtle)
-                 (subtle-yellow . yellow-subtle)
-                 (subtle-green . green-subtle)
-                 (nuanced-cyan . cyan-nuanced))))
-      (pcase-dolist (`(,name . ,other) lst)
-        (set-face-attribute (intern (concat "nagy-" (symbol-name name))) nil
+  (defun nagy-modus-themes--init-derived-faces ()
+    "Set colors on `nagy-*' faces from the current modus theme palette."
+    ;; Background-tinted faces
+    (let ((bg-faces '((nagy-nuanced-green  . bg-green-nuanced)
+                      (nagy-nuanced-red    . bg-red-nuanced)
+                      (nagy-nuanced-cyan   . bg-cyan-nuanced)
+                      (nagy-intense-blue   . bg-blue-intense)
+                      (nagy-intense-cyan   . bg-cyan-intense)
+                      (nagy-intense-green  . bg-green-intense)
+                      (nagy-intense-red    . bg-red-intense)
+                      (nagy-intense-magenta . bg-magenta-intense)
+                      (nagy-intense-yellow . bg-yellow-intense)
+                      (nagy-subtle-blue    . bg-blue-subtle)
+                      (nagy-subtle-cyan    . bg-cyan-subtle)
+                      (nagy-subtle-red     . bg-red-subtle)
+                      (nagy-subtle-yellow  . bg-yellow-subtle)
+                      (nagy-subtle-green   . bg-green-subtle))))
+      (pcase-dolist (`(,face . ,bg-color) bg-faces)
+        (set-face-attribute face nil
                             :foreground (modus-themes-get-color-value 'fg-main)
-                            :background (modus-themes-get-color-value (intern (concat "bg-" (symbol-name other)))))))
-    ;; FG
-    (let ((lst '((red-intense . red-intense)
-                 (red-faint . red-faint)
-                 (yellow-intense . yellow-intense)
-                 (yellow-faint . yellow-faint)
-                 (green-intense . green-intense)
-                 (green-faint . green-faint))))
-      (pcase-dolist (`(,name . ,other) lst)
-        (set-face-attribute (intern (concat "nagy-fg-" (symbol-name name))) nil
-                            :foreground (modus-themes-get-color-value (intern (symbol-name other)))
-                            :background (modus-themes-get-color-value 'bg-main))))
-    )
+                            :background (modus-themes-get-color-value bg-color))))
+    ;; Foreground-only faces
+    (let ((fg-faces '((nagy-fg-red-intense    . red-intense)
+                      (nagy-fg-red-faint      . red-faint)
+                      (nagy-fg-yellow-intense . yellow-intense)
+                      (nagy-fg-yellow-faint   . yellow-faint)
+                      (nagy-fg-green-intense  . green-intense)
+                      (nagy-fg-green-faint    . green-faint))))
+      (pcase-dolist (`(,face . ,fg-color) fg-faces)
+        (set-face-attribute face nil
+                            :foreground (modus-themes-get-color-value fg-color)
+                            :background (modus-themes-get-color-value 'bg-main)))))
   :bind
   ("H-<f2>" . modus-themes-toggle)
   :custom
@@ -137,12 +141,12 @@
   :hook
   (modus-themes-after-load-theme . nagy-modus-theme-overrides)
   (modus-themes-after-load-theme . ala-fix-theme)
-  (modus-themes-after-load-theme . my-modus-themes-custom-faces)
-  (modus-themes-after-load-theme . my-modus-themes-custom-faces2)
+  (modus-themes-after-load-theme . nagy-modus-themes--custom-faces)
+  (modus-themes-after-load-theme . nagy-modus-themes--init-derived-faces)
   :config
   ;; (add-hook 'modus-themes-after-load-theme-hook #'nagy-modus-theme-overrides)
   ;; (add-hook 'modus-themes-after-load-theme-hook #'ala-fix-theme)
-  ;; (add-hook 'modus-themes-after-load-theme-hook #'my-modus-themes-custom-faces2)
+  ;; (add-hook 'modus-themes-after-load-theme-hook #'nagy-modus-themes--init-derived-faces)
   (modus-themes-load-theme 'modus-vivendi)
   )
 
