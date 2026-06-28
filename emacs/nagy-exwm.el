@@ -1,8 +1,11 @@
 ;;; nagy-exwm.el --- config emacs packages -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") anaphora evil-escape nagy-emacs nagy-url nagy-gc)
+;; Package-Requires: ((emacs "30.1") evil-escape nagy-emacs nagy-url nagy-gc)
 
 ;; NIX-EMACS-PACKAGE: modus-themes
 (require 'modus-themes)
+
+;; NIX-EMACS-PACKAGE: anaphora
+(require 'anaphora)
 
 ;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
@@ -19,7 +22,7 @@
 
 (require 'key-chord)
 
-(declare-function ibuffer-filter-by-used-mode "ibuffer")
+(declare-function ibuffer-filter-by-used-mode "ibuf-ext")
 
 (defun my-screenshot ()
   (interactive)
@@ -157,21 +160,20 @@
     "Frames directly started in exwm have some missing keys like s-💤.
 aka xcompose is not properly initialized in the first frame."
     (interactive)
-    (let ((it (car (frame-list))))
-      (make-frame)
-      (delete-frame it)
-      (make-frame)
-      (global-hl-line-mode -1)
-      (call-interactively #'modus-themes-toggle)
-      (call-interactively #'modus-themes-toggle)
-      (global-hl-line-mode -1)
-      (when (fboundp 'evil-escape-mode)
-        (evil-escape-mode -1))
-      (exwm-randr-refresh)
-      (evil-mode)
-      (GC-DISABLE)
-      (setq-default lexical-binding t)
-      (update-current-frame-fontset)))
+    ;; we have to use this because if we use `exwm-workspace-number'
+    ;; then the first frame does not work with xcompose keys like s-💤
+    (make-frame)
+    (global-hl-line-mode -1)
+    (call-interactively #'modus-themes-toggle)
+    (call-interactively #'modus-themes-toggle)
+    (global-hl-line-mode -1)
+    (when (fboundp 'evil-escape-mode)
+      (evil-escape-mode -1))
+    (exwm-randr-refresh)
+    (evil-mode)
+    (GC-DISABLE)
+    (setq-default lexical-binding t)
+    (update-current-frame-fontset))
   (defun nagy-exwm-rename-buffer ()
     (exwm-workspace-rename-buffer
      (--> (concat (pcase exwm-class-name
@@ -243,34 +245,49 @@ aka xcompose is not properly initialized in the first frame."
              ))))
      (current-global-map))
     (exwm-input--update-global-prefix-keys))
+  (defun nagy-randr--build-monitor-plist ()
+    "Build `exwm-randr-workspace-monitor-plist' from current monitors."
+    (setopt exwm-randr-workspace-monitor-plist
+            (let ((i 0))
+              (flatten-list
+               (mapcar (lambda (monitor)
+                         (prog1 (list i (alist-get 'name monitor))
+                           (incf i)))
+                       (display-monitor-attributes-list))))))
   :demand t
   :custom
   (exwm-manage-force-tiling t)
   (exwm-replace nil) ;; never ask to replace window manager
+  ;; (exwm-workspace-number 1)
   (exwm-workspace-show-all-buffers t)
   (exwm-layout-show-all-buffers t)
   (exwm-manage-configurations '((t char-mode t)))
-  (exwm-randr-workspace-monitor-plist (let ((i 0))
-                                        (flatten-list (mapcar (lambda (el)
-                                                                (prog1 (list i (alist-get 'name el))
-                                                                  (incf i)))
-                                                              (display-monitor-attributes-list)))))
-  :hook
-  (exwm-init . my-firefox-sender)
-  (exwm-manage-finish . (lambda () (cd temporary-file-directory)))
-  :init
+  ;; After (placeholder — computed dynamically):
+  (exwm-randr-workspace-monitor-plist nil)
   ;; https://github.com/ch11ng/exwm/issues/889
   ;; Frame focus bug
-  (setopt mouse-autoselect-window t)
-  (setopt focus-follows-mouse t)
+  (mouse-autoselect-window t)
+  (focus-follows-mouse t)
+  :hook
+  (exwm-manage-finish . my-firefox-sender)
+  (exwm-manage-finish . (lambda () (cd temporary-file-directory)))
   :config
   ;; Add these hooks in a suitable place (e.g., as done in exwm-config-default)
   (add-hook 'exwm-update-class-hook #'nagy-exwm-rename-buffer)
   (add-hook 'exwm-update-title-hook #'nagy-exwm-rename-buffer)
   (add-hook 'exwm-init-hook #'nagy-fix-frame)
+  ;; Run once at startup
+  (nagy-randr--build-monitor-plist)
+  ;; Re-run whenever monitors change (dock/undock, plug/unplug)
+  (add-hook 'exwm-randr-screen-change-hook #'nagy-randr--build-monitor-plist)
   (evil-set-initial-state 'exwm-mode 'emacs)
   (exwm-randr-mode 1)
-  (exwm-wm-mode)
+  ;; starting with exwm-202602xx+ ( or after commit
+  ;; 3b861e2d030b1bf87e745decfca9b5f4f36179e0 or starting with 0.35 )
+  ;; we cannot immediately execute this. it needs to be delayed until
+  ;; an unknown other event has happend.
+  ;; (run-at-time 30 nil #'exwm-wm-mode)
+  (exwm-wm-mode 1)
   :bind
   ("s-I" . ibuffer-exwm)
   ("s-<escape>" . exwm-reset)
