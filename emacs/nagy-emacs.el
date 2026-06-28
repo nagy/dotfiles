@@ -90,7 +90,7 @@
 (defun nagy-kill-this-buffer ()
   "Kill the current buffer."
   (interactive)
-  (kill-this-buffer))
+  (kill-buffer (current-buffer)))
 ;; this does not work yet
 ;; (defalias 'nagy-kill-this-buffer (symbol-function 'kill-this-buffer))
 
@@ -237,8 +237,6 @@ windows when moving the mouse."
   ("s-h" . tab-previous)
   ("s-l" . tab-next)
   ("s-<prior>" . tab-previous)
-  ("s-<next>" . tab-next)
-  ("s-<home>" . tab-first)
   ("s-<end>" . tab-last)
   ("s-<XF86Paste>" . tab-new)
   ("M-ð" . disassemble)

@@ -133,6 +133,7 @@
   )
 
 (declare-function exwm-input--update-global-prefix-keys "exwm-input")
+
 ;; NIX-EMACS-PACKAGE: exwm
 (use-package exwm
   :if (display-graphic-p)
@@ -169,7 +170,6 @@ aka xcompose is not properly initialized in the first frame."
       (exwm-randr-refresh)
       (evil-mode)
       (GC-DISABLE)
-      (setq menu-updating-frame nil) ; without this, kill-current-buffer is broken
       (setq-default lexical-binding t)
       (update-current-frame-fontset)))
   (defun nagy-exwm-rename-buffer ()
@@ -215,6 +215,8 @@ aka xcompose is not properly initialized in the first frame."
                         "s-<f5>" ;; screenshot
                         "s-<f12>"
                         "s-="
+                        "s-<home>"
+                        "s-<end>"
                         "<XF86Explorer>"
                         "C-<XF86Explorer>"
                         "<XF86AudioMute>"
@@ -223,13 +225,13 @@ aka xcompose is not properly initialized in the first frame."
                         "<XF86MonBrightnessDown>"
                         "<XF86MonBrightnessUp>"
                         "s-<XF86Tools>"
-                        "s-⨏"           ;; bookmark
-                        "s-ſ"           ;; bookmark
-                        "s-þ"           ;; bookmark
-                        "s-»"           ;; browse-url-from-kill
-                        "H-<f2>"        ;; `modus-themes-toggle'
+                        "s-⨏"    ;; bookmark
+                        "s-ſ"    ;; bookmark
+                        "s-þ"    ;; bookmark
+                        "s-»"    ;; browse-url-from-kill
+                        "H-<f2>" ;; `modus-themes-toggle'
                         "s-D"
-                        "s-·"           ;; `dired-jump-proc'
+                        "s-·" ;; `dired-jump-proc'
                         )
                     eos)
                 key-desc)
@@ -244,45 +246,36 @@ aka xcompose is not properly initialized in the first frame."
   :demand t
   :custom
   (exwm-manage-force-tiling t)
-  (exwm-replace nil)                    ;; never ask to replace window manager
-  (exwm-workspace-number 1)
+  (exwm-replace nil) ;; never ask to replace window manager
   (exwm-workspace-show-all-buffers t)
   (exwm-layout-show-all-buffers t)
   (exwm-manage-configurations '((t char-mode t)))
-  ;; (exwm-input-prefix-keys '())
   (exwm-randr-workspace-monitor-plist (let ((i 0))
                                         (flatten-list (mapcar (lambda (el)
                                                                 (prog1 (list i (alist-get 'name el))
                                                                   (cl-incf i)))
                                                               (display-monitor-attributes-list)))))
-  ;; (exwm-randr-workspace-monitor-plist (map-into (apply #'vector (mapcar (lambda (el) (alist-get 'name el))
-  ;;                                                                       (display-monitor-attributes-list)))
-  ;;                                               'plist))
+  :hook
+  (exwm-init . my-firefox-sender)
   :init
   ;; https://github.com/ch11ng/exwm/issues/889
   ;; Frame focus bug
-  (setq mouse-autoselect-window t
-        focus-follows-mouse t)
-  ;; (setopt exwm-input-global-keys
-  ;;         `((,(kbd "s-<f12>") . +toggle-tab-bar-mode-from-frame)
-  ;;           ;; bookmarks
-  ;;           (,(kbd "s-ð") . ,(lambda () (interactive) (find-file "~/Downloads")))
-  ;;           ))
+  (setopt mouse-autoselect-window t)
+  (setopt focus-follows-mouse t)
   :config
   ;; Add these hooks in a suitable place (e.g., as done in exwm-config-default)
   (add-hook 'exwm-update-class-hook #'nagy-exwm-rename-buffer)
   (add-hook 'exwm-update-title-hook #'nagy-exwm-rename-buffer)
   (add-hook 'exwm-init-hook #'nagy-fix-frame)
-  (add-hook 'exwm-manage-finish-hook #'my-firefox-sender)
   (add-hook 'exwm-manage-finish-hook (lambda () (cd temporary-file-directory)))
   (evil-set-initial-state 'exwm-mode 'emacs)
-  (require 'exwm-randr)
   (exwm-randr-mode 1)
-  ;; (exwm-enable)
   (exwm-wm-mode)
   :bind
   ("s-I" . ibuffer-exwm)
   ("s-<escape>" . exwm-reset)
+  ("s-<next>" . tab-next)
+  ("s-<home>" . tab-first)
   )
 
 (defun delete-window-or-tab (&optional WINDOW)
@@ -329,6 +322,7 @@ aka xcompose is not properly initialized in the first frame."
 (keymap-global-set "s-+" #'terminal)
 ;; (evil-global-set-key 'normal "." #'terminal)
 (evil-global-set-key 'normal "," #'terminal)
+(declare-function ghostel "ghostel")
 (with-eval-after-load 'dired
   (evil-define-key 'normal dired-mode-map "." #'ghostel))
 (with-eval-after-load 'magit
