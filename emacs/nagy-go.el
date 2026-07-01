@@ -2,29 +2,21 @@
 
 ;; Package-Requires: ((emacs "30.1") reformatter nagy-use-package)
 
-;; NIX-EMACS-PACKAGE: go-mode
-(use-package go-mode
-  :preface
-  (reformatter-define go-fmt
-    :group 'go
-    :program "gofmt"
-    :lighter " GF")
-  :hook
-  (go-mode . go-fmt-on-save-mode)
-  :bind
-  ("H-M-g" . go-mode))
-;; (setq auto-insert-alist nil)
-;; (define-auto-insert
-;;   `("\\.go\\'" . "Go skeleton")
-;;   '("Short description: "
-;;     "package main;" \n
-;;     \n
-;;     "import \"fmt\"" \n
-;;     \n
-;;     "func main() {" \n
-;;     "fmt.Println(\"hello world\")" \n
-;;     > _ \n
-;;     "}" > \n))
+;; ;; NIX-EMACS-PACKAGE: go-mode
+;; (use-package go-mode
+;;   :preface
+;;   (reformatter-define go-fmt
+;;     :group 'go
+;;     :program "gofmt"
+;;     :lighter " GF")
+;;   :hook
+;;   (go-mode . go-fmt-on-save-mode)
+;;   :bind
+;;   ("H-M-g" . go-mode))
+
+(use-package go-ts-mode
+  :defer t
+  )
 
 (defun find-file-directory-go ()
   (interactive)
