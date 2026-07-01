@@ -189,58 +189,58 @@
 ;;   :config
 ;;   (evil-set-initial-state 'calc-mode 'emacs))
 
-;; NIX-EMACS-PACKAGE: eat
-(use-package eat
-  :commands (eat-ncdu eat-dool eat-yank)
-  :preface
-  (defun nagy--eat-char-mode (_proc)
-    (evil-emacs-state 1)
-    (eat-char-mode)
-    (when global-display-line-numbers-mode
-      (display-line-numbers-mode 1))
-    (setq-local truncate-lines t)
-    (text-scale-adjust 0)
-    )
-  (defun nagy--eat--evil-normal-mode (_proc)
-    (when global-display-line-numbers-mode
-      (display-line-numbers-mode 1))
-    (evil-normal-state 1))
-  :custom
-  (eat-kill-buffer-on-exit nil)
-  (eat-enable-directory-tracking nil)
-  (eat-enable-shell-prompt-annotation nil)
-  (eat-term-scrollback-size nil)
-  :config
-  ;; Starting with emacs 31, nil is now the default
-  (setq process-adaptive-read-buffering nil)
-  (evil-set-initial-state 'eat-mode 'emacs)
-  (add-hook 'eat-exec-hook #'nagy--eat-char-mode)
-  (add-hook 'eat-exit-hook #'nagy--eat--evil-normal-mode)
-  (defun eat-ncdu ()
-    "Doctext."
-    (interactive)
-    (let ((eat-buffer-name "*eat-ncdu*")
-          (eat-kill-buffer-on-exit t))
-      (when (get-buffer eat-buffer-name)
-        (kill-buffer (get-buffer eat-buffer-name)))
-      (eat "ncdu --one-file-system")))
-  (defun eat-dool ()
-    "Doctext."
-    (interactive)
-    (let ((eat-buffer-name "*eat-dool*")
-          (eat-kill-buffer-on-exit t))
-      (eat "dool -N eth0 --bytes --bw")))
-  (key-chord-register-keys ?ß ?w)
-  (keymap-set eat-char-mode-map "H-y" #'eat-yank)
-  :bind
-  (:map evil-normal-state-map
-        ;; ("<key-chord> - x" . eat)
-        ("<key-chord> ß w" . eat-ncdu))
-  (:map eat-mode-map
-        ("H-h" . eat-emacs-mode)
-        ("H-l" . eat-char-mode)
-        ("H-r" . eat-reset)
-        ))
+;; ;; NIX-EMACS-PACKAGE: eat
+;; (use-package eat
+;;   :commands (eat-ncdu eat-dool eat-yank)
+;;   :preface
+;;   (defun nagy--eat-char-mode (_proc)
+;;     (evil-emacs-state 1)
+;;     (eat-char-mode)
+;;     (when global-display-line-numbers-mode
+;;       (display-line-numbers-mode 1))
+;;     (setq-local truncate-lines t)
+;;     (text-scale-adjust 0)
+;;     )
+;;   (defun nagy--eat--evil-normal-mode (_proc)
+;;     (when global-display-line-numbers-mode
+;;       (display-line-numbers-mode 1))
+;;     (evil-normal-state 1))
+;;   :custom
+;;   (eat-kill-buffer-on-exit nil)
+;;   (eat-enable-directory-tracking nil)
+;;   (eat-enable-shell-prompt-annotation nil)
+;;   (eat-term-scrollback-size nil)
+;;   :config
+;;   ;; Starting with emacs 31, nil is now the default
+;;   (setq process-adaptive-read-buffering nil)
+;;   (evil-set-initial-state 'eat-mode 'emacs)
+;;   (add-hook 'eat-exec-hook #'nagy--eat-char-mode)
+;;   (add-hook 'eat-exit-hook #'nagy--eat--evil-normal-mode)
+;;   (defun eat-ncdu ()
+;;     "Doctext."
+;;     (interactive)
+;;     (let ((eat-buffer-name "*eat-ncdu*")
+;;           (eat-kill-buffer-on-exit t))
+;;       (when (get-buffer eat-buffer-name)
+;;         (kill-buffer (get-buffer eat-buffer-name)))
+;;       (eat "ncdu --one-file-system")))
+;;   (defun eat-dool ()
+;;     "Doctext."
+;;     (interactive)
+;;     (let ((eat-buffer-name "*eat-dool*")
+;;           (eat-kill-buffer-on-exit t))
+;;       (eat "dool -N eth0 --bytes --bw")))
+;;   (key-chord-register-keys ?ß ?w)
+;;   (keymap-set eat-char-mode-map "H-y" #'eat-yank)
+;;   :bind
+;;   (:map evil-normal-state-map
+;;         ;; ("<key-chord> - x" . eat)
+;;         ("<key-chord> ß w" . eat-ncdu))
+;;   (:map eat-mode-map
+;;         ("H-h" . eat-emacs-mode)
+;;         ("H-l" . eat-char-mode)
+;;         ("H-r" . eat-reset)
+;;         ))
 
 (require 'vertico)
 (use-package key-chord
