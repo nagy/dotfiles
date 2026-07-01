@@ -450,6 +450,7 @@
   (ghostel-enable-url-detection nil)
   (ghostel-enable-file-detection nil)
   (ghostel-max-scrollback (* 1024 1024 1024))
+  (ghostel-query-before-killing nil)
   :config
   (add-to-list 'inhibit-message-regexps (rx bol "Char mode ("))
   (add-to-list 'inhibit-message-regexps (rx bol "Line mode:"))
