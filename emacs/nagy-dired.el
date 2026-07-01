@@ -253,7 +253,7 @@ Can be used as an advice."
   (dired-free-space nil)
   (dired-compress-directory-default-suffix ".tar.zst")
   (dired-hide-details-hide-symlink-targets nil)
-  (dired-listing-switches "--almost-all -lh -g --no-group --group-directories-first")
+  (dired-listing-switches "--almost-all -lh -g --no-group --group-directories-first -X")
   (dired-switches-in-mode-line 0)
   ;; (dired-listing-switches ". -l")
   :config
@@ -290,6 +290,7 @@ Can be used as an advice."
            ))
 
 (use-package dired-x
+  :disabled
   :defer t
   :hook
   (dired-mode . dired-omit-mode)

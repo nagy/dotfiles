@@ -1,5 +1,5 @@
 ;;; nagy-org.el --- My org config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") ascii-art-to-unicode org-ref orgit howm nagy-use-package)
+;; Package-Requires: ((emacs "30.1") ascii-art-to-unicode org-ref orgit nagy-use-package)
 
 (require 'general)
 

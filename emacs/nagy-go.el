@@ -25,11 +25,18 @@
 ;;     "fmt.Println(\"hello world\")" \n
 ;;     > _ \n
 ;;     "}" > \n))
-;; (defun find-file-directory-go ()
-;;   (interactive)
-;;   (find-file "main.go")
-;;   )
-;; (keymap-set dired-mode-map "H-M-g" #'find-file-directory-go)
+
+(defun find-file-directory-go ()
+  (interactive)
+  (cond
+   ((file-exists-p "main.go")
+    (find-file "main.go"))
+   ((file-exists-p "go.mod")
+    (find-file "go.mod"))
+   (t (user-error "No Go suitable file found")))
+  )
+(require 'dired)
+(keymap-set dired-mode-map "H-M-g" #'find-file-directory-go)
 
 (provide 'nagy-go)
 ;;; nagy-go.el ends here

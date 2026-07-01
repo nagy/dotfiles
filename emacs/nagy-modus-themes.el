@@ -190,5 +190,11 @@
   (modus-themes-after-load-theme . nagy--fix-paren-face)
   )
 
+;; NIX-EMACS-PACKAGE: nerd-icons
+(use-package nerd-icons
+  :demand t
+  :bind
+  ("C-H-s-e" . nerd-icons-insert))
+
 (provide 'nagy-modus-themes)
 ;;; nagy-modus-themes.el ends here
