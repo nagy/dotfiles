@@ -305,6 +305,32 @@
            "ö" #'comint-send-input
            "_" #'comint-send-eof))
 
+;; NIX-EMACS-PACKAGE: evil
+(require 'evil)
+(defun comint--evil-append ()
+  (interactive)
+  (pcase-let
+      ((`(,lbeg . ,lend)
+        (save-excursion
+          (goto-char (point-max))
+          (cons (line-beginning-position) (line-end-position)))))
+    (unless (<= lbeg (point) lend)
+      (goto-char (point-max))))
+  (evil-append 0))
+(evil-define-key 'normal comint-mode-map "a" #'comint--evil-append)
+
+(defun comint--evil-insert ()
+  (interactive)
+  (pcase-let
+      ((`(,lbeg . ,lend)
+        (save-excursion
+          (goto-char (point-max))
+          (cons (line-beginning-position) (line-end-position)))))
+    (unless (<= lbeg (point) lend)
+      (goto-char (point-max))))
+  (evil-insert 0))
+(evil-define-key 'normal comint-mode-map "i" #'comint--evil-insert)
+
 ;; NIX-EMACS-PACKAGE: sotlisp
 (use-package sotlisp
   :demand t
