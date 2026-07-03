@@ -7,7 +7,7 @@
 (use-package org
   :commands (find-file-org)
   :custom
-  (org-image-actual-width 400)
+  (org-image-actual-width 1200)
   (org-todo-keywords '((sequence "WAITING" "TODO" "DONE")
                        (sequence "TO-WATCH" "WATCHING" "DONE")))
   (org-confirm-babel-evaluate nil)
