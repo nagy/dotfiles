@@ -7,6 +7,7 @@
 (require 'nagy-dired nil (not init-file-debug))
 (require 'nagy-emacs nil (not init-file-debug))
 (require 'nagy-evil nil (not init-file-debug))
+(require 'nagy-ewm nil (not init-file-debug))
 (require 'nagy-exwm nil (not init-file-debug))
 (require 'nagy-gc nil (not init-file-debug))
 (require 'nagy-go nil (not init-file-debug))
