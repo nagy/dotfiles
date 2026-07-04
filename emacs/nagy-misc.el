@@ -527,11 +527,11 @@ Returns the total execution time as a floating-point number."
 
 ;; NIX-EMACS-PACKAGE: ace-window
 (use-package ace-window
-  :init
-  (setq aw-keys (list ?a ?s ?d ?f ?h ?j ?k ?l ))
-  (setq aw-background nil)
-  (setq aw-scope 'visible)
-  (setq aw-leading-char-style 'path)
+  :custom
+  (aw-keys (list ?a ?s ?d ?f ?h ?j ?k ?l ))
+  (aw-background nil)
+  (aw-scope 'visible)
+  (aw-leading-char-style 'path)
   :bind
   ("s-'" . ace-window))
 
