@@ -436,24 +436,6 @@ windows when moving the mouse."
   (tab-bar-close-button-show nil)
   (tab-bar-new-tab-choice t))
 
-;; exwm overlaps with tab line
-;; (defun +nagy-window-edges-with-tab-line-mode (orig-fn &rest args)
-;;   "Bug fix https://github.com/ch11ng/exwm/issues/788"
-;;   (let ((result (apply orig-fn args)))
-;;     (when (and tab-line-mode
-;;                (equal '(t t t) (cdr args)))
-;;       (cl-incf (cadr result) (frame-char-height)))
-;;     result))
-;; (advice-add 'window-edges :around #'+nagy-window-edges-with-tab-line-mode)
-;; https://github.com/ch11ng/exwm/issues/788
-;; (use-package tab-line
-;;   :defer t
-;;   ;; :config
-;;   ;; (global-tab-line-mode 1)
-;;   :custom
-;;   (tab-line-close-button nil)
-;;   (tab-line-new-button nil))
-
 (use-package wdired
   :bind
   (:map wdired-mode-map
