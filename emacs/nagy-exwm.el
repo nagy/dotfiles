@@ -139,7 +139,7 @@
 
 ;; NIX-EMACS-PACKAGE: exwm
 (use-package exwm
-  :if (display-graphic-p)
+  :if (eq window-system 'x)
   :commands (exwm-randr-refresh exwm-workspace-rename-buffer)
   :preface
   (defun tab-last ()
@@ -263,7 +263,7 @@ aka xcompose is not properly initialized in the first frame."
   (exwm-layout-show-all-buffers t)
   (exwm-manage-configurations '((t char-mode t)))
   ;; After (placeholder — computed dynamically):
-  (exwm-randr-workspace-monitor-plist nil)
+  ;; (exwm-randr-workspace-monitor-plist nil)
   ;; https://github.com/ch11ng/exwm/issues/889
   ;; Frame focus bug
   (mouse-autoselect-window t)
@@ -276,10 +276,6 @@ aka xcompose is not properly initialized in the first frame."
   (add-hook 'exwm-update-class-hook #'nagy-exwm-rename-buffer)
   (add-hook 'exwm-update-title-hook #'nagy-exwm-rename-buffer)
   (add-hook 'exwm-init-hook #'nagy-fix-frame)
-  ;; Run once at startup
-  (nagy-randr--build-monitor-plist)
-  ;; Re-run whenever monitors change (dock/undock, plug/unplug)
-  (add-hook 'exwm-randr-screen-change-hook #'nagy-randr--build-monitor-plist)
   (evil-set-initial-state 'exwm-mode 'emacs)
   (exwm-randr-mode 1)
   ;; starting with exwm-202602xx+ ( or after commit
@@ -288,6 +284,10 @@ aka xcompose is not properly initialized in the first frame."
   ;; an unknown other event has happend.
   ;; (run-at-time 30 nil #'exwm-wm-mode)
   (exwm-wm-mode 1)
+  ;; Run once at startup
+  (nagy-randr--build-monitor-plist)
+  ;; Re-run whenever monitors change (dock/undock, plug/unplug)
+  (add-hook 'exwm-randr-screen-change-hook #'nagy-randr--build-monitor-plist)
   :bind
   ("s-I" . ibuffer-exwm)
   ("s-<escape>" . exwm-reset)

@@ -1,5 +1,5 @@
 ;;; nagy-emacs.el --- config emacs packages -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") anaphora ov reformatter zoom nagy-use-package)
+;; Package-Requires: ((emacs "30.1") anaphora ov reformatter nagy-use-package)
 
 (require 'general)
 
@@ -8,8 +8,6 @@
 
 ;; NIX-EMACS-PACKAGE: key-chord
 (require 'key-chord)
-
-;; (require 'reformatter)
 
 (defun save-kill-buffer ()
   "Save and kill a buffer."
@@ -454,22 +452,6 @@ windows when moving the mouse."
   (comint-mode . abbrev-mode)
   (text-mode . abbrev-mode)
   :config
-  ;; Abbreviations
-  (define-abbrev global-abbrev-table "afaict" "as far as I can tell" nil :system t)
-  (define-abbrev global-abbrev-table "btw" "by the way" nil :system t)
-  (define-abbrev global-abbrev-table "pov" "point of view" nil :system t)
-  (define-abbrev global-abbrev-table "gr8" "great" nil :system t)
-  (define-abbrev global-abbrev-table "thrf" "therefore" nil :system t)
-  ;; Typos
-  (define-abbrev global-abbrev-table "wether" "whether" nil :system t)
-  (define-abbrev global-abbrev-table "occured" "occurred" nil :system t)
-  (define-abbrev global-abbrev-table "flase" "false" nil :system t)
-  (define-abbrev global-abbrev-table "teh" "the" nil :system t)
-  (define-abbrev global-abbrev-table "tehn" "then" nil :system t)
-  (define-abbrev global-abbrev-table "fuond" "found" nil :system t)
-  (define-abbrev global-abbrev-table "lnux" "linux" nil :system t)
-  (define-abbrev global-abbrev-table "thsi" "this" nil :system t)
-
   (with-eval-after-load 'nix-repl
     (define-abbrev nix-repl-mode-abbrev-table "wpkgs" "with import <nixpkgs> { }; " nil :system t))
   (with-eval-after-load 'ielm
@@ -589,7 +571,8 @@ windows when moving the mouse."
   :bind
   (:map occur-edit-mode-map
         ([remap save-kill-buffer] . occur-cease-edit)
-        ([remap kill-this-buffer] . occur-cease-edit))
+        ([remap kill-this-buffer] . occur-cease-edit)
+        ([remap nagy-kill-this-buffer] . occur-cease-edit))
   (:map occur-mode-map
         ("H-j" . occur-next)
         ("H-k" . occur-prev))

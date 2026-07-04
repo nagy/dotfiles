@@ -47,6 +47,7 @@
   (evil-global-set-key 'insert (kbd "C-a") #'beginning-of-line)
   (evil-global-set-key 'insert (kbd "C-e") #'end-of-line)
   (advice-add #'evil-jump-backward :after #'evil-scroll-line-to-center)
+  (evil-set-initial-state 'minibuffer-mode 'insert) ;; For emacs31
   :bind
   ("H-z" . evil-scroll-line-to-center)
   ("s-H" . evil-window-move-far-left)
