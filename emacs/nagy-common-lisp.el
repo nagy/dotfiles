@@ -18,9 +18,9 @@
     (switch-to-buffer (get-buffer-create "*hyperspec*"))
     (eww-mode)
     (setq-local shr-inhibit-images t)
-    (eww url)
+    (eww url))
     ;; (evil-scroll-line-down 7)
-    )
+
   (add-to-list 'browse-url-handlers
                '("^file:///nix/store/.*hyperspec.*/Body/" . my-browser-url-eww-hyperspec))
   :same
@@ -84,10 +84,10 @@
   ("disa" . "disassemble")
   ("la" . "lambda")
   ("req" . "require")
-  ("rfs" . "read-from-string")
+  ("rfs" . "read-from-string"))
   ;; :pretty 'sly-mrepl-mode ; does not work, probably needs fontification
   ;; ("lambda" . lambda)
-  )
+
 
 (use-package lisp-mode
   :bind

@@ -16,8 +16,8 @@
                                    ('height (window-height ,pcase-window--expval))
                                    ('left (window-left ,pcase-window--expval))
                                    ('right (window-right ,pcase-window--expval))
-                                   ('parameters (window-parameters ,pcase-window--expval))
-                                   ))
+                                   ('parameters (window-parameters ,pcase-window--expval))))
+
                                ,pat))
                         ((pred symbolp)
                          `(app (lambda (_arg)
@@ -28,8 +28,8 @@
                                    ('height (window-height ,pcase-window--expval))
                                    ('left (window-left ,pcase-window--expval))
                                    ('right (window-right ,pcase-window--expval))
-                                   ('parameters (window-parameters ,pcase-window--expval))
-                                   ))
+                                   ('parameters (window-parameters ,pcase-window--expval))))
+
                                ,field))))
                     fields))))
 

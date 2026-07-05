@@ -50,8 +50,8 @@
         ("H-," . org-todo)
         ("H-q" . org-set-tags-command)
         ("H-E" . org-export-dispatch)
-        ("C-M-l" . org-toggle-link-display)
-        )
+        ("C-M-l" . org-toggle-link-display))
+
   :pretty 'org-mode
   ("#+begin_example" . "↝")
   ("#+end_example" . "↜")
@@ -124,13 +124,13 @@
     "#+identifier: " \n
     \n
     "* First Headline" \n
-    \n
-    ))
+    \n))
+
 
 (defun find-file-directory-org ()
   (interactive)
-  (find-file "README.org")
-  )
+  (find-file "README.org"))
+
 (require 'dired)
 (keymap-set dired-mode-map "H-M-o" #'find-file-directory-org)
 
@@ -221,8 +221,8 @@
 
 (defun find-file-directory-markdown ()
   (interactive)
-  (find-file "README.md")
-  )
+  (find-file "README.md"))
+
 (require 'dired)
 (keymap-set dired-mode-map "H-M-m" #'find-file-directory-markdown)
 
@@ -254,14 +254,14 @@
      ("pypi" . "https://pypi.org/project/")
      ("npm" . "https://www.npmjs.com/package/")
      ("w" . "https://en.wikipedia.org/wiki/")
-     ("wiki" . "https://en.wikipedia.org/wiki/")
-     )))
+     ("wiki" . "https://en.wikipedia.org/wiki/"))))
+
 
 ;; NIX-EMACS-PACKAGE: orglink
 ;; https://github.com/tarsius/orglink
 (use-package orglink
-  :defer t
-  )
+  :defer t)
+
 
 (with-eval-after-load 'thingatpt
   (add-to-list 'thing-at-point-uri-schemes "gh:")
@@ -288,20 +288,20 @@
   (advice-add 'outorg-edit-as-org :around #'nagy-replace-switch-to-buffer-other-window)
   (advice-add 'outorg-edit-as-org :around #'nagy-replace-split-window-sensibly)
   :same
-  "^\\*outorg-edit-buffer\\*"
-  )
+  "^\\*outorg-edit-buffer\\*")
+
 
 ;; NIX-EMACS-PACKAGE: outshine
 (use-package outshine
-  :defer t
-  )
+  :defer t)
+
 
 ;; NIX-EMACS-PACKAGE: org-pretty-table
 (use-package org-pretty-table
   :defer t
   :hook
-  (org-mode . org-pretty-table-mode)
-  )
+  (org-mode . org-pretty-table-mode))
+
 
 ;; NIX-EMACS-PACKAGE: denote
 (use-package denote
@@ -324,8 +324,8 @@
       (apply orig-fun args)))
   (advice-add 'denote :around #'nagy-disable-auto-insert-mode)
   (with-eval-after-load 'nagy-dired     ; to wait for drfl-mode
-    (add-hook 'dired-mode-hook #'denote-dired-mode))
-  )
+    (add-hook 'dired-mode-hook #'denote-dired-mode)))
+
 
 ;; NIX-EMACS-PACKAGE: org-transclusion
 (use-package org-transclusion

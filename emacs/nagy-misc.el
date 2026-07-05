@@ -17,8 +17,8 @@
 (use-package autoinsert
   :defer t
   :custom
-  (auto-insert-query nil)
-  )
+  (auto-insert-query nil))
+
 
 ;; NIX-EMACS-PACKAGE: nameless
 (use-package nameless
@@ -61,8 +61,8 @@
   :preface
   (defun nagy-misc-eww-revert-buffer ()
     (interactive)
-    (setq-local revert-buffer-function #'nagy-misc-eww-revert-buffer2)
-    )
+    (setq-local revert-buffer-function #'nagy-misc-eww-revert-buffer2))
+
   (defun nagy-misc-eww-revert-buffer2 (&rest _args)
     (interactive)
     (eww-reload))
@@ -82,8 +82,8 @@
            [remap evil-jump-backward] #'eww-back-url
            [remap evil-jump-forward] #'eww-forward-url)
   :config
-  (add-hook 'eww-mode-hook #'nagy-misc-eww-revert-buffer)
-  )
+  (add-hook 'eww-mode-hook #'nagy-misc-eww-revert-buffer))
+
 
 (defun nagy/delete-paragraph ()
   (interactive)
@@ -101,10 +101,10 @@
       (copy-region-as-kill (region-beginning) (region-end))
     (save-mark-and-excursion
       (mark-paragraph)
-      (copy-region-as-kill (region-beginning) (region-end))
+      (copy-region-as-kill (region-beginning) (region-end)))))
       ;; use `lispyville-yank' here to trigger evil-goggles.
       ;; (lispyville-yank (region-beginning) (region-end) 'line )
-      )))
+
 
 (use-package text-mode
   :bind
@@ -128,16 +128,16 @@
         ("H-j" . end-of-defun)
         ("H-k" . beginning-of-defun)
         ("H-ö" . save-buffer)
-        ("H-d" . nagy/delete-paragraph)
+        ("H-d" . nagy/delete-paragraph))
         ;; ("H-l" . magit-log-buffer-file)
-        )
+
   :hook
   (prog-mode . visual-line-mode)
   :general
   (:states 'normal :keymaps 'prog-mode-map
            "ö" #'save-buffer
-           "ð" #'evil-delete-whole-line
-           ))
+           "ð" #'evil-delete-whole-line))
+
 
 ;; NIX-EMACS-PACKAGE: tokei
 (use-package tokei
@@ -151,8 +151,8 @@
     (push '(?t "Tokei" tokei-bookmark-jump) consult-bookmark-narrow))
   :general
   (:states 'normal :keymaps 'dired-mode-map
-           "⧖" #'tokei)
-  )
+           "⧖" #'tokei))
+
 
 ;; NIX-EMACS-PACKAGE: wgrep
 (use-package wgrep
@@ -160,8 +160,8 @@
   (:map wgrep-mode-map
         ([remap save-kill-buffer] . wgrep-finish-edit)
         ([remap kill-this-buffer] . wgrep-abort-changes)
-        ([remap nagy-kill-this-buffer] . wgrep-abort-changes)
-        )
+        ([remap nagy-kill-this-buffer] . wgrep-abort-changes))
+
   :general
   (:states 'normal :keymaps 'wgrep-mode-map
            "ö" #'wgrep-finish-edit))
@@ -239,16 +239,16 @@
   :bind
   (:map Info-mode-map
         ("H-j" . Info-next)
-        ("H-k" . Info-prev)
-        )
+        ("H-k" . Info-prev))
+
   :general
   (:states 'normal :keymaps 'Info-mode-map
            "f" #'Info-follow-nearest-node
-           "SPC" nil                    ; was #'Info-scroll-up
-           )
+           "SPC" nil))                    ; was #'Info-scroll-up
+
   ;; TODO
   ;; add public urls via (Info-url-for-node "(elisp)Display Property")
-  )
+
 
 (use-package cus-edit
   :bind
@@ -297,8 +297,8 @@
         ("H-k" . comint-previous-prompt)
         ;; ("<insert-state> <key-chord> f j" . comint-send-input)
         ("<normal-state> <key-chord> f h" . embark-dwim)
-        ("<normal-state> <key-chord> f j" . embark-act)
-        )
+        ("<normal-state> <key-chord> f j" . embark-act))
+
   :general
   (:states 'normal :keymaps 'comint-mode-map
            "Ö" #'comint-previous-input
@@ -339,8 +339,8 @@
   :config
   (with-eval-after-load 'evil
     (speed-of-thought-mode -1)
-    (speed-of-thought-mode 1))
-  )
+    (speed-of-thought-mode 1)))
+
 
 (use-package ielm
   :preface
@@ -361,8 +361,8 @@
   (inferior-emacs-lisp-mode . nagy-misc-ielm-hook)
   :general
   (:states 'normal :keymaps 'inferior-emacs-lisp-mode-map
-           "ö" #'ielm-return)
-  )
+           "ö" #'ielm-return))
+
 
 ;; NIX-EMACS-PACKAGE: osm
 (use-package osm
@@ -389,9 +389,9 @@
 (use-package literate-calc-mode
   :defer t
   :custom
-  (literate-calc-mode-idle-time .1)
+  (literate-calc-mode-idle-time .1))
   ;; (literate-calc-mode-idle-time nil)
-  )
+
 
 ;; NIX-EMACS-PACKAGE: breadcrumb
 (use-package breadcrumb
@@ -407,8 +407,8 @@
         ("M-h" . tabulated-list-previous-column)
         ("M-l" . tabulated-list-next-column)
         ("M-j" . next-line)
-        ("M-k" . previous-line)
-        )
+        ("M-k" . previous-line))
+
   :general
   (:states 'normal :keymaps 'tabulated-list-mode-map
            "{" #'tabulated-list-narrow-current-column
@@ -417,8 +417,8 @@
            ;; "i" #'tabulated-list-previous-column
            ;; "o" #'tabulated-list-next-column
            "i" #'previous-window-any-frame
-           "o" #'next-window-any-frame
-           ))
+           "o" #'next-window-any-frame))
+
 
 ;; NIX-EMACS-PACKAGE: nhexl-mode
 (use-package nhexl-mode
@@ -434,10 +434,10 @@
            "w" #'nhexl-nibble-forward
            "b" #'nhexl-nibble-backward
            "gg" #'beginning-of-buffer
-           "G" #'end-of-buffer)
+           "G" #'end-of-buffer))
   ;; (:states 'normal
   ;;          "⬡" #'nhexl-mode)
-  )
+
 
 ;; similar to doom defaults
 ;; (use-package drag-stuff
@@ -491,8 +491,7 @@ Returns the total execution time as a floating-point number."
 
 ;; NIX-EMACS-PACKAGE: poke-mode
 (use-package poke-mode
-  :defer t
-  )
+  :defer t)
 
 (use-package conf-mode
   :preface
@@ -528,7 +527,7 @@ Returns the total execution time as a floating-point number."
 ;; NIX-EMACS-PACKAGE: ace-window
 (use-package ace-window
   :custom
-  (aw-keys (list ?a ?s ?d ?f ?h ?j ?k ?l ))
+  (aw-keys (list ?a ?s ?d ?f ?h ?j ?k ?l))
   (aw-background nil)
   (aw-scope 'visible)
   (aw-leading-char-style 'path)
@@ -585,10 +584,10 @@ Returns the total execution time as a floating-point number."
   (:keymaps 'elfeed-search-mode-map
             [remap kill-this-buffer] #'elfeed-db-unload
             [remap save-kill-buffer] #'elfeed-db-unload
-            [remap nagy-kill-this-buffer] #'elfeed-db-unload
-            )
+            [remap nagy-kill-this-buffer] #'elfeed-db-unload))
+
   ;; :same "^\\*elfeed-entry"
-  )
+
 
 ;; * Haskell
 
@@ -601,14 +600,14 @@ Returns the total execution time as a floating-point number."
   (:map haskell-mode-map
         ("H-l" . haskell-process-load-file))
   (:map haskell-interactive-mode-map
-        ([remap revert-buffer-quick] . haskell-interactive-mode-clear))
-  )
+        ([remap revert-buffer-quick] . haskell-interactive-mode-clear)))
+
 
 ;; NIX-EMACS-PACKAGE: ormolu
 (use-package ormolu
-  :defer t
+  :defer t)
   ;; :config
-  )
+
 
 ;; * Corfu
 
@@ -651,9 +650,9 @@ Returns the total execution time as a floating-point number."
   (put 'elpher-bookmark-handler 'bookmark-handler-type "Elpher")
   (add-hook 'elpher-mode-hook
             (defun +nagy/elpher-hook ()
-              (setq-local bookmark-make-record-function #'elpher-bookmark-make-record)
+              (setq-local bookmark-make-record-function #'elpher-bookmark-make-record)))
               ;; (setq-local revert-buffer-function (cmd! (elpher-redraw)))
-              ))
+
   (set-face-attribute 'elpher-gemini-heading1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
   (set-face-attribute 'elpher-gemini-heading2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
   (set-face-attribute 'elpher-gemini-heading3 nil :font "Et Bembo" :height 1.2 :inherit 'modus-themes-heading-3)
@@ -667,8 +666,8 @@ Returns the total execution time as a floating-point number."
            ;; (define-key elpher-mode-map "f" nil) ; this might be needed
            "f" #'push-button
            "s" #'elpher-back
-           "C-o" #'elpher-back
-           ))
+           "C-o" #'elpher-back))
+
 
 ;; * Text
 
@@ -707,11 +706,11 @@ Returns the total execution time as a floating-point number."
                               "--from=html")
          (switch-to-buffer  buffer)
          (goto-char (point-min))
-         (text-mode)
+         (text-mode)))))
          ;; (olivetti-mode)
          ;; (let ((inhibit-message t))
          ;;   (olivetti-set-width 80))
-         ))))
+
   ;; (evil-global-set-key 'motion (kbd "g H-M-t") #'nagy-text-to-plain)
   (defun nagy-text-to-org ()
     (interactive)
@@ -775,8 +774,8 @@ Returns the total execution time as a floating-point number."
     (obvious-mode arg))
   :bind
   ("<f12>" . nagy-obvious-mode)
-  ("H-s-w" . nagy-obvious-mode)
-  )
+  ("H-s-w" . nagy-obvious-mode))
+
 
 ;; ;; NIX-EMACS-PACKAGE: multiple-cursors
 ;; (use-package multiple-cursors
@@ -790,15 +789,15 @@ Returns the total execution time as a floating-point number."
 (use-package gitlab-ci-mode
   :defer t
   :bind
-  ("H-M-Y" . gitlab-ci-mode)
-  )
+  ("H-M-Y" . gitlab-ci-mode))
+
 (defun find-file-directory-yaml ()
   (interactive)
   (cond
    ((file-exists-p ".gitlab.yml") (find-file ".gitlab-ci.yml"))
    ((file-exists-p "kustomization.yaml") (find-file "kustomization.yaml"))
-   (t (user-error "No useful YAML file found.")))
-  )
+   (t (user-error "No useful YAML file found."))))
+
 (require 'dired)
 (keymap-set dired-mode-map "H-M-Y" #'find-file-directory-yaml)
 
@@ -820,12 +819,12 @@ Returns the total execution time as a floating-point number."
   :defer t
   :bind
   ("M-k" . drag-stuff-up)
-  ("M-j" . drag-stuff-down)
+  ("M-j" . drag-stuff-down))
   ;; ("<M-left>"  . drag-stuff-left)
   ;; ("<M-right>" . drag-stuff-right)
   ;; :config
   ;; (define-key esc-map "j" nil)
-  )
+
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

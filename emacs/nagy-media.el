@@ -18,8 +18,8 @@
                                 "--no-audio-display"
                                 "--mute=no"
                                 "--force-window=no"
-                                "--vo=null"
-                                )))
+                                "--vo=null")))
+
 
 ;; (use-package emms-playlist-mode
 ;;   ;; :defer t
@@ -34,8 +34,8 @@
   ;; dont make the buffer hidden
   (emms-playlist-buffer-name "*EMMS Playlist*")
   :bind
-  ("<XF86AudioPause>" . emms)
-  )
+  ("<XF86AudioPause>" . emms))
+
 
 (defun mute ()
   "Silences/mutes the audio output via pulseaudio."

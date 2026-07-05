@@ -47,10 +47,10 @@ That means, KEY can also be a cons."
   (awhen (thing-at-point 'url)
     (setq-local url-knowledge-pretty-printed nil)
     (setq-local nagy-mode-line-url-knowledge
-                `((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print ,it) 'face '(:inherit (show-paren-match bold)))) " "))
-                 ))
-    (force-mode-line-update)
-    ))
+                `((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print ,it) 'face '(:inherit (show-paren-match bold)))) " "))))
+
+    (force-mode-line-update)))
+
 
 (defun nagy-list--format-1 (value &optional prevalue)
   (pcase value
@@ -80,7 +80,7 @@ That means, KEY can also be a cons."
                         'nagy-fg-yellow-faint)
                        ((> prevalue (* 512 1024)) ; > 512KB
                         'nagy-fg-green-intense)
-                       (t 'nagy-fg-green-faint)) ))
+                       (t 'nagy-fg-green-faint))))
     (:identifier (propertize (format "%s" prevalue) 'font-lock-face 'magit-hash))
     (:null (propertize "-" 'font-lock-face 'parenthesis))
     (:false (propertize "false" 'font-lock-face 'nagy-fg-red-intense))
@@ -91,8 +91,8 @@ That means, KEY can also be a cons."
                   (if (and (stringp x)
                            (string-prefix-p "/home/" x))
                       (abbreviate-file-name x)
-                    (nagy-list--format-1 x)
-                    ))
+                    (nagy-list--format-1 x)))
+
                 value
                 ", "))
     (:milliseconds
@@ -104,8 +104,8 @@ That means, KEY can also be a cons."
      (nagy-list--format-1 (seq-into value 'list)))
     ((pred stringp)
      ;; (propertize (string-replace "\n" "" value) 'font-lock-face 'font-lock-string-face)
-     (string-replace "\n" "" value)
-     )
+     (string-replace "\n" "" value))
+
     ((pred processp)
      (propertize (prin1-to-string value)
                  'font-lock-face (if (process-live-p value) 'success 'error)))
@@ -127,11 +127,11 @@ That means, KEY can also be a cons."
     ((pred numberp)
      (propertize (number-to-string value)
                  ;; 'font-lock-face 'font-lock-number-face
-                 'font-lock-face 'marginalia-number
-                 ))
-    (_ (string-replace "\n" "" (prin1-to-string value)))
+                 'font-lock-face 'marginalia-number))
+
+    (_ (string-replace "\n" "" (prin1-to-string value)))))
     ;; (_ (format "%s" value))
-    ))
+
 
 (defun nagy-list-table-entries ()
   (seq-map (lambda (obj)
@@ -144,8 +144,8 @@ That means, KEY can also be a cons."
                                           (or (nagy-list--format-1 value prevalue)
                                               (nagy-list--format-1 prevalue)
                                               ""))
-                                        'nagy-list--data obj)
-                            )
+                                        'nagy-list--data obj))
+
                           (map-keys nagy-list--columns))]))
            nagy-list--data))
 
@@ -185,14 +185,14 @@ That means, KEY can also be a cons."
                                   'face 'bold)
                      ,(nagy-list-column-width it)
                      t)
-                   (map-keys nagy-list--columns)) ])
+                   (map-keys nagy-list--columns))])
   (setq tabulated-list-entries #'nagy-list-table-entries)
   (tabulated-list-init-header)
   (tabulated-list-print)
   (set-buffer-modified-p nil)
   (read-only-mode 1)
-  (add-hook 'post-command-hook #'nagy-list--post-command-hook 100 t)
-  )
+  (add-hook 'post-command-hook #'nagy-list--post-command-hook 100 t))
+
 (keymap-global-set "H-M-L" #'nagy-list-mode)
 
 (provide 'nagy-list)

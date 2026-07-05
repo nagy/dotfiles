@@ -36,16 +36,16 @@
         ;; ("s-j"   . vertico-next)
         ;; ("s-k"   . vertico-previous)
         ("H-j"   . vertico-next)
-        ("H-k"   . vertico-previous)
-        )
+        ("H-k"   . vertico-previous))
+
   (:map minibuffer-local-map
         ("s--" . vertico-flat-mode)
         ("H-h" . delete-backward-char))
   :general
   (:states 'insert :keymaps 'vertico-map
            "C-n" #'vertico-next
-           "C-p" #'vertico-previous)
-  )
+           "C-p" #'vertico-previous))
+
 
 (use-package vertico-quick
   :custom
@@ -111,16 +111,16 @@
                      ;; Disable preview for `consult-theme' completely.
                      consult-theme :preview-key nil)
   (setopt consult-ripgrep-args
-          (concat consult-ripgrep-args " --sort=path"))
-  )
+          (concat consult-ripgrep-args " --sort=path")))
+
 
 (use-package consult-imenu
   :defer t
   :general
   (:states 'normal
-           "ø" #'consult-imenu
+           "ø" #'consult-imenu)
            ;; "M-ø" #'imenu-list
-           )
+
   :config
   (setq consult-imenu-config
         '((emacs-lisp-mode
@@ -180,16 +180,16 @@
   (completion-category-overrides '((file (styles orderless partial-completion))
                                    (command (styles orderless+initialism))
                                    (variable (styles orderless+initialism))
-                                   (symbol (styles orderless+initialism))
-                                   ))
+                                   (symbol (styles orderless+initialism))))
+
   (orderless-style-dispatchers '(+vertico-orderless-dispatch))
   (orderless-component-separator "[ &]")
   :config
   (orderless-define-completion-style orderless+initialism
     (orderless-matching-styles '(orderless-initialism
                                  orderless-literal
-                                 orderless-regexp)))
-  )
+                                 orderless-regexp))))
+
 
 ;; NIX-EMACS-PACKAGE: marginalia
 (use-package marginalia

@@ -27,7 +27,7 @@
   (reformatter-define jqfmt
     :group 'emacs
     :program "jqfmt"
-    :args '("-ob" "-ar" "-op" "pipe" ))
+    :args '("-ob" "-ar" "-op" "pipe"))
   :defer t
   ;; :mode "\\.jq\\'"
   ;; :interpreter "jq"
@@ -68,13 +68,13 @@
   ("true" . true) ("false" . false)
   :general
   (:states 'normal :keymaps 'yaml-mode-map
-           "⊢" #'yq-format-buffer)
-  )
+           "⊢" #'yq-format-buffer))
+
 
 ;; * TOML
 
 (use-package toml-ts-mode
-  :defer t
+  :defer t)
   ;; :config
   ;; (add-to-list 'paren-face-modes 'toml-ts-mode)
   ;; (defvar my/toml-ts-bracket-rules
@@ -87,18 +87,18 @@
   ;;           (lambda ()
   ;;             (setq-local treesit-font-lock-settings
   ;;                         (append treesit-font-lock-settings my/toml-ts-bracket-rules))))
-  )
+
 
 ;; * CSV
 
 ;; NIX-EMACS-PACKAGE: csv-mode
 (use-package csv-mode
-  :defer t
+  :defer t)
   ;; :custom
   ;; (csv-align-style 'centre)
   ;; :config
   ;; (csv-align-mode)
-  )
+
 
 (provide 'nagy-data-formats)
 ;;; nagy-data-formats.el ends here

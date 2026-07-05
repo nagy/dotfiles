@@ -19,12 +19,12 @@
                 "-enable-kvm"
                 "-m" "8192"
                 "-smp" "8"
-                "-qmp" "unix:/tmp/baz.sock,server,wait=off"
-                )))
+                "-qmp" "unix:/tmp/baz.sock,server,wait=off")))
+
     `(make-process :name ,name
                    :buffer "*qemu*"
-                   :command ,args))
-  )
+                   :command ,args)))
+
 
 ;; (defvar *qemu* (make-qemu-process
 ;;                 :name "qemu-alpine"

@@ -7,8 +7,8 @@
 (defcustom luac-program "luac"
   "Name of the luac executable."
   :type 'string
-  :group 'lua
-  )
+  :group 'lua)
+
 
 ;;;###autoload
 (define-derived-mode luac-mode special-mode "Luac"
@@ -21,8 +21,8 @@
                          nil
                          "-p"           ; parse only
                          "-l"           ; list
-                         "-"            ; stdin
-                         ))
+                         "-"))            ; stdin
+
   (goto-char (point-min)))
 
 ;;;###autoload

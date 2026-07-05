@@ -8,15 +8,15 @@
   (magit-pull-or-fetch t)
   (magit-no-confirm '(resurrect
                       discard
-                      reverse
+                      reverse))
                       ;; set-and-push
-                      ))
+
   (magit-section-initial-visibility-alist '((untracked . show)
                                             (unstaged . show)
                                             ;; (unpushed . show) ;; is this the "Recent commits" section?
                                             (staged . show)
-                                            (stashes . show)
-                                            ))
+                                            (stashes . show)))
+
   :config
   (add-to-list 'display-buffer-alist '("^magit-revision" display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^magit-stash" display-buffer-same-window))
@@ -37,20 +37,20 @@
         ;; ("H-b" . nagy-browse-url-of-buffer)
         ("H-L" . magit-log-all-branches)
         ("H-<" . magit-process-buffer)
-        ("H-c" . magit-commit-create)
-        )
+        ("H-c" . magit-commit-create))
+
   (:map dired-mode-map
         ("H-L" . magit-log-all-branches)
         ("H-<" . magit-process-buffer))
   (:map magit-diff-mode-map
-        ("SPC" . nil) ;; was `scroll-up'
-        )
+        ("SPC" . nil)) ;; was `scroll-up'
+
   (:map magit-log-select-mode-map
         ([remap save-kill-buffer] . magit-log-select-pick)
         ([remap kill-this-buffer] . magit-log-select-quit)
-        ([remap nagy-kill-this-buffer] . magit-log-select-quit)
-        )
-  )
+        ([remap nagy-kill-this-buffer] . magit-log-select-quit)))
+
+
 
 ;; for gitlab usage
 ;; (with-eval-after-load 'magit
@@ -82,8 +82,8 @@
         ;; ("H-j" . magit-section-forward)
         ;; ("H-k" . magit-section-backward)
         ("<normal-state> <key-chord> f h" . embark-dwim)
-        ("<normal-state> <key-chord> f j" . embark-act)
-        ))
+        ("<normal-state> <key-chord> f j" . embark-act)))
+
 
 ;; NIX-EMACS-PACKAGE: forge
 (use-package forge
@@ -96,8 +96,8 @@
         ([remap nagy-kill-this-buffer] . forge-post-cancel))
   (:map forge-topic-mode-map
         ;; ("M-↓" . forge-pull)
-        ("M-w" . forge-copy-url-at-point-as-kill)
-        )
+        ("M-w" . forge-copy-url-at-point-as-kill))
+
   (:map magit-mode-map
         ("M-ß" . forge-pull))
   (:map dired-mode-map
@@ -109,11 +109,11 @@
   ;;          "ö" #'forge-post-submit)
   :config
   (setq forge-post-mode-hook (delq 'turn-on-flyspell forge-post-mode-hook))
-  (setq forge-post-mode-hook (delq 'visual-line-mode forge-post-mode-hook))
+  (setq forge-post-mode-hook (delq 'visual-line-mode forge-post-mode-hook)))
   ;; (set-face-attribute 'forge-pullreq-open nil :inherit 'modus-themes-heading-1)
   ;; remove flyspell and visual-line-mode
   ;; (setq forge-post-mode-hook nil)
-  )
+
 
 ;; NIX-EMACS-PACKAGE: with-editor
 (use-package with-editor
@@ -124,8 +124,8 @@
         ([remap nagy-kill-this-buffer] . with-editor-cancel))
   :general
   (:states 'normal :keymaps 'with-editor-mode-map
-           "ö" #'with-editor-finish
-           ))
+           "ö" #'with-editor-finish))
+
 
 ;; NIX-EMACS-PACKAGE: git-modes
 (use-package gitattributes-mode

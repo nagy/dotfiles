@@ -22,8 +22,8 @@
                          :config config
                          :endpoint endpoint
                          :command command
-                         :-gathered nil
-                         )))
+                         :-gathered nil)))
+
 
 (cl-defstruct yggdrasil-peer address remote up inbound uptime key)
 (map-extras-define-for-struct yggdrasil-peer (address remote up inbound uptime key))
@@ -59,8 +59,8 @@
                          :up (or (map-elt it 'up) (map-elt it "up"))
                          :inbound (or (map-elt it 'inbound) (map-elt it "inbound"))
                          :uptime (or (map-elt it 'uptime) (map-elt it "uptime"))
-                         :key (or (map-elt it 'key) (map-elt it "key"))
-                         )))
+                         :key (or (map-elt it 'key) (map-elt it "key")))))
+
 (cl-defmethod seq-do (function (sequence yggdrasil))
   (dotimes (i (seq-length sequence))
     (funcall function (seq-elt sequence i))))

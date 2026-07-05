@@ -32,18 +32,18 @@
          :map hledger-mode-map
          ("C-c e" . hledger-jentry)
          ("M-p" . hledger/prev-entry)
-         ("M-n" . hledger/next-entry))
-  )
+         ("M-n" . hledger/next-entry)))
+
 
 (declare-function hledger-get-accounts "hledger-reports")
 (defun embark-target-hledger-account-at-point ()
   (awhen (member (thing-at-point 'filename t)
                  (hledger-get-accounts))
     (-let* (((beg . end) (cons (car (bounds-of-thing-at-point 'filename))
-                               (cdr (bounds-of-thing-at-point 'filename))))
-            )
-      `(account ,(car it) ,beg . ,end)
-      )))
+                               (cdr (bounds-of-thing-at-point 'filename)))))
+
+      `(account ,(car it) ,beg . ,end))))
+
 (add-to-list 'embark-target-finders #'embark-target-hledger-account-at-point)
 
 (defvar-keymap embark-account-map
@@ -55,8 +55,8 @@
 (defun hledger-message-account-bal (account)
   (interactive "MAccount:")
   (message "%S"
-           (shell-command-to-string (format "hledger bal %s" account)))
-  )
+           (shell-command-to-string (format "hledger bal %s" account))))
+
 
 (provide 'nagy-hledger)
 ;;; nagy-hledger.el ends here

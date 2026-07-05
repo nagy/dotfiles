@@ -26,8 +26,8 @@
           ('integer (format "N%d" it))
           ('float (format "F%f" it))
           ('symbol (format "%S" it))
-          ('vector (format "A%d" (length it))))))
-    ))
+          ('vector (format "A%d" (length it))))))))
+
 
 (defun nagy-mode-line--jsvar-update ()
   (setq nagy-mode-line--jsvar-point (aand (nagy-mode-line--jsvar-calc) (propertize it 'face 'button)))
@@ -37,8 +37,8 @@
                                                     (aand
                                                      (nagy-mode-line--jsvar-calc)
                                                      (propertize it 'face 'nerd-icons-lsilver))))))
-  (force-mode-line-update)
-  )
+  (force-mode-line-update))
+
 
 (run-with-idle-timer 1.0 t #'nagy-mode-line--jsvar-update)
 
@@ -52,8 +52,8 @@
 ;; (memoize-restore 'nagy-mode-line-fill)
 
 (defvar-local nagy-mode-line-url-knowledge
-    '((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print url-knowledge-url) 'face '(:inherit (show-paren-match bold)))) " "))
-      ))
+    '((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print url-knowledge-url) 'face '(:inherit (show-paren-match bold)))) " "))))
+
 (put 'nagy-mode-line-url-knowledge 'risky-local-variable t)
 
 (defvar nagy-mode-line-right
@@ -63,13 +63,13 @@
     (:eval (when (derived-mode-p 'nagy-list-mode)
              (concat (propertize "Ŧ" 'face (if (mode-line-window-selected-p) 'nagy-intense-cyan 'nagy-subtle-cyan))
                      (propertize (symbol-name (type-of nagy-list--data)) 'face (if (mode-line-window-selected-p) 'nagy-subtle-cyan 'nagy-nuanced-cyan))
-                     " "
-                     )))
+                     " ")))
+
     (:eval (when (derived-mode-p 'nagy-list-mode)
              (concat (propertize "ŧ" 'face (if (mode-line-window-selected-p) 'nagy-intense-cyan 'nagy-subtle-cyan))
                      (propertize (symbol-name (type-of (nagy-list--data-at-point))) 'face (if (mode-line-window-selected-p) 'nagy-subtle-cyan 'nagy-nuanced-cyan))
-                     " "
-                     )))
+                     " ")))
+
     (nagy-mode-line--jsvar (:eval (format "%s " nagy-mode-line--jsvar)))
     (nagy-mode-line--jsvar-point (:eval (format "%s " nagy-mode-line--jsvar-point)))
     ;; File Size
@@ -78,11 +78,11 @@
                  (derived-mode-p 'magit-mode)
                  (derived-mode-p 'nagy-list-mode))
        (propertize
-        (concat (file-size-human-readable (buffer-size)) "B ")
+        (concat (file-size-human-readable (buffer-size)) "B "))))
         ;; 'face (if (mode-line-window-selected-p)
         ;;           'line-number
         ;;         'mode-line-inactive)
-        )))
+
     ;; Process
     (:eval
      (if (get-buffer-process (current-buffer))
@@ -93,8 +93,8 @@
                              'face 'nagy-nuanced-green))
        (if (derived-mode-p 'exwm-mode)
            `(:propertize ,(format "#x%X" exwm--id) face mode-line-buffer-id)
-         mode-line-position))
-    )))
+         mode-line-position)))))
+
 (put 'nagy-mode-line-right 'risky-local-variable t)
 
 (defvar-local nagy-mode-line--show-default-directory t)
@@ -104,9 +104,9 @@
 (defvar nagy-mode-line--default-directory-shorten-alist
   '(("/run/user/1000/" . "𝒓/")
     ("/tmp/t" . "⧖")
-    ("/tmp/" . "⧖")
-    )
-  )
+    ("/tmp/" . "⧖")))
+
+
 (defun nagy-mode-line--default-directory-shorten (def-dir)
   (setq def-dir (expand-file-name default-directory))
   (cl-loop for el in nagy-mode-line--default-directory-shorten-alist
@@ -122,8 +122,8 @@
   '(:eval (propertize (nagy-mode-line--default-directory-shorten default-directory)
                       'face `(:inherit ,(if (mode-line-window-selected-p) '(dired-directory) nil)
                                        :weight bold
-                                       :height 1.2)
-                      )))
+                                       :height 1.2))))
+
 (put 'nagy-mode-line-default-directory-format 'risky-local-variable t)
 
 (defun nagy-mode-line-init ()
@@ -139,8 +139,8 @@
                   ;; cannot use this because of dired
                   ;; mode-line-buffer-identification
                   (:eval (unless (derived-mode-p 'dired-mode)
-                           '(:propertize "%b " face (:height 1.2 :inherit mode-line-buffer-id))
-                           ))
+                           '(:propertize "%b " face (:height 1.2 :inherit mode-line-buffer-id))))
+
                   ;; mode-line-position ""
                   ;; (vc-mode vc-mode)
                   (:eval (unless (or (derived-mode-p 'exwm-mode)
@@ -157,18 +157,18 @@
                                                   'mode-line
                                                 'mode-line-inactive)
                                               (length (format-mode-line nagy-mode-line-right))))
-                  nagy-mode-line-right
-                  ))
+                  nagy-mode-line-right))
+
   (setq mode-line-modified '((buffer-file-name "%+ ")))
   (setq-default mode-line-modified mode-line-modified)
   (setq mode-line-position '((:eval (buffer-line-count-string))
-                             ""))
+                             "")))
   ;; (setq mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
   ;; (setq-default mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
   ;; (setq mode-line-position '(" L%l/" (:eval (number-to-string (buffer-chars-modified-tick)))))
   ;; cannot set this because dired overrides it
   ;; (setq-default mode-line-buffer-identification '((:propertize "%b" face bold)))
-  )
+
 
 (nagy-mode-line-init)
 ;; (add-hook 'before-init-hook #'nagy-mode-line-init)

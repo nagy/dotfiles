@@ -6,8 +6,8 @@
 (defun pcase-buffer--get-environment (process)
   (string-split (f-read-text (format "/proc/%d/environ" (process-id process)))
                 ;; "^ @"
-                (format "\x00")
-                ))
+                (format "\x00")))
+
 
 ;;;###autoload
 (pcase-defmacro process (&rest fields)
@@ -35,8 +35,8 @@
                                    ('command (process-command ,pcase-process--val))
                                    ('attributes (process-attributes ,pcase-process--val))
                                    ('mark (process-mark ,pcase-process--val))
-                                   ('environment (pcase-buffer--get-environment ,pcase-process--val))
-                                   ))
+                                   ('environment (pcase-buffer--get-environment ,pcase-process--val))))
+
                                ,pat))
                         ((pred symbolp)
                          `(app (lambda (_arg)
@@ -52,8 +52,8 @@
                                    ('command (process-command ,pcase-process--val))
                                    ('attributes (process-attributes ,pcase-process--val))
                                    ('mark (process-mark ,pcase-process--val))
-                                   ('environment (pcase-buffer--get-environment ,pcase-process--val))
-                                   ))
+                                   ('environment (pcase-buffer--get-environment ,pcase-process--val))))
+
                                ,field))))
                     fields))))
 

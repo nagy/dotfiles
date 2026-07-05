@@ -19,13 +19,13 @@
                     "--no-lock"
                     "snapshots"
                     "--json")
-       (restic--sort-cache it)
-       ))
+       (restic--sort-cache it)))
+
 
 (defun restic--sort-cache (cache)
   (--sort (if (string= (gethash "time" it) (gethash "time" other))
               (string> (gethash "id" it) (gethash "id" other))
-            (string> (gethash "time" it) (gethash "time" other)) )
+            (string> (gethash "time" it) (gethash "time" other)))
           cache))
 
 ;; * map.el Integration
@@ -91,8 +91,8 @@
     (switch-to-buffer (generate-new-buffer "*new-restic-from-dired*"))
     (setq-local nagy-list--columns restic--nagy-list--columns)
     (setq-local nagy-list--data (make-restic-backend-for-path first))
-    (nagy-list-mode))
-  )
+    (nagy-list-mode)))
+
 
 ;; * seq.el Integration
 (cl-defmethod seqp ((_object restic))
@@ -108,8 +108,8 @@
     (make-restic-snapshot :id (map-elt it "id")
                           :tree (map-elt it "tree")
                           :time (map-elt it "time")
-                          :paths (map-elt it "paths")
-                          )))
+                          :paths (map-elt it "paths"))))
+
 (cl-defmethod seq-do (function (sequence restic))
   (dotimes (i (seq-length sequence))
     (funcall function (seq-elt sequence i))))

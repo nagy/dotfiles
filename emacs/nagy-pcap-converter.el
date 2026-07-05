@@ -54,32 +54,32 @@
 (defface pcap-blue
   '((t :inherit nagy-subtle-blue :extend t))
   "some"
-  :group 'emacs
-  )
+  :group 'emacs)
+
 
 (defface pcap-rst
   '((t :inherit nagy-subtle-red :extend t))
   "some"
-  :group 'emacs
-  )
+  :group 'emacs)
+
 
 (defface pcap-magenta
   '((t :inherit nagy-subtle-magenta :extend t))
   "some"
-  :group 'emacs
-  )
+  :group 'emacs)
+
 
 (defface pcap-udp
   '((t :inherit nagy-subtle-cyan :extend t))
   "some"
-  :group 'emacs
-  )
+  :group 'emacs)
+
 
 (defface pcap-arp
   '((t :inherit nagy-nuanced-yellow :extend t))
   "some"
-  :group 'emacs
-  )
+  :group 'emacs)
+
 
 (define-derived-mode pcap-mode fundamental-mode "PCAP"
   "hello"

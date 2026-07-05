@@ -24,8 +24,8 @@
   (keymap-set ewm-mode-map "s-j" 'dired-jump)
   (keymap-set ewm-mode-map "s-o" 'nagy-next-window-any-frame)
   (keymap-set ewm-mode-map "s-i" 'nagy-previous-window-any-frame)
-  (ewm--send-intercept-keys)
-  )
+  (ewm--send-intercept-keys))
+
 
 (provide 'nagy-ewm)
 ;;; nagy-ewm.el ends here

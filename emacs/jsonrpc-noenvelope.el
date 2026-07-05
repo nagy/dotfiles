@@ -42,8 +42,8 @@ Return nil if no complete JSON object is found."
       (when-let* ((res (ignore-errors (json-parse-buffer
                                        :object-type 'plist
                                        :null-object nil
-                                       :false-object :json-false
-                                       ))))
+                                       :false-object :json-false))))
+
         (setq p (point))
         (setq ret res)))
     (goto-char p)

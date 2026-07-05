@@ -127,8 +127,8 @@
        body
        (cl-loop for x in (cdr rgx)
                 collect
-                `(define-abbrev ,(intern (concat mode-name "-abbrev-table")) ,(car x) ,(cdr x) nil :system t))
-       ))))
+                `(define-abbrev ,(intern (concat mode-name "-abbrev-table")) ,(car x) ,(cdr x) nil :system t))))))
+
 ;;;###autoload
 (with-eval-after-load 'use-package-core
   (add-to-list 'use-package-keywords :abbrev t))

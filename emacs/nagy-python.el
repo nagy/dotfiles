@@ -14,8 +14,8 @@
     :program "ruff"      ; needs ruff >= 0.1.2
     ;; :args `("format" "--stdin-filename" ,input-file "-")
     ;; it needs to reference to buffer-file-name to respect project settings
-    :args `("format" "--stdin-filename" ,(or (buffer-file-name) input-file))
-    )
+    :args `("format" "--stdin-filename" ,(or (buffer-file-name) input-file)))
+
   :hook
   (python-mode . ruff-format-on-save-mode)
   ;; (python-ts-mode . ruff-format-on-save-mode)
@@ -97,8 +97,8 @@
   :same
   "^\\*Hy\\*$"
   :hook
-  (hy-mode . lispy-mode)
-  )
+  (hy-mode . lispy-mode))
+
 
 (use-package hy-shell
   :defer t
@@ -107,8 +107,8 @@
   :config
   (advice-add 'run-hy :around #'nagy-replace-switch-to-buffer-other-window)
   ;; this does not work in :custom because it is a variable
-  (setq hy-shell--interpreter-args nil)      ; remove --spy
-  )
+  (setq hy-shell--interpreter-args nil))      ; remove --spy
+
 
 (provide 'nagy-python)
 ;;; nagy-python.el ends here

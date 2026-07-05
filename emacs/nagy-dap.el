@@ -14,11 +14,11 @@
 (use-package dape
   :defer t
   :custom
-  (dape-buffer-window-arrangement 'right)
+  (dape-buffer-window-arrangement 'right))
   ;; :config
   ;; (repeat-mode 1)
   ;; :bind
-  )
+
 
 (with-eval-after-load 'dape
   (add-to-list 'dape-configs
@@ -31,9 +31,9 @@
                  :request "launch"
                  :mode "debug"
                  :type "go"
-                 :program "."
+                 :program ".")))
                  ;; :args [""]
-                 )))
+
 ;; (evil-global-set-key 'normal (kbd "ð") dape-global-map)
 ;; (evil-define-key 'normal prog-mode-map (kbd "ð") dape-global-map)
 ;; (keymap-set prog-mode-map "M-RET" dape-global-map)

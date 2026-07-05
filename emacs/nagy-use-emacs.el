@@ -140,14 +140,14 @@
   ;; dash.el
   ("-lambda" . "λ")
   :cycle 'emacs-lisp-mode
-  ("nil" "t")
+  ("nil" "t"))
   ;; ("defreader" . "ℝ")
   ;;             :eval-when-compile "ℂ"
   ;; :config
   ;; (add-hook! emacs-lisp-mode
   ;;   ;; This adds the paragraph symbol as valid function character
   ;;   (set-char-table-range (syntax-table) ?§ '(2)))
-  )
+
 
 ;; (when init-file-debug
 ;;   (require 'benchmark-init)
@@ -157,12 +157,12 @@
 (use-package make-mode
   :defer t
   :bind
-  ("H-M-M" . make-mode)
-  )
+  ("H-M-M" . make-mode))
+
 (defun find-file-make-file ()
   (interactive)
-  (find-file "Makefile")
-  )
+  (find-file "Makefile"))
+
 (require 'dired)
 (keymap-set dired-mode-map "H-M-M" #'find-file-make-file)
 

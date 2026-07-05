@@ -29,15 +29,15 @@
   (start-process-shell-command
    "screenshot"
    (get-buffer-create " *screenshot*")
-   "scrot --select - | xclip -verbose -selection clipboard -t image/png")
-  )
+   "scrot --select - | xclip -verbose -selection clipboard -t image/png"))
+
 (keymap-global-set "s-<f5>" #'my-screenshot)
 
 (defun mute-microphone ()
   (interactive)
   (shell-command-to-string
-   "pactl set-source-mute @DEFAULT_SOURCE@ toggle")
-  )
+   "pactl set-source-mute @DEFAULT_SOURCE@ toggle"))
+
 
 (defun nagy-playerctl-play-pause ()
   (interactive)
@@ -93,10 +93,10 @@
                    ?┃ ?⍜ ?⋋ ?⋌ ?⏚ ?⎎ ?▱ ?◺ ?◸ ?▰ ?◿ ?◹
                    ?☈ ?↯ ?⇊ ?⇉ ?⇇ ?⇈ ?‼ ?↜ ?↝ ?⋱ ?⚆ ?∵ ?⏢ ?▫ ?⍼
                    ?⚀ ?⚁ ?⚂ ?⚃ ?⚄ ?⚅ ?⎵ ?⋔ ?⎍ ?⌂ ?δ))
-  (set-fontset-font t it (font-spec :family "Iosevka Comfy")))
-(dolist (it '(?▮ ?⧻))
-  (set-fontset-font t it (font-spec :family "IosevkaTerm Nerd Font")))
-)
+   (set-fontset-font t it (font-spec :family "Iosevka Comfy")))
+ (dolist (it '(?▮ ?⧻))
+   (set-fontset-font t it (font-spec :family "IosevkaTerm Nerd Font"))))
+
 
 (defvar brightness--value 0)
 
@@ -132,8 +132,8 @@
     (exwm-input-set-local-simulation-keys '(([?\s-f] . [f11]))))
   (when (and exwm-class-name
              (string-prefix-p "Tor Browser" exwm-class-name))
-    (exwm-input-set-local-simulation-keys '(([?\s-f] . [f11]))))
-  )
+    (exwm-input-set-local-simulation-keys '(([?\s-f] . [f11])))))
+
 
 (declare-function exwm-input--update-global-prefix-keys "exwm-input")
 
@@ -181,7 +181,7 @@ aka xcompose is not properly initialized in the first frame."
                     ("firefox" "")
                     ("Zathura" "📓")
                     ("Nsxiv" "⌧")
-                    (_ ))
+                    (_))
                   (or exwm-title "*EXWM*"))
           (string-remove-suffix " — Mozilla Firefox" it)
           (string-remove-suffix " — Mozilla Firefox Private Browsing" it)
@@ -196,8 +196,8 @@ aka xcompose is not properly initialized in the first frame."
     (map-keymap
      (lambda (key _binding)
        (let* ((key-desc (single-key-description key))
-              (case-fold-search nil)
-              )
+              (case-fold-search nil))
+
          ;; (when (string-prefix-p "s-" key-desc))
          (when (string-match-p
                 (rx bos
@@ -233,16 +233,16 @@ aka xcompose is not properly initialized in the first frame."
                         "s-»"    ;; browse-url-from-kill
                         "H-<f2>" ;; `modus-themes-toggle'
                         "s-D"
-                        "s-·" ;; `dired-jump-proc'
-                        )
+                        "s-·") ;; `dired-jump-proc'
+
                     eos)
                 key-desc)
            (let* ((key-vector (kbd key-desc))
                   (key-command (key-binding key-vector)))
              (when key-command
                ;; (message "exwm: %s:%s" key-vector key-desc)
-               (cl-pushnew key-vector exwm-input--global-keys))
-             ))))
+               (cl-pushnew key-vector exwm-input--global-keys))))))
+
      (current-global-map))
     (exwm-input--update-global-prefix-keys))
   (defun nagy-randr--build-monitor-plist ()
@@ -292,8 +292,8 @@ aka xcompose is not properly initialized in the first frame."
   ("s-I" . ibuffer-exwm)
   ("s-<escape>" . exwm-reset)
   ("s-<next>" . tab-next)
-  ("s-<home>" . tab-first)
-  )
+  ("s-<home>" . tab-first))
+
 
 (defun delete-window-or-tab (&optional WINDOW)
   (interactive)
@@ -316,8 +316,8 @@ aka xcompose is not properly initialized in the first frame."
   (apply #'start-process
          "terminal" nil "alacritty"
          "--option" (format "font.size=%d" (/  (face-attribute 'default :height) 9))
-         (cl-remove-if-not #'identity args)
-         ))
+         (cl-remove-if-not #'identity args)))
+
 
 (defun htop ()
   (interactive)
@@ -358,8 +358,8 @@ aka xcompose is not properly initialized in the first frame."
                              "--thumbnail"
                              "--no-bar"
                              ;; "--private"
-                             "."
-                             ))))
+                             "."))))
+
 (keymap-global-set "<pause>" #'nsxiv)
 
 (require 'browse-url)
@@ -407,8 +407,8 @@ aka xcompose is not properly initialized in the first frame."
      ((string-prefix-p "(defun" (buffer-string))
       (emacs-lisp-mode))
      ((ignore-errors (json-parse-buffer))
-      (js-json-mode)))
-    ))
+      (js-json-mode)))))
+
 (keymap-global-set "s-7" #'buffer-from-clipboard)
 
 (provide 'nagy-exwm)

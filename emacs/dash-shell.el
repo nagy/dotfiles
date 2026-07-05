@@ -20,8 +20,8 @@
                          "--fail"
                          "--silent"
                          "--compressed"
-                         url))
-     )
+                         url)))
+
     (`(,(and (cl-type url)
              url))
      (-shell--case (list (url-recreate-url url))))
@@ -42,8 +42,8 @@
                     (flatten-list
                      (remq nil rest))))
             zerop
-            (cl-assert it t "Shell command with non-nil exitcode: %s %S %S" first rest (buffer-string)))))
-    ))
+            (cl-assert it t "Shell command with non-nil exitcode: %s %S %S" first rest (buffer-string)))))))
+
 
 ;;;###autoload
 (defun dollar (&rest spec)
@@ -112,10 +112,10 @@
            (push env result)
            (push value result))
           (_
-           (error "Unknown bwrap flag: --%s %S" optname value))
-          )
-        )
-      )
+           (error "Unknown bwrap flag: --%s %S" optname value)))))
+
+
+
     (nreverse result)))
 
 (provide 'dash-shell)

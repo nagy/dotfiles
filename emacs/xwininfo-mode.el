@@ -3,10 +3,10 @@
 
 (defvar exwm--id)
 
-(define-derived-mode xwininfo-mode text-mode "xwininfo"
+(define-derived-mode xwininfo-mode text-mode "xwininfo")
   ;; (with-silent-modifications
   ;;   (insert "hello\n"))
-  )
+
 
 (defun xwininfo-from-buffer (winid)
   (interactive (list exwm--id))

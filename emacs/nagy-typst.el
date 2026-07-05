@@ -8,8 +8,8 @@
   :preface
   (reformatter-define typstyle
     :group 'emacs
-    :program "typstyle"
-    )
+    :program "typstyle")
+
   :defer t
   :bind
   ("H-M-T" . typst-ts-mode)
@@ -19,8 +19,8 @@
   (typst-ts-mode . typstyle-on-save-mode)
   :general
   (:states 'normal :keymaps 'typst-ts-mode-map
-           "⊢" #'typstyle-buffer)
-  )
+           "⊢" #'typstyle-buffer))
+
 
 ;;  TODO integrate tinymist language server lsp https://github.com/Myriad-Dreamin/tinymist
 

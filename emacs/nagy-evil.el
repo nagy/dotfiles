@@ -53,8 +53,8 @@
   ("s-H" . evil-window-move-far-left)
   ("s-J" . evil-window-move-very-bottom)
   ("s-K" . evil-window-move-very-top)
-  ("s-L" . evil-window-move-far-right)
-  )
+  ("s-L" . evil-window-move-far-right))
+
 
 ;; NIX-EMACS-PACKAGE: evil-collection
 (use-package evil-collection
@@ -100,9 +100,9 @@
      bookmark
      vc-dir
      vc-git
-     doc-view
-     ))
-  )
+     doc-view)))
+
+
 
 ;; NIX-EMACS-PACKAGE: evil-numbers
 (use-package evil-numbers
@@ -125,8 +125,8 @@
            "→" #'nagy-evil-numbers-inc-10
            "←" #'nagy-evil-numbers-dec-10
            "g +" #'evil-numbers/inc-at-pt-incremental
-           "g -" #'evil-numbers/dec-at-pt-incremental)
-  )
+           "g -" #'evil-numbers/dec-at-pt-incremental))
+
 
 (use-package eshell
   :defer t
@@ -140,25 +140,25 @@
   ;;          "ö" #'eshell-send-input
   ;;          "Ö" #'eshell-previous-input)
   :bind
-  ("s-<return>" . eshell)
-  )
+  ("s-<return>" . eshell))
+
 
 ;; NIX-EMACS-PACKAGE: evil-surround
 (use-package evil-surround
   ;; :defer t
   :config
-  (global-evil-surround-mode)
+  (global-evil-surround-mode))
   ;; :bind
   ;; ("H-(" . evil-surround-region)
   ;; ("H-)" . evil-surround-delete)
-  )
+
 
 (use-package shell
   :defer t
   :config
-  (evil-set-initial-state 'shell-command-mode 'normal)
+  (evil-set-initial-state 'shell-command-mode 'normal))
   ;; (evil-set-initial-state 'shell-command-mode 'emacs)
-  )
+
 
 (use-package sqlite-mode
   ;; Tracking issue https://github.com/emacs-evil/evil-collection/issues/749
@@ -262,8 +262,8 @@
     (goto-char (point-max))
     (insert
      ;; (concat nix-store-dir "/")
-     "/nix/store/"
-     ))
+     "/nix/store/"))
+
   :after evil
   :demand t
   :commands (key-chord-define key-chord-mode)
@@ -313,9 +313,9 @@
            ;; Was evil-repeat-pop and evil-repeat-pop-next. I dont understand these commands yet, so lets
            ;; keep the binding available.
            "C-." nil
-           "M-." nil ;; This opens up M-. back to xref-find-definitions
-           )
-  )
+           "M-." nil)) ;; This opens up M-. back to xref-find-definitions
+
+
 
 (use-package tar-mode
   :general
@@ -438,8 +438,8 @@
       (display-line-numbers-mode 0))
     (setq-local truncate-lines t)
     (let ((inhibit-message t))
-      (text-scale-adjust 0))
-    )
+      (text-scale-adjust 0)))
+
   (defun nagy--ghostel-switch-to-char-mode ()
     (evil-emacs-state 1)
     (goto-char (point-max)))
@@ -468,13 +468,13 @@
         ("H-r" . ghostel-clear-scrollback)
         ("H-l" . ghostel-line-mode))
   (:map ghostel-line-mode-map
-        ("H-l" . ghostel-char-mode)
+        ("H-l" . ghostel-char-mode))
         ;; ("<normal-state> <key-chord> f h" . embark-dwim)
         ;; ("<normal-state> <key-chord> f j" . embark-act)
-        )
+
   (:map evil-normal-state-map
-        ("<key-chord> - x" . ghostel))
-  )
+        ("<key-chord> - x" . ghostel)))
+
 ;; (defun nagy--ghostel--some-rebalancing ()
 ;;   (interactive)
 ;;   (walk-windows

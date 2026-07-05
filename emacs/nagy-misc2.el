@@ -146,14 +146,14 @@
     (font-lock-add-keywords
      'emacs-lisp-mode
      (append ;; highlight defined, special variables & functions
-      `((+emacs-lisp-highlight-vars-and-faces . +emacs-lisp--face))))
-    )
+      `((+emacs-lisp-highlight-vars-and-faces . +emacs-lisp--face)))))
+
   :config
   (list)
   :hook
-  (emacs-lisp-mode . nagy-misc2-activate-el-fl)
+  (emacs-lisp-mode . nagy-misc2-activate-el-fl))
   ;; (emacs-lisp-mode . highlight-defined-mode)
-  )
+
 
 ;; NIX-EMACS-PACKAGE: helpful
 (use-package helpful
@@ -191,8 +191,8 @@
   (cyphejor-rules '(;; :upcase
                     ("dired" "δ")
                     ("emacs lisp" "λ")
-                    ("nagy-list" "ł")
-                    ))
+                    ("nagy-list" "ł")))
+
   :config
   (defun cyphejor--cypher (_old-name _rules)
     (awhen (format-mode-line mode-name)
@@ -209,11 +209,11 @@
         ((prefix "nagy-list") (string-replace "nagy-list" "ł" it))
         ((prefix "Text") (string-replace "Text" "T" it))
         ((prefix "Fundamental") (string-replace "Fundamental" "_" it))
-        (_ mode-name))))
+        (_ mode-name)))))
   ;; in emacs 30, this can only be activated later ( maybe after
   ;; emacs-lisp-mode has been loaded).
   ;; (cyphejor-mode 1)
-  )
+
 
 ;; (use-package tokei
 ;;   :disabled
@@ -256,8 +256,8 @@
            (if (region-active-p)
                (ps-print-region (region-beginning) (region-end) file)
              ;; (ps-print-buffer file)
-             (ps-print-with-faces (point-min) (point-max) file)
-             )
+             (ps-print-with-faces (point-min) (point-max) file))
+
            ;; nix-build "<nixpkgs>" -A ghostscript
            (call-process "/nix/store/fy54dwdr2wxf1phq3sgvrdyqdimzb48p-ghostscript-with-X-10.06.0/bin/ps2pdf" nil nil nil "-sPAPERSIZE=a4" file tmpfilename)
            (find-file tmpfilename))))))
@@ -288,8 +288,8 @@
   (:map pdf-view-mode-map
         ;; ("H-j" . pdf-view-next-page-command)
         ;; ("H-k" . pdf-view-previous-page-command)
-        ("M-m" . pdf-view-midnight-minor-mode)
-        )
+        ("M-m" . pdf-view-midnight-minor-mode))
+
   :hook
   (pdf-view-mode . pdf-view-themed-minor-mode)
   (pdf-view-mode . pdf-view-fit-page-to-window)
@@ -299,11 +299,11 @@
   (pdf-tools-install-noverify)
   ;; do not issue warning
   (setq pdf-view-incompatible-modes
-        (delq 'display-line-numbers-mode pdf-view-incompatible-modes))
+        (delq 'display-line-numbers-mode pdf-view-incompatible-modes)))
   ;; (evil-collection-init 'pdf)
   ;; (evil-collection-pdf-setup)
   ;; (evil-set-initial-state 'pdf-view-mode 'normal)
-  )
+
 
 (defun take-screenshot ()
   (interactive)
@@ -351,8 +351,8 @@
                 (end (field-end (1+ (point)))))
             (delete-region start end)
             (insert (format "%s" it))
-            (goto-char start))
-          )
+            (goto-char start)))
+
       ;; eval
       (atomic-change-group
         (save-excursion
@@ -398,8 +398,8 @@
   ;; Remove bufler column "VC". might be expensive
   (setq bufler-columns (remove "VC" bufler-columns))
   (bufler-define-buffer-command simple-switch "Simple switcher"
-    #'switch-to-buffer :refresh-p nil)
-  )
+    #'switch-to-buffer :refresh-p nil))
+
 
 ;; NIX-EMACS-PACKAGE: iedit
 (use-package iedit
@@ -441,8 +441,8 @@
 (use-package request
   :custom
   ;; (request-backend 'curl)
-  (request-backend 'url-retrieve)
-  )
+  (request-backend 'url-retrieve))
+
 
 ;; NIX-EMACS-PACKAGE: beginend
 (use-package beginend
@@ -453,8 +453,8 @@
   (beginend-global-mode)
   :bind
   ("H-<up>" . beginning-of-buffer)
-  ("H-<down>" . end-of-buffer)
-  )
+  ("H-<down>" . end-of-buffer))
+
 
 (use-package tramp
   :custom
@@ -462,37 +462,37 @@
   (tramp-use-connection-share nil)
   (remote-file-name-inhibit-delete-by-moving-to-trash t)
   (remote-file-name-inhibit-auto-save t)
-  (pcomplete-remote-file-ignore t)
+  (pcomplete-remote-file-ignore t))
   ;; (remote-file-name-access-timeout 0)
-  )
+
 
 ;; NIX-EMACS-PACKAGE: emacspy
 ;; (use-package emacspy)
 
 ;; NIX-EMACS-PACKAGE: llama
-(use-package llama
+(use-package llama)
   ;; :config
   ;; (llama-fontify-mode)
-  )
+
 
 ;; NIX-EMACS-PACKAGE: units-mode
 (use-package units-mode
-  :defer t
-  )
+  :defer t)
+
 
 ;; NIX-EMACS-PACKAGE: lua-mode
 (use-package lua-mode
   :defer t
   :bind
-  ("H-M-u" . lua-mode)
-  )
+  ("H-M-u" . lua-mode))
+
 
 ;; NIX-EMACS-PACKAGE: fennel-mode
 (use-package fennel-mode
   :defer t
   :bind
-  ("H-M-U" . fennel-mode)
-  )
+  ("H-M-U" . fennel-mode))
+
 
 ;; NIX-EMACS-PACKAGE: company
 (use-package company
@@ -523,8 +523,8 @@
   ;; Only search the current buffer for `company-dabbrev' (a backend that
   ;; suggests text your open buffers). This prevents Company from causing
   ;; lag once you have a lot of buffers open.
-  (company-dabbrev-other-buffers nil)
-  )
+  (company-dabbrev-other-buffers nil))
+
 
 ;; ;; NIX-EMACS-PACKAGE: sparql-mode
 ;; (use-package sparql-mode
@@ -539,15 +539,15 @@
     "No properties in string"
     (thing-at-point 'url t))
   ;; To only find actual URLs and not treat any word as a hostname
-  (advice-add 'browse-url-url-at-point :override #'nagy-browse-url-at-point)
-  )
+  (advice-add 'browse-url-url-at-point :override #'nagy-browse-url-at-point))
+
 
 ;; NIX-EMACS-PACKAGE: evil-mc
 (use-package evil-mc
   :defer t
   :config
-  (global-evil-mc-mode 1)
-  )
+  (global-evil-mc-mode 1))
+
 
 ;; NIX-EMACS-PACKAGE: treesit-fold
 (use-package treesit-fold
@@ -567,8 +567,8 @@
   ("H-I" . treesit-fold-close-all)
   ("H-o" . treesit-fold-open)
   ("H-O" . treesit-fold-open-all)
-  ("C-H-o" . treesit-fold-open-recursively)
-  )
+  ("C-H-o" . treesit-fold-open-recursively))
+
 
 (use-package sh-script
   :preface
@@ -576,14 +576,14 @@
     :group 'emacs
     ;; :lighter " shfmt"
     :program "shfmt"
-    :args '("-i" "2" "--case-indent" "--space-redirects")
-    )
+    :args '("-i" "2" "--case-indent" "--space-redirects"))
+
   :hook
   (sh-mode . shfmt-on-save-mode)
   :general
   (:states 'normal :keymaps 'sh-mode-map
-           "⊢" #'shfmt-buffer)
-  )
+           "⊢" #'shfmt-buffer))
+
 
 ;; https://github.com/rejeep/ansi.el
 ;; NIX-EMACS-PACKAGE: ansi

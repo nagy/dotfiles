@@ -21,8 +21,8 @@
   (:map pi-coding-agent-input-mode-map
         ([remap save-kill-buffer] . pi-coding-agent-send)
         ([remap kill-this-buffer] . pi-coding-agent-quit)
-        ([remap nagy-kill-this-buffer] . pi-coding-agent-quit))
-  )
+        ([remap nagy-kill-this-buffer] . pi-coding-agent-quit)))
+
 
 ;; ;; NIX-EMACS-PACKAGE: gptel
 ;; ;; (use-package gptel)

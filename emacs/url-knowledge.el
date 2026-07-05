@@ -16,16 +16,16 @@
 
 (cl-defstruct (url-knowledge-config
                (:constructor url-knowledge--make-config))
-  buffer
-  )
+  buffer)
+
 
 ;;;###autoload
 (cl-defun url-knowledge-make (name &key
-                                   buffer
-                                   )
+                                   buffer)
+
   (let ((config (url-knowledge--make-config
-                 :buffer buffer
-                 )))
+                 :buffer buffer)))
+
     (setf (alist-get name url-knowledge--known-configs nil nil #'equal) config)))
 
 (defun url-knowledge--get-url ()
@@ -82,8 +82,8 @@
      (dollar (format "https://%s/pypi/%s/json"
                      host
                      (string-remove-suffix "/" filename)))
-     (setq-local url-knowledge-url url)
-     )))
+     (setq-local url-knowledge-url url))))
+
 
 (defvar browse-url-handlers)
 (add-to-list 'browse-url-default-handlers '("^https://pypi\\.org/project/" . pypi-browse-url))

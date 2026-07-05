@@ -52,8 +52,8 @@
 (defun insert-crate-structure ()
   (let ((p (point)))
     (insert (crate-structure crate-name))
-    (ansi-color-apply-on-region p (point))
-    ))
+    (ansi-color-apply-on-region p (point))))
+
 
 (defun crate--description ()
   (awhen (gethash "description" crate-data)
@@ -108,8 +108,8 @@ If the value is nil or :null, nothing is inserted after the label."
     (unless (eq it :null)
       (insert (propertize it 'mouse-face 'highlight))
       (let ((filename (format "/mnt/archive/%s.git.sqfs/" (--> it
-                                                      (string-remove-prefix "https://" it)
-                                                      (string-replace "/" "__" it)))))
+                                                           (string-remove-prefix "https://" it)
+                                                           (string-replace "/" "__" it)))))
         (when (file-exists-p filename)
           (cd filename)))))
   (insert "\n")
@@ -131,8 +131,8 @@ If the value is nil or :null, nothing is inserted after the label."
   (font-lock-ensure)
   (set-buffer-modified-p nil)
   (goto-char (point-min))
-  (read-only-mode 1)
-  )
+  (read-only-mode 1))
+
 
 ;;;###autoload
 (defun find-crate (name)
@@ -150,8 +150,8 @@ If the value is nil or :null, nothing is inserted after the label."
                   ;;     (gethash (string-replace "_" "-" crate-name) crate-foosoten))
                   (or (gethash crate-name (crate-list-json))
                       (gethash (string-replace "_" "-" crate-name) (crate-list-json))))
-      (crate-mode)))
-  )
+      (crate-mode))))
+
 
 (keymap-global-set "s-±" #'find-crate)
 
@@ -169,8 +169,8 @@ If the value is nil or :null, nothing is inserted after the label."
     (handler . crate-bookmark-jump)
     (crate . ,crate-name)
     ;; This location tag is used as a description in the bookmark menu list
-    (location . ,(crate--description))
-    ))
+    (location . ,(crate--description))))
+
 
 ;;;###autoload
 (defun crate-bookmark-jump (bm)

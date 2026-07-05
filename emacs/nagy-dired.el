@@ -26,8 +26,8 @@
   (thread-last directory
     (string-replace (expand-file-name "~") "~")
     (string-replace "/nix/store" "○")
-    (string-replace "/tmp/t" "⧖")
-    ))
+    (string-replace "/tmp/t" "⧖")))
+
 
 (defvar nagy-dired-font-lock-keywords
   `((,(rx (or ".nix") eol)
@@ -48,8 +48,8 @@
                ".busctl"
                ".gh" ".glab"
                ;; network
-               ".ss"
-               ))
+               ".ss"))
+
           (or ".json" ".yaml" ".yml" ".toml" ".xml" ".csv" ".feather")
           (or "" ".zst" ".br")
           eol)
@@ -78,8 +78,8 @@
                ".css" ".svelte"
                ".typ"
                ".pk"                    ; GNU Poke
-               ".tf"                    ; Terraform / OpenTofu
-               ))
+               ".tf"))                    ; Terraform / OpenTofu
+
           eol)
      (1 `(face nagy-intense-blue)))
     (,(rx (group
@@ -107,8 +107,8 @@
     (,(rx (group
            (or ".md" ".rst" ".org" ".txt" ".pdf" ".gmi"
                ".mmd"     ;; mermaid uml
-               ".journal" ;; hledger and ledger
-               ))
+               ".journal")) ;; hledger and ledger
+
           eol)
      (1 `(face nagy-intense-yellow)))
     (,(rx " " (group "book.journal") eol)
@@ -161,8 +161,8 @@
            (or ".gitignore" ".gitattributes"
                ".elpaignore" ".dockerignore"
                "LICENSE"
-               "flake.lock" "poetry.lock" "Cargo.lock"
-               ))
+               "flake.lock" "poetry.lock" "Cargo.lock"))
+
           eol)
      (1 `(face parenthesis)))
     ;; repair marking of files, taken from diredfl
@@ -185,8 +185,8 @@
     ("^  find finished at .*$"
      (0 (put-text-property (match-beginning 0) (match-end 0) 'invisible t)))
     ("^  find \\. .* -ls$"
-     (0 (put-text-property (match-beginning 0) (1+ (match-end 0)) 'invisible t)))
-    ))
+     (0 (put-text-property (match-beginning 0) (1+ (match-end 0)) 'invisible t)))))
+
 
 (define-minor-mode drfl-mode
   "drfl-mode."
@@ -226,8 +226,8 @@
   :demand t
   :bind
   (:map dired-mode-map
-        ("H-b" . nagy-dired-browse-url)
-        )
+        ("H-b" . nagy-dired-browse-url))
+
   :preface
   (defun +revert-when-dired (&rest _rest)
     "Revert when major-mode is dired.
@@ -269,8 +269,8 @@ Can be used as an advice."
         ;; ("H-m" . dired-do-man)
         ;; ("H-e" . dired-do-eww)
         ("<home>" . evil-goto-first-line)
-        ("<end>" . evil-goto-line)
-        )
+        ("<end>" . evil-goto-line))
+
   :general
   (:states 'normal :keymaps 'dired-mode-map
            "f" #'dired-find-file
@@ -286,8 +286,8 @@ Can be used as an advice."
            "L" #'evil-window-bottom
            "o" #'dired-find-file-other-window
            "ö" #'browse-url-of-dired-file
-           "y" #'dired-copy-filename-as-kill
-           ))
+           "y" #'dired-copy-filename-as-kill))
+
 
 (use-package dired-x
   :disabled
@@ -300,11 +300,11 @@ Can be used as an advice."
                         (or "."
                             ".."
                             ".git"
-                            (seq "systemd-private-" (* any))
-                            )
+                            (seq "systemd-private-" (* any)))
+
                         eos))
-  (dired-omit-verbose nil)
-  )
+  (dired-omit-verbose nil))
+
 
 (use-package dired-subtree
   ;; :after dired
@@ -329,8 +329,8 @@ Can be used as an advice."
   (let ((delete-by-moving-to-trash
          (not (or (string-prefix-p temporary-file-directory default-directory)
                   (string-prefix-p (expand-file-name "~/.local/share/Trash/") (expand-file-name default-directory))
-                  (string-prefix-p (expand-file-name "~/.cache/") (expand-file-name default-directory))
-                  )))
+                  (string-prefix-p (expand-file-name "~/.cache/") (expand-file-name default-directory)))))
+
         (dired-deletion-confirmer #'always)
         (dired-recursive-deletes 'always)
         (dired-clean-confirm-killing-deleted-buffers nil))
@@ -342,8 +342,8 @@ Can be used as an advice."
   (interactive)
   (cl-letf (((symbol-function 'read-file-name)
              (lambda (_prompt dir _default-filename &rest _rest)
-               dir
-               )))
+               dir)))
+
     (dired-do-copy)))
 (with-eval-after-load 'dired
   (keymap-set dired-mode-map "H-c" #'nagy-dired-do-copy))
@@ -386,14 +386,14 @@ Can be used as an advice."
         ("h"   . dirvish-history-jump)   ; Quick navigation history
         ("f"   . dirvish-file-info-menu) ; Pop up full file metadata
         ("a"   . dirvish-quick-access)   ; Bookmarks and quick jump
-        ("M-m" . dirvish-side)) ; Toggle a narrow sidebar (like NeoTree
-  )
+        ("M-m" . dirvish-side))) ; Toggle a narrow sidebar (like NeoTree
+
 
 (use-package dirvish-collapse
-  :defer t
+  :defer t)
   ;; :config
   ;; (set-face-attribute 'dirvish-collapse-dir-face nil :inherit 'parenthesis)
-  )
+
 
 ;; (use-package dirvish-emerge
 ;;   :defer t

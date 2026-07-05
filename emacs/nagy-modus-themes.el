@@ -44,16 +44,16 @@
     (with-eval-after-load 'org
       (set-face-attribute 'org-block nil :background 'unspecified)
       (set-face-attribute 'org-block-begin-line nil :background 'unspecified)
-      (set-face-attribute 'org-block-end-line nil :background 'unspecified)
-      )
+      (set-face-attribute 'org-block-end-line nil :background 'unspecified))
+
     (with-eval-after-load 'treesit-fold
       (set-face-attribute 'treesit-fold-replacement-face nil :box 'unspecified)
-      (set-face-attribute 'treesit-fold-replacement-mouse-face nil :box 'unspecified)
-      )
+      (set-face-attribute 'treesit-fold-replacement-mouse-face nil :box 'unspecified))
+
     (set-face-attribute 'tab-bar-tab-inactive nil :box nil :background (face-attribute 'tab-bar :background nil t))
     (set-face-attribute 'window-divider nil :foreground (if (dayp) "black" "gray20"))
-    (set-face-attribute 'scroll-bar nil :box 'unspecified :foreground (if (dayp) "#ccc" "#333"))
-    )
+    (set-face-attribute 'scroll-bar nil :box 'unspecified :foreground (if (dayp) "#ccc" "#333")))
+
   (defun ala-fix-theme ()
     (interactive)
     (cl-assert (zerop (call-process (if (dayp) "ala-day" "ala-night")))))
@@ -85,8 +85,8 @@
        `(tab-bar-tab          ((,c :box (:line-width 2 :color ,fg-main))))
        `(tab-bar-tab-inactive ((,c :box (:line-width 2 :color ,bg-main) :background ,bg-main))) ;; use same-color box to fix "jumping"
        `(tab-bar ((,c :box nil :background ,bg-main)))
-       `(tab-line ((,c :box nil :background ,bg-main)))
-       )))
+       `(tab-line ((,c :box nil :background ,bg-main))))))
+
   (defun nagy-modus-themes--init-derived-faces ()
     "Set colors on `nagy-*' faces from the current modus theme palette."
     ;; Background-tinted faces
@@ -133,11 +133,11 @@
   (modus-themes-common-palette-overrides '((bg-mode-line-active bg-main)
                                            (bg-mode-line-inactive bg-inactive)
                                            (bg-region bg-blue-subtle)
-                                           (fg-region unspecified)
                                            ;; (bg-tab-bar bg-main)
                                            ;; (bg-tab-current bg-active)
                                            ;; (bg-tab-other bg-inactive)
-                                           ))
+                                           (fg-region unspecified)))
+
   :hook
   (modus-themes-after-load-theme . nagy-modus-theme-overrides)
   (modus-themes-after-load-theme . ala-fix-theme)
@@ -147,8 +147,8 @@
   ;; (add-hook 'modus-themes-after-load-theme-hook #'nagy-modus-theme-overrides)
   ;; (add-hook 'modus-themes-after-load-theme-hook #'ala-fix-theme)
   ;; (add-hook 'modus-themes-after-load-theme-hook #'nagy-modus-themes--init-derived-faces)
-  (modus-themes-load-theme 'modus-vivendi)
-  )
+  (modus-themes-load-theme 'modus-vivendi))
+
 
 ;; NIX-EMACS-PACKAGE: paren-face
 (use-package paren-face
@@ -187,8 +187,8 @@
   (add-to-list 'paren-face-modes 'fennel-mode)
   ;; (add-hook 'modus-themes-after-load-theme-hook #'nagy--fix-paren-face 100) ;; needs to be at the end
   :hook
-  (modus-themes-after-load-theme . nagy--fix-paren-face)
-  )
+  (modus-themes-after-load-theme . nagy--fix-paren-face))
+
 
 ;; NIX-EMACS-PACKAGE: nerd-icons
 (use-package nerd-icons

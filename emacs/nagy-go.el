@@ -15,8 +15,8 @@
 ;;   ("H-M-g" . go-mode))
 
 (use-package go-ts-mode
-  :defer t
-  )
+  :defer t)
+
 
 (defun find-file-directory-go ()
   (interactive)
@@ -25,8 +25,8 @@
     (find-file "main.go"))
    ((file-exists-p "go.mod")
     (find-file "go.mod"))
-   (t (user-error "No Go suitable file found")))
-  )
+   (t (user-error "No Go suitable file found"))))
+
 (require 'dired)
 (keymap-set dired-mode-map "H-M-g" #'find-file-directory-go)
 

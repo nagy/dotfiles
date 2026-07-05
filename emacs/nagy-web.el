@@ -25,10 +25,10 @@
   ("let" "const")
   :general
   (:states 'normal :keymaps 'typescript-mode-map
-           "⊢" #'deno-fmt-buffer)
+           "⊢" #'deno-fmt-buffer))
   ;; :hook
   ;; (typescript-mode . deno-fmt-on-save-mode) ;; this breaks svelte mode down because that inherits typescript-mode
-  )
+
 
 ;; (use-package eglot
 ;;   :config
@@ -45,8 +45,8 @@
   :preface
   (reformatter-define jq-format
     :group 'js
-    :program "jq"
-    )
+    :program "jq")
+
   :pretty 'js-mode
   ("true" . true) ("false" . false)
   ("if" . if) ("else" . else)

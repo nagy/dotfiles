@@ -67,14 +67,14 @@ waits for input."
   :config
   ;; To remove the "^J" from the line ending
   ;; TODO pr this upstream
-  (advice-add 'password-store-otp-token :filter-return #'string-trim-right)
-  )
+  (advice-add 'password-store-otp-token :filter-return #'string-trim-right))
+
 
 ;; NIX-EMACS-PACKAGE: age
 (use-package age
   :config
-  (age-file-enable)
-  )
+  (age-file-enable))
+
 
 ;; NIX-EMACS-PACKAGE: passage
 (use-package passage
@@ -95,8 +95,8 @@ waits for input."
   :same "^\\*Passage-Store\\*$"
   :general
   (:states 'normal
-           "🔑" #'passage)
-  )
+           "🔑" #'passage))
+
 
 (use-package passage-store
   :after age
@@ -109,19 +109,19 @@ This currently requires that `age-default-identity' and
       (with-environment-variables
           (("PASSAGE_IDENTITIES_FILE" age-default-identity)
            ("PASSAGE_RECIPIENTS_FILE" age-default-recipient))
-        (apply orig-fun args)))
-    )
+        (apply orig-fun args))))
+
   :config
-  (advice-add 'passage-store--run-1 :around #'nagy-passage-store-respect-age-variables)
-  )
+  (advice-add 'passage-store--run-1 :around #'nagy-passage-store-respect-age-variables))
+
 
 (use-package passage-store-otp
   :defer t
   :config
   ;; To remove the "^J" from the line ending
   ;; TODO pr this upstream
-  (advice-add 'passage-store-otp-token :filter-return #'string-trim-right)
-  )
+  (advice-add 'passage-store-otp-token :filter-return #'string-trim-right))
+
 
 (provide 'nagy-passage)
 ;;; nagy-passage.el ends here

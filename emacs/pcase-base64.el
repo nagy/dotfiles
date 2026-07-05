@@ -18,13 +18,13 @@
                      (`(,name ,pat)
                       `(app (lambda (arg) (pcase-base64--matcher ,name arg)) ,pat))
                      ((pred symbolp)
-                      `(app (lambda (arg) (pcase-base64--matcher ',it arg)) ,it))
+                      `(app (lambda (arg) (pcase-base64--matcher ',it arg)) ,it)))
                      ;; ((or `(,name ,pat)
                      ;;      (and (pred symbolp) name pat))
                      ;;  `(app (lambda (arg)
                      ;;          (pcase-base64--matcher ,(if (symbolp name) name (list 'quote name)) arg))
                      ;;        ,pat))
-                     )
+
                    fields))))
 
 ;; (pcase "hello"

@@ -300,8 +300,8 @@ windows when moving the mouse."
     (font-lock-add-keywords nil
                             '((" \\(\\<open\\>\\) " 1 '(:inherit (success)))
                               (" \\(\\<run\\>\\) "  1 '(:inherit (nerd-icons-blue bold)))
-                              (" \\(\\<listen\\>\\) "  1 '(:inherit (nerd-icons-yellow bold)))))
-    )
+                              (" \\(\\<listen\\>\\) "  1 '(:inherit (nerd-icons-yellow bold))))))
+
   :config
   (add-hook 'process-menu-mode-hook #'nagy-emacs-process-menu--font-lock)
   :bind
@@ -310,10 +310,10 @@ windows when moving the mouse."
         ("H-d" . process-menu-delete-process))
   :general
   (:states 'normal :keymaps 'process-menu-mode-map
-           [remap evil-replace] #'revert-buffer-quick
-           )
-  :diminish 'visual-line-mode
-  )
+           [remap evil-replace] #'revert-buffer-quick)
+
+  :diminish 'visual-line-mode)
+
 
 (defun nagy--refresh-process-list ()
   (let ((buf (get-buffer "*Process List*")))
@@ -326,10 +326,10 @@ windows when moving the mouse."
             (revert-buffer t t t)
             (goto-char (min pos (point-max)))
             (when (and win win-pos)
-              (set-window-point win (min win-pos (point-max))))
+              (set-window-point win (min win-pos (point-max))))))))))
             ;; (when (bound-and-true-p hl-line-mode)
             ;;   (hl-line-highlight))
-            ))))))
+
 (run-with-timer 0 2 #'nagy--refresh-process-list)
 (run-with-idle-timer 0.5 t #'nagy--refresh-process-list)
 
@@ -369,15 +369,15 @@ windows when moving the mouse."
   :config
   (set-face-attribute 'shr-h1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
   (set-face-attribute 'shr-h2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
-  (set-face-attribute 'shr-h3 nil :font "Et Bembo" :height 1.2 :inherit 'modus-themes-heading-3)
-  )
+  (set-face-attribute 'shr-h3 nil :font "Et Bembo" :height 1.2 :inherit 'modus-themes-heading-3))
+
 
 (use-package files
   ;; :custom
   ;; (revert-without-query '("\\.json"))
   :bind
-  ("s-f" . find-file)
-  )
+  ("s-f" . find-file))
+
 
 (require 'calc)
 (require 'calc-units)
@@ -495,14 +495,14 @@ windows when moving the mouse."
         ("<key-chord> f j" . ielm-send-input)
         ("s-." . eval-last-sexp))
   :config
-  (setq ielm-header "") ; does not work in :custom because it is a defvar
-  )
+  (setq ielm-header "")) ; does not work in :custom because it is a defvar
+
 
 (use-package epg
   :defer t
   :custom
-  (epg-pinentry-mode 'loopback)
-  )
+  (epg-pinentry-mode 'loopback))
+
 
 (use-package eldoc
   :preface
@@ -528,16 +528,16 @@ windows when moving the mouse."
   :diminish eldoc-mode
   :custom
   (eldoc-echo-area-use-multiline-p nil)
-  (eldoc-idle-delay 0.01)
+  (eldoc-idle-delay 0.01))
   ;; TODO increase eldoc delay for sly buffers because the communication with the lisp is
   ;; taking huge cpu.
   ;; :same "^\\*eldoc\\*"
-  )
+
 
 (use-package bookmark
   :defer t
   :custom
-  (bookmark-default-file (expand-file-name "~/.dotfiles/emacs-bookmarks"))
+  (bookmark-default-file (expand-file-name "~/.dotfiles/emacs-bookmarks")))
   ;; no general here
   ;; :general
   ;; (:states 'normal :keymaps 'bookmark-bmenu-mode-map
@@ -545,7 +545,7 @@ windows when moving the mouse."
   ;; These are preventing folder based bookmarks
   ;; (bookmark-automatically-show-annotations nil)
   ;; (bookmark-fringe-mark nil)
-  )
+
 
 (use-package recentf
   :commands (recentf-keep-default-predicate)
@@ -557,15 +557,15 @@ windows when moving the mouse."
   :defer t
   :custom
   (recentf-max-saved-items nil)
-  (recentf-keep '(nagy-emacs-recentf--predicate))
-  )
+  (recentf-keep '(nagy-emacs-recentf--predicate)))
+
 
 (use-package woman
   :defer t
   :custom
   ;; (woman-fill-frame t)
-  (woman-default-indent 7)              ;; to emulate GNU man formatting
-  )
+  (woman-default-indent 7))              ;; to emulate GNU man formatting
+
 
 (use-package replace                    ; occur
   :bind
@@ -642,8 +642,8 @@ string; otherwise return a 64-character string."
   ;; TODO make this work:
   ;; (evil-define-key 'normal ibuffer-mode-map "," nil)
   :hook
-  (ibuffer-mode-hook . nagy-emacs--ibuffer-cd-tmp)
-  )
+  (ibuffer-mode-hook . nagy-emacs--ibuffer-cd-tmp))
+
 
 (use-package elisp-mode
   :config
@@ -659,17 +659,17 @@ string; otherwise return a 64-character string."
   (:states 'normal :keymaps 'emacs-lisp-mode-map
            "zd" #'narrow-to-defun
            "ö" #'eval-defun
-           "Ö" #'eval-buffer
+           "Ö" #'eval-buffer))
            ;; "µ" #'macrostep-expand
-           )
-  )
+
+
 
 (use-package mule-util
   ;; :defer t
   :config
   ;; Does not work in custom and needs :defer t
-  (setq truncate-string-ellipsis "┄")        ; use smaller char than default
-  )
+  (setq truncate-string-ellipsis "┄"))        ; use smaller char than default
+
 
 (use-package paren
   :custom
@@ -947,8 +947,8 @@ string; otherwise return a 64-character string."
   ;; Setting this to nil will likely cause a memory leak, but should
   ;; be acceptable because the usage of `memoize' should be rare
   ;; anyway.
-  (setq memoize-default-timeout nil)
-  )
+  (setq memoize-default-timeout nil))
+
 
 (defmemoize-by-buffer-contents buffer-line-count-string ()
   ;; (count-lines (point-min) (point-max))
@@ -1007,8 +1007,8 @@ string; otherwise return a 64-character string."
         (insert kill)
         (goto-char (point-min))
         (cond
-         (is-json (js-json-mode) ;; (jq-format-buffer)
-                  )
+         (is-json (js-json-mode)) ;; (jq-format-buffer)
+
          (t (text-mode)))))))
 (keymap-global-set "C-M-s-SPC" #'buffer-new-of-kill)
 
@@ -1107,11 +1107,11 @@ string; otherwise return a 64-character string."
                                (format "git clone %s" url)
                                ;; https://stackoverflow.com/questions/66431436/pushing-to-github-after-a-shallow-clone-is-horribly-slow
                                (format "git clone --depth 2 --single-branch %s" url)))
-    (call-process-shell-command it)
+    (call-process-shell-command it)))
     ;; (if (eq major-mode 'dired-mode)
     ;;     (dired-revert))
-    )
-  )
+
+
 (with-eval-after-load 'dired
   (keymap-set dired-mode-map "M-þ" #'nagy-url-actions))
 
@@ -1206,10 +1206,10 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   :bind
   ("H-M-x" . nxml-mode)
   (:map nxml-mode-map
-        ("C-⊢" . xml-format-buffer))
+        ("C-⊢" . xml-format-buffer)))
   ;; :hook
   ;; (nxml-mode . xml-format-on-save-mode)
-  )
+
 
 (use-package timer-list
   :bind
@@ -1217,11 +1217,11 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
         ("H-d" . timer-list-cancel)))
 
 (use-package thingatpt
-  :config
+  :config)
   ;; Re-evaluate to include equal-sign `=' into the list.
   ;; (defvar thing-at-point-file-name-chars "-@~/[:alnum:]_.${}#%,:=" "Characters allowable in filenames.")
   ;; (define-thing-chars filename thing-at-point-file-name-chars)
-  )
+
 
 ;;;###autoload
 (defun json-parse-file (file &rest args)
@@ -1229,8 +1229,8 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   (declare (side-effect-free t))
   (with-temp-buffer
     (insert-file-contents file)
-    (apply #'json-parse-buffer args)
-    ))
+    (apply #'json-parse-buffer args)))
+
 
 (defmacro anaphoric-dolist (expr &rest body)
   (let ((anaphoric-pcase--result (make-symbol "anaphoric-pcase--result")))
@@ -1271,9 +1271,9 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
        (-let (( (beg . end) (save-mark-and-excursion
                               (mark-paragraph)
                               (cons (point) (mark)))))
-         (narrow-to-region beg end)
+         (narrow-to-region beg end)))
          ;; (narrow-to-paragraph)
-         ))
+
       ;;('org-mode
       ;; (org-narrow-to-subtree))
       ('markdown-mode
@@ -1282,8 +1282,8 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
     ;; (goto-char (point-min))
     (let ((scroll-preserve-screen-position nil))
       (dotimes (_i 10)
-        (scroll-down)))
-    ))
+        (scroll-down)))))
+
 (keymap-set text-mode-map "<normal-state> <key-chord> F N" #'+narrow-to-dwim)
 (keymap-set prog-mode-map "<normal-state> <key-chord> F N" #'+narrow-to-dwim)
 (keymap-set tabulated-list-mode-map "<normal-state> <key-chord> F N" #'+narrow-to-dwim)
@@ -1293,10 +1293,10 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
 (use-package package
   :custom
   (package-menu-async nil)
-  :defer t
+  :defer t)
   ;; :config
   ;; (evil-set-initial-state 'package-menu-mode 'normal)
-  )
+
 
 ;; This should be placed in (use-package emacs)
 (use-package minibuffer
@@ -1304,16 +1304,16 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   (enable-recursive-minibuffers t)
   :config
   (minibuffer-depth-indicate-mode t)
-  (define-key minibuffer-local-map (kbd "ö") (key-binding (kbd "RET")))
-  )
+  (define-key minibuffer-local-map (kbd "ö") (key-binding (kbd "RET"))))
+
 
 ;; (use-package url-cookie
 ;;   :same "*url cookies*")
 
 (use-package url-vars
   :custom
-  (url-privacy-level '(email))
-  )
+  (url-privacy-level '(email)))
+
 
 (use-package register
   :custom
@@ -1321,21 +1321,21 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   ;; :bind-keymap
   ;; ("s-r" . ctl-x-r-map)
   :bind
-  ("s-R" . consult-register)
+  ("s-R" . consult-register))
   ;; (:map ctl-x-r-map
   ;;       ("s-r" . jump-to-register)
   ;;       )
-  )
+
 
 (cl-defgeneric gather (config)
   config)
 
 (cl-defmethod gather ((str string))
-  (json-parse-string str
+  (json-parse-string str))
                      ;; :object-type 'alist
                      ;; :array-type 'list
-                     )
-  )
+
+
 
 (with-eval-after-load 'ts
   (cl-defmethod gather ((obj ts))
@@ -1353,8 +1353,8 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
 
 (cl-defgeneric ungather (config)
   nil
-  (user-error "Ungather not implemented for: %s" config)
-  )
+  (user-error "Ungather not implemented for: %s" config))
+
 
 (defun jump-to-proc (arg)
   (interactive "P")
@@ -1407,8 +1407,7 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   ("s-<f1>" . calendar)
   :same
   ;; calendar-buffer
-  "^\\*Calendar\\*$"
-  )
+  "^\\*Calendar\\*$")
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

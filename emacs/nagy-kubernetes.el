@@ -10,15 +10,15 @@
   ("H-M-D" . dockerfile-mode))
 (defun find-file-directory-dockerfile ()
   (interactive)
-  (find-file "Dockerfile")
-  )
+  (find-file "Dockerfile"))
+
 (require 'dired)
 (keymap-set dired-mode-map "H-M-D" #'find-file-directory-dockerfile)
 
 ;; NIX-EMACS-PACKAGE: flymake-hadolint
 (use-package flymake-hadolint
-  :defer t
-  )
+  :defer t)
+
 
 ;; NIX-EMACS-PACKAGE: terraform-mode
 (use-package terraform-mode
@@ -38,10 +38,10 @@
   (:states 'normal :keymaps 'terraform-mode-map
            "⊢" #'terraform-fmt-buffer)
   :hook
-  (terraform-mode . terraform-fmt-on-save-mode)
+  (terraform-mode . terraform-fmt-on-save-mode))
   ;; :config
   ;; (push '(terraform-mode "terraform-ls" "serve") eglot-server-programs)
-  )
+
 
 ;; NIX-EMACS-PACKAGE: kubed
 (use-package kubed
@@ -58,9 +58,9 @@
            [remap revert-buffer-quick]  #'kubed-list-update
            [remap evil-delete]  #'kubed-list-mark-for-deletion
            [remap evil-undo]  #'kubed-list-unmark
-           "H-l" #'kubed-list-logs
-           )
-  )
+           "H-l" #'kubed-list-logs))
+
+
 
 (provide 'nagy-kubernetes)
 ;;; nagy-kubernetes.el ends here

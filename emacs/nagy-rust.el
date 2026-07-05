@@ -64,8 +64,8 @@
 ;;   ("Result" "Option"))
 
 (use-package rust-ts-mode
-  :defer t
-  )
+  :defer t)
+
 
 (provide 'nagy-rust)
 ;;; nagy-rust.el ends here

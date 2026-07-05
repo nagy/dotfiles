@@ -14,9 +14,9 @@
   (setq gc-cons-percentage 1.0)
   ;; (setq garbage-collection-messages t)
   (garbage-collect)
-  (fset 'garbage-collect #'ignore)
+  (fset 'garbage-collect #'ignore))
   ;; (run-with-idle-timer 60 t #'real-garbage-collect)
-  )
+
 
 (defvar real-garbage-collect (symbol-function 'garbage-collect))
 

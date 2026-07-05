@@ -116,16 +116,16 @@
   ;; (:states 'normal :keymaps 'nix-mode-map
   ;;          "⊢" #'nixfmt-buffer)
   :bind
-  ("H-M-n" . nix-mode)
-  )
+  ("H-M-n" . nix-mode))
+
 
 ;; NIX-EMACS-PACKAGE: nix-ts-mode
 (use-package nix-ts-mode
-  :defer t
+  :defer t)
   ;; :config
   ;; (setq treesit-font-lock-level 4)
   ;; (add-to-list 'major-mode-remap-alist '(nix-mode . nix-ts-mode))
-  )
+
 
 (define-auto-insert
   '("\\.nix\\'" . "Nix skeleton")
@@ -170,8 +170,8 @@
     "# meta = {" \n
     "# };" \n
     "})" \n
-    \n
-    ))
+    \n))
+
 
 (defun find-file-directory-nix ()
   (interactive)
@@ -187,11 +187,11 @@
 (use-package nix-prettify-mode
   :diminish nix-prettify-mode
   :custom
-  (nix-prettify-char "┃▒")
+  (nix-prettify-char "┃▒"))
   ;; :hook
   ;; (dired-mode . nix-prettify-mode)
   ;; (nix-repl-mode . nix-prettify-mode)
-  )
+
 
 ;; TODO has an lsp nls
 ;; NIX-EMACS-PACKAGE: nickel-mode

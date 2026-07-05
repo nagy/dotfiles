@@ -24,13 +24,13 @@
   (:map lispy-mode-map
         ("H-x" . lispy-kill-at-point))
   (:map lispy-mode-map-special
-        ("f" . nil)    ; disable lispy flow, interferes with key-chord
-        )
+        ("f" . nil))    ; disable lispy flow, interferes with key-chord
+
   (:map lispy-mode-map-lispy
         ("]" . nil)
         ("[" . nil)
-        ("C-," . nil)  ; was lispy-kill-at-point
-        ))
+        ("C-," . nil)))  ; was lispy-kill-at-point
+
 
 ;; NIX-EMACS-PACKAGE: lispyville
 (use-package lispyville
@@ -50,8 +50,7 @@
            "¢" #'lispy-clone
            "g C-j" #'lispy-down
            "g C-k" #'lispy-up
-           ";" #'lispy-comment
-           )
+           ";" #'lispy-comment)
   ;; Imported from Doom.
   :init
   (setq lispyville-key-theme
@@ -63,8 +62,8 @@
           additional
           additional-insert))
   :config
-  (lispyville-set-key-theme)
-  )
+  (lispyville-set-key-theme))
+
 
 (provide 'nagy-lispy)
 ;;; nagy-lispy.el ends here
