@@ -1,12 +1,11 @@
 ;;; crate.el --- Rust crates -*- lexical-binding: t -*-
-;; Package-Requires: ((emacs "30.1") dash-shell anaphora org s nagy-emacs)
+;; Package-Requires: ((emacs "30.1"))
 
 (require 'bookmark)
-(require 'anaphora)
-(require 'nagy-emacs)
-(require 'org)
-(require 's)
-(require 'dash-shell)
+
+(declare-function org-link-set-parameters "ol")
+(declare-function org-link-store-props "ol")
+(declare-function ansi-color-apply-on-region "ansi-color")
 
 (defvar-local crate-name nil)
 (put 'crate-name 'permanent-local t)
@@ -32,20 +31,24 @@
 (defun crate-list-json ()
   (with-memoization (gethash 'data crate--data-cache)
     (when (and crate-data-path (file-exists-p crate-data-path))
-      (json-parse-file crate-data-path))))
+      (with-temp-buffer
+        (insert-file-contents crate-data-path)
+        (goto-char (point-min))
+        (json-parse-buffer)))))
 
 (defvar crate-structure--cache (make-hash-table :test #'equal))
 
 (defun crate-structure (name)
   (with-memoization (gethash name crate-structure--cache)
     (with-temp-buffer
-      (let ((exitcode (call-process crate-modules-program nil t nil "structure" "--package" (string-replace "_" "-" name) "--lib")))
+      (let ((pkg-dir (string-replace "_" "-" name))
+            (exitcode (call-process crate-modules-program nil t nil "structure" "--package" (string-replace "_" "-" name) "--lib")))
         ;; (message "ddir %s exitcode %d crate-name: %s" default-directory exitcode name)
         ;; the case in esp-hal crate
         (unless (eq 0 exitcode)
           (erase-buffer)
-          (with-directory (string-replace "_" "-" name)
-            (call-process crate-modules-program nil t nil "structure" "--package" (string-replace "_" "-" name) "--lib"))))
+          (let ((default-directory pkg-dir))
+            (call-process crate-modules-program nil t nil "structure" "--package" pkg-dir "--lib"))))
       ;; (call-process crate-modules-program nil t nil "structure" "--package" name "--lib")
       (string-remove-prefix "\n" (buffer-string)))))
 
@@ -56,9 +59,9 @@
 
 
 (defun crate--description ()
-  (awhen (gethash "description" crate-data)
+  (when-let* ((it (gethash "description" crate-data)))
     (setq it (string-replace "\n" "" it))
-    (setq it (s-truncate fill-column it))
+    (setq it (truncate-string-to-width it fill-column nil nil t))
     (if (eq it :null) "" it)))
 
 (defun crate--insert-field (label key)
@@ -76,7 +79,7 @@ If the value is nil or :null, nothing is inserted after the label."
      (1 'bold))
     ;; Crate name value
     ("^Name:[[:space:]]+\\(.+\\)"
-     (1 'org-document-title))
+     (1 'bold))
     ;; URLs on Homepage/Documentation/Repository lines
     ("^\\(?:Homepage\\|Documentation\\|Repository\\):[[:space:]]+\\(https?://[^[:space:]\n]+\\)"
      (1 'shr-link nil t))
@@ -104,12 +107,12 @@ If the value is nil or :null, nothing is inserted after the label."
   (insert "\n")
   ;; Repository (special: may cd into local checkout)
   (insert "Repository:    ")
-  (awhen (gethash "repository" crate-data)
+  (when-let* ((it (gethash "repository" crate-data)))
     (unless (eq it :null)
       (insert (propertize it 'mouse-face 'highlight))
-      (let ((filename (format "/mnt/archive/%s.git.sqfs/" (--> it
-                                                           (string-remove-prefix "https://" it)
-                                                           (string-replace "/" "__" it)))))
+      (let ((filename (format "/mnt/archive/%s.git.sqfs/"
+                              (string-replace "/" "__"
+                                              (string-remove-prefix "https://" it)))))
         (when (file-exists-p filename)
           (cd filename)))))
   (insert "\n")
@@ -117,7 +120,7 @@ If the value is nil or :null, nothing is inserted after the label."
   (crate--insert-field "Documentation: " "documentation")
   (crate--insert-field "Updated:       " "updated_at")
   (insert "Id:            ")
-  (awhen (gethash "id" crate-data)
+  (when-let* ((it (gethash "id" crate-data)))
     (unless (eq it :null)
       (insert (number-to-string (floor it)))))
   (insert "\n\n")
@@ -153,15 +156,17 @@ If the value is nil or :null, nothing is inserted after the label."
       (crate-mode))))
 
 
-(keymap-global-set "s-±" #'find-crate)
-
 ;;;###autoload
 (defun crate-browse-url (url &rest _args)
   (find-crate url))
 
 ;;;###autoload
-(with-eval-after-load 'browse-url
-  (add-to-list 'browse-url-default-handlers '("^https://crates\\.io/crates/" . crate-browse-url)))
+(defun crate-install-browse-url-handler ()
+  "Make `browse-url' open crates.io URLs with `find-crate'."
+  (interactive)
+  (with-eval-after-load 'browse-url
+    (add-to-list 'browse-url-default-handlers
+                 '("^https://crates\\.io/crates/" . crate-browse-url))))
 
 (defun crate--bookmark-make-record-function ()
   "A function to be used as `bookmark-make-record-function'."
