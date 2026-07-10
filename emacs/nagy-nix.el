@@ -3,9 +3,9 @@
 
 (require 'general)
 
-;;;###autoload (autoload 'nixfmt-buffer "nagy-nix")
-;;;###autoload (autoload 'nixfmt-region "nagy-nix")
-;;;###autoload (autoload 'nixfmt-on-save-mode "nagy-nix")
+;;;###autoload (autoload 'nixfmt-buffer "nagy-nix" nil t)
+;;;###autoload (autoload 'nixfmt-region "nagy-nix" nil t)
+;;;###autoload (autoload 'nixfmt-on-save-mode "nagy-nix" nil t)
 (reformatter-define nixfmt
   :program "nixfmt"
   :args (list input-file)

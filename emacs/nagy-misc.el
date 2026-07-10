@@ -153,7 +153,6 @@
   (:states 'normal :keymaps 'dired-mode-map
            "⧖" #'tokei))
 
-
 ;; NIX-EMACS-PACKAGE: wgrep
 (use-package wgrep
   :bind

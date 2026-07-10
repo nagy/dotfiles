@@ -1409,5 +1409,20 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   ;; calendar-buffer
   "^\\*Calendar\\*$")
 
+
+;; TODO maybe replace this with `global-text-scale-adjust'.
+(defun font-size-larger ()
+  (interactive)
+  (set-face-attribute 'default nil
+                      :height (+ 10 (face-attribute 'default :height))))
+
+(defun font-size-smaller ()
+  (interactive)
+  (set-face-attribute 'default nil
+                      :height (- (face-attribute 'default :height) 10)))
+
+(keymap-global-set "H-s--" #'font-size-smaller)
+(keymap-global-set "H-s-+" #'font-size-larger)
+
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here
