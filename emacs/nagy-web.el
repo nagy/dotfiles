@@ -46,7 +46,6 @@
   (reformatter-define jq-format
     :group 'js
     :program "jq")
-
   :pretty 'js-mode
   ("true" . true) ("false" . false)
   ("if" . if) ("else" . else)

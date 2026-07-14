@@ -44,7 +44,7 @@
         ("C-M-S-o" . lispy-oneline)
         ("M-S-RET" . lispy-multiline))
   :hook
-  (lispy-mode . lispyville-mode)
+  (lispy-mode-hook . lispyville-mode)
   :general
   (:states 'normal :keymaps 'lispyville-mode-map
            "¢" #'lispy-clone

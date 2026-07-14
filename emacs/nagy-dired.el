@@ -293,7 +293,7 @@ Can be used as an advice."
   :disabled
   :defer t
   :hook
-  (dired-mode . dired-omit-mode)
+  (dired-mode-hook . dired-omit-mode)
   :custom
   ;; Tell Dired to hide exactly "." and ".." (and any other files if desired)
   (dired-omit-files (rx bos

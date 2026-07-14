@@ -162,6 +162,8 @@
         ([remap nagy-kill-this-buffer] . wgrep-abort-changes))
 
   :general
+  (:states 'normal :keymaps 'grep-mode-map
+           [remap evil-insert] #'wgrep-change-to-wgrep-mode)
   (:states 'normal :keymaps 'wgrep-mode-map
            "ö" #'wgrep-finish-edit))
 

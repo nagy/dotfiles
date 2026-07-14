@@ -735,7 +735,7 @@ string; otherwise return a 64-character string."
   :custom
   (auto-revert-verbose nil)
   :hook
-  (dired-mode . auto-revert-mode)
+  (dired-mode-hook . auto-revert-mode)
   :bind
   ("C-⧖" . auto-revert-mode))
 

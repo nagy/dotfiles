@@ -3,6 +3,7 @@
 
 (require 'general)
 
+;; NIX-EMACS-PACKAGE: magit
 (use-package magit
   :custom
   (magit-pull-or-fetch t)

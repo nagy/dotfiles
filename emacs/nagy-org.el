@@ -137,7 +137,7 @@
 ;; NIX-EMACS-PACKAGE: org-superstar
 (use-package org-superstar
   :hook
-  (org-mode . org-superstar-mode)
+  (org-mode-hook . org-superstar-mode)
   :custom
   (org-superstar-leading-bullet ""))
 

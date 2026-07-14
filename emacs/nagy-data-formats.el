@@ -10,6 +10,8 @@
 ;;   :defer t
 ;;   )
 
+;; (add-to-list 'major-mode-remap-alist '(js-json-mode . json-ts-mode))
+
 ;; (defun my-json-ts-extra-highlights ()
 ;;   "Fügt explizite Fehler-Hervorhebung für Tree-sitter JSON hinzu."
 ;;   (setq-local treesit-font-lock-settings

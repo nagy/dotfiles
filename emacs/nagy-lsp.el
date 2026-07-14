@@ -23,7 +23,7 @@
   (eglot-autoshutdown t)
   (eglot-code-action-indications '(eldoc-hint))
   :hook
-  (eglot-managed-mode . nagy-eglot-disable-semantic-tokens-mode)
+  (eglot-managed-mode-hook . nagy-eglot-disable-semantic-tokens-mode)
   :config
   ;; massive perf boost --- don't log every event
   ;; (advice-add 'jsonrpc--log-event :override #'ignore)
