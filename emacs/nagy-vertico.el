@@ -265,6 +265,17 @@
         ("s-:" . embark-collect)
         ("s-<XF86Back>" . embark-live)))
 
+(use-package embark-consult
+  :defer t
+  :preface
+  (defun nagy-vertico--replace-pop-to-buffer-set-buffer (orig-fun &rest args)
+   (cl-letf (((symbol-function 'pop-to-buffer) #'set-buffer))
+     (apply orig-fun args)))
+  :config
+  (advice-add 'embark-consult-export-location-occur :around #'nagy-vertico--replace-pop-to-buffer-set-buffer)
+  (advice-add 'embark-consult--export-grep :around #'nagy-vertico--replace-pop-to-buffer-set-buffer))
+  ;; (add-to-list 'display-buffer-alist '("^\\*Embark Export: ." . display-buffer-same-window))
+
 ;; NIX-EMACS-PACKAGE: consult-dir
 (use-package consult-dir
   :bind
