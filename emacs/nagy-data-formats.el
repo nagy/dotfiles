@@ -44,25 +44,19 @@
 
 ;; * YAML
 
-;; NIX-EMACS-PACKAGE: yaml-mode
-(use-package yaml-mode
+(use-package yaml-ts-mode
+  :defer t
   :preface
   (reformatter-define yq-format
     :group 'js
     :program "yq"
     :args `("--prettyPrint" ,(or (buffer-file-name) input-file)))
-  ;; :hook
-  ;; (yaml-mode . yq-format-on-save-mode)
+  :hook
+  (yaml-ts-mode-hook . yq-format-on-save-mode)
   :bind
-  ("H-M-y" . yaml-mode)
-  (:map yaml-mode-map
-        ("C-⊢" . yq-format-buffer))
-  :pretty 'yaml-mode
-  ("true" . true) ("false" . false)
-  :general
-  (:states 'normal :keymaps 'yaml-mode-map
-           "⊢" #'yq-format-buffer))
+  ("H-M-y" . yaml-ts-mode))
 
+(add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
 
 ;; * TOML
 
