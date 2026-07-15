@@ -34,22 +34,13 @@
   ;; :mode "\\.jq\\'"
   ;; :interpreter "jq"
   ;; :hook
-  ;; (jq-mode . jqfmt-on-save-mode)
+  ;; (jq-mode-hook . jqfmt-on-save-mode)
   :bind
   (:map jq-mode-map
         ("C-⊢" . jqfmt-buffer))
   :general
   (:states 'normal :keymaps 'jq-mode-map
-           "⊢" #'jqfmt-buffer)
-  :pretty 'jq-mode
-  ("def" . def)
-  ("try" . try) ("catch" . except)
-  :abbrev 'jq-mode
-  ("d" . "def")
-  ("t" . "try")
-  ("c" . "catch")
-  ("sel" . "select")
-  ("con" . "contains"))
+           "⊢" #'jqfmt-buffer))
 
 ;; * YAML
 
