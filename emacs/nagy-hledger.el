@@ -3,8 +3,6 @@
 
 ;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
-;; NIX-EMACS-PACKAGE: anaphora
-(require 'anaphora)
 ;; NIX-EMACS-PACKAGE: embark
 (require 'embark)
 
@@ -37,8 +35,8 @@
 
 (declare-function hledger-get-accounts "hledger-reports")
 (defun embark-target-hledger-account-at-point ()
-  (awhen (member (thing-at-point 'filename t)
-                 (hledger-get-accounts))
+  (when-let* ((it (member (thing-at-point 'filename t)
+                          (hledger-get-accounts))))
     (-let* (((beg . end) (cons (car (bounds-of-thing-at-point 'filename))
                                (cdr (bounds-of-thing-at-point 'filename)))))
 

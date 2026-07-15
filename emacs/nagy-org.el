@@ -311,7 +311,6 @@
 ;; NIX-EMACS-PACKAGE: org-transclusion
 (use-package org-transclusion
   :defer t)
-  
 
 ;; NIX-EMACS-PACKAGE: ox-typst
 (use-package ox-typst

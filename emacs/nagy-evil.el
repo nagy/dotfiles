@@ -409,8 +409,8 @@
   :custom
   (ws-butler-keep-whitespace-before-point nil)
   :hook
-  (prog-mode . ws-butler-mode)
-  (text-mode . ws-butler-mode))
+  (prog-mode-hook . ws-butler-mode)
+  (text-mode-hook . ws-butler-mode))
 
 (use-package wdired
   :defer t
@@ -470,7 +470,6 @@
         ("H-l" . ghostel-char-mode))
         ;; ("<normal-state> <key-chord> f h" . embark-dwim)
         ;; ("<normal-state> <key-chord> f j" . embark-act)
-
   (:map evil-normal-state-map
         ("<key-chord> - x" . ghostel)))
 

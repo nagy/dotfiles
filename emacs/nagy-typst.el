@@ -1,26 +1,22 @@
 ;;; nagy-typst.el --- My typst config -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1")  nagy-use-package)
 
-;; * Typst
-
 ;; NIX-EMACS-PACKAGE: typst-ts-mode
 (use-package typst-ts-mode
   :preface
   (reformatter-define typstyle
     :group 'emacs
     :program "typstyle")
-
   :defer t
   :bind
   ("H-M-T" . typst-ts-mode)
   (:map typst-ts-mode-map
         ("C-⊢" . typstyle-buffer))
   :hook
-  (typst-ts-mode . typstyle-on-save-mode)
+  (typst-ts-mode-hook . typstyle-on-save-mode)
   :general
   (:states 'normal :keymaps 'typst-ts-mode-map
            "⊢" #'typstyle-buffer))
-
 
 ;;  TODO integrate tinymist language server lsp https://github.com/Myriad-Dreamin/tinymist
 
