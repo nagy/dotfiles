@@ -694,10 +694,7 @@ Returns the total execution time as a floating-point number."
                               "--from=html")
          (switch-to-buffer  buffer)
          (goto-char (point-min))
-         (org-mode)
-         ))))
-  ;; (evil-global-set-key 'motion (kbd "g H-M-o") #'nagy-text-to-org)
-  )
+         (org-mode))))))
 
 ;; TODO markdown disable toggle markup when pretty key is pressed
 
@@ -708,8 +705,7 @@ Returns the total execution time as a floating-point number."
   :preface
   (reformatter-define typstyle
     :group 'emacs
-    :program "typstyle"
-    )
+    :program "typstyle")
   :defer t
   :bind
   ("H-M-T" . typst-ts-mode)
@@ -719,8 +715,8 @@ Returns the total execution time as a floating-point number."
   (typst-ts-mode . typstyle-on-save-mode)
   :general
   (:states 'normal :keymaps 'typst-ts-mode-map
-           "⊢" #'typstyle-buffer)
-  )
+           "⊢" #'typstyle-buffer))
+
 
 ;;  TODO integrate tinymist language server lsp https://github.com/Myriad-Dreamin/tinymist
 
