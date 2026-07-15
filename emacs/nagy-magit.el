@@ -85,37 +85,6 @@
         ("<normal-state> <key-chord> f h" . embark-dwim)
         ("<normal-state> <key-chord> f j" . embark-act)))
 
-
-;; NIX-EMACS-PACKAGE: forge
-(use-package forge
-  :disabled
-  :bind
-  ("H-ß" . forge-dispatch)
-  (:map forge-post-mode-map
-        ([remap save-kill-buffer] . forge-post-submit)
-        ([remap kill-this-buffer] . forge-post-cancel)
-        ([remap nagy-kill-this-buffer] . forge-post-cancel))
-  (:map forge-topic-mode-map
-        ;; ("M-↓" . forge-pull)
-        ("M-w" . forge-copy-url-at-point-as-kill))
-
-  (:map magit-mode-map
-        ("M-ß" . forge-pull))
-  (:map dired-mode-map
-        ("M-ß" . forge-pull))
-  :general
-  (:states 'normal :keymaps 'magit-mode-map
-           "ß" #'forge-dispatch)
-  ;; (:states 'normal :keymaps 'forge-post-mode-map
-  ;;          "ö" #'forge-post-submit)
-  :config
-  (setq forge-post-mode-hook (delq 'turn-on-flyspell forge-post-mode-hook))
-  (setq forge-post-mode-hook (delq 'visual-line-mode forge-post-mode-hook)))
-  ;; (set-face-attribute 'forge-pullreq-open nil :inherit 'modus-themes-heading-1)
-  ;; remove flyspell and visual-line-mode
-  ;; (setq forge-post-mode-hook nil)
-
-
 ;; NIX-EMACS-PACKAGE: with-editor
 (use-package with-editor
   :bind
