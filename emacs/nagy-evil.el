@@ -93,7 +93,6 @@
      xref
      apropos
      calendar
-     markdown-mode
      image-dired
      replace                            ; for occur
      ;; gnus

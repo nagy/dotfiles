@@ -175,7 +175,7 @@
   :init
   (setq focus-mode-to-thing
         '((prog-mode . defun)
-          (markdown-mode . paragraph)
+          (markdown-ts-mode . paragraph)
           (elpher-mode . paragraph)
           (nix-mode . paragraph)
           (text-mode . sentence)))
@@ -695,8 +695,6 @@ Returns the total execution time as a floating-point number."
          (switch-to-buffer  buffer)
          (goto-char (point-min))
          (org-mode))))))
-
-;; TODO markdown disable toggle markup when pretty key is pressed
 
 ;; * Typst
 

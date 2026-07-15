@@ -192,32 +192,13 @@
   (:states 'normal :keymaps 'mermaid-mode-map
            "ö" #'mermaid-compile-buffer))
 
-;; NIX-EMACS-PACKAGE: markdown-mode
-(use-package markdown-mode
-  :commands (markdown-mark-subtree nagy-markdown-delete-subtree)
-  :custom
-  (markdown-list-indent-width 2)
-  ;; (markdown-hide-markup nil)
-  :config
-  (defun nagy-markdown-delete-subtree ()
-    (interactive)
-    (markdown-mark-subtree)
-    (delete-region (region-beginning) (region-end)))
-  ;; (map! :map markdown-mode-map :n "r" #'markdown-cycle)
-
-  ;; TODO needs to be put into modus themes hook
-  (set-face-attribute 'markdown-header-face-1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
-  (set-face-attribute 'markdown-header-face-2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
-  (set-face-attribute 'markdown-header-face-3 nil :font "Et Bembo" :height 1.2 :inherit 'modus-themes-heading-3)
-  ;; :hook
-  ;; (markdown-mode . markdown-toggle-markup-hiding)
+(use-package markdown-ts-mode
+  :defer t
+  :mode "\\.md$"
   :bind
-  ("H-M-m" . markdown-mode)
-  (:map markdown-mode-map
-        ("H-d" . nagy-markdown-delete-subtree)
-        ("H-j" . markdown-next-visible-heading)
-        ("H-k" . markdown-previous-visible-heading)
-        ("H-s-n" . markdown-narrow-to-subtree)))
+  ("H-M-m" . markdown-ts-mode))
+
+;; (add-to-list 'major-mode-remap-alist '(markdown-mode . markdown-ts-mode))
 
 (defun find-file-directory-markdown ()
   (interactive)
@@ -329,8 +310,8 @@
 
 ;; NIX-EMACS-PACKAGE: org-transclusion
 (use-package org-transclusion
-  :defer t
-  )
+  :defer t)
+  
 
 ;; NIX-EMACS-PACKAGE: ox-typst
 (use-package ox-typst

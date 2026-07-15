@@ -1259,7 +1259,6 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
 
 ;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
-(declare-function markdown-narrow-to-subtree "markdown-mode")
 (defun +narrow-to-dwim ()
   (interactive)
   (if (buffer-narrowed-p)
@@ -1276,8 +1275,6 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
 
       ;;('org-mode
       ;; (org-narrow-to-subtree))
-      ('markdown-mode
-       (markdown-narrow-to-subtree))
       (_ (user-error "Narrowing for `%s' not implemented yet" major-mode)))
     ;; (goto-char (point-min))
     (let ((scroll-preserve-screen-position nil))
