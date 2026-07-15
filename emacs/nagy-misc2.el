@@ -151,8 +151,8 @@
   :config
   (list)
   :hook
-  (emacs-lisp-mode . nagy-misc2-activate-el-fl))
-  ;; (emacs-lisp-mode . highlight-defined-mode)
+  (emacs-lisp-mode-hook . nagy-misc2-activate-el-fl))
+  ;; (emacs-lisp-mode-hook . highlight-defined-mode)
 
 
 ;; NIX-EMACS-PACKAGE: helpful
@@ -331,49 +331,6 @@
   (avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l
                  ?q ?w ?e ?r       ?i ?o ?p)))
 
-;; TODO make H-< in normal mode: eval sexp and replace
-;; TODO make H-< in vertico consult select to eval and replace the entry ( if buffer )
-(defun nagy-eval-sexp-replace (arg)
-  (interactive "P")
-  (ignore arg)
-  (-let* ((forward-sexp-function #'sp-forward-sexp) ; fixes problems e.g. in yaml-mode
-          ((beg . end) (or (bounds-of-thing-at-point 'sexp)
-                           (save-mark-and-excursion
-                             (mark-word)
-                             (cons (region-beginning) (region-end)))))
-          (str (buffer-substring beg end))
-          (expr (car (read-from-string str))))
-    (aif (and ;; (eq -1 (prefix-numeric-value arg))
-          (get-text-property (point) 'orig-eval))
-        ;; Restore old eval
-        (progn
-          (let ((start (field-beginning (1+ (point))))
-                (end (field-end (1+ (point)))))
-            (delete-region start end)
-            (insert (format "%s" it))
-            (goto-char start)))
-
-      ;; eval
-      (atomic-change-group
-        (save-excursion
-          (let ((e (eval expr))
-                (field-random (random)))
-            (delete-region beg end)
-            (insert (propertize (format "%S" e)
-                                'orig-eval str
-                                'field field-random))))))))
-(keymap-global-set "H-<" #'nagy-eval-sexp-replace)
-
-;; (defun +nagy/colorize ()
-;;   (interactive)
-;;   (let ((inhibit-read-only t)
-;;         (inhibit-message t))
-;;     (let ((evil-ex-current-buffer (current-buffer)))
-;;       (save-excursion
-;;         (evil-ex-execute "%s,,,g")))
-;;     (ansi-color-apply-on-region (point-min) (point-max))
-;;     (set-buffer-modified-p nil)))
-
 ;; (use-package which-key
 ;;   :bind
 ;;   ("A-C-s-ĸ" . which-key-mode)
@@ -424,17 +381,6 @@
                                             forth-mode))
   :config
   (global-page-break-lines-mode 1))
-
-;; NIX-EMACS-PACKAGE: smartparens
-(require 'smartparens)
-(use-package smartparens
-  :diminish 'smartparens-mode
-  :config
-  (smartparens-global-mode 1)
-  ;; :hook
-  ;; (emacs-lisp-mode . smartparens-mode)
-  ;; (ielm-mode . smartparens-mode)
-  )
 
 
 ;; NIX-EMACS-PACKAGE: request
@@ -584,11 +530,23 @@
   (:states 'normal :keymaps 'sh-mode-map
            "⊢" #'shfmt-buffer))
 
+;; NIX-EMACS-PACKAGE: parinfer-rust-mode
+(use-package parinfer-rust-mode
+  :defer t
+  :preface
+  :hook
+  (emacs-lisp-mode . parinfer-rust-mode)
+  :config
+  (require 'xdg)
+  :custom
+  (parinfer-rust-library (concat (xdg-runtime-dir) "/parinfer-rust-emacs/lib/libparinfer_rust.so"))
+  (parinfer-rust-check-before-enable nil))
+  ;; (parinfer-rust-preferred-mode "indent")
 
 ;; https://github.com/rejeep/ansi.el
 ;; NIX-EMACS-PACKAGE: ansi
 (use-package ansi
-  :defer t
-  )
+  :defer t)
+  
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here

@@ -16,8 +16,8 @@
   ;; (map! :map lispy-mode-map
   ;;       "f" nil  ;; was special-lispy-flow
   ;;       )
-  :hook
-  (emacs-lisp-mode . lispy-mode)
+  ;; :hook
+  ;; (emacs-lisp-mode-hook . lispy-mode)
   :bind
   ("s-(" . lispy-mode)
   ("s-)" . lispyville-mode)

@@ -50,6 +50,9 @@
       (set-face-attribute 'treesit-fold-replacement-face nil :box 'unspecified)
       (set-face-attribute 'treesit-fold-replacement-mouse-face nil :box 'unspecified))
 
+    (with-eval-after-load 'parinfer-rust-mode
+      (set-face-attribute 'parinfer-rust-dim-parens nil :foreground 'unspecified :inherit '(parenthesis)))
+
     (set-face-attribute 'tab-bar-tab-inactive nil :box nil :background (face-attribute 'tab-bar :background nil t))
     (set-face-attribute 'window-divider nil :foreground (if (dayp) "black" "gray20"))
     (set-face-attribute 'scroll-bar nil :box 'unspecified :foreground (if (dayp) "#ccc" "#333")))
