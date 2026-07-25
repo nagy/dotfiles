@@ -20,6 +20,7 @@
   ;; (org-cycle-hide-drawer-startup nil)
   (org-export-with-smart-quotes t)
   (org-link-descriptive nil)
+  ;; (org-startup-align-all-tables t)
   :hook
   (org-mode . visual-line-mode)
   :config

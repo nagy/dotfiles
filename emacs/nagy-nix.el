@@ -122,9 +122,9 @@
 ;; NIX-EMACS-PACKAGE: nix-ts-mode
 (use-package nix-ts-mode
   :defer t)
-  ;; :config
-  ;; (setq treesit-font-lock-level 4)
-  ;; (add-to-list 'major-mode-remap-alist '(nix-mode . nix-ts-mode))
+;; :config
+;; (setq treesit-font-lock-level 4)
+;; (add-to-list 'major-mode-remap-alist '(nix-mode . nix-ts-mode))
 
 
 (define-auto-insert
@@ -188,9 +188,9 @@
   :diminish nix-prettify-mode
   :custom
   (nix-prettify-char "┃▒"))
-  ;; :hook
-  ;; (dired-mode . nix-prettify-mode)
-  ;; (nix-repl-mode . nix-prettify-mode)
+;; :hook
+;; (dired-mode . nix-prettify-mode)
+;; (nix-repl-mode . nix-prettify-mode)
 
 
 ;; TODO has an lsp nls
@@ -210,6 +210,10 @@
   ("import" . import)
   :hook
   (nickel-mode . nickel-format-on-save-mode))
+
+;; NIX-EMACS-PACKAGE: nixos
+(use-package nixos
+  :defer t)
 
 (provide 'nagy-nix)
 ;;; nagy-nix.el ends here

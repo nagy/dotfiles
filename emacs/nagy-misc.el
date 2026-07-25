@@ -1,8 +1,11 @@
 ;;; nagy-misc.el --- Description -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") reformatter ts ov paren-face systemd nagy-use-package)
+;; Package-Requires: ((emacs "30.1") ts ov paren-face systemd nagy-use-package)
 
 (require 'ov)
 (require 'general)
+
+;; NIX-EMACS-PACKAGE: reformatter
+;; (require 'reformatter)
 
 ;; NIX-EMACS-PACKAGE: anaphora
 (require 'anaphora)

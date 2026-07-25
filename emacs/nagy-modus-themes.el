@@ -82,6 +82,7 @@
        `(eglot-highlight-symbol-face ((,c :underline t :bold t)))
        `(eglot-diagnostic-tag-unnecessary-face ((,c :underline unspecified :inherit nagy-intense-green)))
        `(scroll-bar ((,c :background ,bg-main)))
+       `(margin ((,c :background ,bg-main)))
        ;; High contrast
        `(mode-line ((,c :box (:line-width 2))))
        `(mode-line-inactive ((,c :foreground ,fg-main :box (:line-width 2 :color ,bg-main) :background ,bg-main)))
