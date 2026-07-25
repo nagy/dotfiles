@@ -696,27 +696,8 @@ Returns the total execution time as a floating-point number."
          (goto-char (point-min))
          (org-mode))))))
 
-;; * Typst
+  ;; (evil-global-set-key 'motion (kbd "g H-M-o") #'nagy-text-to-org)
 
-;; NIX-EMACS-PACKAGE: typst-ts-mode
-(use-package typst-ts-mode
-  :preface
-  (reformatter-define typstyle
-    :group 'emacs
-    :program "typstyle")
-  :defer t
-  :bind
-  ("H-M-T" . typst-ts-mode)
-  (:map typst-ts-mode-map
-        ("C-⊢" . typstyle-buffer))
-  :hook
-  (typst-ts-mode . typstyle-on-save-mode)
-  :general
-  (:states 'normal :keymaps 'typst-ts-mode-map
-           "⊢" #'typstyle-buffer))
-
-
-;;  TODO integrate tinymist language server lsp https://github.com/Myriad-Dreamin/tinymist
 
 (use-package xref
   :defer t
