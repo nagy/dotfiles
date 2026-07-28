@@ -1,4 +1,4 @@
-;;; nagy-hledger.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-hledger.el --- hledger ledger configuration -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") nagy-use-package)
 
 ;; NIX-EMACS-PACKAGE: dash

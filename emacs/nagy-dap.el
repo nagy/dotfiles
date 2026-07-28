@@ -1,4 +1,4 @@
-;;; nagy-dap.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-dap.el --- DAP (Debug Adapter Protocol) configuration -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") reformatter nagy-use-package)
 
 (require 'diminish)

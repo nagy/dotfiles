@@ -1,4 +1,4 @@
-;;; nagy-list.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-list.el --- List utility functions -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") dash anaphora nagy-emacs)
 
 (require 'subr-x)

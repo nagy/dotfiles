@@ -1,4 +1,4 @@
-;;; nagy-mode-line.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-mode-line.el --- Mode line configuration -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") memoize dash anaphora)
 
 (require 'dash)

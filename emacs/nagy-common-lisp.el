@@ -1,4 +1,4 @@
-;;; nagy-common-lisp.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-common-lisp.el --- Common Lisp configuration -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") nagy-use-package)
 
 (require 'general)

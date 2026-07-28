@@ -1,4 +1,4 @@
-;;; nagy-pcap-converter.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-pcap-converter.el --- PCAP file converter -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1"))
 
 (require 'format)

@@ -1,4 +1,4 @@
-;;; nagy-misc2.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-misc2.el --- More miscellaneous settings -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") reformatter org-pdftools nagy-use-package)
 
 (require 'diminish)

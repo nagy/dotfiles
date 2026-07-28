@@ -1,4 +1,4 @@
-;;; nagy-misc.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-misc.el --- Miscellaneous settings -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") ts ov paren-face systemd nagy-use-package)
 
 (require 'ov)

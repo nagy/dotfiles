@@ -1,4 +1,4 @@
-;;; nagy-mail.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-mail.el --- Email and message configuration -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1"))
 
 (require 'general)

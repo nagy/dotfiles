@@ -1,4 +1,4 @@
-;;; nagy-gc.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-gc.el --- Garbage collection tuning -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") with-editor)
 
 (require 'general)

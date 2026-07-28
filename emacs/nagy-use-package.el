@@ -1,4 +1,4 @@
-;;; nagy-use-package.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-use-package.el --- use-package configuration -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2023 Daniel Nagy
 ;;

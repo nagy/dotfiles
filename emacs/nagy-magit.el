@@ -1,4 +1,4 @@
-;;; nagy-magit.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-magit.el --- Magit configuration -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1"))
 
 (require 'general)

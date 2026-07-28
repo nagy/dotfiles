@@ -1,4 +1,4 @@
-;;; nagy-evil.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-evil.el --- Evil mode configuration -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") evil evil-escape evil-matchit evil-nerd-commenter key-chord vertico nagy-use-package)
 
 (require 'diminish)

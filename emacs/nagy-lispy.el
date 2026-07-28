@@ -1,4 +1,4 @@
-;;; nagy-lispy.el --- Description -*- lexical-binding: t; -*-
+;;; nagy-lispy.el --- Lispy navigation configuration -*- lexical-binding: t; -*-
 ;; Package-Requires: ((emacs "30.1") nagy-use-package)
 
 (require 'diminish)
