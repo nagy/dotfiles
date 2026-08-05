@@ -105,7 +105,7 @@
      (1 `(face ansi-color-inverse)))
     ;; Documentation
     (,(rx (group
-           (or ".md" ".rst" ".org" ".txt" ".pdf" ".gmi"
+           (or ".md" ".rst" ".org" ".txt" ".pdf" ".html" ".gmi"
                ".mmd"     ;; mermaid uml
                ".journal")) ;; hledger and ledger
 

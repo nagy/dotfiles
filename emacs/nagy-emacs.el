@@ -1290,6 +1290,7 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
 (use-package package
   :custom
   (package-menu-async nil)
+  (package-archives nil)  ;; they are provided as static directories
   :defer t)
   ;; :config
   ;; (evil-set-initial-state 'package-menu-mode 'normal)

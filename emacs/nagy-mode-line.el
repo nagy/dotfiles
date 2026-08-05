@@ -52,7 +52,7 @@
 ;; (memoize-restore 'nagy-mode-line-fill)
 
 (defvar-local nagy-mode-line-url-knowledge
-    '((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print url-knowledge-url) 'face '(:inherit (show-paren-match bold)))) " "))))
+  '((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print url-knowledge-url) 'face '(:inherit (show-paren-match bold)))) " "))))
 
 (put 'nagy-mode-line-url-knowledge 'risky-local-variable t)
 
@@ -103,6 +103,8 @@
 
 (defvar nagy-mode-line--default-directory-shorten-alist
   '(("/run/user/1000/" . "𝒓/")
+    ("/tmp/ipfs" . "□")
+    ("/ipfs" . "□")
     ("/tmp/t" . "⧖")
     ("/tmp/" . "⧖")))
 
@@ -112,6 +114,7 @@
   (cl-loop for el in nagy-mode-line--default-directory-shorten-alist
            for prefix = (car el)
            for replacement = (cdr el)
+           when (string-prefix-p prefix def-dir)
            do
            (setq def-dir (string-replace prefix replacement def-dir)))
   (abbreviate-file-name def-dir))

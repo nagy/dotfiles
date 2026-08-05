@@ -196,6 +196,8 @@
 (use-package markdown-ts-mode
   :defer t
   :mode "\\.md$"
+  :custom
+  (markdown-ts-hide-markup t)
   :bind
   ("H-M-m" . markdown-ts-mode))
 
@@ -232,6 +234,7 @@
   (org-link-abbrev-alist
    '(("gh" . "https://github.com/")
      ("gl" . "https://gitlab.com/")
+     ("hf" . "https://huggingface.co/")
      ("crate" . "https://crates.io/crates/")
      ("pypi" . "https://pypi.org/project/")
      ("npm" . "https://www.npmjs.com/package/")
