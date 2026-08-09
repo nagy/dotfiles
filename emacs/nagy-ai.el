@@ -39,17 +39,11 @@
         ("s-a" . nagy-ai--pi-coding-agent-switch-to-chat)
         ("H-a" . nagy-ai--pi-coding-agent-switch-to-chat)))
 
-
-;; ;; NIX-EMACS-PACKAGE: gptel
-;; ;; (use-package gptel)
-
-;; ;; NIX-EMACS-PACKAGE: mcp
-;; ;; (use-package mcp)
-
-;; ;; ;; NIX-EMACS-PACKAGE: agent-shell
-;; (use-package agent-shell
-;;   :defer t
-;;   )
+;; NIX-EMACS-PACKAGE: agent-shell
+(use-package agent-shell
+  ;; :custom
+  ;; (agent-shell-text-file-capabilities nil)
+  :defer t)
 
 (provide 'nagy-ai)
 ;;; nagy-ai.el ends here

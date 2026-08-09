@@ -263,6 +263,7 @@
   (:map minibuffer-mode-map
         ("s-." . embark-export)
         ("s-:" . embark-collect)
+        ([remap nagy-kill-this-buffer] . minibuffer-keyboard-quit)
         ("s-<XF86Back>" . embark-live)))
 
 (use-package embark-consult

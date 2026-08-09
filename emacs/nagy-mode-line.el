@@ -79,9 +79,9 @@
                  (derived-mode-p 'nagy-list-mode))
        (propertize
         (concat (file-size-human-readable (buffer-size)) "B "))))
-        ;; 'face (if (mode-line-window-selected-p)
-        ;;           'line-number
-        ;;         'mode-line-inactive)
+    ;; 'face (if (mode-line-window-selected-p)
+    ;;           'line-number
+    ;;         'mode-line-inactive)
 
     ;; Process
     (:eval
@@ -166,11 +166,11 @@
   (setq-default mode-line-modified mode-line-modified)
   (setq mode-line-position '((:eval (buffer-line-count-string))
                              "")))
-  ;; (setq mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
-  ;; (setq-default mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
-  ;; (setq mode-line-position '(" L%l/" (:eval (number-to-string (buffer-chars-modified-tick)))))
-  ;; cannot set this because dired overrides it
-  ;; (setq-default mode-line-buffer-identification '((:propertize "%b" face bold)))
+;; (setq mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
+;; (setq-default mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
+;; (setq mode-line-position '(" L%l/" (:eval (number-to-string (buffer-chars-modified-tick)))))
+;; cannot set this because dired overrides it
+;; (setq-default mode-line-buffer-identification '((:propertize "%b" face bold)))
 
 
 (nagy-mode-line-init)
