@@ -19,7 +19,7 @@
   (org-return-follows-link t)
   ;; (org-cycle-hide-drawer-startup nil)
   (org-export-with-smart-quotes t)
-  (org-link-descriptive nil)
+  (org-link-descriptive t)
   ;; (org-startup-align-all-tables t)
   :hook
   (org-mode . visual-line-mode)

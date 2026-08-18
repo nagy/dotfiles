@@ -39,7 +39,7 @@ let
   '';
 in
 mkQmkFirmware {
-  name = "nagy-keyboard-firmware";
+  pname = "nagy-keyboard-firmware";
   inherit keyboard keymap;
 
   patchPhase = ''

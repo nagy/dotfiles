@@ -551,7 +551,7 @@ Returns the total execution time as a floating-point number."
   :general
   (:states 'normal :keymaps 'elfeed-search-mode-map
            "SPC" nil
-           "r" #'elfeed-search-untag-all-unread
+           "r" #'elfeed-search-untag-unread
            "↓" #'elfeed-search-fetch)
   ;; (:states 'normal :keymaps 'elfeed-show-mode-map
   ;;          "SPC" nil)
