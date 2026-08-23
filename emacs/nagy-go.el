@@ -30,5 +30,11 @@
 (require 'dired)
 (keymap-set dired-mode-map "H-M-g" #'find-file-directory-go)
 
+;; NIX-EMACS-PACKAGE: go-mod-ts-extras-mode
+(use-package go-mod-ts-extras-mode
+  :defer t
+  :hook
+  (go-mod-ts-mode-hook . go-mod-ts-extras-mode))
+
 (provide 'nagy-go)
 ;;; nagy-go.el ends here
