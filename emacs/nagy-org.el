@@ -316,20 +316,6 @@
 (use-package org-transclusion
   :defer t)
 
-;; NIX-EMACS-PACKAGE: ox-typst
-(use-package ox-typst
-  :commands (org-typst-export-to-typst) ;; for autoload
-  :after org
-  :custom
-  (org-typst-export-buffer-major-mode 'typst-ts-mode)
-  ;; :config
-  ;; (add-to-list 'org-export-options-alist
-  ;;              '(:with-phone nil "phone" nil t))
-  :bind
-  (:map org-mode-map
-        ("H-M-T" . org-typst-export-as-typst)
-        ("H-M-P" . org-typst-export-to-pdf)))
-
 ;; NIX-EMACS-PACKAGE: org-jxl-images
 (use-package org-jxl-images
   :defer t
