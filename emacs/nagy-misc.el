@@ -780,5 +780,13 @@ Returns the total execution time as a floating-point number."
 (use-package crate
   :defer t)
 
+;; NIX-EMACS-PACKAGE: difftastic
+(use-package difftastic
+  :defer t)
+
+;; NIX-EMACS-PACKAGE: magit-difftastic
+(use-package magit-difftastic
+  :defer t)
+
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
