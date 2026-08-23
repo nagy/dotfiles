@@ -330,5 +330,11 @@
         ("H-M-T" . org-typst-export-as-typst)
         ("H-M-P" . org-typst-export-to-pdf)))
 
+;; NIX-EMACS-PACKAGE: org-jxl-images
+(use-package org-jxl-images
+  :defer t
+  :hook
+  (org-mode . org-jxl-inline-mode))
+
 (provide 'nagy-org)
 ;;; nagy-org.el ends here
