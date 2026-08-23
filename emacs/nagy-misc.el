@@ -775,5 +775,9 @@ Returns the total execution time as a floating-point number."
   ;; (define-key esc-map "j" nil)
 
 
+;; NIX-EMACS-PACKAGE: crate
+(use-package crate
+  :defer t)
+
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
