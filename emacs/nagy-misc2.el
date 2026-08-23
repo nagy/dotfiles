@@ -530,6 +530,19 @@
   (:states 'normal :keymaps 'sh-mode-map
            "⊢" #'shfmt-buffer))
 
+;; NIX-EMACS-PACKAGE: yublin
+(use-package yublin
+  :defer t
+  ;; :diminish yublin-mode
+  ;; extras:
+  ;; pnal -> personal
+  ;; kjs -> changes
+  ;; exion -> exception
+  ;; lks  -> looks
+  ;; tking  -> thinking
+  :hook
+  (text-mode-hook . yublin-mode))
+
 ;; NIX-EMACS-PACKAGE: parinfer-rust-mode
 (use-package parinfer-rust-mode
   :defer t
