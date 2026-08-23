@@ -398,7 +398,7 @@ Can be used as an advice."
 ;; (use-package dirvish-emerge
 ;;   :defer t
 ;;   :hook
-;;   (dirvish-setup . dirvish-emerge-mode)
+;;   (dirvish-setup-hook . dirvish-emerge-mode)
 ;;   ;; :config
 ;;   ;; (set-face-attribute 'dirvish-collapse-dir-face nil :inherit 'parenthesis)
 ;;   )

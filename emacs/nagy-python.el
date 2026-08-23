@@ -17,8 +17,8 @@
     :args `("format" "--stdin-filename" ,(or (buffer-file-name) input-file)))
 
   :hook
-  (python-mode . ruff-format-on-save-mode)
-  ;; (python-ts-mode . ruff-format-on-save-mode)
+  (python-mode-hook . ruff-format-on-save-mode)
+  ;; (python-ts-mode-hook . ruff-format-on-save-mode)
   :custom
   (python-indent-offset 4)
   (python-indent-guess-indent-offset nil)
@@ -97,7 +97,7 @@
   :same
   "^\\*Hy\\*$"
   :hook
-  (hy-mode . lispy-mode))
+  (hy-mode-hook . lispy-mode))
 
 
 (use-package hy-shell

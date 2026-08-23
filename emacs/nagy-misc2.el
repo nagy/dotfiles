@@ -60,7 +60,7 @@
 ;; NIX-EMACS-PACKAGE: highlight-quoted
 (use-package highlight-quoted
   :hook
-  (emacs-lisp-mode . highlight-quoted-mode))
+  (emacs-lisp-mode-hook . highlight-quoted-mode))
 
 (defvar redshift-location "12.34:56.78")
 (defun redshift ()
@@ -291,8 +291,8 @@
         ("M-m" . pdf-view-midnight-minor-mode))
 
   :hook
-  (pdf-view-mode . pdf-view-themed-minor-mode)
-  (pdf-view-mode . pdf-view-fit-page-to-window)
+  (pdf-view-mode-hook . pdf-view-themed-minor-mode)
+  (pdf-view-mode-hook . pdf-view-fit-page-to-window)
   ;; :same
   ;; (rx bos "*Outline ")
   :config
@@ -525,7 +525,7 @@
     :args '("-i" "2" "--case-indent" "--space-redirects"))
 
   :hook
-  (sh-mode . shfmt-on-save-mode)
+  (sh-mode-hook . shfmt-on-save-mode)
   :general
   (:states 'normal :keymaps 'sh-mode-map
            "⊢" #'shfmt-buffer))
@@ -535,7 +535,7 @@
   :defer t
   :preface
   :hook
-  (emacs-lisp-mode . parinfer-rust-mode)
+  (emacs-lisp-mode-hook . parinfer-rust-mode)
   :config
   (require 'xdg)
   :custom

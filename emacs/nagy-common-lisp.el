@@ -41,8 +41,8 @@
                       "description"
                       "macroexpansion"))
   ;;   :hook
-  ;;   (sly-inspector-mode . visual-line-mode)
-  ;;   (sly-db-mode . visual-line-mode)
+  ;;   (sly-inspector-mode-hook . visual-line-mode)
+  ;;   (sly-db-mode-hook . visual-line-mode)
   :general
   (:states 'normal :keymaps 'lisp-mode-map
            "ö" #'sly-eval-defun)
@@ -115,7 +115,7 @@
         ("s-." . scheme-send-last-sexp)
         ("s--" . scheme-send-definition))
   ;; :hook
-  ;; (scheme-mode . lispy-mode)
+  ;; (scheme-mode-hook . lispy-mode)
   :pretty 'scheme-mode
   ("define" . setq)
   ("if" . if)

@@ -10,7 +10,7 @@
 ;;     :program "gofmt"
 ;;     :lighter " GF")
 ;;   :hook
-;;   (go-mode . go-fmt-on-save-mode)
+;;   (go-mode-hook . go-fmt-on-save-mode)
 ;;   :bind
 ;;   ("H-M-g" . go-mode))
 

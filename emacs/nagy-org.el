@@ -22,7 +22,7 @@
   (org-link-descriptive t)
   ;; (org-startup-align-all-tables t)
   :hook
-  (org-mode . visual-line-mode)
+  (org-mode-hook . visual-line-mode)
   :config
   (defun find-file-org ()
     (interactive)
@@ -285,7 +285,7 @@
 (use-package org-pretty-table
   :defer t
   :hook
-  (org-mode . org-pretty-table-mode))
+  (org-mode-hook . org-pretty-table-mode))
 
 
 ;; NIX-EMACS-PACKAGE: denote
@@ -299,7 +299,7 @@
   :bind
   ("H-M-d" . denote)
   ;; :hook
-  ;; (dired-mode . denote-dired-mode)
+  ;; (dired-mode-hook . denote-dired-mode)
   :config
   (defun nagy-disable-auto-insert-mode (orig-fun &rest args)
     (if auto-insert-mode
@@ -320,7 +320,7 @@
 (use-package org-jxl-images
   :defer t
   :hook
-  (org-mode . org-jxl-inline-mode))
+  (org-mode-hook . org-jxl-inline-mode))
 
 (provide 'nagy-org)
 ;;; nagy-org.el ends here

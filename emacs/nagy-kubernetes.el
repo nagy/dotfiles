@@ -38,7 +38,7 @@
   (:states 'normal :keymaps 'terraform-mode-map
            "⊢" #'terraform-fmt-buffer)
   :hook
-  (terraform-mode . terraform-fmt-on-save-mode))
+  (terraform-mode-hook . terraform-fmt-on-save-mode))
   ;; :config
   ;; (push '(terraform-mode "terraform-ls" "serve") eglot-server-programs)
 

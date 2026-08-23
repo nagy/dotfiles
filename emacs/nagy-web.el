@@ -27,7 +27,7 @@
   (:states 'normal :keymaps 'typescript-mode-map
            "⊢" #'deno-fmt-buffer))
   ;; :hook
-  ;; (typescript-mode . deno-fmt-on-save-mode) ;; this breaks svelte mode down because that inherits typescript-mode
+  ;; (typescript-mode-hook . deno-fmt-on-save-mode) ;; this breaks svelte mode down because that inherits typescript-mode
 
 
 ;; (use-package eglot
@@ -59,7 +59,7 @@
   (:map js-json-mode-map
         ("C-⊢" . jq-format-buffer))
   :hook
-  (js-json-mode . jq-format-on-save-mode)
+  (js-json-mode-hook . jq-format-on-save-mode)
   :general
   (:states 'normal :keymaps 'js-json-mode-map
            "⊢" #'jq-format-buffer))

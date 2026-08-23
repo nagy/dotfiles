@@ -269,8 +269,8 @@ aka xcompose is not properly initialized in the first frame."
   (mouse-autoselect-window t)
   (focus-follows-mouse t)
   :hook
-  (exwm-manage-finish . my-firefox-sender)
-  (exwm-manage-finish . (lambda () (cd temporary-file-directory)))
+  (exwm-manage-finish-hook . my-firefox-sender)
+  (exwm-manage-finish-hook . (lambda () (cd temporary-file-directory)))
   :config
   ;; Add these hooks in a suitable place (e.g., as done in exwm-config-default)
   (add-hook 'exwm-update-class-hook #'nagy-exwm-rename-buffer)

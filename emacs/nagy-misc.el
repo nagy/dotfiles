@@ -75,7 +75,7 @@
   ("H-k" . scroll-down-command)
   ("H-y" . eww-copy-page-url)
   ;; :hook
-  ;; (eww-mode . variable-pitch-mode)
+  ;; (eww-mode-hook . variable-pitch-mode)
   :general
   (:states 'normal :keymaps 'eww-mode-map
            "r" #'eww-reload
@@ -135,7 +135,8 @@
         ;; ("H-l" . magit-log-buffer-file)
 
   :hook
-  (prog-mode . visual-line-mode)
+  (prog-mode-hook . visual-line-mode)
+  (prog-mode-hook . display-line-numbers-mode)
   :general
   (:states 'normal :keymaps 'prog-mode-map
            "ö" #'save-buffer
@@ -284,7 +285,7 @@
   ;;     (comint-interrupt-subjob)))
   ;; (add-hook 'kill-buffer-hook #'nagy-comint-kill-buffer-h)
   :hook
-  (comint-mode . visual-line-mode)
+  (comint-mode-hook . visual-line-mode)
   :custom
   ;; can freeze emacs on something like sleep 10 if non-nil
   ;; https://old.reddit.com/r/emacs/comments/14377k9/weekly_tips_tricks_c_thread/jn8igpu/
@@ -362,7 +363,7 @@
   ;; :config
   ;; (advice-add 'ielm-return :after #'evil-normal-state)
   :hook
-  (inferior-emacs-lisp-mode . nagy-misc-ielm-hook)
+  (inferior-emacs-lisp-mode-hook . nagy-misc-ielm-hook)
   :general
   (:states 'normal :keymaps 'inferior-emacs-lisp-mode-map
            "ö" #'ielm-return))

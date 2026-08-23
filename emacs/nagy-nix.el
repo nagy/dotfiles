@@ -21,9 +21,9 @@
    '("repl" "--expr" "with import <nixpkgs> {}; builtins // lib // pkgs // pkgs.nur.repos.nagy.lib"))
   :defer t
   ;; :hook
-  ;; (nix-mode . eglot-ensure)
+  ;; (nix-mode-hook . eglot-ensure)
   :hook
-  (nix-mode . nixfmt-on-save-mode)
+  (nix-mode-hook . nixfmt-on-save-mode)
   :general
   (:states 'normal :keymaps 'nix-mode-map
            "⊢" #'nixfmt-buffer)
@@ -189,8 +189,8 @@
   :custom
   (nix-prettify-char "┃▒"))
 ;; :hook
-;; (dired-mode . nix-prettify-mode)
-;; (nix-repl-mode . nix-prettify-mode)
+;; (dired-mode-hook . nix-prettify-mode)
+;; (nix-repl-mode-hook . nix-prettify-mode)
 
 
 ;; TODO has an lsp nls
@@ -209,7 +209,7 @@
   ("fun" . def)
   ("import" . import)
   :hook
-  (nickel-mode . nickel-format-on-save-mode))
+  (nickel-mode-hook . nickel-format-on-save-mode))
 
 ;; NIX-EMACS-PACKAGE: nixos
 (use-package nixos

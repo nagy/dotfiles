@@ -448,9 +448,9 @@ windows when moving the mouse."
   :defines (nix-repl-mode-abbrev-table inferior-emacs-lisp-mode-abbrev-table)
   :diminish abbrev-mode
   :hook
-  (prog-mode . abbrev-mode)
-  (comint-mode . abbrev-mode)
-  (text-mode . abbrev-mode)
+  (prog-mode-hook . abbrev-mode)
+  (comint-mode-hook . abbrev-mode)
+  (text-mode-hook . abbrev-mode)
   :config
   (with-eval-after-load 'nix-repl
     (define-abbrev nix-repl-mode-abbrev-table "wpkgs" "with import <nixpkgs> { }; " nil :system t))
@@ -480,7 +480,7 @@ windows when moving the mouse."
   ;; :config
   ;; (add-hook 'font-lock-mode-hook 'nagy-emacs-hilock-highlight 'append)
   ;; :hook
-  ;; (font-lock-mode . nagy-emacs-hilock-highlight)
+  ;; (font-lock-mode-hook . nagy-emacs-hilock-highlight)
   :diminish 'hi-lock-mode
   :bind
   ("A-s-H-." . highlight-symbol-at-point))
@@ -716,7 +716,7 @@ string; otherwise return a 64-character string."
 
 ;; (use-package debug
 ;;   :hook
-;;   (debugger-mode . visual-line-mode)
+;;   (debugger-mode-hook . visual-line-mode)
 ;;   :bind
 ;;   (:map debugger-mode-map
 ;;         ("H-w" . edebug-where)))
@@ -1207,8 +1207,8 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   ("H-M-x" . nxml-mode)
   (:map nxml-mode-map
         ("C-⊢" . xml-format-buffer)))
-  ;; :hook
-  ;; (nxml-mode . xml-format-on-save-mode)
+;; :hook
+;; (nxml-mode-hook . xml-format-on-save-mode)
 
 
 (use-package timer-list

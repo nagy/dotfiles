@@ -143,10 +143,10 @@
                                            (fg-region unspecified)))
 
   :hook
-  (modus-themes-after-load-theme . nagy-modus-theme-overrides)
-  (modus-themes-after-load-theme . ala-fix-theme)
-  (modus-themes-after-load-theme . nagy-modus-themes--custom-faces)
-  (modus-themes-after-load-theme . nagy-modus-themes--init-derived-faces)
+  (modus-themes-after-load-theme-hook . nagy-modus-theme-overrides)
+  (modus-themes-after-load-theme-hook . ala-fix-theme)
+  (modus-themes-after-load-theme-hook . nagy-modus-themes--custom-faces)
+  (modus-themes-after-load-theme-hook . nagy-modus-themes--init-derived-faces)
   :config
   ;; (add-hook 'modus-themes-after-load-theme-hook #'nagy-modus-theme-overrides)
   ;; (add-hook 'modus-themes-after-load-theme-hook #'ala-fix-theme)
@@ -191,7 +191,7 @@
   (add-to-list 'paren-face-modes 'fennel-mode)
   ;; (add-hook 'modus-themes-after-load-theme-hook #'nagy--fix-paren-face 100) ;; needs to be at the end
   :hook
-  (modus-themes-after-load-theme . nagy--fix-paren-face))
+  (modus-themes-after-load-theme-hook . nagy--fix-paren-face))
 
 
 ;; NIX-EMACS-PACKAGE: nerd-icons
