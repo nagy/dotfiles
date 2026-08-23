@@ -74,20 +74,18 @@
                 (when (string-prefix-p "https://" it)
                   it))))))))
 
-(declare-function dollar "dash-shell")
-(defun pypi-browse-url (url &rest _args)
-  (pcase-exhaustive url
-    ((url host filename)
-     (setq filename (string-replace "/project/" "" filename))
-     (switch-to-buffer (generate-new-buffer (concat "*pypi*" filename)))
-     (dollar (format "https://%s/pypi/%s/json"
-                     host
-                     (string-remove-suffix "/" filename)))
-     (setq-local url-knowledge-url url))))
-
-
-(defvar browse-url-handlers)
-(add-to-list 'browse-url-default-handlers '("^https://pypi\\.org/project/" . pypi-browse-url))
+;; (declare-function dollar "dash-shell")
+;; (defun pypi-browse-url (url &rest _args)
+;;   (pcase-exhaustive url
+;;     ((url host filename)
+;;      (setq filename (string-replace "/project/" "" filename))
+;;      (switch-to-buffer (generate-new-buffer (concat "*pypi*" filename)))
+;;      (dollar (format "https://%s/pypi/%s/json"
+;;                      host
+;;                      (string-remove-suffix "/" filename)))
+;;      (setq-local url-knowledge-url url))))
+;; (defvar browse-url-handlers)
+;; (add-to-list 'browse-url-default-handlers '("^https://pypi\\.org/project/" . pypi-browse-url))
 
 
 (defvar-local url-knowledge-pretty-printed nil)

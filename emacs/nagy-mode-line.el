@@ -164,7 +164,9 @@
 
   (setq mode-line-modified '((buffer-file-name "%+ ")))
   (setq-default mode-line-modified mode-line-modified)
-  (setq mode-line-position '((:eval (buffer-line-count-string))
+  (setq mode-line-position '((:eval
+                              (when display-line-numbers-mode
+                                (buffer-line-count-string)))
                              "")))
 ;; (setq mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
 ;; (setq-default mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
