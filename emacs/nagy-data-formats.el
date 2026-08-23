@@ -76,6 +76,16 @@
   ;;                         (append treesit-font-lock-settings my/toml-ts-bracket-rules))))
 
 
+(add-to-list 'major-mode-remap-alist '(conf-toml-mode . toml-ts-mode))
+
+;; NIX-EMACS-PACKAGE: toml-ts-cargo-mode
+(use-package toml-ts-cargo-mode
+  :defer t
+  ;; :custom
+  ;; (toml-ts-cargo-mode-...)
+  :hook
+  (toml-ts-mode-hook . toml-ts-cargo-mode))
+
 ;; * CSV
 
 ;; NIX-EMACS-PACKAGE: csv-mode
