@@ -2,10 +2,14 @@
 //! ```cargo
 //! [dependencies]
 //! clap = { version = "4", features = ["derive"] }
+//! clap_complete = "4"
+//! anyhow = "1"
 //! glob = "0.3"
 //! ```
 
-use clap::{Parser, Subcommand};
+use anyhow::Result;
+use clap::{CommandFactory, Parser, Subcommand};
+use clap_complete::Shell;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -50,9 +54,15 @@ enum Cmd {
     Store {
         repos: Vec<PathBuf>,
     },
+    /// Generate shell completions
+    Completions {
+        /// The shell to generate completions for
+        #[arg(value_enum)]
+        shell: Shell,
+    },
 }
 
-fn main() {
+fn main() -> Result<()> {
     match Cli::parse().cmd {
         Cmd::Present { filter, verbose, repos } => {
             run_in_repos(&repos, |repo, many| show_present(repo, &filter, verbose, many));
@@ -66,7 +76,13 @@ fn main() {
         Cmd::Store { repos } => {
             run_in_repos(&repos, |repo, _| show_store(repo));
         }
+        Cmd::Completions { shell } => {
+            let mut cmd = Cli::command();
+            let name = cmd.get_name().to_string();
+            clap_complete::generate(shell, &mut cmd, &name, &mut std::io::stdout());
+        }
     }
+    Ok(())
 }
 
 // Validate each repo (defaulting to ".") and run `f` inside it.
