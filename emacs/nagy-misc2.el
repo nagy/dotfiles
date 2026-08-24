@@ -530,6 +530,11 @@
   (:states 'normal :keymaps 'sh-mode-map
            "⊢" #'shfmt-buffer))
 
+;; https://github.com/rejeep/ansi.el
+;; NIX-EMACS-PACKAGE: ansi
+(use-package ansi
+  :defer t)
+
 ;; NIX-EMACS-PACKAGE: yublin
 (use-package yublin
   :defer t
@@ -555,11 +560,6 @@
   (parinfer-rust-library (concat (xdg-runtime-dir) "/parinfer-rust-emacs/lib/libparinfer_rust.so"))
   (parinfer-rust-check-before-enable nil))
   ;; (parinfer-rust-preferred-mode "indent")
-
-;; https://github.com/rejeep/ansi.el
-;; NIX-EMACS-PACKAGE: ansi
-(use-package ansi
-  :defer t)
   
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here
