@@ -104,6 +104,7 @@
 (defvar nagy-mode-line--default-directory-shorten-alist
   '(("/run/user/1000/" . "𝒓/")
     ("/tmp/ipfs" . "□")
+    ("/nix/store" . "○")
     ("/ipfs" . "□")
     ("/tmp/t" . "⧖")
     ("/tmp/" . "⧖")))

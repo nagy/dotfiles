@@ -70,7 +70,7 @@
     (if (executable-find "redshift")
         (start-process "redshift" nil "redshift" "-l" redshift-location)
       (user-error "redshift not installed"))))
-(keymap-global-set "H-<f3>" #'redshift)
+(keymap-global-set "H-<f4>" #'redshift)
 
 (declare-function brightness-down "nagy-exwm")
 (defun system-suspend ()

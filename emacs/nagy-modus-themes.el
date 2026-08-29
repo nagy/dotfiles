@@ -153,7 +153,6 @@
   ;; (add-hook 'modus-themes-after-load-theme-hook #'nagy-modus-themes--init-derived-faces)
   (modus-themes-load-theme 'modus-vivendi))
 
-
 ;; NIX-EMACS-PACKAGE: paren-face
 (use-package paren-face
   :demand t

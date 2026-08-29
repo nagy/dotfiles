@@ -212,7 +212,7 @@
 ;;   (eat-term-scrollback-size nil)
 ;;   :config
 ;;   ;; Starting with emacs 31, nil is now the default
-;;   (setq process-adaptive-read-buffering nil)
+;;   ;; (setq process-adaptive-read-buffering nil)
 ;;   (evil-set-initial-state 'eat-mode 'emacs)
 ;;   (add-hook 'eat-exec-hook #'nagy--eat-char-mode)
 ;;   (add-hook 'eat-exit-hook #'nagy--eat--evil-normal-mode)

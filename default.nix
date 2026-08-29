@@ -1,10 +1,11 @@
 {
   pkgs ? import <nixpkgs> { },
   lib ? pkgs.lib,
+  nur ? pkgs.nur,
 }:
 
 let
-  mkRustScript = pkgs.nur.repos.nagy.lib.mkRustScript;
+  mkRustScript = nur.repos.nagy.lib.mkRustScript;
 
   scriptFiles = lib.filter (f: lib.hasSuffix ".rs" f) (lib.filesystem.listFilesRecursive ./bin);
 
