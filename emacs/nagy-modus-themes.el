@@ -54,8 +54,7 @@
       (set-face-attribute 'parinfer-rust-dim-parens nil :foreground 'unspecified :inherit '(parenthesis)))
 
     (set-face-attribute 'tab-bar-tab-inactive nil :box nil :background (face-attribute 'tab-bar :background nil t))
-    (set-face-attribute 'window-divider nil :foreground (if (dayp) "black" "gray20"))
-    (set-face-attribute 'scroll-bar nil :box 'unspecified :foreground (if (dayp) "#ccc" "#333")))
+    (set-face-attribute 'window-divider nil :foreground (if (dayp) "black" "gray20")))
 
   (defun ala-fix-theme ()
     (interactive)
@@ -81,7 +80,7 @@
        `(jinx-misspelled ((,c :inherit nagy-subtle-yellow)))
        `(eglot-highlight-symbol-face ((,c :underline t :bold t)))
        `(eglot-diagnostic-tag-unnecessary-face ((,c :underline unspecified :inherit nagy-intense-green)))
-       `(scroll-bar ((,c :background ,bg-main)))
+       `(scroll-bar ((,c :background ,bg-main :foreground ,(if (dayp) "#ccc" "#333")))) ; fg here so custom-set-faces does not reset it
        `(margin ((,c :background ,bg-main)))
        ;; High contrast
        `(mode-line ((,c :box (:line-width 2))))
