@@ -7,11 +7,14 @@
 //! glob = "0.3"
 //! ```
 
+use std::{
+    path::{Path, PathBuf},
+    process::Command,
+};
+
 use anyhow::Result;
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::Shell;
-use std::path::{Path, PathBuf};
-use std::process::Command;
 
 /// Report which git-lfs-tracked files are downloaded (content present in the
 /// local LFS object store) in (bare) mirror repos.
@@ -51,9 +54,7 @@ enum Cmd {
         repos: Vec<PathBuf>,
     },
     /// Raw LFS store inventory: object count and total size
-    Store {
-        repos: Vec<PathBuf>,
-    },
+    Store { repos: Vec<PathBuf> },
     /// Generate shell completions
     Completions {
         /// The shell to generate completions for
@@ -64,11 +65,23 @@ enum Cmd {
 
 fn main() -> Result<()> {
     match Cli::parse().cmd {
-        Cmd::Present { filter, verbose, repos } => {
-            run_in_repos(&repos, |repo, many| show_present(repo, &filter, verbose, many));
+        Cmd::Present {
+            filter,
+            verbose,
+            repos,
+        } => {
+            run_in_repos(&repos, |repo, many| {
+                show_present(repo, &filter, verbose, many)
+            });
         }
-        Cmd::Missing { filter, verbose, repos } => {
-            run_in_repos(&repos, |repo, many| show_missing(repo, &filter, verbose, many));
+        Cmd::Missing {
+            filter,
+            verbose,
+            repos,
+        } => {
+            run_in_repos(&repos, |repo, many| {
+                show_missing(repo, &filter, verbose, many)
+            });
         }
         Cmd::Status { filter, repos } => {
             run_in_repos(&repos, |repo, _| show_status(repo, &filter));
