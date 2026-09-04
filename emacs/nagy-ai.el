@@ -4,41 +4,43 @@
 (require 'dired)
 (require 'evil)
 
-;; NIX-EMACS-PACKAGE: pi-coding-agent
-(use-package pi-coding-agent
+;; New name: Pilish https://github.com/dnouri/pilish/releases/tag/v3.0.0
+;; Readme section how to upgrade : https://github.com/dnouri/pilish#upgrading-from-pi-coding-agent-%EF%B8%8F
+;; NIX-EMACS-PACKAGE: pilish
+(use-package pilish
   :defer t
   :preface
-  (defun nagy-ai--pi-coding-agent-switch-to-input ()
+  (defun nagy-ai--pilish-switch-to-input ()
     (interactive)
-    (switch-to-buffer pi-coding-agent--input-buffer))
-  (defun nagy-ai--pi-coding-agent-switch-to-chat ()
+    (switch-to-buffer pilish--input-buffer))
+  (defun nagy-ai--pilish-switch-to-chat ()
     (interactive)
-    (switch-to-buffer pi-coding-agent--chat-buffer))
+    (switch-to-buffer pilish--chat-buffer))
   :custom
-  (pi-coding-agent-quit-without-confirmation t)
-  (pi-coding-agent-thinking-display 'hidden)
-  (pi-coding-agent-essential-grammar-action 'warn)
-  ;; (pi-coding-agent-copy-raw-markdown t)
-  ;; (pi-coding-agent-bash-preview-lines 5)
-  ;; (pi-coding-agent-tool-preview-lines 10)
+  (pilish-quit-without-confirmation t)
+  (pilish-thinking-display 'hidden)
+  (pilish-essential-grammar-action 'warn)
+  ;; (pilish-copy-raw-markdown t)
+  ;; (pilish-bash-preview-lines 5)
+  ;; (pilish-tool-preview-lines 10)
   :bind
-  ("C-ð" . pi-coding-agent)
+  ("C-ð" . pilish)
   ;; (:map dired-mode-map
-  ;;       ("C-ð" . pi-coding-agent))
-  (:map pi-coding-agent-chat-mode-map
-        ;; ([remap save-kill-buffer] . pi-coding-agent-send)
-        ([remap kill-this-buffer] . pi-coding-agent-quit)
-        ([remap nagy-kill-this-buffer] . pi-coding-agent-quit)
+  ;;       ("C-ð" . pilish))
+  (:map pilish-chat-mode-map
+        ;; ([remap save-kill-buffer] . pilish-send)
+        ([remap kill-this-buffer] . pilish-quit)
+        ([remap nagy-kill-this-buffer] . pilish-quit)
         ([remap evil-append] . magit-status)
-        ("s-a" . nagy-ai--pi-coding-agent-switch-to-input)
-        ("H-a" . nagy-ai--pi-coding-agent-switch-to-input))
-  (:map pi-coding-agent-input-mode-map
-        ([remap save-kill-buffer] . pi-coding-agent-send)
-        ([remap save-buffer] . pi-coding-agent-send)
-        ([remap kill-this-buffer] . pi-coding-agent-quit)
-        ([remap nagy-kill-this-buffer] . pi-coding-agent-quit)
-        ("s-a" . nagy-ai--pi-coding-agent-switch-to-chat)
-        ("H-a" . nagy-ai--pi-coding-agent-switch-to-chat)))
+        ("s-a" . nagy-ai--pilish-switch-to-input)
+        ("H-a" . nagy-ai--pilish-switch-to-input))
+  (:map pilish-input-mode-map
+        ([remap save-kill-buffer] . pilish-send)
+        ([remap save-buffer] . pilish-send)
+        ([remap kill-this-buffer] . pilish-quit)
+        ([remap nagy-kill-this-buffer] . pilish-quit)
+        ("s-a" . nagy-ai--pilish-switch-to-chat)
+        ("H-a" . nagy-ai--pilish-switch-to-chat)))
 
 (declare-function comint-send-input "comint")
 ;; NIX-EMACS-PACKAGE: agent-shell
