@@ -26,6 +26,7 @@
   (thread-last directory
     (string-replace (expand-file-name "~") "~")
     (string-replace "/nix/store" "○")
+    ;; (string-replace "<nixpkgs>" "⚇")
     (string-replace "/tmp/t" "⧖")))
 
 
@@ -213,6 +214,7 @@
 (keymap-global-set "H-b" #'nagy-browse-url-of-buffer)
 
 (use-package dired
+  :commands (dired-copy-filename-as-kill)
   :preface
   (defun nagy-dired-browse-url ()
     (interactive)
@@ -223,6 +225,13 @@
     (apply orig-fun args)
     (revert-buffer))
   (advice-add 'dired-do-shell-command :around #'nagy-dired-refresh-after-shell)
+  (defun nagy-dired-copy-filename-as-kill ()
+    "Copy names of marked files into the kill ring.
+Repeated invocation copies absolute file names instead."
+    (interactive)
+    (if (eq last-command 'nagy-dired-copy-filename-as-kill)
+        (dired-copy-filename-as-kill 0)
+      (dired-copy-filename-as-kill)))
   :demand t
   :bind
   (:map dired-mode-map
@@ -286,7 +295,7 @@ Can be used as an advice."
            "L" #'evil-window-bottom
            "o" #'dired-find-file-other-window
            "ö" #'browse-url-of-dired-file
-           "y" #'dired-copy-filename-as-kill))
+           "y" #'nagy-dired-copy-filename-as-kill))
 
 
 (use-package dired-x
@@ -391,8 +400,8 @@ Can be used as an advice."
 
 (use-package dirvish-collapse
   :defer t)
-  ;; :config
-  ;; (set-face-attribute 'dirvish-collapse-dir-face nil :inherit 'parenthesis)
+;; :config
+;; (set-face-attribute 'dirvish-collapse-dir-face nil :inherit 'parenthesis)
 
 
 ;; (use-package dirvish-emerge
