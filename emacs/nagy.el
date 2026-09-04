@@ -22,6 +22,7 @@
 (require 'nagy-misc2 nil (not init-file-debug))
 (require 'nagy-mode-line nil (not init-file-debug))
 (require 'nagy-modus-themes nil (not init-file-debug))
+(require 'nagy-naysayer-theme nil (not init-file-debug))
 (require 'nagy-nix nil (not init-file-debug))
 (require 'nagy-org nil (not init-file-debug))
 (require 'nagy-passage nil (not init-file-debug))
