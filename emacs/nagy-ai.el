@@ -81,5 +81,25 @@
 (use-package agent-shell-links
   :defer t)
 
+;; NIX-EMACS-PACKAGE: request
+(require 'request)
+
+(defun nagy-ai-deepseek-balance ()
+  "Fetch DeepSeek account total balance via GET /user/balance.
+Return the total balance value, or nil on error."
+  (let ((api-key (getenv "DEEPSEEK_API_KEY")))
+    (unless api-key
+      (error "Environment variable DEEPSEEK_API_KEY is not set"))
+    (let* ((response
+            (request-response-data
+             (request "https://api.deepseek.com/user/balance"
+               :headers `(("Authorization" . ,(format "Bearer %s" api-key)))
+               :parser (lambda () (json-parse-string (buffer-string)))
+               :sync t
+               :error (lambda (&rest args) (message "DeepSeek balance request failed: %S" args)))))
+           ;; Inline: balance result = total_balance of first balance_info entry.
+           (info (elt (gethash "balance_infos" response) 0)))
+      (gethash "total_balance" info))))
+
 (provide 'nagy-ai)
 ;;; nagy-ai.el ends here
