@@ -126,15 +126,6 @@
 
 (defvar exwm-class-name)
 (declare-function exwm-input-set-local-simulation-keys "exwm-input")
-(defun my-firefox-sender ()
-  (when (and exwm-class-name
-             (string-prefix-p "firefox" exwm-class-name))
-    (exwm-input-set-local-simulation-keys '(([?\s-f] . [f11]))))
-  (when (and exwm-class-name
-             (string-prefix-p "Tor Browser" exwm-class-name))
-    (exwm-input-set-local-simulation-keys '(([?\s-f] . [f11])))))
-
-
 (declare-function exwm-input--update-global-prefix-keys "exwm-input")
 
 ;; NIX-EMACS-PACKAGE: exwm
@@ -233,7 +224,9 @@ aka xcompose is not properly initialized in the first frame."
                         "s-»"    ;; browse-url-from-kill
                         "H-<f2>" ;; `modus-themes-toggle'
                         "s-D"
-                        "s-·") ;; `dired-jump-proc'
+                        "s-·" ;; `dired-jump-proc'
+                        "H-L" ;; `nagy-emacs-exwm-magit-log-all-branches'
+                        "s-j") ;; `nagy-emacs-exwm-dired-jump'
 
                     eos)
                 key-desc)
@@ -268,13 +261,14 @@ aka xcompose is not properly initialized in the first frame."
   ;; Frame focus bug
   (mouse-autoselect-window t)
   (focus-follows-mouse t)
-  :hook
-  (exwm-manage-finish-hook . my-firefox-sender)
-  (exwm-manage-finish-hook . (lambda () (cd temporary-file-directory)))
+  ;; :hook
+  ;; (exwm-manage-finish-hook . (lambda () (cd temporary-file-directory)))
   :config
   ;; Add these hooks in a suitable place (e.g., as done in exwm-config-default)
   (add-hook 'exwm-update-class-hook #'nagy-exwm-rename-buffer)
   (add-hook 'exwm-update-title-hook #'nagy-exwm-rename-buffer)
+  (add-hook 'exwm-manage-finish-hook (lambda () (cd temporary-file-directory)))
+  ;; (add-hook 'exwm-manage-finish-hook (lambda () (setq-local nagy-mode-line--show-default-directory nil)))
   (add-hook 'exwm-init-hook #'nagy-fix-frame)
   (evil-set-initial-state 'exwm-mode 'emacs)
   (exwm-randr-mode 1)
@@ -283,7 +277,7 @@ aka xcompose is not properly initialized in the first frame."
   ;; we cannot immediately execute this. it needs to be delayed until
   ;; an unknown other event has happend.
   ;; (run-at-time 30 nil #'exwm-wm-mode)
-  (exwm-wm-mode 1)
+  ;; (exwm-wm-mode 1)
   ;; Run once at startup
   (nagy-randr--build-monitor-plist)
   ;; Re-run whenever monitors change (dock/undock, plug/unplug)
