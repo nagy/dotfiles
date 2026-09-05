@@ -12,7 +12,12 @@ let
   scripts = lib.listToAttrs (
     map (f: {
       name = lib.removeSuffix ".rs" (lib.baseNameOf f);
-      value = mkRustScript { file = f; };
+      # agent is a pass-through wrapper (no clap subcommands), so shell
+      # completions have nothing to attach to.
+      value = mkRustScript {
+        file = f;
+        withCompletions = !lib.hasSuffix "agent.rs" f;
+      };
     }) scriptFiles
   );
 
