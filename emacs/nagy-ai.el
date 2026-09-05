@@ -101,5 +101,30 @@ Return the total balance value, or nil on error."
            (info (elt (gethash "balance_infos" response) 0)))
       (gethash "total_balance" info))))
 
+(declare-function project-current "project")
+(declare-function project-root "project")
+(require 'vc-git)
+(defvar terminal-number) ;; from nagy-exwm.el
+(defun start-ai-agent (arg)
+  (declare (indent 0))
+  (interactive "P")
+  (unless (display-graphic-p)
+    (user-error "No display for terminal."))
+  (let* ((dir (expand-file-name (or (vc-git-root default-directory) default-directory)))
+         (proj (project-current nil dir))
+         (workdir (expand-file-name (if proj (project-root proj) dir)))
+         (title (number-to-string (incf terminal-number)))
+         (command-args (if arg
+                           (list "agent")
+                         (list "agent" "pi"))))
+    (apply #'start-process
+           (append (list "terminal" nil "alacritty"
+                         "--option" (format "font.size=%d" (/ (face-attribute 'default :height) 9))
+                         "--title" title
+                         "--working-directory" workdir
+                         "--command")
+                   command-args))))
+(evil-global-set-key 'normal (kbd "C-,") #'start-ai-agent)
+
 (provide 'nagy-ai)
 ;;; nagy-ai.el ends here
