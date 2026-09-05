@@ -213,7 +213,34 @@
 
 ;; NIX-EMACS-PACKAGE: nixos
 (use-package nixos
-  :defer t)
+  :defer t
+  :same
+  (rx bos
+      (or "*nixos-package "
+          "*nixos-option "
+          "*nixos-flake "))
+  ;; "*Embark Export: nixos-option"
+  ;; "*Embark Export: nixos-package")))
+  ;; :bind
+  ;; (:map nixos-browse-packages-mode-map
+  ;;       ([remap evil-append] . magit-status)))
+  :config
+  (add-to-list 'display-buffer-alist '("^\\*Embark Export: nixos-package" . (display-buffer-same-window)))
+  (add-to-list 'display-buffer-alist '("^\\*Embark Export: nixos-option" . (display-buffer-same-window)))
+  :general
+  (:states 'normal
+           "○ ○" #'nixos-flake)
+  (:states 'normal :keymaps 'nixos-browse-mode-map
+           [remap evil-append] #'magit-status
+           [remap evil-replace] #'revert-buffer
+           ;; does this break region selection copying?
+           [remap evil-yank] #'nixos-browse-copy-store-path)
+  (:states 'normal :keymaps 'nixos-browse-packages-mode-map
+           [remap evil-ret] #'nixos-browse-packages-visit)
+  (:states 'normal :keymaps 'nixos-browse-options-mode-map
+           [remap evil-ret] #'nixos-browse-options-visit)
+  (:states 'normal :keymaps 'nixos-browse-flakes-mode-map
+           [remap evil-ret] #'nixos-browse-flakes-visit))
 
 (provide 'nagy-nix)
 ;;; nagy-nix.el ends here

@@ -201,7 +201,8 @@ windows when moving the mouse."
   (make-backup-files nil)
   (echo-keystrokes-help nil)            ; emacs 30
   ;; (image-scaling-factor 2.0)
-  (browse-url-firefox-program "firefox-esr")
+  ;; (browse-url-firefox-program "firefox-esr")
+  (browse-url-firefox-program "firefox")
   :config
   (tool-bar-mode -1)
   (menu-bar-mode -1)
@@ -327,8 +328,8 @@ windows when moving the mouse."
             (goto-char (min pos (point-max)))
             (when (and win win-pos)
               (set-window-point win (min win-pos (point-max))))))))))
-            ;; (when (bound-and-true-p hl-line-mode)
-            ;;   (hl-line-highlight))
+;; (when (bound-and-true-p hl-line-mode)
+;;   (hl-line-highlight))
 
 (run-with-timer 0 2 #'nagy--refresh-process-list)
 (run-with-idle-timer 0.5 t #'nagy--refresh-process-list)
@@ -529,22 +530,22 @@ windows when moving the mouse."
   :custom
   (eldoc-echo-area-use-multiline-p nil)
   (eldoc-idle-delay 0.01))
-  ;; TODO increase eldoc delay for sly buffers because the communication with the lisp is
-  ;; taking huge cpu.
-  ;; :same "^\\*eldoc\\*"
+;; TODO increase eldoc delay for sly buffers because the communication with the lisp is
+;; taking huge cpu.
+;; :same "^\\*eldoc\\*"
 
 
 (use-package bookmark
   :defer t
   :custom
   (bookmark-default-file (expand-file-name "~/.dotfiles/emacs-bookmarks")))
-  ;; no general here
-  ;; :general
-  ;; (:states 'normal :keymaps 'bookmark-bmenu-mode-map
-  ;;          "f" #'bookmark-bmenu-this-window)
-  ;; These are preventing folder based bookmarks
-  ;; (bookmark-automatically-show-annotations nil)
-  ;; (bookmark-fringe-mark nil)
+;; no general here
+;; :general
+;; (:states 'normal :keymaps 'bookmark-bmenu-mode-map
+;;          "f" #'bookmark-bmenu-this-window)
+;; These are preventing folder based bookmarks
+;; (bookmark-automatically-show-annotations nil)
+;; (bookmark-fringe-mark nil)
 
 
 (use-package recentf
@@ -660,7 +661,7 @@ string; otherwise return a 64-character string."
            "zd" #'narrow-to-defun
            "ö" #'eval-defun
            "Ö" #'eval-buffer))
-           ;; "µ" #'macrostep-expand
+;; "µ" #'macrostep-expand
 
 
 
@@ -1108,8 +1109,8 @@ string; otherwise return a 64-character string."
                                ;; https://stackoverflow.com/questions/66431436/pushing-to-github-after-a-shallow-clone-is-horribly-slow
                                (format "git clone --depth 2 --single-branch %s" url)))
     (call-process-shell-command it)))
-    ;; (if (eq major-mode 'dired-mode)
-    ;;     (dired-revert))
+;; (if (eq major-mode 'dired-mode)
+;;     (dired-revert))
 
 
 (with-eval-after-load 'dired
@@ -1218,9 +1219,9 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
 
 (use-package thingatpt
   :config)
-  ;; Re-evaluate to include equal-sign `=' into the list.
-  ;; (defvar thing-at-point-file-name-chars "-@~/[:alnum:]_.${}#%,:=" "Characters allowable in filenames.")
-  ;; (define-thing-chars filename thing-at-point-file-name-chars)
+;; Re-evaluate to include equal-sign `=' into the list.
+;; (defvar thing-at-point-file-name-chars "-@~/[:alnum:]_.${}#%,:=" "Characters allowable in filenames.")
+;; (define-thing-chars filename thing-at-point-file-name-chars)
 
 
 ;;;###autoload
@@ -1271,7 +1272,7 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
                               (mark-paragraph)
                               (cons (point) (mark)))))
          (narrow-to-region beg end)))
-         ;; (narrow-to-paragraph)
+      ;; (narrow-to-paragraph)
 
       ;;('org-mode
       ;; (org-narrow-to-subtree))
@@ -1292,8 +1293,8 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   (package-menu-async nil)
   (package-archives nil)  ;; they are provided as static directories
   :defer t)
-  ;; :config
-  ;; (evil-set-initial-state 'package-menu-mode 'normal)
+;; :config
+;; (evil-set-initial-state 'package-menu-mode 'normal)
 
 
 ;; This should be placed in (use-package emacs)
@@ -1320,9 +1321,9 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   ;; ("s-r" . ctl-x-r-map)
   :bind
   ("s-R" . consult-register))
-  ;; (:map ctl-x-r-map
-  ;;       ("s-r" . jump-to-register)
-  ;;       )
+;; (:map ctl-x-r-map
+;;       ("s-r" . jump-to-register)
+;;       )
 
 
 (cl-defgeneric gather (config)
@@ -1330,8 +1331,8 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
 
 (cl-defmethod gather ((str string))
   (json-parse-string str))
-                     ;; :object-type 'alist
-                     ;; :array-type 'list
+;; :object-type 'alist
+;; :array-type 'list
 
 
 
@@ -1421,6 +1422,7 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
 
 (keymap-global-set "H-s--" #'font-size-smaller)
 (keymap-global-set "H-s-+" #'font-size-larger)
+(keymap-global-set "C-s-_" #'mode-line-invisible-mode)
 
 (provide 'nagy-emacs)
 ;;; nagy-emacs.el ends here

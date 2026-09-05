@@ -20,6 +20,7 @@
   (pilish-quit-without-confirmation t)
   (pilish-thinking-display 'hidden)
   (pilish-essential-grammar-action 'warn)
+  (pilish-executable '("agent" "pi"))
   ;; (pilish-copy-raw-markdown t)
   ;; (pilish-bash-preview-lines 5)
   ;; (pilish-tool-preview-lines 10)
@@ -55,6 +56,9 @@
   (agent-shell-agent-configs '(agent-shell-pi-make-agent-config))
   (agent-shell-preferred-agent-config 'pi)
   (agent-shell-confirm-interrupt nil)
+  (agent-shell-pi-acp-command '("agent" "pi-acp"))
+  ;; (agent-shell-file-completion-enabled nil)
+  (agent-shell-transcript-file-path-function nil) ;; pi already saves under ~/.pi/agent/sessions/
   :defer t
   :config
   ;; Evil state-specific RET behavior: insert mode = newline, normal mode = send
@@ -65,6 +69,8 @@
             (lambda ()
               (when (string-match-p "\\*agent-shell-diff\\*" (buffer-name))
                 (evil-emacs-state))))
+  :hook
+  (agent-shell-mode-hook . yublin-mode)
   :bind
   ("C-Ð" . agent-shell)
   (:map agent-shell-mode-map
