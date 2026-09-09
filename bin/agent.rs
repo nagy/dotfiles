@@ -31,10 +31,6 @@ fn expand_tilde(input: &str, home: &str) -> String {
 }
 
 fn main() -> Result<()> {
-    // The directory that is bind-mounted over /tmp.
-    let scratch = PathBuf::from("/tmp/agent");
-    std::fs::create_dir_all(&scratch).ok();
-
     let home = match env::var("HOME") {
         Ok(h) if !h.is_empty() => h,
         _ => bail!("HOME is not set"),
@@ -65,39 +61,37 @@ fn main() -> Result<()> {
 
     // Bind mounts.
     b.args([
-        "--dev-bind",
+        "--dev",
         "/dev",
-        "/dev",
-        "--ro-bind",
-        "/run/current-system",
-        "/run/current-system",
-        "--ro-bind",
-        "/etc/ssl/",
-        "/etc/ssl/",
-        "--ro-bind",
-        "/etc/static/ssl/",
-        "/etc/static/ssl/",
-        "--ro-bind",
-        "/etc/nix/nix.conf",
-        "/etc/nix/nix.conf",
-        "--ro-bind",
-        "/etc/nix/registry.json",
-        "/etc/nix/registry.json",
-        "--ro-bind",
-        "/nix",
-        "/nix",
-        "--ro-bind",
-        "/bin/sh",
-        "/bin/sh",
-        "--ro-bind",
-        "/usr/bin/env",
-        "/usr/bin/env",
         "--proc",
         "/proc",
-        "--bind",
+        "--ro-bind",
+        "/run/current-system",
+        "/run/current-system",
+        "--ro-bind",
+        "/etc/ssl/",
+        "/etc/ssl/",
+        "--ro-bind",
+        "/etc/static/ssl/",
+        "/etc/static/ssl/",
+        "--ro-bind",
+        "/etc/nix/nix.conf",
+        "/etc/nix/nix.conf",
+        "--ro-bind",
+        "/etc/nix/registry.json",
+        "/etc/nix/registry.json",
+        "--ro-bind",
+        "/nix",
+        "/nix",
+        "--ro-bind",
+        "/bin/sh",
+        "/bin/sh",
+        "--ro-bind",
+        "/usr/bin/env",
+        "/usr/bin/env",
+        "--tmpfs",
+        "/tmp",
     ]);
-    b.arg(&scratch);
-    b.arg("/tmp");
 
     b.arg("--bind");
     b.arg(PathBuf::from(&home).join("agent"));
