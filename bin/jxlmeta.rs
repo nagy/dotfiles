@@ -11,7 +11,7 @@
 
 use std::{
     fs,
-    io::Write,
+    io::{IsTerminal, Write},
     path::{Path, PathBuf},
 };
 
@@ -224,8 +224,23 @@ fn cmd_get(image: &Path) -> Result<()> {
         .with_context(|| format!("no \"json\" box in {}", image.display()))?;
 
     let mut stdout = std::io::stdout();
-    stdout.write_all(&payload)?;
-    stdout.write_all(b"\n")?;
+    // tty -> YAML, pipe -> the raw JSON box bytes.
+    if stdout.is_terminal() {
+        match serde_json::from_slice::<Value>(&payload) {
+            Ok(v) => {
+                let mut s = String::new();
+                yaml_emit(&v, 0, &mut s);
+                stdout.write_all(s.as_bytes())?;
+            }
+            Err(_) => {
+                stdout.write_all(&payload)?;
+                stdout.write_all(b"\n")?;
+            }
+        }
+    } else {
+        stdout.write_all(&payload)?;
+        stdout.write_all(b"\n")?;
+    }
     Ok(())
 }
 
@@ -389,12 +404,26 @@ fn default_jxl_files() -> Result<Vec<PathBuf>> {
         .collect())
 }
 
+/// Emit one line of NDJSON: {"path": ..., "meta": ...}. Used when stdout
+/// is not a terminal, so jxlmeta list stays pipeable into jq and friends.
+fn emit_ndjson(path: &Path, v: &Value) -> Result<()> {
+    let mut obj = Map::new();
+    obj.insert("path".to_string(), Value::String(path.display().to_string()));
+    obj.insert("meta".to_string(), v.clone());
+    let mut line = serde_json::to_vec(&Value::Object(obj))?;
+    line.push(b'\n');
+    let _ = std::io::stdout().write_all(&line);
+    Ok(())
+}
+
 fn cmd_list(files: Vec<PathBuf>) -> Result<()> {
     let files = if files.is_empty() {
         default_jxl_files()?
     } else {
         files
     };
+
+    let tty = std::io::stdout().is_terminal();
 
     for path in &files {
         if !path.is_file() {
@@ -408,20 +437,27 @@ fn cmd_list(files: Vec<PathBuf>) -> Result<()> {
             continue;
         };
 
-        outln!("# {}", path.display());
         match serde_json::from_slice::<Value>(&payload) {
             Ok(v) => {
-                let mut s = String::new();
-                yaml_emit(&v, 0, &mut s);
-                let _ = std::io::stdout().write_all(s.as_bytes());
-            }
-            Err(_) => {
-                for line in String::from_utf8_lossy(&payload).lines() {
-                    outln!("# invalid JSON: {line}");
+                if tty {
+                    outln!("# {}", path.display());
+                    let mut s = String::new();
+                    yaml_emit(&v, 0, &mut s);
+                    let _ = std::io::stdout().write_all(s.as_bytes());
+                    outln!();
+                } else {
+                    emit_ndjson(path, &v)?;
                 }
             }
+            Err(_) if tty => {
+                outln!("# invalid JSON in {}", path.display());
+                for line in String::from_utf8_lossy(&payload).lines() {
+                    outln!("# {line}");
+                }
+                outln!();
+            }
+            Err(_) => {}
         }
-        outln!();
     }
     Ok(())
 }
