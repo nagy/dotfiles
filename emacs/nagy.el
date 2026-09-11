@@ -1,41 +1,17 @@
 ;;; nagy.el --- -*- lexical-binding: t; -*-
 
-(require 'nagy-ai nil (not init-file-debug))
-(require 'nagy-common-lisp nil (not init-file-debug))
-(require 'nagy-dap nil (not init-file-debug))
-(require 'nagy-data-formats nil (not init-file-debug))
-(require 'nagy-dired nil (not init-file-debug))
-(require 'nagy-emacs nil (not init-file-debug))
-(require 'nagy-evil nil (not init-file-debug))
-(require 'nagy-exwm nil (not init-file-debug))
-(require 'nagy-gc nil (not init-file-debug))
-(require 'nagy-go nil (not init-file-debug))
-(require 'nagy-kubernetes nil (not init-file-debug))
-(require 'nagy-lispy nil (not init-file-debug))
-(require 'nagy-list nil (not init-file-debug))
-(require 'nagy-lsp nil (not init-file-debug))
-(require 'nagy-magit nil (not init-file-debug))
-(require 'nagy-mail nil (not init-file-debug))
-(require 'nagy-media nil (not init-file-debug))
-(require 'nagy-misc nil (not init-file-debug))
-(require 'nagy-misc2 nil (not init-file-debug))
-(require 'nagy-mode-line nil (not init-file-debug))
-(require 'nagy-modus-themes nil (not init-file-debug))
-(require 'nagy-naysayer-theme nil (not init-file-debug))
-(require 'nagy-nix nil (not init-file-debug))
-(require 'nagy-org nil (not init-file-debug))
-(require 'nagy-passage nil (not init-file-debug))
-(require 'nagy-pcap-converter nil (not init-file-debug))
-(require 'nagy-python nil (not init-file-debug))
-;; (require 'nagy-qrcode nil t)
-(require 'nagy-rust nil (not init-file-debug))
-;; (require 'nagy-service nil (not init-file-debug))
-(require 'nagy-typst nil (not init-file-debug))
-(require 'nagy-url nil (not init-file-debug))
-(require 'nagy-use-emacs nil (not init-file-debug))
-;; (require 'nagy-use-package nil (not init-file-debug))  ;; should be autoloaded
-(require 'nagy-vertico nil (not init-file-debug))
-(require 'nagy-web nil (not init-file-debug))
+(defvar nagy-do-not-load nil
+  "Features deliberately not auto-loaded.
+Modules are discovered by scanning `load-path' for `nagy-*.el'
+files; anything listed here is skipped.")
+
+(dolist (dir load-path)
+  (when (string-search "nagy" (file-name-nondirectory (directory-file-name dir)))
+    (dolist (file (ignore-errors
+                    (directory-files dir nil "\\`nagy-.*\\.el\\'")))
+      (let ((feature (intern (file-name-sans-extension file))))
+        (unless (memq feature nagy-do-not-load)
+          (require feature nil (not init-file-debug)))))))
 
 (provide 'nagy)
 ;;; nagy.el ends here
