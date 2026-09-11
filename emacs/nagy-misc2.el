@@ -561,5 +561,9 @@
   (parinfer-rust-check-before-enable nil))
   ;; (parinfer-rust-preferred-mode "indent")
   
+;; NIX-EMACS-PACKAGE: bruvtab
+(use-package bruvtab
+  :defer t)
+
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here
