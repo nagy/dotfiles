@@ -223,7 +223,7 @@ aka xcompose is not properly initialized in the first frame."
                         "s-D"
                         "s-·" ;; `dired-jump-proc'
                         "H-L" ;; `nagy-emacs-exwm-magit-log-all-branches'
-                        "s-j") ;; `nagy-emacs-exwm-dired-jump'
+                        "s-j") ;; `nagy-exwm-alternative-buffer'
 
                     eos)
                 key-desc)
@@ -401,6 +401,79 @@ aka xcompose is not properly initialized in the first frame."
       (js-json-mode)))))
 
 (keymap-global-set "s-7" #'buffer-from-clipboard)
+
+;;; URL dispatch -------------------------------------------------------------
+
+;; NIX-EMACS-PACKAGE: bruvtab
+(use-package bruvtab
+  :defer t)
+
+(defgroup nagy-exwm-url nil
+  "Showing alternative Emacs buffers for URLs displayed in EXWM windows."
+  :group 'applications)
+
+(defcustom nagy-exwm-url-handlers
+  '(("\\`https://crates\\.io/crates/" . browse-url)
+    ("\\`https://github\\.com/nagy/" . browse-url))
+  "Alist of URL regexps and functions displaying alternative information.
+When a split command or `nagy-exwm-alternative-buffer' (remapped from
+`dired-jump') is invoked on an EXWM browser window, the URL of its active
+tab is looked up with `nagy-exwm-url-for-buffer' and the first entry whose
+REGEXP matches the URL has its FUNCTION called with one argument, the URL.
+Other packages can add their own entries with `add-to-list'."
+  :type '(repeat (cons (regexp :tag "URL regexp")
+                       (function :tag "Handler function"))))
+
+(defcustom nagy-exwm-url-magit-handlers
+  '(("\\`https://github\\.com/nagy/" . nagy-exwm-url-magit-log-all))
+  "Like `nagy-exwm-url-handlers', but used by `nagy-exwm-magit-log-all-branches'
+(the `magit-log-buffer-file' remapping in `exwm-mode-map')."
+  :type '(repeat (cons (regexp :tag "URL regexp")
+                       (function :tag "Handler function"))))
+
+(defun nagy-exwm-url-for-buffer (&optional buffer)
+  "Return the URL of the active browser tab shown by this EXWM buffer, or nil.
+Delegates to `bruvtab-url-for-buffer' when the `bruvtab' package is loaded."
+  (and (with-current-buffer (or buffer (current-buffer))
+         (derived-mode-p 'exwm-mode))
+       (fboundp 'bruvtab-url-for-buffer)
+       (bruvtab-url-for-buffer (or buffer (current-buffer)))))
+
+(defun nagy-exwm-url-dispatch (url &optional handlers)
+  "Call the handler of the first entry in HANDLERS matching URL.
+HANDLERS defaults to `nagy-exwm-url-handlers'.  Return the handler's
+result, or nil when no entry matches."
+  (when-let* ((entry (seq-find (lambda (entry)
+                                 (string-match-p (car entry) url))
+                               (or handlers nagy-exwm-url-handlers))))
+    (funcall (cdr entry) url)))
+
+(defun nagy-exwm-alternative-buffer ()
+  "Display an Emacs buffer with alternative information for this URL.
+URL is the one currently shown by this EXWM browser window, dispatched
+through `nagy-exwm-url-handlers'."
+  (interactive)
+  (when-let* ((url (nagy-exwm-url-for-buffer)))
+    (nagy-exwm-url-dispatch url)))
+
+(declare-function magit-log-all-branches "magit-log")
+(defun nagy-exwm-url-magit-log-all (url)
+  "Run `magit-log-all-branches' on the local clone of github.com/nagy URL."
+  (with-directory
+      (concat "/data/github.com/nagy/"
+              (string-remove-prefix "https://github.com/nagy/" url)
+              ".git")
+    (magit-log-all-branches)))
+
+(defun nagy-exwm-magit-log-all-branches ()
+  (interactive)
+  (when-let* ((url (nagy-exwm-url-for-buffer)))
+    (nagy-exwm-url-dispatch url nagy-exwm-url-magit-handlers)))
+
+(with-eval-after-load 'exwm
+  (define-key exwm-mode-map [remap dired-jump] #'nagy-exwm-alternative-buffer)
+  (define-key exwm-mode-map [remap magit-log-buffer-file]
+              #'nagy-exwm-magit-log-all-branches))
 
 (provide 'nagy-exwm)
 ;;; nagy-exwm.el ends here

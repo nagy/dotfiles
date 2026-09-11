@@ -28,26 +28,45 @@
         (delete-other-windows)))))
 (keymap-global-set "s-m" #'toggle-maximize-buffer)
 
+(declare-function nagy-exwm-url-for-buffer "nagy-exwm")
+(declare-function nagy-exwm-url-dispatch "nagy-exwm")
+
+(defun nagy-emacs--exwm-url ()
+  "Return the URL shown by the current EXWM browser window, or nil.
+Non-nil only in an `exwm-mode' buffer when `nagy-exwm-url-handlers'
+(via `nagy-exwm-url-for-buffer') knows about the URL.
+Note: do not use `called-interactively-p' here; it only considers the
+containing function, so it is always nil in this helper."
+  (when (and (eq major-mode 'exwm-mode)
+             (fboundp 'nagy-exwm-url-for-buffer))
+    (nagy-exwm-url-for-buffer)))
+
 (defun nagy-emacs-split-window-below-and-focus (arg)
   "Split the window vertically and focus the new window."
   (interactive "P")
-  (alet (if arg (split-root-window-below) (split-window-below))
-    (if (and (eq major-mode 'exwm-mode) (called-interactively-p 'any))
+  (let ((url (nagy-emacs--exwm-url)))
+    (alet (if arg (split-root-window-below) (split-window-below))
+      (when (and (eq major-mode 'exwm-mode) (called-interactively-p 'any))
         ;; for exwm compatibility
         (redisplay))
-    (select-window it)
-    (balance-windows)))
+      (select-window it)
+      (when url
+        (nagy-exwm-url-dispatch url))
+      (balance-windows))))
 (keymap-global-set "s-s" #'nagy-emacs-split-window-below-and-focus)
 
 (defun nagy-emacs-split-window-right-and-focus (arg)
   "Split the window horizontally and focus the new window."
   (interactive "P")
-  (alet (if arg (split-root-window-right) (split-window-right))
-    (if (and (eq major-mode 'exwm-mode) (called-interactively-p 'any))
+  (let ((url (nagy-emacs--exwm-url)))
+    (alet (if arg (split-root-window-right) (split-window-right))
+      (when (and (eq major-mode 'exwm-mode) (called-interactively-p 'any))
         ;; for exwm compatibility
         (redisplay))
-    (select-window it)
-    (balance-windows)))
+      (select-window it)
+      (when url
+        (nagy-exwm-url-dispatch url))
+      (balance-windows))))
 (keymap-global-set "s-v" #'nagy-emacs-split-window-right-and-focus)
 
 (defun nagy-emacs-split-window-below (arg)

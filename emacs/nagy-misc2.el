@@ -564,9 +564,5 @@
 ;; (use-package banking
 ;;   :defer t)
 
-;; NIX-EMACS-PACKAGE: bruvtab
-(use-package bruvtab
-  :defer t)
-
 (provide 'nagy-misc2)
 ;;; nagy-misc.el ends here
