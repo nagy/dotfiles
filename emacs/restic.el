@@ -80,8 +80,9 @@
   (nagy-list-mode))
 
 (defun make-restic-backend-for-path (path)
-  (aprog1 (make-restic :repo path)
-    (setf (restic-cache it) (restic--as-data it))))
+  (let ((it (make-restic :repo path)))
+    (setf (restic-cache it) (restic--as-data it))
+    it))
 ;; (memoize #'make-restic-backend-for-path)
 
 (declare-function dired-get-marked-files "dired")
@@ -104,7 +105,7 @@
 (cl-defmethod seq-elt ((sequence restic) n)
   (if (not (restic-cache sequence))
       (setf (restic-cache sequence) (restic--as-data sequence)))
-  (alet (elt (restic-cache sequence) n)
+  (when-let* ((it (elt (restic-cache sequence) n)))
     (make-restic-snapshot :id (map-elt it "id")
                           :tree (map-elt it "tree")
                           :time (map-elt it "time")

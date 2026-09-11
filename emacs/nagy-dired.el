@@ -28,6 +28,8 @@
     (string-replace "/nix/store" "○")
     ;; (string-replace "<nixpkgs>" "⚇")
     (string-replace "/tmp/t" "⧖")))
+;; NIX-EMACS-PACKAGE: memoize
+(require 'memoize)
 (memoize #'nagy-dired-directory-substitute)
 
 (defvar nagy-dired-font-lock-keywords

@@ -5,31 +5,28 @@
 
 ;; NIX-EMACS-PACKAGE: magit
 (use-package magit
+  :commands (magit-insert-worktrees)
   :custom
   (magit-pull-or-fetch t)
   (magit-no-confirm '(resurrect
                       discard
                       reverse))
-                      ;; set-and-push
-
   (magit-section-initial-visibility-alist '((untracked . show)
                                             (unstaged . show)
                                             ;; (unpushed . show) ;; is this the "Recent commits" section?
                                             (staged . show)
                                             (stashes . show)))
-
   :config
+  ;; (remove-hook 'magit-status-sections-hook #'magit-insert-recent-commits)
+  (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-worktrees nil t)
   (add-to-list 'display-buffer-alist '("^magit-revision" display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^magit-stash" display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^magit-process:" display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^magit-diff:"  display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^magit:" display-buffer-same-window))
-  ;; (with-eval-after-load 'info
-  ;;   (add-to-list 'Info-url-alist '(("Magit" "Forge") . "https://magit.vc/manual/%m.html#%n")))
   ;; Temporarily unset these two key because they interfere with ediff mode.
-  ;; Maybe `evil-collection' just needs to catch up with these new bindings.
-  (define-key magit-blob-mode-map "p" nil)
-  (define-key magit-blob-mode-map "n" nil)
+  (setf (alist-get 'magit-push transient-values) '("--force-with-lease"))
+  ;; (transient-save-values)
   :bind
   ("H-g" . magit-status)
   ("H-L" . magit-log-buffer-file)
@@ -39,31 +36,15 @@
         ("H-L" . magit-log-all-branches)
         ("H-<" . magit-process-buffer)
         ("H-c" . magit-commit-create))
-
   (:map dired-mode-map
         ("H-L" . magit-log-all-branches)
         ("H-<" . magit-process-buffer))
   (:map magit-diff-mode-map
         ("SPC" . nil)) ;; was `scroll-up'
-
   (:map magit-log-select-mode-map
         ([remap save-kill-buffer] . magit-log-select-pick)
         ([remap kill-this-buffer] . magit-log-select-quit)
         ([remap nagy-kill-this-buffer] . magit-log-select-quit)))
-
-
-
-;; for gitlab usage
-;; (with-eval-after-load 'magit
-;;   (transient-append-suffix 'magit-push "-u"
-;;     '(1 "-c" "Create MR" "--push-option=merge_request.create"))
-;;   (transient-append-suffix 'magit-push "-c"
-;;     '(1 "-a" "Auto-Merge MR" "--push-option=merge_request.auto_merge"))
-;;   (transient-append-suffix 'magit-push "-a"
-;;     '(1 "-d" "Draft MR" "--push-option=merge_request.draft"))
-;;   ;; (transient-append-suffix 'magit-push "-d"
-;;   ;;   '(1 "-t" "Target Branch" "--push-option=merge_request.target="))
-;;   )
 
 ;; NIX-EMACS-PACKAGE: magit-section
 (use-package magit-section

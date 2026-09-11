@@ -1,5 +1,5 @@
 ;;; nagy-list.el --- List utility functions -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") dash anaphora nagy-emacs)
+;; Package-Requires: ((emacs "30.1") dash nagy-emacs)
 
 (require 'subr-x)
 (require 'nagy-emacs)
@@ -19,8 +19,8 @@
 (put 'nagy-list--columns 'permanent-local t)
 
 (defun nagy-list-format-cell (column value)
-  (aif (--> (map-elt nagy-list--columns column)
-            (seq-elt it 1))
+  (if-let* ((it (--> (map-elt nagy-list--columns column)
+                      (seq-elt it 1))))
       (cl-typecase it
         (function (funcall it value))
         ;; (symbol (funcall (symbol-function it) value))
@@ -44,7 +44,7 @@ That means, KEY can also be a cons."
           alist)))
 
 (defun nagy-list--post-command-hook ()
-  (awhen (thing-at-point 'url)
+  (when-let* ((it (thing-at-point 'url)))
     (setq-local url-knowledge-pretty-printed nil)
     (setq-local nagy-mode-line-url-knowledge
                 `((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print ,it) 'face '(:inherit (show-paren-match bold)))) " "))))

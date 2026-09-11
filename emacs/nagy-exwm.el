@@ -4,9 +4,6 @@
 ;; NIX-EMACS-PACKAGE: modus-themes
 (require 'modus-themes)
 
-;; NIX-EMACS-PACKAGE: anaphora
-(require 'anaphora)
-
 ;; NIX-EMACS-PACKAGE: dash
 (require 'dash)
 ;; NIX-EMACS-PACKAGE: evil
@@ -369,7 +366,7 @@ aka xcompose is not properly initialized in the first frame."
 
 (defun font-size-toggle ()
   (interactive)
-  (alet (face-attribute 'default :height)
+  (when-let* ((it (face-attribute 'default :height)))
     (set-face-attribute 'default nil
                         :height (if (>= it 139) 100 140))))
 ;; (setopt split-window-preferred-function #'split-window-horizontally)
@@ -380,7 +377,7 @@ aka xcompose is not properly initialized in the first frame."
 
 (defun font-size-smol ()
   (interactive)
-  (alet (face-attribute 'default :height)
+  (when-let* ((it (face-attribute 'default :height)))
     (set-face-attribute 'default nil
                         :height (if (>= it 100) 90 100))))
 (keymap-global-set "H-<f12>" #'font-size-smol)

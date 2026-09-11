@@ -7,9 +7,6 @@
 (require 'dash)
 (require 'general)
 
-;; NIX-EMACS-PACKAGE: anaphora
-(require 'anaphora)
-
 ;; NIX-EMACS-PACKAGE: dape
 (use-package dape
   :defer t

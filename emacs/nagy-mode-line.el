@@ -1,8 +1,7 @@
 ;;; nagy-mode-line.el --- Mode line configuration -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") memoize dash anaphora)
+;; Package-Requires: ((emacs "30.1") memoize dash)
 
 (require 'dash)
-;; (require 'anaphora)
 
 
 ;; emacs news :
@@ -18,25 +17,23 @@
 (defun nagy-mode-line--jsvar-calc ()
   (when (and (derived-mode-p 'js-json-mode)
              (< (buffer-size) large-file-warning-threshold))
-    (alet (ignore-errors (save-excursion (json-parse-buffer)))
-      (when it
-        (pcase-exhaustive (type-of it)
-          ('string (format "S%d" (length it)))
-          ('hash-table (format "H%d" (hash-table-count it)))
-          ('integer (format "N%d" it))
-          ('float (format "F%f" it))
-          ('symbol (format "%S" it))
-          ('vector (format "A%d" (length it))))))))
+    (when-let* ((it (ignore-errors (save-excursion (json-parse-buffer)))))
+      (pcase-exhaustive (type-of it)
+        ('string (format "S%d" (length it)))
+        ('hash-table (format "H%d" (hash-table-count it)))
+        ('integer (format "N%d" it))
+        ('float (format "F%f" it))
+        ('symbol (format "%S" it))
+        ('vector (format "A%d" (length it)))))))
 
 
 (defun nagy-mode-line--jsvar-update ()
-  (setq nagy-mode-line--jsvar-point (aand (nagy-mode-line--jsvar-calc) (propertize it 'face 'button)))
+  (setq nagy-mode-line--jsvar-point (when-let* ((it (nagy-mode-line--jsvar-calc))) (propertize it 'face 'button)))
   (unless nagy-mode-line--jsvar
     (setq nagy-mode-line--jsvar (or nagy-mode-line--jsvar ; this should rather be memoized on the buffer content
                                     (save-excursion (goto-char (point-min))
-                                                    (aand
-                                                     (nagy-mode-line--jsvar-calc)
-                                                     (propertize it 'face 'nerd-icons-lsilver))))))
+                                                    (when-let* ((it (nagy-mode-line--jsvar-calc)))
+                                                      (propertize it 'face 'nerd-icons-lsilver))))))
   (force-mode-line-update))
 
 

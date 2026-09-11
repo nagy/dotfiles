@@ -7,8 +7,7 @@
 ;; NIX-EMACS-PACKAGE: reformatter
 ;; (require 'reformatter)
 
-;; NIX-EMACS-PACKAGE: anaphora
-(require 'anaphora)
+
 
 (declare-function preload-url "local")
 
@@ -105,8 +104,8 @@
     (save-mark-and-excursion
       (mark-paragraph)
       (copy-region-as-kill (region-beginning) (region-end)))))
-      ;; use `lispyville-yank' here to trigger evil-goggles.
-      ;; (lispyville-yank (region-beginning) (region-end) 'line )
+;; use `lispyville-yank' here to trigger evil-goggles.
+;; (lispyville-yank (region-beginning) (region-end) 'line )
 
 
 (use-package text-mode
@@ -132,7 +131,7 @@
         ("H-k" . beginning-of-defun)
         ("H-ö" . save-buffer)
         ("H-d" . nagy/delete-paragraph))
-        ;; ("H-l" . magit-log-buffer-file)
+  ;; ("H-l" . magit-log-buffer-file)
 
   :hook
   (prog-mode-hook . visual-line-mode)
@@ -251,8 +250,8 @@
            "f" #'Info-follow-nearest-node
            "SPC" nil))                    ; was #'Info-scroll-up
 
-  ;; TODO
-  ;; add public urls via (Info-url-for-node "(elisp)Display Property")
+;; TODO
+;; add public urls via (Info-url-for-node "(elisp)Display Property")
 
 
 (use-package cus-edit
@@ -353,8 +352,8 @@
     (interactive)
     (let* ((buf (current-buffer))
            (ielm-buf-name (concat "*ielm-" (buffer-name buf) "*")))
-      (aif (get-buffer ielm-buf-name)
-          (switch-to-buffer it)
+      (if-let* ((ielm-buf (get-buffer ielm-buf-name)))
+          (switch-to-buffer ielm-buf)
         (ielm ielm-buf-name)
         (with-current-buffer ielm-buf-name
           (setq-local ielm-working-buffer buf)))))
@@ -395,7 +394,7 @@
   :defer t
   :custom
   (literate-calc-mode-idle-time .1))
-  ;; (literate-calc-mode-idle-time nil)
+;; (literate-calc-mode-idle-time nil)
 
 
 ;; NIX-EMACS-PACKAGE: breadcrumb
@@ -440,8 +439,8 @@
            "b" #'nhexl-nibble-backward
            "gg" #'beginning-of-buffer
            "G" #'end-of-buffer))
-  ;; (:states 'normal
-  ;;          "⬡" #'nhexl-mode)
+;; (:states 'normal
+;;          "⬡" #'nhexl-mode)
 
 
 ;; similar to doom defaults
@@ -561,7 +560,7 @@ Returns the total execution time as a floating-point number."
             [remap save-kill-buffer] #'elfeed-db-unload
             [remap nagy-kill-this-buffer] #'elfeed-db-unload))
 
-  ;; :same "^\\*elfeed-entry"
+;; :same "^\\*elfeed-entry"
 
 
 ;; * Haskell
@@ -581,7 +580,7 @@ Returns the total execution time as a floating-point number."
 ;; NIX-EMACS-PACKAGE: ormolu
 (use-package ormolu
   :defer t)
-  ;; :config
+;; :config
 
 
 ;; * Corfu
@@ -626,7 +625,7 @@ Returns the total execution time as a floating-point number."
   (add-hook 'elpher-mode-hook
             (defun +nagy/elpher-hook ()
               (setq-local bookmark-make-record-function #'elpher-bookmark-make-record)))
-              ;; (setq-local revert-buffer-function (cmd! (elpher-redraw)))
+  ;; (setq-local revert-buffer-function (cmd! (elpher-redraw)))
 
   (set-face-attribute 'elpher-gemini-heading1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
   (set-face-attribute 'elpher-gemini-heading2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
@@ -682,9 +681,9 @@ Returns the total execution time as a floating-point number."
          (switch-to-buffer  buffer)
          (goto-char (point-min))
          (text-mode)))))
-         ;; (olivetti-mode)
-         ;; (let ((inhibit-message t))
-         ;;   (olivetti-set-width 80))
+  ;; (olivetti-mode)
+  ;; (let ((inhibit-message t))
+  ;;   (olivetti-set-width 80))
 
   ;; (evil-global-set-key 'motion (kbd "g H-M-t") #'nagy-text-to-plain)
   (defun nagy-text-to-org ()
@@ -700,7 +699,7 @@ Returns the total execution time as a floating-point number."
          (goto-char (point-min))
          (org-mode))))))
 
-  ;; (evil-global-set-key 'motion (kbd "g H-M-o") #'nagy-text-to-org)
+;; (evil-global-set-key 'motion (kbd "g H-M-o") #'nagy-text-to-org)
 
 
 (use-package xref
@@ -770,10 +769,10 @@ Returns the total execution time as a floating-point number."
   :bind
   ("M-k" . drag-stuff-up)
   ("M-j" . drag-stuff-down))
-  ;; ("<M-left>"  . drag-stuff-left)
-  ;; ("<M-right>" . drag-stuff-right)
-  ;; :config
-  ;; (define-key esc-map "j" nil)
+;; ("<M-left>"  . drag-stuff-left)
+;; ("<M-right>" . drag-stuff-right)
+;; :config
+;; (define-key esc-map "j" nil)
 
 
 ;; NIX-EMACS-PACKAGE: crate

@@ -53,7 +53,7 @@
 (cl-defmethod seq-length ((sequence yggdrasil))
   (length (yggdrasil--gathered sequence)))
 (cl-defmethod seq-elt ((sequence yggdrasil) n)
-  (alet (elt (yggdrasil--gathered sequence) n)
+  (when-let* ((it (elt (yggdrasil--gathered sequence) n)))
     (make-yggdrasil-peer :address (or (map-elt it 'address) (map-elt it "address"))
                          :remote (or (map-elt it 'remote) (map-elt it "remote"))
                          :up (or (map-elt it 'up) (map-elt it "up"))

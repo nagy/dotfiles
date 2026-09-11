@@ -8,9 +8,6 @@
 (require 'general)
 (require 'eieio)
 
-;; NIX-EMACS-PACKAGE: anaphora
-(require 'anaphora)
-
 ;; (defun pdf-crop-file ()
 ;;   (interactive)
 ;;   (alet (concat (make-temp-file "PDFCROPPED" t)
@@ -31,8 +28,8 @@
   :preface
   (defun nagy-misc2-browse-at-remote-kill-print ()
     (interactive)
-    (awhen (or nagy-misc2-browse-at-remote--fixed-url
-               (ignore-errors (browse-at-remote-get-url)))
+    (when-let* ((it (or nagy-misc2-browse-at-remote--fixed-url
+                        (ignore-errors (browse-at-remote-get-url)))))
       (message "Copied: %S" it)
       (kill-new it)
       it))
@@ -65,7 +62,7 @@
 (defvar redshift-location "12.34:56.78")
 (defun redshift ()
   (interactive)
-  (aif (get-process "redshift")
+  (if-let* ((it (get-process "redshift")))
       (interrupt-process it)
     (if (executable-find "redshift")
         (start-process "redshift" nil "redshift" "-l" redshift-location)
@@ -152,7 +149,7 @@
   (list)
   :hook
   (emacs-lisp-mode-hook . nagy-misc2-activate-el-fl))
-  ;; (emacs-lisp-mode-hook . highlight-defined-mode)
+;; (emacs-lisp-mode-hook . highlight-defined-mode)
 
 
 ;; NIX-EMACS-PACKAGE: helpful
@@ -195,7 +192,7 @@
 
   :config
   (defun cyphejor--cypher (_old-name _rules)
-    (awhen (format-mode-line mode-name)
+    (when-let* ((it (format-mode-line mode-name)))
       (pcase it
         ((prefix "Dired") (string-replace "Dired" "δ" it))
         ((prefix "ELisp") (string-replace "ELisp" "𝛌" it))
@@ -210,9 +207,9 @@
         ((prefix "Text") (string-replace "Text" "T" it))
         ((prefix "Fundamental") (string-replace "Fundamental" "_" it))
         (_ mode-name)))))
-  ;; in emacs 30, this can only be activated later ( maybe after
-  ;; emacs-lisp-mode has been loaded).
-  ;; (cyphejor-mode 1)
+;; in emacs 30, this can only be activated later ( maybe after
+;; emacs-lisp-mode has been loaded).
+;; (cyphejor-mode 1)
 
 
 ;; (use-package tokei
@@ -300,9 +297,9 @@
   ;; do not issue warning
   (setq pdf-view-incompatible-modes
         (delq 'display-line-numbers-mode pdf-view-incompatible-modes)))
-  ;; (evil-collection-init 'pdf)
-  ;; (evil-collection-pdf-setup)
-  ;; (evil-set-initial-state 'pdf-view-mode 'normal)
+;; (evil-collection-init 'pdf)
+;; (evil-collection-pdf-setup)
+;; (evil-set-initial-state 'pdf-view-mode 'normal)
 
 
 (defun take-screenshot ()
@@ -409,7 +406,7 @@
   (remote-file-name-inhibit-delete-by-moving-to-trash t)
   (remote-file-name-inhibit-auto-save t)
   (pcomplete-remote-file-ignore t))
-  ;; (remote-file-name-access-timeout 0)
+;; (remote-file-name-access-timeout 0)
 
 
 ;; NIX-EMACS-PACKAGE: emacspy
@@ -417,8 +414,8 @@
 
 ;; NIX-EMACS-PACKAGE: llama
 (use-package llama)
-  ;; :config
-  ;; (llama-fontify-mode)
+;; :config
+;; (llama-fontify-mode)
 
 
 ;; NIX-EMACS-PACKAGE: units-mode
@@ -459,6 +456,8 @@
   ;;       "<return>" nil)
   :config
   (global-company-mode)
+  ;; Remove `company-childframe-unless-just-one-frontend'
+  (setopt company-frontends (remq 'company-childframe-unless-just-one-frontend company-frontends))
   :custom
   (company-idle-delay 0.1)
   (company-minimum-prefix-length 2)
@@ -559,8 +558,12 @@
   :custom
   (parinfer-rust-library (concat (xdg-runtime-dir) "/parinfer-rust-emacs/lib/libparinfer_rust.so"))
   (parinfer-rust-check-before-enable nil))
-  ;; (parinfer-rust-preferred-mode "indent")
-  
+;; (parinfer-rust-preferred-mode "indent")
+
+;; ;; NIX-EMACS-PACKAGE: banking
+;; (use-package banking
+;;   :defer t)
+
 ;; NIX-EMACS-PACKAGE: bruvtab
 (use-package bruvtab
   :defer t)

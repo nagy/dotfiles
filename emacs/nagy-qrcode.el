@@ -1,8 +1,7 @@
 ;;; nagy-qrcode.el --- Qrcode config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") anaphora)
+;; Package-Requires: ((emacs "30.1"))
 
 ;; (eval-when-compile
-;;   (require 'anaphora)
 ;;   (require 'cl-lib))
 
 ;; (require 'dom)
@@ -39,7 +38,7 @@
 
 (defun nagy-qrcode-kill ()
   (interactive)
-  (aif (nagy-qrcode-choose (nagy-qrcode-image-scan))
+  (if-let* ((it (nagy-qrcode-choose (nagy-qrcode-image-scan))))
       (message "QR-Code: %S" (kill-new it))
     (error "No QR-Code found")))
 
@@ -48,7 +47,7 @@
 ;;;###autoload
 (defun qr-take-screenshot-and-kill ()
   (interactive)
-  (alet (take-screenshot)
+  (when-let* ((it (take-screenshot)))
     (with-current-buffer (find-file-noselect it)
       (nagy-qrcode-kill))))
 
