@@ -41,7 +41,8 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Cmd {
-    /// Attach a JSON metadata box to a JPEG XL container (in place)
+    /// Attach a JSON metadata box to a JPEG XL file (in place). Bare
+    /// codestreams (plain cjxl output) are wrapped into a container first.
     Attach {
         /// JPEG XL container file
         image: PathBuf,
@@ -90,6 +91,27 @@ struct BoxEntry {
 /// codestream. Only containers can carry metadata boxes.
 fn is_container(data: &[u8]) -> bool {
     data.len() >= 12 && data[..4] == [0, 0, 0, 0x0c] && &data[4..8] == b"JXL "
+}
+
+/// The 12-byte ISO-BMFF signature box every JPEG XL container starts with:
+/// size 12, type "JXL ", the codestream magic 0x0D0A870A as payload.
+fn signature_box() -> Vec<u8> {
+    let mut v = Vec::with_capacity(12);
+    v.extend_from_slice(&12u32.to_be_bytes());
+    v.extend_from_slice(b"JXL ");
+    v.extend_from_slice(&[0x0d, 0x0a, 0x87, 0x0a]);
+    v
+}
+
+/// The file-type box libjxl requires in every container (brand "jxl",
+/// minor version 0, compatible brand "jxl") — exactly what cjxl writes.
+fn ftyp_box() -> Vec<u8> {
+    let mut v = Vec::with_capacity(20);
+    v.extend_from_slice(&20u32.to_be_bytes());
+    v.extend_from_slice(b"ftypjxl ");
+    v.extend_from_slice(&0u32.to_be_bytes());
+    v.extend_from_slice(b"jxl ");
+    v
 }
 
 /// Iterate top-level ISO-BMFF boxes, yielding (offset, size, type).
@@ -200,10 +222,30 @@ fn replace_file(image: &Path, bytes: &[u8]) -> Result<()> {
 }
 
 fn cmd_attach(image: &Path, meta: &Path) -> Result<()> {
-    let data = load_container(image)?;
+    let mut data = fs::read(image).with_context(|| format!("read {}", image.display()))?;
     let payload = fs::read(meta).with_context(|| format!("read {}", meta.display()))?;
     serde_json::from_slice::<Value>(&payload)
         .with_context(|| format!("{} is not valid JSON", meta.display()))?;
+
+    // cjxl emits a bare codestream when there is no metadata to carry.
+    // Wrap it into the minimal container (signature box + jxlc box) so it
+    // can carry boxes at all; decode tools treat the wrapped file
+    // identically.
+    if !is_container(&data) {
+        let magic = data.get(..2).map(|m| m.to_vec());
+        let is_codestream = magic.as_deref() == Some(&[0xffu8, 0x0a][..]);
+        if !is_codestream {
+            bail!(
+                "{} is neither a JPEG XL container nor a bare codestream; \
+                 metadata boxes need the container format",
+                image.display()
+            );
+        }
+        let mut wrapped = signature_box();
+        wrapped.extend_from_slice(&ftyp_box());
+        wrapped.extend_from_slice(&encode_box(b"jxlc", &data));
+        data = wrapped;
+    }
 
     if json_box_range(&data)?.is_some() {
         bail!("{} already has a \"json\" box", image.display());
