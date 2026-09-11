@@ -25,7 +25,10 @@
   (add-to-list 'display-buffer-alist '("^magit-diff:"  display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^magit:" display-buffer-same-window))
   ;; Temporarily unset these two key because they interfere with ediff mode.
-  (setf (alist-get 'magit-push transient-values) '("--force-with-lease"))
+  (setf (alist-get 'magit-push transient-values)
+        '("--force-with-lease"))
+  (setf (alist-get 'magit-rebase transient-values)
+        '("--autostash" "--committer-date-is-author-date"))
   ;; (transient-save-values)
   :bind
   ("H-g" . magit-status)
@@ -89,8 +92,8 @@
   :mode "-gitconfig\\'"
   :defer t
   :pretty 'gitconfig-mode
-         ("true" . true) ("false" . false)
-         ("branch" . "⌥"))
+  ("true" . true) ("false" . false)
+  ("branch" . "⌥"))
 
 (provide 'nagy-magit)
 ;;; nagy-magit.el ends here
