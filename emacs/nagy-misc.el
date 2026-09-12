@@ -462,11 +462,6 @@ Returns the total execution time as a floating-point number."
 ;; (add-hook 'python-mode-hook
 ;;           (lambda () (setq-local devdocs-current-docs '("python~3.13"))))
 
-;; NIX-EMACS-PACKAGE: poke-mode
-(use-package poke-mode
-  :defer t)
-
-
 ;; NIX-EMACS-PACKAGE: ace-window
 (use-package ace-window
   :custom
