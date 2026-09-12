@@ -623,13 +623,6 @@ Returns the total execution time as a floating-point number."
   ;; Disable header line
   (defun wordnut--headerline ()))
 
-;; NIX-EMACS-PACKAGE: lorem-ipsum
-(use-package lorem-ipsum
-  :general
-  (:states 'normal
-           "C-🫧" #'lorem-ipsum-insert-sentences
-           "🫧" #'lorem-ipsum-insert-paragraphs))
-
 ;; NIX-EMACS-PACKAGE: pandoc
 (use-package pandoc
   :preface
