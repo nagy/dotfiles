@@ -59,7 +59,8 @@ nagy-modus-themes.el.")
     "Environment and misc tweaks for the naysayer (dark) theme."
     (setenv "GTK_THEME" "Adwaita:dark")
     (with-eval-after-load 'org
-      (set-face-attribute 'org-block nil :background 'unspecified)
+      (set-face-attribute 'org-block nil :background (alist-get 'bg-alt nagy-naysayer-palette))
+      (set-face-attribute 'org-code nil :foreground "#ffb454" :background (alist-get 'bg-alt nagy-naysayer-palette))
       (set-face-attribute 'org-block-begin-line nil :background 'unspecified)
       (set-face-attribute 'org-block-end-line nil :background 'unspecified))
     (with-eval-after-load 'treesit-fold

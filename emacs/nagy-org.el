@@ -17,6 +17,7 @@
   (org-edit-src-content-indentation 0)
   (org-modules nil)
   (org-return-follows-link t)
+  ;; (org-hide-drawer-startup t)
   ;; (org-cycle-hide-drawer-startup nil)
   (org-export-with-smart-quotes t)
   (org-link-descriptive t)
@@ -321,6 +322,10 @@
   :defer t
   :hook
   (org-mode-hook . org-jxl-inline-mode))
+
+;; NIX-EMACS-PACKAGE: org-modern
+(use-package org-modern
+  :defer t)
 
 (provide 'nagy-org)
 ;;; nagy-org.el ends here

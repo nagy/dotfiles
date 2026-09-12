@@ -242,5 +242,7 @@
   (:states 'normal :keymaps 'nixos-browse-flakes-mode-map
            [remap evil-ret] #'nixos-browse-flakes-visit))
 
+;; (add-to-list 'major-mode-remap-alist '(nix-mode . nix-ts-mode))
+
 (provide 'nagy-nix)
 ;;; nagy-nix.el ends here

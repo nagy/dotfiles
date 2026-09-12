@@ -132,5 +132,10 @@ Return the total balance value, or nil on error."
                    command-args))))
 (evil-global-set-key 'normal (kbd "C-,") #'start-ai-agent)
 
+;; ;;;autoload
+;; (defun amdgpu-top ()
+;;   (interactive)
+;;   (start-terminal "--title" "amdgpu-top" "-e" "R:" "amdgpu_top"))
+
 (provide 'nagy-ai)
 ;;; nagy-ai.el ends here

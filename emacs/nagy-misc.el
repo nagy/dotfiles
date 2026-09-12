@@ -734,7 +734,9 @@ Returns the total execution time as a floating-point number."
 
 ;; NIX-EMACS-PACKAGE: crate
 (use-package crate
-  :defer t)
+  :defer t
+  :config
+  (crate-install-browse-url-handler))
 
 ;; NIX-EMACS-PACKAGE: difftastic
 (use-package difftastic
