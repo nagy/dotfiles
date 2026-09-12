@@ -7,8 +7,6 @@
 ;; NIX-EMACS-PACKAGE: reformatter
 ;; (require 'reformatter)
 
-
-
 (declare-function preload-url "local")
 
 (use-package emacs
@@ -20,35 +18,6 @@
   :defer t
   :custom
   (auto-insert-query nil))
-
-
-;; NIX-EMACS-PACKAGE: nameless
-(use-package nameless
-  :diminish nameless-mode
-  ;; :bind
-  ;; TODO make this emacs mode only
-  ;; ("<key-chord> - e" . nameless-mode)
-  :general
-  (:states 'insert :keymaps 'nameless-mode-map
-           "s--" #'nameless-insert-name)
-  :custom
-  (nameless-prefix "─")
-  (nameless-private-prefix t)
-  (nameless-global-aliases
-   '(("fl" . "font-lock")
-     ("ms" . "magit-section")
-     ("○" . "nix")
-     ("□" . "blocker")
-     ("▱" . "map")                      ; or 𝒎
-     ("ℕd" . "nagy-data")
-     ("⧖" . "dired")
-     ("ol" . "org-link")
-     ("ox" . "org-export")
-     ("ob" . "org-babel")
-     ("o" . "org")
-     ("ŧ" . "tokei")
-     ("√" . "calc")
-     ("e4" . "elforth"))))
 
 ;; NIX-EMACS-PACKAGE: macrostep
 (use-package macrostep
