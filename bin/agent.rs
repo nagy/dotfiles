@@ -59,6 +59,10 @@ fn main() -> Result<()> {
 
     let mut b = Command::new("bwrap");
 
+    // Empty, read-only root: everything must be explicitly mounted in.
+    b.arg("--tmpfs");
+    b.arg("/");
+
     // Bind mounts.
     b.args([
         "--dev",
@@ -93,9 +97,25 @@ fn main() -> Result<()> {
         "/tmp",
     ]);
 
-    b.arg("--bind");
-    b.arg(PathBuf::from(&home).join("agent"));
+    // Empty home skeleton on the (later remounted read-only) root tmpfs.
+    b.arg("--dir");
     b.arg(&home);
+
+    // Ephemeral, writable cache dir (hardcoded ~/.cache users).
+    b.arg("--tmpfs");
+    b.arg(PathBuf::from(&home).join(".cache"));
+
+    // Scratchpad: the only writable part of $HOME.
+    let scratchpad = PathBuf::from(&home).join("agent");
+    if !scratchpad.is_dir() {
+        bail!(
+            "agent: scratchpad not found: {} (create it first)",
+            scratchpad.display()
+        );
+    }
+    b.arg("--bind");
+    b.arg(&scratchpad);
+    b.arg(&scratchpad);
 
     if pi_dir.is_dir() {
         b.arg("--bind");
@@ -136,6 +156,7 @@ fn main() -> Result<()> {
 
     b.args(["--setenv", "EDITOR", "nvim"]);
     b.args(["--setenv", "HOME", &home]);
+    b.args(["--setenv", "TMPDIR", "/tmp"]);
 
     for var in ["XDG_RUNTIME_DIR", "NIX_PATH"] {
         if let Ok(v) = env::var(var) {
@@ -195,6 +216,12 @@ fn main() -> Result<()> {
             }
         }
     }
+
+    // All static/agent binds are in place; make the root (and thus the
+    // otherwise-empty $HOME) read-only. Bind-mounted scratchpad, ~/.pi and
+    // AGENT_BINDS entries remain writable (separate mounts).
+    b.arg("--remount-ro");
+    b.arg("/");
 
     // Forward user-supplied bwrap options, then the inner command.
     b.args(&bwrap_args);
