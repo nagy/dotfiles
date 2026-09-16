@@ -229,7 +229,7 @@
   (add-to-list 'display-buffer-alist '("^\\*Embark Export: nixos-option" . (display-buffer-same-window)))
   :general
   (:states 'normal
-           "○ ○" #'nixos-flake)
+           "○ ○" #'nixos-flake) ;; this does not work. maybe gets overwritten?
   (:states 'normal :keymaps 'nixos-browse-mode-map
            [remap evil-append] #'magit-status
            [remap evil-replace] #'revert-buffer

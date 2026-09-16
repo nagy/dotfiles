@@ -164,7 +164,7 @@
            (or ".gitignore" ".gitattributes"
                ".elpaignore" ".dockerignore"
                "LICENSE"
-               "flake.lock" "poetry.lock" "Cargo.lock"))
+               "flake.lock" "poetry.lock" "Cargo.lock" "go.sum"))
 
           eol)
      (1 `(face parenthesis)))

@@ -20,7 +20,7 @@
 
 (defun nagy-list-format-cell (column value)
   (if-let* ((it (--> (map-elt nagy-list--columns column)
-                      (seq-elt it 1))))
+                     (seq-elt it 1))))
       (cl-typecase it
         (function (funcall it value))
         ;; (symbol (funcall (symbol-function it) value))
