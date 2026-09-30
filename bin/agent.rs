@@ -157,6 +157,16 @@ fn main() -> Result<()> {
     b.args(["--setenv", "EDITOR", "nvim"]);
     b.args(["--setenv", "HOME", &home]);
     b.args(["--setenv", "TMPDIR", "/tmp"]);
+    // Cargo and Go state belong in the writable scratchpad ($HOME itself is
+    // read-only).
+    b.args([
+        "--setenv",
+        "CARGO_HOME",
+        &scratchpad.join("cargo-home").display().to_string(),
+        "--setenv",
+        "GOPATH",
+        &scratchpad.join("go").display().to_string(),
+    ]);
 
     for var in ["XDG_RUNTIME_DIR", "NIX_PATH"] {
         if let Ok(v) = env::var(var) {
