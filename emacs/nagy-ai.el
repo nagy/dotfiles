@@ -59,6 +59,7 @@
   (agent-shell-pi-acp-command '("agent" "pi-acp"))
   ;; (agent-shell-file-completion-enabled nil)
   (agent-shell-transcript-file-path-function nil) ;; pi already saves under ~/.pi/agent/sessions/
+  ;; (agent-shell-shot-cost-indicator t)  ;; future release
   :defer t
   :config
   ;; Evil state-specific RET behavior: insert mode = newline, normal mode = send
@@ -136,6 +137,10 @@ Return the total balance value, or nil on error."
 ;; (defun amdgpu-top ()
 ;;   (interactive)
 ;;   (start-terminal "--title" "amdgpu-top" "-e" "R:" "amdgpu_top"))
+
+;; NIX-EMACS-PACKAGE: mcp
+(use-package mcp
+  :defer t)
 
 (provide 'nagy-ai)
 ;;; nagy-ai.el ends here

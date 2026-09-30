@@ -22,6 +22,7 @@
   (org-export-with-smart-quotes t)
   (org-link-descriptive t)
   ;; (org-startup-align-all-tables t)
+  (org-hide-emphasis-markers t)
   :hook
   (org-mode-hook . visual-line-mode)
   :config
@@ -322,6 +323,12 @@
   :defer t
   :hook
   (org-mode-hook . org-jxl-inline-mode))
+
+;; NIX-EMACS-PACKAGE: org-tidy
+(use-package org-tidy
+  :defer t)
+  ;; :custom
+  ;; (org-tidy-properties-style 'invisible))
 
 ;; NIX-EMACS-PACKAGE: org-modern
 (use-package org-modern

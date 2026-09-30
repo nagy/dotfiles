@@ -417,10 +417,6 @@
   :config
   (evil-set-initial-state 'wdired-mode 'normal))
 
-;; NIX-EMACS-PACKAGE: just-ts-mode
-(use-package just-ts-mode
-  :defer t)
-
 ;; NIX-EMACS-PACKAGE: evil-surround
 (use-package evil-surround
   :defer t)
@@ -438,7 +434,6 @@
     (setq-local truncate-lines t)
     (let ((inhibit-message t))
       (text-scale-adjust 0)))
-
   (defun nagy--ghostel-switch-to-char-mode ()
     (evil-emacs-state 1)
     (goto-char (point-max)))
@@ -472,18 +467,6 @@
         ;; ("<normal-state> <key-chord> f j" . embark-act)
   (:map evil-normal-state-map
         ("<key-chord> - x" . ghostel)))
-
-;; (defun nagy--ghostel--some-rebalancing ()
-;;   (interactive)
-;;   (walk-windows
-;;    (lambda (win)
-;;      (with-selected-window win
-;;        (let ((proc (get-buffer-process (window-buffer win))))
-;;          (when proc
-;;            (window--adjust-process-windows))))
-;;      ))
-;;   ;; (redisplay t)
-;;   )
 
 (provide 'nagy-evil)
 ;;; nagy-evil.el ends here
