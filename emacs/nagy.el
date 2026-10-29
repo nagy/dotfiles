@@ -26,7 +26,6 @@
 (require 'nagy-nix nil (not init-file-debug))
 (require 'nagy-org nil (not init-file-debug))
 (require 'nagy-passage nil (not init-file-debug))
-(require 'nagy-pcap-converter nil (not init-file-debug))
 (require 'nagy-python nil (not init-file-debug))
 ;; (require 'nagy-qrcode nil t)
 (require 'nagy-rust nil (not init-file-debug))
