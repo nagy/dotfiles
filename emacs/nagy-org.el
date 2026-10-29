@@ -137,13 +137,16 @@
 (require 'dired)
 (keymap-set dired-mode-map "H-M-o" #'find-file-directory-org)
 
-;; NIX-EMACS-PACKAGE: org-superstar
-(use-package org-superstar
-  :hook
-  (org-mode-hook . org-superstar-mode)
-  :custom
-  (org-superstar-leading-bullet ""))
+;; THIS MAKES EMACS SEGFAULT!!
+;; Might have something todo with the font ?
+;; ;; NIX-EMACS-PACKAGE: org-superstar
+;; (use-package org-superstar
+;;   :hook
+;;   (org-mode-hook . org-superstar-mode)
+;;   :custom
+;;   (org-superstar-leading-bullet ""))
 
+;; This may soon be built in via `org-inside`
 ;; NIX-EMACS-PACKAGE: org-appear
 (use-package org-appear
   :disabled
