@@ -108,7 +108,7 @@ nagy-modus-themes.el.")
           (fg-main (alist-get 'fg-main nagy-naysayer-palette))
           (line-fg (alist-get 'line-fg nagy-naysayer-palette))
           (line-fg-current (alist-get 'line-fg-current nagy-naysayer-palette))
-          (scroll-fg (alist-get 'bg-border nagy-naysayer-palette))) ; #126367, same as the docs.rs scrollbar thumb
+          (border (alist-get 'bg-border nagy-naysayer-palette))) ; #126367, same as the docs.rs scrollbar thumb
       (custom-set-faces
        `(dired-header ((t :height unspecified :foundry unspecified)))
        `(magit-section-heading ((t :inherit font-lock-keyword-face)))
@@ -126,7 +126,8 @@ nagy-modus-themes.el.")
        `(jinx-misspelled ((t :inherit nagy-subtle-yellow)))
        `(eglot-highlight-symbol-face ((t :underline t :bold t)))
        `(eglot-diagnostic-tag-unnecessary-face ((t :underline unspecified :inherit nagy-intense-green)))
-       `(scroll-bar ((t :background ,bg-main :foreground ,scroll-fg))) ; fg here so custom-set-faces does not reset it
+       `(org-modern-horizontal-rule ((t :underline ,border)))
+       `(scroll-bar ((t :background ,bg-main :foreground ,border))) ; fg here so custom-set-faces does not reset it
        `(margin ((t :background ,bg-main)))
        ;; High contrast
        `(mode-line ((t :foreground ,fg-main :background ,bg-main :box (:line-width 2)))) ; same bg as the inactive mode-line
