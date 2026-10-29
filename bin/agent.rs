@@ -35,8 +35,9 @@ struct AgentConfig {
     envs: Vec<String>,
 }
 
-/// Config file path. The file is optional.
-const CONFIG_PATH: &str = "/etc/agent/config.json";
+/// Config file path. `AGENT_CONFIG` overrides it. The default file is
+/// optional, an explicitly named file must exist.
+const DEFAULT_CONFIG_PATH: &str = "/etc/agent/config.json";
 
 /// Split a comma-separated environment variable into a list. Commas (and not
 /// colons) are used so that `PATH`-style values are not split.
@@ -52,14 +53,14 @@ fn split_list(var: &str) -> Vec<String> {
 }
 
 impl AgentConfig {
-    /// Read the config file. A missing file yields the default (empty)
-    /// config. An unreadable or malformed file is an error.
-    fn load() -> Result<Self> {
-        match fs::read_to_string(CONFIG_PATH) {
+    /// Read `path`. When `required` is false, a missing file yields the default
+    /// (empty) config. An unreadable or malformed file is always an error.
+    fn load(path: &Path, required: bool) -> Result<Self> {
+        match fs::read_to_string(path) {
             Ok(raw) => serde_json::from_str(&raw)
-                .with_context(|| format!("agent: cannot parse {CONFIG_PATH}")),
-            Err(e) if e.kind() == io::ErrorKind::NotFound => Ok(Self::default()),
-            Err(e) => Err(e).with_context(|| format!("agent: cannot read {CONFIG_PATH}")),
+                .with_context(|| format!("agent: cannot parse {}", path.display())),
+            Err(e) if !required && e.kind() == io::ErrorKind::NotFound => Ok(Self::default()),
+            Err(e) => Err(e).with_context(|| format!("agent: cannot read {}", path.display())),
         }
     }
 
@@ -93,8 +94,13 @@ fn main() -> Result<()> {
     };
     let pi_dir = PathBuf::from(&home).join(".pi");
 
-    // Config file first, then the `AGENT_*` environment variables.
-    let mut config = AgentConfig::load()?;
+    // Config file first, then the `AGENT_*` environment variables. A path in
+    // `AGENT_CONFIG` (with `~` expanded) replaces the default and must exist.
+    let (config_path, required) = match env::var("AGENT_CONFIG") {
+        Ok(v) if !v.is_empty() => (PathBuf::from(expand_tilde(&v, &home)), true),
+        _ => (PathBuf::from(DEFAULT_CONFIG_PATH), false),
+    };
+    let mut config = AgentConfig::load(&config_path, required)?;
     config.merge_env();
 
     let args: Vec<String> = env::args().skip(1).collect();
@@ -274,7 +280,8 @@ fn main() -> Result<()> {
             };
             if !Path::new(&src).exists() {
                 bail!(
-                    "agent: {var} entry not found: {src} (from {CONFIG_PATH} or AGENT_{})",
+                    "agent: {var} entry not found: {src} (from {} or AGENT_{})",
+                    config_path.display(),
                     var.to_uppercase()
                 );
             }
