@@ -57,7 +57,8 @@ waits for input."
            "w" #'pass-copy
            "b" #'pass-copy-username
            "f" #'pass-view)
-  :same "^\\*Password-Store\\*$")
+  :init
+  (nagy-same-window "^\\*Password-Store\\*$"))
 
 ;; NIX-EMACS-PACKAGE: password-store-otp
 (use-package password-store-otp
@@ -92,7 +93,8 @@ waits for input."
   ;; temporary until evil-collection mode is created
   (with-eval-after-load 'evil
     (evil-set-initial-state 'passage-mode 'emacs))
-  :same "^\\*Passage-Store\\*$"
+  :init
+  (nagy-same-window "^\\*Passage-Store\\*$")
   :general
   (:states 'normal
            "🔑" #'passage))

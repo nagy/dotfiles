@@ -23,8 +23,8 @@
 
   (add-to-list 'browse-url-handlers
                '("^file:///nix/store/.*hyperspec.*/Body/" . my-browser-url-eww-hyperspec))
-  :same
-  "^\\*hyperspec\\*"
+  :init
+  (nagy-same-window "^\\*hyperspec\\*")
   :config
   ;; nix-build "<nixos>" -A nur.repos.nagy.hyperspec --no-out-link
   (setq common-lisp-hyperspec-root "file:///nix/store/2hli5955grxkbyqp2vzzdnl556rn0bkz-hyperspec-7.0/share/HyperSpec/"))
@@ -35,11 +35,12 @@
   (sly-db-focus-debugger t)
   (sly-description-autofocus t)
   (inferior-lisp-program "sbcl")
-  :same
-  (rx bos "*sly-" (or "inspector"
-                      "mrepl"
-                      "description"
-                      "macroexpansion"))
+  :init
+  (nagy-same-window
+   (rx bos "*sly-" (or "inspector"
+                       "mrepl"
+                       "description"
+                       "macroexpansion")))
   ;;   :hook
   ;;   (sly-inspector-mode-hook . visual-line-mode)
   ;;   (sly-db-mode-hook . visual-line-mode)

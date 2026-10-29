@@ -141,19 +141,14 @@
 ;; NIX-EMACS-PACKAGE: nixos
 (use-package nixos
   :defer t
-  :same
-  (rx bos
-      (or "*nixos-package "
-          "*nixos-option "
-          "*nixos-flake "))
-  ;; "*Embark Export: nixos-option"
-  ;; "*Embark Export: nixos-package")))
-  ;; :bind
-  ;; (:map nixos-browse-packages-mode-map
-  ;;       ([remap evil-append] . magit-status)))
-  :config
-  (add-to-list 'display-buffer-alist '("^\\*Embark Export: nixos-package" . (display-buffer-same-window)))
-  (add-to-list 'display-buffer-alist '("^\\*Embark Export: nixos-option" . (display-buffer-same-window)))
+  :init
+  (nagy-same-window
+   (rx bos
+       (or "*nixos-package "
+           "*nixos-option "
+           "*nixos-flake ")))
+  (nagy-same-window (rx bos "*Embark Export: nixos-package"))
+  (nagy-same-window (rx bos "*Embark Export: nixos-option"))
   :general
   (:states 'normal
            "○ ○" #'nixos-flake) ;; this does not work. maybe gets overwritten?

@@ -51,8 +51,8 @@
   :general
   (:states 'normal :keymaps 'inspector-mode-map
            "C-o" #'inspector-pop)
-  :same
-  "^\\*inspector\\*")
+  :init
+  (nagy-same-window "^\\*inspector\\*"))
 
 ;; NIX-EMACS-PACKAGE: highlight-quoted
 (use-package highlight-quoted
@@ -290,8 +290,6 @@
   :hook
   (pdf-view-mode-hook . pdf-view-themed-minor-mode)
   (pdf-view-mode-hook . pdf-view-fit-page-to-window)
-  ;; :same
-  ;; (rx bos "*Outline ")
   :config
   (pdf-tools-install-noverify)
   ;; do not issue warning

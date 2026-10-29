@@ -169,7 +169,8 @@
            "RET" #'sqlite-mode-list-data)
   ;; :config
   ;; (add-to-list 'magic-mode-alist '("SQLite format 3\x00" . nagy-sqlite-view-file-magically))
-  :same "^\\*SQLite ")
+  :init
+  (nagy-same-window "^\\*SQLite "))
 
 (use-package sql
   :abbrev 'sql-mode

@@ -222,8 +222,8 @@
   :config
   (advice-add 'outorg-edit-as-org :around #'nagy-replace-switch-to-buffer-other-window)
   (advice-add 'outorg-edit-as-org :around #'nagy-replace-split-window-sensibly)
-  :same
-  "^\\*outorg-edit-buffer\\*")
+  :init
+  (nagy-same-window "^\\*outorg-edit-buffer\\*"))
 
 
 ;; NIX-EMACS-PACKAGE: outshine

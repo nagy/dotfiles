@@ -554,7 +554,6 @@ windows when moving the mouse."
   (eldoc-idle-delay 0.01))
 ;; TODO increase eldoc delay for sly buffers because the communication with the lisp is
 ;; taking huge cpu.
-;; :same "^\\*eldoc\\*"
 
 
 (use-package bookmark
@@ -1327,10 +1326,6 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   (minibuffer-depth-indicate-mode t)
   (define-key minibuffer-local-map (kbd "ö") (key-binding (kbd "RET"))))
 
-
-;; (use-package url-cookie
-;;   :same "*url cookies*")
-
 (use-package url-vars
   :custom
   (url-privacy-level '(email)))
@@ -1426,9 +1421,9 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
   :defer t
   :bind
   ("s-<f1>" . calendar)
-  :same
+  :init
   ;; calendar-buffer
-  "^\\*Calendar\\*$")
+  (nagy-same-window "^\\*Calendar\\*$"))
 
 
 ;; TODO maybe replace this with `global-text-scale-adjust'.

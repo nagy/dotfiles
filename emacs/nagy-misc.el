@@ -348,7 +348,8 @@
   ;; (require 'osm-ol)
   ;; (put 'osm-bookmark-jump 'bookmark-handler-type "Osm")
   ;; (evil-set-initial-state 'osm-mode 'emacs)
-  :same "^\\*osm")
+  :init
+  (nagy-same-window "^\\*osm"))
 
 ;; NIX-EMACS-PACKAGE: literate-calc-mode
 (use-package literate-calc-mode
@@ -446,7 +447,8 @@ Returns the total execution time as a floating-point number."
       (apply orig-fun args)))
   (advice-add 'devdocs-install :around #'nagy-devdocs-install)
   ;; (advice-remove 'password-store--run #'nagy-devdocs-install)
-  :same "^\\*devdocs\\*"
+  :init
+  (nagy-same-window "^\\*devdocs\\*")
   :general
   (:states 'motion :keymaps 'devdocs-mode-map
            [remap evil-jump-backward] #'devdocs-go-back
@@ -515,8 +517,6 @@ Returns the total execution time as a floating-point number."
             [remap kill-this-buffer] #'elfeed-db-unload
             [remap save-kill-buffer] #'elfeed-db-unload
             [remap nagy-kill-this-buffer] #'elfeed-db-unload))
-
-;; :same "^\\*elfeed-entry"
 
 
 ;; * Haskell
@@ -610,7 +610,8 @@ Returns the total execution time as a floating-point number."
 ;; NIX-EMACS-PACKAGE: wordnut
 (use-package wordnut
   :defer t
-  :same "^\\*WordNut\\*"
+  :init
+  (nagy-same-window "^\\*WordNut\\*")
   :config
   ;; Disable header line
   (defun wordnut--headerline ()))
@@ -741,7 +742,8 @@ Returns the total execution time as a floating-point number."
 ;; NIX-EMACS-PACKAGE: openstack
 (use-package openstack
   :defer t
-  :same "^\\*OpenStack ")
+  :init
+  (nagy-same-window "^\\*OpenStack "))
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

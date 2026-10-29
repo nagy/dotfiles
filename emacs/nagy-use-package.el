@@ -24,25 +24,15 @@
 (eval-when-compile
   (require 'use-package))
 (declare-function use-package-process-keywords "use-package-core")
-(declare-function use-package-only-one "use-package-core")
 
+;;; display-buffer-alist helpers
 ;;;###autoload
-(defun use-package-normalize/:same (_name-symbol keyword args)
-  (use-package-only-one (symbol-name keyword) args
-    (lambda (label arg)
-      (cond
-       ((stringp arg) arg)
-       ((and (consp arg) (eq 'rx (car arg))) (eval arg))
-       (t (use-package-error (concat label " :same did not get a string")))))))
-;;;###autoload
-(defun use-package-handler/:same (name-symbol _keyword rgx rest state)
-  (use-package-concat (use-package-process-keywords name-symbol rest state)
-                      `((add-to-list 'display-buffer-alist
-                                     '(,rgx display-buffer-same-window)))))
+(defun nagy-same-window (regexp)
+  "Display buffers with a name that matches REGEXP in the current window.
 
-;;;###autoload
-(with-eval-after-load 'use-package-core
-  (add-to-list 'use-package-keywords :same t))
+Add a `display-buffer-alist' entry for REGEXP.  Newest entry wins, because
+`add-to-list' prepends by default."
+  (add-to-list 'display-buffer-alist `(,regexp display-buffer-same-window)))
 
 ;;; abbrev
 

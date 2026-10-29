@@ -41,7 +41,8 @@
   ("True" "False")
   :abbrev 'python-mode
   ("imp" . "import")
-  :same "^\\*Python")
+  :init
+  (nagy-same-window "^\\*Python"))
 
 ;; * Hy
 
@@ -62,8 +63,8 @@
   ("unl" . "unless")
   ("req" . "require")
   ("imp" . "import")
-  :same
-  "^\\*Hy\\*$"
+  :init
+  (nagy-same-window "^\\*Hy\\*$")
   :hook
   (hy-mode-hook . lispy-mode))
 
