@@ -36,10 +36,13 @@
   ("H-R" . magit-show-refs)
   (:map magit-mode-map
         ;; ("H-b" . nagy-browse-url-of-buffer)
+        ;; ("C-l" . magit-log-all-branches)
         ("H-L" . magit-log-all-branches)
         ("H-<" . magit-process-buffer)
         ("H-c" . magit-commit-create))
   (:map dired-mode-map
+        ;; ("C-l" . magit-log-all-branches)
+        ("H-l" . magit-log-current)
         ("H-L" . magit-log-all-branches)
         ("H-<" . magit-process-buffer))
   (:map magit-diff-mode-map

@@ -116,7 +116,7 @@
   :bind
   ("M-⧖" . tokei)
   (:map tokei-mode-map
-        ("H-l" . magit-log-all-branches))
+        ("H-L" . magit-log-all-branches))
   :config
   (with-eval-after-load 'consult
     (defvar consult-bookmark-narrow)
@@ -745,6 +745,11 @@ Returns the total execution time as a floating-point number."
 ;; NIX-EMACS-PACKAGE: magit-difftastic
 (use-package magit-difftastic
   :defer t)
+
+;; NIX-EMACS-PACKAGE: openstack
+(use-package openstack
+  :defer t
+  :same "^\\*OpenStack ")
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here

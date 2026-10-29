@@ -178,7 +178,8 @@ windows when moving the mouse."
   (add-to-list 'display-buffer-alist '("^\\*Network Connection"  display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^Shell Command:"  display-buffer-same-window))
   (add-to-list 'display-buffer-alist '("^\\*Pp Eval Output"  display-buffer-same-window))
-  (add-hook 'window-selection-change-functions #'nagy-emacs-window-scroll-bars)
+  ;; This should be rewritten somehow. this might be a performance issue.
+  ;; (add-hook 'window-selection-change-functions #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-increase :after #'nagy-emacs-window-scroll-bars)
   (advice-add 'text-scale-decrease :after #'nagy-emacs-window-scroll-bars)
   (add-to-list 'set-message-functions 'inhibit-message)
@@ -335,8 +336,10 @@ windows when moving the mouse."
   :diminish 'visual-line-mode)
 
 
+;; This whole thing should rather be written via auto-revert-mode
 (defun nagy--refresh-process-list ()
-  (let ((buf (get-buffer "*Process List*")))
+  (when-let* ((buf (get-buffer "*Process List*"))
+              (win (get-buffer-window buf 'visible)))
     (when (buffer-live-p buf)
       (with-current-buffer buf
         (unless (region-active-p)
@@ -349,9 +352,9 @@ windows when moving the mouse."
               (set-window-point win (min win-pos (point-max))))))))))
 ;; (when (bound-and-true-p hl-line-mode)
 ;;   (hl-line-highlight))
-
 (run-with-timer 0 2 #'nagy--refresh-process-list)
 (run-with-idle-timer 0.5 t #'nagy--refresh-process-list)
+;; (cancel-function-timers #'nagy--refresh-process-list)
 
 (use-package compile
   ;; :custom
@@ -1148,10 +1151,10 @@ string; otherwise return a 64-character string."
                     (with-current-buffer oldbuf (copy-sequence process-environment)))))))
 (keymap-global-set "s-x" #'the-shell-here)
 
-(defun ignore-advice (orig-fun &rest args)
-  (ignore-errors (apply orig-fun args)))
-;; Fix some error on ielm when fontify does not understand functions as matchers
-(advice-add 'font-lock-fontify-region :around #'ignore-advice)
+;; (defun ignore-advice (orig-fun &rest args)
+;;   (ignore-errors (apply orig-fun args)))
+;; ;; Fix some error on ielm when fontify does not understand functions as matchers
+;; (advice-add 'font-lock-fontify-region :around #'ignore-advice)
 
 (defvar tmp-counter 0)
 

@@ -1,5 +1,5 @@
 ;;; nagy-ai.el --- AI configuration -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") evil)
+;; Package-Requires: ((emacs "30.1") evil nagy-emacs)
 
 (require 'dired)
 (require 'evil)
@@ -120,10 +120,15 @@ Return the total balance value, or nil on error."
   (let* ((dir (expand-file-name (or (vc-git-root default-directory) default-directory)))
          (proj (project-current nil dir))
          (workdir (expand-file-name (if proj (project-root proj) dir)))
-         (title (number-to-string (incf terminal-number)))
-         (command-args (if arg
-                           (list "agent")
-                         (list "agent" "pi"))))
+         (title (format "%s – %d – Pi"
+                        (abbreviate-file-name workdir)
+                        (incf terminal-number)))
+         (flake-p (with-directory workdir (file-exists-p "flake.nix")))
+         (command-args (pcase (cons (and arg t) flake-p)
+                         ('(t . t)   '("agent" "nix" "shell" "." "-c" "nix" "develop"))
+                         ('(t . nil) '("agent"))
+                         ('(nil . t) '("agent" "nix" "shell" "." "-c" "nix" "develop" "-c" "pi"))
+                         ('(nil . nil) '("agent" "pi")))))
     (apply #'start-process
            (append (list "terminal" nil "alacritty"
                          "--option" (format "font.size=%d" (/ (face-attribute 'default :height) 9))
