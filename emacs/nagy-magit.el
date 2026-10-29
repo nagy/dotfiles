@@ -93,10 +93,7 @@
 (use-package gitconfig-mode
   ;; also catch files in nix store
   :mode "-gitconfig\\'"
-  :defer t
-  :pretty 'gitconfig-mode
-  ("true" . true) ("false" . false)
-  ("branch" . "⌥"))
+  :defer t)
 
 (provide 'nagy-magit)
 ;;; nagy-magit.el ends here

@@ -18,14 +18,6 @@
   (reformatter-define jq-format
     :group 'js
     :program "jq")
-  :pretty 'js-mode
-  ("true" . true) ("false" . false)
-  ("if" . if) ("else" . else)
-  ("function" . def)
-  ("return" . return)
-  ("while" . loop)
-  ("var" . let)
-  ("const" . const)
   :bind
   ("H-M-j" . js-json-mode)
   (:map js-json-mode-map
@@ -50,15 +42,6 @@
   :config
   ;; This makes "wasm2wat" in `shell-command' buffers work.
   (add-to-list 'magic-fallback-mode-alist '("(module" . wat-mode))
-  :pretty 'wat-mode
-  ("export" . export)
-  ("func" . def)
-  ("type" . "ƭ")
-  ("module" . "📦")
-  ("global" . "🌐")
-  ("memory" . "󰘨")
-  ("table" . "󰣟")
-  ("import" . import)
   :bind
   ("H-M-w" . wat-mode))
 

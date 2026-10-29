@@ -85,15 +85,11 @@
   ("la" . "lambda")
   ("req" . "require")
   ("rfs" . "read-from-string"))
-  ;; :pretty 'sly-mrepl-mode ; does not work, probably needs fontification
-  ;; ("lambda" . lambda)
 
 
 (use-package lisp-mode
   :bind
-  ("H-M-l" . lisp-mode)
-  :pretty 'lisp-mode
-  ("list" . list))
+  ("H-M-l" . lisp-mode))
 
 ;; https://github.com/joaotavora/sly/issues/334
 ;; (setf (cdr (assoc 'slynk:*string-elision-length* slynk:*slynk-pprint-bindings*)) nil) ; this can also go into "~/.slynkrc"
@@ -113,13 +109,9 @@
   :bind
   (:map scheme-mode-map
         ("s-." . scheme-send-last-sexp)
-        ("s--" . scheme-send-definition))
+        ("s--" . scheme-send-definition)))
   ;; :hook
   ;; (scheme-mode-hook . lispy-mode)
-  :pretty 'scheme-mode
-  ("define" . setq)
-  ("if" . if)
-  ("import" . import))
 
 ;; NIX-EMACS-PACKAGE: link-hint
 (use-package link-hint

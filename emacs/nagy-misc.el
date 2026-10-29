@@ -166,15 +166,7 @@
   (eros-mode 1))
 
 (use-package cc-mode
-  :defer t
-  :pretty 'c-mode
-  ("if" . if) ("else" . else) ("endif" . else)
-  ("#define" . "»")
-  ("#undef" . "«")
-  ("void" . null)
-  ("return" . return)
-  ("while" . loop)
-  ("const" . const))
+  :defer t)
 
 (use-package calc
   :general

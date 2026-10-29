@@ -29,11 +29,6 @@
     ;; :lighter " TFmt"
     :group 'terraform-mode)
   :defer t
-  :pretty 'terraform-mode
-  ("data" . [?𝒅 (Br . Bl) ?𝒂])
-  ("provider" . [?𝒑 (Br . Bl) ?𝒓])
-  ("resource" . [?𝒓 (Br . Bl) ?𝒆])
-  ("output" . [?𝒐 (Br . Bl) ?𝒑])
   :general
   (:states 'normal :keymaps 'terraform-mode-map
            "⊢" #'terraform-fmt-buffer)

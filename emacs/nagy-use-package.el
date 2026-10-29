@@ -44,73 +44,6 @@
 (with-eval-after-load 'use-package-core
   (add-to-list 'use-package-keywords :same t))
 
-;;; prettify symbols
-(defvar nagy-pretty-symbols-default
-  '((true . "") (false . "")
-    (or . "∨") (and . "∧")
-    (throw . "⍜")
-    (self . "░")
-    (def . "ƒ")
-    (let . "↘")
-    (import . "⟻")
-    (return . "⟼")
-    (export . "⟼")
-    (defclass . "𝑲")
-    (eval . "⩏")
-    (object . "𝕆")
-    (map . "ℍ")
-    (hash . "♯")
-    (meta . "▽")
-    (tostring . "𝕊")
-    (source . "♁")
-    (stdlib . "○")
-    (null . "∅")
-    (new . "↙")
-    (print . "⚶")
-    (const . "𝕔")
-    (assert . "𝒂")
-    (not . "¬")          ; "¬"
-    (in . "∃")
-    (list . "⋯")
-    (setf . "↓")
-    (setq . "↡")
-    (try . "〜") (except . "☇")
-    (if . "꜏") (else . "꜊") (then . "∴")
-    (when . "〉") (unless . "〈")
-    (loop . "↻")))
-
-;;;###autoload
-(defun nagy-pretty-init (symbol)
-  "Set pretty symbols for mode SYMBOL."
-  (interactive "SSymbol: ")
-  (dolist (i (get symbol 'nagy-pretty))
-    (setf (cdr   i) (if (symbolp (cdr i))
-                        (alist-get (cdr i) nagy-pretty-symbols-default)
-                      (cdr i)))
-    (push i prettify-symbols-alist)))
-
-;;;###autoload
-(defalias 'use-package-normalize/:pretty 'use-package-normalize-forms)
-
-;;;###autoload
-(defun use-package-handler/:pretty (name-symbol _keyword rgx rest state)
-  (let* ((body (use-package-process-keywords name-symbol rest state))
-         (mode (car rgx))
-         (mode-name (symbol-name (cadr mode))))
-    (if (null rgx)
-        body
-      (use-package-concat
-       body
-       `((declare-function ,(intern (concat "nagy-pretty-" mode-name "-h"))"emacs" ()))
-       `((defun ,(intern (concat "nagy-pretty-" mode-name "-h")) ()
-           ,(format "Set pretty symbols for `%s'. Auto generated." mode-name)
-           (nagy-pretty-init ,mode)))
-       `((add-hook ',(intern (concat mode-name "-hook")) #',(intern (concat "nagy-pretty-" mode-name "-h"))))
-       `((setf (get ,mode 'nagy-pretty) ',(cdr rgx)))))))
-
-;;;###autoload
-(with-eval-after-load 'use-package-core
-  (add-to-list 'use-package-keywords :pretty t))
 ;;; abbrev
 
 ;;;###autoload
@@ -162,9 +95,7 @@
 
 ;;;###autoload
 (with-eval-after-load 'use-package-core
-  (add-to-list 'use-package-keywords :cycle t)
-  (add-to-list 'use-package-merge-key-alist
-               '(:pretty . (lambda (new old) (append new old))) t))
+  (add-to-list 'use-package-keywords :cycle t))
 
 ;; also try `switch-to-buffer-obey-display-actions'. Does not solve it completely.
 (defun nagy-replace-switch-to-buffer-other-window (orig-fun &rest args)

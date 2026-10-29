@@ -26,22 +26,6 @@
   ;;
   ;; ⛔ Warning (python): Your ‘python-shell-interpreter’ doesn’t seem to support readline, yet ‘python-shell-completion-native-enable’ was t and "python3" is not part of the ‘python-shell-completion-native-disabled-interpreters’ list.  Native completions have been disabled locally. Consider installing the python package "readline".
   (python-shell-completion-native-enable nil)
-  :pretty 'python-mode
-  ("True" . true) ("False" . false)
-  ("if" . if) ("else" . else)
-  ("def" . def)
-  ("class" . class)
-  ("class" . defclass)
-  ("raise" . throw)
-  ("import" . import)
-  ("try" . try) ("except" . except)
-  ("return" . return)
-  ("pass" . "…")
-  ("self" . "▒")
-  ("None" . null)
-  ("not" . not)
-  ("with" . [?↗ (Bl . Bl) ?↘])
-  ("match" . "〣")
   :bind
   ("H-M-p" . python-mode)
   (:map python-mode-map
@@ -70,22 +54,6 @@
   :general
   (:states 'normal
            "Þ" #'run-hy)
-  :pretty 'hy-mode
-  ("True" . true) ("False" . false)
-  ("import" . import)
-  ("let" . let)
-  ("setv" . setq)
-  ("when" . when) ("unless" . unless)
-  ("raise" . throw)
-  ("len" . "≢")
-  ("self" . "▒")
-  ("defn" . def)
-  ("defclass" . defclass)
-  ("defmain" . "𝔐")
-  ("with" . [?↗ (Bl . Bl) ?↘])
-  ("it" . "✦")                          ; anaphoric
-  ("ap-with" . [?↗ (Bl . Bl) ?↘])
-  ("Path" . "𝕻")
   :abbrev 'hy-mode
   ("df" . "defn")
   ("dc" . "dict")

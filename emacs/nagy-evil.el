@@ -275,8 +275,7 @@
   (:map evil-normal-state-map
         ("<key-chord> - <" . vertico-flat-mode)
         ("<key-chord> - c" . eshell)
-        ("<key-chord> - h" . consult-imenu)
-        ("<key-chord> - w" . global-prettify-symbols-mode))
+        ("<key-chord> - h" . consult-imenu))
   (:map vertico-map
         ("<key-chord> f j" . vertico-exit)
         ("<key-chord> j f" . minibuffer-keyboard-quit))
@@ -391,7 +390,6 @@
 ;; (keymap-set evil-motion-state-map "TAB" nil)
 ;; (keymap-set evil-motion-state-map "RET" nil)
 
-(keymap-set evil-normal-state-map "ë" #'global-prettify-symbols-mode)
 ;; (keymap-global-set "C-ë" #'nameless-mode)
 
 ;; NIX-EMACS-PACKAGE: olivetti
