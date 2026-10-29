@@ -3,33 +3,6 @@
 
 (require 'general)
 
-;; NIX-EMACS-PACKAGE: typescript-mode
-(use-package typescript-mode
-  :preface
-  (reformatter-define deno-fmt
-    :group 'emacs
-    :program "deno"
-    :args `("fmt" "-"))
-  :defer t
-  :pretty 'typescript-mode
-  ("this" . self)
-  ("import" . import)
-  ("return" . return)
-  ("new" . new)
-  ("function" . def)
-  ("const" . const)
-  ("export" . export)
-  ("string" . tostring)
-  ("try" . try) ("catch" . except)
-  :cycle 'typescript-mode
-  ("let" "const")
-  :general
-  (:states 'normal :keymaps 'typescript-mode-map
-           "⊢" #'deno-fmt-buffer))
-  ;; :hook
-  ;; (typescript-mode-hook . deno-fmt-on-save-mode) ;; this breaks svelte mode down because that inherits typescript-mode
-
-
 ;; (use-package eglot
 ;;   :config
 ;;   (add-to-list 'eglot-server-programs
@@ -39,7 +12,6 @@
 ;;   ;; (setq-default eglot-workspace-configuration
 ;;   ;;               '(:deno (:enable t :lint t :unstable t))))
 ;; )
-
 
 (use-package js
   :preface
