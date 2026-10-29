@@ -2,6 +2,8 @@
 //! ```cargo
 //! [dependencies]
 //! anyhow = "1"
+//! serde = { version = "1", features = ["derive"] }
+//! serde_json = "1"
 //! ```
 
 //! Sandboxed AI-agent runner. Mirrors the (previously shell) `agent`
@@ -11,12 +13,66 @@
 //! Invoked as: agent [args...]
 //!   The trailing args are passed verbatim to the sandboxed command.
 
-use anyhow::{bail, Result};
+use anyhow::{bail, Context, Result};
+use serde::Deserialize;
 use std::{
-    env,
+    env, fs, io,
     path::{Path, PathBuf},
     process::{self, Command},
 };
+
+/// Deployment configuration, read from `CONFIG_PATH` at startup and then
+/// extended with the `AGENT_*` environment variables.
+#[derive(Debug, Default, Deserialize)]
+#[serde(default)]
+struct AgentConfig {
+    /// Writable mounts. Each entry is `src` or `src=dest`.
+    binds: Vec<PathBuf>,
+    /// Read-only mounts. Each entry is `src` or `src=dest`.
+    robinds: Vec<PathBuf>,
+    /// `--setenv` entries. Each entry is `name=value` (literal) or `name`
+    /// (copy value from the host environment).
+    envs: Vec<String>,
+}
+
+/// Config file path. The file is optional.
+const CONFIG_PATH: &str = "/etc/agent/config.json";
+
+/// Split a comma-separated environment variable into a list. Commas (and not
+/// colons) are used so that `PATH`-style values are not split.
+fn split_list(var: &str) -> Vec<String> {
+    match env::var(var) {
+        Ok(v) => v
+            .split(',')
+            .filter(|e| !e.is_empty())
+            .map(str::to_string)
+            .collect(),
+        Err(_) => Vec::new(),
+    }
+}
+
+impl AgentConfig {
+    /// Read the config file. A missing file yields the default (empty)
+    /// config. An unreadable or malformed file is an error.
+    fn load() -> Result<Self> {
+        match fs::read_to_string(CONFIG_PATH) {
+            Ok(raw) => serde_json::from_str(&raw)
+                .with_context(|| format!("agent: cannot parse {CONFIG_PATH}")),
+            Err(e) if e.kind() == io::ErrorKind::NotFound => Ok(Self::default()),
+            Err(e) => Err(e).with_context(|| format!("agent: cannot read {CONFIG_PATH}")),
+        }
+    }
+
+    /// Append the environment-driven entries. Config-file entries keep their
+    /// position, so `AGENT_*` entries come last.
+    fn merge_env(&mut self) {
+        self.binds
+            .extend(split_list("AGENT_BINDS").into_iter().map(PathBuf::from));
+        self.robinds
+            .extend(split_list("AGENT_ROBINDS").into_iter().map(PathBuf::from));
+        self.envs.extend(split_list("AGENT_ENVS"));
+    }
+}
 
 /// Expand a leading `~` to `home`. Returns `input` unchanged when it does not
 /// start with `~` (or when `home` is empty).
@@ -36,6 +92,10 @@ fn main() -> Result<()> {
         _ => bail!("HOME is not set"),
     };
     let pi_dir = PathBuf::from(&home).join(".pi");
+
+    // Config file first, then the `AGENT_*` environment variables.
+    let mut config = AgentConfig::load()?;
+    config.merge_env();
 
     let args: Vec<String> = env::args().skip(1).collect();
 
@@ -176,54 +236,51 @@ fn main() -> Result<()> {
         }
     }
 
-    // Copy additional env vars from AGENT_ENVS (comma-separated list of
-    // variable names, or `name=value` literals) into the sandbox. Commas
-    // (and not colons) are used so that PATH-style values are not split.
-    //   `AGENT_ENVS=FOO,BAR`      copies host FOO/BAR
-    //   `AGENT_ENVS=FOO=1,BAR`    sets FOO to literal "1", copies BAR
-    if let Ok(entries) = env::var("AGENT_ENVS") {
-        for entry in entries.split(',') {
-            if entry.is_empty() {
-                continue;
+    // Copy or set additional env vars from `config.envs` (merged config file
+    // and AGENT_ENVS). Each entry is `name` (copy host value) or `name=value`
+    // (literal).
+    //   `FOO,BAR`    copies host FOO/BAR
+    //   `FOO=1,BAR`  sets FOO to literal "1", copies BAR
+    for entry in &config.envs {
+        // Split on the FIRST `=`; `name=value` literals override lookups.
+        if let Some((name, value)) = entry.split_once('=') {
+            if !name.is_empty() && !value.is_empty() {
+                b.args(["--setenv", name, &expand_tilde(value, &home)]);
             }
-            // Split on the FIRST `=`; `name=value` literals override lookups.
-            if let Some((name, value)) = entry.split_once('=') {
-                if !name.is_empty() && !value.is_empty() {
-                    b.args(["--setenv", name, &expand_tilde(value, &home)]);
-                }
-            } else if let Ok(v) = env::var(entry) {
-                if !v.is_empty() {
-                    b.args(["--setenv", entry, &v]);
-                }
+        } else if let Ok(v) = env::var(entry) {
+            if !v.is_empty() {
+                b.args(["--setenv", entry.as_str(), &v]);
             }
         }
     }
 
-    // Bind exact directories from AGENT_BINDS / AGENT_ROBINDS
-    // (comma-separated, `~` expanded). Each entry is `src` (mapping to its own
-    // path) or `src=dest`. A missing source is an error.
-    for (flag, var) in [("--bind", "AGENT_BINDS"), ("--ro-bind", "AGENT_ROBINDS")] {
-        if let Ok(entries) = env::var(var) {
-            for entry in entries.split(',') {
-                if entry.is_empty() {
-                    continue;
+    // Mount the merged bind lists (`~` expanded). Each entry is `src` (mapping
+    // to its own path) or `src=dest`. A missing source is an error.
+    for (flag, var, entries) in [
+        ("--bind", "binds", &config.binds),
+        ("--ro-bind", "robinds", &config.robinds),
+    ] {
+        for entry in entries {
+            let entry = entry.to_string_lossy();
+            // Split on the FIRST `=`; a bare path maps to its own path.
+            let (src, dest) = match entry.split_once('=') {
+                Some((s, d)) if !s.is_empty() && !d.is_empty() => {
+                    (expand_tilde(s, &home), expand_tilde(d, &home))
                 }
-                let (src, dest) = match entry.split_once('=') {
-                    Some((s, d)) if !s.is_empty() && !d.is_empty() => {
-                        (expand_tilde(s, &home), expand_tilde(d, &home))
-                    }
-                    _ => {
-                        let p = expand_tilde(entry, &home);
-                        (p.clone(), p)
-                    }
-                };
-                if !Path::new(&src).exists() {
-                    bail!("agent: {var} entry not found: {src}");
+                _ => {
+                    let p = expand_tilde(&entry, &home);
+                    (p.clone(), p)
                 }
-                b.arg(flag);
-                b.arg(&src);
-                b.arg(&dest);
+            };
+            if !Path::new(&src).exists() {
+                bail!(
+                    "agent: {var} entry not found: {src} (from {CONFIG_PATH} or AGENT_{})",
+                    var.to_uppercase()
+                );
             }
+            b.arg(flag);
+            b.arg(&src);
+            b.arg(&dest);
         }
     }
 
