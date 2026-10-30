@@ -105,7 +105,7 @@
 
 
 (defun nagy-mode-line--default-directory-shorten (def-dir)
-  (setq def-dir (expand-file-name default-directory))
+  (setq def-dir (expand-file-name def-dir))
   (cl-loop for el in nagy-mode-line--default-directory-shorten-alist
            for prefix = (car el)
            for replacement = (cdr el)
