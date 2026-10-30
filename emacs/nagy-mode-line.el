@@ -18,13 +18,15 @@
   (when (and (derived-mode-p 'js-json-mode)
              (< (buffer-size) large-file-warning-threshold))
     (when-let* ((it (ignore-errors (save-excursion (json-parse-buffer)))))
-      (pcase-exhaustive (type-of it)
+      (pcase (type-of it)
         ('string (format "S%d" (length it)))
         ('hash-table (format "H%d" (hash-table-count it)))
         ('integer (format "N%d" it))
         ('float (format "F%f" it))
         ('symbol (format "%S" it))
-        ('vector (format "A%d" (length it)))))))
+        ('vector (format "A%d" (length it)))
+        ('cons (format "L%d" (length it)))
+        (_ (format "%S" it))))))
 
 
 (defun nagy-mode-line--jsvar-update ()
