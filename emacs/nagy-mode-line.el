@@ -1,5 +1,5 @@
 ;;; nagy-mode-line.el --- Mode line configuration -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") memoize)
+;; Package-Requires: ((emacs "30.1") memoize nagy-list nerd-icons url-knowledge)
 
 ;; NIX-EMACS-PACKAGE: memoize
 (require 'memoize)
