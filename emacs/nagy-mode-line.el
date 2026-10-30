@@ -169,6 +169,14 @@ Each call allocates two propertized strings and one concatenation."
 
 (put 'nagy-mode-line-default-directory-format 'risky-local-variable t)
 
+(defun nagy-mode-line--default-directory-hidden-p ()
+  "Return non-nil when the mode line hides `default-directory'.
+The directory is hidden when the buffer derives from `special-mode'
+and `default-directory' is the temporary file directory."
+  (and (derived-mode-p 'special-mode)
+       (equal (expand-file-name default-directory)
+              (expand-file-name temporary-file-directory))))
+
 (defun nagy-mode-line-init ()
   "Install the custom `mode-line-format' and the custom modified flag."
   (interactive)
@@ -180,7 +188,8 @@ Each call allocates two propertized strings and one concatenation."
                   (:eval (unless (or (derived-mode-p 'exwm-mode)
                                      (derived-mode-p 'dired-mode))
                            mode-line-modes)) ; already includes a space at the end
-                  (:eval (when nagy-mode-line--show-default-directory
+                  (:eval (when (and nagy-mode-line--show-default-directory
+                                    (not (nagy-mode-line--default-directory-hidden-p)))
                            nagy-mode-line-default-directory-format))
                   mode-line-misc-info
                   mode-line-format-right-align
