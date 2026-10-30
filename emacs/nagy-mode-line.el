@@ -79,11 +79,9 @@
 
     ;; Process
     (:eval
-     (if (get-buffer-process (current-buffer))
-         (concat (propertize "⚋"
-                             'face 'font-lock-comment-face)
-                 (propertize (number-to-string (or (process-id (get-buffer-process (current-buffer)))
-                                                   0))
+     (if-let* ((proc (get-buffer-process (current-buffer))))
+         (concat (propertize "⚋" 'face 'font-lock-comment-face)
+                 (propertize (format "%s" (or (process-id proc) 0))
                              'face 'nagy-nuanced-green))
        (if (derived-mode-p 'exwm-mode)
            `(:propertize ,(format "#x%X" exwm--id) face mode-line-buffer-id)
