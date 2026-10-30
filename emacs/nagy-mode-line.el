@@ -95,7 +95,8 @@ hold small enough valid JSON."
 (put 'nagy-mode-line-url-knowledge 'risky-local-variable t)
 
 (defun nagy-mode-line--list-item (glyph value)
-  "Return one nagy-list badge made of GLYPH and the type of VALUE."
+  "Return one nagy-list badge made of GLYPH and the type of VALUE.
+Each call allocates two propertized strings and one concatenation."
   (let ((selected (mode-line-window-selected-p)))
     (concat (propertize glyph 'face (if selected 'nagy-intense-cyan 'nagy-subtle-cyan))
             (propertize (symbol-name (type-of value)) 'face (if selected 'nagy-subtle-cyan 'nagy-nuanced-cyan))
@@ -109,9 +110,8 @@ hold small enough valid JSON."
 (put 'nagy-mode-line-position 'risky-local-variable t)
 
 (defvar nagy-mode-line-right
-  '(
+  '(""
     nagy-mode-line-url-knowledge
-    ;; FIXME these string creations could cause garbage
     (:eval (when (derived-mode-p 'nagy-list-mode)
              (concat (nagy-mode-line--list-item "Ŧ" nagy-list--data)
                      (nagy-mode-line--list-item "ŧ" (nagy-list--data-at-point)))))
@@ -180,7 +180,8 @@ hold small enough valid JSON."
                   (:eval (unless (or (derived-mode-p 'exwm-mode)
                                      (derived-mode-p 'dired-mode))
                            mode-line-modes)) ; already includes a space at the end
-                  (nagy-mode-line--show-default-directory ("" nagy-mode-line-default-directory-format))
+                  (:eval (when nagy-mode-line--show-default-directory
+                           nagy-mode-line-default-directory-format))
                   mode-line-misc-info
                   mode-line-format-right-align
                   nagy-mode-line-right))
