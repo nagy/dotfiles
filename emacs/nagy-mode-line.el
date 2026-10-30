@@ -86,7 +86,10 @@ hold small enough valid JSON."
 (add-hook 'js-json-mode-hook #'nagy-mode-line--jsvar-init)
 
 (defvar-local nagy-mode-line-url-knowledge
-  '((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print url-knowledge-url) 'face '(:inherit (show-paren-match bold)))) " ")))
+  '((:eval (when url-knowledge-url
+             (concat (propertize (url-knowledge-pretty-print url-knowledge-url)
+                                 'face '(:inherit (show-paren-match bold)))
+                     " "))))
   "Mode line constructs showing the knowledge entry of the URL at point.")
 
 (put 'nagy-mode-line-url-knowledge 'risky-local-variable t)
