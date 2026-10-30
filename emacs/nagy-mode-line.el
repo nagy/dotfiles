@@ -4,12 +4,18 @@
 ;; NIX-EMACS-PACKAGE: memoize
 (require 'memoize)
 
-;; emacs news :
-;; Modeline elements can now be right-aligned.
-;; Anything following the symbol 'mode-line-format-right-align' in
-;; 'mode-line-format' will be right-aligned.  Exactly where it is
-;; right-aligned to is controlled by the new user option
-;; 'mode-line-right-align-edge'.
+;;; Commentary:
+
+;; Custom mode line.  The right block shows the JSON value at the buffer
+;; start and at point, the nagy-list types, the file size and the buffer
+;; process.  Everything after `mode-line-format-right-align' renders
+;; flush with the right edge of the window.
+;;
+;; `mode-line-buffer-identification' cannot carry the buffer name here,
+;; because Dired overrides it.  The `%b' element in `mode-line-format'
+;; does that job instead.
+
+;;; Code:
 
 (defvar-local nagy-mode-line--jsvar nil
   "Short description of the JSON value at `point-min', or nil.")
@@ -160,37 +166,20 @@ hold small enough valid JSON."
   (interactive)
   (setq-default mode-line-format
                 '("%e"
-                  ;; mode-line-front-space
-                  ;; mode-line-mule-info
-                  ;; mode-line-client
                   mode-line-modified
-                  ;; mode-line-remote
-                  ;; mode-line-frame-identification
-                  ;; cannot use this because of dired
-                  ;; mode-line-buffer-identification
                   (:eval (unless (derived-mode-p 'dired-mode)
                            '(:propertize "%b " face (:height 1.2 :inherit mode-line-buffer-id))))
-
-                  ;; mode-line-position ""
-                  ;; (vc-mode vc-mode)
                   (:eval (unless (or (derived-mode-p 'exwm-mode)
                                      (derived-mode-p 'dired-mode))
                            mode-line-modes)) ; already includes a space at the end
                   (nagy-mode-line--show-default-directory ("" nagy-mode-line-default-directory-format))
                   mode-line-misc-info
-                  ;; TODO for images: show the image geometry
                   mode-line-format-right-align
                   nagy-mode-line-right))
 
   (setq-default mode-line-modified '((buffer-file-name "%+ "))))
-;; (setq mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
-;; (setq-default mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
-;; (setq mode-line-position '(" L%l/" (:eval (number-to-string (buffer-chars-modified-tick)))))
-;; cannot set this because dired overrides it
-;; (setq-default mode-line-buffer-identification '((:propertize "%b" face bold)))
-
 
 (nagy-mode-line-init)
-;; (add-hook 'before-init-hook #'nagy-mode-line-init)
 
 (provide 'nagy-mode-line)
+;;; nagy-mode-line.el ends here
