@@ -42,15 +42,6 @@
 
 (run-with-idle-timer 1.0 t #'nagy-mode-line--jsvar-update)
 
-(defun nagy-mode-line-fill (face reserve)
-  "Return empty space using FACE and leaving RESERVE space on the right."
-  (propertize " "
-              'display `(space :align-to (- (+ right right-fringe right-margin) ,reserve))
-              'face face))
-
-;; (memoize 'nagy-mode-line-fill)
-;; (memoize-restore 'nagy-mode-line-fill)
-
 (defvar-local nagy-mode-line-url-knowledge
   '((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print url-knowledge-url) 'face '(:inherit (show-paren-match bold)))) " "))))
 
@@ -150,15 +141,8 @@
                            mode-line-modes)) ; already includes a space at the end
                   (nagy-mode-line--show-default-directory ("" nagy-mode-line-default-directory-format))
                   mode-line-misc-info
-                  ;; (:eval (format " BFF:%S" buffer-file-format))
-                  ;; container-list-mode-line-format
-                  ;; (:eval (get-container-line-format))
-                  ;; mode-line-end-spaces
                   ;; TODO for images: show the image geometry
-                  (:eval (nagy-mode-line-fill (if (mode-line-window-selected-p)
-                                                  'mode-line
-                                                'mode-line-inactive)
-                                              (length (format-mode-line nagy-mode-line-right))))
+                  mode-line-format-right-align
                   nagy-mode-line-right))
 
   (setq-default mode-line-modified '((buffer-file-name "%+ "))))
