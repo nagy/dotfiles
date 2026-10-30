@@ -745,5 +745,114 @@ Returns the total execution time as a floating-point number."
   :init
   (nagy-same-window "^\\*OpenStack "))
 
+;; NIX-EMACS-PACKAGE: ipfs-modes
+(use-package cid-mode
+  :defer t
+  :preface
+  (defun nagy-cid-mode-set-url ()
+    (when cid--info
+      (setq-local url-knowledge-url (concat "https://cid.ipfs.tech/#" (cid-info-cid-string cid--info)))))
+  (defun nagy-cid-mode-cd ()
+    (let ((path (concat "/tmp/ipfs/" (cid-info-cid-string cid--info))))
+      (when (file-directory-p path)
+        (cd path))))
+  :init
+  (nagy-same-window "^\\*CID: ")
+  :hook
+  (cid-decode-hook . nagy-cid-mode-set-url)
+  (cid-decode-hook . nagy-cid-mode-cd)
+  :bind
+  (:map cid-mode-map
+        ([emap eww-copy-page-url] . cid-copy-cid)))
+;; (use-package embark-cid)
+
+;; NIX-EMACS-PACKAGE: network-modes
+(use-package network-modes
+  :defer t
+  :init
+  (nagy-same-window "^\\*net-"))
+
+;; NIX-EMACS-PACKAGE: tired
+(use-package tired
+  :defer t
+  :config
+  ;; Dired takes these colors from `nagy-dired-font-lock-keywords'.
+  ;; Tired paints a name cell once, so a name takes one face and the
+  ;; first matching rule wins.  A directory keeps its own face.  The
+  ;; `invisible' rules stay in Dired.
+  (setq tired-name-faces
+        `(;; Underline.  Dired sets these with an `ov-set' overlay, so
+          ;; each rule repeats the color and adds `(:underline t)'.
+          ;; They come first, because one name cell holds one face.
+          (,(rx (or "kustomization.yaml") eos)
+           nagy-intense-red (:underline t))
+          (,(rx (or "book.journal") eos)
+           nagy-intense-yellow (:underline t))
+          (,(rx (or "README.org" "README.md") eos)
+           nagy-intense-yellow (:underline t))
+          (,(rx (or "default.nix" "flake.nix") eos)
+           nagy-intense-green (:underline t))
+          ;; Nix
+          (,(rx "." (or "nix") eos) . nagy-intense-green)
+          ;; Data
+          (,(rx "." (or "json" "yaml" "yml" "toml" "xml" "csv" "ron"
+                        "feather" "parquet")
+                (? "." (or "zst" "br")) eos)
+           . nagy-intense-red)
+          (,(rx "." (or "tokei" "ctags" "restic" "rclone" "ncdu" "jc"
+                        "journal" "info" "docker" "ytdlp" "yggdrasil"
+                        "busctl" "gh" "glab" "ss")
+                "." (or "json" "yaml" "yml" "toml" "xml" "csv" "ron"
+                        "feather" "parquet")
+                (? "." (or "zst" "br")) eos)
+           . nagy-subtle-red)
+          ;; Media, photos
+          (,(rx "." (or "png" "jpg" "jpeg" "webp" "jxl" "svg" "avif") eos)
+           . nagy-intense-cyan)
+          ;; Code, minor.  These come before the plain extension rules
+          ;; they overlap, because one name cell holds one face.
+          (,(rx "." (or "jsonrpc") "." (or "py") eos) . nagy-subtle-blue)
+          (,(rx "." (or "svelte") "." (or "js" "ts") eos) . nagy-subtle-blue)
+          (,(rx (or "go.mod" "go.sum") eos) . nagy-subtle-blue)
+          ;; Code
+          (,(rx "." (or "rs" "js" "fs" "c" "cc" "cpp" "h" "zig" "go" "ts"
+                        "py" "jq" "lisp" "asd" "scm" "hy" "lua" "fnl"
+                        "wat" "c3" "css" "svelte" "typ" "pk" "tf") eos)
+           . nagy-intense-blue)
+          ;; Code, Emacs Lisp
+          (,(rx "." (or "el") eos) . nagy-intense-magenta)
+          ;; Code, executable
+          (,(rx "." (or "wasm" "cwasm") eos) . ansi-color-inverse)
+          ;; Documentation, minor.  Before the plain documentation
+          ;; rule, for the same reason as the minor code rule.
+          (,(rx "." (or "machine" "rsync" "lsremote" "cv")
+                "." (or "txt" "org" "md") eos)
+           . nagy-subtle-yellow)
+          ;; Documentation
+          (,(rx "." (or "md" "rst" "org" "txt" "pdf" "html" "gmi" "mmd"
+                        "journal") eos)
+           . nagy-intense-yellow)
+          ;; Media, videos, audio
+          (,(rx "." (or "thumbs")
+                "." (or "mp4" "webm" "gif" "opus" "ogg" "mp3" "wav" "avi"
+                        "mkv" "m4a" "flac") eos)
+           . nagy-nuanced-cyan)
+          (,(rx "." (or "mp4" "webm" "gif" "opus" "ogg" "mp3" "wav" "avi"
+                        "mkv" "m4a" "flac") eos)
+           . nagy-subtle-cyan)
+          ;; Archives
+          (,(rx "." (or "tar" "zip" "gitbundle" "sqfs") eos)
+           . eshell-ls-archive)
+          ;; Compression
+          (,(rx "." (or "zst" "gz" "bz2" "br" "xz") eos)
+           . (:background "grey" :foreground "black"))
+          ;; Irrelevant
+          (,(rx (or ".gitignore" ".gitattributes" ".elpaignore"
+                    ".dockerignore"
+                    "LICENSE"
+                    "flake.lock" "poetry.lock" "Cargo.lock")
+                eos)
+           . parenthesis))))
+
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
