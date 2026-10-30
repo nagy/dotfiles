@@ -55,7 +55,7 @@
 
 (defvar nagy-mode-line-right
   '(
-    (nagy-mode-line-url-knowledge ("" nagy-mode-line-url-knowledge))
+    nagy-mode-line-url-knowledge
     ;; FIXME these string creations could cause garbage
     (:eval (when (derived-mode-p 'nagy-list-mode)
              (concat (propertize "Ŧ" 'face (if (mode-line-window-selected-p) 'nagy-intense-cyan 'nagy-subtle-cyan))
@@ -71,14 +71,8 @@
     (nagy-mode-line--jsvar-point (:eval (format "%s " nagy-mode-line--jsvar-point)))
     ;; File Size
     (:eval
-     (unless (or (derived-mode-p 'exwm-mode)
-                 (derived-mode-p 'magit-mode)
-                 (derived-mode-p 'nagy-list-mode))
-       (propertize
-        (concat (file-size-human-readable (buffer-size)) "B "))))
-    ;; 'face (if (mode-line-window-selected-p)
-    ;;           'line-number
-    ;;         'mode-line-inactive)
+     (unless (derived-mode-p 'exwm-mode 'magit-mode 'nagy-list-mode)
+       (concat (file-size-human-readable (buffer-size)) "B ")))
 
     ;; Process
     (:eval
@@ -163,8 +157,7 @@
   (setq-default mode-line-modified mode-line-modified)
   (setq mode-line-position '((:eval
                               (when display-line-numbers-mode
-                                (buffer-line-count-string)))
-                             "")))
+                                (buffer-line-count-string))))))
 ;; (setq mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
 ;; (setq-default mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
 ;; (setq mode-line-position '(" L%l/" (:eval (number-to-string (buffer-chars-modified-tick)))))
