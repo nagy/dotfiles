@@ -11,14 +11,29 @@
 ;; right-aligned to is controlled by the new user option
 ;; 'mode-line-right-align-edge'.
 
-(defvar-local nagy-mode-line--jsvar nil)
-(defvar-local nagy-mode-line--jsvar-point nil)
+(defvar-local nagy-mode-line--jsvar nil
+  "Short description of the JSON value at `point-min', or nil.")
 
-(defun nagy-mode-line--jsvar-calc ()
+(defvar-local nagy-mode-line--jsvar-point nil
+  "Short description of the JSON value at point, or nil.")
+
+(defvar-local nagy-mode-line--jsvar-timer nil
+  "Pending badge refresh timer of this buffer, or nil.")
+
+(defvar-local nagy-mode-line--jsvar-seen-point nil
+  "Point position of the last refresh attempt, or nil.")
+
+(defun nagy-mode-line--jsvar-calc (&optional position)
+  "Return a short description of the JSON value at POSITION.
+POSITION defaults to point.  Return nil when this buffer does not
+hold small enough valid JSON."
   (when (and (derived-mode-p 'js-json-mode)
              large-file-warning-threshold
              (< (buffer-size) large-file-warning-threshold))
-    (when-let* ((it (ignore-errors (save-excursion (json-parse-buffer)))))
+    (when-let* ((it (ignore-errors
+                      (save-excursion
+                        (goto-char (or position (point)))
+                        (json-parse-buffer)))))
       (pcase (type-of it)
         ('string (format "S%d" (length it)))
         ('hash-table (format "H%d" (hash-table-count it)))
@@ -29,18 +44,40 @@
         ('cons (format "L%d" (length it)))
         (_ (format "%S" it))))))
 
-
-(defun nagy-mode-line--jsvar-update ()
-  (setq nagy-mode-line--jsvar-point (when-let* ((it (nagy-mode-line--jsvar-calc))) (propertize it 'face 'button)))
-  (unless nagy-mode-line--jsvar
-    (setq nagy-mode-line--jsvar (or nagy-mode-line--jsvar ; this should rather be memoized on the buffer content
-                                    (save-excursion (goto-char (point-min))
-                                                    (when-let* ((it (nagy-mode-line--jsvar-calc)))
-                                                      (propertize it 'face 'nerd-icons-lsilver))))))
+(defun nagy-mode-line--jsvar-refresh ()
+  "Recompute both JSON badges of the current buffer."
+  (setq nagy-mode-line--jsvar-seen-point (point)
+        nagy-mode-line--jsvar (when-let* ((it (nagy-mode-line--jsvar-calc (point-min))))
+                                (propertize it 'face 'nerd-icons-lsilver))
+        nagy-mode-line--jsvar-point (when-let* ((it (nagy-mode-line--jsvar-calc)))
+                                      (propertize it 'face 'button)))
   (force-mode-line-update))
 
+(defun nagy-mode-line--jsvar-schedule (&rest _)
+  "Refresh the JSON badges of this buffer after the next editing pause."
+  (when (timerp nagy-mode-line--jsvar-timer)
+    (cancel-timer nagy-mode-line--jsvar-timer))
+  (let ((buffer (current-buffer)))
+    (setq nagy-mode-line--jsvar-timer
+          (run-with-timer 0.3 nil
+                          (lambda ()
+                            (when (buffer-live-p buffer)
+                              (with-current-buffer buffer
+                                (setq nagy-mode-line--jsvar-timer nil)
+                                (nagy-mode-line--jsvar-refresh))))))))
 
-(run-with-idle-timer 1.0 t #'nagy-mode-line--jsvar-update)
+(defun nagy-mode-line--jsvar-watch-point ()
+  "Schedule a badge refresh after point moved."
+  (unless (eq (point) nagy-mode-line--jsvar-seen-point)
+    (nagy-mode-line--jsvar-schedule)))
+
+(defun nagy-mode-line--jsvar-init ()
+  "Set up the JSON badges of the current buffer."
+  (nagy-mode-line--jsvar-refresh)
+  (add-hook 'after-change-functions #'nagy-mode-line--jsvar-schedule nil t)
+  (add-hook 'post-command-hook #'nagy-mode-line--jsvar-watch-point nil t))
+
+(add-hook 'js-json-mode-hook #'nagy-mode-line--jsvar-init)
 
 (defvar-local nagy-mode-line-url-knowledge
   '((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print url-knowledge-url) 'face '(:inherit (show-paren-match bold)))) " "))))
