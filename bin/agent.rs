@@ -24,7 +24,7 @@ use std::{
 /// Deployment configuration, read from `CONFIG_PATH` at startup and then
 /// extended with the `AGENT_*` environment variables.
 #[derive(Debug, Default, Deserialize)]
-#[serde(default)]
+#[serde(default, deny_unknown_fields)]
 struct AgentConfig {
     /// Writable mounts. Each entry is `src` or `src=dest`.
     binds: Vec<PathBuf>,
