@@ -16,6 +16,7 @@
 
 (defun nagy-mode-line--jsvar-calc ()
   (when (and (derived-mode-p 'js-json-mode)
+             large-file-warning-threshold
              (< (buffer-size) large-file-warning-threshold))
     (when-let* ((it (ignore-errors (save-excursion (json-parse-buffer)))))
       (pcase (type-of it)
