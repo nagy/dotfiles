@@ -86,7 +86,8 @@ hold small enough valid JSON."
 (add-hook 'js-json-mode-hook #'nagy-mode-line--jsvar-init)
 
 (defvar-local nagy-mode-line-url-knowledge
-  '((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print url-knowledge-url) 'face '(:inherit (show-paren-match bold)))) " "))))
+  '((url-knowledge-url ((:eval (propertize (url-knowledge-pretty-print url-knowledge-url) 'face '(:inherit (show-paren-match bold)))) " ")))
+  "Mode line constructs showing the knowledge entry of the URL at point.")
 
 (put 'nagy-mode-line-url-knowledge 'risky-local-variable t)
 
@@ -127,24 +128,26 @@ hold small enough valid JSON."
                              'face 'nagy-nuanced-green))
        (if (derived-mode-p 'exwm-mode)
            `(:propertize ,(format "#x%X" exwm--id) face mode-line-buffer-id)
-         nagy-mode-line-position)))))
+         nagy-mode-line-position))))
+  "Mode line constructs rendered at the right edge of the window.")
 
 (put 'nagy-mode-line-right 'risky-local-variable t)
 
-(defvar-local nagy-mode-line--show-default-directory t)
+(defvar-local nagy-mode-line--show-default-directory t
+  "Non-nil means the mode line shows the default directory.")
 (put 'nagy-mode-line--show-default-directory 'risky-local-variable t)
 
-
-(defvar nagy-mode-line--default-directory-shorten-alist
+(defconst nagy-mode-line--default-directory-shorten-alist
   '(("/run/user/1000/" . "𝒓/")
     ("/tmp/ipfs" . "□")
     ("/nix/store" . "○")
     ("/ipfs" . "□")
     ("/tmp/t" . "⧖")
-    ("/tmp/" . "⧖")))
-
+    ("/tmp/" . "⧖"))
+  "Alist mapping leading directory prefixes to short glyphs.")
 
 (defun nagy-mode-line--default-directory-shorten (def-dir)
+  "Return DEF-DIR with its leading prefix replaced by a short glyph."
   (let* ((def-dir (expand-file-name def-dir))
          (hit (seq-find (lambda (el) (string-prefix-p (car el) def-dir))
                         nagy-mode-line--default-directory-shorten-alist)))
@@ -158,11 +161,13 @@ hold small enough valid JSON."
   '(:eval (propertize (nagy-mode-line--default-directory-shorten default-directory)
                       'face `(:inherit ,(if (mode-line-window-selected-p) '(dired-directory) nil)
                                        :weight bold
-                                       :height 1.2))))
+                                       :height 1.2)))
+  "Mode line constructs showing the shortened default directory.")
 
 (put 'nagy-mode-line-default-directory-format 'risky-local-variable t)
 
 (defun nagy-mode-line-init ()
+  "Install the custom `mode-line-format' and the custom modified flag."
   (interactive)
   (setq-default mode-line-format
                 '("%e"
