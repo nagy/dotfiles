@@ -56,19 +56,20 @@
 
 (put 'nagy-mode-line-url-knowledge 'risky-local-variable t)
 
+(defun nagy-mode-line--list-item (glyph value)
+  "Return one nagy-list badge made of GLYPH and the type of VALUE."
+  (let ((selected (mode-line-window-selected-p)))
+    (concat (propertize glyph 'face (if selected 'nagy-intense-cyan 'nagy-subtle-cyan))
+            (propertize (symbol-name (type-of value)) 'face (if selected 'nagy-subtle-cyan 'nagy-nuanced-cyan))
+            " ")))
+
 (defvar nagy-mode-line-right
   '(
     nagy-mode-line-url-knowledge
     ;; FIXME these string creations could cause garbage
     (:eval (when (derived-mode-p 'nagy-list-mode)
-             (concat (propertize "Ŧ" 'face (if (mode-line-window-selected-p) 'nagy-intense-cyan 'nagy-subtle-cyan))
-                     (propertize (symbol-name (type-of nagy-list--data)) 'face (if (mode-line-window-selected-p) 'nagy-subtle-cyan 'nagy-nuanced-cyan))
-                     " ")))
-
-    (:eval (when (derived-mode-p 'nagy-list-mode)
-             (concat (propertize "ŧ" 'face (if (mode-line-window-selected-p) 'nagy-intense-cyan 'nagy-subtle-cyan))
-                     (propertize (symbol-name (type-of (nagy-list--data-at-point))) 'face (if (mode-line-window-selected-p) 'nagy-subtle-cyan 'nagy-nuanced-cyan))
-                     " ")))
+             (concat (nagy-mode-line--list-item "Ŧ" nagy-list--data)
+                     (nagy-mode-line--list-item "ŧ" (nagy-list--data-at-point)))))
 
     (nagy-mode-line--jsvar (:eval (format "%s " nagy-mode-line--jsvar)))
     (nagy-mode-line--jsvar-point (:eval (format "%s " nagy-mode-line--jsvar-point)))
