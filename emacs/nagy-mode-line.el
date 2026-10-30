@@ -63,6 +63,13 @@
             (propertize (symbol-name (type-of value)) 'face (if selected 'nagy-subtle-cyan 'nagy-nuanced-cyan))
             " ")))
 
+(defvar nagy-mode-line-position
+  '((:eval (when display-line-numbers-mode
+             (buffer-line-count-string))))
+  "Mode line construct holding the line count of the current buffer.")
+
+(put 'nagy-mode-line-position 'risky-local-variable t)
+
 (defvar nagy-mode-line-right
   '(
     nagy-mode-line-url-knowledge
@@ -86,7 +93,7 @@
                              'face 'nagy-nuanced-green))
        (if (derived-mode-p 'exwm-mode)
            `(:propertize ,(format "#x%X" exwm--id) face mode-line-buffer-id)
-         mode-line-position)))))
+         nagy-mode-line-position)))))
 
 (put 'nagy-mode-line-right 'risky-local-variable t)
 
@@ -155,10 +162,7 @@
                   nagy-mode-line-right))
 
   (setq mode-line-modified '((buffer-file-name "%+ ")))
-  (setq-default mode-line-modified mode-line-modified)
-  (setq mode-line-position '((:eval
-                              (when display-line-numbers-mode
-                                (buffer-line-count-string))))))
+  (setq-default mode-line-modified mode-line-modified))
 ;; (setq mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
 ;; (setq-default mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
 ;; (setq mode-line-position '(" L%l/" (:eval (number-to-string (buffer-chars-modified-tick)))))
