@@ -161,8 +161,7 @@
                                               (length (format-mode-line nagy-mode-line-right))))
                   nagy-mode-line-right))
 
-  (setq mode-line-modified '((buffer-file-name "%+ ")))
-  (setq-default mode-line-modified mode-line-modified))
+  (setq-default mode-line-modified '((buffer-file-name "%+ "))))
 ;; (setq mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
 ;; (setq-default mode-line-buffer-identification (list (propertize "%b" 'face 'mode-line-buffer-id)))
 ;; (setq mode-line-position '(" L%l/" (:eval (number-to-string (buffer-chars-modified-tick)))))
