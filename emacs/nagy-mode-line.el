@@ -1,8 +1,8 @@
 ;;; nagy-mode-line.el --- Mode line configuration -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") memoize dash)
+;; Package-Requires: ((emacs "30.1") memoize)
 
-(require 'dash)
-
+;; NIX-EMACS-PACKAGE: memoize
+(require 'memoize)
 
 ;; emacs news :
 ;; Modeline elements can now be right-aligned.
@@ -116,7 +116,6 @@
            do
            (setq def-dir (string-replace prefix replacement def-dir)))
   (abbreviate-file-name def-dir))
-(require #'memoize)
 (memoize #'nagy-mode-line--default-directory-shorten)
 
 (defvar nagy-mode-line-default-directory-format
