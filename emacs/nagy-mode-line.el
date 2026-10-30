@@ -105,14 +105,13 @@
 
 
 (defun nagy-mode-line--default-directory-shorten (def-dir)
-  (setq def-dir (expand-file-name def-dir))
-  (cl-loop for el in nagy-mode-line--default-directory-shorten-alist
-           for prefix = (car el)
-           for replacement = (cdr el)
-           when (string-prefix-p prefix def-dir)
-           do
-           (setq def-dir (string-replace prefix replacement def-dir)))
-  (abbreviate-file-name def-dir))
+  (let* ((def-dir (expand-file-name def-dir))
+         (hit (seq-find (lambda (el) (string-prefix-p (car el) def-dir))
+                        nagy-mode-line--default-directory-shorten-alist)))
+    (abbreviate-file-name
+     (if hit
+         (concat (cdr hit) (substring def-dir (length (car hit))))
+       def-dir))))
 (memoize #'nagy-mode-line--default-directory-shorten)
 
 (defvar nagy-mode-line-default-directory-format
