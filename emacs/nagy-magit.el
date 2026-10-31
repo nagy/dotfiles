@@ -29,6 +29,17 @@
         '("--force-with-lease"))
   (setf (alist-get 'magit-rebase transient-values)
         '("--autostash" "--committer-date-is-author-date"))
+  ;; Enable "=S" (--show-signature) for all log commands.
+  ;; `magit-log' and `magit-log-refresh' ignore the plain command keys.
+  ;; Magit stores log args under `magit-log:<major-mode>'.
+  (dolist (mode '(magit-log-mode magit-status-mode magit-log-select-mode))
+    (setf (alist-get (intern (format "magit-log:%s" mode)) transient-values)
+          (delete-dups
+           (cons "--show-signature"
+                 (get mode 'magit-log-default-arguments)))))
+  ;; Signature check costs one gpg call per commit.
+  ;; Default -n256 stays below this limit.
+  (setq magit-log-show-signatures-limit 1000)
   ;; (transient-save-values)
   :bind
   ("H-g" . magit-status)
