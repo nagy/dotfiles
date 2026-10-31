@@ -183,10 +183,11 @@ and `default-directory' is the temporary file directory."
   (setq-default mode-line-format
                 '("%e"
                   mode-line-modified
-                  (:eval (unless (derived-mode-p 'dired-mode)
+                  (:eval (unless (derived-mode-p 'dired-mode 'tired-mode)
                            '(:propertize "%b " face (:height 1.2 :inherit mode-line-buffer-id))))
-                  (:eval (unless (or (derived-mode-p 'exwm-mode)
-                                     (derived-mode-p 'dired-mode))
+                  (:eval (unless (derived-mode-p 'exwm-mode
+                                                 'dired-mode
+                                                 'tired-mode)
                            mode-line-modes)) ; already includes a space at the end
                   (:eval (when (and nagy-mode-line--show-default-directory
                                     (not (nagy-mode-line--default-directory-hidden-p)))
