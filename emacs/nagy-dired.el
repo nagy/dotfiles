@@ -163,7 +163,7 @@
     (,(rx (group
            (or ".gitignore" ".gitattributes"
                ".elpaignore" ".dockerignore"
-               "LICENSE"
+               "LICENSE" "COPYING"
                "flake.lock" "poetry.lock" "Cargo.lock" "go.sum"))
 
           eol)

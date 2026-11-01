@@ -81,6 +81,7 @@
   (set-fontset-font t ?❄ (font-spec :family "Noto Emoji"))
   (set-fontset-font t ?⛓ (font-spec :family "Noto Emoji"))
   (set-fontset-font t ?〒 (font-spec :family "Noto Emoji"))
+  (set-fontset-font t ?☁ (font-spec :family "Noto Emoji"))
   ;; (set-fontset-font t ?〜 (font-spec :family "Noto Emoji"))
   ;; force iosevka comfy
   (dolist (it '(?※ ?┋ ?○ ?⟻ ?✦ ?∨ ?≢ ?↡ ?⇣ ?⊢ ?⍳ ?⋮ ?⁝ ?♁ ?∴ ?⌿ ?◉

@@ -90,11 +90,13 @@
 
 ;; NIX-EMACS-PACKAGE: csv-mode
 (use-package csv-mode
-  :defer t)
+  :defer t
   ;; :custom
   ;; (csv-align-style 'centre)
   ;; :config
   ;; (csv-align-mode)
+  :bind
+  ("H-M-c" . csv-mode))
 
 
 (provide 'nagy-data-formats)

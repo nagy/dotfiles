@@ -118,11 +118,8 @@ Each call allocates two propertized strings and one concatenation."
 
     (nagy-mode-line--jsvar (:eval (format "%s " nagy-mode-line--jsvar)))
     (nagy-mode-line--jsvar-point (:eval (format "%s " nagy-mode-line--jsvar-point)))
-    ;; File Size
-    (:eval
-     (unless (derived-mode-p 'exwm-mode 'magit-mode 'nagy-list-mode)
-       (concat (file-size-human-readable (buffer-size)) "B ")))
-
+    ;; File Size.  `buffer-file-name' non-nil renders the cadr form.
+    ((buffer-file-name "%IB "))
     ;; Process
     (:eval
      (if-let* ((proc (get-buffer-process (current-buffer))))
@@ -138,10 +135,9 @@ Each call allocates two propertized strings and one concatenation."
 
 (defvar-local nagy-mode-line--show-default-directory t
   "Non-nil means the mode line shows the default directory.")
-(put 'nagy-mode-line--show-default-directory 'risky-local-variable t)
 
 (defconst nagy-mode-line--default-directory-shorten-alist
-  '(("/run/user/1000/" . "𝒓/")
+  `((,(format "/run/user/%d/" (user-uid)) . "𝒓/")
     ("/tmp/ipfs" . "□")
     ("/nix/store" . "○")
     ("/ipfs" . "□")
