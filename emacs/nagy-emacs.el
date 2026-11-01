@@ -625,15 +625,6 @@ string; otherwise return a 64-character string."
        (optional (seq "?" (one-or-more (or (syntax word) (syntax punctuation)))))
        (optional (seq "#" (one-or-more (or (syntax word) (syntax punctuation)))))))
 
-;; (use-package xwidget
-;;   :defer t
-;;   :preface
-;;   (defun nagy-emacs-xwidget-remove-header-line-h ()
-;;     (setq-local header-line-format nil))
-;;   (add-hook 'xwidget-webkit-mode-hook #'nagy-emacs-xwidget-remove-header-line-h)
-;;   :config
-;;   (remove-hook 'kill-buffer-query-functions #'xwidget-kill-buffer-query-function))
-
 (use-package epg
   :defer t
   :config
@@ -808,144 +799,6 @@ string; otherwise return a 64-character string."
     (t (apply orig-fun args))))
 ;; (advice-add 'buffer-size :around #'nagy-buffer-size)
 
-(defun insert-multi (&rest args)
-  (atomic-change-group
-    (dolist (it args)
-      (cl-typecase it
-        (buffer (insert (with-current-buffer it
-                          (buffer-string))))
-        (window (insert (with-current-buffer (window-buffer it)
-                          (buffer-string))))
-        (process (insert (with-current-buffer (process-buffer it)
-                           (buffer-string))))
-        (t (insert it))))))
-
-(defmacro toggle (arg)
-  (declare (debug setq))
-  `(setopt ,arg (not ,arg)))
-
-(defalias 'wcb (symbol-function 'with-current-buffer))
-(put 'wcb 'lisp-indent-function (get 'with-current-buffer 'lisp-indent-function))
-(put 'wcb 'edebug-form-spec (get 'with-current-buffer 'edebug-form-spec))
-(defalias 'wtb (symbol-function 'with-temp-buffer))
-(put 'wtb 'lisp-indent-function (get 'with-temp-buffer 'lisp-indent-function))
-(put 'wtb 'edebug-form-spec (get 'with-temp-buffer 'edebug-form-spec))
-(defalias 'wsm (symbol-function 'with-silent-modifications))
-(put 'wsm 'lisp-indent-function (get 'with-silent-modifications 'lisp-indent-function))
-(defalias 'eb (symbol-function 'erase-buffer))
-;; (defalias 'se (symbol-function 'save-excursion))
-(put 'se 'lisp-indent-function (get 'save-excursion 'lisp-indent-function))
-(defalias 'bs (symbol-function 'buffer-string))
-(defalias 'bz (symbol-function 'buffer-size))
-(defalias 'bn (symbol-function 'buffer-name))
-(defalias 'gb (symbol-function 'get-buffer))
-(defalias 'b (symbol-function 'get-buffer-create-or-current))
-;; (defalias 'l (symbol-function 'length))
-(defalias 'i (symbol-function 'insert-multi))
-;; (defalias 'sw (symbol-function 'selected-window))
-;; (defalias 'sf (symbol-function 'selected-frame))
-(defalias 'wb (symbol-function 'window-buffer))
-(defalias 'wl (symbol-function 'window-list))
-(defalias 'bu (symbol-function 'browse-url))
-(defalias 'pc (symbol-function 'pcase))
-(defalias 'pce (symbol-function 'pcase-exhaustive))
-(defalias 'P (symbol-function 'pcase))
-
-(defalias 'plambda (symbol-function 'pcase-lambda))
-(defalias 'plet (symbol-function 'pcase-let))
-(defalias 'plet* (symbol-function 'pcase-let*))
-(defalias 'pdolist (symbol-function 'pcase-dolist))
-
-;; experiment with three letter shortcuts
-(defalias 'win (symbol-function 'selected-window))
-(defalias 'fra (symbol-function 'selected-frame))
-(defalias 'buf (symbol-function 'get-buffer-create-or-current))
-(defalias 'len (symbol-function 'length))
-(defalias 'ins (symbol-function 'insert-multi))
-(defalias 'bfs (symbol-function 'buffer-size))
-(defalias 'bfn (symbol-function 'buffer-name))
-(defalias 'callf (symbol-function 'cl-callf))
-;; (defalias 'incf (symbol-function 'cl-incf))
-;; (defalias 'decf (symbol-function 'cl-decf))
-(defalias '+= (symbol-function 'cl-incf))
-(defalias '-= (symbol-function 'cl-decf))
-(defalias '++ (symbol-function 'cl-incf))
-(defalias '-- (symbol-function 'cl-decf))
-(defalias 'for (symbol-function 'cl-loop))
-(defalias 'loop (symbol-function 'cl-loop))
-(defalias 'assert (symbol-function 'cl-assert))
-(defalias 'the (symbol-function 'cl-the))
-(defalias 'progv (symbol-function 'cl-progv))
-(defalias 'defstruct (symbol-function 'cl-defstruct))
-(defalias 'defgeneric (symbol-function 'cl-defgeneric))
-(defalias 'defmethod (symbol-function 'cl-defmethod))
-(defalias 'typecase (symbol-function 'cl-typecase))
-(defalias 'etypecase (symbol-function 'cl-etypecase))
-;; (defalias 'oddp (symbol-function 'cl-oddp))
-;; (defalias 'evenp (symbol-function 'cl-evenp))
-(defalias 'first (symbol-function 'cl-first))
-(defalias 'second (symbol-function 'cl-second))
-(defalias 'copy-list (symbol-function 'cl-copy-list))
-
-(defalias 'tg (symbol-function 'toggle))
-(put 'tg 'edebug-form-spec (get 'toggle 'edebug-form-spec))
-
-(put 'time-less-p 'pure t)
-;; (put 'time-less-p 'side-effect-free t)
-(defalias 'time< (symbol-function 'time-less-p))
-(put 'time< 'pure t)
-(put 'time< 'side-effect-free t)
-(put 'time-equal-p 'pure t)
-;; (put 'time-equal-p 'side-effect-free t)
-(defalias 'time= (symbol-function 'time-equal-p))
-(put 'time= 'pure t)
-(put 'time= 'side-effect-free t)
-
-(defalias 'ml (symbol-function 'map-length))
-(defalias 'mk (symbol-function 'map-keys))
-(defalias 'mv (symbol-function 'map-values))
-(defalias 'mi (symbol-function 'map-insert))
-(defalias 'me (symbol-function 'map-elt))
-(put 'me 'gv-expander (get 'map-elt 'gv-expander))
-
-(defalias 'sl (symbol-function 'seq-length))
-(defalias 'se (symbol-function 'seq-elt))
-(put 'se 'gv-expander (get 'seq-elt 'gv-expander))
-(defalias 'sf (symbol-function 'seq-find))
-;; (defalias 's? (symbol-function 'seq-contains-p))
-
-;;;###autoload
-(defmacro andf (place &rest x)
-  (declare (debug (place form)))
-  (if (symbolp place)
-      `(setq ,place (and ,place ,@x))
-    `(cl-callf and ,place ,@x)))
-
-;;;###autoload
-(defmacro orf (place &rest x)
-  (declare (debug (place form)))
-  (if (symbolp place)
-      `(setq ,place (or ,place ,@x))
-    `(cl-callf or ,place ,@x)))
-
-;; (defvaralias 'mm 'major-mode)
-;; (defvaralias 'dd 'default-directory)
-
-(put 'thread-first 'lisp-indent-function 1)
-(put 'thread-last 'lisp-indent-function 1)
-
-(put 'vconcat 'pure t)
-
-(put 'number-to-string 'pure t)
-(put 'propertize 'pure t)
-
-(put 'url-generic-parse-url 'pure t)
-(put 'url-generic-parse-url 'side-effect-free t)
-
-(put 'hash-table-weakness 'pure t)
-
-(put 'sqlite-available-p 'pure t)
-
 ;; these may be derived by the compiler
 ;; (put 'string-trim-right 'pure t)
 ;; (put 'string-trim-right 'side-effect-free t)
@@ -987,10 +840,6 @@ string; otherwise return a 64-character string."
 (put 'line-number-at-pos 'side-effect-free t)
 (put 'json-parse-string 'side-effect-free t)
 (put 'json-parse-buffer 'side-effect-free t)
-
-(use-package font-lock
-  :bind
-  ("M-⨏" . font-lock-update))
 
 (use-package hl-line
   :bind
