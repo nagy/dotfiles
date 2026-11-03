@@ -129,13 +129,11 @@ Return the total balance value, or nil on error."
                          ('(t . nil) '("agent"))
                          ('(nil . t) '("agent" "nix" "shell" "." "-c" "nix" "develop" "-c" "pi"))
                          ('(nil . nil) '("agent" "pi")))))
-    (apply #'start-process
-           (append (list "terminal" nil "alacritty"
-                         "--option" (format "font.size=%d" (/ (face-attribute 'default :height) 9))
-                         "--title" title
-                         "--working-directory" workdir
-                         "--command")
-                   command-args))))
+    (apply #'start-process "terminal" nil "alacritty"
+           "--option" (format "font.size=%d" (/ (face-attribute 'default :height) 9))
+           "--title" title
+           "--working-directory" workdir
+           "--command" command-args)))
 (evil-global-set-key 'normal (kbd "C-,") #'start-ai-agent)
 
 ;; ;;;autoload
