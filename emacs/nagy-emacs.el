@@ -273,7 +273,6 @@ windows when moving the mouse."
   ("s-n" . universal-argument)
   ("A-C-s-}" . tab-duplicate)
   ("C-H-r" . rename-buffer)
-  ("H-M-a" . normal-mode)
   ("H-s-c" . cd)
   ("s-SPC" . find-file-home)
   (:map minibuffer-local-map

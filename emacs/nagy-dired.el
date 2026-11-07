@@ -35,7 +35,7 @@
 (defvar nagy-dired-font-lock-keywords
   `((,(rx (or ".nix") eol)
      (0 `(face nagy-intense-green)))
-    (,(rx (group (or ".json" ".yaml" ".yml" ".toml" ".xml" ".csv" ".ron" ".feather" ".parquet"))
+    (,(rx (group (or ".json" ".yaml" ".yml" ".jsonl" ".toml" ".xml" ".csv" ".ron" ".feather" ".parquet"))
           (or "" ".zst" ".br")
           eol)
      (1 `(face nagy-intense-red)))
@@ -53,7 +53,7 @@
                ;; network
                ".ss"))
 
-          (or ".json" ".yaml" ".yml" ".toml" ".xml" ".csv" ".ron" ".feather" ".parquet")
+          (or ".json" ".yaml" ".yml" ".jsonl" ".toml" ".xml" ".csv" ".ron" ".feather" ".parquet")
           (or "" ".zst" ".br")
           eol)
      (1 `(face nagy-subtle-red)))

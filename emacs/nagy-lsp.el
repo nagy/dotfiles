@@ -31,22 +31,22 @@
   ;; (setq jsonrpc-event-hook (delete 'jsonrpc--log-event jsonrpc-event-hook))
   ;; or just (fset #'jsonrpc--log-event #'ignore)
   :bind
-  ("H-s-e" . eglot-rename)
+  ;; ("H-s-e" . eglot-rename) ;; this gives deprecation warnings to #'refactor-rename
   ("H-s-r" . eglot-inlay-hints-mode)
-  (:map evil-normal-state-map
-        ("<key-chord> - a" . eglot-code-action-quickfix))
+  ;; (:map evil-normal-state-map
+  ;;       ("<key-chord> - a" . eglot-code-action-quickfix)) ;; this gives deprecation warnings to #'refactor-quickfix
   :general
   (:states 'normal :prefix "æ"
            "e" #'eglot
-           "a" #'eglot-code-actions
-           "q" #'eglot-code-action-quickfix
-           "æ" #'eglot-code-action-quickfix
+           ;; "a" #'eglot-code-actions ;; this gives deprecation warnings to #'refactor
+           ;; "q" #'eglot-code-action-quickfix ;; this gives deprecation warnings to #'refactor-quickfix
+           ;; "æ" #'eglot-code-action-quickfix ;; this gives deprecation warnings to #'refactor-quickfix
            "s-k" #'eglot-shutdown-all
            "⊢" #'eglot-format-buffer)
-  (:states 'normal :keymaps 'eglot-mode-map
-           "ſ" #'eglot-code-actions
-           "ẞ" #'eglot-code-action-quickfix
-           "M-æ" #'eglot-code-actions))
+  (:states 'normal :keymaps 'eglot-mode-map))
+           ;; "ſ" #'eglot-code-actions ;; this gives deprecation warnings to #'refactor
+           ;; "ẞ" #'eglot-code-action-quickfix ;; this gives deprecation warnings to #'refactor-quickfix
+           ;; "M-æ" #'eglot-code-actions ;; this gives deprecation warnings to #'refactor
 
 ;; NIX-EMACS-PACKAGE: consult-eglot
 ;; (use-package consult-eglot)

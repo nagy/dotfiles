@@ -120,15 +120,17 @@ Return the total balance value, or nil on error."
   (let* ((dir (expand-file-name (or (vc-git-root default-directory) default-directory)))
          (proj (project-current nil dir))
          (workdir (expand-file-name (if proj (project-root proj) dir)))
-         (title (format "%s – %d – Pi"
+         (raw-name (and arg (read-string "Pi session name: ")))
+         (name (and raw-name (not (string= raw-name "")) raw-name))
+         (title (format "%s – %d – Pi%s"
                         (abbreviate-file-name workdir)
-                        (incf terminal-number)))
+                        (incf terminal-number)
+                        (if name (concat ": " name) "")))
          (flake-p (with-directory workdir (file-exists-p "flake.nix")))
-         (command-args (pcase (cons (and arg t) flake-p)
-                         ('(t . t)   '("agent" "nix" "shell" "." "-c" "nix" "develop"))
-                         ('(t . nil) '("agent"))
-                         ('(nil . t) '("agent" "nix" "shell" "." "-c" "nix" "develop" "-c" "pi"))
-                         ('(nil . nil) '("agent" "pi")))))
+         (prefix (if flake-p
+                     '("agent" "nix" "shell" "." "-c" "nix" "develop" "-c")
+                   '("agent")))
+         (command-args (append prefix '("pi") (and name (list "--name" name)))))
     (apply #'start-process "terminal" nil "alacritty"
            "--option" (format "font.size=%d" (/ (face-attribute 'default :height) 9))
            "--title" title

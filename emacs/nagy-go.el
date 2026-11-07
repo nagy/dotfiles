@@ -2,21 +2,10 @@
 
 ;; Package-Requires: ((emacs "30.1") reformatter nagy-use-package)
 
-;; ;; NIX-EMACS-PACKAGE: go-mode
-;; (use-package go-mode
-;;   :preface
-;;   (reformatter-define go-fmt
-;;     :group 'go
-;;     :program "gofmt"
-;;     :lighter " GF")
-;;   :hook
-;;   (go-mode-hook . go-fmt-on-save-mode)
-;;   :bind
-;;   ("H-M-g" . go-mode))
-
 (use-package go-ts-mode
-  :defer t)
-
+  :defer t
+  :bind
+  ("H-M-g" . go-ts-mode))
 
 (defun find-file-directory-go ()
   (interactive)
