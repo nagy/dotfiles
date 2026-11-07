@@ -14,6 +14,11 @@
 //! registry holds one ([`ChatGptExtractor`]); the CLI auto-detects the site
 //! with [`ChatExtractor::matches`] and can be forced with `--source`.
 //!
+//! ChatGPT serves two page shapes. The newer shell carries the conversation as
+//! one `__WEB_MOBILE_DATA__` JSON block, and older shares and logged-in tabs
+//! carry a React-Router RSC stream. Both give raw markdown, so code fences keep
+//! their newlines. Rendered HTML is the last resort, and it is lossy.
+//!
 //! ```text
 //! chat2md page.html > chat.md
 //! bruvtab html <TAB_ID> | chat2md > chat.md
@@ -164,14 +169,20 @@ impl ChatExtractor for ChatGptExtractor {
     }
 
     fn description(&self) -> &'static str {
-        "chatgpt.com (React-Router RSC payload, DOM fallback)"
+        "chatgpt.com (octane JSON or React-Router RSC payload, DOM fallback)"
     }
 
     fn matches(&self, html: &str) -> bool {
-        html.contains("__reactRouterContext") || html.contains("data-message-author-role")
+        html.contains("__reactRouterContext")
+            || html.contains("__WEB_MOBILE_DATA__")
+            || html.contains("octane-conversation-transcript")
+            || html.contains("data-message-author-role")
     }
 
     fn extract(&self, html: &str, options: &ExtractOptions) -> Option<Conversation> {
+        if let Some(conv) = octane_conversation(html, options.citations) {
+            return Some(conv);
+        }
         if let Some(raw) = rsc_payload(html) {
             if let Some(arr) = parse_rsc_array(&raw) {
                 if let Some(conv) = conversation_from_rsc(&arr, options.citations) {
@@ -250,6 +261,113 @@ fn rsc_payload(doc: &str) -> Option<String> {
         None
     }
 }
+
+// --- Octane payload ---------------------------------------------------------
+
+/// Bodies of every `<script type="application/json">` block in `doc`.
+fn json_script_bodies(doc: &str) -> Vec<&str> {
+    re_json_script()
+        .captures_iter(doc)
+        .filter_map(|caps| caps.get(1).map(|m| m.as_str()))
+        .collect()
+}
+
+/// A JSON script block, e.g. `<script type="application/json">…</script>`.
+fn re_json_script() -> &'static Regex {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    RE.get_or_init(|| {
+        Regex::new(r#"(?s)<script[^>]*type="application/json"[^>]*>(.*?)</script>"#).unwrap()
+    })
+}
+
+/// Decode the newer ChatGPT page shape, the `__WEB_MOBILE_DATA__` shell.
+///
+/// The conversation arrives as one JSON block whose `conversation.messages`
+/// hold raw markdown in `content`, so code fences keep their newlines and the
+/// result is [`Fidelity::Exact`]. The turn list holds no branches, so the live
+/// transcript is the only transcript. Each assistant turn names its cited
+/// pages in `source.references[].approvedUrls` or `approvedUrls`; those pages
+/// carry no inline marker, so they land as plain per-turn sources.
+fn octane_conversation(doc: &str, citations: bool) -> Option<Conversation> {
+    let data = json_script_bodies(doc).into_iter().find_map(|body| {
+        let value: Value = serde_json::from_str(body).ok()?;
+        let messages = value.get("conversation")?.get("messages")?.as_array()?;
+        if messages.is_empty() {
+            return None;
+        }
+        Some(value)
+    })?;
+    let conv = data.get("conversation")?;
+    let mut messages = Vec::new();
+    for msg in conv.get("messages")?.as_array()? {
+        let Some(role) = msg.get("role").and_then(Value::as_str).and_then(Role::parse) else {
+            continue;
+        };
+        let Some(markdown) = msg.get("content").and_then(Value::as_str) else {
+            continue;
+        };
+        let sources = if citations {
+            octane_sources(msg)
+        } else {
+            Vec::new()
+        };
+        messages.push(Message {
+            role,
+            markdown: markdown.to_string(),
+            sources,
+            cited_count: 0,
+        });
+    }
+    if messages.is_empty() {
+        return None;
+    }
+    Some(Conversation {
+        title: conv
+            .get("title")
+            .and_then(Value::as_str)
+            .map(str::to_string),
+        create_time: conv
+            .get("sharedContent")
+            .and_then(|shared| shared.get("originalCreatedAt"))
+            .and_then(Value::as_i64)
+            .map(|ms| ms / 1000),
+        update_time: None,
+        model: None,
+        messages,
+        fidelity: Fidelity::Exact,
+    })
+}
+
+/// Cited pages of one octane turn, deduplicated and tracking-free.
+fn octane_sources(msg: &Value) -> Vec<Source> {
+    let mut urls = Vec::new();
+    if let Some(list) = msg.get("approvedUrls").and_then(Value::as_array) {
+        urls.extend(list.iter().filter_map(Value::as_str));
+    }
+    if let Some(references) = msg
+        .get("source")
+        .and_then(|source| source.get("references"))
+        .and_then(Value::as_array)
+    {
+        for reference in references {
+            if let Some(list) = reference.get("approvedUrls").and_then(Value::as_array) {
+                urls.extend(list.iter().filter_map(Value::as_str));
+            }
+        }
+    }
+    let mut seen = HashSet::new();
+    urls.into_iter()
+        .filter(|url| !url.starts_with("https://images.openai.com/"))
+        .map(clean_url)
+        .filter(|url| seen.insert(url.clone()))
+        .map(|url| Source {
+            label: url.clone(),
+            url,
+        })
+        .collect()
+}
+
+// --- RSC payload ------------------------------------------------------------
 
 /// Parse the RSC row stream into the leading JSON array.
 fn parse_rsc_array(raw: &str) -> Option<Vec<Value>> {
@@ -1376,7 +1494,9 @@ fn to_markdown(conv: &Conversation, url: Option<&str>) -> String {
                 } else {
                     lines.push(format!("- {}", source.label));
                 }
-                lines.push(format!("  {}", source.url));
+                if source.label != source.url {
+                    lines.push(format!("  {}", source.url));
+                }
             }
         }
         lines.push(String::new());
