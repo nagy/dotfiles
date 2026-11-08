@@ -34,27 +34,6 @@ Add a `display-buffer-alist' entry for REGEXP.  Newest entry wins, because
 `add-to-list' prepends by default."
   (add-to-list 'display-buffer-alist `(,regexp display-buffer-same-window)))
 
-;;; abbrev
-
-;;;###autoload
-(defalias 'use-package-normalize/:abbrev 'use-package-normalize-forms)
-
-;;;###autoload
-(defun use-package-handler/:abbrev (name-symbol _keyword rgx rest state)
-  (let* ((body (use-package-process-keywords name-symbol rest state))
-         (mode (car rgx))
-         (mode-name (symbol-name (cadr mode))))
-    (if (null rgx)
-        body
-      (use-package-concat
-       body
-       (cl-loop for x in (cdr rgx)
-                collect
-                `(define-abbrev ,(intern (concat mode-name "-abbrev-table")) ,(car x) ,(cdr x) nil :system t))))))
-
-;;;###autoload
-(with-eval-after-load 'use-package-core
-  (add-to-list 'use-package-keywords :abbrev t))
 ;;; cycle
 ;; TODO look at https://melpa.org/#/cycle-at-point
 ;;;###autoload

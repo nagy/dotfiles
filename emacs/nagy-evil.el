@@ -173,16 +173,6 @@
   (nagy-same-window "^\\*SQLite "))
 
 (use-package sql
-  :abbrev 'sql-mode
-  ("c" . "create")
-  ("t" . "table")
-  ("s" . "select")
-  ("i" . "insert")
-  ("u" . "update")
-  ("f" . "from")
-  ("d" . "delete")
-  ("dr" . "drop")
-  ("e" . "exists")
   :bind
   ("H-M-q" . sql-mode))
 

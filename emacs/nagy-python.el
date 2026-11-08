@@ -39,8 +39,6 @@
   ("class" "def")
   ("str" "bytes")
   ("True" "False")
-  :abbrev 'python-mode
-  ("imp" . "import")
   :init
   (nagy-same-window "^\\*Python"))
 
@@ -55,14 +53,6 @@
   :general
   (:states 'normal
            "Þ" #'run-hy)
-  :abbrev 'hy-mode
-  ("df" . "defn")
-  ("dc" . "dict")
-  ("sv" . "setv")
-  ("wh" . "when")
-  ("unl" . "unless")
-  ("req" . "require")
-  ("imp" . "import")
   :init
   (nagy-same-window "^\\*Hy\\*$")
   :hook

@@ -52,15 +52,7 @@
   :bind
   (:map lisp-mode-map
         ("s-." . sly-eval-last-expression)
-        ("s-:" . sly-eval-defun))
-  :abbrev 'lisp-mode
-  ("opt" . "optimize")
-  ("decl" . "declare")
-  ("spe" . "speed")
-  ("saf" . "safety")
-  ("la" . "lambda")
-  ("req" . "require")
-  ("rfs" . "read-from-string"))
+        ("s-:" . sly-eval-defun)))
 
 (use-package sly-mrepl
   :defer t
@@ -80,12 +72,7 @@
            "µ" #'sly-expand-1-inplace
            "Ö" #'sly-mrepl-previous-input-or-button
            "C-ö" #'sly-mrepl-next-input-or-button
-           "ö" #'nagy-common-lisp-sly-mrepl-return)
-  :abbrev 'sly-mrepl-mode
-  ("disa" . "disassemble")
-  ("la" . "lambda")
-  ("req" . "require")
-  ("rfs" . "read-from-string"))
+           "ö" #'nagy-common-lisp-sly-mrepl-return))
 
 
 (use-package lisp-mode
