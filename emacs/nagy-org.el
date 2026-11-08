@@ -54,10 +54,6 @@
         ("H-q" . org-set-tags-command)
         ("H-E" . org-export-dispatch)
         ("C-M-l" . org-toggle-link-display))
-
-  :cycle 'org-mode
-  ("no" "yes")
-  ("output" "value")
   :general
   (:states 'normal :keymaps 'org-mode-map
            "ŋ" #'org-update-all-dblocks
@@ -231,11 +227,11 @@
   :defer t)
 
 
-;; NIX-EMACS-PACKAGE: org-pretty-table
-(use-package org-pretty-table
-  :defer t
-  :hook
-  (org-mode-hook . org-pretty-table-mode))
+;; ;; NIX-EMACS-PACKAGE: org-pretty-table
+;; (use-package org-pretty-table
+;;   :defer t
+;;   :hook
+;;   (org-mode-hook . org-pretty-table-mode))
 
 
 ;; NIX-EMACS-PACKAGE: denote

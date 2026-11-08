@@ -27,21 +27,6 @@
   :general
   (:states 'normal :keymaps 'nix-mode-map
            "⊢" #'nixfmt-buffer)
-  :cycle 'nix-mode
-  ("override" "overrideAttrs")
-  ("fetchurl" "fetchFromGitHub" "fetchFromGitLab"  "fetchFromSourcehut")
-  ("vendorHash" "vendorSha256")
-  ("cargoHash" "cargoSha256")
-  ("hash" "sha256")
-  ("true" "false")
-  ("buildPhase" "installPhase")
-  ("buildInputs" "nativeBuildInputs" "propagatedBuildInputs")
-  ;; Hooks
-  ("preInstall" "postInstall")
-  ("preBuild" "postBuild")
-  ("prePatch" "postPatch")
-  ;; Flakes
-  ("inputs" "outputs")
   ;; :bind
   ;; (:map nix-mode-map
   ;;       ("C-⊢" . nixfmt-buffer))
@@ -116,6 +101,8 @@
    (t (user-error "No Nix suitable file found"))))
 (require 'dired)
 (keymap-set dired-mode-map "H-M-n" #'find-file-directory-nix)
+;; (with-eval-after-load 'tired-mode
+;;   (keymap-set tired-mode-map "H-M-n" #'find-file-directory-nix))
 
 (use-package nix-prettify-mode
   :diminish nix-prettify-mode

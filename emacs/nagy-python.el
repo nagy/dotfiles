@@ -15,7 +15,6 @@
     ;; :args `("format" "--stdin-filename" ,input-file "-")
     ;; it needs to reference to buffer-file-name to respect project settings
     :args `("format" "--stdin-filename" ,(or (buffer-file-name) input-file)))
-
   :hook
   (python-mode-hook . ruff-format-on-save-mode)
   ;; (python-ts-mode-hook . ruff-format-on-save-mode)
@@ -35,10 +34,6 @@
            "þ" #'run-python)
   (:states 'normal :keymaps 'python-mode-map
            "⊢" #'ruff-format-buffer)
-  :cycle 'python-mode
-  ("class" "def")
-  ("str" "bytes")
-  ("True" "False")
   :init
   (nagy-same-window "^\\*Python"))
 

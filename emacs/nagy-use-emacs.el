@@ -10,9 +10,7 @@
     (setq lexical-binding t))
   :demand t
   :bind
-  ("H-M-e" . emacs-lisp-mode)
-  :cycle 'emacs-lisp-mode
-  ("nil" "t"))
+  ("H-M-e" . emacs-lisp-mode))
   ;;             :eval-when-compile "ℂ"
   ;; :config
   ;; (add-hook! emacs-lisp-mode

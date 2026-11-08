@@ -21,10 +21,6 @@
 
 (require 'dash)
 
-(eval-when-compile
-  (require 'use-package))
-(declare-function use-package-process-keywords "use-package-core")
-
 ;;; display-buffer-alist helpers
 ;;;###autoload
 (defun nagy-same-window (regexp)
@@ -33,38 +29,6 @@
 Add a `display-buffer-alist' entry for REGEXP.  Newest entry wins, because
 `add-to-list' prepends by default."
   (add-to-list 'display-buffer-alist `(,regexp display-buffer-same-window)))
-
-;;; cycle
-;; TODO look at https://melpa.org/#/cycle-at-point
-;;;###autoload
-(defvar nagy-cycle-alist nil)
-(defun nagy-cycle-dwim ()
-  (interactive)
-  (-let* (((beg . end) (bounds-of-thing-at-point 'symbol))
-          (sym (buffer-substring-no-properties beg end)))
-    (when (member sym (cl-loop for cell in nagy-cycle-alist
-                               collect (car cell)))
-      (delete-region beg end)
-      (insert (alist-get sym nagy-cycle-alist "" nil 'equal)))))
-
-;;;###autoload
-(defalias 'use-package-normalize/:cycle 'use-package-normalize-forms)
-
-;;;###autoload
-(defun use-package-handler/:cycle (name-symbol _keyword rgx rest state)
-  (use-package-concat
-   (use-package-process-keywords name-symbol rest state)
-   (cl-loop for x in (cdr rgx)
-            for rotated = (cons (car (last x)) (butlast x))
-            append
-            (cl-loop for zip in (-zip-pair x rotated)
-                     collect
-                     `(add-to-list 'nagy-cycle-alist ',zip)))))
-(keymap-global-set "H-s-f" #'nagy-cycle-dwim)
-
-;;;###autoload
-(with-eval-after-load 'use-package-core
-  (add-to-list 'use-package-keywords :cycle t))
 
 ;; also try `switch-to-buffer-obey-display-actions'. Does not solve it completely.
 (defun nagy-replace-switch-to-buffer-other-window (orig-fun &rest args)
