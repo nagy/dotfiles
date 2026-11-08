@@ -1,4 +1,4 @@
-;;; pcase-url.el --- My local config -*- lexical-binding: t;  -*-
+;;; pcase-url.el --- pcase patterns for url components  -*- lexical-binding: t; -*-
 
 ;; todo set autoload here
 

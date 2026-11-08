@@ -1,4 +1,4 @@
-;;; pcase-window.el --- My local config -*- lexical-binding: t; -*-
+;;; pcase-window.el --- pcase patterns for window fields  -*- lexical-binding: t; -*-
 
 ;;;###autoload
 (pcase-defmacro window (&rest fields)

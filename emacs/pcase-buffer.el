@@ -1,4 +1,4 @@
-;;; pcase-buffer.el --- My local config -*- lexical-binding: t; -*-
+;;; pcase-buffer.el --- pcase patterns for buffer fields  -*- lexical-binding: t; -*-
 
 ;;;###autoload
 (pcase-defmacro buffer (&rest fields)
