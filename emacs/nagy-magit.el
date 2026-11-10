@@ -1,5 +1,5 @@
 ;;; nagy-magit.el --- Magit configuration -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1"))
+;; Package-Requires: ((emacs "30.1") general)
 
 (require 'general)
 
@@ -94,6 +94,28 @@
   (:states 'normal :keymaps 'with-editor-mode-map
            "ö" #'with-editor-finish))
 
+
+;; NIX-EMACS-PACKAGE: browse-at-remote
+(defvar-local nagy-magit-browse-at-remote--fixed-url nil)
+(use-package browse-at-remote
+  :commands (browse-at-remote-get-url)
+  :preface
+  (defun nagy-magit-browse-at-remote-kill-print ()
+    (interactive)
+    (when-let* ((it (or nagy-magit-browse-at-remote--fixed-url
+                        (ignore-errors (browse-at-remote-get-url)))))
+      (message "Copied: %S" it)
+      (kill-new it)
+      it))
+  :custom
+  (browse-at-remote-add-line-number-if-no-region-selected nil)
+  :config
+  ;; from doom:
+  (add-to-list 'browse-at-remote-remote-type-regexps
+               '(:host "^gitlab\\." :type "gitlab") 'append)
+  :bind
+  ("C-H-s-y" . browse-at-remote)
+  ("H-s-y" . nagy-magit-browse-at-remote-kill-print))
 
 ;; NIX-EMACS-PACKAGE: git-modes
 (use-package gitattributes-mode

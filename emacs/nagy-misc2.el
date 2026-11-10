@@ -21,28 +21,6 @@
 ;;                                     (buffer-file-name))))
 ;;     (find-file it)))
 
-;; NIX-EMACS-PACKAGE: browse-at-remote
-(defvar-local nagy-misc2-browse-at-remote--fixed-url nil)
-(use-package browse-at-remote
-  :commands (browse-at-remote-get-url)
-  :preface
-  (defun nagy-misc2-browse-at-remote-kill-print ()
-    (interactive)
-    (when-let* ((it (or nagy-misc2-browse-at-remote--fixed-url
-                        (ignore-errors (browse-at-remote-get-url)))))
-      (message "Copied: %S" it)
-      (kill-new it)
-      it))
-  :custom
-  (browse-at-remote-add-line-number-if-no-region-selected nil)
-  :config
-  ;; from doom:
-  (add-to-list 'browse-at-remote-remote-type-regexps
-               '(:host "^gitlab\\." :type "gitlab") 'append)
-  :bind
-  ("C-H-s-y" . browse-at-remote)
-  ("H-s-y" . nagy-misc2-browse-at-remote-kill-print))
-
 ;; NIX-EMACS-PACKAGE: inspector
 (use-package inspector
   :custom
