@@ -22,5 +22,9 @@
            "⨎" #'nagy-url-browse-firefox
            "»" #'url-knowledge-kill-url))
 
+;; NIX-EMACS-PACKAGE: buffer-url
+(use-package buffer-url
+  :defer t)
+
 (provide 'nagy-url)
 ;;; nagy-url.el ends here

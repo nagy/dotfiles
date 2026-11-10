@@ -897,29 +897,44 @@ string; otherwise return a 64-character string."
 (add-to-list 'browse-url-handlers '("^file:///.*\\.gif$" . my-browser-url-mpv))
 
 (require 'url-parse)
-(defun my-browser-url-nsxiv (url &optional _new-window)
+
+;; (defun my-browser-url-nsxiv (url &optional _new-window)
+;;   (interactive (browse-url-interactive-arg "URL: "))
+;;   (setq url (url-unhex-string url))
+;;   (let ((path (url-path-and-query (url-generic-parse-url url))))
+;;     (when-let* ((query (cdr path)))
+;;       (setcar path (concat (car path) "?" query)))
+;;     (start-process (concat "nsxiv " (car path))
+;;                    nil
+;;                    "nsxiv"
+;;                    "--scale-mode" "f"
+;;                    "--no-bar"
+;;                    "--private"
+;;                    (car path)))
+;;   t)
+;; (add-to-list 'browse-url-handlers '("^file:///.*\\.png$" . my-browser-url-nsxiv))
+;; (add-to-list 'browse-url-handlers '("^file:///.*\\.jpg$" . my-browser-url-nsxiv))
+;; (add-to-list 'browse-url-handlers '("^file:///.*\\.jpeg$" . my-browser-url-nsxiv))
+;; (add-to-list 'browse-url-handlers '("^file:///.*\\.webp$" . my-browser-url-nsxiv))
+;; (add-to-list 'browse-url-handlers '("^file:///.*\\.jxl$" . my-browser-url-nsxiv))
+;; (add-to-list 'browse-url-handlers '("^ftp://scp/" . my-browser-url-nsxiv) 'append) ;; disable tramp
+
+(defun my-browser-url-vv (url &optional _new-window)
   (interactive (browse-url-interactive-arg "URL: "))
   (setq url (url-unhex-string url))
   (let ((path (url-path-and-query (url-generic-parse-url url))))
-    (with-environment-variables
-        (("XDG_CACHE_HOME" "/run/user/1000/nsxiv-cache"))
-      (awhen (cdr path)
-        (setcar path (concat (car path) "?" it)))
-      (start-process (concat "nsxiv " (car path))
-                     nil
-                     "nsxiv"
-                     "--scale-mode" "f"
-                     "--no-bar"
-                     ;; "--private"
-                     (car path))))
+    (when-let* ((query (cdr path)))
+      (setcar path (concat (car path) "?" query)))
+    (start-process (concat "vv " (car path))
+                   nil
+                   "vv"
+                   (car path)))
   t)
-(add-to-list 'browse-url-handlers '("^file:///.*\\.png$" . my-browser-url-nsxiv))
-(add-to-list 'browse-url-handlers '("^file:///.*\\.jpg$" . my-browser-url-nsxiv))
-(add-to-list 'browse-url-handlers '("^file:///.*\\.jpeg$" . my-browser-url-nsxiv))
-(add-to-list 'browse-url-handlers '("^file:///.*\\.webp$" . my-browser-url-nsxiv))
-(add-to-list 'browse-url-handlers '("^file:///.*\\.jxl$" . my-browser-url-nsxiv))
-
-(add-to-list 'browse-url-handlers '("^ftp://scp/" . my-browser-url-nsxiv) 'append) ;; disable tramp
+(add-to-list 'browse-url-handlers '("^file:///.*\\.png$" . my-browser-url-vv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.jpg$" . my-browser-url-vv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.jpeg$" . my-browser-url-vv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.webp$" . my-browser-url-vv))
+(add-to-list 'browse-url-handlers '("^file:///.*\\.jxl$" . my-browser-url-vv))
 
 ;; (require 'dash)
 (eval-and-compile

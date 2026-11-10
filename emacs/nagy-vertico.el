@@ -229,8 +229,9 @@
   (keymap-set text-mode-map "<normal-state> <key-chord> f h" #'embark-dwim)
   (keymap-set prog-mode-map "<normal-state> <key-chord> f j" #'embark-act)
   (keymap-set prog-mode-map "<normal-state> <key-chord> f h" #'embark-dwim)
-  (keymap-set tabulated-list-mode-map "<normal-state> <key-chord> f j" #'embark-act)
-  (keymap-set tabulated-list-mode-map "<normal-state> <key-chord> f h" #'embark-dwim)
+  ;; deactivating this as it conflicts ( more like annoys ) Tired-mode
+  ;; (keymap-set tabulated-list-mode-map "<normal-state> <key-chord> f j" #'embark-act)
+  ;; (keymap-set tabulated-list-mode-map "<normal-state> <key-chord> f h" #'embark-dwim)
   (key-chord-register-keys ?f ?j)
   (key-chord-register-keys ?f ?h)
   ;; (keymap-set conf-mode-map "<normal-state> <key-chord> f j" #'embark-act)
