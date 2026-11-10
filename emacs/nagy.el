@@ -41,6 +41,7 @@
 (require 'nagy-rust nil (not init-file-debug))
 (require 'nagy-search nil (not init-file-debug))
 (require 'nagy-shell nil (not init-file-debug))
+(require 'nagy-text nil (not init-file-debug))
 (require 'nagy-tired nil (not init-file-debug))
 (require 'nagy-url nil (not init-file-debug))
 (require 'nagy-use-emacs nil (not init-file-debug))

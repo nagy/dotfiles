@@ -183,14 +183,6 @@ Returns the total execution time as a floating-point number."
     "Ok(())" \n
     "}" > \n))
 
-;; * Text
-
-;; NIX-EMACS-PACKAGE: jinx
-(use-package jinx
-  :general
-  (:states 'normal
-           "×" #'jinx-mode))
-
 ;; NIX-EMACS-PACKAGE: obvious
 (use-package obvious
   :commands (nagy-obvious-mode)

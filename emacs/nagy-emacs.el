@@ -877,18 +877,7 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
           (forward-line 1))))
     (nreverse result)))
 
-(use-package word-wrap-mode
-  :config
-  (global-word-wrap-whitespace-mode 1))
-
 ;; (fset 'yes-or-no-p #'y-or-n-p)
-
-(use-package string-edit
-  :bind
-  (:map string-edit-mode-map
-        ([remap save-kill-buffer] . string-edit-done)
-        ([remap kill-this-buffer] . string-edit-abort)
-        ([remap nagy-kill-this-buffer] . string-edit-abort)))
 
 (use-package nxml-mode
   :preface
