@@ -101,10 +101,5 @@
   ;; :hook
   ;; (scheme-mode-hook . lispy-mode)
 
-;; NIX-EMACS-PACKAGE: link-hint
-(use-package link-hint
-  :bind
-  ("H-a" . link-hint-open-link))
-
 (provide 'nagy-common-lisp)
 ;;; nagy-common-lisp.el ends here

@@ -246,13 +246,6 @@
   (global-page-break-lines-mode 1))
 
 
-;; NIX-EMACS-PACKAGE: request
-(use-package request
-  :custom
-  ;; (request-backend 'curl)
-  (request-backend 'url-retrieve))
-
-
 ;; NIX-EMACS-PACKAGE: beginend
 (use-package beginend
   ;; :diminish beginend-global-mode
@@ -293,16 +286,6 @@
 ;;   :defer t
 ;;   :mode "\\.sparql\\'"
 ;;   )
-
-(use-package browse-url
-  :commands (nagy-browse-url-at-point)
-  :config
-  (defun nagy-browse-url-at-point ()
-    "No properties in string"
-    (thing-at-point 'url t))
-  ;; To only find actual URLs and not treat any word as a hostname
-  (advice-add 'browse-url-url-at-point :override #'nagy-browse-url-at-point))
-
 
 
 ;; NIX-EMACS-PACKAGE: treesit-fold
