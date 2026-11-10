@@ -371,11 +371,6 @@
   (prog-mode-hook . ws-butler-mode)
   (text-mode-hook . ws-butler-mode))
 
-(use-package wdired
-  :defer t
-  :config
-  (evil-set-initial-state 'wdired-mode 'normal))
-
 ;; NIX-EMACS-PACKAGE: evil-surround
 (use-package evil-surround
   :defer t)

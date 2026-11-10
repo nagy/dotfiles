@@ -1,5 +1,5 @@
 ;;; nagy-dired.el --- Dired config -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") dired-collapse dired-narrow dired-subtree nagy-evil)
+;; Package-Requires: ((emacs "30.1") dired-collapse dired-narrow dired-subtree general nagy-evil)
 
 (require 'nagy-evil)                    ; to preload dired bindings
 (eval-when-compile
@@ -362,6 +362,30 @@ Can be used as an advice."
 ;; (defmacro defun-dired ()
 ;;   "a macro to create functions, that apply to dired files.
 ;; marks the created function to be M-X able in dired-mode")
+
+(use-package wdired
+  :custom
+  (wdired-allow-to-change-permissions t)
+  (dired-vc-rename-file nil)           ; without this, some problems occurred
+  :bind
+  (:map wdired-mode-map
+        ([remap save-kill-buffer] . wdired-finish-edit)
+        ([remap kill-this-buffer] . wdired-abort-changes)
+        ([remap nagy-kill-this-buffer] . wdired-abort-changes))
+  :general
+  (:states 'normal :keymaps 'wdired-mode-map
+           "ö" #'wdired-finish-edit)
+  :config
+  (evil-set-initial-state 'wdired-mode 'normal))
+
+(use-package tramp
+  :custom
+  ;; (tramp-change-syntax ')
+  (tramp-use-connection-share nil)
+  (remote-file-name-inhibit-delete-by-moving-to-trash t)
+  (remote-file-name-inhibit-auto-save t)
+  (pcomplete-remote-file-ignore t))
+;; (remote-file-name-access-timeout 0)
 
 (provide 'nagy-dired)
 ;;; nagy-dired.el ends here

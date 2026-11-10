@@ -456,16 +456,6 @@ windows when moving the mouse."
   (tab-bar-close-button-show nil)
   (tab-bar-new-tab-choice t))
 
-(use-package wdired
-  :bind
-  (:map wdired-mode-map
-        ([remap save-kill-buffer] . wdired-finish-edit)
-        ([remap kill-this-buffer] . wdired-abort-changes)
-        ([remap nagy-kill-this-buffer] . wdired-abort-changes))
-  :custom
-  (wdired-allow-to-change-permissions t)
-  (dired-vc-rename-file nil)) ; without this, some problems occurred
-
 (use-package abbrev
   :defines (nix-repl-mode-abbrev-table inferior-emacs-lisp-mode-abbrev-table)
   :diminish abbrev-mode

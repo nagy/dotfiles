@@ -258,15 +258,6 @@
   ("H-<down>" . end-of-buffer))
 
 
-(use-package tramp
-  :custom
-  ;; (tramp-change-syntax ')
-  (tramp-use-connection-share nil)
-  (remote-file-name-inhibit-delete-by-moving-to-trash t)
-  (remote-file-name-inhibit-auto-save t)
-  (pcomplete-remote-file-ignore t))
-;; (remote-file-name-access-timeout 0)
-
 
 ;; NIX-EMACS-PACKAGE: emacspy
 ;; (use-package emacspy)

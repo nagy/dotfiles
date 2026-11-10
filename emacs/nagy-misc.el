@@ -179,11 +179,6 @@
   (:states 'normal :keymaps 'calc-mode-map
            "π" #'calc-pi))
 
-(use-package wdired
-  :general
-  (:states 'normal :keymaps 'wdired-mode-map
-           "ö" #'wdired-finish-edit))
-
 (use-package image-mode
   :custom
   (image-auto-resize 'fit-window)
