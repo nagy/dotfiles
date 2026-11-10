@@ -55,7 +55,6 @@
   :config
   (add-hook 'eww-mode-hook #'nagy-misc-eww-revert-buffer))
 
-
 (defun nagy/delete-paragraph ()
   (interactive)
   (if (region-active-p)
@@ -75,7 +74,6 @@
       (copy-region-as-kill (region-beginning) (region-end)))))
 ;; use `lispyville-yank' here to trigger evil-goggles.
 ;; (lispyville-yank (region-beginning) (region-end) 'line )
-
 
 (use-package text-mode
   :bind
@@ -109,7 +107,6 @@
   (:states 'normal :keymaps 'prog-mode-map
            "ö" #'save-buffer
            "ð" #'evil-delete-whole-line))
-
 
 ;; NIX-EMACS-PACKAGE: tokei
 (use-package tokei
@@ -208,7 +205,6 @@
   (:states 'normal :keymaps 'apropos-mode-map
            "f" #'apropos-follow))
 
-
 (use-package info
   :bind
   (:map Info-mode-map
@@ -222,7 +218,6 @@
 
 ;; TODO
 ;; add public urls via (Info-url-for-node "(elisp)Display Property")
-
 
 (use-package cus-edit
   :bind
@@ -315,7 +310,6 @@
     (speed-of-thought-mode -1)
     (speed-of-thought-mode 1)))
 
-
 (use-package ielm
   :preface
   (defun ielm-on-buffer ()
@@ -336,7 +330,6 @@
   :general
   (:states 'normal :keymaps 'inferior-emacs-lisp-mode-map
            "ö" #'ielm-return))
-
 
 ;; NIX-EMACS-PACKAGE: osm
 (use-package osm
@@ -367,7 +360,6 @@
   (literate-calc-mode-idle-time .1))
 ;; (literate-calc-mode-idle-time nil)
 
-
 ;; NIX-EMACS-PACKAGE: breadcrumb
 (use-package breadcrumb
   :bind
@@ -394,7 +386,6 @@
            "i" #'previous-window-any-frame
            "o" #'next-window-any-frame))
 
-
 ;; NIX-EMACS-PACKAGE: nhexl-mode
 (use-package nhexl-mode
   :bind
@@ -412,7 +403,6 @@
            "G" #'end-of-buffer))
 ;; (:states 'normal
 ;;          "⬡" #'nhexl-mode)
-
 
 ;; similar to doom defaults
 ;; (use-package drag-stuff
@@ -484,8 +474,6 @@ Returns the total execution time as a floating-point number."
   (:states 'normal :keymaps 'prog-mode-map
            "«" #'aggressive-indent-mode))
 
-
-
 (define-auto-insert
   '("\\.rs\\'" . "Rust skeleton")
   '("Short description: "
@@ -527,7 +515,6 @@ Returns the total execution time as a floating-point number."
             [remap save-kill-buffer] #'elfeed-db-unload
             [remap nagy-kill-this-buffer] #'elfeed-db-unload))
 
-
 ;; * Haskell
 
 ;; NIX-EMACS-PACKAGE: haskell-mode
@@ -541,12 +528,10 @@ Returns the total execution time as a floating-point number."
   (:map haskell-interactive-mode-map
         ([remap revert-buffer-quick] . haskell-interactive-mode-clear)))
 
-
 ;; NIX-EMACS-PACKAGE: ormolu
 (use-package ormolu
   :defer t)
 ;; :config
-
 
 ;; * Corfu
 
@@ -607,7 +592,6 @@ Returns the total execution time as a floating-point number."
            "s" #'elpher-back
            "C-o" #'elpher-back))
 
-
 ;; * Text
 
 ;; NIX-EMACS-PACKAGE: jinx
@@ -660,7 +644,6 @@ Returns the total execution time as a floating-point number."
 
 ;; (evil-global-set-key 'motion (kbd "g H-M-o") #'nagy-text-to-org)
 
-
 (use-package xref
   :defer t
   :custom
@@ -684,20 +667,12 @@ Returns the total execution time as a floating-point number."
   ("<f12>" . nagy-obvious-mode)
   ("H-s-w" . nagy-obvious-mode))
 
-
 ;; ;; NIX-EMACS-PACKAGE: multiple-cursors
 ;; (use-package multiple-cursors
 ;;   :defer t
 ;;   :bind
 ;;   ("C-S-c C-S-c" . mc/edit-lines)
 ;;   )
-
-
-;; NIX-EMACS-PACKAGE: gitlab-ci-mode
-(use-package gitlab-ci-mode
-  :defer t
-  :bind
-  ("H-M-Y" . gitlab-ci-mode))
 
 (defun find-file-directory-yaml ()
   (interactive)
@@ -733,7 +708,6 @@ Returns the total execution time as a floating-point number."
 ;; :config
 ;; (define-key esc-map "j" nil)
 
-
 ;; NIX-EMACS-PACKAGE: crate
 (use-package crate
   :defer t
@@ -747,12 +721,6 @@ Returns the total execution time as a floating-point number."
 ;; NIX-EMACS-PACKAGE: magit-difftastic
 (use-package magit-difftastic
   :defer t)
-
-;; NIX-EMACS-PACKAGE: openstack
-(use-package openstack
-  :defer t
-  :init
-  (nagy-same-window "^\\*OpenStack "))
 
 ;; NIX-EMACS-PACKAGE: ipfs-modes
 (use-package cid-mode
@@ -776,27 +744,6 @@ Returns the total execution time as a floating-point number."
 
 (use-package embark-cid
   :defer t)
-
-;; NIX-EMACS-PACKAGE: network-modes
-(use-package network-modes
-  :defer t
-  :init
-  (nagy-same-window "^\\*net-"))
-
-;; NIX-EMACS-PACKAGE: gitlab-modes
-(use-package gitlab-modes
-  :defer t
-  :custom
-  (gitlab-job-log-show-timestamps nil)
-  :init
-  (nagy-same-window "^\\*GitLab ")
-  :general
-  (:states 'normal :keymaps 'gitlab-detail-mode-map
-           "a" #'magit-status)
-  (:states 'normal :keymaps 'gitlab-list-mode-map
-           "a" #'magit-status)
-  (:states 'normal :keymaps 'gitlab-job-log-mode-map
-           "a" #'magit-status))
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
