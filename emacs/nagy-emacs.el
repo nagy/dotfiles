@@ -385,14 +385,6 @@ windows when moving the mouse."
   (set-face-attribute 'shr-h2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
   (set-face-attribute 'shr-h3 nil :font "Et Bembo" :height 1.2 :inherit 'modus-themes-heading-3))
 
-
-(use-package files
-  ;; :custom
-  ;; (revert-without-query '("\\.json"))
-  :bind
-  ("s-f" . find-file))
-
-
 (require 'calc)
 (require 'calc-units)
 (require 'calc-yank)
@@ -507,33 +499,6 @@ windows when moving the mouse."
   (eldoc-idle-delay 0.01))
 ;; TODO increase eldoc delay for sly buffers because the communication with the lisp is
 ;; taking huge cpu.
-
-
-(use-package bookmark
-  :defer t
-  :custom
-  (bookmark-default-file (expand-file-name "~/.dotfiles/emacs-bookmarks")))
-;; no general here
-;; :general
-;; (:states 'normal :keymaps 'bookmark-bmenu-mode-map
-;;          "f" #'bookmark-bmenu-this-window)
-;; These are preventing folder based bookmarks
-;; (bookmark-automatically-show-annotations nil)
-;; (bookmark-fringe-mark nil)
-
-
-(use-package recentf
-  :commands (recentf-keep-default-predicate)
-  :preface
-  (defun nagy-emacs-recentf--predicate (file)
-    (pcase file
-      ;; ((prefix "/nix/store") nil)
-      (_ (recentf-keep-default-predicate file))))
-  :defer t
-  :custom
-  (recentf-max-saved-items nil)
-  (recentf-keep '(nagy-emacs-recentf--predicate)))
-
 
 (use-package replace                    ; occur
   :bind
@@ -682,15 +647,6 @@ string; otherwise return a 64-character string."
   (:map message-mode-map
         ([remap save-kill-buffer] . message-send-and-exit)
         ([remap kill-this-buffer] . message-kill-buffer)))
-
-(use-package autorevert
-  :diminish auto-revert-mode
-  :custom
-  (auto-revert-verbose nil)
-  :hook
-  (dired-mode-hook . auto-revert-mode)
-  :bind
-  ("C-⧖" . auto-revert-mode))
 
 (keymap-global-set "<mouse-8>" #'bury-buffer)
 (keymap-global-set "<mouse-9>" #'unbury-buffer)
