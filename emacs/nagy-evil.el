@@ -127,21 +127,6 @@
            "g -" #'evil-numbers/dec-at-pt-incremental))
 
 
-(use-package eshell
-  :defer t
-  :custom
-  (eshell-banner-message "")
-  ;; (eshell-scroll-to-bottom-on-output nil)
-  ;; :general
-  ;; (:states 'normal :keymaps 'eshell-mode-map
-  ;;          "k" #'evil-previous-visual-line
-  ;;          "j" #'evil-next-visual-line
-  ;;          "ö" #'eshell-send-input
-  ;;          "Ö" #'eshell-previous-input)
-  :bind
-  ("s-<return>" . eshell))
-
-
 ;; NIX-EMACS-PACKAGE: evil-surround
 (use-package evil-surround
   ;; :defer t
@@ -152,29 +137,8 @@
   ;; ("H-)" . evil-surround-delete)
 
 
-(use-package shell
-  :defer t
-  :config
-  (evil-set-initial-state 'shell-command-mode 'normal))
   ;; (evil-set-initial-state 'shell-command-mode 'emacs)
 
-
-(use-package sqlite-mode
-  ;; Tracking issue https://github.com/emacs-evil/evil-collection/issues/749
-  :general
-  (:states 'normal :keymaps 'sqlite-mode-map
-           "H-r" #'sqlite-mode-list-tables
-           "c" #'sqlite-mode-list-columns
-           "f" #'sqlite-mode-list-data
-           "RET" #'sqlite-mode-list-data)
-  ;; :config
-  ;; (add-to-list 'magic-mode-alist '("SQLite format 3\x00" . nagy-sqlite-view-file-magically))
-  :init
-  (nagy-same-window "^\\*SQLite "))
-
-(use-package sql
-  :bind
-  ("H-M-q" . sql-mode))
 
 ;; (use-package evil-collection-calc
 ;;   :config

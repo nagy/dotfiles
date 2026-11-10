@@ -507,19 +507,6 @@ windows when moving the mouse."
   :bind
   ("A-s-H-." . highlight-symbol-at-point))
 
-(use-package ielm
-  :bind
-  ("M-s-→" . ielm)
-  (:map inferior-emacs-lisp-mode-map
-        ("H-ö" . ielm-send-input)
-        ;; ("H-b" . ielm-change-working-buffer)
-        ("M-ö" . ielm-send-input)
-        ("<key-chord> f j" . ielm-send-input)
-        ("s-." . eval-last-sexp))
-  :config
-  (setq ielm-header "")) ; does not work in :custom because it is a defvar
-
-
 (use-package epg
   :defer t
   :custom
