@@ -504,25 +504,6 @@ Returns the total execution time as a floating-point number."
   :defer t)
 ;; :config
 
-;; * Corfu
-
-;; NIX-EMACS-PACKAGE: corfu
-(use-package corfu
-  :defer t
-  :custom
-  (corfu-auto t)
-  (corfu-auto-delay 0)
-  (corfu-auto-prefix 0)
-  (corfu-quit-at-boundary nil)
-  (completion-cycle-threshold 3)
-  (tab-always-indent 'complete)
-  :bind
-  (:map corfu-map
-        ("RET" . nil)
-        ("C-n" . corfu-next)
-        ("C-p" . corfu-previous)
-        ("<key-chord> f j" . corfu-insert)))
-
 ;; * Elfeed
 
 ;; NIX-EMACS-PACKAGE: elpher

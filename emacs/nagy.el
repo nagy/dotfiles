@@ -2,6 +2,7 @@
 
 (require 'nagy-ai nil (not init-file-debug))
 (require 'nagy-common-lisp nil (not init-file-debug))
+(require 'nagy-completion nil (not init-file-debug))
 (require 'nagy-dap nil (not init-file-debug))
 (require 'nagy-data-formats nil (not init-file-debug))
 (require 'nagy-devops nil (not init-file-debug))
