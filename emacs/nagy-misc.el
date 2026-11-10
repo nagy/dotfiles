@@ -120,33 +120,6 @@
   (:states 'normal :keymaps 'dired-mode-map
            "⧖" #'tokei))
 
-;; NIX-EMACS-PACKAGE: focus
-(use-package focus
-  :preface
-  (defun nagy/fix-focus-face ()
-    (set-face-attribute 'focus-unfocused nil :foreground 'unspecified :inherit 'parenthesis))
-  ;; (defun nagy/focus-tired-redraw ()
-  ;;   ;; `tabulated-list-print' erases the listing, and the erase collapses
-  ;;   ;; the three focus overlays, so a Tired print needs them back.
-  ;;   (when (bound-and-true-p focus-mode)
-  ;;     (focus-move-focus (current-buffer))))
-  :init
-  (setq focus-mode-to-thing
-        '((prog-mode . defun)
-          (markdown-ts-mode . paragraph)
-          (elpher-mode . paragraph)
-          (nix-mode . paragraph)
-          (text-mode . sentence)))
-          ;; The depth-zero entry of point with every row that it
-          ;; prints below itself, however deep the cursor sits.
-          ;; (tired-mode . tired-subtree)))
-  :commands focus-mode
-  :bind
-  ("H-M-f" . focus-mode)
-  :config
-  (add-hook 'modus-themes-after-load-theme-hook #'nagy/fix-focus-face))
-  ;; (add-hook 'tired-after-redraw-hook #'nagy/focus-tired-redraw))
-
 ;; NIX-EMACS-PACKAGE: eros
 (use-package eros
   :commands (eros-mode)
@@ -245,16 +218,6 @@ Returns the total execution time as a floating-point number."
     `(let ((,start (float-time)))
        ,@body
        (- (float-time) ,start))))
-
-;; NIX-EMACS-PACKAGE: ace-window
-(use-package ace-window
-  :custom
-  (aw-keys (list ?a ?s ?d ?f ?h ?j ?k ?l))
-  (aw-background nil)
-  (aw-scope 'visible)
-  (aw-leading-char-style 'path)
-  :bind
-  ("s-'" . ace-window))
 
 ;; NIX-EMACS-PACKAGE: aggressive-indent
 (use-package aggressive-indent

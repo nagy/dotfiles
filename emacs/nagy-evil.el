@@ -349,25 +349,6 @@
 
 ;; (keymap-global-set "C-ë" #'nameless-mode)
 
-;; NIX-EMACS-PACKAGE: olivetti
-(use-package olivetti
-  :custom
-  (olivetti-body-width 120)
-  :general
-  (:states 'normal
-           "“" #'olivetti-expand
-           "”" #'olivetti-shrink))
-
-;; NIX-EMACS-PACKAGE: ws-butler
-(use-package ws-butler
-  :diminish ws-butler-mode
-  :custom
-  (ws-butler-keep-whitespace-before-point nil)
-  :hook
-  (prog-mode-hook . ws-butler-mode)
-  (text-mode-hook . ws-butler-mode))
-
-
 ;; NIX-EMACS-PACKAGE: ghostel
 (use-package ghostel
   :defer t
