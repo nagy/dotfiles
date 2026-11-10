@@ -29,6 +29,7 @@
 (require 'nagy-python nil (not init-file-debug))
 ;; (require 'nagy-qrcode nil t)
 ;; (require 'nagy-service nil (not init-file-debug))
+(require 'nagy-tired nil (not init-file-debug))
 (require 'nagy-typst nil (not init-file-debug))
 (require 'nagy-url nil (not init-file-debug))
 (require 'nagy-use-emacs nil (not init-file-debug))
