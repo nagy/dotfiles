@@ -232,20 +232,6 @@
   ("M-→" . er/expand-region)
   ("M-←" . er/contract-region))
 
-;; NIX-EMACS-PACKAGE: page-break-lines
-(use-package page-break-lines
-  :diminish page-break-lines-mode
-  :commands (global-page-break-lines-mode)
-  :custom-face
-  (page-break-lines ((t (:inherit parenthesis :foreground unspecified))))
-  :custom
-  (page-break-lines-modes '(emacs-lisp-mode lisp-mode scheme-mode compilation-mode
-                                            outline-mode help-mode text-mode conf-mode
-                                            forth-mode))
-  :config
-  (global-page-break-lines-mode 1))
-
-
 ;; NIX-EMACS-PACKAGE: beginend
 (use-package beginend
   ;; :diminish beginend-global-mode
@@ -325,28 +311,6 @@
   ;; tking  -> thinking
   :hook
   (text-mode-hook . yublin-mode))
-
-;; https://github.com/alberti42/pretty-tables.el
-;; One Nix package holds `pretty-tables', `pretty-tables-for-org' and
-;; `pretty-tables-for-markdown'.
-;; NIX-EMACS-PACKAGE: pretty-tables
-(use-package pretty-tables
-  :defer t
-  :custom
-  ;; Maximum table width.  Nil means `fill-column'.
-  (pretty-tables-width nil)
-  (pretty-tables-min-column-width 8)
-  (pretty-tables-stripe-rows t))
-
-(use-package pretty-tables-for-org
-  :defer t
-  :hook
-  (org-mode-hook . pretty-tables-for-org-mode))
-
-(use-package pretty-tables-for-markdown
-  :defer t
-  :hook
-  (markdown-ts-mode-hook . pretty-tables-for-markdown-mode))
 
 ;; ;; NIX-EMACS-PACKAGE: banking
 ;; (use-package banking
