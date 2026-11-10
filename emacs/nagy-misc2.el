@@ -277,10 +277,6 @@
 ;; (llama-fontify-mode)
 
 
-;; NIX-EMACS-PACKAGE: units-mode
-(use-package units-mode
-  :defer t)
-
 ;; ;; NIX-EMACS-PACKAGE: sparql-mode
 ;; (use-package sparql-mode
 ;;   :defer t

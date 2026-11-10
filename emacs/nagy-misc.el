@@ -398,41 +398,6 @@ Returns the total execution time as a floating-point number."
   (:states 'normal
            "×" #'jinx-mode))
 
-;; NIX-EMACS-PACKAGE: pandoc
-(use-package pandoc
-  :preface
-  (defun nagy-text-to-plain ()
-    (interactive)
-    (pcase-exhaustive major-mode
-      ('mhtml-mode
-       (let ((buffer (generate-new-buffer (concat "Pandoc Plain: " (buffer-name)))))
-         (call-process-region nil nil "pandoc" nil buffer nil
-                              "--to=plain"
-                              "--wrap=none"
-                              "--from=html")
-         (switch-to-buffer  buffer)
-         (goto-char (point-min))
-         (text-mode)))))
-  ;; (olivetti-mode)
-  ;; (let ((inhibit-message t))
-  ;;   (olivetti-set-width 80))
-
-  ;; (evil-global-set-key 'motion (kbd "g H-M-t") #'nagy-text-to-plain)
-  (defun nagy-text-to-org ()
-    (interactive)
-    (pcase-exhaustive major-mode
-      ('mhtml-mode
-       (let ((buffer (generate-new-buffer (concat "Pandoc Org: " (buffer-name)))))
-         (call-process-region nil nil "pandoc" nil buffer nil
-                              "--to=org"
-                              "--wrap=none"
-                              "--from=html")
-         (switch-to-buffer  buffer)
-         (goto-char (point-min))
-         (org-mode))))))
-
-;; (evil-global-set-key 'motion (kbd "g H-M-o") #'nagy-text-to-org)
-
 (use-package xref
   :defer t
   :custom
