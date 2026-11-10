@@ -182,29 +182,6 @@
            "O" #'image-transform-reset-to-original
            "P" #'image-transform-fit-to-window))
 
-(use-package apropos
-  :bind
-  (:map apropos-mode-map
-        ("H-j" . apropos-next-symbol)
-        ("H-k" . apropos-previous-symbol))
-  :general
-  (:states 'normal :keymaps 'apropos-mode-map
-           "f" #'apropos-follow))
-
-(use-package info
-  :bind
-  (:map Info-mode-map
-        ("H-j" . Info-next)
-        ("H-k" . Info-prev))
-
-  :general
-  (:states 'normal :keymaps 'Info-mode-map
-           "f" #'Info-follow-nearest-node
-           "SPC" nil))                    ; was #'Info-scroll-up
-
-;; TODO
-;; add public urls via (Info-url-for-node "(elisp)Display Property")
-
 (use-package cus-edit
   :bind
   (:map custom-mode-map

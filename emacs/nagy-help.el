@@ -80,5 +80,49 @@
 ;; (add-hook 'python-mode-hook
 ;;           (lambda () (setq-local devdocs-current-docs '("python~3.13"))))
 
+(use-package help
+  :bind
+  ("H-M" . view-echo-area-messages)
+  (:map help-map
+        ("C-l" . find-library)))
+
+(use-package apropos
+  :bind
+  (:map apropos-mode-map
+        ("H-j" . apropos-next-symbol)
+        ("H-k" . apropos-previous-symbol))
+  :general
+  (:states 'normal :keymaps 'apropos-mode-map
+           "f" #'apropos-follow))
+
+(use-package info
+  :bind
+  (:map Info-mode-map
+        ("H-j" . Info-next)
+        ("H-k" . Info-prev))
+
+  :general
+  (:states 'normal :keymaps 'Info-mode-map
+           "f" #'Info-follow-nearest-node
+           "SPC" nil))                    ; was #'Info-scroll-up
+
+;; TODO
+;; add public urls via (Info-url-for-node "(elisp)Display Property")
+
+(use-package man
+  :custom
+  (Man-notify-method 'pushy)
+  :bind
+  ("C-h M" . man)
+  (:map Man-mode-map
+        ("H-j" . Man-next-section)
+        ("H-k" . Man-previous-section)))
+
+(use-package woman
+  :defer t
+  :custom
+  ;; (woman-fill-frame t)
+  (woman-default-indent 7))              ;; to emulate GNU man formatting
+
 (provide 'nagy-help)
 ;;; nagy-help.el ends here

@@ -288,21 +288,6 @@ windows when moving the mouse."
   (:map help-map
         ("C-k" . describe-key-briefly)))
 
-(use-package help
-  :bind
-  ("H-M" . view-echo-area-messages)
-  (:map help-map
-        ("C-l" . find-library)))
-
-(use-package man
-  :custom
-  (Man-notify-method 'pushy)
-  :bind
-  ("C-h M" . man)
-  (:map Man-mode-map
-        ("H-j" . Man-next-section)
-        ("H-k" . Man-previous-section)))
-
 (use-package simple
   :defer t
   :preface
@@ -548,13 +533,6 @@ windows when moving the mouse."
   :custom
   (recentf-max-saved-items nil)
   (recentf-keep '(nagy-emacs-recentf--predicate)))
-
-
-(use-package woman
-  :defer t
-  :custom
-  ;; (woman-fill-frame t)
-  (woman-default-indent 7))              ;; to emulate GNU man formatting
 
 
 (use-package replace                    ; occur
