@@ -36,6 +36,7 @@
 ;; (require 'nagy-qrcode nil t)
 ;; (require 'nagy-service nil (not init-file-debug))
 (require 'nagy-rust nil (not init-file-debug))
+(require 'nagy-search nil (not init-file-debug))
 (require 'nagy-shell nil (not init-file-debug))
 (require 'nagy-tired nil (not init-file-debug))
 (require 'nagy-url nil (not init-file-debug))

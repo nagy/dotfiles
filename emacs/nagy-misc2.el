@@ -184,16 +184,6 @@
 ;;   (jit-lock-stealth-nice 0.5)
 ;;   (jit-lock-chunk-size 4096))
 
-;; NIX-EMACS-PACKAGE: avy
-(use-package avy
-  :defer t
-  :custom
-  (avy-all-windows nil)
-  (avy-background nil)
-  ;; (avy-single-candidate-jump t)
-  (avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l
-                 ?q ?w ?e ?r       ?i ?o ?p)))
-
 ;; (use-package which-key
 ;;   :bind
 ;;   ("A-C-s-ĸ" . which-key-mode)
@@ -219,18 +209,6 @@
   (setq bufler-columns (remove "VC" bufler-columns))
   (bufler-define-buffer-command simple-switch "Simple switcher"
     #'switch-to-buffer :refresh-p nil))
-
-
-;; NIX-EMACS-PACKAGE: iedit
-(use-package iedit
-  :bind
-  ("C-;" . iedit-mode))
-
-;; NIX-EMACS-PACKAGE: expand-region
-(use-package expand-region
-  :bind
-  ("M-→" . er/expand-region)
-  ("M-←" . er/contract-region))
 
 ;; NIX-EMACS-PACKAGE: beginend
 (use-package beginend
