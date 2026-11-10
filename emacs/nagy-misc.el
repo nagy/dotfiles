@@ -708,20 +708,6 @@ Returns the total execution time as a floating-point number."
 ;; :config
 ;; (define-key esc-map "j" nil)
 
-;; NIX-EMACS-PACKAGE: crate
-(use-package crate
-  :defer t
-  :config
-  (crate-install-browse-url-handler))
-
-;; NIX-EMACS-PACKAGE: difftastic
-(use-package difftastic
-  :defer t)
-
-;; NIX-EMACS-PACKAGE: magit-difftastic
-(use-package magit-difftastic
-  :defer t)
-
 ;; NIX-EMACS-PACKAGE: ipfs-modes
 (use-package cid-mode
   :defer t

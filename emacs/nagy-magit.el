@@ -117,6 +117,14 @@
   ("C-H-s-y" . browse-at-remote)
   ("H-s-y" . nagy-magit-browse-at-remote-kill-print))
 
+;; NIX-EMACS-PACKAGE: difftastic
+(use-package difftastic
+  :defer t)
+
+;; NIX-EMACS-PACKAGE: magit-difftastic
+(use-package magit-difftastic
+  :defer t)
+
 ;; NIX-EMACS-PACKAGE: git-modes
 (use-package gitattributes-mode
   ;; also catch files in nix store
