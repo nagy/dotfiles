@@ -40,35 +40,6 @@
   (start-process "sleeping" nil "sh" "-c" "sleep 2 && systemctl suspend"))
 (keymap-global-set "s-💤" #'system-suspend)
 
-;; NIX-EMACS-PACKAGE: super-save
-(use-package super-save
-  :preface
-  (defun nagy-super-save-predicate ()
-    (string-prefix-p temporary-file-directory default-directory))
-  :demand t
-  :diminish super-save-mode
-  :commands (super-save-mode)
-  ;; :custom
-  ;; (super-save-auto-save-when-idle t)
-  :config
-  (add-to-list 'super-save-predicates #'nagy-super-save-predicate 'append)
-  (add-to-list 'super-save-triggers 'previous-window-any-frame)
-  (add-to-list 'super-save-triggers 'next-window-any-frame)
-  (add-to-list 'super-save-triggers 'delete-window-or-tab)
-  (add-to-list 'super-save-triggers 'silent-tab-next)
-  (add-to-list 'super-save-triggers 'silent-tab-previous)
-  (super-save-mode 1))
-
-;; TODO carry over doom autoload
-;; NIX-EMACS-PACKAGE: highlight-defined
-;; (emacs-lisp-mode-hook . highlight-defined-mode)
-
-
-;; in emacs 30, this can only be activated later ( maybe after
-;; emacs-lisp-mode has been loaded).
-;; (cyphejor-mode 1)
-
-
 ;; (use-package tokei
 ;;   :disabled
 ;;   ;; :config
@@ -115,17 +86,6 @@
 
 ;; NIX-EMACS-PACKAGE: magit-section
 (require 'magit-section)
-;; NIX-EMACS-PACKAGE: beginend
-(use-package beginend
-  ;; :diminish beginend-global-mode
-  :config
-  (dolist (mode (cons 'beginend-global-mode (mapcar #'cdr beginend-modes)))
-    (diminish mode))
-  (beginend-global-mode)
-  :bind
-  ("H-<up>" . beginning-of-buffer)
-  ("H-<down>" . end-of-buffer))
-
 ;; NIX-EMACS-PACKAGE: emacspy
 ;; (use-package emacspy)
 

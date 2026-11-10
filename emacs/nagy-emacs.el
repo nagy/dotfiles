@@ -402,26 +402,6 @@ windows when moving the mouse."
   (:states 'normal :keymaps 'calc-mode-map
            "π" #'calc-pi))
 
-(use-package abbrev
-  :defines (nix-repl-mode-abbrev-table inferior-emacs-lisp-mode-abbrev-table)
-  :diminish abbrev-mode
-  :hook
-  (prog-mode-hook . abbrev-mode)
-  (comint-mode-hook . abbrev-mode)
-  (text-mode-hook . abbrev-mode)
-  :config
-  (with-eval-after-load 'nix-repl
-    (define-abbrev nix-repl-mode-abbrev-table "wpkgs" "with import <nixpkgs> { }; " nil :system t))
-  (with-eval-after-load 'ielm
-    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "LEN" "(length )" nil :system t)
-    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "CAR" "(car )" nil :system t)
-    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "CDR" "(cdr )" nil :system t)
-    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "SF" "(setf )" nil :system t)
-    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "AL" "(alist-get )" nil :system t)
-    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "SQ" "(setq )" nil :system t)
-    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "LOOP" "(cl-loop for x in '() do )" nil :system t)
-    (define-abbrev inferior-emacs-lisp-mode-abbrev-table "KV" "kill-value" nil :system t)))
-
 (use-package hi-lock
   :preface
   ;; this is starting to need tests

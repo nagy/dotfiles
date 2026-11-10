@@ -7,6 +7,7 @@
 (require 'nagy-data-formats nil (not init-file-debug))
 (require 'nagy-devops nil (not init-file-debug))
 (require 'nagy-dired nil (not init-file-debug))
+(require 'nagy-edit nil (not init-file-debug))
 (require 'nagy-documents nil (not init-file-debug))
 (require 'nagy-emacs nil (not init-file-debug))
 (require 'nagy-evil nil (not init-file-debug))

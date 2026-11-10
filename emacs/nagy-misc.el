@@ -93,14 +93,6 @@
   (:states 'normal :keymaps 'dired-mode-map
            "⧖" #'tokei))
 
-;; NIX-EMACS-PACKAGE: eros
-(use-package eros
-  :commands (eros-mode)
-  :custom
-  (eros-eval-result-prefix "")
-  :config
-  (eros-mode 1))
-
 (use-package cc-mode
   :defer t)
 
@@ -140,14 +132,6 @@
 ;; (literate-calc-mode-idle-time nil)
 
 ;; similar to doom defaults
-;; (use-package drag-stuff
-;;   :defer t
-;;   :init
-;;   (map! "<H-up>"    #'drag-stuff-up
-;;         "<H-down>"  #'drag-stuff-down
-;;         "<H-left>"  #'drag-stuff-left
-;;         "<H-right>" #'drag-stuff-right))
-
 ;; (use-package macrostep
 ;;   :config
 ;;   (map! :n "µ" #'macrostep-expand))
@@ -163,14 +147,6 @@ Returns the total execution time as a floating-point number."
        (- (float-time) ,start))))
 
 ;; NIX-EMACS-PACKAGE: aggressive-indent
-(use-package aggressive-indent
-  :diminish 'aggressive-indent-mode
-  :custom
-  (aggressive-indent-sit-for-time 0.5)
-  :general
-  (:states 'normal :keymaps 'prog-mode-map
-           "«" #'aggressive-indent-mode))
-
 (define-auto-insert
   '("\\.rs\\'" . "Rust skeleton")
   '("Short description: "
@@ -184,23 +160,6 @@ Returns the total execution time as a floating-point number."
     "}" > \n))
 
 ;; NIX-EMACS-PACKAGE: obvious
-(use-package obvious
-  :commands (nagy-obvious-mode)
-  :defer t
-  :custom
-  (obvious-headers nil)
-  ;; (obvious-preserve-blank-lines nil)
-  :preface
-  (defun nagy-obvious-mode (&optional arg)
-    (interactive
-     (list (if current-prefix-arg (prefix-numeric-value current-prefix-arg)
-             'toggle)))
-    (read-only-mode arg)
-    (obvious-mode arg))
-  :bind
-  ("<f12>" . nagy-obvious-mode)
-  ("H-s-w" . nagy-obvious-mode))
-
 ;; ;; NIX-EMACS-PACKAGE: multiple-cursors
 ;; (use-package multiple-cursors
 ;;   :defer t
@@ -230,17 +189,6 @@ Returns the total execution time as a floating-point number."
 ;;       ("H-d" . combobulate-kill-node-dwim)
 ;;       )
 ;; )
-
-;; NIX-EMACS-PACKAGE: drag-stuff
-(use-package drag-stuff
-  :defer t
-  :bind
-  ("M-k" . drag-stuff-up)
-  ("M-j" . drag-stuff-down))
-;; ("<M-left>"  . drag-stuff-left)
-;; ("<M-right>" . drag-stuff-right)
-;; :config
-;; (define-key esc-map "j" nil)
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
