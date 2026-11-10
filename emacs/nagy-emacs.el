@@ -336,21 +336,6 @@ windows when moving the mouse."
 (run-with-idle-timer 0.5 t #'nagy--refresh-process-list)
 ;; (cancel-function-timers #'nagy--refresh-process-list)
 
-(use-package compile
-  ;; :custom
-  ;; (compilation-scroll-output t)
-  :bind
-  ("C-M-¢" . compile)
-  ("H-s-j" . next-error)
-  ("H-s-k" . previous-error)
-  ;; ("H-s-c" . compile)
-  (:map compilation-mode-map
-        ([remap revert-buffer-quick] . recompile))
-  (:map compilation-minor-mode-map
-        ([remap revert-buffer-quick] . recompile)
-        ("H-j" . compilation-next-error)
-        ("H-k" . compilation-previous-error)))
-
 (use-package tabulated-list
   ;; :custom
   ;; (text-scale-remap-header-line t)
@@ -954,12 +939,6 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
                 result)
           (forward-line 1))))
     (nreverse result)))
-
-(use-package ediff
-  :defer t
-  :custom
-  (ediff-window-setup-function #'ediff-setup-windows-plain)
-  (ediff-split-window-function #'split-window-horizontally))
 
 (use-package word-wrap-mode
   :config

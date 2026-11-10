@@ -23,11 +23,6 @@
 ;;   ;;(add-hook 'doom-first-input-hook #'benchmark-init/deactivate)
 ;;   )
 
-(use-package make-mode
-  :defer t
-  :bind
-  ("H-M-M" . make-mode))
-
 (defun find-file-make-file ()
   (interactive)
   (find-file "Makefile"))
