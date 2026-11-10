@@ -116,5 +116,90 @@
            "s" #'elpher-back
            "C-o" #'elpher-back))
 
+(use-package eww
+  :preface
+  (defun nagy-web-eww-revert-buffer ()
+    (interactive)
+    (setq-local revert-buffer-function #'nagy-web-eww-revert-buffer2))
+
+  (defun nagy-web-eww-revert-buffer2 (&rest _args)
+    (interactive)
+    (eww-reload))
+  :bind
+  ("s-€" . eww)
+  ("H-j" . scroll-up-command)
+  ("H-k" . scroll-down-command)
+  ("H-y" . eww-copy-page-url)
+  ;; :hook
+  ;; (eww-mode-hook . variable-pitch-mode)
+  :general
+  (:states 'normal :keymaps 'eww-mode-map
+           "r" #'eww-reload
+           "R" #'eww-readable
+           "." #'eww-browse-with-external-browser)
+  (:states 'motion :keymaps 'eww-mode-map
+           [remap evil-jump-backward] #'eww-back-url
+           [remap evil-jump-forward] #'eww-forward-url)
+  :config
+  (add-hook 'eww-mode-hook #'nagy-web-eww-revert-buffer))
+
+(use-package shr
+  :defer t
+  :custom
+  (shr-inhibit-images t)
+  (shr-image-animate nil)
+  (shr-use-colors nil)
+  (shr-use-fonts nil)
+  (shr-hr-line ?⎯)
+  :config
+  (set-face-attribute 'shr-h1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
+  (set-face-attribute 'shr-h2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
+  (set-face-attribute 'shr-h3 nil :font "Et Bembo" :height 1.2 :inherit 'modus-themes-heading-3))
+
+;; NIX-EMACS-PACKAGE: osm
+(use-package osm
+  :custom
+  (osm-copyright nil)
+  (osm-max-age nil)
+  :config
+  (with-eval-after-load 'consult
+    (defvar consult-bookmark-narrow)
+    (push '(?o "OSM" osm-bookmark-jump) consult-bookmark-narrow))
+  :bind
+  (:map osm-mode-map
+        ("<home>" . osm-left-left)
+        ("<end>" . osm-right-right)
+        ("<next>" . osm-down-down)
+        ("<prior>" . osm-up-up))
+  ;; :config
+  ;; (require 'osm-ol)
+  ;; (put 'osm-bookmark-jump 'bookmark-handler-type "Osm")
+  ;; (evil-set-initial-state 'osm-mode 'emacs)
+  :init
+  (nagy-same-window "^\\*osm"))
+
+;; NIX-EMACS-PACKAGE: ipfs-modes
+(use-package cid-mode
+  :defer t
+  :preface
+  (defun nagy-cid-mode-set-url ()
+    (when cid--info
+      (setq-local url-knowledge-url (concat "https://cid.ipfs.tech/#" (cid-info-cid-string cid--info)))))
+  (defun nagy-cid-mode-cd ()
+    (let ((path (concat "/tmp/ipfs/" (cid-info-cid-string cid--info))))
+      (when (file-directory-p path)
+        (cd path))))
+  :init
+  (nagy-same-window "^\\*CID: ")
+  :hook
+  (cid-decode-hook . nagy-cid-mode-set-url)
+  (cid-decode-hook . nagy-cid-mode-cd)
+  :bind
+  (:map cid-mode-map
+        ([emap eww-copy-page-url] . cid-copy-cid)))
+
+(use-package embark-cid
+  :defer t)
+
 (provide 'nagy-web)
 ;;; nagy-web.el ends here

@@ -357,19 +357,6 @@ windows when moving the mouse."
            "i" #'previous-window-any-frame
            "o" #'next-window-any-frame))
 
-(use-package shr
-  :defer t
-  :custom
-  (shr-inhibit-images t)
-  (shr-image-animate nil)
-  (shr-use-colors nil)
-  (shr-use-fonts nil)
-  (shr-hr-line ?⎯)
-  :config
-  (set-face-attribute 'shr-h1 nil :font "Et Bembo" :height 2.0 :inherit 'modus-themes-heading-1)
-  (set-face-attribute 'shr-h2 nil :font "Et Bembo" :height 1.5 :inherit 'modus-themes-heading-2)
-  (set-face-attribute 'shr-h3 nil :font "Et Bembo" :height 1.2 :inherit 'modus-themes-heading-3))
-
 (require 'calc)
 (require 'calc-units)
 (require 'calc-yank)

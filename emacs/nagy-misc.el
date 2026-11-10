@@ -26,33 +26,6 @@
         ("c" . always)
         ("s-k" . macrostep-collapse-all)))
 
-(use-package eww
-  :preface
-  (defun nagy-misc-eww-revert-buffer ()
-    (interactive)
-    (setq-local revert-buffer-function #'nagy-misc-eww-revert-buffer2))
-
-  (defun nagy-misc-eww-revert-buffer2 (&rest _args)
-    (interactive)
-    (eww-reload))
-  :bind
-  ("s-€" . eww)
-  ("H-j" . scroll-up-command)
-  ("H-k" . scroll-down-command)
-  ("H-y" . eww-copy-page-url)
-  ;; :hook
-  ;; (eww-mode-hook . variable-pitch-mode)
-  :general
-  (:states 'normal :keymaps 'eww-mode-map
-           "r" #'eww-reload
-           "R" #'eww-readable
-           "." #'eww-browse-with-external-browser)
-  (:states 'motion :keymaps 'eww-mode-map
-           [remap evil-jump-backward] #'eww-back-url
-           [remap evil-jump-forward] #'eww-forward-url)
-  :config
-  (add-hook 'eww-mode-hook #'nagy-misc-eww-revert-buffer))
-
 (defun nagy/delete-paragraph ()
   (interactive)
   (if (region-active-p)
@@ -158,28 +131,6 @@
   (:states 'normal :keymaps 'custom-mode-map
            "f" #'Custom-newline
            "u" #'Custom-goto-parent))
-
-;; NIX-EMACS-PACKAGE: osm
-(use-package osm
-  :custom
-  (osm-copyright nil)
-  (osm-max-age nil)
-  :config
-  (with-eval-after-load 'consult
-    (defvar consult-bookmark-narrow)
-    (push '(?o "OSM" osm-bookmark-jump) consult-bookmark-narrow))
-  :bind
-  (:map osm-mode-map
-        ("<home>" . osm-left-left)
-        ("<end>" . osm-right-right)
-        ("<next>" . osm-down-down)
-        ("<prior>" . osm-up-up))
-  ;; :config
-  ;; (require 'osm-ol)
-  ;; (put 'osm-bookmark-jump 'bookmark-handler-type "Osm")
-  ;; (evil-set-initial-state 'osm-mode 'emacs)
-  :init
-  (nagy-same-window "^\\*osm"))
 
 ;; NIX-EMACS-PACKAGE: literate-calc-mode
 (use-package literate-calc-mode
@@ -311,29 +262,6 @@ Returns the total execution time as a floating-point number."
 ;; ("<M-right>" . drag-stuff-right)
 ;; :config
 ;; (define-key esc-map "j" nil)
-
-;; NIX-EMACS-PACKAGE: ipfs-modes
-(use-package cid-mode
-  :defer t
-  :preface
-  (defun nagy-cid-mode-set-url ()
-    (when cid--info
-      (setq-local url-knowledge-url (concat "https://cid.ipfs.tech/#" (cid-info-cid-string cid--info)))))
-  (defun nagy-cid-mode-cd ()
-    (let ((path (concat "/tmp/ipfs/" (cid-info-cid-string cid--info))))
-      (when (file-directory-p path)
-        (cd path))))
-  :init
-  (nagy-same-window "^\\*CID: ")
-  :hook
-  (cid-decode-hook . nagy-cid-mode-set-url)
-  (cid-decode-hook . nagy-cid-mode-cd)
-  :bind
-  (:map cid-mode-map
-        ([emap eww-copy-page-url] . cid-copy-cid)))
-
-(use-package embark-cid
-  :defer t)
 
 (provide 'nagy-misc)
 ;;; nagy-misc.el ends here
