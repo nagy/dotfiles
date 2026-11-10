@@ -378,12 +378,6 @@
   (advice-add 'browse-url-url-at-point :override #'nagy-browse-url-at-point))
 
 
-;; NIX-EMACS-PACKAGE: evil-mc
-(use-package evil-mc
-  :defer t
-  :config
-  (global-evil-mc-mode 1))
-
 
 ;; NIX-EMACS-PACKAGE: treesit-fold
 (use-package treesit-fold

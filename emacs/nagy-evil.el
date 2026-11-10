@@ -311,6 +311,12 @@
   (:states 'normal :keymaps 'tar-mode-map
            "f" #'tar-extract))
 
+;; NIX-EMACS-PACKAGE: evil-mc
+(use-package evil-mc
+  :defer t
+  :config
+  (global-evil-mc-mode 1))
+
 ;; NIX-EMACS-PACKAGE: evil-goggles
 (require 'evil-goggles)
 (use-package evil-goggles
