@@ -34,6 +34,7 @@
 (require 'nagy-org nil (not init-file-debug))
 (require 'nagy-passage nil (not init-file-debug))
 (require 'nagy-prog nil (not init-file-debug))
+(require 'nagy-project nil (not init-file-debug))
 (require 'nagy-python nil (not init-file-debug))
 ;; (require 'nagy-qrcode nil t)
 ;; (require 'nagy-service nil (not init-file-debug))

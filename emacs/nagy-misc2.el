@@ -196,20 +196,8 @@
 ;;   :custom
 ;;   (which-key-idle-delay 0))
 
+;; NIX-EMACS-PACKAGE: magit-section
 (require 'magit-section)
-;; NIX-EMACS-PACKAGE: bufler
-(use-package bufler
-  :defer t
-  :commands (bufler-define-buffer-command bufler--map-sections)
-  :custom
-  ;; Remove buffer mode annotation
-  (bufler-buffer-mode-annotate-preds nil)
-  :config
-  ;; Remove bufler column "VC". might be expensive
-  (setq bufler-columns (remove "VC" bufler-columns))
-  (bufler-define-buffer-command simple-switch "Simple switcher"
-    #'switch-to-buffer :refresh-p nil))
-
 ;; NIX-EMACS-PACKAGE: beginend
 (use-package beginend
   ;; :diminish beginend-global-mode

@@ -139,14 +139,6 @@
   (literate-calc-mode-idle-time .1))
 ;; (literate-calc-mode-idle-time nil)
 
-;; NIX-EMACS-PACKAGE: breadcrumb
-(use-package breadcrumb
-  :bind
-  ("C-H-j" . breadcrumb-jump)
-  :general
-  (:states 'normal
-           "¿" #'breadcrumb-mode))
-
 ;; similar to doom defaults
 ;; (use-package drag-stuff
 ;;   :defer t
@@ -198,11 +190,6 @@ Returns the total execution time as a floating-point number."
   :general
   (:states 'normal
            "×" #'jinx-mode))
-
-(use-package xref
-  :defer t
-  :custom
-  (xref-search-program 'ripgrep))
 
 ;; NIX-EMACS-PACKAGE: obvious
 (use-package obvious

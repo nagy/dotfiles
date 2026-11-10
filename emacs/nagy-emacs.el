@@ -517,32 +517,6 @@ string; otherwise return a 64-character string."
   ;; https://stackoverflow.com/questions/76388376/emacs-org-encrypt-entry-hangs-when-file-is-modified
   (fset 'epg-wait-for-status 'ignore))
 
-(use-package ibuffer
-  :after evil-collection ;; to make the bindings below work
-  :preface
-  (defun nagy-emacs--ibuffer-cd-tmp ()
-    (cd temporary-file-directory))
-  :custom
-  (ibuffer-expert t)
-  ;; (ibuffer-human-readable-size t)       ;; emacs 31
-  (ibuffer-display-summary nil)
-  (ibuffer-formats '((mark modified read-only locked " "
-                           (name 42 42 :left :elide)
-                           " "
-                           (size 9 -1 :right)
-                           " "
-                           (mode 16 16 :left :elide)
-                           " " filename-and-process)
-                     (mark " "
-                           (name 16 -1)
-                           " " filename)))
-  ;; :config
-  ;; TODO make this work:
-  ;; (evil-define-key 'normal ibuffer-mode-map "," nil)
-  :hook
-  (ibuffer-mode-hook . nagy-emacs--ibuffer-cd-tmp))
-
-
 (use-package elisp-mode
   :config
   (define-abbrev emacs-lisp-mode-abbrev-table "n" "nil" nil :system t :case-fixed t)
@@ -579,30 +553,6 @@ string; otherwise return a 64-character string."
   (blink-matching-paren-distance nil)   ;; to reduce false positives
   :config
   (set-face-attribute 'show-paren-match nil :inherit 'nagy-subtle-blue :background 'unspecified))
-
-(use-package project
-  :preface
-  (defun nagy-emacs-project-find-file-flake-nix ()
-    (interactive)
-    (when (project-root (project-current))
-      (find-file (concat (project-root (project-current)) "/flake.nix"))))
-  (defun nagy-emacs-project-find-file-dot-git-config ()
-    (interactive)
-    (when (project-root (project-current))
-      (find-file (concat (project-root (project-current)) "/.git/config"))))
-  ;; :custom
-  ;; (project-mode-line t)
-  ;; (project-list-exclude nil)
-  :config
-  (keymap-global-set "H-p" project-prefix-map)
-  (keymap-set project-prefix-map "s-k" #'project-kill-buffers)
-  (keymap-set project-prefix-map "s-j" #'project-dired)
-  (keymap-set project-prefix-map "1" #'nagy-emacs-project-find-file-flake-nix)
-  (keymap-set project-prefix-map "2" #'nagy-emacs-project-find-file-dot-git-config)
-  (keymap-global-set "s-," #'project-dired)
-  :bind
-  ("C-s-<return>" . project-eshell)
-  ("C-H-s--" . project-dired))
 
 ;; (use-package debug
 ;;   :hook
@@ -1104,13 +1054,6 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
       (find-file (format "/proc/%d" pid)))))
 
 (keymap-global-set "H-s-P" #'jump-to-proc)
-
-;; NIX-EMACS-PACKAGE: tablist
-(use-package tablist
-  :bind
-  (:map tablist-mode-map
-        ("M-r" . tablist-pop-filter)
-        ("M-/" . tablist-push-regexp-filter)))
 
 ;; ;; NIX-EMACS-PACKAGE: stillness-mode
 ;; (use-package stillness-mode
