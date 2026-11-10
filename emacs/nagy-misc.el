@@ -230,16 +230,6 @@
            "f" #'Custom-newline
            "u" #'Custom-goto-parent))
 
-;; NIX-EMACS-PACKAGE: sotlisp
-(use-package sotlisp
-  :demand t
-  :diminish sotlisp-mode
-  :commands (speed-of-thought-mode)
-  :config
-  (with-eval-after-load 'evil
-    (speed-of-thought-mode -1)
-    (speed-of-thought-mode 1)))
-
 ;; NIX-EMACS-PACKAGE: osm
 (use-package osm
   :custom

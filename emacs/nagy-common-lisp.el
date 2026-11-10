@@ -91,15 +91,5 @@
 ;;     (with-current-buffer (get-buffer "*sly-inspector for sbcl*")
 ;;       (revert-buffer))))
 
-;;; Scheme
-
-(use-package scheme
-  :bind
-  (:map scheme-mode-map
-        ("s-." . scheme-send-last-sexp)
-        ("s--" . scheme-send-definition)))
-  ;; :hook
-  ;; (scheme-mode-hook . lispy-mode)
-
 (provide 'nagy-common-lisp)
 ;;; nagy-common-lisp.el ends here

@@ -257,8 +257,6 @@
   ("H-<up>" . beginning-of-buffer)
   ("H-<down>" . end-of-buffer))
 
-
-
 ;; NIX-EMACS-PACKAGE: emacspy
 ;; (use-package emacspy)
 
@@ -327,19 +325,6 @@
   ;; tking  -> thinking
   :hook
   (text-mode-hook . yublin-mode))
-
-;; NIX-EMACS-PACKAGE: parinfer-rust-mode
-(use-package parinfer-rust-mode
-  :defer t
-  :preface
-  :hook
-  (emacs-lisp-mode-hook . parinfer-rust-mode)
-  :config
-  (require 'xdg)
-  :custom
-  (parinfer-rust-library (concat (xdg-runtime-dir) "/parinfer-rust-emacs/lib/libparinfer_rust.so"))
-  (parinfer-rust-check-before-enable nil))
-;; (parinfer-rust-preferred-mode "indent")
 
 ;; https://github.com/alberti42/pretty-tables.el
 ;; One Nix package holds `pretty-tables', `pretty-tables-for-org' and

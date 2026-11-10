@@ -15,6 +15,7 @@
 (require 'nagy-gc nil (not init-file-debug))
 (require 'nagy-go nil (not init-file-debug))
 (require 'nagy-help nil (not init-file-debug))
+(require 'nagy-lisp nil (not init-file-debug))
 (require 'nagy-lispy nil (not init-file-debug))
 (require 'nagy-list nil (not init-file-debug))
 (require 'nagy-lsp nil (not init-file-debug))
