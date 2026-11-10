@@ -6,6 +6,7 @@
 (require 'nagy-data-formats nil (not init-file-debug))
 (require 'nagy-devops nil (not init-file-debug))
 (require 'nagy-dired nil (not init-file-debug))
+(require 'nagy-documents nil (not init-file-debug))
 (require 'nagy-emacs nil (not init-file-debug))
 (require 'nagy-evil nil (not init-file-debug))
 ;; (require 'nagy-ewm nil (not init-file-debug))
@@ -31,7 +32,6 @@
 ;; (require 'nagy-service nil (not init-file-debug))
 (require 'nagy-rust nil (not init-file-debug))
 (require 'nagy-tired nil (not init-file-debug))
-(require 'nagy-typst nil (not init-file-debug))
 (require 'nagy-url nil (not init-file-debug))
 (require 'nagy-use-emacs nil (not init-file-debug))
 ;; (require 'nagy-use-package nil (not init-file-debug))  ;; should be autoloaded
