@@ -7,8 +7,6 @@
 ;; NIX-EMACS-PACKAGE: reformatter
 ;; (require 'reformatter)
 
-(declare-function preload-url "local")
-
 (use-package emacs
   :general
   (:states 'normal
@@ -427,34 +425,6 @@ Returns the total execution time as a floating-point number."
        ,@body
        (- (float-time) ,start))))
 
-(declare-function json-parse-file "nagy-emacs")
-;; NIX-EMACS-PACKAGE: devdocs
-(use-package devdocs
-  :defer t
-  :commands (nagy-devdocs-install)
-  :custom
-  (devdocs-use-mathjax nil)
-  :config
-  ;; replace
-  (defun devdocs--available-docs ()
-    (json-parse-file (preload-url "https://devdocs.io/docs.json")
-                     :object-type 'alist))
-  (defun nagy-devdocs-install (orig-fun &rest args)
-    (cl-letf (((symbol-function 'url-insert-file-contents)
-               (lambda (url)
-                 (insert-file-contents (preload-url url)))))
-      (apply orig-fun args)))
-  (advice-add 'devdocs-install :around #'nagy-devdocs-install)
-  ;; (advice-remove 'password-store--run #'nagy-devdocs-install)
-  :init
-  (nagy-same-window "^\\*devdocs\\*")
-  :general
-  (:states 'motion :keymaps 'devdocs-mode-map
-           [remap evil-jump-backward] #'devdocs-go-back
-           [remap evil-jump-forward] #'devdocs-go-forward))
-;; (add-hook 'python-mode-hook
-;;           (lambda () (setq-local devdocs-current-docs '("python~3.13"))))
-
 ;; NIX-EMACS-PACKAGE: ace-window
 (use-package ace-window
   :custom
@@ -551,15 +521,6 @@ Returns the total execution time as a floating-point number."
   :general
   (:states 'normal
            "×" #'jinx-mode))
-
-;; NIX-EMACS-PACKAGE: wordnut
-(use-package wordnut
-  :defer t
-  :init
-  (nagy-same-window "^\\*WordNut\\*")
-  :config
-  ;; Disable header line
-  (defun wordnut--headerline ()))
 
 ;; NIX-EMACS-PACKAGE: pandoc
 (use-package pandoc

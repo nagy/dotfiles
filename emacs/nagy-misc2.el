@@ -21,17 +21,6 @@
 ;;                                     (buffer-file-name))))
 ;;     (find-file it)))
 
-;; NIX-EMACS-PACKAGE: inspector
-(use-package inspector
-  :custom
-  (inspector-truncation-limit 10000)
-  (inspector-slice-size 10000)
-  :general
-  (:states 'normal :keymaps 'inspector-mode-map
-           "C-o" #'inspector-pop)
-  :init
-  (nagy-same-window "^\\*inspector\\*"))
-
 ;; NIX-EMACS-PACKAGE: highlight-quoted
 (use-package highlight-quoted
   :hook
@@ -129,33 +118,6 @@
   (emacs-lisp-mode-hook . nagy-misc2-activate-el-fl))
 ;; (emacs-lisp-mode-hook . highlight-defined-mode)
 
-
-;; NIX-EMACS-PACKAGE: helpful
-(use-package helpful
-  :commands (helpful--navigate)
-  :preface
-  (defun helpful--all-the-buttons ()
-    (car (save-excursion
-           (goto-char (point-min))
-           (cl-loop for i from 1 to 1000
-                    for btn = (forward-button 1 nil nil t)
-                    when btn
-                    when (string= "Navigate to definition" (button-get btn 'help-echo))
-                    collect btn))))
-  (defun helpful-jump-to-definition ()
-    (interactive)
-    (when-let* ((btn (helpful--all-the-buttons)))
-      (helpful--navigate btn)))
-  :config
-  (put 'helpful--bookmark-jump 'bookmark-handler-type "Helpful")
-  :bind
-  ([remap describe-function] . helpful-callable)
-  ([remap describe-command]  . helpful-command)
-  ([remap describe-variable] . helpful-variable)
-  ([remap describe-key]      . helpful-key)
-  ([remap describe-symbol]   . helpful-symbol)
-  (:map helpful-mode-map
-        ([remap dired-jump] . helpful-jump-to-definition)))
 
 ;; NIX-EMACS-PACKAGE: cyphejor
 (use-package cyphejor
