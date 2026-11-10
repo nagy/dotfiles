@@ -294,10 +294,6 @@ windows when moving the mouse."
   (:map help-map
         ("C-l" . find-library)))
 
-(use-package repeat
-  :bind
-  ("M-s-." . repeat))
-
 (use-package man
   :custom
   (Man-notify-method 'pushy)
@@ -456,21 +452,6 @@ windows when moving the mouse."
            "ö" #'calc-edit-finish)
   (:states 'normal :keymaps 'calc-mode-map
            "π" #'calc-pi))
-
-(use-package tab-bar
-  :config
-  (tab-bar-mode)
-  :custom
-  (tab-bar-show 1)
-  (tab-bar-auto-width t)
-  ;; (tab-bar-auto-width-max '(330 30))
-  ;; (tab-bar-auto-width-max '(440 40))
-  ;; using this instead of 10000 below means no flickering in the tab bar
-  (tab-bar-auto-width-max `(,(* 8 880) ,(* 8 80)))
-  ;; (tab-bar-auto-width-max '(10000 1000))
-  (tab-bar-new-button-show nil)
-  (tab-bar-close-button-show nil)
-  (tab-bar-new-tab-choice t))
 
 (use-package abbrev
   :defines (nix-repl-mode-abbrev-table inferior-emacs-lisp-mode-abbrev-table)
@@ -684,14 +665,6 @@ string; otherwise return a 64-character string."
   :config
   (set-face-attribute 'show-paren-match nil :inherit 'nagy-subtle-blue :background 'unspecified))
 
-(use-package winner
-  :custom
-  ;; without this, in eat the C-C keys are incorrectly bound.
-  (winner-dont-bind-my-keys t)          ; but does not seem to work
-  :bind
-  ("s-u" . winner-undo)
-  ("s-U" . winner-redo))
-
 (use-package project
   :preface
   (defun nagy-emacs-project-find-file-flake-nix ()
@@ -829,10 +802,6 @@ string; otherwise return a 64-character string."
 (put 'line-number-at-pos 'side-effect-free t)
 (put 'json-parse-string 'side-effect-free t)
 (put 'json-parse-buffer 'side-effect-free t)
-
-(use-package hl-line
-  :bind
-  ("M-ħ" . hl-line-mode))
 
 (defvar new-buffer--count 0)
 (defun buffer-new-of-region ()
@@ -1235,14 +1204,6 @@ Optionally use BUFFER as the buffer to iterate. Otherwise use current buffer."
       (find-file (format "/proc/%d" pid)))))
 
 (keymap-global-set "H-s-P" #'jump-to-proc)
-
-(use-package display-line-numbers
-  :custom
-  (display-line-numbers-type t)
-  (display-line-numbers-width 2)
-  :bind
-  ("M-ĸ" . display-line-numbers-mode)
-  ("s-M-ĸ" . global-display-line-numbers-mode))
 
 ;; NIX-EMACS-PACKAGE: tablist
 (use-package tablist

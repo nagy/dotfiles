@@ -43,6 +43,7 @@
 ;; (require 'nagy-use-package nil (not init-file-debug))  ;; should be autoloaded
 (require 'nagy-vertico nil (not init-file-debug))
 (require 'nagy-web nil (not init-file-debug))
+(require 'nagy-window nil (not init-file-debug))
 
 (provide 'nagy)
 ;;; nagy.el ends here
