@@ -377,8 +377,19 @@ windows when moving the mouse."
   (:map tabulated-list-mode-map
         ;; ("H-b" . nagy-browse-url-of-buffer)
         ("M-s M-s" . tabulated-list-sort)
+        ("M-h" . tabulated-list-previous-column)
+        ("M-l" . tabulated-list-next-column)
+        ("M-j" . next-line)
+        ("M-k" . previous-line)
         ("<normal-state> →" . tabulated-list-next-column)
-        ("<normal-state> ←" . tabulated-list-previous-column)))
+        ("<normal-state> ←" . tabulated-list-previous-column))
+  :general
+  (:states 'normal :keymaps 'tabulated-list-mode-map
+           "{" #'tabulated-list-narrow-current-column
+           "}" #'tabulated-list-widen-current-column
+           "t" #'tabulated-list-sort
+           "i" #'previous-window-any-frame
+           "o" #'next-window-any-frame))
 
 (use-package shr
   :defer t
@@ -439,7 +450,12 @@ windows when moving the mouse."
         (:map calc-edit-mode-map
               ([remap save-kill-buffer] . calc-edit-finish)
               ([remap kill-this-buffer] . calc-edit-cancel)
-              ([remap nagy-kill-this-buffer] . calc-edit-cancel))))
+              ([remap nagy-kill-this-buffer] . calc-edit-cancel)))
+  :general
+  (:states 'normal :keymaps 'calc-edit-mode-map
+           "ö" #'calc-edit-finish)
+  (:states 'normal :keymaps 'calc-mode-map
+           "π" #'calc-pi))
 
 (use-package tab-bar
   :config
@@ -496,11 +512,6 @@ windows when moving the mouse."
   :diminish 'hi-lock-mode
   :bind
   ("A-s-H-." . highlight-symbol-at-point))
-
-(use-package epg
-  :defer t
-  :custom
-  (epg-pinentry-mode 'loopback))
 
 
 (use-package eldoc
@@ -603,6 +614,8 @@ string; otherwise return a 64-character string."
 
 (use-package epg
   :defer t
+  :custom
+  (epg-pinentry-mode 'loopback)
   :config
   ;; Known problems with gpg 2.4.1
   ;; https://stackoverflow.com/questions/76388376/emacs-org-encrypt-entry-hangs-when-file-is-modified

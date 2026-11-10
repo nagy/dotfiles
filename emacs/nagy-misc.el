@@ -172,13 +172,6 @@
 (use-package cc-mode
   :defer t)
 
-(use-package calc
-  :general
-  (:states 'normal :keymaps 'calc-edit-mode-map
-           "ö" #'calc-edit-finish)
-  (:states 'normal :keymaps 'calc-mode-map
-           "π" #'calc-pi))
-
 (use-package image-mode
   :custom
   (image-auto-resize 'fit-window)
@@ -266,24 +259,6 @@
   :general
   (:states 'normal
            "¿" #'breadcrumb-mode))
-
-(use-package tabulated-list
-  :bind
-  (:map tabulated-list-mode-map
-        ("M-h" . tabulated-list-previous-column)
-        ("M-l" . tabulated-list-next-column)
-        ("M-j" . next-line)
-        ("M-k" . previous-line))
-
-  :general
-  (:states 'normal :keymaps 'tabulated-list-mode-map
-           "{" #'tabulated-list-narrow-current-column
-           "}" #'tabulated-list-widen-current-column
-           "t" #'tabulated-list-sort
-           ;; "i" #'tabulated-list-previous-column
-           ;; "o" #'tabulated-list-next-column
-           "i" #'previous-window-any-frame
-           "o" #'next-window-any-frame))
 
 ;; NIX-EMACS-PACKAGE: nhexl-mode
 (use-package nhexl-mode

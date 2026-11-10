@@ -22,6 +22,7 @@
   :defer t
   :config
   (evil-set-initial-state 'shell-command-mode 'normal))
+;; (evil-set-initial-state 'shell-command-mode 'emacs)
 
 (use-package comint
   ;; :preface
@@ -103,11 +104,6 @@
   ;; (advice-add 'ielm-return :after #'evil-normal-state)
   :hook
   (inferior-emacs-lisp-mode-hook . nagy-shell-ielm-hook)
-  :general
-  (:states 'normal :keymaps 'inferior-emacs-lisp-mode-map
-           "ö" #'ielm-return))
-
-(use-package ielm
   :bind
   ("M-s-→" . ielm)
   (:map inferior-emacs-lisp-mode-map
@@ -116,6 +112,9 @@
         ("M-ö" . ielm-send-input)
         ("<key-chord> f j" . ielm-send-input)
         ("s-." . eval-last-sexp))
+  :general
+  (:states 'normal :keymaps 'inferior-emacs-lisp-mode-map
+           "ö" #'ielm-return)
   :config
   (setq ielm-header "")) ; does not work in :custom because it is a defvar
 

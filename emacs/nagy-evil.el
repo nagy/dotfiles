@@ -136,10 +136,6 @@
   ;; ("H-(" . evil-surround-region)
   ;; ("H-)" . evil-surround-delete)
 
-
-  ;; (evil-set-initial-state 'shell-command-mode 'emacs)
-
-
 ;; (use-package evil-collection-calc
 ;;   :config
 ;;   (evil-set-initial-state 'calc-mode 'emacs))
@@ -371,9 +367,6 @@
   (prog-mode-hook . ws-butler-mode)
   (text-mode-hook . ws-butler-mode))
 
-;; NIX-EMACS-PACKAGE: evil-surround
-(use-package evil-surround
-  :defer t)
 
 ;; NIX-EMACS-PACKAGE: ghostel
 (use-package ghostel
