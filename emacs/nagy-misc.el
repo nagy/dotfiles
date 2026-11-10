@@ -357,24 +357,6 @@ Returns the total execution time as a floating-point number."
     "Ok(())" \n
     "}" > \n))
 
-;; * Haskell
-
-;; NIX-EMACS-PACKAGE: haskell-mode
-(use-package haskell-mode
-  :defer t
-  :defines (haskell-interactive-mode-map)
-  ;; :config
-  :bind
-  (:map haskell-mode-map
-        ("H-l" . haskell-process-load-file))
-  (:map haskell-interactive-mode-map
-        ([remap revert-buffer-quick] . haskell-interactive-mode-clear)))
-
-;; NIX-EMACS-PACKAGE: ormolu
-(use-package ormolu
-  :defer t)
-;; :config
-
 ;; * Text
 
 ;; NIX-EMACS-PACKAGE: jinx
