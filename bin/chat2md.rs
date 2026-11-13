@@ -14,14 +14,15 @@
 //! registry holds one ([`ChatGptExtractor`]); the CLI auto-detects the site
 //! with [`ChatExtractor::matches`] and can be forced with `--source`.
 //!
-//! ChatGPT serves two page shapes. The newer shell carries the conversation as
-//! one `__WEB_MOBILE_DATA__` JSON block, and older shares and logged-in tabs
-//! carry a React-Router RSC stream. Both give raw markdown, so code fences keep
-//! their newlines. Rendered HTML is the last resort, and it is lossy.
+//! ChatGPT serves three input shapes, all raw markdown, so code fences keep
+//! their newlines. The newer shell carries the conversation as one
+//! `__WEB_MOBILE_DATA__` JSON block. Older shares and logged-in tabs carry a
+//! React-Router RSC stream. A bare share-data body carries the same RSC
+//! pointer array, or the plain JSON object, with no HTML wrapper at all. The
+//! rendered page is the last resort, and it is lossy.
 //!
 //! ```text
 //! chat2md page.html > chat.md
-//! bruvtab html <TAB_ID> | chat2md > chat.md
 //! chat2md --url https://chatgpt.com/share/... page.html
 //! chat2md --strict page.html       # fail instead of the lossy DOM fallback
 //! chat2md --no-citations p.html    # strip markers, emit no Sources
@@ -29,18 +30,23 @@
 //! chat2md sources                  # list available extractors
 //! ```
 //!
-//! Public share links can be fetched without a browser; smoke-test with:
+//! Public share links can be fetched without a browser. The share page itself
+//! can return a payload-free shell, so fetch the data route and pipe it in:
 //!
 //! ```text
 //! curl -sSL -A 'Mozilla/5.0' \
-//!   https://chatgpt.com/share/6a5fdc7a-d6f8-83e8-bbea-8deb42cfed56 > page.html
-//! chat2md --strict page.html > chat.md
+//!   https://chatgpt.com/share/<share-id>.data | chat2md > chat.md
+//! # Fallback when the data route yields nothing:
+//! curl -sSL -A 'Mozilla/5.0' \
+//!   https://chatgpt.com/backend-api/share/<share-id> | chat2md > chat.md
 //! ```
 //!
-//! That conversation ("Jacobian Conjecture Counterexample", model `gpt-5-5`)
-//! exercises multi-chunk RSC streams, the pointer graph, and code fences. Do not
-//! commit the downloaded HTML or its markdown; the link is the fixture. Live
-//! logged-in tabs still need `bruvtab html <TAB_ID>`.
+//! A useful fixture is the public share
+//! `6a5fdc7a-d6f8-83e8-bbea-8deb42cfed56` ("Jacobian Conjecture
+//! Counterexample", model `gpt-5-5`). It exercises multi-chunk RSC streams, the
+//! pointer graph, and code fences. Do not commit the downloaded payload or its
+//! markdown; the link is the fixture. HTML saved from any other source works the
+//! same way.
 //!
 //! Exit codes: 0 ok, 1 no conversation found, 2 bad usage.
 
@@ -169,7 +175,7 @@ impl ChatExtractor for ChatGptExtractor {
     }
 
     fn description(&self) -> &'static str {
-        "chatgpt.com (octane JSON or React-Router RSC payload, DOM fallback)"
+        "chatgpt.com (octane JSON, React-Router RSC payload or bare share-data JSON, DOM fallback)"
     }
 
     fn matches(&self, html: &str) -> bool {
@@ -177,9 +183,13 @@ impl ChatExtractor for ChatGptExtractor {
             || html.contains("__WEB_MOBILE_DATA__")
             || html.contains("octane-conversation-transcript")
             || html.contains("data-message-author-role")
+            || share_data(html).is_some()
     }
 
     fn extract(&self, html: &str, options: &ExtractOptions) -> Option<Conversation> {
+        if let Some(conv) = share_data_conversation(html, options.citations) {
+            return Some(conv);
+        }
         if let Some(conv) = octane_conversation(html, options.citations) {
             return Some(conv);
         }
@@ -367,6 +377,47 @@ fn octane_sources(msg: &Value) -> Vec<Source> {
         .collect()
 }
 
+// --- Bare share data --------------------------------------------------------
+
+/// A ChatGPT share-data body: the plain conversation JSON object, or the
+/// React-Router pointer array, with no HTML wrapper at all.
+///
+/// `chatgpt.com/share/<id>.data` returns the array, and
+/// `chatgpt.com/backend-api/share/<id>` returns the object. Both hold raw
+/// markdown, so the result is [`Fidelity::Exact`]. The body must name a
+/// conversation (`mapping` or `linear_conversation`), so a stray JSON document
+/// does not hijack detection from the HTML extractors.
+fn share_data(doc: &str) -> Option<&str> {
+    let body = doc.trim_start();
+    if !(body.starts_with('{') || body.starts_with('[')) {
+        return None;
+    }
+    if body.contains("\"linear_conversation\"") || body.contains("\"mapping\"") {
+        Some(body)
+    } else {
+        None
+    }
+}
+
+/// Decode a bare share-data body.
+///
+/// The object shape needs no pointer walk. The array shape is the same pointer
+/// pool the RSC stream carries, followed by optional `P<n>`/`E<n>` rows, so it
+/// goes through the existing resolver.
+fn share_data_conversation(raw: &str, citations: bool) -> Option<Conversation> {
+    let body = share_data(raw)?;
+    if body.starts_with('{') {
+        let data: Value = serde_json::from_str(body).ok()?;
+        let messages = messages_from_data(&data, citations);
+        if messages.is_empty() {
+            return None;
+        }
+        return Some(conversation_from_data(&data, messages));
+    }
+    let arr = parse_rsc_array(body)?;
+    conversation_from_rsc(&arr, citations)
+}
+
 // --- RSC payload ------------------------------------------------------------
 
 /// Parse the RSC row stream into the leading JSON array.
@@ -520,7 +571,12 @@ fn conversation_from_rsc(arr: &[Value], citations: bool) -> Option<Conversation>
     if messages.is_empty() {
         return None;
     }
-    Some(Conversation {
+    Some(conversation_from_data(&data, messages))
+}
+
+/// Conversation header fields plus the already-decoded turns.
+fn conversation_from_data(data: &Value, messages: Vec<Message>) -> Conversation {
+    Conversation {
         title: data
             .get("title")
             .and_then(Value::as_str)
@@ -539,7 +595,7 @@ fn conversation_from_rsc(arr: &[Value], citations: bool) -> Option<Conversation>
             .map(str::to_string),
         messages,
         fidelity: Fidelity::Exact,
-    })
+    }
 }
 
 /// Conversation turns, in order.
@@ -1563,19 +1619,6 @@ fn read_input(path: Option<&Path>) -> Result<String> {
     }
 }
 
-/// Drop bruvtab's `tab<TAB>title<TAB>url<TAB>payload` prefix when present.
-///
-/// Only the first three tabs are split on: the payload itself may contain tabs.
-fn strip_bruvtab_prefix(doc: &str) -> String {
-    if let Some(rest) = doc.split_once('\t') {
-        let mut it = rest.1.splitn(3, '\t');
-        if let (Some(_title), Some(_url), Some(payload)) = (it.next(), it.next(), it.next()) {
-            return payload.to_string();
-        }
-    }
-    doc.to_string()
-}
-
 fn re_canonical() -> &'static Regex {
     static RE: OnceLock<Regex> = OnceLock::new();
     RE.get_or_init(|| Regex::new(r#"<link[^>]+rel="canonical"[^>]+href="([^"]+)""#).unwrap())
@@ -1633,7 +1676,7 @@ fn main() -> Result<()> {
         None => {}
     }
 
-    let doc = strip_bruvtab_prefix(&read_input(cli.input.as_deref())?);
+    let doc = read_input(cli.input.as_deref())?;
     let registry = registry();
     let extractor = select_extractor(&registry, &cli.source, &doc)?;
     let options = ExtractOptions {
