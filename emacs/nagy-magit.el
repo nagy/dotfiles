@@ -2,6 +2,34 @@
 ;; Package-Requires: ((emacs "30.1") general)
 
 (require 'general)
+(require 'eieio)
+(eval-when-compile (require 'magit-section))
+(declare-function magit-add-section-hook "magit-section")
+
+;; File sections that start collapsed in commit (`magit-revision-mode') buffers.
+(defvar nagy-magit-collapsed-files
+  (list (rx bol ".dockerignore" eol)
+        (rx bol ".gitignore" eol)
+        (rx bol "Cargo.lock" eol)
+        (rx bol "go.sum" eol)
+        (rx bol "AGENTS.md" eol)
+        (rx bol "CLAUDE.md" eol))
+  "Regexps matching files whose section starts collapsed in commit buffers.
+Each regexp matches against the file base name.")
+
+(defun nagy-magit-section-initial-visibility (section)
+  "Return `hide' for file sections matching `nagy-magit-collapsed-files'.
+Return `show' for all other sections.  Magit calls this with SECTION
+for each section of type `file'."
+  (if (and (derived-mode-p 'magit-revision-mode)
+           (let ((value (oref section value)))
+             (and (stringp value)
+                  (let ((name (file-name-nondirectory value)))
+                    (seq-some (lambda (regexp)
+                                (string-match-p regexp name))
+                              nagy-magit-collapsed-files)))))
+      'hide
+    'show))
 
 ;; NIX-EMACS-PACKAGE: magit
 (use-package magit
@@ -15,7 +43,10 @@
                                             (unstaged . show)
                                             ;; (unpushed . show) ;; is this the "Recent commits" section?
                                             (staged . show)
-                                            (stashes . show)))
+                                            (stashes . show)
+                                            (file . nagy-magit-section-initial-visibility)
+                                            ;; crate.el detail buffer
+                                            (crate-dependents . hide)))
   :config
   ;; (remove-hook 'magit-status-sections-hook #'magit-insert-recent-commits)
   (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-worktrees nil t)
