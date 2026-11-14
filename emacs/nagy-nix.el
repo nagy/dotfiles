@@ -153,5 +153,141 @@
 
 ;; (add-to-list 'major-mode-remap-alist '(nix-mode . nix-ts-mode))
 
+;;; Nix store
+
+(declare-function nix--process-string "nix" t)
+(declare-function nix-instantiate "nix-instantiate" t t)
+(declare-function evil-global-set-key "evil")
+(declare-function dired-get-marked-files "dired")
+
+(defconst nagy-nix-store-name-allowed-chars
+  "a-zA-Z0-9+._?=-"
+  "Characters that Nix permits in a store path name.
+Nix rejects every other character.  See the `nix store add'
+manual page.")
+
+(defun nagy-nix-store-name (file)
+  "Return a store path name for FILE that Nix accepts.
+Nix takes the store path name from the base name of FILE.  This
+function replaces each character that Nix rejects with a hyphen.
+It keeps the original base name when Nix accepts it."
+  (let* ((base (file-name-nondirectory (directory-file-name
+                                        (expand-file-name file))))
+         (safe (replace-regexp-in-string
+                (concat "[^" nagy-nix-store-name-allowed-chars "]")
+                "-" base)))
+    (if (string= base safe)
+        base
+      (let ((trimmed (string-trim (replace-regexp-in-string "-+" "-" safe)
+                                  "-" "-")))
+        (if (string-empty-p trimmed) "file" trimmed)))))
+
+(defun nagy-nix-store-add (path &optional name)
+  "Copy PATH into the Nix store and return the new store path.
+PATH is a regular file or a directory.  Nix takes the store path
+name from the base name of PATH.  This function replaces each
+character that Nix rejects with a hyphen.  NAME overrides the
+store path name."
+  (require 'nix)
+  (let* ((path (expand-file-name path))
+         (base (file-name-nondirectory (directory-file-name path)))
+         (safe (nagy-nix-store-name path))
+         (name (or name (unless (string= base safe) safe))))
+    (apply #'nix--process-string
+           (append '("store" "add")
+                   (when name (list "--name" name))
+                   (list path)))))
+
+(defun nagy-nix-store-add-file-read-args ()
+  "Read arguments for the Nix store add commands.
+Return a list of the file name and the store path name.  The
+store path name is nil unless the user gives a prefix argument."
+  (let* ((file (read-file-name "Add to Nix store: " nil nil t))
+         (name (when current-prefix-arg
+                 (read-string "Store path name: "
+                              (nagy-nix-store-name file)))))
+    (list file name)))
+
+(defun nagy-nix-show-store-path (store-path)
+  "Display STORE-PATH.
+Save STORE-PATH to the kill ring when package nix-store gives no
+viewer."
+  (require 'nix-store nil t)
+  (if (fboundp 'nix-store-show-path)
+      (nix-store-show-path store-path)
+    (kill-new store-path)
+    (message "Added %s" store-path)))
+
+(defun nix-store-add-file (file &optional name)
+  "Add FILE to the Nix store and show the new store path.
+With prefix argument, read NAME and use it as the store path name.
+
+Return the new store path."
+  (interactive (nagy-nix-store-add-file-read-args))
+  (let ((store-path (nagy-nix-store-add file name)))
+    (when (called-interactively-p 'interactive)
+      (nagy-nix-show-store-path store-path))
+    store-path))
+
+(defun nix-store-yank-file (file &optional name)
+  "Add FILE to the Nix store and save the store path to the kill ring.
+With prefix argument, read NAME and use it as the store path name.
+
+Return the new store path."
+  (interactive (nagy-nix-store-add-file-read-args))
+  (let ((store-path (nagy-nix-store-add file name)))
+    (kill-new store-path)
+    (message "Killed: %s" store-path)
+    store-path))
+
+(defcustom nagy-nix-unpack-attribute "nur.repos.nagy.lib.unpackFile"
+  "Nix attribute that unpacks one archive file.
+The attribute receives the archive file in the `src' argument."
+  :group 'nix
+  :type 'string)
+
+(defun nagy-nix-unpack-file-at-point ()
+  "Return the file name for `nix-unpack'.
+Return the marked file in Dired, else the file name at point."
+  (or (when (derived-mode-p 'dired-mode)
+        (car (dired-get-marked-files)))
+      (thing-at-point 'filename t)))
+
+(defun nagy-nix-build-derivation (drv)
+  "Build DRV and return the first output store path."
+  (require 'nix)
+  (let* ((lines (process-lines nix-executable "build" "--no-link"
+                               "--print-out-paths" (concat drv "^*")))
+         (prefix (concat nix-store-dir "/"))
+         (outputs (seq-filter (lambda (line) (string-prefix-p prefix line))
+                              lines)))
+    (or (car outputs)
+        (user-error "No store path in the build output: %s" lines))))
+
+(defun nix-unpack (file)
+  "Unpack FILE into the Nix store and return the output path.
+FILE is an archive file such as a tarball or a zip file.  The
+store path of FILE goes to `nagy-nix-unpack-attribute'.
+
+When called interactively, visit the output path."
+  (interactive
+   (let ((candidate (nagy-nix-unpack-file-at-point)))
+     (list (if (and candidate (file-exists-p candidate))
+               candidate
+             (read-file-name "Unpack file: " nil nil t)))))
+  (require 'nix-instantiate)
+  (let* ((src (nagy-nix-store-add file))
+         (drv (nix-instantiate "<nixpkgs>" nagy-nix-unpack-attribute nil
+                               `((src . ,src))))
+         (out (nagy-nix-build-derivation drv)))
+    (when (called-interactively-p 'interactive)
+      (find-file out))
+    out))
+
+(with-eval-after-load 'evil
+  (evil-global-set-key 'motion (kbd "○ a") #'nix-store-add-file)
+  (evil-global-set-key 'motion (kbd "○ y") #'nix-store-yank-file)
+  (evil-global-set-key 'motion (kbd "○ u") #'nix-unpack))
+
 (provide 'nagy-nix)
 ;;; nagy-nix.el ends here
