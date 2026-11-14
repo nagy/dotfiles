@@ -215,6 +215,33 @@
   (browse-url (url-knowledge--get-url)))
 (keymap-global-set "H-b" #'nagy-browse-url-of-buffer)
 
+(declare-function exwm-manage-get-pid "exwm-manage" (&optional id))
+
+(defun nagy-dired-buffer-pid ()
+  "Return the process ID that belongs to the current buffer.
+Work for buffers with a process and for EXWM windows.  Return nil
+when the buffer gives no process ID."
+  (let* ((process (get-buffer-process (current-buffer)))
+         (pid (and process (process-id process))))
+    (cond
+     (pid pid)
+     ((and (derived-mode-p 'exwm-mode)
+           (fboundp 'exwm-manage-get-pid))
+      (exwm-manage-get-pid)))))
+
+(defun dired-jump-proc ()
+  "Visit the /proc directory of the process of the current buffer."
+  (interactive)
+  (let ((pid (nagy-dired-buffer-pid)))
+    (unless pid
+      (user-error "This buffer gives no process ID"))
+    (let ((directory (format "/proc/%d" pid)))
+      (unless (file-directory-p directory)
+        (user-error "No process directory %s" directory))
+      (dired directory))))
+
+(keymap-global-set "s-·" #'dired-jump-proc)
+
 (use-package dired
   :commands (dired-copy-filename-as-kill)
   :preface
