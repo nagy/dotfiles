@@ -1,5 +1,5 @@
 ;;; nagy-mode-line.el --- Mode line configuration -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") memoize nagy-list nerd-icons url-knowledge)
+;; Package-Requires: ((emacs "30.1") memoize nagy-list nerd-icons tired url-knowledge)
 
 ;; NIX-EMACS-PACKAGE: memoize
 (require 'memoize)
@@ -136,24 +136,11 @@ Each call allocates two propertized strings and one concatenation."
 (defvar-local nagy-mode-line--show-default-directory t
   "Non-nil means the mode line shows the default directory.")
 
-(defconst nagy-mode-line--default-directory-shorten-alist
-  `((,(format "/run/user/%d/" (user-uid)) . "𝒓/")
-    ("/tmp/ipfs" . "□")
-    ("/nix/store" . "○")
-    ("/ipfs" . "□")
-    ("/tmp/t" . "⧖")
-    ("/tmp/" . "⧖"))
-  "Alist mapping leading directory prefixes to short glyphs.")
+(declare-function tired-shorten-path "tired-core" (path))
 
 (defun nagy-mode-line--default-directory-shorten (def-dir)
-  "Return DEF-DIR with its leading prefix replaced by a short glyph."
-  (let* ((def-dir (expand-file-name def-dir))
-         (hit (seq-find (lambda (el) (string-prefix-p (car el) def-dir))
-                        nagy-mode-line--default-directory-shorten-alist)))
-    (abbreviate-file-name
-     (if hit
-         (concat (cdr hit) (substring def-dir (length (car hit))))
-       def-dir))))
+  "Return DEF-DIR shortened by the tired shorthand rules."
+  (abbreviate-file-name (tired-shorten-path (expand-file-name def-dir))))
 (memoize #'nagy-mode-line--default-directory-shorten)
 
 (defvar nagy-mode-line-default-directory-format
@@ -169,7 +156,7 @@ Each call allocates two propertized strings and one concatenation."
   "Return non-nil when the mode line hides `default-directory'.
 The directory is hidden when the buffer derives from `special-mode'
 and `default-directory' is the temporary file directory."
-  (and (derived-mode-p 'special-mode)
+  (and (or (derived-mode-p 'exwm-mode) (derived-mode-p 'special-mode))
        (equal (expand-file-name default-directory)
               (expand-file-name temporary-file-directory))))
 
@@ -191,7 +178,6 @@ and `default-directory' is the temporary file directory."
                   mode-line-misc-info
                   mode-line-format-right-align
                   nagy-mode-line-right))
-
   (setq-default mode-line-modified '((buffer-file-name "%+ "))))
 
 (nagy-mode-line-init)

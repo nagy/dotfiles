@@ -12,7 +12,15 @@
   (tired-find-file-mode 1)
   :custom
   (tired-directory-size t)
-  (tired-shorthand-rules '(("\\`/nix/store/" . "○/")))
+  ;; A regexp matches the target text of a symbolic link.  The mode line
+  ;; calls `tired-shorten-path' with the same rules.  The narrower
+  ;; prefixes come before the wider ones.
+  (tired-shorthand-rules
+   `((,(rx bos (literal (format "/run/user/%d/" (user-uid)))) . "𝒓/")
+     (,(rx bos "/nix/store/") . "○/")
+     (,(rx bos "/tmp/ipfs/") . "□/")
+     (,(rx bos "/ipfs/") . "□/")
+     (,(rx bos "/tmp/") . "⧖/")))
   ;; Anchored, case-insensitive names.  A hidden directory takes its
   ;; inserted children with it.
   (tired-hidden-regexps
