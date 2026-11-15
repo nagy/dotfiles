@@ -19,19 +19,6 @@
 (eval-when-compile
   (require 'subr-x))
 
-(defun nagy-dired-directory-substitute (directory)
-  (declare (pure t) (side-effect-free t))
-  ;; we declare it as pure, even though the `expand-file-name' function uses the HOME folder name,
-  ;; which is not known at compile time
-  (thread-last directory
-    (string-replace (expand-file-name "~") "~")
-    (string-replace "/nix/store" "○")
-    ;; (string-replace "<nixpkgs>" "⚇")
-    (string-replace "/tmp/t" "⧖")))
-;; NIX-EMACS-PACKAGE: memoize
-(require 'memoize)
-(memoize #'nagy-dired-directory-substitute)
-
 (defvar nagy-dired-font-lock-keywords
   `((,(rx (or ".nix") eol)
      (0 `(face nagy-intense-green)))
