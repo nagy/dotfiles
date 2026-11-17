@@ -24,6 +24,7 @@
 (require 'nagy-lsp nil (not init-file-debug))
 (require 'nagy-lua nil (not init-file-debug))
 (require 'nagy-magit nil (not init-file-debug))
+(require 'nagy-magit-signatures nil (not init-file-debug))
 (require 'nagy-mail nil (not init-file-debug))
 (require 'nagy-media nil (not init-file-debug))
 (require 'nagy-misc nil (not init-file-debug))
