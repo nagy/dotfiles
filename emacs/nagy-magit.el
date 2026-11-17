@@ -17,19 +17,27 @@
   "Regexps matching files whose section starts collapsed in commit buffers.
 Each regexp matches against the file base name.")
 
+(defun nagy-magit--collapsed-file-p (section)
+  "Return non-nil if SECTION value matches `nagy-magit-collapsed-files'."
+  (let ((value (oref section value)))
+    (and (stringp value)
+         (let ((name (file-name-nondirectory value)))
+           (seq-some (lambda (regexp)
+                       (string-match-p regexp name))
+                     nagy-magit-collapsed-files)))))
+
 (defun nagy-magit-section-initial-visibility (section)
-  "Return `hide' for file sections matching `nagy-magit-collapsed-files'.
-Return `show' for all other sections.  Magit calls this with SECTION
-for each section of type `file'."
-  (if (and (derived-mode-p 'magit-revision-mode)
-           (let ((value (oref section value)))
-             (and (stringp value)
-                  (let ((name (file-name-nondirectory value)))
-                    (seq-some (lambda (regexp)
-                                (string-match-p regexp name))
-                              nagy-magit-collapsed-files)))))
-      'hide
-    'show))
+  "Return initial visibility of the file SECTION.
+In `magit-revision-mode' buffers hide the file sections that match
+`nagy-magit-collapsed-files' and show the other ones.  Hide file
+sections in every other buffer.  Magit calls this with SECTION for
+each section of type `file'."
+  (cond ((not (derived-mode-p 'magit-revision-mode))
+         'hide)
+        ((nagy-magit--collapsed-file-p section)
+         'hide)
+        (t
+         'show)))
 
 ;; NIX-EMACS-PACKAGE: magit
 (use-package magit
