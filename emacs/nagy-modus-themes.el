@@ -57,8 +57,15 @@
     (set-face-attribute 'window-divider nil :foreground (if (dayp) "black" "gray20")))
 
   (defun ala-fix-theme ()
+    "Reload the alacritty theme.
+Do nothing when the switcher is absent or fails.  This runs from
+`modus-themes-after-load-theme-hook', which `exwm-init-hook' triggers,
+so a hard error aborts EXWM start-up."
     (interactive)
-    (cl-assert (zerop (call-process (if (dayp) "ala-day" "ala-night")))))
+    (when-let* ((cmd (if (dayp) "ala-day" "ala-night"))
+                ((executable-find cmd)))
+      (unless (zerop (call-process cmd))
+        (message "ala-fix-theme: %s failed" cmd))))
   (defun nagy-modus-themes--custom-faces ()
     (interactive)
     (modus-themes-with-colors
