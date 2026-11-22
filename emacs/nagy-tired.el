@@ -11,6 +11,7 @@
   (nagy-same-window "^\\*Tired Export ")
   (tired-find-file-mode 1)
   :custom
+  (tired-expand-all-if-fits nil)
   (tired-directory-size t)
   ;; A regexp matches the target text of a symbolic link.  The mode line
   ;; calls `tired-shorten-path' with the same rules.  The narrower
@@ -123,15 +124,21 @@
   :general
   (:states 'normal :keymaps 'tired-mode-map
            ;; "o" #'dired-find-file-other-window
-           "a" #'magit-status
+           "a" #'tired-magit-status
            "ö" #'tired-browse-url-of-file
            "H-d" #'tired-delete
+           "H-D" #'tired-delete-now
            "H-u" #'tired-undo
            "H-U" #'tired-redo)
   :bind
+  ("s-," . tired-project)
+  ("s-j" . dired-jump)
+  (:map tired-mode-map
+        ("H-L" . magit-log-all-branches))
   (:map tired-name-edit-mode-map
         ([remap save-kill-buffer] . tired-commit-edits)
-        ([remap kill-this-buffer] . tired-abort-edits)))
+        ([remap kill-this-buffer] . tired-abort-edits)
+        ([remap nagy-kill-this-buffer] . tired-abort-edits)))
 
 (provide 'nagy-tired)
 ;;; nagy-tired.el ends here

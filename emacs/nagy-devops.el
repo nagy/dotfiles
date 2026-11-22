@@ -28,6 +28,8 @@
   (gitlab-job-log-show-timestamps nil)
   :init
   (nagy-same-window "^\\*GitLab ")
+  :hook
+  (gitlab-job-log-mode-hook . display-line-numbers-mode)
   :general
   (:states 'normal :keymaps 'gitlab-detail-mode-map
            "a" #'magit-status)

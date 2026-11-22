@@ -24,13 +24,14 @@
 
 ;; NIX-EMACS-PACKAGE: buffer-url
 (use-package buffer-url
-  :defer t
+  ;; :defer t
   :custom
   (buffer-url-shorten-alist
    '(("github.com" . "𝑮𝑯")
      ("gitlab.com" . "𝑮𝑳")
      ("youtube.com" . "𝒀𝑻")
      ("huggingface.co" . "𝑯𝑭"))))
+
 
 ;;; Buffer URL and file lists
 

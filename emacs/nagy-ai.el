@@ -128,7 +128,7 @@ Return the total balance value, or nil on error."
                         (if name (concat ": " name) "")))
          (flake-p (with-directory workdir (file-exists-p "flake.nix")))
          (prefix (if flake-p
-                     '("agent" "nix" "shell" "." "-c" "nix" "develop" "-c")
+                     '("agent" "nix" "shell" "." "-c" "nix" "develop" "--override-input" "nixpkgs" "nixpkgs" "-c")
                    '("agent")))
          (command-args (append prefix '("pi") (and name (list "--name" name)))))
     (apply #'start-process "terminal" nil "alacritty"

@@ -22,8 +22,8 @@
   (keymap-set project-prefix-map "s-j" #'project-dired)
   (keymap-set project-prefix-map "1" #'nagy-project-find-file-flake-nix)
   (keymap-set project-prefix-map "2" #'nagy-project-find-file-dot-git-config)
-  (keymap-global-set "s-," #'project-dired)
   :bind
+  ;; ("s-," . project-dired)
   ("C-s-<return>" . project-eshell)
   ("C-H-s--" . project-dired))
 

@@ -286,7 +286,7 @@ Can be used as an advice."
   (advice-add #'dired-do-flagged-delete :after #'+revert-when-dired)
   (advice-add #'dired-do-delete :after #'+revert-when-dired)
   :bind
-  ("s-j" . dired-jump)
+  ;; ("s-j" . dired-jump)
   (:map dired-mode-map
         ("M-l" . dired-do-load)
         ("M-m" . dired-do-chmod)

@@ -127,7 +127,7 @@ Each call allocates two propertized strings and one concatenation."
                  (propertize (format "%s" (or (process-id proc) 0))
                              'face 'nagy-nuanced-green))
        (if (derived-mode-p 'exwm-mode)
-           `(:propertize ,(format "#x%X" exwm--id) face mode-line-buffer-id)
+           `(:propertize ,(format "#x%X" exwm--id) face shadow)
          nagy-mode-line-position))))
   "Mode line constructs rendered at the right edge of the window.")
 
@@ -166,11 +166,13 @@ and `default-directory' is the temporary file directory."
   (setq-default mode-line-format
                 '("%e"
                   mode-line-modified
-                  (:eval (unless (derived-mode-p 'dired-mode 'tired-mode)
+                  (:eval (unless (derived-mode-p 'dired-mode 'tired-mode 'gitlab-merge-request-list-mode 'gitlab-merge-request-mode)
                            '(:propertize "%b " face (:height 1.2 :inherit mode-line-buffer-id))))
                   (:eval (unless (derived-mode-p 'exwm-mode
                                                  'dired-mode
-                                                 'tired-mode)
+                                                 'tired-mode
+                                                 'gitlab-merge-request-list-mode
+                                                 'gitlab-merge-request-mode)
                            mode-line-modes)) ; already includes a space at the end
                   (:eval (when (and nagy-mode-line--show-default-directory
                                     (not (nagy-mode-line--default-directory-hidden-p)))

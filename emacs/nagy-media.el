@@ -1,41 +1,7 @@
 ;;; nagy-media.el --- Multimedia configuration -*- lexical-binding: t; -*-
-;; Package-Requires: ((emacs "30.1") emms nagy-use-package)
+;; Package-Requires: ((emacs "30.1") nagy-use-package)
 
 (require 'general)
-
-;; (use-package emms
-;;   :defer t
-;;   )
-
-(use-package emms-player-mpv
-  :defer t
-  :custom
-  (emms-player-list '(emms-player-mpv))
-  (emms-player-mpv-environment '("PULSE_PROP_media.role=music"))
-  (emms-player-mpv-parameters '("--quiet" "--really-quiet"
-                                ;; "--no-config"
-                                ;; "--save-position-on-quit"
-                                "--no-audio-display"
-                                "--mute=no"
-                                "--force-window=no"
-                                "--vo=null")))
-
-
-;; (use-package emms-playlist-mode
-;;   ;; :defer t
-;;   ;; :config
-;;   ;; :bind
-;;   ;; ("<XF86AudioPause>" . emms)
-;;   )
-
-(use-package emms
-  :defer t
-  :custom
-  ;; dont make the buffer hidden
-  (emms-playlist-buffer-name "*EMMS Playlist*")
-  :bind
-  ("<XF86AudioPause>" . emms))
-
 
 (defun mute ()
   "Silences/mutes the audio output via pulseaudio."
